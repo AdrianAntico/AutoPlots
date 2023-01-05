@@ -1,0 +1,24 @@
+Package: AutoPlots
+Title: AutoPlots
+Version: 1.0.0
+Date: 2022-01-04
+Authors@R: 
+    c(person(given = "Adrian",
+             family = "Antico",
+             role = c("aut","cre","ctb")))
+Maintainer: Adrian Antico <adrianantico@gmail.com>
+Description: R package for generating plots in a simple way
+URL: https://github.com/AdrianAntico/AutoPlots
+BugReports: https://github.com/AdrianAntico/AutoPlots/issues
+Depends: R (>= 4.0.0)
+Imports: bit64, data.table, lubridate, ggplot2, plotly, echarts4r
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+Contact: Adrian Antico
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+NeedsCompilation: no
+Packaged: 2023-01-04 14:00:00 UTC
+RoxygenNote: 7.2.1
+Author: Adrian Antico [aut, cre]
