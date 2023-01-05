@@ -8,16 +8,18 @@ Plot.HeatMap(
   dt,
   PreAgg = FALSE,
   AggMethod = "mean",
-  Engine = "Plotly",
-  EchartsTheme = "dark",
   XVar = NULL,
   YVar = NULL,
   ZVar = NULL,
-  Title = "Heatmap",
   PercentileBuckets_X = 0.1,
   PercentileBuckets_Y = 0.1,
   NLevels_X = 33,
   NLevels_Y = 33,
+  Title = "Heatmap",
+  Engine = "Plotly",
+  EchartsTheme = "dark",
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -29,17 +31,11 @@ Plot.HeatMap(
 
 \item{AggMethod}{'mean', 'median', 'sum', 'sd', 'count'}
 
-\item{Engine}{"plotly", "echarts4r"}
-
-\item{EchartsTheme}{"dark-blue"}
-
 \item{XVar}{X-Axis variable}
 
 \item{YVar}{Y-Axis variable}
 
 \item{ZVar}{Z-Axis variable}
-
-\item{Title}{"Heatmap"}
 
 \item{PercentileBuckets_X}{= 0.10}
 
@@ -48,6 +44,12 @@ Plot.HeatMap(
 \item{NLevels_X}{= 20}
 
 \item{NLevels_Y}{= 20}
+
+\item{Title}{"Heatmap"}
+
+\item{Engine}{"plotly", "echarts4r"}
+
+\item{EchartsTheme}{"dark-blue"}
 
 \item{BackGroundColor}{= "#6a6969"}
 
@@ -62,7 +64,7 @@ Create heat maps with numeric or categorical dt
 }
 \examples{
 \dontrun{
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 Columns <- c(
   "DATE_ISO",
   "ARTICLE",

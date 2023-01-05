@@ -6,18 +6,20 @@
 \usage{
 Plot.PartialDependence.Line(
   dt = NULL,
-  Engine = "Plotly",
-  EchartsTheme = "macaron",
-  EchartsLabels = FALSE,
-  TimeLine = TRUE,
   XVar = NULL,
   YVar = NULL,
   ZVar = NULL,
   GroupVar = NULL,
-  NumBuckets = 20,
+  NumberBins = 20,
   PreAgg = FALSE,
   AggMethod = "mean",
   Title = "Gains Plot",
+  Engine = "Plotly",
+  EchartsTheme = "macaron",
+  EchartsLabels = FALSE,
+  TimeLine = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -31,14 +33,6 @@ Plot.PartialDependence.Line(
 \arguments{
 \item{dt}{data.table}
 
-\item{Engine}{character}
-
-\item{EchartsTheme}{character}
-
-\item{EchartsLabels}{character}
-
-\item{TimeLine}{logical}
-
 \item{XVar}{character}
 
 \item{YVar}{character}
@@ -47,13 +41,25 @@ Plot.PartialDependence.Line(
 
 \item{GroupVar}{character}
 
-\item{NumBuckets}{numeric}
+\item{NumberBins}{numeric}
 
 \item{PreAgg}{logical}
 
 \item{AggMethod}{character}
 
 \item{Title}{character}
+
+\item{Engine}{character}
+
+\item{EchartsTheme}{character}
+
+\item{EchartsLabels}{character}
+
+\item{TimeLine}{logical}
+
+\item{X_Scroll}{= TRUE,}
+
+\item{Y_Scroll}{= TRUE,}
 
 \item{BackGroundColor}{hex character}
 
@@ -69,7 +75,7 @@ Plot.PartialDependence.Line(
 
 \item{ZeroLineWidth}{numeric}
 
-\item{Debug}{= FALSE}
+\item{Debug}{logical}
 
 \item{FillColorReverse}{hex character}
 }
@@ -92,7 +98,7 @@ data <- AutoPlots::DM.pgQuery(
   SamplePercent = 1,
   User = 'postgres',
   Port = 5432,
-  Password = 'Aa1028#@')
+  Password = 'Aa')
 
 # # Step Through Function
 # library(AutoPlots)
@@ -104,13 +110,15 @@ data <- AutoPlots::DM.pgQuery(
 # TimeLine = FALSE
 # EchartsLabels = FALSE
 # EchartsTheme = "purple-passion"
+# X_Scroll = TRUE,
+# Y_Scroll = TRUE,
 # XVar = "CHILLED_Liters_PerDay" # "Predict"
 # YVar = "CHILLED_Margin_PerDay"
 # ZVar = "CHILLED_Units_PerDay"
 # GroupVar = NULL
 # AggMethod = 'mean'
 # GroupVar = NULL # "BRAND"
-# NumBuckets = 20
+# NumberBins = 20
 # AggStat = "mean"
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25
@@ -127,11 +135,14 @@ data <- AutoPlots::DM.pgQuery(
 Other Model Evaluation: 
 \code{\link{Plot.Calibration.Box}()},
 \code{\link{Plot.Calibration.Line}()},
+\code{\link{Plot.ConfusionMatrix}()},
+\code{\link{Plot.Gains}()},
+\code{\link{Plot.Lift}()},
 \code{\link{Plot.PartialDependence.Box}()},
 \code{\link{Plot.ROC}()},
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{PlotREsim}()}
+\code{\link{VI_Plot}()}
 }
 \author{
 Adrian Antico

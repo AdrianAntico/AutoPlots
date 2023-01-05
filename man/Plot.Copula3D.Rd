@@ -8,7 +8,7 @@ Plot.Copula3D(
   Engine = "Plotly",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
-  data = NULL,
+  dt = NULL,
   XVar = NULL,
   YVar = NULL,
   ZVar = NULL,
@@ -42,7 +42,7 @@ Plot.Copula3D(
 
 \item{TimeLine}{Logical}
 
-\item{data}{Source data.table}
+\item{dt}{Source data.table}
 
 \item{XVar}{Column name of X-Axis variable. If NULL then ignored}
 
@@ -103,14 +103,14 @@ library(data.table)
 library(magrittr)
 
 # Load data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Copula3D(
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
-  data = data,
+  dt = data,
   XVar = 'CHILLED_Units_PerDay',
   YVar = 'CHILLED_Margin_PerDay',
   ZVar = 'CHILLED_Liters_PerDay',
@@ -136,7 +136,7 @@ AutoPlots:::Plot.Copula3D(
   LegendLineType = 'solid',
   Debug = FALSE)
 
-data = data
+dt = data
 XVar = 'XREG1'
 YVar = 'XREG2'
 ZVar = 'XREG3'

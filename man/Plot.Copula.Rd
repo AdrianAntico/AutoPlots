@@ -5,49 +5,31 @@
 \title{Plot.Copula}
 \usage{
 Plot.Copula(
-  Engine = "Plotly",
-  EchartsTheme = "dark-blue",
-  TimeLine = FALSE,
-  X_Index = TRUE,
-  Y_Index = TRUE,
-  data = NULL,
+  dt = NULL,
+  SampleSize = 30000L,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
   Title = "Copula Plot",
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  SampleSize = 50000,
-  FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
+  Engine = "Plotly",
+  EchartsTheme = "dark-blue",
+  TimeLine = FALSE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
+  FillColor = "#0066ff",
   GridColor = "#ffff",
+  TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  TextColor = "white",
-  SubTitleColor = "white",
-  BorderColor = "#ffff",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
-\item{Engine}{= "Plotly",}
+\item{dt}{Source data.table}
 
-\item{EchartsTheme}{= "dark-blue",}
-
-\item{TimeLine}{Logical}
-
-\item{X_Index}{logical}
-
-\item{Y_Index}{logical}
-
-\item{data}{Source data.table}
+\item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
 \item{XVar}{Column name of X-Axis variable. If NULL then ignored}
 
@@ -57,41 +39,29 @@ Plot.Copula(
 
 \item{Title}{'Violin Plot'}
 
-\item{FacetVar1}{Column name of facet variable 1. If NULL then ignored}
+\item{Engine}{= "Plotly",}
 
-\item{FacetVar2}{Column name of facet variable 2. If NULL then ignored}
+\item{EchartsTheme}{= "dark-blue",}
 
-\item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
+\item{TimeLine}{Logical}
 
-\item{FillColor}{'gray'}
+\item{X_Scroll}{logical}
 
-\item{TextSize}{14}
-
-\item{AngleX}{90}
-
-\item{AngleY}{0}
+\item{Y_Scroll}{logical}
 
 \item{BackGroundColor}{'gray95'}
 
 \item{ChartColor}{'lightsteelblue'}
 
+\item{FillColor}{'gray'}
+
 \item{GridColor}{'white'}
+
+\item{TextColor}{'darkblue'}
 
 \item{ZeroLineColor}{= '#ffff',}
 
 \item{ZeroLineWidth}{= 2,}
-
-\item{TextColor}{'darkblue'}
-
-\item{SubTitleColor}{'darkblue'}
-
-\item{BorderColor}{'darkblue'}
-
-\item{LegendPosition}{'bottom'}
-
-\item{LegendBorderSize}{0.50}
-
-\item{LegendLineType}{'solid'}
 
 \item{Debug}{FALSE}
 }
@@ -106,33 +76,23 @@ library(data.table)
 library(echarts4r)
 
 # Load data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Scatter(
-  TimeLine = FALSE,
-  X_Index = TRUE,
-   Y_Index = TRUE,
-  data = data,
+  dt = data,
+  SampleSize = 100000,
   XVar = 'CHILLED_Units_PerDay',
   YVar = 'CHILLED_Margin_PerDay',
   GroupVar = 'BRAND',
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  SampleSize = 100000,
-  FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  ChartColor = 'lightsteelblue1',
-  BorderColor = 'darkblue',
-  TextColor = 'darkblue',
-  GridColor = 'white',
+  TimeLine = FALSE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = 'gray95',
-  SubTitleColor = 'blue',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
+  ChartColor = 'lightsteelblue1',
+  FillColor = "#0066ff",
+  GridColor = 'white',
+  TextColor = 'darkblue',
   Debug = FALSE)
 
 # Step through function
@@ -144,19 +104,11 @@ XVar = 'CHILLED_Units_PerDay'
 YVar = 'CHILLED_Margin_PerDay'
 GroupVar = 'Store'
 SampleSize = 100000
-FillColor = "#0066ff"
-TextSize = 12
-AngleX = 90
-AngleY = 0
+BackGroundColor = 'gray95'
 ChartColor = 'lightsteelblue1'
-BorderColor = 'darkblue'
+FillColor = "#0066ff"
 TextColor = 'darkblue'
 GridColor = 'white'
-BackGroundColor = 'gray95'
-SubTitleColor = 'blue'
-LegendPosition = 'bottom'
-LegendBorderSize = 0.50
-LegendLineType = 'solid'
 Debug = FALSE
 }
 

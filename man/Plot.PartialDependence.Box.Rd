@@ -8,17 +8,19 @@ Plot.PartialDependence.Box(
   dt = NULL,
   PreAgg = FALSE,
   SampleSize = 100000L,
-  Engine = "Plotly",
-  EchartsTheme = "macaron",
-  EchartsLabels = FALSE,
-  TimeLine = TRUE,
   XVar = NULL,
   YVar = NULL,
   ZVar = NULL,
   GroupVar = NULL,
-  NumBuckets = 20,
+  NumberBins = 20,
   AggMethod = "mean",
   Title = "Gains Plot",
+  Engine = "Plotly",
+  EchartsTheme = "macaron",
+  EchartsLabels = FALSE,
+  TimeLine = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = FALSE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -27,16 +29,6 @@ Plot.PartialDependence.Box(
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
@@ -47,14 +39,6 @@ Plot.PartialDependence.Box(
 
 \item{SampleSize}{numeric}
 
-\item{Engine}{character}
-
-\item{EchartsTheme}{character}
-
-\item{EchartsLabels}{character}
-
-\item{TimeLine}{logical}
-
 \item{XVar}{character}
 
 \item{YVar}{character}
@@ -63,11 +47,23 @@ Plot.PartialDependence.Box(
 
 \item{GroupVar}{character}
 
-\item{NumBuckets}{numeric}
+\item{NumberBins}{numeric}
 
 \item{AggMethod}{character}
 
 \item{Title}{character}
+
+\item{Engine}{character}
+
+\item{EchartsTheme}{character}
+
+\item{EchartsLabels}{character}
+
+\item{TimeLine}{logical}
+
+\item{X_Scroll}{logical}
+
+\item{Y_Scroll}{logical}
 
 \item{BackGroundColor}{hex character}
 
@@ -85,7 +81,7 @@ Plot.PartialDependence.Box(
 
 \item{ZeroLineWidth}{numeric}
 
-\item{Debug}{= FALSE}
+\item{Debug}{logical}
 }
 \value{
 Partial dependence calibration plot
@@ -106,7 +102,7 @@ data <- AutoPlots::DM.pgQuery(
   SamplePercent = 1,
   User = 'postgres',
   Port = 5432,
-  Password = 'Aa1028#@')
+  Password = 'Aa')
 
 # # Step Through Function
 # library(AutoPlots)
@@ -124,11 +120,13 @@ data <- AutoPlots::DM.pgQuery(
 # GroupVar = NULL
 # AggMethod = 'mean'
 # GroupVar = NULL # "BRAND"
-# NumBuckets = 20
+# NumberBins = 20
 # AggStat = "mean"
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
+# X_Scroll = TRUE,
+# Y_Scroll = FALSE,
 # FillColor = "#0066ff"
 # BackGroundColor = "#6a6969"
 # ChartColor = '#001534'
@@ -141,11 +139,14 @@ data <- AutoPlots::DM.pgQuery(
 Other Model Evaluation: 
 \code{\link{Plot.Calibration.Box}()},
 \code{\link{Plot.Calibration.Line}()},
+\code{\link{Plot.ConfusionMatrix}()},
+\code{\link{Plot.Gains}()},
+\code{\link{Plot.Lift}()},
 \code{\link{Plot.PartialDependence.Line}()},
 \code{\link{Plot.ROC}()},
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{PlotREsim}()}
+\code{\link{VI_Plot}()}
 }
 \author{
 Adrian Antico

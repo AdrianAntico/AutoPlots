@@ -9,6 +9,8 @@ Plot.ROC(
   Engine = "Echarts",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -20,79 +22,53 @@ Plot.ROC(
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
   Title = "Calibration Plot",
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   SampleSize = 1e+05,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
 \item{dt}{data.table}
 
-\item{Engine}{"Echarts" or "Plotly"}
+\item{Engine}{character}
 
-\item{EchartsTheme}{Provide an "Echarts" theme}
+\item{EchartsTheme}{character}
 
-\item{TimeLine}{TRUE or FALSE}
+\item{TimeLine}{logical}
 
-\item{XVar}{Column name of the predicted values from your model}
+\item{X_Scroll}{logical}
 
-\item{YVar}{Column name of the target variable from your model}
+\item{Y_Scroll}{logical}
 
-\item{GroupVar}{One Grouping Variable}
+\item{XVar}{character}
 
-\item{AggMethod}{Not Used Currently. "mean", "median", "sd", "skewnewss", "kurtosis", "CoeffVar"}
+\item{YVar}{character}
 
-\item{BackGroundColor}{color}
+\item{GroupVar}{character}
 
-\item{ChartColor}{color}
+\item{AggMethod}{character}
 
-\item{GridColor}{color}
+\item{BackGroundColor}{character hex}
 
-\item{TextColor}{"Not Implemented"}
+\item{ChartColor}{character hex}
 
-\item{ZeroLineColor}{color}
+\item{GridColor}{character hex}
 
-\item{ZeroLineWidth}{1}
+\item{TextColor}{character hex}
 
-\item{Title}{"Title"}
+\item{ZeroLineColor}{character hex}
 
-\item{FacetVar1}{"Not Implemented"}
+\item{ZeroLineWidth}{numeric}
 
-\item{FacetVar2}{"Not Implemented"}
+\item{Title}{character}
 
-\item{SampleSize}{10000}
+\item{SampleSize}{numeric}
 
-\item{FillColor}{color}
+\item{FillColor}{character hex}
 
-\item{TextSize}{1.25}
+\item{Debug}{logical}
 
-\item{AngleX}{"Not Implemented"}
-
-\item{AngleY}{"Not Implemented"}
-
-\item{SubTitleColor}{"Not Implemented"}
-
-\item{BorderColor}{"Not Implemented"}
-
-\item{LegendPosition}{"Not Implemented"}
-
-\item{LegendBorderSize}{"Not Implemented"}
-
-\item{LegendLineType}{"Not Implemented"}
-
-\item{Debug}{FALSE}
-
-\item{NumBuckets}{Number of groups for calibration. 21 groups is equivalent to every 5th percentile, since the 0th and 100th percentiles are always included}
+\item{NumberBins}{numeric}
 }
 \value{
 Calibration plot or boxplot
@@ -103,7 +79,7 @@ ROC Plot
 \examples{
 \dontrun{
 # Create fake data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Build Plot
 AutoPlots::Plot.ROC(
@@ -111,31 +87,23 @@ AutoPlots::Plot.ROC(
   Engine = "Echarts", # "Plotly"
   EchartsTheme = "macaron",
   TimeLine = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   XVar = "Predict",
   YVar = "CHILLED_Margin_PerDay",
   AggMethod = 'mean',
   GroupVar = "BRAND",
-  NumBuckets = 20,
+  NumberBins = 20,
   AggStat = "mean",
   ZeroLineColor = '#ffff',
   ZeroLineWidth = 1.25,
   Title = 'Bar Plot',
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   SampleSize = 100000,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
   ChartColor = '#001534',
   GridColor = 'white',
   TextColor = 'white',
-  SubTitleColor = 'white',
-  BorderColor = 'white',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # # Step Through Function
@@ -144,32 +112,24 @@ AutoPlots::Plot.ROC(
 # dt = data
 # Engine = "Echarts" # "Plotly"
 # TimeLine = FALSE
+# X_Scroll = TRUE,
+# Y_Scroll = TRUE,
 # EchartsTheme = "macaron"
 # XVar = "Predict"
 # YVar = "CHILLED_Margin_PerDay",
 # AggMethod = 'mean',
 # GroupVar = "BRAND",
-# NumBuckets = 20
+# NumberBins = 20
 # AggStat = "mean"
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
-# FacetVar1 = NULL
-# FacetVar2 = NULL
 # SampleSize = 100000
 # FillColor = "#0066ff"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
 # BackGroundColor = "#6a6969"
 # ChartColor = '#001534'
 # GridColor = 'white'
 # TextColor = 'white'
-# SubTitleColor = 'white'
-# BorderColor = 'white'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 }
 }
@@ -177,11 +137,14 @@ AutoPlots::Plot.ROC(
 Other Model Evaluation: 
 \code{\link{Plot.Calibration.Box}()},
 \code{\link{Plot.Calibration.Line}()},
+\code{\link{Plot.ConfusionMatrix}()},
+\code{\link{Plot.Gains}()},
+\code{\link{Plot.Lift}()},
 \code{\link{Plot.PartialDependence.Box}()},
 \code{\link{Plot.PartialDependence.Line}()},
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{PlotREsim}()}
+\code{\link{VI_Plot}()}
 }
 \author{
 Adrian Antico

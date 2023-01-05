@@ -23,10 +23,7 @@ Plots.ModelEvaluation(
   FillColor = "#0066ff",
   FillColorReverse = "#ff9900",
   TextColor = "white",
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  GamFit = FALSE,
-  Buckets = 20,
+  NumberBins = 20,
   ShapAgg = "mean",
   Debug = FALSE
 )
@@ -66,13 +63,7 @@ Plots.ModelEvaluation(
 
 \item{TextColor}{hex}
 
-\item{FacetVar1}{placeholder}
-
-\item{FacetVar2}{placeholder}
-
-\item{GamFit}{placeholder}
-
-\item{Buckets}{numeric}
+\item{NumberBins}{numeric}
 
 \item{ShapAgg}{character. A string for aggregating shapely values for importances. Choices include, 'mean', 'absmean', 'meanabs', 'geomean', 'harmmean', 'sd', 'median', 'absmedian', 'medianabs'}
 
@@ -101,7 +92,7 @@ TextColor = 'white',
 FacetVar1 = NULL,
 FacetVar2 = NULL,
 GamFit = FALSE,
-Buckets = 20,
+NumberBins = 20,
 ShapAgg = 'mean',
 Debug = FALSE
 }

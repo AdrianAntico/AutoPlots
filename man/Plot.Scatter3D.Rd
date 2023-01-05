@@ -8,7 +8,7 @@ Plot.Scatter3D(
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
-  data = NULL,
+  dt = NULL,
   XVar = NULL,
   YVar = NULL,
   ZVar = NULL,
@@ -42,7 +42,7 @@ Plot.Scatter3D(
 
 \item{TimeLine}{Logical}
 
-\item{data}{Source data.table}
+\item{dt}{Source data.table}
 
 \item{XVar}{Column name of X-Axis variable. If NULL then ignored}
 
@@ -102,14 +102,14 @@ library(AutoQuant)
 library(data.table)
 
 # Load data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Scatter3D(
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
-  data = data,
+  dt = data,
   XVar = 'ARTICLE',
   YVar = 'BRAND',
   ZVar = 'CHILLED_Units_PerDay',
@@ -136,7 +136,7 @@ AutoPlots:::Plot.Scatter3D(
 # Engine = "Plotly"
 # EchartsTheme = "macaron"
 # TimeLine = FALSE
-# data = data
+# dt = data
 # XVar = "Predict",
 # YVar = "CHILLED_Margin_PerDay",
 # GroupVar = "BRAND",

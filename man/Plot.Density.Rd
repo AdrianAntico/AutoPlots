@@ -8,8 +8,8 @@ Plot.Density(
   Engine = "Plotly",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
-  X_Index = TRUE,
-  Y_Index = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   data = NULL,
   MeasureVars = NULL,
   GroupVariables = NULL,
@@ -35,9 +35,9 @@ Plot.Density(
 
 \item{TimeLine}{logical}
 
-\item{X_Index}{logical}
+\item{X_Scroll}{logical}
 
-\item{Y_Index}{logical}
+\item{Y_Scroll}{logical}
 
 \item{data}{From App}
 
@@ -81,7 +81,7 @@ library(AutoPlots)
 library(data.table)
 
 # Load data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 p1 <- AutoPlots:::Plot.Density(
@@ -124,7 +124,7 @@ p1 <- AutoPlots:::Plot.Density(
 # LegendBorderSize = 0.50
 # LegendLineType = 'solid'
 # Debug = FALSE
-# Bins
+# NumberBins
 }
 
 }

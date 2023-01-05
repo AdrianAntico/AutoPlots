@@ -8,15 +8,15 @@ Plot.Histogram(
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
-  X_Index = TRUE,
-  Y_Index = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   data = NULL,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
   Title = "Histogram",
   SampleSize = 1e+05,
-  Bins = 30,
+  NumberBins = 30,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -24,16 +24,6 @@ Plot.Histogram(
   TextColor = "white",
   ZeroLineWidth = 1.25,
   ZeroLineColor = "white",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
@@ -44,9 +34,9 @@ Plot.Histogram(
 
 \item{TimeLine}{logical}
 
-\item{X_Index}{logical}
+\item{X_Scroll}{logical}
 
-\item{Y_Index}{logical}
+\item{Y_Scroll}{logical}
 
 \item{data}{Source data.table}
 
@@ -58,7 +48,7 @@ Plot.Histogram(
 
 \item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
-\item{Bins}{= 30}
+\item{NumberBins}{= 30}
 
 \item{BackGroundColor}{'gray95'}
 
@@ -74,26 +64,6 @@ Plot.Histogram(
 
 \item{ZeroLineColor}{= "white",}
 
-\item{TextSize}{14}
-
-\item{AngleX}{90}
-
-\item{AngleY}{0}
-
-\item{FacetVar1}{Column name of facet variable 1. If NULL then ignored}
-
-\item{FacetVar2}{Column name of facet variable 2. If NULL then ignored}
-
-\item{SubTitleColor}{'darkblue'}
-
-\item{BorderColor}{'darkblue'}
-
-\item{LegendPosition}{'bottom'}
-
-\item{LegendBorderSize}{0.50}
-
-\item{LegendLineType}{'solid'}
-
 \item{Debug}{FALSE}
 }
 \description{
@@ -106,34 +76,26 @@ library(AutoPlots)
 library(data.table)
 
 # Load data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 p1 <- AutoPlots:::Plot.Histogram(
   data = data,
   TimeLine = FALSE,
-  X_Index = TRUE,
-  Y_Index = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   XVar = "Predict",
   YVar = "CHILLED_Margin_PerDay",
   GroupVar = "BRAND",
   FacetVar1 = 'Store',
   FacetVar2 = 'Dept',
   SampleSize = 100000,
-  Bins = 20,
+  NumberBins = 20,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   ChartColor = 'lightsteelblue1',
-  BorderColor = 'darkblue',
   TextColor = 'darkblue',
   GridColor = 'white',
   BackGroundColor = 'gray95',
-  SubTitleColor = 'blue',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # # Step through function
@@ -146,21 +108,12 @@ p1 <- AutoPlots:::Plot.Histogram(
 # Title = 'Histogram'
 # FacetVar1 = NULL
 # FacetVar2 = NULL
-# Bins = 20
+# NumberBins = 20
 # SampleSize = 100000
 # FillColor = "#0066ff"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
 # ChartColor = '#001534'
-# BackGroundColor = "#6a6969"
 # GridColor = 'white'
-# BorderColor = 'darkblue'
 # TextColor = 'darkblue'
-# SubTitleColor = 'blue'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 }
 

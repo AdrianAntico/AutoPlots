@@ -7,8 +7,8 @@
 Plot.CorrMatrix(
   Engine = "Plotly",
   EchartsTheme = "macaron",
-  X_Index = TRUE,
-  Y_Index = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   data = NULL,
   CorrVars = NULL,
   Method = "spearman",
@@ -27,9 +27,9 @@ Plot.CorrMatrix(
 
 \item{EchartsTheme}{= "macaron"}
 
-\item{X_Index}{logical}
+\item{X_Scroll}{logical}
 
-\item{Y_Index}{logical}
+\item{Y_Scroll}{logical}
 
 \item{data}{Source data.table}
 
@@ -58,7 +58,7 @@ Build a violin plot by simply passing arguments to a single function. It will sa
 }
 \examples{
 \dontrun{
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 CorrVars <- c('Rolling_365_Liters','Rolling_365_Units','Rolling_365_Margin')
 p <- cor(data[, .SD, .SDcols = c(CorrVars)])
 p1 <- heatmaply::heatmaply_cor(

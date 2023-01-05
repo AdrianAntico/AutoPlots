@@ -13,8 +13,8 @@ Plot.Line(
   GroupVar = NULL,
   Title = "Line Plot",
   EchartsTheme = "macaron",
-  X_Index = FALSE,
-  Y_Index = FALSE,
+  X_Scroll = FALSE,
+  Y_Scroll = FALSE,
   TimeLine = TRUE,
   Area = FALSE,
   Alpha = 0.5,
@@ -25,16 +25,6 @@ Plot.Line(
   FillColor = "#0066ff",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
@@ -55,9 +45,9 @@ Plot.Line(
 
 \item{EchartsTheme}{Provide an "Echarts" theme}
 
-\item{X_Index}{logical}
+\item{X_Scroll}{logical}
 
-\item{Y_Index}{logical}
+\item{Y_Scroll}{logical}
 
 \item{TimeLine}{Logical}
 
@@ -79,27 +69,9 @@ Plot.Line(
 
 \item{ZeroLineWidth}{1}
 
-\item{FacetVar1}{"Not Implemented"}
-
-\item{FacetVar2}{"Not Implemented"}
+\item{Debug}{FALSE}
 
 \item{TextSize}{1.25}
-
-\item{AngleX}{"Not Implemented"}
-
-\item{AngleY}{"Not Implemented"}
-
-\item{SubTitleColor}{"Not Implemented"}
-
-\item{BorderColor}{"Not Implemented"}
-
-\item{LegendPosition}{"Not Implemented"}
-
-\item{LegendBorderSize}{"Not Implemented"}
-
-\item{LegendLineType}{"Not Implemented"}
-
-\item{Debug}{FALSE}
 }
 \value{
 Calibration plot or boxplot
@@ -109,7 +81,7 @@ This function automatically builds calibration plots and calibration boxplots fo
 }
 \examples{
 \dontrun{
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Build Plot
 AutoPlots::Plot.Line(
@@ -145,8 +117,8 @@ AutoPlots::Plot.Line(
 # library(AutoPlots)
 # library(data.table)
 # dt = data
-# Y_Index = FALSE
-# X_Index = FALSE
+# Y_Scroll = FALSE
+# X_Scroll = FALSE
 # Engine = "Echarts" # "Plotly"
 # TimeLine = TRUE
 # EchartsTheme = "macaron"
@@ -158,21 +130,11 @@ AutoPlots::Plot.Line(
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
-# FacetVar1 = NULL
-# FacetVar2 = NULL
 # FillColor = "#0066ff"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
 # BackGroundColor = "#6a6969"
 # ChartColor = '#001534'
 # GridColor = 'white'
 # TextColor = 'white'
-# SubTitleColor = 'white'
-# BorderColor = 'white'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # PreAgg = TRUE
 # Debug = FALSE
 }

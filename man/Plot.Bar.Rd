@@ -5,18 +5,18 @@
 \title{Plot.Bar}
 \usage{
 Plot.Bar(
-  data = NULL,
-  PreAgg = FALSE,
   Engine = "Plotly",
-  EchartsTheme = "macaron",
-  TimeLine = TRUE,
-  X_Index = TRUE,
-  Y_Index = TRUE,
+  dt = NULL,
+  PreAgg = FALSE,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
   AggMethod = "mean",
   Title = "Bar Plot",
+  EchartsTheme = "macaron",
+  TimeLine = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -24,43 +24,33 @@ Plot.Bar(
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
-\item{data}{Source data.table}
-
-\item{PreAgg}{logical}
-
 \item{Engine}{'Plotly' or "Echarts"}
 
-\item{EchartsTheme}{"macaron"}
+\item{dt}{Source data.table}
 
-\item{TimeLine}{logical}
-
-\item{X_Index}{logical}
-
-\item{Y_Index}{logical}
+\item{PreAgg}{logical}
 
 \item{XVar}{Column name of X-Axis variable. If NULL then ignored}
 
 \item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
 
-\item{GroupVar}{= NULL}
+\item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
 \item{Title}{title}
+
+\item{EchartsTheme}{"macaron"}
+
+\item{TimeLine}{logical}
+
+\item{X_Scroll}{logical}
+
+\item{Y_Scroll}{logical}
 
 \item{BackGroundColor}{'gray95'}
 
@@ -74,27 +64,9 @@ Plot.Bar(
 
 \item{ZeroLineColor}{= '#ffff'}
 
-\item{FacetVar1}{Column name of facet variable 1. If NULL then ignored}
-
-\item{FacetVar2}{Column name of facet variable 2. If NULL then ignored}
-
-\item{TextSize}{14}
-
-\item{AngleX}{90}
-
-\item{AngleY}{0}
-
-\item{SubTitleColor}{'darkblue'}
+\item{Debug}{FALSE}
 
 \item{BorderColor}{'darkblue'}
-
-\item{LegendPosition}{'bottom'}
-
-\item{LegendBorderSize}{0.50}
-
-\item{LegendLineType}{'solid'}
-
-\item{Debug}{FALSE}
 }
 \description{
 Build a bar plot by simply passing arguments to a single function
@@ -106,7 +78,7 @@ library(AutoPlots)
 library(data.table)
 
 # Load data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Bar(

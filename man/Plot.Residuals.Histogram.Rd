@@ -6,94 +6,70 @@
 \usage{
 Plot.Residuals.Histogram(
   dt = NULL,
-  Engine = "Echarts",
-  EchartsTheme = "macaron",
-  TimeLine = FALSE,
+  SampleSize = 1e+05,
+  AggMethod = "mean",
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
-  NumBuckets = 20,
+  NumberBins = 20,
+  Title = "Calibration Plot",
+  Engine = "Echarts",
+  EchartsTheme = "macaron",
+  TimeLine = FALSE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
+  FillColor = "#0066ff",
   GridColor = "white",
   TextColor = "white",
-  AggMethod = "mean",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  Title = "Calibration Plot",
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  SampleSize = 1e+05,
-  FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
 \item{dt}{data.table}
 
-\item{Engine}{"Echarts" or "Plotly"}
+\item{SampleSize}{numeric}
 
-\item{EchartsTheme}{Provide an "Echarts" theme}
+\item{AggMethod}{character}
 
-\item{TimeLine}{TRUE or FALSE}
+\item{XVar}{character}
 
-\item{XVar}{Column name of the predicted values from your model}
+\item{YVar}{character}
 
-\item{YVar}{Column name of the target variable from your model}
+\item{GroupVar}{character}
 
-\item{GroupVar}{One Grouping Variable}
+\item{NumberBins}{numeric}
 
-\item{NumBuckets}{Number of groups for calibration. 21 groups is equivalent to every 5th percentile, since the 0th and 100th percentiles are always included}
+\item{Title}{character}
 
-\item{BackGroundColor}{color}
+\item{Engine}{character}
 
-\item{ChartColor}{color}
+\item{EchartsTheme}{character}
 
-\item{GridColor}{color}
+\item{TimeLine}{logical}
 
-\item{TextColor}{"Not Implemented"}
+\item{X_Scroll}{logical}
 
-\item{AggMethod}{Not Used Currently. "mean", "median", "sd", "skewnewss", "kurtosis", "CoeffVar"}
+\item{Y_Scroll}{logical}
 
-\item{ZeroLineColor}{color}
+\item{BackGroundColor}{character hex}
 
-\item{ZeroLineWidth}{1}
+\item{ChartColor}{character hex}
 
-\item{Title}{"Title"}
+\item{FillColor}{character hex}
 
-\item{FacetVar1}{"Not Implemented"}
+\item{GridColor}{character hex}
 
-\item{FacetVar2}{"Not Implemented"}
+\item{TextColor}{Not Implemented}
 
-\item{SampleSize}{10000}
+\item{ZeroLineColor}{character hex}
 
-\item{FillColor}{color}
+\item{ZeroLineWidth}{numeric}
 
-\item{TextSize}{1.25}
-
-\item{AngleX}{"Not Implemented"}
-
-\item{AngleY}{"Not Implemented"}
-
-\item{SubTitleColor}{"Not Implemented"}
-
-\item{BorderColor}{"Not Implemented"}
-
-\item{LegendPosition}{"Not Implemented"}
-
-\item{LegendBorderSize}{"Not Implemented"}
-
-\item{LegendLineType}{"Not Implemented"}
-
-\item{Debug}{FALSE}
+\item{Debug}{logical}
 }
 \description{
 Residuals Plot
@@ -101,7 +77,7 @@ Residuals Plot
 \examples{
 \dontrun{
 # Create fake data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Build Plot
 AutoPlots::Plot.Residuals.Histogram(
@@ -113,27 +89,17 @@ AutoPlots::Plot.Residuals.Histogram(
   YVar = "CHILLED_Margin_PerDay",
   AggMethod = 'mean',
   GroupVar = "BRAND",
-  NumBuckets = 20,
+  NumberBins = 20,
   AggStat = "mean",
   ZeroLineColor = '#ffff',
   ZeroLineWidth = 1.25,
   Title = 'Bar Plot',
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   SampleSize = 100000,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
   ChartColor = '#001534',
   GridColor = 'white',
   TextColor = 'white',
-  SubTitleColor = 'white',
-  BorderColor = 'white',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # # Step Through Function
@@ -147,31 +113,21 @@ AutoPlots::Plot.Residuals.Histogram(
 # YVar = "CHILLED_Margin_PerDay",
 # AggMethod = 'mean',
 # GroupVar = "BRAND",
-# NumBuckets = 20
+# NumberBins = 20
 # AggStat = "mean"
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
-# FacetVar1 = NULL
-# FacetVar2 = NULL
 # SampleSize = 100000
 # FillColor = "#0066ff"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
 # BackGroundColor = "#6a6969"
 # ChartColor = '#001534'
 # GridColor = 'white'
 # TextColor = 'white'
-# SubTitleColor = 'white'
-# BorderColor = 'white'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 
-# data = dt1
-# Bins = NumBuckets
+# dt = dt1
+# NumberBins = NumberBins
 # Engine = Engine
 # EchartsTheme = EchartsTheme
 # TimeLine = tl
@@ -181,22 +137,12 @@ AutoPlots::Plot.Residuals.Histogram(
 # ZeroLineColor = ZeroLineColor
 # ZeroLineWidth = ZeroLineWidth
 # Title = Title
-# FacetVar1 = FacetVar1
-# FacetVar2 = FacetVar2
 # SampleSize = SampleSize
 # FillColor = FillColor
-# TextSize = TextSize
-# AngleX = AngleX
-# AngleY = AngleY
 # BackGroundColor = BackGroundColor
 # ChartColor = ChartColor
 # GridColor = GridColor
 # TextColor = GridColor
-# SubTitleColor = SubTitleColor
-# BorderColor = BorderColor
-# LegendPosition = LegendPosition
-# LegendBorderSize = LegendBorderSize
-# LegendLineType = LegendLineType
 # Debug = Debug
 }
 }
@@ -204,11 +150,14 @@ AutoPlots::Plot.Residuals.Histogram(
 Other Model Evaluation: 
 \code{\link{Plot.Calibration.Box}()},
 \code{\link{Plot.Calibration.Line}()},
+\code{\link{Plot.ConfusionMatrix}()},
+\code{\link{Plot.Gains}()},
+\code{\link{Plot.Lift}()},
 \code{\link{Plot.PartialDependence.Box}()},
 \code{\link{Plot.PartialDependence.Line}()},
 \code{\link{Plot.ROC}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{PlotREsim}()}
+\code{\link{VI_Plot}()}
 }
 \author{
 Adrian Antico

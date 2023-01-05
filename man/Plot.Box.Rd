@@ -14,8 +14,8 @@ Plot.Box(
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = TimeLine,
-  X_Index = TRUE,
-  Y_Index = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   FillColor = "#0066ff",
   FillColorReverse = "#ff9900",
   BackGroundColor = "#6a6969",
@@ -46,13 +46,13 @@ Plot.Box(
 
 \item{TimeLine}{Logical}
 
-\item{X_Index}{logical}
+\item{X_Scroll}{logical}
 
-\item{Y_Index}{logical}
+\item{Y_Scroll}{logical}
 
 \item{FillColor}{'gray'}
 
-\item{FillColorReverse}{= "#ff9900"}
+\item{FillColorReverse}{= "#ff9900}
 
 \item{BackGroundColor}{'#17108db8'}
 
@@ -68,25 +68,7 @@ Plot.Box(
 
 \item{Debug}{FALSE}
 
-\item{FacetVar1}{Column name of facet variable 1. If NULL then ignored}
-
-\item{FacetVar2}{Column name of facet variable 2. If NULL then ignored}
-
-\item{TextSize}{14}
-
-\item{AngleX}{90}
-
-\item{AngleY}{0}
-
 \item{BorderColor}{'darkblue'}
-
-\item{SubTitleColor}{'darkblue'}
-
-\item{LegendPosition}{'bottom'}
-
-\item{LegendBorderSize}{0.50}
-
-\item{LegendLineType}{'solid'}
 }
 \description{
 Build a box plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -98,7 +80,7 @@ library(AutoPlots)
 library(data.table)
 
 # Load data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Box(

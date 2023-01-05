@@ -14,10 +14,12 @@ Plot.ConfusionMatrix(
   PercentileBuckets_X = 0.1,
   NLevels_Y = 50,
   NLevels_X = 50,
+  Title = "Confusion Matrix",
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = TRUE,
-  Title = "Confusion Matrix",
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -49,13 +51,13 @@ Plot.ConfusionMatrix(
 
 \item{NLevels_X}{= NumLevels_X,}
 
+\item{Title}{title}
+
 \item{Engine}{'Plotly' or "Echarts"}
 
 \item{EchartsTheme}{"macaron"}
 
 \item{TimeLine}{logical}
-
-\item{Title}{title}
 
 \item{BackGroundColor}{'gray95'}
 
@@ -88,15 +90,15 @@ Generate variable importance plots
 \examples{
 \dontrun{
 # Create fake data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML2_ScoringData.csv")
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_Test_VI_Data.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML2_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_Test_VI_Data.csv")
 
 # Step Through Function
 library(AutoPlots)
 library(data.table)
 dt = data
-Engine =  "Plotly" #@ "Echarts"
+Engine =  "Plotly"
 TimeLine = FALSE
 PreAgg = FALSE
 EchartsTheme = "purple-passion"
@@ -104,7 +106,7 @@ XVar = "Importance" # "Predict"
 YVar = "Variable" # "CHILLED_Margin_PerDay"
 AggMethod = 'mean'
 GroupVar = NULL # "BRAND"
-NumBuckets = 20
+NumberBins = 20
 AggStat = "mean"
 ZeroLineColor = '#ffff'
 ZeroLineWidth = 1.25
@@ -116,8 +118,7 @@ GridColor = 'white'
 TextColor = 'white'
 Debug = FALSE
 
-AutoPlots:::VI_Plot(
-# Algo = "catboost",
+
 # dt = data,
 # PreAgg = FALSE
 # Engine = 'Plotly',
@@ -145,12 +146,19 @@ AutoPlots:::VI_Plot(
 
 }
 \seealso{
-Other Model Evaluation and Interpretation: 
+Other Model Evaluation: 
+\code{\link{Plot.Calibration.Box}()},
+\code{\link{Plot.Calibration.Line}()},
 \code{\link{Plot.Gains}()},
 \code{\link{Plot.Lift}()},
+\code{\link{Plot.PartialDependence.Box}()},
+\code{\link{Plot.PartialDependence.Line}()},
+\code{\link{Plot.ROC}()},
+\code{\link{Plot.Residuals.Histogram}()},
+\code{\link{Plot.Residuals.Scatter}()},
 \code{\link{VI_Plot}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Model Evaluation and Interpretation}
+\concept{Model Evaluation}

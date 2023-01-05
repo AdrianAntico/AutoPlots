@@ -18,7 +18,7 @@ Plot.StandardPlots(
   NumLevels_Y = 75,
   NumLevels_X = 40,
   BarPlotAggMethod = "mean",
-  Bins = 30,
+  NumberBins = 30,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -51,7 +51,7 @@ Plot.StandardPlots(
 
 \item{BarPlotAggMethod}{character}
 
-\item{Bins}{character}
+\item{NumberBins}{character}
 
 \item{BackGroundColor}{character}
 
@@ -73,23 +73,11 @@ Plot.StandardPlots(
 
 \item{FacetVar2}{character}
 
-\item{GamFitScatter}{character}
-
-\item{TextSize}{character}
-
 \item{AngleX}{character}
 
 \item{AngleY}{character}
 
 \item{BorderColor}{character}
-
-\item{SubTitleColor}{character}
-
-\item{LegendPosition}{character}
-
-\item{LegendBorderSize}{character}
-
-\item{LegendLineType}{character}
 }
 \description{
 Helper for standard plots

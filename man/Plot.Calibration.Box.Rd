@@ -8,11 +8,13 @@ Plot.Calibration.Box(
   Engine = "Echarts",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   dt = NULL,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
-  NumBuckets = 21,
+  NumberBins = 21,
   Title = "Calibration Plot",
   SampleSize = 100000L,
   BackGroundColor = "#6a6969",
@@ -21,82 +23,56 @@ Plot.Calibration.Box(
   TextColor = "white",
   AggMethod = "mean",
   ZeroLineColor = "#ffff",
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   FillColor = "#0066ff",
   FillColorReverse = "#ff9900",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   ZeroLineWidth = 1.25,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
-\item{Engine}{"Echarts" or "Plotly"}
+\item{Engine}{character}
 
-\item{EchartsTheme}{Provide an "Echarts" theme}
+\item{EchartsTheme}{character}
 
-\item{TimeLine}{TRUE or FALSE}
+\item{TimeLine}{logical}
+
+\item{X_Scroll}{logical}
+
+\item{Y_Scroll}{logical}
 
 \item{dt}{data.table}
 
-\item{XVar}{Column name of the predicted values from your model}
+\item{XVar}{character}
 
-\item{YVar}{Column name of the target variable from your model}
+\item{YVar}{character}
 
-\item{GroupVar}{One Grouping Variable}
+\item{GroupVar}{character}
 
-\item{NumBuckets}{Number of groups for calibration. 21 groups is equivalent to every 5th percentile, since the 0th and 100th percentiles are always included}
+\item{NumberBins}{numeric}
 
-\item{Title}{"Title"}
+\item{Title}{character}
 
-\item{SampleSize}{10000}
+\item{SampleSize}{numeric}
 
-\item{BackGroundColor}{color}
+\item{BackGroundColor}{character hex}
 
-\item{ChartColor}{color}
+\item{ChartColor}{character hex}
 
-\item{GridColor}{color}
+\item{GridColor}{character hex}
 
 \item{TextColor}{"Not Implemented"}
 
-\item{AggMethod}{Not Used Currently. "mean", "median", "sd", "skewnewss", "kurtosis", "CoeffVar"}
+\item{AggMethod}{character}
 
-\item{ZeroLineColor}{color}
+\item{ZeroLineColor}{character hex}
 
-\item{FacetVar1}{"Not Implemented"}
+\item{FillColor}{character hex}
 
-\item{FacetVar2}{"Not Implemented"}
+\item{FillColorReverse}{character hex}
 
-\item{FillColor}{color}
+\item{ZeroLineWidth}{numeric}
 
-\item{FillColorReverse}{= "#ff9900"}
-
-\item{TextSize}{1.25}
-
-\item{AngleX}{"Not Implemented"}
-
-\item{AngleY}{"Not Implemented"}
-
-\item{ZeroLineWidth}{1}
-
-\item{SubTitleColor}{"Not Implemented"}
-
-\item{BorderColor}{"Not Implemented"}
-
-\item{LegendPosition}{"Not Implemented"}
-
-\item{LegendBorderSize}{"Not Implemented"}
-
-\item{LegendLineType}{"Not Implemented"}
-
-\item{Debug}{FALSE}
+\item{Debug}{logical}
 }
 \value{
 Calibration plot or boxplot
@@ -107,7 +83,7 @@ This function automatically builds calibration plots and calibration boxplots fo
 \examples{
 \dontrun{
 # Create fake data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Build Plot
 AutoPlots::Plot.Calibration.Box(
@@ -115,32 +91,24 @@ AutoPlots::Plot.Calibration.Box(
   Engine = "Echarts", # "Plotly"
   EchartsTheme = "macaron",
   TimeLine = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   XVar = "Predict",
   YVar = "Adrian",
   AggMethod = 'mean',
   GroupVar = "Factor_1",
-  NumBuckets = 20,
+  NumberBins = 20,
   AggStat = "mean",
   ZeroLineColor = '#ffff',
   ZeroLineWidth = 1.25,
   Title = 'Bar Plot',
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   SampleSize = 100000,
   FillColor = "#0066ff",
   FillColorReverse = "#ff9900",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
+  BackGroundColor = "#6a6969",
   ChartColor = '#001534',
   GridColor = 'white',
   TextColor = 'white',
-  SubTitleColor = 'white',
-  BorderColor = 'white',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # # Step Through Function
@@ -150,44 +118,39 @@ AutoPlots::Plot.Calibration.Box(
 # Engine = "Echarts" # "Plotly"
 # TimeLine = FALSE
 # EchartsTheme = "macaron"
+# X_Scroll = TRUE
+# Y_Scroll = TRUE
 # XVar = "Predict"
 # YVar = "Adrian"
 # AggMethod = 'mean'
 # GroupVar = "Factor_1"
-# NumBuckets = 20
+# NumberBins = 20
 # AggStat = "mean"
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
-# FacetVar1 = NULL
-# FacetVar2 = NULL
 # SampleSize = 100000
 # FillColor = "#0066ff"
 # FillColorReverse = "#ff9900"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
 # BackGroundColor = "#6a6969"
 # ChartColor = '#001534'
 # GridColor = 'white'
 # TextColor = 'white'
-# SubTitleColor = 'white'
-# BorderColor = 'white'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 }
 }
 \seealso{
 Other Model Evaluation: 
 \code{\link{Plot.Calibration.Line}()},
+\code{\link{Plot.ConfusionMatrix}()},
+\code{\link{Plot.Gains}()},
+\code{\link{Plot.Lift}()},
 \code{\link{Plot.PartialDependence.Box}()},
 \code{\link{Plot.PartialDependence.Line}()},
 \code{\link{Plot.ROC}()},
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{PlotREsim}()}
+\code{\link{VI_Plot}()}
 }
 \author{
 Adrian Antico

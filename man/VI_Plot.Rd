@@ -7,14 +7,16 @@
 VI_Plot(
   Algo = "CatBoost",
   dt = NULL,
-  Engine = "Plotly",
-  EchartsTheme = "macaron",
-  TimeLine = TRUE,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
   AggMethod = "mean",
   Title = "Variable Importance Plot",
+  Engine = "Plotly",
+  EchartsTheme = "macaron",
+  TimeLine = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -22,21 +24,23 @@ VI_Plot(
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
 \item{Algo}{'catboost', 'xgboost', 'h2o'}
+
+\item{dt}{Source data.table}
+
+\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+
+\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+
+\item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
+
+\item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
+
+\item{Title}{title}
 
 \item{Engine}{'Plotly' or "Echarts"}
 
@@ -44,15 +48,9 @@ VI_Plot(
 
 \item{TimeLine}{logical}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{X_Scroll}{logical}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
-
-\item{GroupVar}{= NULL}
-
-\item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
-
-\item{Title}{title}
+\item{Y_Scroll}{logical}
 
 \item{BackGroundColor}{'gray95'}
 
@@ -67,8 +65,6 @@ VI_Plot(
 \item{ZeroLineColor}{= '#ffff'}
 
 \item{Debug}{FALSE}
-
-\item{data}{Source data.table}
 }
 \value{
 ROC Plot for classification models
@@ -79,41 +75,33 @@ Generate variable importance plots
 \examples{
 \dontrun{
 # Create fake data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML2_ScoringData.csv")
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_Test_VI_Data.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML2_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_Test_VI_Data.csv")
 
 # Step Through Function
 library(AutoPlots)
 library(data.table)
 dt = data
-Engine =  "Plotly" #@ "Echarts"
+Engine =  "Plotly"
 TimeLine = FALSE
+X_Scroll = TRUE,
+Y_Scroll = TRUE,
 EchartsTheme = "purple-passion"
 XVar = "Importance" # "Predict"
 YVar = "Variable" # "CHILLED_Margin_PerDay"
 AggMethod = 'mean'
 GroupVar = NULL # "BRAND"
-NumBuckets = 20
+NumberBins = 20
 AggStat = "mean"
 ZeroLineColor = '#ffff'
 ZeroLineWidth = 1.25
 Title = 'Bar Plot'
-FacetVar1 = NULL
-FacetVar2 = NULL
 FillColor = "#0066ff"
-TextSize = 12
-AngleX = 90
-AngleY = 0
 BackGroundColor = "#6a6969"
 ChartColor = '#001534'
 GridColor = 'white'
 TextColor = 'white'
-SubTitleColor = 'white'
-BorderColor = 'white'
-LegendPosition = 'bottom'
-LegendBorderSize = 0.50
-LegendLineType = 'solid'
 Debug = FALSE
 
 AutoPlots:::VI_Plot(
@@ -122,6 +110,8 @@ AutoPlots:::VI_Plot(
 # Engine = 'Plotly',
 # EchartsTheme = "macaron",
 # TimeLine = TRUE,
+# X_Scroll = TRUE,
+# Y_Scroll = TRUE,
 # XVar = "Importance",
 # YVar = "Variable",
 # GroupVar = NULL,
@@ -134,27 +124,24 @@ AutoPlots:::VI_Plot(
 # TextColor = 'white',
 # ZeroLineColor = '#ffff',
 # ZeroLineWidth = 1.25,
-# FacetVar1 = NULL,
-# FacetVar2 = NULL,
-# TextSize = 12,
-# AngleX = 90,
-# AngleY = 0,
-# SubTitleColor = 'white',
-# BorderColor = 'white',
-# LegendPosition = 'bottom',
-# LegendBorderSize = 0.50,
-# LegendLineType = 'solid',
 # Debug = FALSE)
 }
 
 }
 \seealso{
-Other Model Evaluation and Interpretation: 
+Other Model Evaluation: 
+\code{\link{Plot.Calibration.Box}()},
+\code{\link{Plot.Calibration.Line}()},
 \code{\link{Plot.ConfusionMatrix}()},
 \code{\link{Plot.Gains}()},
-\code{\link{Plot.Lift}()}
+\code{\link{Plot.Lift}()},
+\code{\link{Plot.PartialDependence.Box}()},
+\code{\link{Plot.PartialDependence.Line}()},
+\code{\link{Plot.ROC}()},
+\code{\link{Plot.Residuals.Histogram}()},
+\code{\link{Plot.Residuals.Scatter}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Model Evaluation and Interpretation}
+\concept{Model Evaluation}

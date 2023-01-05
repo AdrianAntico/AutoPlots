@@ -10,15 +10,18 @@ Plot.Lift(
   XVar = NULL,
   YVar = NULL,
   ZVar = "N",
-  NumBuckets = 20,
+  GroupVar = NULL,
+  NumberBins = 20,
   PercentileBuckets_Y = 0.1,
   PercentileBuckets_X = 0.1,
   NLevels_Y = 50,
   NLevels_X = 50,
+  Title = "Confusion Matrix",
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = TRUE,
-  Title = "Confusion Matrix",
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -26,97 +29,77 @@ Plot.Lift(
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  GroupVar = NULL,
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
-  SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
-\item{dt}{= NULL}
+\item{dt}{data.table}
 
-\item{PreAgg}{= FALSE}
+\item{PreAgg}{logical}
 
-\item{XVar}{= NULL}
+\item{XVar}{character}
 
-\item{YVar}{= NULL}
+\item{YVar}{character}
 
-\item{ZVar}{= "N"}
+\item{ZVar}{character}
 
-\item{NumBuckets}{= 20}
+\item{GroupVar}{character}
 
-\item{PercentileBuckets_Y}{= 0.10}
+\item{NumberBins}{numeric}
 
-\item{PercentileBuckets_X}{= 0.10}
+\item{PercentileBuckets_Y}{numeric}
 
-\item{NLevels_Y}{= 50}
+\item{PercentileBuckets_X}{numeric}
 
-\item{NLevels_X}{= 50}
+\item{NLevels_Y}{numeric}
 
-\item{Engine}{= 'Plotly'}
+\item{NLevels_X}{numeric}
 
-\item{EchartsTheme}{= "macaron"}
+\item{Title}{character}
 
-\item{TimeLine}{= TRUE}
+\item{Engine}{character}
 
-\item{Title}{= "Confusion Matrix"}
+\item{EchartsTheme}{character}
 
-\item{BackGroundColor}{= "#6a6969"}
+\item{TimeLine}{logical}
 
-\item{ChartColor}{= '#001534'}
+\item{X_Scroll}{logical}
 
-\item{FillColor}{= "#0066ff"}
+\item{Y_Scroll}{logical}
 
-\item{GridColor}{= 'white'}
+\item{BackGroundColor}{character hex}
 
-\item{TextColor}{= 'white'}
+\item{ChartColor}{character hex}
 
-\item{ZeroLineColor}{= '#ffff'}
+\item{FillColor}{character hex}
 
-\item{ZeroLineWidth}{= 1.25}
+\item{GridColor}{character hex}
 
-\item{GroupVar}{= NULL}
+\item{TextColor}{character hex}
 
-\item{FacetVar1}{= NULL}
+\item{ZeroLineColor}{character hex}
 
-\item{FacetVar2}{= NULL}
+\item{ZeroLineWidth}{numeric}
 
-\item{TextSize}{= 12}
-
-\item{AngleX}{= 90}
-
-\item{AngleY}{= 0}
-
-\item{SubTitleColor}{= 'white'}
-
-\item{BorderColor}{= 'white'}
-
-\item{LegendPosition}{= 'bottom'}
-
-\item{LegendBorderSize}{= 0.50}
-
-\item{LegendLineType}{= 'solid'}
-
-\item{Debug}{= FALSE}
+\item{Debug}{logical}
 }
 \description{
 Create a cumulative gains chart
 }
 \seealso{
-Other Model Evaluation and Interpretation: 
+Other Model Evaluation: 
+\code{\link{Plot.Calibration.Box}()},
+\code{\link{Plot.Calibration.Line}()},
 \code{\link{Plot.ConfusionMatrix}()},
 \code{\link{Plot.Gains}()},
+\code{\link{Plot.PartialDependence.Box}()},
+\code{\link{Plot.PartialDependence.Line}()},
+\code{\link{Plot.ROC}()},
+\code{\link{Plot.Residuals.Histogram}()},
+\code{\link{Plot.Residuals.Scatter}()},
 \code{\link{VI_Plot}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Model Evaluation and Interpretation}
+\concept{Model Evaluation}

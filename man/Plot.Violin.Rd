@@ -10,24 +10,14 @@ Plot.Violin(
   YVar = NULL,
   GroupVar = NULL,
   Title = "Violin Plot",
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   SampleSize = 1e+05,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   GridColor = "#ffff",
+  TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  TextColor = "white",
-  SubTitleColor = "white",
-  BorderColor = "#ffff",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
@@ -42,19 +32,9 @@ Plot.Violin(
 
 \item{Title}{'Violin Plot'}
 
-\item{FacetVar1}{Column name of facet variable 1. If NULL then ignored}
-
-\item{FacetVar2}{Column name of facet variable 2. If NULL then ignored}
-
 \item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
 \item{FillColor}{'gray'}
-
-\item{TextSize}{14}
-
-\item{AngleX}{90}
-
-\item{AngleY}{0}
 
 \item{BackGroundColor}{'gray95'}
 
@@ -62,23 +42,15 @@ Plot.Violin(
 
 \item{GridColor}{'white'}
 
+\item{TextColor}{'darkblue'}
+
 \item{ZeroLineColor}{= '#ffff',}
 
 \item{ZeroLineWidth}{= 2,}
 
-\item{TextColor}{'darkblue'}
-
-\item{SubTitleColor}{'darkblue'}
+\item{Debug}{FALSE}
 
 \item{BorderColor}{'darkblue'}
-
-\item{LegendPosition}{'bottom'}
-
-\item{LegendBorderSize}{0.50}
-
-\item{LegendLineType}{'solid'}
-
-\item{Debug}{FALSE}
 }
 \description{
 Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -90,7 +62,7 @@ library(AutoQuant)
 library(data.table)
 
 # Load data
-data <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML1_ScoringData.csv")
+data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Violin(
@@ -110,10 +82,6 @@ AutoPlots:::Plot.Violin(
   TextColor = 'darkblue',
   GridColor = 'white',
   BackGroundColor = 'gray95',
-  SubTitleColor = 'blue',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # Step through function
@@ -130,10 +98,6 @@ AutoPlots:::Plot.Violin(
 # TextColor = 'darkblue'
 # GridColor = 'white'
 # BackGroundColor = 'gray95'
-# SubTitleColor = 'blue'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 }
 
