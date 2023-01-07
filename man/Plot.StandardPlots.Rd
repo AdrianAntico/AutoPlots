@@ -17,7 +17,7 @@ Plot.StandardPlots(
   TimeLine = FALSE,
   NumLevels_Y = 75,
   NumLevels_X = 40,
-  BarPlotAggMethod = "mean",
+  AggMethod = "mean",
   NumberBins = 30,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
@@ -49,7 +49,7 @@ Plot.StandardPlots(
 
 \item{TimeLine}{character}
 
-\item{BarPlotAggMethod}{character}
+\item{AggMethod}{character}
 
 \item{NumberBins}{character}
 
@@ -66,18 +66,6 @@ Plot.StandardPlots(
 \item{TextColor}{character}
 
 \item{Debug}{character}
-
-\item{SizeVar1}{character}
-
-\item{FacetVar1}{character}
-
-\item{FacetVar2}{character}
-
-\item{AngleX}{character}
-
-\item{AngleY}{character}
-
-\item{BorderColor}{character}
 }
 \description{
 Helper for standard plots

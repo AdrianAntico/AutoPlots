@@ -6,29 +6,41 @@
 \usage{
 Plot.ROC(
   dt = NULL,
+  SampleSize = 1e+05,
+  XVar = NULL,
+  YVar = NULL,
+  GroupVar = NULL,
+  AggMethod = "mean",
+  Title = "Calibration Plot",
   Engine = "Echarts",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  XVar = NULL,
-  YVar = NULL,
-  GroupVar = NULL,
-  AggMethod = "mean",
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   GridColor = "white",
+  FillColor = "#0066ff",
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  Title = "Calibration Plot",
-  SampleSize = 1e+05,
-  FillColor = "#0066ff",
   Debug = FALSE
 )
 }
 \arguments{
 \item{dt}{data.table}
+
+\item{SampleSize}{numeric}
+
+\item{XVar}{character}
+
+\item{YVar}{character}
+
+\item{GroupVar}{character}
+
+\item{AggMethod}{character}
+
+\item{Title}{character}
 
 \item{Engine}{character}
 
@@ -40,31 +52,19 @@ Plot.ROC(
 
 \item{Y_Scroll}{logical}
 
-\item{XVar}{character}
-
-\item{YVar}{character}
-
-\item{GroupVar}{character}
-
-\item{AggMethod}{character}
-
 \item{BackGroundColor}{character hex}
 
 \item{ChartColor}{character hex}
 
 \item{GridColor}{character hex}
 
+\item{FillColor}{character hex}
+
 \item{TextColor}{character hex}
 
 \item{ZeroLineColor}{character hex}
 
 \item{ZeroLineWidth}{numeric}
-
-\item{Title}{character}
-
-\item{SampleSize}{numeric}
-
-\item{FillColor}{character hex}
 
 \item{Debug}{logical}
 

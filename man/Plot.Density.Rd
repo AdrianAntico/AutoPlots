@@ -10,9 +10,9 @@ Plot.Density(
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  data = NULL,
+  dt = NULL,
   MeasureVars = NULL,
-  GroupVariables = NULL,
+  GroupVar = NULL,
   TextSize = 12,
   AngleX = 90,
   AngleY = 0,
@@ -39,9 +39,9 @@ Plot.Density(
 
 \item{Y_Scroll}{logical}
 
-\item{data}{From App}
+\item{dt}{From App}
 
-\item{GroupVariables}{From App}
+\item{GroupVar}{From App}
 
 \item{TextSize}{From App}
 
@@ -88,7 +88,7 @@ p1 <- AutoPlots:::Plot.Density(
   TimeLine = FALSE,
   data = data,
   MeasureVars = NULL,
-  GroupVariables = 'Weekly_Sales',
+  GroupVar = 'Weekly_Sales',
   TextSize = 12,
   AngleX = 90,
   AngleY = 0,
@@ -110,7 +110,7 @@ p1 <- AutoPlots:::Plot.Density(
 # EchartsTheme = "macarons"
 # data = data
 # MeasureVars = 'Weekly_Sales'
-# GroupVariables = c('Store','Dept')
+# GroupVar = c('Store','Dept')
 # TextSize = 12
 # AngleX = 90
 # AngleY = 0

@@ -9,7 +9,7 @@ Plot.Box(
   SampleSize = 100000L,
   XVar = NULL,
   YVar = NULL,
-  GroupVars = NULL,
+  GroupVar = NULL,
   Title = "Box Plot",
   Engine = "Plotly",
   EchartsTheme = "macaron",
@@ -36,7 +36,7 @@ Plot.Box(
 
 \item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
 
-\item{GroupVars}{Group Variable}
+\item{GroupVar}{Group Variable}
 
 \item{Title}{'Box Plot'}
 
@@ -90,7 +90,7 @@ AutoPlots:::Plot.Box(
   dt = data,
   XVar = 'Predict',
   YVar = 'CHILLED_Margin_PerDay',
-  GroupVars = 'BRAND',
+  GroupVar = 'BRAND',
   Title = 'Box Plot',
   ZeroLineColor = '#ffff',
   ZeroLineWidth = 1.25,
@@ -110,7 +110,7 @@ AutoPlots:::Plot.Box(
 # data = data
 # XVar = 'Predict'
 # YVar = 'CHILLED_Margin_PerDay'
-# GroupVars = 'BRAND'
+# GroupVar = 'BRAND'
 # Title = 'Box Plot'
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25

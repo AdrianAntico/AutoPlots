@@ -5,42 +5,36 @@
 \title{Plot.Calibration.Box}
 \usage{
 Plot.Calibration.Box(
-  Engine = "Echarts",
-  EchartsTheme = "macaron",
-  TimeLine = FALSE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   dt = NULL,
+  SampleSize = 100000L,
+  AggMethod = "mean",
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
   NumberBins = 21,
   Title = "Calibration Plot",
-  SampleSize = 100000L,
+  Engine = "Echarts",
+  EchartsTheme = "macaron",
+  TimeLine = FALSE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
-  GridColor = "white",
-  TextColor = "white",
-  AggMethod = "mean",
-  ZeroLineColor = "#ffff",
   FillColor = "#0066ff",
   FillColorReverse = "#ff9900",
+  GridColor = "white",
+  TextColor = "white",
+  ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
   Debug = FALSE
 )
 }
 \arguments{
-\item{Engine}{character}
-
-\item{EchartsTheme}{character}
-
-\item{TimeLine}{logical}
-
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
-
 \item{dt}{data.table}
+
+\item{SampleSize}{numeric}
+
+\item{AggMethod}{character}
 
 \item{XVar}{character}
 
@@ -52,23 +46,29 @@ Plot.Calibration.Box(
 
 \item{Title}{character}
 
-\item{SampleSize}{numeric}
+\item{Engine}{character}
+
+\item{EchartsTheme}{character}
+
+\item{TimeLine}{logical}
+
+\item{X_Scroll}{logical}
+
+\item{Y_Scroll}{logical}
 
 \item{BackGroundColor}{character hex}
 
 \item{ChartColor}{character hex}
 
+\item{FillColor}{character hex}
+
+\item{FillColorReverse}{character hex}
+
 \item{GridColor}{character hex}
 
 \item{TextColor}{"Not Implemented"}
 
-\item{AggMethod}{character}
-
 \item{ZeroLineColor}{character hex}
-
-\item{FillColor}{character hex}
-
-\item{FillColorReverse}{character hex}
 
 \item{ZeroLineWidth}{numeric}
 
@@ -88,11 +88,7 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 # Build Plot
 AutoPlots::Plot.Calibration.Box(
   dt = data,
-  Engine = "Echarts", # "Plotly"
-  EchartsTheme = "macaron",
-  TimeLine = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
+  SampleSize = 100000,
   XVar = "Predict",
   YVar = "Adrian",
   AggMethod = 'mean',
@@ -102,7 +98,11 @@ AutoPlots::Plot.Calibration.Box(
   ZeroLineColor = '#ffff',
   ZeroLineWidth = 1.25,
   Title = 'Bar Plot',
-  SampleSize = 100000,
+  Engine = "Echarts", # "Plotly"
+  EchartsTheme = "macaron",
+  TimeLine = TRUE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   FillColor = "#0066ff",
   FillColorReverse = "#ff9900",
   BackGroundColor = "#6a6969",

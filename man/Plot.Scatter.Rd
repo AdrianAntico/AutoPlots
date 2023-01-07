@@ -5,95 +5,67 @@
 \title{Plot.Scatter}
 \usage{
 Plot.Scatter(
+  dt = NULL,
+  SampleSize = 30000L,
+  XVar = NULL,
+  YVar = NULL,
+  GroupVar = NULL,
+  Title = "Scatter Plot",
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  data = NULL,
-  XVar = NULL,
-  YVar = NULL,
-  GroupVar = NULL,
-  Title = "Scatter Plot",
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  SampleSize = 50000,
-  FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
+  FillColor = "#0066ff",
   GridColor = "#ffff",
+  TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  TextColor = "white",
-  SubTitleColor = "white",
-  BorderColor = "#ffff",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
-\item{Engine}{= "Plotly",}
+\item{dt}{Source data.table}
 
-\item{EchartsTheme}{= "macaron",}
+\item{SampleSize}{numeric}
 
-\item{TimeLine}{Logical}
+\item{XVar}{character}
+
+\item{YVar}{character}
+
+\item{GroupVar}{character}
+
+\item{Title}{character}
+
+\item{Engine}{character}
+
+\item{EchartsTheme}{character}
+
+\item{TimeLine}{logical}
 
 \item{X_Scroll}{logical}
 
 \item{Y_Scroll}{logical}
 
-\item{data}{Source data.table}
+\item{BackGroundColor}{character hexb}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{ChartColor}{character hex}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+\item{FillColor}{character hex}
 
-\item{GroupVar}{Requires an XVar and YVar already be defined}
+\item{GridColor}{character hex}
 
-\item{Title}{'Violin Plot'}
+\item{TextColor}{character hex}
 
-\item{FacetVar1}{Column name of facet variable 1. If NULL then ignored}
+\item{ZeroLineColor}{character hex}
 
-\item{FacetVar2}{Column name of facet variable 2. If NULL then ignored}
+\item{ZeroLineWidth}{numeric}
 
-\item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
+\item{Debug}{logical}
 
-\item{FillColor}{'gray'}
-
-\item{TextSize}{14}
-
-\item{AngleX}{90}
-
-\item{AngleY}{0}
-
-\item{BackGroundColor}{'gray95'}
-
-\item{ChartColor}{'lightsteelblue'}
-
-\item{GridColor}{'white'}
-
-\item{ZeroLineColor}{= '#ffff',}
-
-\item{ZeroLineWidth}{= 2,}
-
-\item{TextColor}{'darkblue'}
-
-\item{SubTitleColor}{'darkblue'}
-
-\item{BorderColor}{'darkblue'}
-
-\item{LegendPosition}{'bottom'}
-
-\item{LegendBorderSize}{0.50}
-
-\item{LegendLineType}{'solid'}
-
-\item{Debug}{FALSE}
+\item{BorderColor}{character hex}
 }
 \description{
 Build a copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -110,51 +82,42 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Scatter(
-  TimeLine = FALSE,
-  data = data,
+  dt = data,
+  SampleSize = 100000,
   XVar = 'CHILLED_Units_PerDay',
   YVar = 'CHILLED_Margin_PerDay',
   GroupVar = 'BRAND',
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  SampleSize = 100000,
+  Engine = "Echarts",
+  EchartsTheme = "macaron",
+  TimeLine = FALSE,
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
+  BackGroundColor = 'gray95',
   ChartColor = 'lightsteelblue1',
   BorderColor = 'darkblue',
   TextColor = 'darkblue',
   GridColor = 'white',
-  BackGroundColor = 'gray95',
-  SubTitleColor = 'blue',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # Step through function
-# data = data |> dplyr::group_by(Region)
-# Engine = "Echarts"
-# EchartsTheme = "macaron"
-# TimeLine = FALSE
+# dt = data |> dplyr::group_by(Region)
+# SampleSize = 100000
 # XVar = 'XREG1'
 # YVar = 'XREG2'
 # GroupVar = 'Store'
-# SampleSize = 100000
+# Engine = "Echarts"
+# EchartsTheme = "macaron"
+# TimeLine = FALSE
+# X_Scroll = TRUE
+# Y_Scroll = TRUE
+# Title = "Bla"
 # FillColor = "#0066ff"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
+# BackGroundColor = 'gray95'
 # ChartColor = 'lightsteelblue1'
 # BorderColor = 'darkblue'
 # TextColor = 'darkblue'
 # GridColor = 'white'
-# BackGroundColor = 'gray95'
-# SubTitleColor = 'blue'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 }
 

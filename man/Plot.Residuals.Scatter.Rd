@@ -6,8 +6,8 @@
 \usage{
 Plot.Residuals.Scatter(
   dt = NULL,
-  SampleSize = 1e+05,
   AggMethod = "mean",
+  SampleSize = 1e+05,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -30,9 +30,9 @@ Plot.Residuals.Scatter(
 \arguments{
 \item{dt}{data.table}
 
-\item{SampleSize}{numeric}
-
 \item{AggMethod}{character}
+
+\item{SampleSize}{numeric}
 
 \item{XVar}{character}
 
@@ -81,8 +81,8 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 # Build Plot
 AutoPlots::Plot.Residuals.Scatter(
   dt = data,
-  SampleSize = 100000,
   AggMethod = 'mean',
+  SampleSize = 100000,
   XVar = "Predict",
   YVar = "CHILLED_Margin_PerDay",
   GroupVar = "BRAND",
@@ -104,8 +104,8 @@ AutoPlots::Plot.Residuals.Scatter(
 # library(AutoPlots)
 # library(data.table)
 # dt = data
-# SampleSize = 100000
 # AggMethod = 'mean',
+# SampleSize = 100000
 # XVar = "Predict"
 # YVar = "CHILLED_Margin_PerDay",
 # GroupVar = "BRAND",

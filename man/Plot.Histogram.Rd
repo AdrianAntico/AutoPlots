@@ -5,18 +5,18 @@
 \title{Plot.Histogram}
 \usage{
 Plot.Histogram(
+  dt = NULL,
+  SampleSize = 30000L,
+  XVar = NULL,
+  YVar = NULL,
+  GroupVar = NULL,
+  NumberBins = 30,
+  Title = "Histogram",
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  data = NULL,
-  XVar = NULL,
-  YVar = NULL,
-  GroupVar = NULL,
-  Title = "Histogram",
-  SampleSize = 1e+05,
-  NumberBins = 30,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -28,6 +28,18 @@ Plot.Histogram(
 )
 }
 \arguments{
+\item{dt}{Source data.table}
+
+\item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
+
+\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+
+\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+
+\item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
+
+\item{NumberBins}{= 30}
+
 \item{Engine}{= PlotEngineType,}
 
 \item{EchartsTheme}{= EchartsTheme,}
@@ -37,18 +49,6 @@ Plot.Histogram(
 \item{X_Scroll}{logical}
 
 \item{Y_Scroll}{logical}
-
-\item{data}{Source data.table}
-
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
-
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
-
-\item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
-
-\item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
-
-\item{NumberBins}{= 30}
 
 \item{BackGroundColor}{'gray95'}
 
@@ -80,15 +80,13 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 p1 <- AutoPlots:::Plot.Histogram(
-  data = data,
+  dt = data,
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
   XVar = "Predict",
   YVar = "CHILLED_Margin_PerDay",
   GroupVar = "BRAND",
-  FacetVar1 = 'Store',
-  FacetVar2 = 'Dept',
   SampleSize = 100000,
   NumberBins = 20,
   FillColor = "#0066ff",

@@ -5,7 +5,7 @@
 \title{Plot.Violin}
 \usage{
 Plot.Violin(
-  data = NULL,
+  dt = NULL,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -22,7 +22,7 @@ Plot.Violin(
 )
 }
 \arguments{
-\item{data}{Source data.table}
+\item{dt}{Source data.table}
 
 \item{XVar}{Column name of X-Axis variable. If NULL then ignored}
 
@@ -66,7 +66,7 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Violin(
-  data = data,
+  dt = data,
   XVar = 'CHILLED_Margin_PerDay',
   YVar = 'CHILLED_Units_PerDay',
   GroupVar = 'BRAND',

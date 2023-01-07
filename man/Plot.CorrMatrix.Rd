@@ -9,7 +9,7 @@ Plot.CorrMatrix(
   EchartsTheme = "macaron",
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  data = NULL,
+  dt = NULL,
   CorrVars = NULL,
   Method = "spearman",
   PreAgg = FALSE,
@@ -31,7 +31,7 @@ Plot.CorrMatrix(
 
 \item{Y_Scroll}{logical}
 
-\item{data}{Source data.table}
+\item{dt}{Source data.table}
 
 \item{CorrVars}{Column names of variables you want included in the correlation matrix}
 

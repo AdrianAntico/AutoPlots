@@ -6,8 +6,8 @@
 \usage{
 Plot.Residuals.Histogram(
   dt = NULL,
-  SampleSize = 1e+05,
   AggMethod = "mean",
+  SampleSize = 1e+05,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -31,9 +31,9 @@ Plot.Residuals.Histogram(
 \arguments{
 \item{dt}{data.table}
 
-\item{SampleSize}{numeric}
-
 \item{AggMethod}{character}
+
+\item{SampleSize}{numeric}
 
 \item{XVar}{character}
 
@@ -82,68 +82,47 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 # Build Plot
 AutoPlots::Plot.Residuals.Histogram(
   dt = data,
+  AggMethod = 'mean',
+  SampleSize = 100000,
+  XVar = "Predict",
+  YVar = "CHILLED_Margin_PerDay",
+  GroupVar = "BRAND",
+  NumberBins = 20,
+  Title = 'Bar Plot',
   Engine = "Echarts", # "Plotly"
   EchartsTheme = "macaron",
   TimeLine = TRUE,
-  XVar = "Predict",
-  YVar = "CHILLED_Margin_PerDay",
-  AggMethod = 'mean',
-  GroupVar = "BRAND",
-  NumberBins = 20,
-  AggStat = "mean",
-  ZeroLineColor = '#ffff',
-  ZeroLineWidth = 1.25,
-  Title = 'Bar Plot',
-  SampleSize = 100000,
-  FillColor = "#0066ff",
   BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
   ChartColor = '#001534',
+  FillColor = "#0066ff",
   GridColor = 'white',
   TextColor = 'white',
+  ZeroLineColor = '#ffff',
+  ZeroLineWidth = 1.25,
   Debug = FALSE)
 
 # # Step Through Function
 # library(AutoPlots)
 # library(data.table)
 # dt = data
-# Engine = "Echarts" # "Plotly"
-# TimeLine = FALSE
-# EchartsTheme = "macaron"
+# AggMethod = 'mean',
+# SampleSize = 100000
 # XVar = "Predict"
 # YVar = "CHILLED_Margin_PerDay",
-# AggMethod = 'mean',
 # GroupVar = "BRAND",
 # NumberBins = 20
-# AggStat = "mean"
-# ZeroLineColor = '#ffff'
-# ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
-# SampleSize = 100000
-# FillColor = "#0066ff"
+# Engine = "Echarts" # "Plotly"
+# EchartsTheme = "macaron"
+# TimeLine = FALSE
 # BackGroundColor = "#6a6969"
 # ChartColor = '#001534'
+# FillColor = "#0066ff"
 # GridColor = 'white'
 # TextColor = 'white'
+# ZeroLineColor = '#ffff'
+# ZeroLineWidth = 1.25
 # Debug = FALSE
-
-# dt = dt1
-# NumberBins = NumberBins
-# Engine = Engine
-# EchartsTheme = EchartsTheme
-# TimeLine = tl
-# YVar = "Target - Predicted"
-# XVar = XVar
-# GroupVar = GroupVar
-# ZeroLineColor = ZeroLineColor
-# ZeroLineWidth = ZeroLineWidth
-# Title = Title
-# SampleSize = SampleSize
-# FillColor = FillColor
-# BackGroundColor = BackGroundColor
-# ChartColor = ChartColor
-# GridColor = GridColor
-# TextColor = GridColor
-# Debug = Debug
 }
 }
 \seealso{
