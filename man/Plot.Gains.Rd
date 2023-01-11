@@ -12,10 +12,6 @@ Plot.Gains(
   ZVar = "N",
   GroupVar = NULL,
   NumberBins = 20,
-  PercentileBuckets_Y = 0.1,
-  PercentileBuckets_X = 0.1,
-  NLevels_Y = 50,
-  NLevels_X = 50,
   Title = "Gains Plot",
   Engine = "Plotly",
   EchartsTheme = "macaron",
@@ -46,14 +42,6 @@ Plot.Gains(
 \item{GroupVar}{character}
 
 \item{NumberBins}{numeric}
-
-\item{PercentileBuckets_Y}{numeric}
-
-\item{PercentileBuckets_X}{numeric}
-
-\item{NLevels_Y}{numeric}
-
-\item{NLevels_X}{numeric}
 
 \item{Title}{character}
 
@@ -88,6 +76,7 @@ Create a cumulative gains chart
 }
 \seealso{
 Other Model Evaluation: 
+\code{\link{Plot.BinaryMetrics}()},
 \code{\link{Plot.Calibration.Box}()},
 \code{\link{Plot.Calibration.Line}()},
 \code{\link{Plot.ConfusionMatrix}()},
@@ -97,7 +86,8 @@ Other Model Evaluation:
 \code{\link{Plot.ROC}()},
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{VI_Plot}()}
+\code{\link{Plot.ShapImportance}()},
+\code{\link{Plot.VariableImportance}()}
 }
 \author{
 Adrian Antico

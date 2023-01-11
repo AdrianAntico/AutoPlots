@@ -5,15 +5,15 @@
 \title{Plot.CorrMatrix}
 \usage{
 Plot.CorrMatrix(
-  Engine = "Plotly",
-  EchartsTheme = "macaron",
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   dt = NULL,
   CorrVars = NULL,
   Method = "spearman",
   PreAgg = FALSE,
   Title = "Correlation Matrix",
+  Engine = "Plotly",
+  EchartsTheme = "macaron",
+  X_Scroll = TRUE,
+  Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -23,7 +23,17 @@ Plot.CorrMatrix(
 )
 }
 \arguments{
-\item{Engine}{= "Plotly"}
+\item{dt}{Source data.table}
+
+\item{CorrVars}{character}
+
+\item{Method}{character}
+
+\item{PreAgg}{logical}
+
+\item{Title}{character}
+
+\item{Engine}{character}
 
 \item{EchartsTheme}{= "macaron"}
 
@@ -31,50 +41,23 @@ Plot.CorrMatrix(
 
 \item{Y_Scroll}{logical}
 
-\item{dt}{Source data.table}
+\item{BackGroundColor}{character hex}
 
-\item{CorrVars}{Column names of variables you want included in the correlation matrix}
+\item{ChartColor}{character hex}
 
-\item{Method}{'spearman' default, 'pearson' otherwise}
+\item{FillColor}{character hex}
 
-\item{PreAgg}{logical}
+\item{GridColor}{character hex}
 
-\item{Title}{"Correlation Matrix"}
+\item{TextColor}{character hex}
 
-\item{BackGroundColor}{= "#6a6969"}
-
-\item{ChartColor}{= '#001534'}
-
-\item{FillColor}{= "#0066ff"}
-
-\item{GridColor}{= 'white'}
-
-\item{TextColor}{= 'white'}
-
-\item{Debug}{= FALSE}
+\item{Debug}{logical}
 }
 \description{
 Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
-\examples{
-\dontrun{
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-CorrVars <- c('Rolling_365_Liters','Rolling_365_Units','Rolling_365_Margin')
-p <- cor(data[, .SD, .SDcols = c(CorrVars)])
-p1 <- heatmaply::heatmaply_cor(
-  p,
-  colors = c('red', 'white', 'blue'),
-  xlab = "Features",
-  ylab = "Features",
-  k_col = 2,
-  k_row = 2)
-}
-
-}
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
+Other Standard Plots: 
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},
 \code{\link{Plot.Copula3D}()},
@@ -82,15 +65,14 @@ Other Graphics:
 \code{\link{Plot.Density}()},
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
+\code{\link{Plot.Line}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
 \code{\link{Plot.Stock}()},
 \code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
 \code{\link{StockData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Standard Plots}

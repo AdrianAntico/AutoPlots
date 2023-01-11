@@ -11,7 +11,6 @@ Plot.PartialDependence.Line(
   ZVar = NULL,
   GroupVar = NULL,
   NumberBins = 20,
-  PreAgg = FALSE,
   AggMethod = "mean",
   Title = "Gains Plot",
   Engine = "Plotly",
@@ -42,8 +41,6 @@ Plot.PartialDependence.Line(
 \item{GroupVar}{character}
 
 \item{NumberBins}{numeric}
-
-\item{PreAgg}{logical}
 
 \item{AggMethod}{character}
 
@@ -103,7 +100,6 @@ data <- AutoPlots::DM.pgQuery(
 # # Step Through Function
 # library(AutoPlots)
 # library(data.table)
-# PreAgg = FALSE
 # dt = data
 # SampleSize = 100000L
 # PlotEngineType = Engine =  "Echarts" # "Plotly"
@@ -133,6 +129,7 @@ data <- AutoPlots::DM.pgQuery(
 }
 \seealso{
 Other Model Evaluation: 
+\code{\link{Plot.BinaryMetrics}()},
 \code{\link{Plot.Calibration.Box}()},
 \code{\link{Plot.Calibration.Line}()},
 \code{\link{Plot.ConfusionMatrix}()},
@@ -142,7 +139,8 @@ Other Model Evaluation:
 \code{\link{Plot.ROC}()},
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{VI_Plot}()}
+\code{\link{Plot.ShapImportance}()},
+\code{\link{Plot.VariableImportance}()}
 }
 \author{
 Adrian Antico

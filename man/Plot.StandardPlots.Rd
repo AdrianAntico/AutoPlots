@@ -71,25 +71,10 @@ Plot.StandardPlots(
 Helper for standard plots
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
-\code{\link{Plot.Bar}()},
-\code{\link{Plot.Box}()},
-\code{\link{Plot.Copula3D}()},
-\code{\link{Plot.Copula}()},
-\code{\link{Plot.CorrMatrix}()},
-\code{\link{Plot.Density}()},
-\code{\link{Plot.HeatMap}()},
-\code{\link{Plot.Histogram}()},
-\code{\link{Plot.Scatter3D}()},
-\code{\link{Plot.Scatter}()},
-\code{\link{Plot.Stock}()},
-\code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
-\code{\link{StockData}()}
+Other Auto Plotting: 
+\code{\link{Plots.ModelEvaluation}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Auto Plotting}

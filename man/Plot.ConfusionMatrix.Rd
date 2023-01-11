@@ -10,10 +10,9 @@ Plot.ConfusionMatrix(
   XVar = NULL,
   YVar = NULL,
   ZVar = "N",
-  PercentileBuckets_Y = 0.1,
-  PercentileBuckets_X = 0.1,
-  NLevels_Y = 50,
-  NLevels_X = 50,
+  NumberBins = 21,
+  NumLevels_X = 50,
+  NumLevels_Y = 50,
   Title = "Confusion Matrix",
   Engine = "Plotly",
   EchartsTheme = "macaron",
@@ -43,13 +42,11 @@ Plot.ConfusionMatrix(
 
 \item{ZVar}{= "N"}
 
-\item{PercentileBuckets_Y}{= 0.10,}
+\item{NumberBins}{= 21,}
 
-\item{PercentileBuckets_X}{= 0.10,}
+\item{NumLevels_X}{= NumLevels_Y,}
 
-\item{NLevels_Y}{= NumLevels_Y,}
-
-\item{NLevels_X}{= NumLevels_X,}
+\item{NumLevels_Y}{= NumLevels_X,}
 
 \item{Title}{title}
 
@@ -127,10 +124,9 @@ Debug = FALSE
 # XVar = "Importance",
 # YVar = "Variable",
 # ZVar = "N"
-# PercentileBuckets_Y = 0.10,
-# PercentileBuckets_X = 0.10,
-# NLevels_Y = NumLevels_Y,
-# NLevels_X = NumLevels_X,
+# NumberBins = 21,
+# NumLevels_X = NumLevels_Y,
+# NumLevels_Y = NumLevels_X,
 # GroupVar = NULL,
 # AggMethod = 'mean',
 # Title = 'Variable Importance Plot',
@@ -147,6 +143,7 @@ Debug = FALSE
 }
 \seealso{
 Other Model Evaluation: 
+\code{\link{Plot.BinaryMetrics}()},
 \code{\link{Plot.Calibration.Box}()},
 \code{\link{Plot.Calibration.Line}()},
 \code{\link{Plot.Gains}()},
@@ -156,7 +153,8 @@ Other Model Evaluation:
 \code{\link{Plot.ROC}()},
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{VI_Plot}()}
+\code{\link{Plot.ShapImportance}()},
+\code{\link{Plot.VariableImportance}()}
 }
 \author{
 Adrian Antico

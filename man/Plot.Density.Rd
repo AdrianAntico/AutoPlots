@@ -5,49 +5,44 @@
 \title{Plot.Density}
 \usage{
 Plot.Density(
+  dt = NULL,
+  YVar = NULL,
+  XVar = NULL,
+  GroupVar = NULL,
+  Title = "Density Plot",
   Engine = "Plotly",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  dt = NULL,
-  MeasureVars = NULL,
-  GroupVar = NULL,
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   BackGroundColor = "#17108db8",
   ChartColor = "#001534",
   GridColor = "white",
   TextColor = "white",
   SubTitleColor = "white",
-  BorderColor = "white",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
-\item{Engine}{= "Plotly",}
+\item{dt}{From App}
 
-\item{EchartsTheme}{= "macarons",}
+\item{YVar}{From App}
+
+\item{XVar}{character}
+
+\item{GroupVar}{character}
+
+\item{Title}{= "Density Plot"}
+
+\item{Engine}{character}
+
+\item{EchartsTheme}{character}
 
 \item{TimeLine}{logical}
 
 \item{X_Scroll}{logical}
 
 \item{Y_Scroll}{logical}
-
-\item{dt}{From App}
-
-\item{GroupVar}{From App}
-
-\item{TextSize}{From App}
-
-\item{AngleX}{From App}
-
-\item{AngleY}{From App}
 
 \item{BackGroundColor}{From App}
 
@@ -59,6 +54,8 @@ Plot.Density(
 
 \item{SubTitleColor}{From App}
 
+\item{Debug}{From App}
+
 \item{BorderColor}{From App}
 
 \item{LegendPosition}{From App}
@@ -66,10 +63,6 @@ Plot.Density(
 \item{LegendBorderSize}{From App}
 
 \item{LegendLineType}{From App}
-
-\item{Debug}{From App}
-
-\item{MeasureVariables}{From App}
 }
 \description{
 Density plots, by groups, with transparent continuous plots
@@ -87,7 +80,7 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 p1 <- AutoPlots:::Plot.Density(
   TimeLine = FALSE,
   data = data,
-  MeasureVars = NULL,
+  YVar = NULL,
   GroupVar = 'Weekly_Sales',
   TextSize = 12,
   AngleX = 90,
@@ -109,7 +102,7 @@ p1 <- AutoPlots:::Plot.Density(
 # Engine = "Plotly"
 # EchartsTheme = "macarons"
 # data = data
-# MeasureVars = 'Weekly_Sales'
+# YVar = 'Weekly_Sales'
 # GroupVar = c('Store','Dept')
 # TextSize = 12
 # AngleX = 90
@@ -129,9 +122,7 @@ p1 <- AutoPlots:::Plot.Density(
 
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
+Other Standard Plots: 
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},
 \code{\link{Plot.Copula3D}()},
@@ -139,12 +130,11 @@ Other Graphics:
 \code{\link{Plot.CorrMatrix}()},
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
+\code{\link{Plot.Line}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
 \code{\link{Plot.Stock}()},
 \code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
 \code{\link{StockData}()}
 }
-\concept{Graphics}
+\concept{Standard Plots}

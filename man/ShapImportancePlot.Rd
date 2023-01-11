@@ -7,8 +7,6 @@
 ShapImportancePlot(
   data,
   ShapColNames = NULL,
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   AggMethod = "mean",
   TopN = 25,
   Debug = FALSE
@@ -18,10 +16,6 @@ ShapImportancePlot(
 \item{data}{Source data.table}
 
 \item{ShapColNames}{Names of the columns that contain shap values you want included}
-
-\item{FacetVar1}{Column name}
-
-\item{FacetVar2}{Column name}
 
 \item{AggMethod}{A string for aggregating shapely values for importances. Choices include, 'mean', 'absmean', 'meanabs', 'sd', 'median', 'absmedian', 'medianabs'}
 

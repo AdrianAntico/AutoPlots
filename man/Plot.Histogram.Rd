@@ -104,8 +104,6 @@ p1 <- AutoPlots:::Plot.Histogram(
 # AggMethod = 'mean'
 # ZeroLineWidth = 1.25
 # Title = 'Histogram'
-# FacetVar1 = NULL
-# FacetVar2 = NULL
 # NumberBins = 20
 # SampleSize = 100000
 # FillColor = "#0066ff"
@@ -117,9 +115,7 @@ p1 <- AutoPlots:::Plot.Histogram(
 
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
+Other Standard Plots: 
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},
 \code{\link{Plot.Copula3D}()},
@@ -127,15 +123,14 @@ Other Graphics:
 \code{\link{Plot.CorrMatrix}()},
 \code{\link{Plot.Density}()},
 \code{\link{Plot.HeatMap}()},
+\code{\link{Plot.Line}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
 \code{\link{Plot.Stock}()},
 \code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
 \code{\link{StockData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Standard Plots}

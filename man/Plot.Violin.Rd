@@ -67,45 +67,33 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 # Run function
 AutoPlots:::Plot.Violin(
   dt = data,
+  SampleSize = 100000,
   XVar = 'CHILLED_Margin_PerDay',
   YVar = 'CHILLED_Units_PerDay',
   GroupVar = 'BRAND',
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  SampleSize = 100000,
-  FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
+  BackGroundColor = 'gray95',
   ChartColor = 'lightsteelblue1',
-  BorderColor = 'darkblue',
+  FillColor = "#0066ff",
   TextColor = 'darkblue',
   GridColor = 'white',
-  BackGroundColor = 'gray95',
   Debug = FALSE)
 
 # Step through function
+# SampleSize = 100000
 # XVar = 'Region'
 # YVar = 'Weekly_Sales'
 # GroupVar = 'Store'
-# SampleSize = 100000
-# FillColor = "#0066ff"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
-# ChartColor = 'lightsteelblue1'
-# BorderColor = 'darkblue'
-# TextColor = 'darkblue'
-# GridColor = 'white'
 # BackGroundColor = 'gray95'
+# ChartColor = 'lightsteelblue1'
+# FillColor = "#0066ff"
+# GridColor = 'white'
+# TextColor = 'darkblue'
 # Debug = FALSE
 }
 
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
+Other Standard Plots: 
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},
 \code{\link{Plot.Copula3D}()},
@@ -114,14 +102,13 @@ Other Graphics:
 \code{\link{Plot.Density}()},
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
+\code{\link{Plot.Line}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
 \code{\link{Plot.Stock}()},
-\code{\link{Plots.ModelEvaluation}()},
 \code{\link{StockData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Standard Plots}

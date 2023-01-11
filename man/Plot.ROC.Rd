@@ -135,6 +135,7 @@ AutoPlots::Plot.ROC(
 }
 \seealso{
 Other Model Evaluation: 
+\code{\link{Plot.BinaryMetrics}()},
 \code{\link{Plot.Calibration.Box}()},
 \code{\link{Plot.Calibration.Line}()},
 \code{\link{Plot.ConfusionMatrix}()},
@@ -144,7 +145,8 @@ Other Model Evaluation:
 \code{\link{Plot.PartialDependence.Line}()},
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.Residuals.Scatter}()},
-\code{\link{VI_Plot}()}
+\code{\link{Plot.ShapImportance}()},
+\code{\link{Plot.VariableImportance}()}
 }
 \author{
 Adrian Antico

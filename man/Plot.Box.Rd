@@ -30,19 +30,19 @@ Plot.Box(
 \arguments{
 \item{dt}{Source data.table}
 
-\item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
+\item{SampleSize}{numeric}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{XVar}{character}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+\item{YVar}{character}
 
-\item{GroupVar}{Group Variable}
+\item{GroupVar}{character}
 
-\item{Title}{'Box Plot'}
+\item{Title}{character}
 
-\item{Engine}{= "Plotly"}
+\item{Engine}{character}
 
-\item{EchartsTheme}{= "macaron"}
+\item{EchartsTheme}{character}
 
 \item{TimeLine}{Logical}
 
@@ -50,25 +50,23 @@ Plot.Box(
 
 \item{Y_Scroll}{logical}
 
-\item{FillColor}{'gray'}
+\item{FillColor}{character hex}
 
-\item{FillColorReverse}{= "#ff9900}
+\item{FillColorReverse}{character hex}
 
-\item{BackGroundColor}{'#17108db8'}
+\item{BackGroundColor}{character hex}
 
-\item{ChartColor}{'#001534'}
+\item{ChartColor}{character hex}
 
-\item{GridColor}{'white'}
+\item{GridColor}{character hex}
 
-\item{ZeroLineColor}{'#ffff'}
+\item{ZeroLineColor}{character hex}
 
-\item{ZeroLineWidth}{1.25}
+\item{ZeroLineWidth}{numeric}
 
-\item{TextColor}{'darkblue'}
+\item{TextColor}{character hex}
 
-\item{Debug}{FALSE}
-
-\item{BorderColor}{'darkblue'}
+\item{Debug}{logical}
 }
 \description{
 Build a box plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -125,9 +123,7 @@ AutoPlots:::Plot.Box(
 }
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
+Other Standard Plots: 
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Copula3D}()},
 \code{\link{Plot.Copula}()},
@@ -135,15 +131,14 @@ Other Graphics:
 \code{\link{Plot.Density}()},
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
+\code{\link{Plot.Line}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
 \code{\link{Plot.Stock}()},
 \code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
 \code{\link{StockData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Standard Plots}

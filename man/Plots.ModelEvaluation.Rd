@@ -6,6 +6,7 @@
 \usage{
 Plots.ModelEvaluation(
   dt = NULL,
+  AggMethod = "mean",
   SampleSize = 100000L,
   PlotType = NULL,
   YVar = NULL,
@@ -13,6 +14,8 @@ Plots.ModelEvaluation(
   ZVar = NULL,
   XVar = NULL,
   GroupVar = NULL,
+  NumLevels_Y = 75,
+  NumLevels_X = 40,
   Title = NULL,
   PlotEngineType = "Echarts",
   EchartsTheme = "dark-blue",
@@ -31,6 +34,8 @@ Plots.ModelEvaluation(
 \arguments{
 \item{dt}{data.table}
 
+\item{AggMethod}{character}
+
 \item{SampleSize}{100000L}
 
 \item{PlotType}{character}
@@ -44,6 +49,10 @@ Plots.ModelEvaluation(
 \item{XVar}{character}
 
 \item{GroupVar}{character}
+
+\item{NumLevels_Y}{= 75}
+
+\item{NumLevels_X}{= 40}
 
 \item{PlotEngineType}{character}
 
@@ -75,49 +84,31 @@ Plot helper for model evaluation plot types
 \examples{
 \dontrun{
 dt = NULL,
-PlotEngineType = "Plotly",
-EchartsTheme = "dark-blue",
-TimeLine = FALSE,
 SampleSize = 100000L,
 PlotType = NULL,
 YVar = NULL,
 TargetLevel = NULL,
 ZVar = NULL,
 XVar = NULL,
+Title = NULL,
+PlotEngineType = "Plotly",
+EchartsTheme = "dark-blue",
+TimeLine = FALSE,
 BackGroundColor = "#6a6969",
 ChartColor = '#001534',
 GridColor = 'white',
 FillColor = "#0066ff",
 TextColor = 'white',
-FacetVar1 = NULL,
-FacetVar2 = NULL,
-GamFit = FALSE,
 NumberBins = 20,
-ShapAgg = 'mean',
 Debug = FALSE
 }
 
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
-\code{\link{Plot.Bar}()},
-\code{\link{Plot.Box}()},
-\code{\link{Plot.Copula3D}()},
-\code{\link{Plot.Copula}()},
-\code{\link{Plot.CorrMatrix}()},
-\code{\link{Plot.Density}()},
-\code{\link{Plot.HeatMap}()},
-\code{\link{Plot.Histogram}()},
-\code{\link{Plot.Scatter3D}()},
-\code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
-\code{\link{Plot.Stock}()},
-\code{\link{Plot.Violin}()},
-\code{\link{StockData}()}
+Other Auto Plotting: 
+\code{\link{Plot.StandardPlots}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Auto Plotting}

@@ -67,25 +67,10 @@ p <- p + ChartTheme(Size = 12)
 }
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{Plot.Bar}()},
-\code{\link{Plot.Box}()},
-\code{\link{Plot.Copula3D}()},
-\code{\link{Plot.Copula}()},
-\code{\link{Plot.CorrMatrix}()},
-\code{\link{Plot.Density}()},
-\code{\link{Plot.HeatMap}()},
-\code{\link{Plot.Histogram}()},
-\code{\link{Plot.Scatter3D}()},
-\code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
-\code{\link{Plot.Stock}()},
-\code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
-\code{\link{StockData}()}
+Other helper: 
+\code{\link{PreparePlotData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{helper}

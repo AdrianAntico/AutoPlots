@@ -11,10 +11,9 @@ Plot.HeatMap(
   XVar = NULL,
   YVar = NULL,
   ZVar = NULL,
-  PercentileBuckets_X = 0.1,
-  PercentileBuckets_Y = 0.1,
-  NLevels_X = 33,
-  NLevels_Y = 33,
+  NumberBins = 21,
+  NumLevels_Y = 33,
+  NumLevels_X = 33,
   Title = "Heatmap",
   Engine = "Plotly",
   EchartsTheme = "dark",
@@ -29,21 +28,19 @@ Plot.HeatMap(
 \arguments{
 \item{dt}{Source data.table}
 
-\item{AggMethod}{'mean', 'median', 'sum', 'sd', 'count'}
+\item{AggMethod}{'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'}
 
-\item{XVar}{X-Axis variable}
+\item{XVar}{= NULL,}
 
-\item{YVar}{Y-Axis variable}
+\item{YVar}{= NULL,}
 
-\item{ZVar}{Z-Axis variable}
+\item{ZVar}{= NULL,}
 
-\item{PercentileBuckets_X}{= 0.10}
+\item{NumberBins}{= 21}
 
-\item{PercentileBuckets_Y}{= 0.10}
+\item{NumLevels_Y}{= 20}
 
-\item{NLevels_X}{= 20}
-
-\item{NLevels_Y}{= 20}
+\item{NumLevels_X}{= 20}
 
 \item{Title}{"Heatmap"}
 
@@ -94,10 +91,9 @@ AutoPlots:::Plot.HeatMap(
   YVar = 'BRAND',
   ZVar = 'CHILLED_Margin_PerDay',
   AggMethod = 'mean',
-  PercentileBuckets_X = 0.10,
-  PercentileBuckets_Y = 0.10,
-  NLevels_X = 33,
-  NLevels_Y = 33)
+  NumberBins = 21,
+  NumLevels_Y = 33,
+  NumLevels_X = 33)
 
 # QA
 data
@@ -107,10 +103,9 @@ XVar = 'ARTICLE'
 YVar = 'BRAND'
 ZVar = 'CHILLED_Margin_PerDay'
 AggMethod = 'mean'
-PercentileBuckets_X = 0.10
-PercentileBuckets_Y = 0.10
-NLevels_X = 33
-NLevels_Y = 33
+NumberBins = 21
+NumLevels_Y = 33
+NumLevels_X = 33
 gridcolor = GridColor
 plot_bgcolor = ChartColor
 paper_bgcolor = BackGroundColor
@@ -119,9 +114,7 @@ paper_bgcolor = BackGroundColor
 
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
+Other Standard Plots: 
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},
 \code{\link{Plot.Copula3D}()},
@@ -129,15 +122,14 @@ Other Graphics:
 \code{\link{Plot.CorrMatrix}()},
 \code{\link{Plot.Density}()},
 \code{\link{Plot.Histogram}()},
+\code{\link{Plot.Line}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
 \code{\link{Plot.Stock}()},
 \code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
 \code{\link{StockData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Standard Plots}

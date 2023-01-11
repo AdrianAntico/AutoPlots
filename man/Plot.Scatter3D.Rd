@@ -5,44 +5,30 @@
 \title{Plot.Scatter3D}
 \usage{
 Plot.Scatter3D(
-  Engine = "Plotly",
-  EchartsTheme = "macaron",
-  TimeLine = FALSE,
   dt = NULL,
+  SampleSize = 1e+05,
   XVar = NULL,
   YVar = NULL,
   ZVar = NULL,
   GroupVar = NULL,
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   Title = "3D Scatter",
-  SampleSize = 1e+05,
+  Engine = "Plotly",
+  EchartsTheme = "macaron",
+  TimeLine = FALSE,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   BackGroundColor = "#bbbec7",
   ChartColor = "#001534",
   GridColor = "#ffff",
+  TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  TextColor = "white",
-  SubTitleColor = "white",
-  BorderColor = "#ffff",
-  LegendPosition = "bottom",
-  LegendBorderSize = 0.5,
-  LegendLineType = "solid",
   Debug = FALSE
 )
 }
 \arguments{
-\item{Engine}{= "Plotly"}
-
-\item{EchartsTheme}{= "macaron"}
-
-\item{TimeLine}{Logical}
-
 \item{dt}{Source data.table}
+
+\item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
 \item{XVar}{Column name of X-Axis variable. If NULL then ignored}
 
@@ -52,21 +38,15 @@ Plot.Scatter3D(
 
 \item{GroupVar}{Requires an XVar and YVar already be defined}
 
-\item{FacetVar1}{Column name of facet variable 1. If NULL then ignored}
-
-\item{FacetVar2}{Column name of facet variable 2. If NULL then ignored}
-
 \item{Title}{'Violin Plot'}
 
-\item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
+\item{Engine}{= "Plotly"}
+
+\item{EchartsTheme}{= "macaron"}
+
+\item{TimeLine}{Logical}
 
 \item{FillColor}{'gray'}
-
-\item{TextSize}{14}
-
-\item{AngleX}{90}
-
-\item{AngleY}{0}
 
 \item{BackGroundColor}{'gray95'}
 
@@ -74,21 +54,11 @@ Plot.Scatter3D(
 
 \item{GridColor}{'white'}
 
+\item{TextColor}{'darkblue'}
+
 \item{ZeroLineColor}{= '#ffff',}
 
 \item{ZeroLineWidth}{= 2,}
-
-\item{TextColor}{'darkblue'}
-
-\item{SubTitleColor}{'darkblue'}
-
-\item{BorderColor}{'darkblue'}
-
-\item{LegendPosition}{'bottom'}
-
-\item{LegendBorderSize}{0.50}
-
-\item{LegendLineType}{'solid'}
 
 \item{Debug}{FALSE}
 }
@@ -106,68 +76,46 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 
 # Run function
 AutoPlots:::Plot.Scatter3D(
-  Engine = "Plotly",
-  EchartsTheme = "macaron",
-  TimeLine = FALSE,
   dt = data,
+  SampleSize = 100000,
   XVar = 'ARTICLE',
   YVar = 'BRAND',
   ZVar = 'CHILLED_Units_PerDay',
   GroupVar = 'Store',
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
-  SampleSize = 100000,
+  Title = "Something",
+  Engine = "Plotly",
+  EchartsTheme = "macaron",
+  TimeLine = FALSE,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   ChartColor = 'lightsteelblue1',
-  BorderColor = 'darkblue',
   TextColor = 'darkblue',
   GridColor = 'white',
   BackGroundColor = 'gray95',
-  SubTitleColor = 'blue',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # Step through function
-# Engine = "Plotly"
-# EchartsTheme = "macaron"
-# TimeLine = FALSE
 # dt = data
+# SampleSize = 100000
 # XVar = "Predict",
 # YVar = "CHILLED_Margin_PerDay",
 # GroupVar = "BRAND",
-# GroupVar = "Factor_1"
-# FacetVar1 = NULL
-# FacetVar2 = NULL
 # Title = 'Copula 3D'
-# SampleSize = 100000
+# Engine = "Plotly"
+# EchartsTheme = "macaron"
+# TimeLine = FALSE
 # FillColor = "#0066ff"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
 # BackGroundColor = "#bbbec7"
 # ChartColor = '#001534'
 # GridColor = '#ffff'
+# TextColor = '#FFFFFF'
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25
-# TextColor = '#FFFFFF'
-# SubTitleColor = '#FFFFFF'
-# BorderColor = '#ffff'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 }
 
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
+Other Standard Plots: 
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},
 \code{\link{Plot.Copula3D}()},
@@ -176,14 +124,13 @@ Other Graphics:
 \code{\link{Plot.Density}()},
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
+\code{\link{Plot.Line}()},
 \code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
 \code{\link{Plot.Stock}()},
 \code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
 \code{\link{StockData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Standard Plots}

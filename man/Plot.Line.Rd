@@ -6,6 +6,7 @@
 \usage{
 Plot.Line(
   dt = NULL,
+  AggMethod = "mean",
   PreAgg = TRUE,
   Engine = "Echarts",
   XVar = NULL,
@@ -30,6 +31,8 @@ Plot.Line(
 }
 \arguments{
 \item{dt}{data.table}
+
+\item{AggMethod}{character}
 
 \item{PreAgg}{logical}
 
@@ -86,6 +89,7 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 # Build Plot
 AutoPlots::Plot.Line(
   dt = data,
+  PreAgg = TRUE,
   Engine = "Echarts", # "Plotly"
   EchartsTheme = "macaron",
   TimeLine = TRUE,
@@ -95,22 +99,11 @@ AutoPlots::Plot.Line(
   ZeroLineColor = '#ffff',
   ZeroLineWidth = 1.25,
   Title = 'Bar Plot',
-  FacetVar1 = NULL,
-  FacetVar2 = NULL,
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
   ChartColor = '#001534',
   GridColor = 'white',
   TextColor = 'white',
-  SubTitleColor = 'white',
-  BorderColor = 'white',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
-  PreAgg = TRUE,
   Debug = FALSE)
 
 # # Step Through Function
@@ -138,6 +131,22 @@ AutoPlots::Plot.Line(
 # PreAgg = TRUE
 # Debug = FALSE
 }
+}
+\seealso{
+Other Standard Plots: 
+\code{\link{Plot.Bar}()},
+\code{\link{Plot.Box}()},
+\code{\link{Plot.Copula3D}()},
+\code{\link{Plot.Copula}()},
+\code{\link{Plot.CorrMatrix}()},
+\code{\link{Plot.Density}()},
+\code{\link{Plot.HeatMap}()},
+\code{\link{Plot.Histogram}()},
+\code{\link{Plot.Scatter3D}()},
+\code{\link{Plot.Scatter}()},
+\code{\link{Plot.Stock}()},
+\code{\link{Plot.Violin}()},
+\code{\link{StockData}()}
 }
 \author{
 Adrian Antico

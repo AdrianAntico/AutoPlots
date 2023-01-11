@@ -90,21 +90,11 @@ AutoPlots:::Plot.Bar(
   YVar = "CHILLED_Margin_PerDay",
   GroupVar = "BRAND",
   AggMethod = 'mean',
-  FacetVar1 = 'Store',
-  FacetVar2 = 'Dept',
   FillColor = "#0066ff",
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   ChartColor = 'lightsteelblue1',
-  BorderColor = 'darkblue',
   TextColor = 'darkblue',
   GridColor = 'white',
   BackGroundColor = 'gray95',
-  SubTitleColor = 'blue',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # # Step through function
@@ -119,8 +109,6 @@ AutoPlots:::Plot.Bar(
 # ZeroLineColor = '#ffff'
 # ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
-# FacetVar1 = NULL
-# FacetVar2 = NULL
 # FillColor = "#0066ff"
 # TextSize = 12
 # AngleX = 90
@@ -139,9 +127,7 @@ AutoPlots:::Plot.Bar(
 
 }
 \seealso{
-Other Graphics: 
-\code{\link{AddFacet}()},
-\code{\link{ChartTheme}()},
+Other Standard Plots: 
 \code{\link{Plot.Box}()},
 \code{\link{Plot.Copula3D}()},
 \code{\link{Plot.Copula}()},
@@ -149,15 +135,14 @@ Other Graphics:
 \code{\link{Plot.Density}()},
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
+\code{\link{Plot.Line}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
-\code{\link{Plot.StandardPlots}()},
 \code{\link{Plot.Stock}()},
 \code{\link{Plot.Violin}()},
-\code{\link{Plots.ModelEvaluation}()},
 \code{\link{StockData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Graphics}
+\concept{Standard Plots}
