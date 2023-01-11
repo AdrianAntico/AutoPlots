@@ -15,10 +15,11 @@ Plot.Scatter3D(
   Engine = "Plotly",
   EchartsTheme = "macaron",
   TimeLine = FALSE,
-  FillColor = "#0066ff",
-  BackGroundColor = "#bbbec7",
+  BackGroundColor = "#6a6969",
   ChartColor = "#001534",
-  GridColor = "#ffff",
+  FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
+  GridColor = "white",
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
@@ -46,11 +47,13 @@ Plot.Scatter3D(
 
 \item{TimeLine}{Logical}
 
-\item{FillColor}{'gray'}
-
 \item{BackGroundColor}{'gray95'}
 
 \item{ChartColor}{'lightsteelblue'}
+
+\item{FillColor}{'gray'}
+
+\item{FillColorReverse}{character}
 
 \item{GridColor}{'white'}
 

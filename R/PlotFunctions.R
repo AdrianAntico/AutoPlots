@@ -1679,7 +1679,6 @@ Plot.Box <- function(dt = NULL,
                      TextColor =        "white",
                      ZeroLineColor = '#ffff',
                      ZeroLineWidth = 1.25,
-                     TextColor = 'white',
                      Debug = FALSE) {
 
   # Ensure data.table

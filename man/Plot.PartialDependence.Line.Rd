@@ -22,6 +22,7 @@ Plot.PartialDependence.Line(
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
   ZeroLineColor = "#ffff",
@@ -64,6 +65,8 @@ Plot.PartialDependence.Line(
 
 \item{FillColor}{hex character}
 
+\item{FillColorReverse}{hex character}
+
 \item{GridColor}{hex character}
 
 \item{TextColor}{hex character}
@@ -73,8 +76,6 @@ Plot.PartialDependence.Line(
 \item{ZeroLineWidth}{numeric}
 
 \item{Debug}{logical}
-
-\item{FillColorReverse}{hex character}
 }
 \value{
 Partial dependence calibration plot

@@ -21,6 +21,7 @@ Plot.Lift(
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
   ZeroLineColor = "#ffff",
@@ -60,6 +61,8 @@ Plot.Lift(
 \item{ChartColor}{character hex}
 
 \item{FillColor}{character hex}
+
+\item{FillColorReverse}{character hex}
 
 \item{GridColor}{character hex}
 

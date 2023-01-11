@@ -21,7 +21,9 @@ Plot.ShapImportance(
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
-  GridColor = "#ffffff",
+  FillColorReverse = "#97ff00",
+  GridColor = "white",
+  TextColor = "white",
   Debug = FALSE
 )
 }
@@ -47,6 +49,8 @@ Plot.ShapImportance(
 \item{ChartColor}{= '#001534'}
 
 \item{FillColor}{= "#0066ff"}
+
+\item{FillColorReverse}{character hex}
 
 \item{GridColor}{= '#ffffff'}
 

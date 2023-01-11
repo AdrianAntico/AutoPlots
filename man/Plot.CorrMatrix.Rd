@@ -17,6 +17,7 @@ Plot.CorrMatrix(
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
   Debug = FALSE
@@ -46,6 +47,8 @@ Plot.CorrMatrix(
 \item{ChartColor}{character hex}
 
 \item{FillColor}{character hex}
+
+\item{FillColorReverse}{character}
 
 \item{GridColor}{character hex}
 

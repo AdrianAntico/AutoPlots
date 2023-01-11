@@ -16,14 +16,14 @@ Plot.Box(
   TimeLine = TimeLine,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  FillColor = "#0066ff",
-  FillColorReverse = "#ff9900",
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
-  GridColor = "#ffff",
+  FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
+  GridColor = "white",
+  TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
-  TextColor = "white",
   Debug = FALSE
 )
 }
@@ -50,21 +50,21 @@ Plot.Box(
 
 \item{Y_Scroll}{logical}
 
-\item{FillColor}{character hex}
-
-\item{FillColorReverse}{character hex}
-
 \item{BackGroundColor}{character hex}
 
 \item{ChartColor}{character hex}
 
+\item{FillColor}{character hex}
+
+\item{FillColorReverse}{character hex}
+
 \item{GridColor}{character hex}
+
+\item{TextColor}{character hex}
 
 \item{ZeroLineColor}{character hex}
 
 \item{ZeroLineWidth}{numeric}
-
-\item{TextColor}{character hex}
 
 \item{Debug}{logical}
 }

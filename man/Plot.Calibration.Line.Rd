@@ -20,6 +20,7 @@ Plot.Calibration.Line(
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
   ZeroLineColor = "#ffff",
@@ -57,6 +58,8 @@ Plot.Calibration.Line(
 \item{ChartColor}{character hex}
 
 \item{FillColor}{character hex}
+
+\item{FillColorReverse}{character hex}
 
 \item{GridColor}{character hex}
 
@@ -117,14 +120,14 @@ AutoPlots::Plot.Calibration.Line(
 # GroupVar = "Factor_1"
 # NumberBins = 20
 # AggStat = "mean"
-# ZeroLineColor = '#ffff'
-# ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
 # FillColor = "#0066ff"
 # BackGroundColor = "#6a6969"
 # ChartColor = '#001534'
 # GridColor = 'white'
 # TextColor = 'white'
+# ZeroLineColor = '#ffff'
+# ZeroLineWidth = 1.25
 # Debug = FALSE
 }
 }

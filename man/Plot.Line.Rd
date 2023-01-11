@@ -21,9 +21,10 @@ Plot.Line(
   Alpha = 0.5,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
+  FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
-  FillColor = "#0066ff",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
   Debug = FALSE
@@ -62,11 +63,13 @@ Plot.Line(
 
 \item{ChartColor}{color}
 
+\item{FillColor}{color}
+
+\item{FillColorReverse}{character}
+
 \item{GridColor}{color}
 
 \item{TextColor}{"Not Implemented"}
-
-\item{FillColor}{color}
 
 \item{ZeroLineColor}{color}
 

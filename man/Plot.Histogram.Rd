@@ -20,6 +20,7 @@ Plot.Histogram(
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
   ZeroLineWidth = 1.25,
@@ -55,6 +56,8 @@ Plot.Histogram(
 \item{ChartColor}{'lightsteelblue'}
 
 \item{FillColor}{'gray'}
+
+\item{FillColorReverse}{character}
 
 \item{GridColor}{'white'}
 

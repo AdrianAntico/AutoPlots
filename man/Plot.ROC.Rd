@@ -19,8 +19,9 @@ Plot.ROC(
   Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
-  GridColor = "white",
   FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
+  GridColor = "white",
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
@@ -56,9 +57,11 @@ Plot.ROC(
 
 \item{ChartColor}{character hex}
 
-\item{GridColor}{character hex}
-
 \item{FillColor}{character hex}
+
+\item{FillColorReverse}{character hex}
+
+\item{GridColor}{character hex}
 
 \item{TextColor}{character hex}
 

@@ -15,11 +15,12 @@ Plot.Density(
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  BackGroundColor = "#17108db8",
+  BackGroundColor = "#6a6969",
   ChartColor = "#001534",
+  FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
-  SubTitleColor = "white",
   Debug = FALSE
 )
 }
@@ -44,25 +45,19 @@ Plot.Density(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{From App}
+\item{BackGroundColor}{"#6a6969",}
 
-\item{ChartColor}{From App}
+\item{ChartColor}{"#001534",}
 
-\item{GridColor}{From App}
+\item{FillColor}{"#0066ff",}
 
-\item{TextColor}{From App}
+\item{FillColorReverse}{"#97ff00",}
 
-\item{SubTitleColor}{From App}
+\item{GridColor}{"white",}
+
+\item{TextColor}{"white",}
 
 \item{Debug}{From App}
-
-\item{BorderColor}{From App}
-
-\item{LegendPosition}{From App}
-
-\item{LegendBorderSize}{From App}
-
-\item{LegendLineType}{From App}
 }
 \description{
 Density plots, by groups, with transparent continuous plots

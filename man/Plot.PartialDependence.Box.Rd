@@ -24,7 +24,7 @@ Plot.PartialDependence.Box(
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
-  FillColorReverse = "#ff9900",
+  FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
   ZeroLineColor = "#ffff",

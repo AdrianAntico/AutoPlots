@@ -11,10 +11,11 @@ Plot.Violin(
   GroupVar = NULL,
   Title = "Violin Plot",
   SampleSize = 1e+05,
-  FillColor = "#0066ff",
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
-  GridColor = "#ffff",
+  FillColor = "#0066ff",
+  FillColorReverse = "#97ff00",
+  GridColor = "white",
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
@@ -34,11 +35,13 @@ Plot.Violin(
 
 \item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
-\item{FillColor}{'gray'}
-
 \item{BackGroundColor}{'gray95'}
 
 \item{ChartColor}{'lightsteelblue'}
+
+\item{FillColor}{'gray'}
+
+\item{FillColorReverse}{character}
 
 \item{GridColor}{'white'}
 
@@ -49,8 +52,6 @@ Plot.Violin(
 \item{ZeroLineWidth}{= 2,}
 
 \item{Debug}{FALSE}
-
-\item{BorderColor}{'darkblue'}
 }
 \description{
 Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.

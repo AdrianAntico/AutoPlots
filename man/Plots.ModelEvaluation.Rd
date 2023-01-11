@@ -22,9 +22,9 @@ Plots.ModelEvaluation(
   TimeLine = FALSE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
-  GridColor = "white",
   FillColor = "#0066ff",
-  FillColorReverse = "#ff9900",
+  FillColorReverse = "#97ff00",
+  GridColor = "white",
   TextColor = "white",
   NumberBins = 20,
   ShapAgg = "mean",
@@ -64,11 +64,11 @@ Plots.ModelEvaluation(
 
 \item{ChartColor}{hex}
 
-\item{GridColor}{hex}
-
 \item{FillColor}{hex}
 
 \item{FillColorReverse}{hex}
+
+\item{GridColor}{hex}
 
 \item{TextColor}{hex}
 
