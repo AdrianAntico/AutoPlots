@@ -2394,6 +2394,7 @@ Plot.Copula <- function(dt = NULL,
       p1 <- echarts4r::e_title(e = p1, Title)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
       p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(
         style = "decimal",
         digits = 2
@@ -2572,6 +2573,7 @@ Plot.Copula3D <- function(dt = NULL,
       p1 <- echarts4r::e_title(e = p1, Title)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
       p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(
         style = "decimal",
         digits = 2
@@ -2854,7 +2856,7 @@ Plot.Scatter <- function(dt = NULL,
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 80, top = 40)
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     }
   }
@@ -3025,6 +3027,7 @@ Plot.Scatter3D <- function(dt = NULL,
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
     }
 
   } else {
@@ -3081,6 +3084,7 @@ Plot.Scatter3D <- function(dt = NULL,
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
     }
   }
 
@@ -3248,10 +3252,10 @@ Plot.Line <- function(dt = NULL,
       aggFunc <- function(x) sd(abs(x), na.rm = TRUE) / mean(abs(x), na.rm = TRUE)
     }
 
-    # Add a column that ranks predicted values
+    # Aggregate data
     if(length(GroupVar) > 0L) {
       dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
-      data.table::setorderv(x = dt1, cols = c(XVar,GroupVar[1L]), c(1L,1L))
+      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
     } else {
       dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
       data.table::setorderv(x = dt1, cols = XVar, 1L)
@@ -3263,8 +3267,8 @@ Plot.Line <- function(dt = NULL,
 
     # Prepare Data
     if(Debug) print("Plot.Line() Build 1")
-    data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
     gv <- GroupVar[1L]
+    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
 
     cxv <- class(dt1[[XVar]])[1L]
     if(cxv %in% "IDate") {
@@ -3292,9 +3296,9 @@ Plot.Line <- function(dt = NULL,
       p1 <- echarts4r::e_title(e = p1, Title)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(style = "decimal", digits = 2))
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 80, top = 40)
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
 
     } else {
 
@@ -3964,6 +3968,7 @@ Plot.Histogram <- function(dt = NULL,
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
   }
   return(p1)
 }
@@ -4114,7 +4119,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    }
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))    }
 
     return(eval(p1))
 
@@ -4155,7 +4160,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 80, top = 40)
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
     }
     return(p1)
   }
