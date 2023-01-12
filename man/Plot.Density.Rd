@@ -77,18 +77,11 @@ p1 <- AutoPlots:::Plot.Density(
   data = data,
   YVar = NULL,
   GroupVar = 'Weekly_Sales',
-  TextSize = 12,
-  AngleX = 90,
-  AngleY = 0,
   ChartColor = 'lightsteelblue1',
   BorderColor = 'darkblue',
   TextColor = 'darkblue',
   GridColor = 'white',
   BackGroundColor = 'gray95',
-  SubTitleColor = 'blue',
-  LegendPosition = 'bottom',
-  LegendBorderSize = 0.50,
-  LegendLineType = 'solid',
   Debug = FALSE)
 
 # Step through function
@@ -99,18 +92,10 @@ p1 <- AutoPlots:::Plot.Density(
 # data = data
 # YVar = 'Weekly_Sales'
 # GroupVar = c('Store','Dept')
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
 # ChartColor = 'lightsteelblue1'
-# BorderColor = 'darkblue'
 # TextColor = 'darkblue'
 # GridColor = 'white'
 # BackGroundColor = 'gray95'
-# SubTitleColor = 'blue'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 # NumberBins
 }

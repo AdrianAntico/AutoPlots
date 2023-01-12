@@ -466,13 +466,6 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       GridColor = GridColor,
       BackGroundColor = BackGroundColor,
-      TextSize = TextSize,
-      AngleX = AngleX,
-      AngleY = AngleY,
-      SubTitleColor = SubTitleColor,
-      LegendPosition = LegendPosition,
-      LegendBorderSize = LegendBorderSize,
-      LegendLineType = LegendLineType,
       Debug = Debug)
     return(p1)
   }
@@ -497,7 +490,6 @@ Plot.StandardPlots <- function(dt = NULL,
       FillColor = FillColor,
       TextColor = TextColor,
       GridColor = GridColor,
-      TextSize = TextSize,
       ZeroLineColor = GridColor,
       Debug = Debug)
     return(p1)
@@ -3115,7 +3107,6 @@ Plot.Scatter3D <- function(dt = NULL,
 #' @param ZeroLineColor color
 #' @param ZeroLineWidth 1
 #' @param Title "Title"
-#' @param TextSize 1.25
 #' @param BackGroundColor color
 #' @param ChartColor color
 #' @param FillColor color
@@ -3465,18 +3456,11 @@ Plot.Line <- function(dt = NULL,
 #' # ZeroLineWidth = 1.25
 #' # Title = 'Bar Plot'
 #' # FillColor = "#0066ff"
-#' # TextSize = 12
-#' # AngleX = 90
-#' # AngleY = 0
 #' # BackGroundColor = "#6a6969" #, #"#1b1959", #'#00060b',
 #' # ChartColor = '#001534'
 #' # BorderColor = 'darkblue'
 #' # TextColor = 'darkblue'
 #' # GridColor = 'white'
-#' # SubTitleColor = 'blue'
-#' # LegendPosition = 'bottom'
-#' # LegendBorderSize = 0.50
-#' # LegendLineType = 'solid'
 #' # Debug = FALSE
 #' }
 #'
@@ -4013,18 +3997,11 @@ Plot.Histogram <- function(dt = NULL,
 #'   data = data,
 #'   YVar = NULL,
 #'   GroupVar = 'Weekly_Sales',
-#'   TextSize = 12,
-#'   AngleX = 90,
-#'   AngleY = 0,
 #'   ChartColor = 'lightsteelblue1',
 #'   BorderColor = 'darkblue',
 #'   TextColor = 'darkblue',
 #'   GridColor = 'white',
 #'   BackGroundColor = 'gray95',
-#'   SubTitleColor = 'blue',
-#'   LegendPosition = 'bottom',
-#'   LegendBorderSize = 0.50,
-#'   LegendLineType = 'solid',
 #'   Debug = FALSE)
 #'
 #' # Step through function
@@ -4035,18 +4012,10 @@ Plot.Histogram <- function(dt = NULL,
 #' # data = data
 #' # YVar = 'Weekly_Sales'
 #' # GroupVar = c('Store','Dept')
-#' # TextSize = 12
-#' # AngleX = 90
-#' # AngleY = 0
 #' # ChartColor = 'lightsteelblue1'
-#' # BorderColor = 'darkblue'
 #' # TextColor = 'darkblue'
 #' # GridColor = 'white'
 #' # BackGroundColor = 'gray95'
-#' # SubTitleColor = 'blue'
-#' # LegendPosition = 'bottom'
-#' # LegendBorderSize = 0.50
-#' # LegendLineType = 'solid'
 #' # Debug = FALSE
 #' # NumberBins
 #' }
@@ -4103,9 +4072,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- p1 + ggplot2::geom_density(alpha = 0.3, color = GridColor)
       p1 <- p1 + ggplot2::xlab(eval(YVar))
       p1 <- p1 + AutoPlots:::ChartTheme(
-        Size = TextSize,
         ChartColor = ChartColor,
-        BorderColor = BorderColor,
         TextColor = TextColor,
         GridColor = GridColor,
         BackGroundColor = BackGroundColor)
@@ -4140,7 +4107,6 @@ Plot.Density <- function(dt = NULL,
       # Add ChartTheme
       if(Debug) print('ChartTheme')
       p1 <- p1 + AutoPlots:::ChartTheme(
-        Size = TextSize,
         ChartColor = ChartColor,
         TextColor = TextColor,
         GridColor = GridColor,

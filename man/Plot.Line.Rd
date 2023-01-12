@@ -76,8 +76,6 @@ Plot.Line(
 \item{ZeroLineWidth}{1}
 
 \item{Debug}{FALSE}
-
-\item{TextSize}{1.25}
 }
 \value{
 Calibration plot or boxplot

@@ -113,18 +113,11 @@ AutoPlots:::Plot.Bar(
 # ZeroLineWidth = 1.25
 # Title = 'Bar Plot'
 # FillColor = "#0066ff"
-# TextSize = 12
-# AngleX = 90
-# AngleY = 0
 # BackGroundColor = "#6a6969" #, #"#1b1959", #'#00060b',
 # ChartColor = '#001534'
 # BorderColor = 'darkblue'
 # TextColor = 'darkblue'
 # GridColor = 'white'
-# SubTitleColor = 'blue'
-# LegendPosition = 'bottom'
-# LegendBorderSize = 0.50
-# LegendLineType = 'solid'
 # Debug = FALSE
 }
 
