@@ -1,7 +1,7 @@
 # AggMethod "mean", "median", "sd", "skewnewss", "kurtosis", "CoeffVar"
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-# Helper Functions                                                            ----
+# :: Helper Functions ::                                                      ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 
 #' @noRd
@@ -89,7 +89,7 @@ ChartTheme <- function(Size = 12,
 # ----
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-# Abstracted Plot Functions                                                   ----
+# > Automated Plot Functions                                                  ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 
 #' @title Plot.StandardPlots
@@ -889,454 +889,8 @@ Plots.ModelEvaluation <- function(dt = NULL,
 # ----
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-# Standard Plot Functions                                                     ----
+# > Distribution Plot Functions                                               ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-
-#' @title Plot.HeatMap
-#'
-#' @description Create heat maps with numeric or categorical dt
-#'
-#' @family Standard Plots
-#' @author Adrian Antico
-#'
-#' @param dt Source data.table
-#' @param XVar = NULL,
-#' @param YVar = NULL,
-#' @param ZVar = NULL,
-#' @param Engine "plotly", "echarts4r"
-#' @param EchartsTheme "dark-blue"
-#' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
-#' @param NumberBins = 21
-#' @param NumLevels_Y = 20
-#' @param NumLevels_X = 20
-#' @param Title "Heatmap"
-#' @param BackGroundColor = "#6a6969"
-#' @param ChartColor = '#001534'
-#' @param FillColor = "#0066ff"
-#' @param FillColorReverse character
-#' @param GridColor = '#ffffff'
-#'
-#' @examples
-#' \dontrun{
-#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-#' Columns <- c(
-#'   "DATE_ISO",
-#'   "ARTICLE",
-#'   "BRAND",
-#'   "CUSTOMER_COD_char",
-#'   "CHILLED_Margin_PerDay",
-#'   "CHILLED_Liters_PerDay",
-#'   "CHILLED_Units_PerDay")
-#' data <- AutoPlots::DM.pgQuery(
-#'   Query = NULL,
-#'   DataBase = "KompsProcessed",
-#'   SELECT = Columns,
-#'   AggStat = "AVG",
-#'   FROM = "POS_Processed_Long_Daily_backward",
-#'   GroupBy = NULL,
-#'   SamplePercent = 1,
-#'   Host = 'localhost',
-#'   User = 'postgres',
-#'   Port = 5432,
-#'   Password = "Aa...")
-#'
-#' AutoPlots:::Plot.HeatMap(
-#'   data,
-#'   PreAgg = FALSE,
-#'   Engine = 'echarts4r',
-#'   XVar = 'ARTICLE',
-#'   YVar = 'BRAND',
-#'   ZVar = 'CHILLED_Margin_PerDay',
-#'   AggMethod = 'mean',
-#'   NumberBins = 21,
-#'   NumLevels_Y = 33,
-#'   NumLevels_X = 33)
-#'
-#' # QA
-#' data
-#' PreAgg = FALSE
-#' Engine = 'echarts4r'
-#' XVar = 'ARTICLE'
-#' YVar = 'BRAND'
-#' ZVar = 'CHILLED_Margin_PerDay'
-#' AggMethod = 'mean'
-#' NumberBins = 21
-#' NumLevels_Y = 33
-#' NumLevels_X = 33
-#' gridcolor = GridColor
-#' plot_bgcolor = ChartColor
-#' paper_bgcolor = BackGroundColor
-#'
-#' }
-#'
-#' @export
-Plot.HeatMap <- function(dt,
-                         PreAgg = FALSE,
-                         AggMethod = 'mean',
-                         XVar = NULL,
-                         YVar = NULL,
-                         ZVar = NULL,
-                         NumberBins = 21,
-                         NumLevels_Y = 33,
-                         NumLevels_X = 33,
-                         Title = "Heatmap",
-                         Engine = "Plotly",
-                         EchartsTheme = "dark",
-                         X_Scroll = TRUE,
-                         Y_Scroll = TRUE,
-                         BackGroundColor =  "#6a6969",
-                         ChartColor =       "#001534",
-                         FillColor =        "#0066ff",
-                         FillColorReverse = "#97ff00",
-                         GridColor =        "white",
-                         TextColor =        "white",
-                         Debug     =        FALSE) {
-
-  # Subset cols
-  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
-  x_check <- class(dt1[[XVar]])[1L] %in% c('numeric','integer')
-  y_check <- class(dt1[[YVar]])[1L] %in% c('numeric','integer')
-  x_y_num <- x_check && y_check
-  x_num <- x_check && !y_check
-  x_char <- !x_check && y_check
-  all_char <- !x_check && !y_check
-
-  # XVar == numeric or integer && YVar == numeric or integer
-  if(x_y_num) {
-
-    # rank XVar and YVar
-    if(!PreAgg) {
-      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
-      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-
-      # Formatting
-      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
-      o <- order(vals, decreasing = FALSE)
-      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
-    }
-
-    # Create final data for plot
-    if(Engine == "Plotly") {
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colorscale = colz,
-        type = "heatmap")
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        font = AutoPlots:::font_(),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-
-    } else if(Engine == "Echarts") {
-      g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(
-        style = "decimal",
-        digits = 2
-      ))
-      p1 <- echarts4r::e_title(e = p1, Title)
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    }
-    return(p1)
-  }
-
-  # XVar == character && YVar == numeric or integer
-  if(x_char) {
-
-    # rank YVar
-    if(!PreAgg) {
-      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-
-      # Top YVar Levels
-      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
-      temp <- temp[seq_len(min(NumLevels_X, temp[, .N]))][[1L]]
-      dt1 <- dt1[get(YVar) %in% eval(temp)]
-
-      # Formatting
-      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
-      o <- order(vals, decreasing = FALSE)
-      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
-    }
-
-    # Create final data for plot
-    if(Engine == "Plotly") {
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colorscale = colz,
-        type = "heatmap")
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        font = AutoPlots:::font_(),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-
-    } else if(Engine == "echarts4r") {
-      g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
-      p1 <- echarts4r::e_title(e = p1, Title)
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    }
-    return(p1)
-  }
-
-  # XVar == numeric or integer && YVar == character
-  if(x_num) {
-
-    # rank XVar
-    if(!PreAgg) {
-      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-
-      # Top YVar Levels
-      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
-      temp <- temp[seq_len(min(NumLevels_Y, temp[, .N]))][[1L]]
-
-      # Formatting
-      dt1 <- dt1[get(YVar) %in% eval(temp)]
-      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
-      o <- order(vals, decreasing = FALSE)
-      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
-    }
-
-    # Create final dt1 for plot
-    if(Engine == "Plotly") {
-      p1 <- plotly::plot_ly(dt1, x = ~get(XVar), y = ~get(YVar), z = ~Measure_Variable, colorscale = colz, type = "heatmap")
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        font = AutoPlots:::font_(),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-    } else if(Engine == "echarts4r") {
-      g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
-      p1 <- echarts4r::e_title(e = p1, Title)
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    }
-    return(p1)
-  }
-
-  # XVar == character or integer && YVar == character
-  if(all_char) {
-
-    # Starter pack
-    if(!PreAgg) {
-      if(AggMethod == 'mean') {
-        temp_y <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_yy <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_xx <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_yy) & get(XVar) %in% eval(temp_xx)]
-        dt1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'median') {
-        temp_y <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'sum') {
-        temp_y <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'sd') {
-        temp_y <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'coeffvar') {
-        temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'count') {
-        temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      }
-    }
-
-
-    # Create final dt1 for plot
-    if(Engine == "Plotly") {
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colors = grDevices::colorRamp(c(ChartColor,FillColor)),
-        type = "heatmap")
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        font = AutoPlots:::font_(),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-    } else if(Engine == "Echarts") {
-      if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)))
-      p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
-      p1 <- echarts4r::e_title(e = p1, Title)
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    }
-    return(p1)
-  }
-}
-
-# Correlation Matrix Updates: https://okanbulut.github.io/bigdata/visualizing-big-data.html
-
-#' @title Plot.CorrMatrix
-#'
-#' @description Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-#'
-#' @family Standard Plots
-#'
-#' @author Adrian Antico
-#'
-#' @param dt Source data.table
-#' @param CorrVars character
-#' @param Method character
-#' @param Title character
-#' @param Engine character
-#' @param EchartsTheme = "macaron"
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
-#' @param PreAgg logical
-#' @param BackGroundColor character hex
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character
-#' @param GridColor character hex
-#' @param TextColor character hex
-#' @param Debug logical
-#' @export
-Plot.CorrMatrix <- function(dt = NULL,
-                            CorrVars = NULL,
-                            Method = 'spearman',
-                            PreAgg = FALSE,
-                            Title = "Correlation Matrix",
-                            Engine = "Plotly",
-                            EchartsTheme = "macaron",
-                            X_Scroll = TRUE,
-                            Y_Scroll = TRUE,
-                            BackGroundColor =  "#6a6969",
-                            ChartColor =       "#001534",
-                            FillColor =        "#0066ff",
-                            FillColorReverse = "#97ff00",
-                            GridColor =        "white",
-                            TextColor =        "white",
-                            Debug = FALSE) {
-
-  # Plot
-  if(!PreAgg) {
-    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
-    for(i in seq_along(names(dt1))) {
-      yy <- names(dt1)[i]
-      zz <- nchar(yy)
-      data.table::setnames(dt1, yy, substr(x = yy, start = max(0L, zz - 40L), stop = nchar(yy)))
-    }
-    corr_mat <- cor(method = Method, x = dt1)
-  } else {
-    corr_mat <- dt
-  }
-
-  if(Engine == "Plotly") {
-
-    # Build
-    if(Debug) print("Plot.CorrMatrix build")
-    p1 <- heatmaply::heatmaply_cor(
-      corr_mat,
-      colors = c('darkred', 'pink', 'white', 'lightblue', 'darkblue'),
-      xlab = NULL,
-      ylab = NULL,
-      k_col = 2,
-      k_row = 2)
-
-    # Layout
-    if(Debug) print("Plot.CorrMatrix layout")
-    p1 <- plotly::layout(
-      p = p1,
-      title = AutoPlots:::bold_(Title),
-      font = AutoPlots:::font_(),
-      gridColor = GridColor,
-      plot_bgcolor = ChartColor,
-      paper_bgcolor = BackGroundColor)
-
-  } else {
-    if(Debug) print("Plot.CorrMatrix Echarts")
-    p1 <- echarts4r::e_charts(data = corr_mat)
-    p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
-    p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", echarts4r::e_tooltip_item_formatter(
-      style = "decimal",
-      digits = 2
-    ))
-    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-    p1 <- echarts4r::e_title(e = p1, Title)
-    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-  }
-
-  # Return plot
-  return(eval(p1))
-}
 
 #' @title Plot.Box
 #'
@@ -1941,6 +1495,1522 @@ Plot.Violin <- function(dt = NULL,
     return(p1)
   }
   return(NULL)
+}
+
+#' @title Plot.Histogram
+#'
+#' @description Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt Source data.table
+#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
+#' @param XVar Column name of X-Axis variable. If NULL then ignored
+#' @param YVar Column name of Y-Axis variable. If NULL then ignored
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param NumberBins = 30
+#' @param Engine = PlotEngineType,
+#' @param EchartsTheme = EchartsTheme,
+#' @param TimeLine logical
+#' @param X_Scroll logical
+#' @param Y_Scroll logical
+#' @param FillColor 'gray'
+#' @param FillColorReverse character
+#' @param ChartColor 'lightsteelblue'
+#' @param TextColor 'darkblue'
+#' @param GridColor 'white'
+#' @param BackGroundColor 'gray95'
+#' @param ZeroLineWidth = 1.25,
+#' @param ZeroLineColor = "white",
+#' @param Debug FALSE
+#'
+#' @examples
+#' \dontrun{
+#' # Load packages
+#' library(AutoPlots)
+#' library(data.table)
+#'
+#' # Load data
+#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
+#'
+#' # Run function
+#' p1 <- AutoPlots:::Plot.Histogram(
+#'   dt = data,
+#'   TimeLine = FALSE,
+#'   X_Scroll = TRUE,
+#'   Y_Scroll = TRUE,
+#'   XVar = "Predict",
+#'   YVar = "CHILLED_Margin_PerDay",
+#'   GroupVar = "BRAND",
+#'   SampleSize = 100000,
+#'   NumberBins = 20,
+#'   FillColor = "#0066ff",
+#'   ChartColor = 'lightsteelblue1',
+#'   TextColor = 'darkblue',
+#'   GridColor = 'white',
+#'   BackGroundColor = 'gray95',
+#'   Debug = FALSE)
+#'
+#' # # Step through function
+#' # XVar = "Predict"
+#' # YVar = "CHILLED_Margin_PerDay"
+#' # GroupVar = "BRAND"
+#' # TimeLine = FALSE
+#' # AggMethod = 'mean'
+#' # ZeroLineWidth = 1.25
+#' # Title = 'Histogram'
+#' # NumberBins = 20
+#' # SampleSize = 100000
+#' # FillColor = "#0066ff"
+#' # ChartColor = '#001534'
+#' # GridColor = 'white'
+#' # TextColor = 'darkblue'
+#' # Debug = FALSE
+#' }
+#'
+#' @export
+Plot.Histogram <- function(dt = NULL,
+                           SampleSize = 30000L,
+                           XVar = NULL,
+                           YVar = NULL,
+                           GroupVar = NULL,
+                           NumberBins = 30,
+                           Title = 'Histogram',
+                           Engine = "Plotly",
+                           EchartsTheme = "macaron",
+                           TimeLine = FALSE,
+                           X_Scroll = TRUE,
+                           Y_Scroll = TRUE,
+                           BackGroundColor =  "#6a6969",
+                           ChartColor =       "#001534",
+                           FillColor =        "#0066ff",
+                           FillColorReverse = "#97ff00",
+                           GridColor =        "white",
+                           TextColor =        "white",
+                           ZeroLineWidth = 1.25,
+                           ZeroLineColor = "white",
+                           Debug = FALSE) {
+
+  TimeLine <- FALSE
+
+  # Cap number of records
+  if(length(SampleSize) == 0L) SampleSize <- 30000
+  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(dt[, .N] > SampleSize) {
+    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Define Plotting Variable
+  if(length(YVar) == 0L && length(XVar) == 0) return(NULL)
+  if(length(YVar) == 0L) YVar <- XVar
+  if(length(XVar) > 0L && length(GroupVar) == 0L) {
+    GroupVar <- XVar
+    XVar <- NULL
+  }
+
+  GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
+  YVar <- tryCatch({YVar[1L]}, error = function(x) NULL)
+
+  # Create base plot object
+  if(Debug) print('Create Plot with only data')
+
+  # Format
+  if(Engine == "Plotly") {
+    print("Plotly Histogram 1")
+    p1 <- plotly::plot_ly(data = dt1, alpha = 0.6, nbinsx = NumberBins)
+    if(length(GroupVar) > 0L) {
+      p1 <- plotly::add_histogram(p = p1, x = ~get(YVar), color = ~get(GroupVar[1L]), legendgroup = GroupVar[1L])
+    } else {
+      p1 <- plotly::add_histogram(p = p1, x = ~get(YVar), color = I(FillColor), showlegend = FALSE)
+    }
+    p1 <- plotly::layout(
+      p = p1,
+      font = AutoPlots:::font_(),
+      title = AutoPlots:::bold_(Title),
+      plot_bgcolor = ChartColor,
+      paper_bgcolor = BackGroundColor,
+      xaxis = list(
+        title = AutoPlots:::bold_(YVar),
+        zerolinewidth = ZeroLineWidth,
+        gridcolor = GridColor),
+      barmode = 'stack')
+
+  } else {
+
+    if(Debug) print("Echarts Histogram 1")
+    if(length(GroupVar) > 0L && length(XVar) > 0L) {
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), timeline = TimeLine)
+    } else {
+      p1 <- echarts4r::e_charts_(dt1, x = GroupVar)
+    }
+    p1 <- echarts4r::e_histogram_(e = p1, YVar, breaks = NumberBins)
+    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_title(p1, "Histogram")
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
+  }
+  return(p1)
+}
+
+#' @title Plot.Density
+#'
+#' @description Density plots, by groups, with transparent continuous plots
+#'
+#' @family Standard Plots
+#'
+#' @param dt From App
+#' @param GroupVar From App
+#' @param YVar From App
+#' @param XVar character
+#' @param GroupVar character
+#' @param Title = "Density Plot"
+#' @param Engine character
+#' @param EchartsTheme character
+#' @param TimeLine logical
+#' @param X_Scroll logical
+#' @param Y_Scroll logical
+#' @param BackGroundColor "#6a6969",
+#' @param ChartColor "#001534",
+#' @param FillColor "#0066ff",
+#' @param FillColorReverse "#97ff00",
+#' @param GridColor "white",
+#' @param TextColor "white",
+#' @param Debug From App
+#'
+#' @examples
+#' \dontrun{
+#' # Load packages
+#' library(AutoPlots)
+#' library(data.table)
+#'
+#' # Load data
+#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
+#'
+#' # Run function
+#' p1 <- AutoPlots:::Plot.Density(
+#'   TimeLine = FALSE,
+#'   data = data,
+#'   YVar = NULL,
+#'   GroupVar = 'Weekly_Sales',
+#'   ChartColor = 'lightsteelblue1',
+#'   BorderColor = 'darkblue',
+#'   TextColor = 'darkblue',
+#'   GridColor = 'white',
+#'   BackGroundColor = 'gray95',
+#'   Debug = FALSE)
+#'
+#' # Step through function
+#' # # plotly::ggplotly(p1)
+#' # TimeLine = FALSE
+#' # Engine = "Plotly"
+#' # EchartsTheme = "macarons"
+#' # data = data
+#' # YVar = 'Weekly_Sales'
+#' # GroupVar = c('Store','Dept')
+#' # ChartColor = 'lightsteelblue1'
+#' # TextColor = 'darkblue'
+#' # GridColor = 'white'
+#' # BackGroundColor = 'gray95'
+#' # Debug = FALSE
+#' # NumberBins
+#' }
+#'
+#' @export
+Plot.Density <- function(dt = NULL,
+                         YVar = NULL,
+                         XVar = NULL,
+                         GroupVar = NULL,
+                         Title = "Density Plot",
+                         Engine = "Plotly",
+                         EchartsTheme = "macarons",
+                         TimeLine = FALSE,
+                         X_Scroll = TRUE,
+                         Y_Scroll = TRUE,
+                         BackGroundColor =  "#6a6969",
+                         ChartColor =       "#001534",
+                         FillColor =        "#0066ff",
+                         FillColorReverse = "#97ff00",
+                         GridColor =        "white",
+                         TextColor =        "white",
+                         Debug = FALSE) {
+
+  TimeLine <- FALSE
+
+  # Cap number of records
+  if(length(SampleSize) == 0L) SampleSize <- 30000
+  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(dt[, .N] > SampleSize) {
+    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Define Plotting Variable
+  if(length(YVar) == 0L && length(XVar) == 0) return(NULL)
+  if(length(YVar) == 0L) YVar <- XVar
+  if(length(XVar) > 0L && length(GroupVar) == 0L) {
+    GroupVar <- XVar
+    XVar <- NULL
+  }
+
+  GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
+  YVar <- tryCatch({YVar[1L]}, error = function(x) NULL)
+
+  # Create base plot object
+  if(Debug) print('Create Plot with only data')
+
+  if(length(GroupVar) == 0L) {
+
+    # Build plot
+    if(Engine == "Plotly") {
+      p1 <- ggplot2::ggplot(dt1, ggplot2::aes(x = get(YVar)))
+      p1 <- p1 + ggplot2::geom_density(alpha = 0.3, color = GridColor)
+      p1 <- p1 + ggplot2::xlab(eval(YVar))
+      p1 <- p1 + AutoPlots:::ChartTheme(
+        ChartColor = ChartColor,
+        TextColor = TextColor,
+        GridColor = GridColor,
+        BackGroundColor = BackGroundColor)
+      p1 <- plotly::ggplotly(p1)
+    } else {
+      p1 <- echarts4r::e_charts_(dt1, x = NULL)
+      p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      p1 <- echarts4r::e_title(p1, "Density Plot")
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))    }
+
+    return(p1)
+
+  } else {
+
+    # Prepare data
+    if(Engine == "Plotly") {
+      if(length(YVar) > 1L) {
+        xx <- data.table::melt.data.table(
+          data = dt1,
+          id.vars = c(GroupVar), measure.vars= c(YVar), variable.name='Method', value.name='Value')
+        p1 <- ggplot2::ggplot(xx, ggplot2::aes(x = Value, fill = Method)) +
+          ggplot2::geom_density(alpha = 0.3)
+      } else {
+        p1 <- ggplot2::ggplot(dt1, ggplot2::aes(x = get(YVar), group = get(GroupVar[1L]), fill = get(GroupVar[1L]))) + ggplot2::geom_density(alpha = 0.3)
+      }
+
+      # Add ChartTheme
+      if(Debug) print('ChartTheme')
+      p1 <- p1 + AutoPlots:::ChartTheme(
+        ChartColor = ChartColor,
+        TextColor = TextColor,
+        GridColor = GridColor,
+        BackGroundColor = BackGroundColor)
+      p1 <- tryCatch({p1 + ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))}, error = function(x) p1)
+      p1 <- p1 + ggplot2::xlab(GroupVar[1L])
+      p1 <- plotly::ggplotly(p1)
+
+    } else {
+
+      data.table::setorderv(x = dt1, cols = GroupVar[1L], 1)
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), timeline = TimeLine)
+      p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      p1 <- echarts4r::e_title(p1, Title)
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
+    }
+    return(p1)
+  }
+}
+
+# ----
+
+# ----
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+# > Aggreagated Plot Functions                                                ----
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+
+#' @title Plot.Line
+#'
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#'
+#' @author Adrian Antico
+#' @family Standard Plots
+#'
+#' @param dt data.table
+#' @param PreAgg logical
+#' @param AggMethod character
+#' @param XVar Column name of the predicted values from your model
+#' @param YVar Column name of the target variable from your model
+#' @param GroupVar One Grouping Variable
+#' @param Title "Title"
+#' @param Engine "Echarts" or "Plotly"
+#' @param EchartsTheme Provide an "Echarts" theme
+#' @param TimeLine Logical
+#' @param X_Scroll logical
+#' @param Y_Scroll logical
+#' @param Area logical
+#' @param Alpha 0 to 1 for setting transparency
+#' @param Smooth = TRUE
+#' @param ShowSymbol = FALSE
+#' @param ZeroLineColor color
+#' @param ZeroLineWidth 1
+#' @param BackGroundColor color
+#' @param ChartColor color
+#' @param FillColor color
+#' @param FillColorReverse character
+#' @param GridColor color
+#' @param TextColor "Not Implemented"
+#' @param Debug FALSE
+#'
+#' @return Calibration plot or boxplot
+#' @examples
+#' \dontrun{
+# Create fake data
+#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
+#'
+#' # Build Plot
+#' AutoPlots::Plot.Line(
+#'   dt = data,
+#'   PreAgg = TRUE,
+#'   Engine = "Echarts", # "Plotly"
+#'   EchartsTheme = "macaron",
+#'   TimeLine = TRUE,
+#'   XVar = "Predict",
+#'   YVar = "CHILLED_Margin_PerDay",
+#'   GroupVar = "BRAND",
+#'   ZeroLineColor = '#ffff',
+#'   ZeroLineWidth = 1.25,
+#'   Title = 'Bar Plot',
+#'   FillColor = "#0066ff",
+#'   BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
+#'   ChartColor = '#001534',
+#'   GridColor = 'white',
+#'   TextColor = 'white',
+#'   Debug = FALSE)
+#'
+#' # # Step Through Function
+#' # library(AutoPlots)
+#' # library(data.table)
+#' # dt = data
+#' # Y_Scroll = FALSE
+#' # X_Scroll = FALSE
+#' # Engine = "Echarts" # "Plotly"
+#' # TimeLine = TRUE
+#' # EchartsTheme = "macaron"
+#' # Area = TRUE
+#' # Alpha = 0.50
+#' # XVar = "Predict"
+#' # YVar = "CHILLED_Margin_PerDay"
+#' # GroupVar = "BRAND"
+#' # ZeroLineColor = '#ffff'
+#' # ZeroLineWidth = 1.25
+#' # Title = 'Bar Plot'
+#' # FillColor = "#0066ff"
+#' # BackGroundColor = "#6a6969"
+#' # ChartColor = '#001534'
+#' # GridColor = 'white'
+#' # TextColor = 'white'
+#' # PreAgg = TRUE
+#' # Debug = FALSE
+#' }
+#' @export
+Plot.Line <- function(dt = NULL,
+                      AggMethod = "mean",
+                      PreAgg = TRUE,
+                      Engine = 'Echarts',
+                      XVar = NULL,
+                      YVar = NULL,
+                      GroupVar = NULL,
+                      Title = 'Line Plot',
+                      EchartsTheme = "macaron",
+                      X_Scroll = FALSE,
+                      Y_Scroll = FALSE,
+                      TimeLine = TRUE,
+                      Area = FALSE,
+                      Alpha = 0.50,
+                      Smooth = TRUE,
+                      ShowSymbol = FALSE,
+                      BackGroundColor =  "#6a6969",
+                      ChartColor =       "#001534",
+                      FillColor =        "#0066ff",
+                      FillColorReverse = "#97ff00",
+                      GridColor =        "white",
+                      TextColor =        "white",
+                      ZeroLineColor = '#ffff',
+                      ZeroLineWidth = 1.25,
+                      Debug = FALSE) {
+
+  if(TimeLine) X_Scroll <- FALSE
+
+  # Correct args
+  if(length(GroupVar) > 0L && length(XVar) == 0L) {
+    XVar <- GroupVar
+    GroupVar <- NULL
+  }
+
+  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  Ncols <- ncol(dt)
+  if(Ncols > 2L && length(GroupVar) == 0L) {
+    if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+  } else if(Ncols > 3L && length(GroupVar) > 0L) {
+    if(Debug) print("Plot.Line() Ncols > 3L && length(GroupVar) > 0L")
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+  } else {
+    if(Debug) print("Plot.Line() make copy of data")
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Minimize data before moving on
+  if(PreAgg) {
+
+    # Define Aggregation function
+    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
+    if(AggMethod == "mean") {
+      aggFunc <- function(x) mean(x, na.rm = TRUE)
+    } else if(AggMethod == "median") {
+      aggFunc <- function(x) median(x, na.rm = TRUE)
+    } else if(AggMethod == "sd") {
+      aggFunc <- function(x) sd(x, na.rm = TRUE)
+    } else if(AggMethod == "skewness") {
+      aggFunc <- function(x) e1071::skewness(x, na.rm = TRUE)
+    } else if(AggMethod == "kurtosis") {
+      aggFunc <- function(x) e1071::kurtosis(x, na.rm = TRUE)
+    } else if(AggMethod == "CoeffVar") {
+      aggFunc <- function(x) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+    } else if(AggMethod == "meanabs") {
+      aggFunc <- function(x) mean(abs(x), na.rm = TRUE)
+    } else if(AggMethod == "medianabs") {
+      aggFunc <- function(x) median(abs(x), na.rm = TRUE)
+    } else if(AggMethod == "sd") {
+      aggFunc <- function(x) sd(abs(x), na.rm = TRUE)
+    } else if(AggMethod == "skewnessabs") {
+      aggFunc <- function(x) e1071::skewness(abs(x), na.rm = TRUE)
+    } else if(AggMethod == "kurtosisabs") {
+      aggFunc <- function(x) e1071::kurtosis(abs(x), na.rm = TRUE)
+    } else if(AggMethod == "CoeffVarabs") {
+      aggFunc <- function(x) sd(abs(x), na.rm = TRUE) / mean(abs(x), na.rm = TRUE)
+    }
+
+    # Aggregate data
+    if(length(GroupVar) > 0L) {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
+      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+    } else {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
+      data.table::setorderv(x = dt1, cols = XVar, 1L)
+    }
+  }
+
+  # Group Variable Case
+  if(length(GroupVar) > 0L) {
+
+    # Prepare Data
+    if(Debug) print("Plot.Line() Build 1")
+    gv <- GroupVar[1L]
+    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
+
+    # Plot
+    if(Engine == "Echarts") {
+      if(Debug) print("Plot.Line() Build Echarts 1")
+
+      # Build base plot depending on GroupVar availability
+      if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
+      p1 <- echarts4r::e_charts_(
+        data = dt1 |> dplyr::group_by(get(gv)),
+        x = XVar,
+        timeline = TimeLine)
+
+      # Finalize Plot Build
+      if(Debug) print("Plot.Line() Build Echarts 4")
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      p1 <- echarts4r::e_title(e = p1, Title)
+      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(style = "decimal", digits = 2))
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
+
+    } else {
+
+      # Build base plot depending on GroupVar availability
+      if(Debug) print("Plot.Line group plotly::plot_ly")
+      p1 <- plotly::plot_ly(
+        dt1,
+        x = ~get(XVar),
+        y = ~get(YVar),
+        color = ~get(gv[1L]),
+        type = "scatter",
+        mode = "lines")
+
+      # Finalize Plot Build
+      if(Debug) print("Plot.Line group plotly::layout")
+      p1 <- plotly::layout(
+        p = p1,
+        font = AutoPlots:::font_(),
+        title = AutoPlots:::bold_(Title),
+        plot_bgcolor = ChartColor,
+        paper_bgcolor = BackGroundColor,
+        xaxis = list(
+          title = AutoPlots:::bold_(XVar),
+          zerolinewidth = ZeroLineWidth,
+          gridcolor = GridColor),
+        yaxis = list(
+          title = AutoPlots:::bold_(YVar),
+          zerolinewidth = ZeroLineWidth,
+          gridcolor = GridColor))
+    }
+
+  } else {
+
+    # Plot
+    data.table::setorderv(x = dt1, cols = XVar, 1L)
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
+    if(Engine == "Echarts") {
+
+      # Build base plot depending on GroupVar availability
+      if(Debug) print("Plot.Line no group Echarts")
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+
+      # Finalize Plot Build
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      p1 <- echarts4r::e_title(e = p1, Title)
+      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(style = "decimal",digits = 2))
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+
+    } else {
+
+      # Build base plot depending on GroupVar availability
+      if(Debug) print("Plot.Line no group plotly::plot_ly")
+      if(Area) {
+        Fill <- "tozeroy"
+      } else {
+        Fill <- "Tozeroyr"
+      }
+      p1 <- plotly::plot_ly(
+        dt1,
+        x = ~get(XVar),
+        y = ~get(YVar),
+        type = "scatter",
+        mode = "lines",
+        fill = Fill,
+        fillcolor = FillColor,
+        alpha = Alpha)
+
+      # Finalize Plot Build
+      if(Debug) print("Plot.Line no group plotly::layout")
+      p1 <- plotly::layout(
+        p = p1,
+        font = AutoPlots:::font_(),
+        title = AutoPlots:::bold_(Title),
+        plot_bgcolor = ChartColor,
+        paper_bgcolor = BackGroundColor,
+        xaxis = list(
+          title = AutoPlots:::bold_(XVar),
+          zerolinewidth = ZeroLineWidth,
+          gridcolor = GridColor),
+        yaxis = list(
+          title = AutoPlots:::bold_(YVar),
+          zerolinewidth = ZeroLineWidth,
+          gridcolor = GridColor))
+    }
+  }
+  return(p1)
+}
+
+#' @title Plot.Bar
+#'
+#' @description Build a bar plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt Source data.table
+#' @param PreAgg logical
+#' @param XVar Column name of X-Axis variable. If NULL then ignored
+#' @param YVar Column name of Y-Axis variable. If NULL then ignored
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Title title
+#' @param Engine 'Plotly' or "Echarts"
+#' @param EchartsTheme "macaron"
+#' @param TimeLine logical
+#' @param X_Scroll logical
+#' @param Y_Scroll logical
+#' @param ZeroLineColor = '#ffff'
+#' @param FillColor 'gray'
+#' @param FillColorReverse character
+#' @param ChartColor 'lightsteelblue'
+#' @param BorderColor 'darkblue'
+#' @param TextColor 'darkblue'
+#' @param GridColor 'white'
+#' @param BackGroundColor 'gray95'
+#' @param Debug FALSE
+#'
+#' @examples
+#' \dontrun{
+#' # Load packages
+#' library(AutoPlots)
+#' library(data.table)
+#'
+#' # Load data
+#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
+#'
+#' # Run function
+#' AutoPlots:::Plot.Bar(
+#'   Engine = 'Plotly', # "Echarts"
+#'   EchartsTheme = "macaron",
+#'   TimeLine = TRUE,
+#'   data = data,
+#'   XVar = "Predict",
+#'   YVar = "CHILLED_Margin_PerDay",
+#'   GroupVar = "BRAND",
+#'   AggMethod = 'mean',
+#'   FillColor = "#0066ff",
+#'   ChartColor = 'lightsteelblue1',
+#'   TextColor = 'darkblue',
+#'   GridColor = 'white',
+#'   BackGroundColor = 'gray95',
+#'   Debug = FALSE)
+#'
+#' # # Step through function
+#' # dt <- data
+#' # Engine = 'Plotly' # "Echarts"
+#' # EchartsTheme = "macaron"
+#' # XVar = "Predict"
+#' # YVar = "CHILLED_Margin_PerDay"
+#' # GroupVar = "BRAND"
+#' # AggMethod = 'mean'
+#' # GroupVar = NULL
+#' # ZeroLineColor = '#ffff'
+#' # ZeroLineWidth = 1.25
+#' # Title = 'Bar Plot'
+#' # FillColor = "#0066ff"
+#' # BackGroundColor = "#6a6969" #, #"#1b1959", #'#00060b',
+#' # ChartColor = '#001534'
+#' # BorderColor = 'darkblue'
+#' # TextColor = 'darkblue'
+#' # GridColor = 'white'
+#' # Debug = FALSE
+#' }
+#'
+#' @export
+Plot.Bar <- function(Engine = 'Plotly',
+                     dt = NULL,
+                     PreAgg = FALSE,
+                     XVar = NULL,
+                     YVar = NULL,
+                     GroupVar = NULL,
+                     AggMethod = 'mean',
+                     Title = 'Bar Plot',
+                     EchartsTheme = "macaron",
+                     TimeLine = TRUE,
+                     X_Scroll = TRUE,
+                     Y_Scroll = TRUE,
+                     BackGroundColor =  "#6a6969",
+                     ChartColor =       "#001534",
+                     FillColor =        "#0066ff",
+                     FillColorReverse = "#97ff00",
+                     GridColor =        "white",
+                     TextColor =        "white",
+                     ZeroLineColor = '#ffff',
+                     ZeroLineWidth = 1.25,
+                     Debug = FALSE) {
+
+  if(data.table::is.data.table(dt)) data.table::setDT(dt)
+
+  # Used multiple times
+  check1 <- length(XVar) != 0 && length(YVar) != 0
+  check2 <- length(XVar) == 0 && length(YVar) != 0
+  check3 <- length(XVar) != 0 && length(YVar) == 0
+
+  # Create base plot object
+  numvars <- c()
+  byvars <- c()
+  if(check1) {
+    if(length(GroupVar) != 0L) {
+      if(!PreAgg) {
+        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, YVar))
+        } else {
+          byvars <- unique(c(byvars, YVar))
+        }
+        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          if(length(numvars) > 0) {
+            x <- length(unique(dt[[XVar]]))
+            y <- length(unique(dt[[YVar]]))
+            if(x > y) {
+              byvars <- unique(c(byvars, YVar))
+              numvars[1L] <- XVar
+            } else {
+              byvars <- unique(c(byvars, XVar))
+            }
+          } else {
+            numvars <- unique(c(numvars, XVar))
+          }
+        } else {
+          byvars <- unique(c(byvars, XVar))
+        }
+        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          dt[, eval(GroupVar) := as.character(get(GroupVar))]
+          byvars <- unique(c(byvars, GroupVar))
+        } else {
+          byvars <- unique(c(byvars, GroupVar))
+        }
+        if(!is.null(byvars)) {
+          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars), by = c(byvars)]
+          for(i in byvars) {
+            if(class(temp[[i]]) %in% c('numeric','integer')) {
+              temp[, eval(i) := as.character(get(i))]
+            }
+          }
+        } else {
+          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars)]
+        }
+      } else {
+        temp <- data.table::copy(dt)
+      }
+
+      # Plotly
+      if(Engine == "Plotly") {
+        p1 <- plotly::plot_ly(data = temp, x = ~get(XVar), y = ~get(YVar), color = ~as.factor(get(GroupVar[1L])), type = "bar", name = eval(GroupVar[1L]))
+        p1 <- plotly::layout(
+          p = p1,
+          font = AutoPlots:::font_(),
+          title = AutoPlots:::bold_(Title),
+          plot_bgcolor = ChartColor,
+          paper_bgcolor = BackGroundColor,
+          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
+          yaxis = list(
+            title = AutoPlots:::bold_(YVar),
+            zerolinecolor = ZeroLineColor,
+            zerolinewidth = ZeroLineWidth,
+            gridcolor = GridColor),
+          xaxis = list(
+            title = AutoPlots:::bold_(XVar),
+            categoryorder = "total descending",
+            zerolinecolor = ZeroLineColor,
+            zerolinewidth = ZeroLineWidth,
+            gridcolor = GridColor),
+          barmode = 'group')
+      } else {
+        p1 <- echarts4r::e_charts_(temp, x = XVar)
+        p1 <- echarts4r::e_bar_(e = p1, YVar, stack = XVar)
+        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+        p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+        p1 <- echarts4r::e_title(p1, "BarPlot")
+        p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+        p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+        p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      }
+      return(p1)
+
+    } else {
+
+      if(Debug) print("BarPlot 2.b")
+      if(!PreAgg) {
+        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, YVar))
+        } else {
+          byvars <- unique(c(byvars, YVar))
+        }
+        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          if(length(numvars) > 0) {
+            x <- length(unique(dt[[XVar]]))
+            y <- length(unique(dt[[YVar]]))
+            if(x > y) {
+              byvars <- unique(c(byvars, YVar))
+              numvars[1L] <- XVar
+            } else {
+              byvars <- unique(c(byvars, XVar))
+            }
+          } else {
+            numvars <- unique(c(numvars, XVar))
+          }
+        } else {
+          byvars <- unique(c(byvars, XVar))
+        }
+        if(!is.null(byvars)) {
+          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars), by = c(byvars)]
+          for(i in byvars) {
+            if(class(temp[[i]]) %in% c('numeric','integer')) {
+              temp[, eval(i) := as.character(get(i))]
+            }
+          }
+        } else {
+          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars)]
+        }
+      } else {
+        temp <- data.table::copy(dt)
+      }
+
+      yvar <- temp[[YVar]]
+      xvar <- temp[[XVar]]
+
+      # Plotly
+      if(Engine == "Plotly") {
+        p1 <- plotly::plot_ly(
+          data = temp,
+          x = ~get(XVar),
+          y = ~get(YVar),
+          type = 'bar',
+          color = I(FillColor[1]),
+          orientation = "vert",
+          showlegend = FALSE)
+        p1 <- plotly::layout(
+          p = p1,
+          font = AutoPlots:::font_(),
+          title = AutoPlots:::bold_(Title),
+          plot_bgcolor = ChartColor,
+          paper_bgcolor = BackGroundColor,
+          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
+          yaxis = list(
+            title = AutoPlots:::bold_(YVar),
+            zerolinecolor = ZeroLineColor,
+            zerolinewidth = ZeroLineWidth,
+            gridcolor = GridColor),
+          xaxis = list(
+            title = AutoPlots:::bold_(XVar),
+            categoryorder = "total descending",
+            zerolinecolor = ZeroLineColor,
+            zerolinewidth = ZeroLineWidth,
+            gridcolor = GridColor),
+          barmode = 'group')
+
+      } else {
+        if(XVar == "Importance" && YVar == "Variable") {
+          XVar <- "Variable"
+          YVar <- "Importance"
+        }
+        p1 <- echarts4r::e_charts_(temp, x = XVar)
+        p1 <- echarts4r::e_bar_(e = p1, YVar, stack = XVar)
+        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+        p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+        p1 <- echarts4r::e_title(p1, "BarPlot")
+        p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+        p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+        p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      }
+      return(p1)
+    }
+
+  } else if(check2) {
+
+    if(length(GroupVar) != 0) {
+      if(!PreAgg) {
+        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, YVar))
+        } else {
+          byvars <- unique(c(byvars, YVar))
+        }
+        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, GroupVar))
+        } else {
+          byvars <- unique(c(byvars, GroupVar))
+        }
+        if(!is.null(byvars)) {
+          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars), by = c(byvars)]
+        } else {
+          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars)]
+        }
+      } else {
+        temp <- data.table::copy(dt)
+      }
+
+      if(Engine == "Plotly") {
+        p1 <- plotly::plot_ly(data = temp, x = ~get(GroupVar[1L]), y = ~get(YVar), type = 'bar', name = eval(YVar), color = I(FillColor), showlegend = FALSE)
+        p1 <- plotly::layout(
+          p = p1,
+          font = AutoPlots:::font_(),
+          title = AutoPlots:::bold_(Title),
+          plot_bgcolor = ChartColor,
+          paper_bgcolor = BackGroundColor,
+          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
+          yaxis = list(
+            title = AutoPlots:::bold_(YVar),
+            zerolinecolor = ZeroLineColor,
+            zerolinewidth = ZeroLineWidth,
+            gridcolor = GridColor),
+          xaxis = list(
+            title = AutoPlots:::bold_(GroupVar[1L]),
+            categoryorder = "total descending",
+            zerolinecolor = ZeroLineColor,
+            zerolinewidth = ZeroLineWidth,
+            gridcolor = GridColor),
+          barmode = 'group')
+      } else {
+        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L])
+        p1 <- echarts4r::e_bar_(e = p1, YVar, stack = GroupVar[1L])
+        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+        p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+        p1 <- echarts4r::e_title(p1, "BarPlot")
+        p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+        p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+        p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      }
+      return(p1)
+    } else {
+      return(NULL)
+    }
+
+  } else if(check3) {
+
+    if(length(GroupVar) != 0) {
+      if(!PreAgg) {
+        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, XVar))
+        } else {
+          byvars <- unique(c(byvars, XVar))
+        }
+        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, GroupVar))
+        } else {
+          byvars <- unique(c(byvars, GroupVar))
+        }
+        if(!is.null(byvars)) {
+          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars), by = c(byvars)]
+        } else {
+          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars)]
+        }
+      } else {
+        temp <- data.table::copy(dt)
+      }
+
+      # Plot
+      if(Engine == "Plotly") {
+        p1 <- plotly::plot_ly(data = temp, x = ~get(GroupVar[1L]), y = ~get(XVar), type = 'bar', name = eval(XVar), color = I(FillColor), showlegend = FALSE)
+        p1 <- plotly::layout(
+          p = p1,
+          font = AutoPlots:::font_(),
+          title = AutoPlots:::bold_(Title),
+          plot_bgcolor = ChartColor,
+          paper_bgcolor = BackGroundColor,
+          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
+          yaxis = list(
+            title = AutoPlots:::bold_(XVar),
+            zerolinecolor = ZeroLineColor,
+            zerolinewidth = ZeroLineWidth,
+            gridcolor = GridColor),
+          xaxis = list(
+            title = AutoPlots:::bold_(GroupVar[1L]),
+            categoryorder = "total descending",
+            zerolinecolor = ZeroLineColor,
+            zerolinewidth = ZeroLineWidth,
+            gridcolor = GridColor),
+          barmode = 'group')
+      } else {
+        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L])
+        p1 <- echarts4r::e_bar_(e = p1, XVar, stack = GroupVar[1L])
+        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+        p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+        p1 <- echarts4r::e_title(p1, "BarPlot")
+        p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+        p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+        p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      }
+      return(p1)
+    } else {
+      return(NULL)
+    }
+  } else {
+    return(NULL)
+  }
+
+  # Return plot
+  return(eval(p1))
+}
+
+#' @title Plot.HeatMap
+#'
+#' @description Create heat maps with numeric or categorical dt
+#'
+#' @family Standard Plots
+#' @author Adrian Antico
+#'
+#' @param dt Source data.table
+#' @param XVar = NULL,
+#' @param YVar = NULL,
+#' @param ZVar = NULL,
+#' @param Engine "plotly", "echarts4r"
+#' @param EchartsTheme "dark-blue"
+#' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
+#' @param NumberBins = 21
+#' @param NumLevels_Y = 20
+#' @param NumLevels_X = 20
+#' @param Title "Heatmap"
+#' @param BackGroundColor = "#6a6969"
+#' @param ChartColor = '#001534'
+#' @param FillColor = "#0066ff"
+#' @param FillColorReverse character
+#' @param GridColor = '#ffffff'
+#'
+#' @examples
+#' \dontrun{
+#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
+#' Columns <- c(
+#'   "DATE_ISO",
+#'   "ARTICLE",
+#'   "BRAND",
+#'   "CUSTOMER_COD_char",
+#'   "CHILLED_Margin_PerDay",
+#'   "CHILLED_Liters_PerDay",
+#'   "CHILLED_Units_PerDay")
+#' data <- AutoPlots::DM.pgQuery(
+#'   Query = NULL,
+#'   DataBase = "KompsProcessed",
+#'   SELECT = Columns,
+#'   AggStat = "AVG",
+#'   FROM = "POS_Processed_Long_Daily_backward",
+#'   GroupBy = NULL,
+#'   SamplePercent = 1,
+#'   Host = 'localhost',
+#'   User = 'postgres',
+#'   Port = 5432,
+#'   Password = "Aa...")
+#'
+#' AutoPlots:::Plot.HeatMap(
+#'   data,
+#'   PreAgg = FALSE,
+#'   Engine = 'echarts4r',
+#'   XVar = 'ARTICLE',
+#'   YVar = 'BRAND',
+#'   ZVar = 'CHILLED_Margin_PerDay',
+#'   AggMethod = 'mean',
+#'   NumberBins = 21,
+#'   NumLevels_Y = 33,
+#'   NumLevels_X = 33)
+#'
+#' # QA
+#' data
+#' PreAgg = FALSE
+#' Engine = 'echarts4r'
+#' XVar = 'ARTICLE'
+#' YVar = 'BRAND'
+#' ZVar = 'CHILLED_Margin_PerDay'
+#' AggMethod = 'mean'
+#' NumberBins = 21
+#' NumLevels_Y = 33
+#' NumLevels_X = 33
+#' gridcolor = GridColor
+#' plot_bgcolor = ChartColor
+#' paper_bgcolor = BackGroundColor
+#'
+#' }
+#'
+#' @export
+Plot.HeatMap <- function(dt,
+                         PreAgg = FALSE,
+                         AggMethod = 'mean',
+                         XVar = NULL,
+                         YVar = NULL,
+                         ZVar = NULL,
+                         NumberBins = 21,
+                         NumLevels_Y = 33,
+                         NumLevels_X = 33,
+                         Title = "Heatmap",
+                         Engine = "Plotly",
+                         EchartsTheme = "dark",
+                         X_Scroll = TRUE,
+                         Y_Scroll = TRUE,
+                         BackGroundColor =  "#6a6969",
+                         ChartColor =       "#001534",
+                         FillColor =        "#0066ff",
+                         FillColorReverse = "#97ff00",
+                         GridColor =        "white",
+                         TextColor =        "white",
+                         Debug     =        FALSE) {
+
+  # Subset cols
+  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
+  x_check <- class(dt1[[XVar]])[1L] %in% c('numeric','integer')
+  y_check <- class(dt1[[YVar]])[1L] %in% c('numeric','integer')
+  x_y_num <- x_check && y_check
+  x_num <- x_check && !y_check
+  x_char <- !x_check && y_check
+  all_char <- !x_check && !y_check
+
+  # XVar == numeric or integer && YVar == numeric or integer
+  if(x_y_num) {
+
+    # rank XVar and YVar
+    if(!PreAgg) {
+      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
+      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
+      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+
+      # Formatting
+      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+      o <- order(vals, decreasing = FALSE)
+      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    }
+
+    # Create final data for plot
+    if(Engine == "Plotly") {
+      p1 <- plotly::plot_ly(
+        dt1,
+        x = ~get(XVar),
+        y = ~get(YVar),
+        z = ~Measure_Variable,
+        colorscale = colz,
+        type = "heatmap")
+      p1 <- plotly::layout(
+        p = p1,
+        title = AutoPlots:::bold_(Title),
+        font = AutoPlots:::font_(),
+        xaxis = list(title = ''),
+        yaxis = list(title = ''),
+        gridcolor = GridColor,
+        plot_bgcolor = ChartColor,
+        paper_bgcolor = BackGroundColor)
+
+    } else if(Engine == "Echarts") {
+      g <- "Measure_Variable"
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(
+        style = "decimal",
+        digits = 2
+      ))
+      p1 <- echarts4r::e_title(e = p1, Title)
+      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    }
+    return(p1)
+  }
+
+  # XVar == character && YVar == numeric or integer
+  if(x_char) {
+
+    # rank YVar
+    if(!PreAgg) {
+      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
+      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+
+      # Top YVar Levels
+      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
+      temp <- temp[seq_len(min(NumLevels_X, temp[, .N]))][[1L]]
+      dt1 <- dt1[get(YVar) %in% eval(temp)]
+
+      # Formatting
+      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+      o <- order(vals, decreasing = FALSE)
+      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    }
+
+    # Create final data for plot
+    if(Engine == "Plotly") {
+      p1 <- plotly::plot_ly(
+        dt1,
+        x = ~get(XVar),
+        y = ~get(YVar),
+        z = ~Measure_Variable,
+        colorscale = colz,
+        type = "heatmap")
+      p1 <- plotly::layout(
+        p = p1,
+        title = AutoPlots:::bold_(Title),
+        xaxis = list(title = ''),
+        yaxis = list(title = ''),
+        font = AutoPlots:::font_(),
+        gridcolor = GridColor,
+        plot_bgcolor = ChartColor,
+        paper_bgcolor = BackGroundColor)
+
+    } else if(Engine == "echarts4r") {
+      g <- "Measure_Variable"
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+      p1 <- echarts4r::e_title(e = p1, Title)
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    }
+    return(p1)
+  }
+
+  # XVar == numeric or integer && YVar == character
+  if(x_num) {
+
+    # rank XVar
+    if(!PreAgg) {
+      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
+      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+
+      # Top YVar Levels
+      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
+      temp <- temp[seq_len(min(NumLevels_Y, temp[, .N]))][[1L]]
+
+      # Formatting
+      dt1 <- dt1[get(YVar) %in% eval(temp)]
+      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+      o <- order(vals, decreasing = FALSE)
+      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    }
+
+    # Create final dt1 for plot
+    if(Engine == "Plotly") {
+      p1 <- plotly::plot_ly(dt1, x = ~get(XVar), y = ~get(YVar), z = ~Measure_Variable, colorscale = colz, type = "heatmap")
+      p1 <- plotly::layout(
+        p = p1,
+        title = AutoPlots:::bold_(Title),
+        xaxis = list(title = ''),
+        yaxis = list(title = ''),
+        font = AutoPlots:::font_(),
+        gridcolor = GridColor,
+        plot_bgcolor = ChartColor,
+        paper_bgcolor = BackGroundColor)
+    } else if(Engine == "echarts4r") {
+      g <- "Measure_Variable"
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+      p1 <- echarts4r::e_title(e = p1, Title)
+      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    }
+    return(p1)
+  }
+
+  # XVar == character or integer && YVar == character
+  if(all_char) {
+
+    # Starter pack
+    if(!PreAgg) {
+      if(AggMethod == 'mean') {
+        temp_y <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_yy <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_xx <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_yy) & get(XVar) %in% eval(temp_xx)]
+        dt1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'median') {
+        temp_y <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'sum') {
+        temp_y <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'sd') {
+        temp_y <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'coeffvar') {
+        temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'count') {
+        temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      }
+    }
+
+
+    # Create final dt1 for plot
+    if(Engine == "Plotly") {
+      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+      p1 <- plotly::plot_ly(
+        dt1,
+        x = ~get(XVar),
+        y = ~get(YVar),
+        z = ~Measure_Variable,
+        colors = grDevices::colorRamp(c(ChartColor,FillColor)),
+        type = "heatmap")
+      p1 <- plotly::layout(
+        p = p1,
+        title = AutoPlots:::bold_(Title),
+        xaxis = list(title = ''),
+        yaxis = list(title = ''),
+        font = AutoPlots:::font_(),
+        gridcolor = GridColor,
+        plot_bgcolor = ChartColor,
+        paper_bgcolor = BackGroundColor)
+    } else if(Engine == "Echarts") {
+      if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)))
+      p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
+      p1 <- echarts4r::e_title(e = p1, Title)
+      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    }
+    return(p1)
+  }
+}
+
+# ----
+
+# ----
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+# > Relationships Plot Functions                                              ----
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+
+# Correlation Matrix Updates: https://okanbulut.github.io/bigdata/visualizing-big-data.html
+
+#' @title Plot.CorrMatrix
+#'
+#' @description Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt Source data.table
+#' @param CorrVars character
+#' @param Method character
+#' @param Title character
+#' @param Engine character
+#' @param EchartsTheme = "macaron"
+#' @param X_Scroll logical
+#' @param Y_Scroll logical
+#' @param PreAgg logical
+#' @param BackGroundColor character hex
+#' @param ChartColor character hex
+#' @param FillColor character hex
+#' @param FillColorReverse character
+#' @param GridColor character hex
+#' @param TextColor character hex
+#' @param Debug logical
+#' @export
+Plot.CorrMatrix <- function(dt = NULL,
+                            CorrVars = NULL,
+                            Method = 'spearman',
+                            PreAgg = FALSE,
+                            Title = "Correlation Matrix",
+                            Engine = "Plotly",
+                            EchartsTheme = "macaron",
+                            X_Scroll = TRUE,
+                            Y_Scroll = TRUE,
+                            BackGroundColor =  "#6a6969",
+                            ChartColor =       "#001534",
+                            FillColor =        "#0066ff",
+                            FillColorReverse = "#97ff00",
+                            GridColor =        "white",
+                            TextColor =        "white",
+                            Debug = FALSE) {
+
+  # Plot
+  if(!PreAgg) {
+    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
+    for(i in seq_along(names(dt1))) {
+      yy <- names(dt1)[i]
+      zz <- nchar(yy)
+      data.table::setnames(dt1, yy, substr(x = yy, start = max(0L, zz - 40L), stop = nchar(yy)))
+    }
+    corr_mat <- cor(method = Method, x = dt1)
+  } else {
+    corr_mat <- dt
+  }
+
+  if(Engine == "Plotly") {
+
+    # Build
+    if(Debug) print("Plot.CorrMatrix build")
+    p1 <- heatmaply::heatmaply_cor(
+      corr_mat,
+      colors = c('darkred', 'pink', 'white', 'lightblue', 'darkblue'),
+      xlab = NULL,
+      ylab = NULL,
+      k_col = 2,
+      k_row = 2)
+
+    # Layout
+    if(Debug) print("Plot.CorrMatrix layout")
+    p1 <- plotly::layout(
+      p = p1,
+      title = AutoPlots:::bold_(Title),
+      font = AutoPlots:::font_(),
+      gridColor = GridColor,
+      plot_bgcolor = ChartColor,
+      paper_bgcolor = BackGroundColor)
+
+  } else {
+    if(Debug) print("Plot.CorrMatrix Echarts")
+    p1 <- echarts4r::e_charts(data = corr_mat)
+    p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
+    p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", echarts4r::e_tooltip_item_formatter(
+      style = "decimal",
+      digits = 2
+    ))
+    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    p1 <- echarts4r::e_title(e = p1, Title)
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  }
+
+  # Return plot
+  return(eval(p1))
 }
 
 #' @title Plot.Copula
@@ -2850,1059 +3920,13 @@ Plot.Scatter3D <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.Line
-#'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
-#'
-#' @author Adrian Antico
-#' @family Standard Plots
-#'
-#' @param dt data.table
-#' @param PreAgg logical
-#' @param AggMethod character
-#' @param XVar Column name of the predicted values from your model
-#' @param YVar Column name of the target variable from your model
-#' @param GroupVar One Grouping Variable
-#' @param Title "Title"
-#' @param Engine "Echarts" or "Plotly"
-#' @param EchartsTheme Provide an "Echarts" theme
-#' @param TimeLine Logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
-#' @param Area logical
-#' @param Alpha 0 to 1 for setting transparency
-#' @param Smooth = TRUE
-#' @param ShowSymbol = FALSE
-#' @param ZeroLineColor color
-#' @param ZeroLineWidth 1
-#' @param BackGroundColor color
-#' @param ChartColor color
-#' @param FillColor color
-#' @param FillColorReverse character
-#' @param GridColor color
-#' @param TextColor "Not Implemented"
-#' @param Debug FALSE
-#'
-#' @return Calibration plot or boxplot
-#' @examples
-#' \dontrun{
-# Create fake data
-#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-#'
-#' # Build Plot
-#' AutoPlots::Plot.Line(
-#'   dt = data,
-#'   PreAgg = TRUE,
-#'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
-#'   TimeLine = TRUE,
-#'   XVar = "Predict",
-#'   YVar = "CHILLED_Margin_PerDay",
-#'   GroupVar = "BRAND",
-#'   ZeroLineColor = '#ffff',
-#'   ZeroLineWidth = 1.25,
-#'   Title = 'Bar Plot',
-#'   FillColor = "#0066ff",
-#'   BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
-#'   ChartColor = '#001534',
-#'   GridColor = 'white',
-#'   TextColor = 'white',
-#'   Debug = FALSE)
-#'
-#' # # Step Through Function
-#' # library(AutoPlots)
-#' # library(data.table)
-#' # dt = data
-#' # Y_Scroll = FALSE
-#' # X_Scroll = FALSE
-#' # Engine = "Echarts" # "Plotly"
-#' # TimeLine = TRUE
-#' # EchartsTheme = "macaron"
-#' # Area = TRUE
-#' # Alpha = 0.50
-#' # XVar = "Predict"
-#' # YVar = "CHILLED_Margin_PerDay"
-#' # GroupVar = "BRAND"
-#' # ZeroLineColor = '#ffff'
-#' # ZeroLineWidth = 1.25
-#' # Title = 'Bar Plot'
-#' # FillColor = "#0066ff"
-#' # BackGroundColor = "#6a6969"
-#' # ChartColor = '#001534'
-#' # GridColor = 'white'
-#' # TextColor = 'white'
-#' # PreAgg = TRUE
-#' # Debug = FALSE
-#' }
-#' @export
-Plot.Line <- function(dt = NULL,
-                      AggMethod = "mean",
-                      PreAgg = TRUE,
-                      Engine = 'Echarts',
-                      XVar = NULL,
-                      YVar = NULL,
-                      GroupVar = NULL,
-                      Title = 'Line Plot',
-                      EchartsTheme = "macaron",
-                      X_Scroll = FALSE,
-                      Y_Scroll = FALSE,
-                      TimeLine = TRUE,
-                      Area = FALSE,
-                      Alpha = 0.50,
-                      Smooth = TRUE,
-                      ShowSymbol = FALSE,
-                      BackGroundColor =  "#6a6969",
-                      ChartColor =       "#001534",
-                      FillColor =        "#0066ff",
-                      FillColorReverse = "#97ff00",
-                      GridColor =        "white",
-                      TextColor =        "white",
-                      ZeroLineColor = '#ffff',
-                      ZeroLineWidth = 1.25,
-                      Debug = FALSE) {
+# ----
 
-  if(TimeLine) X_Scroll <- FALSE
+# ----
 
-  # Correct args
-  if(length(GroupVar) > 0L && length(XVar) == 0L) {
-    XVar <- GroupVar
-    GroupVar <- NULL
-  }
-
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
-  Ncols <- ncol(dt)
-  if(Ncols > 2L && length(GroupVar) == 0L) {
-    if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
-  } else if(Ncols > 3L && length(GroupVar) > 0L) {
-    if(Debug) print("Plot.Line() Ncols > 3L && length(GroupVar) > 0L")
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
-  } else {
-    if(Debug) print("Plot.Line() make copy of data")
-    dt1 <- data.table::copy(dt)
-  }
-
-  # Minimize data before moving on
-  if(PreAgg) {
-
-    # Define Aggregation function
-    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
-    if(AggMethod == "mean") {
-      aggFunc <- function(x) mean(x, na.rm = TRUE)
-    } else if(AggMethod == "median") {
-      aggFunc <- function(x) median(x, na.rm = TRUE)
-    } else if(AggMethod == "sd") {
-      aggFunc <- function(x) sd(x, na.rm = TRUE)
-    } else if(AggMethod == "skewness") {
-      aggFunc <- function(x) e1071::skewness(x, na.rm = TRUE)
-    } else if(AggMethod == "kurtosis") {
-      aggFunc <- function(x) e1071::kurtosis(x, na.rm = TRUE)
-    } else if(AggMethod == "CoeffVar") {
-      aggFunc <- function(x) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
-    } else if(AggMethod == "meanabs") {
-      aggFunc <- function(x) mean(abs(x), na.rm = TRUE)
-    } else if(AggMethod == "medianabs") {
-      aggFunc <- function(x) median(abs(x), na.rm = TRUE)
-    } else if(AggMethod == "sd") {
-      aggFunc <- function(x) sd(abs(x), na.rm = TRUE)
-    } else if(AggMethod == "skewnessabs") {
-      aggFunc <- function(x) e1071::skewness(abs(x), na.rm = TRUE)
-    } else if(AggMethod == "kurtosisabs") {
-      aggFunc <- function(x) e1071::kurtosis(abs(x), na.rm = TRUE)
-    } else if(AggMethod == "CoeffVarabs") {
-      aggFunc <- function(x) sd(abs(x), na.rm = TRUE) / mean(abs(x), na.rm = TRUE)
-    }
-
-    # Aggregate data
-    if(length(GroupVar) > 0L) {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
-      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
-    } else {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
-      data.table::setorderv(x = dt1, cols = XVar, 1L)
-    }
-  }
-
-  # Group Variable Case
-  if(length(GroupVar) > 0L) {
-
-    # Prepare Data
-    if(Debug) print("Plot.Line() Build 1")
-    gv <- GroupVar[1L]
-    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
-
-    cxv <- class(dt1[[XVar]])[1L]
-    if(cxv %in% "IDate") {
-      dt1[, eval(XVar) := as.Date(get(XVar))]
-    } else if(cxv %in% "IDateTime") {
-      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
-    }
-
-    # Plot
-    if(Engine == "Echarts") {
-      if(Debug) print("Plot.Line() Build Echarts 1")
-
-      # Build base plot depending on GroupVar availability
-      if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
-      p1 <- echarts4r::e_charts_(
-        data = dt1 |> dplyr::group_by(get(gv)),
-        x = XVar,
-        timeline = TimeLine)
-
-      # Finalize Plot Build
-      if(Debug) print("Plot.Line() Build Echarts 4")
-      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      p1 <- echarts4r::e_title(e = p1, Title)
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(style = "decimal", digits = 2))
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
-
-    } else {
-
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line group plotly::plot_ly")
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        color = ~get(gv[1L]),
-        type = "scatter",
-        mode = "lines")
-
-      # Finalize Plot Build
-      if(Debug) print("Plot.Line group plotly::layout")
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))
-    }
-
-  } else {
-
-    # Plot
-    data.table::setorderv(x = dt1, cols = XVar, 1L)
-    cxv <- class(dt1[[XVar]])[1L]
-    if(cxv %in% "IDate") {
-      dt1[, eval(XVar) := as.Date(get(XVar))]
-    } else if(cxv %in% "IDateTime") {
-      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
-    }
-    if(Engine == "Echarts") {
-
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line no group Echarts")
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
-      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
-
-      # Finalize Plot Build
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      p1 <- echarts4r::e_title(e = p1, Title)
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(style = "decimal",digits = 2))
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-
-    } else {
-
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line no group plotly::plot_ly")
-      if(Area) {
-        Fill <- "tozeroy"
-      } else {
-        Fill <- "Tozeroyr"
-      }
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        type = "scatter",
-        mode = "lines",
-        fill = Fill,
-        fillcolor = FillColor,
-        alpha = Alpha)
-
-      # Finalize Plot Build
-      if(Debug) print("Plot.Line no group plotly::layout")
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))
-    }
-  }
-  return(p1)
-}
-
-#' @title Plot.Bar
-#'
-#' @description Build a bar plot by simply passing arguments to a single function
-#'
-#' @family Standard Plots
-#'
-#' @author Adrian Antico
-#'
-#' @param dt Source data.table
-#' @param PreAgg logical
-#' @param XVar Column name of X-Axis variable. If NULL then ignored
-#' @param YVar Column name of Y-Axis variable. If NULL then ignored
-#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
-#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param Title title
-#' @param Engine 'Plotly' or "Echarts"
-#' @param EchartsTheme "macaron"
-#' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
-#' @param ZeroLineColor = '#ffff'
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
-#' @param ChartColor 'lightsteelblue'
-#' @param BorderColor 'darkblue'
-#' @param TextColor 'darkblue'
-#' @param GridColor 'white'
-#' @param BackGroundColor 'gray95'
-#' @param Debug FALSE
-#'
-#' @examples
-#' \dontrun{
-#' # Load packages
-#' library(AutoPlots)
-#' library(data.table)
-#'
-#' # Load data
-#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-#'
-#' # Run function
-#' AutoPlots:::Plot.Bar(
-#'   Engine = 'Plotly', # "Echarts"
-#'   EchartsTheme = "macaron",
-#'   TimeLine = TRUE,
-#'   data = data,
-#'   XVar = "Predict",
-#'   YVar = "CHILLED_Margin_PerDay",
-#'   GroupVar = "BRAND",
-#'   AggMethod = 'mean',
-#'   FillColor = "#0066ff",
-#'   ChartColor = 'lightsteelblue1',
-#'   TextColor = 'darkblue',
-#'   GridColor = 'white',
-#'   BackGroundColor = 'gray95',
-#'   Debug = FALSE)
-#'
-#' # # Step through function
-#' # dt <- data
-#' # Engine = 'Plotly' # "Echarts"
-#' # EchartsTheme = "macaron"
-#' # XVar = "Predict"
-#' # YVar = "CHILLED_Margin_PerDay"
-#' # GroupVar = "BRAND"
-#' # AggMethod = 'mean'
-#' # GroupVar = NULL
-#' # ZeroLineColor = '#ffff'
-#' # ZeroLineWidth = 1.25
-#' # Title = 'Bar Plot'
-#' # FillColor = "#0066ff"
-#' # BackGroundColor = "#6a6969" #, #"#1b1959", #'#00060b',
-#' # ChartColor = '#001534'
-#' # BorderColor = 'darkblue'
-#' # TextColor = 'darkblue'
-#' # GridColor = 'white'
-#' # Debug = FALSE
-#' }
-#'
-#' @export
-Plot.Bar <- function(Engine = 'Plotly',
-                     dt = NULL,
-                     PreAgg = FALSE,
-                     XVar = NULL,
-                     YVar = NULL,
-                     GroupVar = NULL,
-                     AggMethod = 'mean',
-                     Title = 'Bar Plot',
-                     EchartsTheme = "macaron",
-                     TimeLine = TRUE,
-                     X_Scroll = TRUE,
-                     Y_Scroll = TRUE,
-                     BackGroundColor =  "#6a6969",
-                     ChartColor =       "#001534",
-                     FillColor =        "#0066ff",
-                     FillColorReverse = "#97ff00",
-                     GridColor =        "white",
-                     TextColor =        "white",
-                     ZeroLineColor = '#ffff',
-                     ZeroLineWidth = 1.25,
-                     Debug = FALSE) {
-
-  if(data.table::is.data.table(dt)) data.table::setDT(dt)
-
-  # Used multiple times
-  check1 <- length(XVar) != 0 && length(YVar) != 0
-  check2 <- length(XVar) == 0 && length(YVar) != 0
-  check3 <- length(XVar) != 0 && length(YVar) == 0
-
-  # Create base plot object
-  numvars <- c()
-  byvars <- c()
-  if(check1) {
-    if(length(GroupVar) != 0L) {
-      if(!PreAgg) {
-        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, YVar))
-        } else {
-          byvars <- unique(c(byvars, YVar))
-        }
-        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          if(length(numvars) > 0) {
-            x <- length(unique(dt[[XVar]]))
-            y <- length(unique(dt[[YVar]]))
-            if(x > y) {
-              byvars <- unique(c(byvars, YVar))
-              numvars[1L] <- XVar
-            } else {
-              byvars <- unique(c(byvars, XVar))
-            }
-          } else {
-            numvars <- unique(c(numvars, XVar))
-          }
-        } else {
-          byvars <- unique(c(byvars, XVar))
-        }
-        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          dt[, eval(GroupVar) := as.character(get(GroupVar))]
-          byvars <- unique(c(byvars, GroupVar))
-        } else {
-          byvars <- unique(c(byvars, GroupVar))
-        }
-        if(!is.null(byvars)) {
-          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars), by = c(byvars)]
-          for(i in byvars) {
-            if(class(temp[[i]]) %in% c('numeric','integer')) {
-              temp[, eval(i) := as.character(get(i))]
-            }
-          }
-        } else {
-          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars)]
-        }
-      } else {
-        temp <- data.table::copy(dt)
-      }
-
-      # Plotly
-      if(Engine == "Plotly") {
-        p1 <- plotly::plot_ly(data = temp, x = ~get(XVar), y = ~get(YVar), color = ~as.factor(get(GroupVar[1L])), type = "bar", name = eval(GroupVar[1L]))
-        p1 <- plotly::layout(
-          p = p1,
-          font = AutoPlots:::font_(),
-          title = AutoPlots:::bold_(Title),
-          plot_bgcolor = ChartColor,
-          paper_bgcolor = BackGroundColor,
-          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          xaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            categoryorder = "total descending",
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          barmode = 'group')
-      } else {
-        p1 <- echarts4r::e_charts_(temp, x = XVar)
-        p1 <- echarts4r::e_bar_(e = p1, YVar, stack = XVar)
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-        p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-        p1 <- echarts4r::e_title(p1, "BarPlot")
-        p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-        p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
-        p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      }
-      return(p1)
-
-    } else {
-
-      if(Debug) print("BarPlot 2.b")
-      if(!PreAgg) {
-        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, YVar))
-        } else {
-          byvars <- unique(c(byvars, YVar))
-        }
-        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          if(length(numvars) > 0) {
-            x <- length(unique(dt[[XVar]]))
-            y <- length(unique(dt[[YVar]]))
-            if(x > y) {
-              byvars <- unique(c(byvars, YVar))
-              numvars[1L] <- XVar
-            } else {
-              byvars <- unique(c(byvars, XVar))
-            }
-          } else {
-            numvars <- unique(c(numvars, XVar))
-          }
-        } else {
-          byvars <- unique(c(byvars, XVar))
-        }
-        if(!is.null(byvars)) {
-          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars), by = c(byvars)]
-          for(i in byvars) {
-            if(class(temp[[i]]) %in% c('numeric','integer')) {
-              temp[, eval(i) := as.character(get(i))]
-            }
-          }
-        } else {
-          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars)]
-        }
-      } else {
-        temp <- data.table::copy(dt)
-      }
-
-      yvar <- temp[[YVar]]
-      xvar <- temp[[XVar]]
-
-      # Plotly
-      if(Engine == "Plotly") {
-        p1 <- plotly::plot_ly(
-          data = temp,
-          x = ~get(XVar),
-          y = ~get(YVar),
-          type = 'bar',
-          color = I(FillColor[1]),
-          orientation = "vert",
-          showlegend = FALSE)
-        p1 <- plotly::layout(
-          p = p1,
-          font = AutoPlots:::font_(),
-          title = AutoPlots:::bold_(Title),
-          plot_bgcolor = ChartColor,
-          paper_bgcolor = BackGroundColor,
-          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          xaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            categoryorder = "total descending",
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          barmode = 'group')
-
-      } else {
-        if(XVar == "Importance" && YVar == "Variable") {
-          XVar <- "Variable"
-          YVar <- "Importance"
-        }
-        p1 <- echarts4r::e_charts_(temp, x = XVar)
-        p1 <- echarts4r::e_bar_(e = p1, YVar, stack = XVar)
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-        p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-        p1 <- echarts4r::e_title(p1, "BarPlot")
-        p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-        p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
-        p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      }
-      return(p1)
-    }
-
-  } else if(check2) {
-
-    if(length(GroupVar) != 0) {
-      if(!PreAgg) {
-        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, YVar))
-        } else {
-          byvars <- unique(c(byvars, YVar))
-        }
-        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, GroupVar))
-        } else {
-          byvars <- unique(c(byvars, GroupVar))
-        }
-        if(!is.null(byvars)) {
-          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars), by = c(byvars)]
-        } else {
-          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars)]
-        }
-      } else {
-        temp <- data.table::copy(dt)
-      }
-
-      if(Engine == "Plotly") {
-        p1 <- plotly::plot_ly(data = temp, x = ~get(GroupVar[1L]), y = ~get(YVar), type = 'bar', name = eval(YVar), color = I(FillColor), showlegend = FALSE)
-        p1 <- plotly::layout(
-          p = p1,
-          font = AutoPlots:::font_(),
-          title = AutoPlots:::bold_(Title),
-          plot_bgcolor = ChartColor,
-          paper_bgcolor = BackGroundColor,
-          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          xaxis = list(
-            title = AutoPlots:::bold_(GroupVar[1L]),
-            categoryorder = "total descending",
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          barmode = 'group')
-      } else {
-        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L])
-        p1 <- echarts4r::e_bar_(e = p1, YVar, stack = GroupVar[1L])
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-        p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-        p1 <- echarts4r::e_title(p1, "BarPlot")
-        p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-        p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
-        p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      }
-      return(p1)
-    } else {
-      return(NULL)
-    }
-
-  } else if(check3) {
-
-    if(length(GroupVar) != 0) {
-      if(!PreAgg) {
-        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, XVar))
-        } else {
-          byvars <- unique(c(byvars, XVar))
-        }
-        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, GroupVar))
-        } else {
-          byvars <- unique(c(byvars, GroupVar))
-        }
-        if(!is.null(byvars)) {
-          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars), by = c(byvars)]
-        } else {
-          temp <- dt[, lapply(.SD, function(x) eval(parse(text = paste0(AggMethod, '(x)')))), .SDcols = c(numvars)]
-        }
-      } else {
-        temp <- data.table::copy(dt)
-      }
-
-      # Plot
-      if(Engine == "Plotly") {
-        p1 <- plotly::plot_ly(data = temp, x = ~get(GroupVar[1L]), y = ~get(XVar), type = 'bar', name = eval(XVar), color = I(FillColor), showlegend = FALSE)
-        p1 <- plotly::layout(
-          p = p1,
-          font = AutoPlots:::font_(),
-          title = AutoPlots:::bold_(Title),
-          plot_bgcolor = ChartColor,
-          paper_bgcolor = BackGroundColor,
-          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-          yaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          xaxis = list(
-            title = AutoPlots:::bold_(GroupVar[1L]),
-            categoryorder = "total descending",
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          barmode = 'group')
-      } else {
-        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L])
-        p1 <- echarts4r::e_bar_(e = p1, XVar, stack = GroupVar[1L])
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-        p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-        p1 <- echarts4r::e_title(p1, "BarPlot")
-        p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-        p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
-        p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      }
-      return(p1)
-    } else {
-      return(NULL)
-    }
-  } else {
-    return(NULL)
-  }
-
-  # Return plot
-  return(eval(p1))
-}
-
-#' @title Plot.Histogram
-#'
-#' @description Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-#'
-#' @family Standard Plots
-#'
-#' @author Adrian Antico
-#'
-#' @param dt Source data.table
-#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
-#' @param XVar Column name of X-Axis variable. If NULL then ignored
-#' @param YVar Column name of Y-Axis variable. If NULL then ignored
-#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
-#' @param NumberBins = 30
-#' @param Engine = PlotEngineType,
-#' @param EchartsTheme = EchartsTheme,
-#' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
-#' @param ChartColor 'lightsteelblue'
-#' @param TextColor 'darkblue'
-#' @param GridColor 'white'
-#' @param BackGroundColor 'gray95'
-#' @param ZeroLineWidth = 1.25,
-#' @param ZeroLineColor = "white",
-#' @param Debug FALSE
-#'
-#' @examples
-#' \dontrun{
-#' # Load packages
-#' library(AutoPlots)
-#' library(data.table)
-#'
-#' # Load data
-#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-#'
-#' # Run function
-#' p1 <- AutoPlots:::Plot.Histogram(
-#'   dt = data,
-#'   TimeLine = FALSE,
-#'   X_Scroll = TRUE,
-#'   Y_Scroll = TRUE,
-#'   XVar = "Predict",
-#'   YVar = "CHILLED_Margin_PerDay",
-#'   GroupVar = "BRAND",
-#'   SampleSize = 100000,
-#'   NumberBins = 20,
-#'   FillColor = "#0066ff",
-#'   ChartColor = 'lightsteelblue1',
-#'   TextColor = 'darkblue',
-#'   GridColor = 'white',
-#'   BackGroundColor = 'gray95',
-#'   Debug = FALSE)
-#'
-#' # # Step through function
-#' # XVar = "Predict"
-#' # YVar = "CHILLED_Margin_PerDay"
-#' # GroupVar = "BRAND"
-#' # TimeLine = FALSE
-#' # AggMethod = 'mean'
-#' # ZeroLineWidth = 1.25
-#' # Title = 'Histogram'
-#' # NumberBins = 20
-#' # SampleSize = 100000
-#' # FillColor = "#0066ff"
-#' # ChartColor = '#001534'
-#' # GridColor = 'white'
-#' # TextColor = 'darkblue'
-#' # Debug = FALSE
-#' }
-#'
-#' @export
-Plot.Histogram <- function(dt = NULL,
-                           SampleSize = 30000L,
-                           XVar = NULL,
-                           YVar = NULL,
-                           GroupVar = NULL,
-                           NumberBins = 30,
-                           Title = 'Histogram',
-                           Engine = "Plotly",
-                           EchartsTheme = "macaron",
-                           TimeLine = FALSE,
-                           X_Scroll = TRUE,
-                           Y_Scroll = TRUE,
-                           BackGroundColor =  "#6a6969",
-                           ChartColor =       "#001534",
-                           FillColor =        "#0066ff",
-                           FillColorReverse = "#97ff00",
-                           GridColor =        "white",
-                           TextColor =        "white",
-                           ZeroLineWidth = 1.25,
-                           ZeroLineColor = "white",
-                           Debug = FALSE) {
-
-  TimeLine <- FALSE
-
-  # Cap number of records
-  if(length(SampleSize) == 0L) SampleSize <- 30000
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
-  if(dt[, .N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
-  } else {
-    dt1 <- data.table::copy(dt)
-  }
-
-  # Define Plotting Variable
-  if(length(YVar) == 0L && length(XVar) == 0) return(NULL)
-  if(length(YVar) == 0L) YVar <- XVar
-  if(length(XVar) > 0L && length(GroupVar) == 0L) {
-    GroupVar <- XVar
-    XVar <- NULL
-  }
-
-  GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
-  YVar <- tryCatch({YVar[1L]}, error = function(x) NULL)
-
-  # Create base plot object
-  if(Debug) print('Create Plot with only data')
-
-  # Format
-  if(Engine == "Plotly") {
-    print("Plotly Histogram 1")
-    p1 <- plotly::plot_ly(data = dt1, alpha = 0.6, nbinsx = NumberBins)
-    if(length(GroupVar) > 0L) {
-      p1 <- plotly::add_histogram(p = p1, x = ~get(YVar), color = ~get(GroupVar[1L]), legendgroup = GroupVar[1L])
-    } else {
-      p1 <- plotly::add_histogram(p = p1, x = ~get(YVar), color = I(FillColor), showlegend = FALSE)
-    }
-    p1 <- plotly::layout(
-      p = p1,
-      font = AutoPlots:::font_(),
-      title = AutoPlots:::bold_(Title),
-      plot_bgcolor = ChartColor,
-      paper_bgcolor = BackGroundColor,
-      xaxis = list(
-        title = AutoPlots:::bold_(YVar),
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor),
-      barmode = 'stack')
-
-  } else {
-
-    if(Debug) print("Echarts Histogram 1")
-    if(length(GroupVar) > 0L && length(XVar) > 0L) {
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), timeline = TimeLine)
-    } else {
-      p1 <- echarts4r::e_charts_(dt1, x = GroupVar)
-    }
-    p1 <- echarts4r::e_histogram_(e = p1, YVar, breaks = NumberBins)
-    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_title(p1, "Histogram")
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
-  }
-  return(p1)
-}
-
-#' @title Plot.Density
-#'
-#' @description Density plots, by groups, with transparent continuous plots
-#'
-#' @family Standard Plots
-#'
-#' @param dt From App
-#' @param GroupVar From App
-#' @param YVar From App
-#' @param XVar character
-#' @param GroupVar character
-#' @param Title = "Density Plot"
-#' @param Engine character
-#' @param EchartsTheme character
-#' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
-#' @param BackGroundColor "#6a6969",
-#' @param ChartColor "#001534",
-#' @param FillColor "#0066ff",
-#' @param FillColorReverse "#97ff00",
-#' @param GridColor "white",
-#' @param TextColor "white",
-#' @param Debug From App
-#'
-#' @examples
-#' \dontrun{
-#' # Load packages
-#' library(AutoPlots)
-#' library(data.table)
-#'
-#' # Load data
-#' data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-#'
-#' # Run function
-#' p1 <- AutoPlots:::Plot.Density(
-#'   TimeLine = FALSE,
-#'   data = data,
-#'   YVar = NULL,
-#'   GroupVar = 'Weekly_Sales',
-#'   ChartColor = 'lightsteelblue1',
-#'   BorderColor = 'darkblue',
-#'   TextColor = 'darkblue',
-#'   GridColor = 'white',
-#'   BackGroundColor = 'gray95',
-#'   Debug = FALSE)
-#'
-#' # Step through function
-#' # # plotly::ggplotly(p1)
-#' # TimeLine = FALSE
-#' # Engine = "Plotly"
-#' # EchartsTheme = "macarons"
-#' # data = data
-#' # YVar = 'Weekly_Sales'
-#' # GroupVar = c('Store','Dept')
-#' # ChartColor = 'lightsteelblue1'
-#' # TextColor = 'darkblue'
-#' # GridColor = 'white'
-#' # BackGroundColor = 'gray95'
-#' # Debug = FALSE
-#' # NumberBins
-#' }
-#'
-#' @export
-Plot.Density <- function(dt = NULL,
-                         YVar = NULL,
-                         XVar = NULL,
-                         GroupVar = NULL,
-                         Title = "Density Plot",
-                         Engine = "Plotly",
-                         EchartsTheme = "macarons",
-                         TimeLine = FALSE,
-                         X_Scroll = TRUE,
-                         Y_Scroll = TRUE,
-                         BackGroundColor =  "#6a6969",
-                         ChartColor =       "#001534",
-                         FillColor =        "#0066ff",
-                         FillColorReverse = "#97ff00",
-                         GridColor =        "white",
-                         TextColor =        "white",
-                         Debug = FALSE) {
-
-  TimeLine <- FALSE
-
-  # Cap number of records
-  if(length(SampleSize) == 0L) SampleSize <- 30000
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
-  if(dt[, .N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
-  } else {
-    dt1 <- data.table::copy(dt)
-  }
-
-  # Define Plotting Variable
-  if(length(YVar) == 0L && length(XVar) == 0) return(NULL)
-  if(length(YVar) == 0L) YVar <- XVar
-  if(length(XVar) > 0L && length(GroupVar) == 0L) {
-    GroupVar <- XVar
-    XVar <- NULL
-  }
-
-  GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
-  YVar <- tryCatch({YVar[1L]}, error = function(x) NULL)
-
-  # Create base plot object
-  if(Debug) print('Create Plot with only data')
-
-  if(length(GroupVar) == 0L) {
-
-    # Build plot
-    if(Engine == "Plotly") {
-      p1 <- ggplot2::ggplot(dt1, ggplot2::aes(x = get(YVar)))
-      p1 <- p1 + ggplot2::geom_density(alpha = 0.3, color = GridColor)
-      p1 <- p1 + ggplot2::xlab(eval(YVar))
-      p1 <- p1 + AutoPlots:::ChartTheme(
-        ChartColor = ChartColor,
-        TextColor = TextColor,
-        GridColor = GridColor,
-        BackGroundColor = BackGroundColor)
-      p1 <- plotly::ggplotly(p1)
-    } else {
-      p1 <- echarts4r::e_charts_(dt1, x = NULL)
-      p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_title(p1, "Density Plot")
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))    }
-
-    return(p1)
-
-  } else {
-
-    # Prepare data
-    if(Engine == "Plotly") {
-      if(length(YVar) > 1L) {
-        xx <- data.table::melt.data.table(
-          data = dt1,
-          id.vars = c(GroupVar), measure.vars= c(YVar), variable.name='Method', value.name='Value')
-        p1 <- ggplot2::ggplot(xx, ggplot2::aes(x = Value, fill = Method)) +
-          ggplot2::geom_density(alpha = 0.3)
-      } else {
-        p1 <- ggplot2::ggplot(dt1, ggplot2::aes(x = get(YVar), group = get(GroupVar[1L]), fill = get(GroupVar[1L]))) + ggplot2::geom_density(alpha = 0.3)
-      }
-
-      # Add ChartTheme
-      if(Debug) print('ChartTheme')
-      p1 <- p1 + AutoPlots:::ChartTheme(
-        ChartColor = ChartColor,
-        TextColor = TextColor,
-        GridColor = GridColor,
-        BackGroundColor = BackGroundColor)
-      p1 <- tryCatch({p1 + ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))}, error = function(x) p1)
-      p1 <- p1 + ggplot2::xlab(GroupVar[1L])
-      p1 <- plotly::ggplotly(p1)
-
-    } else {
-
-      data.table::setorderv(x = dt1, cols = GroupVar[1L], 1)
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), timeline = TimeLine)
-      p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_title(p1, Title)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))
-    }
-    return(p1)
-  }
-}
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+# > Stocks Plots Functions                                                    ----
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 
 #' @noRd
 holidayNYSE <- function(year = getRmetricsOptions("currentYear")) {
@@ -4181,7 +4205,7 @@ Plot.Stock <- function(StockDataOutput,
 # ----
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-# Model Evaluation Plots                                                      ----
+# > Model Evaluation Plots                                                    ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 
 #' @title Plot.Calibration.Line
@@ -6230,7 +6254,7 @@ Plot.ShapImportance <- function(dt,
 # ----
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-# Experimental                                                                ----
+# > Experimental                                                              ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 
 #' @title PlotREsim
