@@ -66,10 +66,6 @@ p <- ggplot2::ggplot(data, ggplot2::aes(x = DateTime, y = Target)) +
 p <- p + ChartTheme(Size = 12)
 }
 }
-\seealso{
-Other helper: 
-\code{\link{PreparePlotData}()}
-}
 \author{
 Adrian Antico
 }

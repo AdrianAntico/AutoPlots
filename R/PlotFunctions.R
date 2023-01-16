@@ -84,240 +84,6 @@ ChartTheme <- function(Size = 12,
   chart_theme
 }
 
-#' @title PreparePlotData
-#'
-#' @description PreparePlotData automatically builds a picker input with tryCatch's and ProjectList argument usage if it exists
-#'
-#' @author Adrian Antico
-#' @family helper
-#'
-#' @param data Source data in shiny app
-#' @param SubsetOnly Set to TRUE to only subset data
-#' @param Aggregate Session object indicating whether to use mean or sum
-#' @param TargetVariable Target variable name
-#' @param GroupVariables Group variable names
-#' @param DateVariable Date variable name
-#' @param G1Levels Name of group 1 levels list element
-#' @param G2Levels Name of group 2 levels list element
-#' @param G3Levels Name of group 3 levels list element
-#' @param Debug FALSE
-#'
-#' @examples
-#' \dontrun{
-#'   PlotData <- Rappture:::PreparePlotData(
-#'     data,
-#'     SubsetOnly = FALSE,
-#'     Aggregate = "mean",
-#'     TargetVariable = "TargetVariables",
-#'     DateVariable = "DateVariables",
-#'     GroupVariables = GroupVariables,
-#'     G1Levels = "TS_Group1Levels",
-#'     G2Levels = "TS_Group2Levels",
-#'     G3Levels = "TS_Group3Levels")
-#' }
-#' @return PreparePlotData object for server.R to
-#' @keywords internal
-PreparePlotData <- function(data,
-                            SubsetOnly = FALSE,
-                            Aggregate = NULL,
-                            TargetVariable = NULL,
-                            DateVariable = NULL,
-                            GroupVariables = NULL,
-                            G1Levels = NULL,
-                            G2Levels = NULL,
-                            G3Levels = NULL,
-                            Debug = FALSE) {
-
-  # Debug Check
-  if(Debug) print('Starting PreparePlotData()')
-
-  # Define function ----
-  if(Aggregate == "mean") {
-    Agg <- as.function(x = , mean)
-  } else if(Aggregate == "sum") {
-    Agg <- as.function(x = , sum, na.rm = TRUE)
-  }
-
-  AggFun <- function(dt = data, A = Agg, S = SubsetOnly, t = TargetVariable, G = GroupVariables, D = DateVariable) {
-    if(!S && !is.null(G) && !is.null(D)) {
-      dt <- dt[, lapply(.SD, A, na.rm = TRUE), by = c(eval(G), eval(D)), .SDcols = c(t)]
-    } else if(!S && is.null(G) && !is.null(D)) {
-      dt <- dt[, lapply(.SD, A, na.rm = TRUE), by = c(eval(D)), .SDcols = c(t)]
-    } else if(!S && !is.null(G) && is.null(D)) {
-      dt <- dt[, lapply(.SD, A, na.rm = TRUE), by = c(eval(G)), .SDcols = c(t)]
-    }
-    return(dt)
-  }
-
-  # G1 & G2 & G3 ----
-  if(!is.null(GroupVariables[1L]) && !is.na(GroupVariables[1L]) && !is.null(GroupVariables[2L]) && !is.na(GroupVariables[2L]) && !is.null(GroupVariables[3L]) && !is.na(GroupVariables[3L])) {
-
-    if(Debug) print('G1 & G2 & G3 ----')
-    if(Debug) {print(G1Levels); print(G2Levels); print(G3Levels)}
-
-    # G2 & G3 ----
-    if(is.null(G1Levels) && !is.null(G2Levels) && !is.null(G3Levels)) {
-      if(Debug) print('G2 & G3 ----')
-      x <- data[get(GroupVariables[2L]) %in% c(eval(G2Levels)) & get(GroupVariables[3L]) %in% c(eval(G3Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-
-    # G1 & G3 ----
-    if(!is.null(G1Levels) && is.null(G2Levels) && !is.null(G3Levels)) {
-      if(Debug) print('G1 & G3 ----')
-      x <- data[get(GroupVariables[1L]) %in% c(eval(G1Levels)) & get(GroupVariables[3L]) %in% c(eval(G3Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-
-    # G1 & G2 ----
-    if(!is.null(G1Levels) && !is.null(G2Levels) && is.null(G3Levels)) {
-      if(Debug) print('G1 & G2 ----')
-      x <- data[get(GroupVariables[1L]) %in% c(eval(G1Levels)) & get(GroupVariables[2L]) %in% c(eval(G2Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-
-    # G3 ----
-    if(is.null(G1Levels) && is.null(G2Levels) && !is.null(G3Levels)) {
-      if(Debug) print('G3 ----')
-      x <- data[get(GroupVariables[3L]) %in% c(eval(G3Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-
-    # G2 ----
-    if(is.null(G1Levels) && !is.null(G2Levels) && is.null(G3Levels)) {
-      if(Debug) print('G2 ----')
-      x <- data[get(GroupVariables[2L]) %in% c(eval(G2Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-
-    # G1 ----
-    if(!is.null(G1Levels) && is.null(G2Levels) && is.null(G3Levels)) {
-      if(Debug) print('G1 ----')
-      x <- data[get(GroupVariables[1L]) %in% c(eval(G1Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-
-    # None ----
-    if(is.null(G1Levels) && is.null(G2Levels) && is.null(G3Levels)) {
-      if(Debug) print('None ----')
-      x <- AggFun(dt = data, A = Agg, S = SubsetOnly)
-      if(Debug) print(x)
-      return(x)
-    }
-
-    # G1 & G2 & G3 ----
-    if(!is.null(G1Levels) && !is.null(G2Levels) && !is.null(G3Levels)) {
-      if(Debug) print('# G1 & G2 & G3 ----')
-      x <- data[get(GroupVariables[1L]) %in% c(eval(G1Levels)) & get(GroupVariables[2L]) %in% c(eval(G2Levels)) & get(GroupVariables[3L]) %in% c(eval(G3Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-  }
-
-  # G1 & G2 Top ----
-  if(!is.null(GroupVariables[1L]) && !is.na(GroupVariables[1L]) && !is.null(GroupVariables[2L]) && !is.na(GroupVariables[2L]) && (is.null(GroupVariables[3L]) || is.na(GroupVariables[3L]))) {
-
-    if(Debug) print('G1 & G2 Top ----')
-
-    # G2 ----
-    if(is.null(G1Levels) && !is.null(G2Levels)) {
-      if(Debug) print('G2 ----')
-      x <- data[get(GroupVariables[2L]) %in% c(eval(G2Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-
-    # G1 ----
-    if(!is.null(G1Levels) && is.null(G2Levels)) {
-      if(Debug) print('G1 ----')
-      x <- data[get(GroupVariables[1L]) %in% c(eval(G1Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      return(x)
-    }
-
-    # G1 & G2 ----
-    if(!is.null(G1Levels) && !is.null(G2Levels)) {
-      if(Debug) print('G1 & G2 ----')
-      data <- data[get(GroupVariables[1L]) %in% c(G1Levels) & get(GroupVariables[2L]) %in% c(G2Levels)]
-      if(!SubsetOnly) data <- data[, .SD, .SDcols = c(eval(TargetVariable), eval(GroupVariables), eval(DateVariable))]
-      return(data)
-    }
-
-    # None ----
-    if(is.null(G1Levels) && is.null(G2Levels)) {
-      if(Debug) print('None ----')
-      if(!SubsetOnly && !is.null(DateVariable)) {
-        if(any(GroupVariables == 'None')) {for(i in seq_along(GroupVariables)) if(GroupVariables[i] == 'None') GroupVariables[i] <- NULL}
-        x <- data[, lapply(.SD, Agg), by = c(eval(DateVariable), eval(GroupVariables)), .SDcols = c(TargetVariable)]
-      } else {
-        x <- data
-      }
-      return(x)
-    }
-  }
-
-  # G1 ----
-  if(!is.null(GroupVariables[1L]) && !is.na(GroupVariables[1L]) && (is.null(GroupVariables[2L]) || (!is.null(GroupVariables[2L]) && is.na(GroupVariables[2L])))) {
-
-    if(Debug) print('G1 Agg Begins Now ----')
-
-    # None ----
-    if(length(G1Levels) == 0L) {
-      if(Debug) print('G1Levels is NULL ----')
-      x <- AggFun(dt = data, A = Agg, S = SubsetOnly)
-      if(Debug) {
-        print('length(G1Levels) == 0L')
-        print(data)
-      }
-      return(x)
-    }
-
-    # G1 ----
-    if(length(G1Levels) != 0L) {
-      if(Debug) print('length(G1Levels) == 0L')
-      x <- data[get(GroupVariables[1L]) %in% c(eval(G1Levels))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-      if(Debug) {
-        print('length(G1Levels) != 0L')
-        print(x)
-      }
-      return(x)
-    }
-  }
-
-  # NO Grouping Variables ----
-  if(Debug) {print('No Grouping Variables'); print(GroupVariables); print(DateVariable); print(SubsetOnly)}
-  if(is.null(GroupVariables) || (!is.null(GroupVariables) && is.na(GroupVariables)) || !exists('DateVariable')) {
-    if(Debug) print('No Goruping Variables ----')
-    if(!SubsetOnly && length(DateVariable) != 0) {
-      x <- data[, .SD, .SDcols = c(eval(TargetVariable), eval(DateVariable))]
-      x <- AggFun(dt = x, A = Agg, S = SubsetOnly)
-    } else {
-      x <- data
-    }
-    return(x)
-  }
-
-  # None up till now ----
-  if(Debug) print('PreparePlotData final check')
-  if(!exists('x')) {
-    x <- AggFun(dt = data, A = Agg, S = SubsetOnly)
-    return(x)
-  }
-
-  # Debug
-  if(Debug) print('PreparePlotData() return NULL')
-
-  # Return
-  return(NULL)
-}
-
 # ----
 
 # ----
@@ -424,7 +190,7 @@ Plot.StandardPlots <- function(dt = NULL,
   }
 
   # Histogram Plot
-  if(tolower(PlotType) == 'histogram') {
+  if(tolower(PlotType) == 'histogramplot') {
     if(Debug) print('histogram 1')
     p1 <- AutoPlots:::Plot.Histogram(
       dt = dt,
@@ -544,7 +310,7 @@ Plot.StandardPlots <- function(dt = NULL,
   }
 
   # Correlation Matrix Plot
-  if(tolower(PlotType) == 'correlogram') {
+  if(tolower(PlotType) == 'correlogramplot') {
 
     # Plot
     p1 <- AutoPlots:::Plot.CorrMatrix(
@@ -1274,7 +1040,7 @@ Plot.HeatMap <- function(dt,
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-      p1 <- echarts4r::e_visual_map_(e = p1, g)
+      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(
         style = "decimal",
         digits = 2
@@ -1332,7 +1098,7 @@ Plot.HeatMap <- function(dt,
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-      p1 <- echarts4r::e_visual_map_(e = p1, g)
+      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_title(e = p1, Title)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
@@ -1378,7 +1144,7 @@ Plot.HeatMap <- function(dt,
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-      p1 <- echarts4r::e_visual_map_(e = p1, g)
+      p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_title(e = p1, Title)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -1462,7 +1228,7 @@ Plot.HeatMap <- function(dt,
       if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
       p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)))
-      p1 <- echarts4r::e_visual_map_(e = p1, ZVar)
+      p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
       p1 <- echarts4r::e_title(e = p1, Title)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -1768,7 +1534,7 @@ Plot.Box <- function(dt = NULL,
       if(Debug) print("Plot.Box Echarts")
       p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(XVar)), x = YVar)
       p1 <- echarts4r::e_boxplot_(e = p1, YVar)
-      p1 <- echarts4r::e_visual_map_(e = p1, YVar)
+      p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       p1 <- echarts4r::e_title(e = p1, Title)
@@ -1823,7 +1589,7 @@ Plot.Box <- function(dt = NULL,
       if(Debug) print("Plot.Box Echarts")
       p1 <- echarts4r::e_charts_(dt1)
       p1 <- echarts4r::e_boxplot_(e = p1, YVar)
-      p1 <- echarts4r::e_visual_map_(e = p1, YVar)
+      p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       p1 <- echarts4r::e_title(e = p1, Title)
@@ -1876,7 +1642,7 @@ Plot.Box <- function(dt = NULL,
       if(Debug) print("Plot.Box Echarts")
       p1 <- echarts4r::e_charts_(dt1)
       p1 <- echarts4r::e_boxplot_(e = p1, XVar)
-      p1 <- echarts4r::e_visual_map_(e = p1, XVar)
+      p1 <- echarts4r::e_visual_map_(e = p1, XVar, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       p1 <- echarts4r::e_title(e = p1, "BoxPlot")
@@ -2300,8 +2066,8 @@ Plot.Copula <- function(dt = NULL,
       p1 <- plotly::add_trace(
         p = p1,
         data = dt1,
-        x = ~Var2,
-        y = ~Var1,
+        x = ~get(XVar),
+        y = ~get(YVar),
         type = "scatter",
         mode = "markers",
         color = I(FillColor))
@@ -2329,7 +2095,7 @@ Plot.Copula <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(dt1, x = XVar)
       p1 <- echarts4r::e_scatter_(e = p1, YVar, color = YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
-      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale)
+      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       p1 <- echarts4r::e_title(e = p1, Title)
@@ -2351,8 +2117,8 @@ Plot.Copula <- function(dt = NULL,
       if(Debug) print('Plot.Copula plotly::plot_ly')
       p1 <- plotly::plot_ly(
         data = dt1,
-        x = ~Var2,
-        y = ~Var1,
+        x = ~get(XVar),
+        y = ~get(YVar),
         color = ~get(GroupVar),
         mode = 'markers')
 
@@ -2380,7 +2146,7 @@ Plot.Copula <- function(dt = NULL,
       }
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
-      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale)
+      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       p1 <- echarts4r::e_title(e = p1, Title)
@@ -2791,7 +2557,7 @@ Plot.Scatter <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(dt1, x = XVar)
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
-      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale)
+      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       p1 <- echarts4r::e_title(e = p1, Title)
@@ -2841,7 +2607,7 @@ Plot.Scatter <- function(dt = NULL,
         timeline = TimeLine,
         colorBy = GroupVar[1L])
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
-      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale)
+      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       p1 <- echarts4r::e_title(e = p1, Title)
@@ -3094,6 +2860,10 @@ Plot.Scatter3D <- function(dt = NULL,
 #' @param dt data.table
 #' @param PreAgg logical
 #' @param AggMethod character
+#' @param XVar Column name of the predicted values from your model
+#' @param YVar Column name of the target variable from your model
+#' @param GroupVar One Grouping Variable
+#' @param Title "Title"
 #' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
@@ -3101,12 +2871,10 @@ Plot.Scatter3D <- function(dt = NULL,
 #' @param Y_Scroll logical
 #' @param Area logical
 #' @param Alpha 0 to 1 for setting transparency
-#' @param XVar Column name of the predicted values from your model
-#' @param YVar Column name of the target variable from your model
-#' @param GroupVar One Grouping Variable
+#' @param Smooth = TRUE
+#' @param ShowSymbol = FALSE
 #' @param ZeroLineColor color
 #' @param ZeroLineWidth 1
-#' @param Title "Title"
 #' @param BackGroundColor color
 #' @param ChartColor color
 #' @param FillColor color
@@ -3181,6 +2949,8 @@ Plot.Line <- function(dt = NULL,
                       TimeLine = TRUE,
                       Area = FALSE,
                       Alpha = 0.50,
+                      Smooth = TRUE,
+                      ShowSymbol = FALSE,
                       BackGroundColor =  "#6a6969",
                       ChartColor =       "#001534",
                       FillColor =        "#0066ff",
@@ -3281,7 +3051,7 @@ Plot.Line <- function(dt = NULL,
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line() Build Echarts 4")
-      p1 <- echarts4r::e_line_(e = p1, YVar)
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       p1 <- echarts4r::e_title(e = p1, Title)
@@ -3336,7 +3106,7 @@ Plot.Line <- function(dt = NULL,
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line no group Echarts")
       p1 <- echarts4r::e_charts_(data = dt1, x = XVar)
-      p1 <- echarts4r::e_line_(e = p1, YVar)
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
 
       # Finalize Plot Build
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -3344,7 +3114,7 @@ Plot.Line <- function(dt = NULL,
       p1 <- echarts4r::e_title(e = p1, Title)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(         style = "decimal",         digits = 2       ))
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = c("item"), echarts4r::e_tooltip_item_formatter(style = "decimal",digits = 2))
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
 
     } else {
@@ -4076,6 +3846,7 @@ Plot.Density <- function(dt = NULL,
         TextColor = TextColor,
         GridColor = GridColor,
         BackGroundColor = BackGroundColor)
+      p1 <- plotly::ggplotly(p1)
     } else {
       p1 <- echarts4r::e_charts_(dt1, x = NULL)
       p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
@@ -4088,7 +3859,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_legend(e = p1,type = "scroll",orient = "vertical",right = 80,top = 40,height = "240px",itemStyle = list(color = GridColor))    }
 
-    return(eval(p1))
+    return(p1)
 
   } else {
 
@@ -4113,6 +3884,7 @@ Plot.Density <- function(dt = NULL,
         BackGroundColor = BackGroundColor)
       p1 <- tryCatch({p1 + ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))}, error = function(x) p1)
       p1 <- p1 + ggplot2::xlab(GroupVar[1L])
+      p1 <- plotly::ggplotly(p1)
 
     } else {
 

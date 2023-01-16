@@ -19,6 +19,8 @@ Plot.Line(
   TimeLine = TRUE,
   Area = FALSE,
   Alpha = 0.5,
+  Smooth = TRUE,
+  ShowSymbol = FALSE,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
@@ -58,6 +60,10 @@ Plot.Line(
 \item{Area}{logical}
 
 \item{Alpha}{0 to 1 for setting transparency}
+
+\item{Smooth}{= TRUE}
+
+\item{ShowSymbol}{= FALSE}
 
 \item{BackGroundColor}{color}
 
