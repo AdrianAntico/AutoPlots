@@ -1623,7 +1623,11 @@ Plot.Histogram <- function(dt = NULL,
     print("Plotly Histogram 1")
     p1 <- plotly::plot_ly(data = dt1, alpha = 0.6, nbinsx = NumberBins)
     if(length(GroupVar) > 0L) {
-      p1 <- plotly::add_histogram(p = p1, x = ~get(YVar), color = ~get(GroupVar[1L]), legendgroup = GroupVar[1L])
+      if(is.numeric(dt1[[GroupVar]])) {
+        p1 <- plotly::add_histogram(p = p1, x = ~get(YVar), color = ~get(GroupVar[1L]))
+      } else {
+        p1 <- plotly::add_histogram(p = p1, x = ~get(YVar), color = ~get(GroupVar[1L]), legendgroup = GroupVar[1L])
+      }
     } else {
       p1 <- plotly::add_histogram(p = p1, x = ~get(YVar), color = I(FillColor), showlegend = FALSE)
     }
@@ -1643,7 +1647,7 @@ Plot.Histogram <- function(dt = NULL,
 
     if(Debug) print("Echarts Histogram 1")
     if(length(GroupVar) > 0L && length(XVar) > 0L) {
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), timeline = TimeLine)
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar)), timeline = TimeLine)
     } else {
       p1 <- echarts4r::e_charts_(dt1, x = GroupVar)
     }
