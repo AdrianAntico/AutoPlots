@@ -6,33 +6,43 @@
 
 #' @noRd
 SummaryFunction <- function(AggMethod) {
-  if(AggMethod == "mean") {
+  if(AggMethod == "count") {
+    aggFunc <- function(x) .N
+  } else if(AggMethod == "mean") {
     aggFunc <- function(x) mean(x, na.rm = TRUE)
+  } else if(AggMethod == "log(mean(x))") {
+    aggFunc <- function(x) log(mean(x, na.rm = TRUE))
+  } else if(AggMethod == "mean(abs(x))") {
+    aggFunc <- function(x) mean(abs(x), na.rm = TRUE)
   } else if(AggMethod == "sum") {
     aggFunc <- function(x) sum(x, na.rm = TRUE)
+  } else if(AggMethod == "log(sum(x))") {
+    aggFunc <- function(x) log(sum(x, na.rm = TRUE))
+  } else if(AggMethod == "sum(abs(x))") {
+    aggFunc <- function(x) sum(abs(x), na.rm = TRUE)
   } else if(AggMethod == "median") {
     aggFunc <- function(x) median(x, na.rm = TRUE)
-  } else if(AggMethod == "sd") {
-    aggFunc <- function(x) sd(x, na.rm = TRUE)
-  } else if(AggMethod == "skewness") {
-    aggFunc <- function(x) e1071::skewness(x, na.rm = TRUE)
-  } else if(AggMethod == "kurtosis") {
-    aggFunc <- function(x) e1071::kurtosis(x, na.rm = TRUE)
-  } else if(AggMethod == "CoeffVar") {
-    aggFunc <- function(x) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
-  } else if(AggMethod == "sumabs") {
-    aggFunc <- function(x) sum(abs(x), na.rm = TRUE)
-  }  else if(AggMethod == "meanabs") {
-    aggFunc <- function(x) mean(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "medianabs") {
+  } else if(AggMethod == "log(median(x))") {
+    aggFunc <- function(x) log(median(x, na.rm = TRUE))
+  } else if(AggMethod == "median(abs(x))") {
     aggFunc <- function(x) median(abs(x), na.rm = TRUE)
   } else if(AggMethod == "sd") {
+    aggFunc <- function(x) sd(x, na.rm = TRUE)
+  } else if(AggMethod == "log(sd(x))") {
+    aggFunc <- function(x) log(sd(x, na.rm = TRUE))
+  } else if(AggMethod == "sd(abs(x))") {
     aggFunc <- function(x) sd(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "skewnessabs") {
+  } else if(AggMethod == "skewness") {
+    aggFunc <- function(x) e1071::skewness(x, na.rm = TRUE)
+  } else if(AggMethod == "skewness(abs(x))") {
     aggFunc <- function(x) e1071::skewness(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "kurtosisabs") {
+  } else if(AggMethod == "kurtosis") {
+    aggFunc <- function(x) e1071::kurtosis(x, na.rm = TRUE)
+  } else if(AggMethod == "kurtosis(abs(x))") {
     aggFunc <- function(x) e1071::kurtosis(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "CoeffVarabs") {
+  } else if(AggMethod == "CoeffVar") {
+    aggFunc <- function(x) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+  } else if(AggMethod == "CoeffVar(abs(x))") {
     aggFunc <- function(x) sd(abs(x), na.rm = TRUE) / mean(abs(x), na.rm = TRUE)
   }
   return(aggFunc)
