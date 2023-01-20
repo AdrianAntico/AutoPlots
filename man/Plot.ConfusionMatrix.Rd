@@ -78,8 +78,6 @@ Plot.ConfusionMatrix(
 \item{Debug}{FALSE}
 
 \item{Algo}{'catboost', 'xgboost', 'h2o'}
-
-\item{BorderColor}{'darkblue'}
 }
 \value{
 ROC Plot for classification models

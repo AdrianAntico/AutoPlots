@@ -39,6 +39,8 @@ Create stock data for plotting using Plot.Stock()
 }
 \seealso{
 Other Standard Plots: 
+\code{\link{Plot.Area}()},
+\code{\link{Plot.BarPlot3D}()},
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},
 \code{\link{Plot.Copula3D}()},
@@ -48,8 +50,12 @@ Other Standard Plots:
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
 \code{\link{Plot.Line}()},
+\code{\link{Plot.Pie}()},
+\code{\link{Plot.River}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
+\code{\link{Plot.StackedBar}()},
+\code{\link{Plot.Step}()},
 \code{\link{Plot.Stock}()},
 \code{\link{Plot.Violin}()}
 }

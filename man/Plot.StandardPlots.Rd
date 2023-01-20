@@ -6,6 +6,7 @@
 \usage{
 Plot.StandardPlots(
   dt = NULL,
+  PreAgg = FALSE,
   PlotType = "Scatter",
   SampleSize = 100000L,
   YVar = NULL,
@@ -30,6 +31,8 @@ Plot.StandardPlots(
 }
 \arguments{
 \item{dt}{character}
+
+\item{PreAgg}{= FALSE}
 
 \item{PlotType}{character}
 
