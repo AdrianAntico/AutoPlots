@@ -2465,7 +2465,6 @@ Plot.Line <- function(dt = NULL,
                       Debug = FALSE) {
 
   if(TimeLine) X_Scroll <- FALSE
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
   Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
   # Correct args
@@ -2558,7 +2557,6 @@ Plot.Line <- function(dt = NULL,
         hovertemplate = paste(
           "<b>%{text}</b><br><br>", # Group Var
           Y.HoverFormat,
-          X.HoverFormat,
           "<extra></extra>"
         ))
 
@@ -2764,7 +2762,6 @@ Plot.Area <- function(dt = NULL,
 
   if(TimeLine) X_Scroll <- FALSE
 
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
   Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
   # Correct args
@@ -3051,9 +3048,6 @@ Plot.Step <- function(dt = NULL,
 
   if(TimeLine) X_Scroll <- FALSE
 
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
-
   # Correct args
   if(length(GroupVar) > 0L && length(XVar) == 0L) {
     XVar <- GroupVar
@@ -3263,8 +3257,6 @@ Plot.River <- function(dt = NULL,
                       Debug = FALSE) {
 
   if(Debug) print("Plot.River 1")
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
   if(length(GroupVar) == 0L && length(YVar) <= 1L) {
     print("if(length(GroupVar) == 0L && length(YVar) <= 1L) return(NULL)")
@@ -3566,7 +3558,7 @@ Plot.Bar <- function(dt = NULL,
           name = eval(GroupVar[1L]),
           text = ~get(GroupVar[1L]),
           hovertemplate = paste(
-            "<b>%{text}</b><br><br>", # Group Var
+            "<b>%{text}</b><br><br>",
             Y.HoverFormat,
             X.HoverFormat,
             "<extra></extra>"
