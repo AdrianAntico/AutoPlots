@@ -522,7 +522,7 @@ Plot.StandardPlots <- function(dt = NULL,
       EchartsTheme = EchartsTheme,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      Method = "Spearman",
+      Method = tolower("spearman"),
       BackGroundColor = BackGroundColor,
       ChartColor = ChartColor,
       FillColor = FillColor,
@@ -4207,13 +4207,13 @@ Plot.BarPlot3D <- function(dt,
       dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
       dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
       data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-
-      # Formatting
-      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
-      o <- order(vals, decreasing = FALSE)
-      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
     }
+
+    # Formatting
+    vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+    o <- order(vals, decreasing = FALSE)
+    cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Create final data for plot
     if(Engine == "Plotly") {
@@ -4791,7 +4791,6 @@ Plot.HeatMap <- function(dt,
       }
     }
 
-
     # Create final dt1 for plot
     if(Engine == "Plotly") {
       data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
@@ -4800,15 +4799,8 @@ Plot.HeatMap <- function(dt,
         x = ~get(XVar),
         y = ~get(YVar),
         z = ~Measure_Variable,
-        colors = grDevices::colorRamp(c(ChartColor,FillColor)),
-        type = "heatmap",
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          Z.HoverFormat,
-          "<extra></extra>"
-        ))
+        colors = grDevices::colorRamp(c(FillColorReverse,"black",FillColor)),
+        type = "heatmap")
       p1 <- plotly::layout(
         p = p1,
         title = AutoPlots:::bold_(Title),
@@ -4894,31 +4886,34 @@ Plot.CorrMatrix <- function(dt = NULL,
       zz <- nchar(yy)
       data.table::setnames(dt1, yy, substr(x = yy, start = max(0L, zz - 40L), stop = nchar(yy)))
     }
-    corr_mat <- cor(method = Method, x = dt1)
+    corr_mat <- cor(method = tolower(Method), x = dt1)
   } else {
     corr_mat <- dt
   }
 
   if(Engine == "Plotly") {
 
-    # Build
-    if(Debug) print("Plot.CorrMatrix build")
-    p1 <- heatmaply::heatmaply_cor(
-      corr_mat,
-      colors = c('darkred', 'pink', 'white', 'lightblue', 'darkblue'),
-      xlab = NULL,
-      ylab = NULL,
-      k_col = 2,
-      k_row = 2)
+    dt2 <- data.table::melt.data.table(
+      data = data.table::as.data.table(corr_mat)[, Vars := rownames(corr_mat)],
+      id.vars = "Vars", measure.vars = rownames(corr_mat), variable.name = "Variables", value.name = "Spearman")
 
-    # Layout
-    if(Debug) print("Plot.CorrMatrix layout")
+    # Build
+    p1 <- plotly::plot_ly(
+      dt2,
+      x = ~Vars,
+      y = ~Variables,
+      z = ~Spearman,
+      colors = grDevices::colorRamp(c(FillColorReverse,"black",FillColor)),
+      type = "heatmap")
     p1 <- plotly::layout(
       p = p1,
       title = AutoPlots:::bold_(Title),
       font = AutoPlots:::font_(),
-      gridColor = GridColor,
-      plot_bgcolor = ChartColor,
+      xaxis = list(title = ''),
+      yaxis = list(title = ''),
+      zaxis = list(title = "Spearman rank correlation: "),
+      gridcolor = GridColor,
+      plot_bgcolor = FillColor,
       paper_bgcolor = BackGroundColor)
 
   } else {
@@ -4938,7 +4933,7 @@ Plot.CorrMatrix <- function(dt = NULL,
   }
 
   # Return plot
-  return(eval(p1))
+  return(p1)
 }
 
 #' @title Plot.Copula
@@ -5293,7 +5288,7 @@ Plot.Copula3D <- function(dt = NULL,
         y = ~get(YVar),
         z = ~get(ZVar),
         color = ~get(GroupVar[[1L]]),
-        size = ~Var3,
+        size = ~get(ZVar),
         marker = list(
           symbol = 'circle',
           sizemode = 'diameter'),
