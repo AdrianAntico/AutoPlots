@@ -20,6 +20,14 @@ Plot.CorrMatrix(
   FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = "#63aeff",
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
   Debug = FALSE
 )
 }

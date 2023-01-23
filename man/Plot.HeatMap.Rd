@@ -25,6 +25,8 @@ Plot.HeatMap(
   FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
   Debug = FALSE
 )
 }

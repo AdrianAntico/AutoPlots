@@ -11,7 +11,7 @@ Plot.StackedBar(
   YVar = NULL,
   GroupVar = NULL,
   AggMethod = "mean",
-  Title = "Bar Plot",
+  Title = "~Stacked Bar~",
   Engine = "Echarts",
   EchartsTheme = "macaron",
   TimeLine = TRUE,
@@ -25,6 +25,14 @@ Plot.StackedBar(
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = "#63aeff",
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
   Debug = FALSE
 )
 }

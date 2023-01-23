@@ -143,6 +143,7 @@ Other Model Evaluation:
 \code{\link{Plot.ConfusionMatrix}()},
 \code{\link{Plot.Gains}()},
 \code{\link{Plot.Lift}()},
+\code{\link{Plot.PartialDependence.Heatmap}()},
 \code{\link{Plot.PartialDependence.Line}()},
 \code{\link{Plot.ROC}()},
 \code{\link{Plot.Residuals.Histogram}()},

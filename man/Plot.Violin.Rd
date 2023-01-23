@@ -58,38 +58,43 @@ Build a violin plot by simply passing arguments to a single function. It will sa
 }
 \examples{
 \dontrun{
-# Load packages
-library(AutoQuant)
+# Step Through Function
+library(Rappture)
 library(data.table)
+dt <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML_Regression_ScoringData.csv")
+PreAgg = TRUE
+DataReady = FALSE
+PlotEngineType = Engine =  "Echarts" # "Plotly"
+TimeLine = FALSE
+EchartsTheme = "purple-passion"
+GroupVar = NULL# "ARTICLE" # "BRAND" #c("BRAND",'ARTICLE')
+GroupVars = NULL# c("BRAND",'ARTICLE')
+CorrVars = c("CHILLED_Net_Revenue_PerDay","CHILLED_Margin_PerDay","CHILLED_Liters_PerDay","CHILLED_Units_PerDay")
+Method = 'spearman'
+NumLevelsDisplay = 50L
+AggMethod = 'mean'
+NumberBins = 20
+ZeroLineColor = '#ffff'
+ZeroLineWidth = 1.25
+Title = 'Bar Plot'
+SampleSize = 100000
+FillColor = "#0066ff"
+FillColorReverse = "#97ff00"
+BackGroundColor = "#6a6969"
+ChartColor = '#001534'
+GridColor = 'white'
+TextColor = 'white'
+X_Scroll = TRUE
+Y_Scroll = TRUE
+NumLevels_X = 15
+NumLevels_Y = 15
+Debug = FALSE
+Alpha = 0.8
 
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-AutoPlots:::Plot.Violin(
-  dt = data,
-  SampleSize = 100000,
-  XVar = 'CHILLED_Margin_PerDay',
-  YVar = 'CHILLED_Units_PerDay',
-  GroupVar = 'BRAND',
-  BackGroundColor = 'gray95',
-  ChartColor = 'lightsteelblue1',
-  FillColor = "#0066ff",
-  TextColor = 'darkblue',
-  GridColor = 'white',
-  Debug = FALSE)
-
-# Step through function
-# SampleSize = 100000
-# XVar = 'Region'
-# YVar = 'Weekly_Sales'
-# GroupVar = 'Store'
-# BackGroundColor = 'gray95'
-# ChartColor = 'lightsteelblue1'
-# FillColor = "#0066ff"
-# GridColor = 'white'
-# TextColor = 'darkblue'
-# Debug = FALSE
+# BoxPlot
+XVar <- NULL
+GroupVar <- "BRAND"
+YVar <- "CHILLED_Margin_PerDay"
 }
 
 }
