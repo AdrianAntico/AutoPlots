@@ -11,6 +11,8 @@ Plot.Histogram(
   YVar = NULL,
   GroupVar = NULL,
   NumberBins = 30,
+  Height = "600px",
+  Width = "1135px",
   Title = "Histogram",
   Engine = "Plotly",
   EchartsTheme = "macaron",
@@ -48,6 +50,10 @@ Plot.Histogram(
 \item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
 
 \item{NumberBins}{= 30}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Engine}{= PlotEngineType,}
 

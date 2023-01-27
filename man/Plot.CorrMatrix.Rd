@@ -9,6 +9,8 @@ Plot.CorrMatrix(
   CorrVars = NULL,
   Method = "spearman",
   PreAgg = FALSE,
+  Height = "600px",
+  Width = "1135px",
   Title = "Correlation Matrix",
   Engine = "Plotly",
   EchartsTheme = "macaron",
@@ -39,6 +41,10 @@ Plot.CorrMatrix(
 \item{Method}{character}
 
 \item{PreAgg}{logical}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{character}
 

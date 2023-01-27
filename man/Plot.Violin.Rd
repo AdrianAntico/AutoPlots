@@ -9,6 +9,8 @@ Plot.Violin(
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
+  Height = "600px",
+  Width = "1135px",
   Title = "Violin Plot",
   SampleSize = 1e+05,
   BackGroundColor = "#6a6969",
@@ -30,6 +32,10 @@ Plot.Violin(
 \item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
 
 \item{GroupVar}{Requires an XVar and YVar already be defined}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{'Violin Plot'}
 

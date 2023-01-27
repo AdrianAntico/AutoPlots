@@ -153,6 +153,8 @@ ChartTheme <- function(Size = 12,
 #' @param ZVar character
 #' @param GroupVar character
 #' @param NumberBins character
+#' @param Height valid css unit
+#' @param Width valid css unit
 #' @param PlotEngineType character
 #' @param EchartsTheme character
 #' @param TimeLine character
@@ -173,6 +175,8 @@ Plot.StandardPlots <- function(dt = NULL,
                                XVar = NULL,
                                ZVar = NULL,
                                GroupVar = NULL,
+                               Height = "600px",
+                               Width = "1135px",
                                PlotEngineType = "Plotly",
                                EchartsTheme = "dark-blue",
                                TimeLine = FALSE,
@@ -200,6 +204,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar,
       YVar = YVar,
       GroupVar = NULL,
+      Width = Width,
+      Height = Height,
       Title = 'Pie Chart',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -224,6 +230,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = GroupVar,
+      Width = Width,
+      Height = Height,
       Title = 'Box Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -250,6 +258,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = GroupVar,
+      Width = Width,
+      Height = Height,
       Title = 'Violin Plot',
       FillColor = FillColor,
       ChartColor = ChartColor,
@@ -270,6 +280,8 @@ Plot.StandardPlots <- function(dt = NULL,
       YVar = YVar,
       GroupVar = GroupVar,
       NumberBins = NumberBins,
+      Width = Width,
+      Height = Height,
       Title = "Histogram",
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
@@ -295,6 +307,8 @@ Plot.StandardPlots <- function(dt = NULL,
       GroupVar=GroupVar,
       XVar = NULL,
       YVar = if(length(YVar) > 0L) YVar else XVar,
+      Width = Width,
+      Height = Height,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
       Engine = PlotEngineType,
@@ -317,6 +331,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = GroupVar,
+      Width = Width,
+      Height = Height,
       Title = 'Line Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -343,6 +359,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = GroupVar,
+      Width = Width,
+      Height = Height,
       Title = 'Area Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -369,6 +387,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = GroupVar,
+      Width = Width,
+      Height = Height,
       Title = 'Step Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -395,7 +415,9 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = GroupVar,
-      Title = 'Step Plot',
+      Width = Width,
+      Height = Height,
+      Title = 'River Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
@@ -423,6 +445,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar,
+      Width = Width,
+      Height = Height,
       Title = 'Bar Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -441,6 +465,7 @@ Plot.StandardPlots <- function(dt = NULL,
 
   # Bar Plot
   if(tolower(PlotType) == 'stackedbarplot') {
+    print("Plot.StandardPlots --> AutoPlots:::Plot.StackedBar")
     p1 <- AutoPlots:::Plot.StackedBar(
       dt = dt,
       PreAgg = PreAgg,
@@ -448,6 +473,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar,
+      Width = Width,
+      Height = Height,
       Title = 'Stacked Bar',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -461,6 +488,8 @@ Plot.StandardPlots <- function(dt = NULL,
       GridColor = GridColor,
       ZeroLineColor = GridColor,
       Debug = Debug)
+    print("AutoPlots:::Plot.StackedBar")
+    print(paste0("length(p1) == ", length(p1)))
     return(p1)
   }
 
@@ -476,6 +505,8 @@ Plot.StandardPlots <- function(dt = NULL,
       NumberBins = 21,
       NumLevels_X = NumLevels_Y,
       NumLevels_Y = NumLevels_X,
+      Width = Width,
+      Height = Height,
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       X_Scroll = X_Scroll,
@@ -492,6 +523,25 @@ Plot.StandardPlots <- function(dt = NULL,
 
   # Heat Map (Plotly & Echarts)
   if(tolower(PlotType) %in% c('heatmapplot')) {
+    print("Args Begin 5555555555555555555555555555555555555555555555555555")
+    print(PreAgg)
+    print(dt)
+    print(YVar)
+    print(XVar)
+    print(ZVar)
+    print(AggMethod)
+    print(21)
+    print(NumLevels_Y)
+    print(NumLevels_X)
+    print(Width)
+    print(Height)
+    print(PlotEngineType)
+    print(EchartsTheme)
+    print("Heatmap")
+    print(BackGroundColor)
+    print(ChartColor)
+    print(FillColor)
+    print(GridColor)
     p1 <- AutoPlots::Plot.HeatMap(
       PreAgg = PreAgg,
       dt = dt,
@@ -502,6 +552,8 @@ Plot.StandardPlots <- function(dt = NULL,
       NumberBins = 21,
       NumLevels_X = NumLevels_Y,
       NumLevels_Y = NumLevels_X,
+      Width = Width,
+      Height = Height,
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       Title = "Heatmap",
@@ -509,6 +561,8 @@ Plot.StandardPlots <- function(dt = NULL,
       ChartColor = ChartColor,
       FillColor = FillColor,
       GridColor = GridColor)
+    print(paste0("Plot.HeatMap has length = ", length(p1)))
+    print("Plot.StandardPlots return")
     return(p1)
   }
 
@@ -518,6 +572,8 @@ Plot.StandardPlots <- function(dt = NULL,
       dt = dt,
       PreAgg = PreAgg,
       CorrVars = YVar,
+      Width = Width,
+      Height = Height,
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       X_Scroll = TRUE,
@@ -540,6 +596,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar,
+      Width = Width,
+      Height = Height,
       Title = 'Scatter Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -564,6 +622,8 @@ Plot.StandardPlots <- function(dt = NULL,
       XVar = XVar,
       YVar = YVar,
       GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar,
+      Width = Width,
+      Height = Height,
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
@@ -588,6 +648,8 @@ Plot.StandardPlots <- function(dt = NULL,
       YVar = YVar,
       ZVar = ZVar,
       GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar,
+      Width = Width,
+      Height = Height,
       Title = '3D Scatter Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -610,6 +672,8 @@ Plot.StandardPlots <- function(dt = NULL,
       YVar = YVar,
       ZVar = ZVar,
       GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar,
+      Width = Width,
+      Height = Height,
       Title = '3D Copula Plot',
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -1107,6 +1171,8 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param YVar Column name of Y-Axis variable. If NULL then ignored
 #' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title title
 #' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "macaron"
@@ -1176,6 +1242,8 @@ Plot.Pie <- function(Engine = 'Plotly',
                      YVar = NULL,
                      GroupVar = NULL,
                      AggMethod = 'mean',
+                     Height = "600px",
+                     Width = "1135px",
                      Title = 'Bar Plot',
                      EchartsTheme = "macaron",
                      TimeLine = TRUE,
@@ -1268,7 +1336,9 @@ Plot.Pie <- function(Engine = 'Plotly',
         textinfo='label+percent',
         insidetextorientation='radial',
         color = I(FillColor[1]),
-        showlegend = TRUE)
+        showlegend = TRUE,
+        width = Width,
+        height = Height)
       p1 <- plotly::layout(
         p = p1,
         font = AutoPlots:::font_(),
@@ -1290,7 +1360,7 @@ Plot.Pie <- function(Engine = 'Plotly',
         barmode = 'group')
 
     } else {
-      p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -1331,6 +1401,8 @@ Plot.Pie <- function(Engine = 'Plotly',
 #' @param XVar character
 #' @param YVar character
 #' @param GroupVar character
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title character
 #' @param Engine character
 #' @param EchartsTheme character
@@ -1403,6 +1475,8 @@ Plot.Box <- function(dt = NULL,
                      XVar = NULL,
                      YVar = NULL,
                      GroupVar = NULL,
+                     Height = "600px",
+                     Width = "1135px",
                      Title = 'Box Plot',
                      Engine = "Plotly",
                      EchartsTheme = "macaron",
@@ -1475,7 +1549,9 @@ Plot.Box <- function(dt = NULL,
           Y.HoverFormat,
           X.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
 
       # Layout
       if(Debug) print('Plot.Box plotly::layout')
@@ -1500,7 +1576,7 @@ Plot.Box <- function(dt = NULL,
       return(p1)
     } else {
       if(Debug) print("Plot.Box Echarts")
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(XVar),get(GroupVar)), x = YVar, dispose = TRUE, color = GroupVar)
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(XVar),get(GroupVar)), x = YVar, dispose = TRUE, color = GroupVar, width = Width, height = Height)
       p1 <- echarts4r::e_boxplot_(e = p1, YVar)
       p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -1539,7 +1615,9 @@ Plot.Box <- function(dt = NULL,
       if(Debug) print('Plot.Box plotly::plot_ly')
       p1 <- plotly::plot_ly(
         data = dt1,
-        type = "box")
+        type = "box",
+        width = Width,
+        height = Height)
 
       # Add lines
       if(Debug) print('Plot.Box # Add Lines')
@@ -1575,7 +1653,7 @@ Plot.Box <- function(dt = NULL,
           gridcolor = GridColor))#,showlegend = FALSE)
     } else {
       if(Debug) print("Plot.Box Echarts")
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(XVar),get(GroupVar)), x = YVar, dispose = TRUE, color = GroupVar)
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(XVar)), x = YVar, dispose = TRUE, color = GroupVar, width = Width, height = Height)
       p1 <- echarts4r::e_boxplot_(e = p1, YVar)
       p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -1604,7 +1682,7 @@ Plot.Box <- function(dt = NULL,
     }
 
     # Return
-    return(eval(p1))
+    return(p1)
   }
 
   # Y Only
@@ -1618,7 +1696,9 @@ Plot.Box <- function(dt = NULL,
       if(Debug) print('Plot.Box plotly::plot_ly')
       p1 <- plotly::plot_ly(
         data = dt1,
-        type = "box")
+        type = "box",
+        width = Width,
+        height = Height)
 
       # Add lines
       p1 <- plotly::add_boxplot(
@@ -1648,7 +1728,7 @@ Plot.Box <- function(dt = NULL,
           gridcolor = GridColor))
     } else {
       if(Debug) print("Plot.Box Echarts")
-      p1 <- echarts4r::e_charts_(dt1, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_boxplot_(e = p1, YVar)
       p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -1687,7 +1767,9 @@ Plot.Box <- function(dt = NULL,
       if(Debug) print("Plot.Box plotly::plot_ly")
       p1 <- plotly::plot_ly(
         data = dt1,
-        type = "box")
+        type = "box",
+        width = Width,
+        height = Height)
 
       # Add lines
       if(Debug) print("Plot.Box # Add Lines")
@@ -1720,7 +1802,7 @@ Plot.Box <- function(dt = NULL,
     } else {
 
       if(Debug) print("Plot.Box Echarts")
-      p1 <- echarts4r::e_charts_(dt1, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_boxplot_(e = p1, XVar)
       p1 <- echarts4r::e_visual_map_(e = p1, XVar, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -1765,6 +1847,8 @@ Plot.Box <- function(dt = NULL,
 #' @param XVar Column name of X-Axis variable. If NULL then ignored
 #' @param YVar Column name of Y-Axis variable. If NULL then ignored
 #' @param GroupVar Requires an XVar and YVar already be defined
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title 'Violin Plot'
 #' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
 #' @param FillColor 'gray'
@@ -1823,6 +1907,8 @@ Plot.Violin <- function(dt = NULL,
                         XVar = NULL,
                         YVar = NULL,
                         GroupVar = NULL,
+                        Height = "600px",
+                        Width = "1135px",
                         Title = 'Violin Plot',
                         SampleSize = 100000,
                         BackGroundColor =  "#6a6969",
@@ -1896,7 +1982,9 @@ Plot.Violin <- function(dt = NULL,
           Y.HoverFormat,
           X.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
       p1 <- plotly::add_trace(
         p = p1,
         x = ~get(XVar),
@@ -1927,7 +2015,7 @@ Plot.Violin <- function(dt = NULL,
 
     } else {
 
-      p1 <- plotly::plot_ly(data = dt1, type = 'violin')
+      p1 <- plotly::plot_ly(data = dt1, type = 'violin', width = Width, height = Height)
 
       # Loop through levels, supplying subsets of the data for x and y each iteration
       for(g in levels) { # g = levels[2]
@@ -1976,7 +2064,9 @@ Plot.Violin <- function(dt = NULL,
 
     p1 <- plotly::plot_ly(
       data = dt1,
-      type = 'violin')
+      type = 'violin',
+      width = Width,
+      height = Height)
 
     # Add lines
     p1 <- plotly::add_trace(
@@ -2018,7 +2108,9 @@ Plot.Violin <- function(dt = NULL,
     if(Debug) print('YVar > 0L')
     p1 <- plotly::plot_ly(
       data = dt1,
-      type = 'violin')
+      type = 'violin',
+      width = Width,
+      height = Height)
     p1 <- plotly::add_trace(
       p = p1,
       x = "",
@@ -2049,7 +2141,9 @@ Plot.Violin <- function(dt = NULL,
   if(length(XVar) > 0L) {
     p1 <- plotly::plot_ly(
       data = dt1,
-      type = 'violin')
+      type = 'violin',
+      width = Width,
+      height = Height)
     p1 <- plotly::add_trace(
       p = p1,
       x = ~get(XVar),
@@ -2094,6 +2188,8 @@ Plot.Violin <- function(dt = NULL,
 #' @param YVar Column name of Y-Axis variable. If NULL then ignored
 #' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
 #' @param NumberBins = 30
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Engine = PlotEngineType,
 #' @param EchartsTheme = EchartsTheme,
 #' @param TimeLine logical
@@ -2160,6 +2256,8 @@ Plot.Histogram <- function(dt = NULL,
                            YVar = NULL,
                            GroupVar = NULL,
                            NumberBins = 30,
+                           Height = "600px",
+                           Width = "1135px",
                            Title = 'Histogram',
                            Engine = "Plotly",
                            EchartsTheme = "macaron",
@@ -2216,7 +2314,9 @@ Plot.Histogram <- function(dt = NULL,
     p1 <- plotly::plot_ly(
       data = dt1,
       alpha = 0.6,
-      nbinsx = NumberBins)
+      nbinsx = NumberBins,
+      width = Width,
+      height = Height)
     if(length(GroupVar) > 0L) {
       if(is.numeric(dt1[[GroupVar]])) {
         p1 <- plotly::add_histogram(
@@ -2272,9 +2372,14 @@ Plot.Histogram <- function(dt = NULL,
 
     if(Debug) print("Echarts Histogram 1")
     if(length(GroupVar) > 0L) {
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar)), timeline = TimeLine, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar)), timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
     } else {
-      p1 <- echarts4r::e_charts_(dt1, x = NULL, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(
+        dt1,
+        x = NULL,
+        dispose = TRUE,
+        width = Width,
+        height = Height)
     }
     p1 <- echarts4r::e_histogram_(e = p1, YVar, breaks = NumberBins)
     if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -2285,8 +2390,7 @@ Plot.Histogram <- function(dt = NULL,
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_title(
       p1, Title,
       textStyle = list(
@@ -2316,6 +2420,8 @@ Plot.Histogram <- function(dt = NULL,
 #' @param YVar From App
 #' @param XVar character
 #' @param GroupVar character
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title = "Density Plot"
 #' @param Engine character
 #' @param EchartsTheme character
@@ -2373,6 +2479,8 @@ Plot.Density <- function(dt = NULL,
                          YVar = NULL,
                          XVar = NULL,
                          GroupVar = NULL,
+                         Height = "600px",
+                         Width = "1135px",
                          Title = "Density Plot",
                          Engine = "Plotly",
                          EchartsTheme = "macarons",
@@ -2434,7 +2542,7 @@ Plot.Density <- function(dt = NULL,
         BackGroundColor = BackGroundColor)
       p1 <- plotly::ggplotly(p1)
     } else {
-      p1 <- echarts4r::e_charts_(dt1, x = NULL, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1, x = NULL, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -2489,7 +2597,7 @@ Plot.Density <- function(dt = NULL,
     } else {
 
       data.table::setorderv(x = dt1, cols = GroupVar[1L], 1)
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), timeline = TimeLine, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -2499,8 +2607,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -2540,6 +2647,8 @@ Plot.Density <- function(dt = NULL,
 #' @param XVar Column name of the predicted values from your model
 #' @param YVar Column name of the target variable from your model
 #' @param GroupVar One Grouping Variable
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title "Title"
 #' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
@@ -2619,6 +2728,8 @@ Plot.Line <- function(dt = NULL,
                       XVar = NULL,
                       YVar = NULL,
                       GroupVar = NULL,
+                      Height = "600px",
+                      Width = "1135px",
                       Title = 'Line Plot',
                       EchartsTheme = "macaron",
                       X_Scroll = FALSE,
@@ -2709,7 +2820,7 @@ Plot.Line <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(
         data = dt1 |> dplyr::group_by(get(gv)),
         x = XVar,
-        timeline = TimeLine, dispose = TRUE)
+        timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line() Build Echarts 4")
@@ -2753,7 +2864,9 @@ Plot.Line <- function(dt = NULL,
           "<b>%{text}</b><br><br>", # Group Var
           Y.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line group plotly::layout")
@@ -2787,7 +2900,7 @@ Plot.Line <- function(dt = NULL,
 
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line no group Echarts")
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
 
       # Finalize Plot Build
@@ -2835,7 +2948,9 @@ Plot.Line <- function(dt = NULL,
         hovertemplate = paste(
           Y.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line no group plotly::layout")
@@ -2871,6 +2986,8 @@ Plot.Line <- function(dt = NULL,
 #' @param XVar Column name of the predicted values from your model
 #' @param YVar Column name of the target variable from your model
 #' @param GroupVar One Grouping Variable
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title "Title"
 #' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
@@ -2950,6 +3067,8 @@ Plot.Area <- function(dt = NULL,
                       XVar = NULL,
                       YVar = NULL,
                       GroupVar = NULL,
+                      Height = "600px",
+                      Width = "1135px",
                       Title = 'Line Plot',
                       EchartsTheme = "macaron",
                       X_Scroll = FALSE,
@@ -3040,7 +3159,7 @@ Plot.Area <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(
         data = dt1 |> dplyr::group_by(get(gv)),
         x = XVar,
-        timeline = TimeLine, dispose = TRUE)
+        timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line() Build Echarts 4")
@@ -3085,7 +3204,9 @@ Plot.Area <- function(dt = NULL,
           "<b>%{text}</b><br><br>", # Group Var
           Y.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line group plotly::layout")
@@ -3119,7 +3240,7 @@ Plot.Area <- function(dt = NULL,
 
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line no group Echarts")
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
 
       # Finalize Plot Build
@@ -3162,7 +3283,9 @@ Plot.Area <- function(dt = NULL,
         hovertemplate = paste(
           Y.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line no group plotly::layout")
@@ -3198,6 +3321,8 @@ Plot.Area <- function(dt = NULL,
 #' @param XVar Column name of the predicted values from your model
 #' @param YVar Column name of the target variable from your model
 #' @param GroupVar One Grouping Variable
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title "Title"
 #' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
@@ -3274,6 +3399,8 @@ Plot.Step <- function(dt = NULL,
                       XVar = NULL,
                       YVar = NULL,
                       GroupVar = NULL,
+                      Height = "600px",
+                      Width = "1135px",
                       Title = 'Line Plot',
                       EchartsTheme = "macaron",
                       X_Scroll = FALSE,
@@ -3359,7 +3486,7 @@ Plot.Step <- function(dt = NULL,
     p1 <- echarts4r::e_charts_(
       data = dt1 |> dplyr::group_by(get(gv)),
       x = XVar,
-      timeline = TimeLine, dispose = TRUE)
+      timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
 
     # Finalize Plot Build
     if(Debug) print("Plot.Line() Build Echarts 4")
@@ -3400,7 +3527,7 @@ Plot.Step <- function(dt = NULL,
 
     # Build base plot depending on GroupVar availability
     if(Debug) print("Plot.Line no group Echarts")
-    p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+    p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
     p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol)
 
     # Finalize Plot Build
@@ -3443,6 +3570,8 @@ Plot.Step <- function(dt = NULL,
 #' @param XVar Column name of the predicted values from your model
 #' @param YVar Column name of the target variable from your model
 #' @param GroupVar One Grouping Variable
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title "Title"
 #' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
@@ -3519,7 +3648,9 @@ Plot.River <- function(dt = NULL,
                       XVar = NULL,
                       YVar = NULL,
                       GroupVar = NULL,
-                      Title = 'Line Plot',
+                      Height = "600px",
+                      Width = "1135px",
+                      Title = 'River Plot',
                       EchartsTheme = "macaron",
                       X_Scroll = FALSE,
                       Y_Scroll = FALSE,
@@ -3577,125 +3708,51 @@ Plot.River <- function(dt = NULL,
     }
   }
 
-  if(Debug) print("Plot.River 5")
+  if(Debug) print("Plot.River 6b")
 
-  # Group Variable Case
-  if(length(GroupVar) > 0L) {
-
-    if(Debug) print("Plot.River 6a")
-
-    # Prepare Data
-    gv <- GroupVar[1L]
-    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), rep(1L, length(c(GroupVar[1L], XVar))))
-
-    if(Debug) print("Plot.River 7a")
-
-    cxv <- class(dt1[[XVar]])[1L]
-    if(cxv %in% "IDate") {
-      dt1[, eval(XVar) := as.Date(get(XVar))]
-    } else if(cxv %in% "IDateTime") {
-      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
-    }
-
-    if(Debug) print("Plot.River 8a")
-
-    # Filter data before dcast
-    N <- dt1[, sum(get(YVar[1L])), by = c(GroupVar[1L])][order(-V1)][seq_len(min(.N, NumberBins))][[1L]]
-    if(length(N) > length(unique(dt1[[GroupVar[1L]]]))) {
-      dt1 <- dt1[get(GroupVar[1L]) %in% eval(N)]
-    }
-
-    if(Debug) print("Plot.River 9a")
-
-    # dcast
-    dt1 <- data.table::dcast.data.table(data = dt1, formula = get(XVar) ~ get(GroupVar[1L]), value.var = eval(YVar))
-    data.table::setnames(dt1, "XVar", XVar)
-    for(i in seq_len(ncol(dt1) -1L)) {
-      data.table::set(dt1, i = which(is.na(dt1[[(names(dt1)[i+1])]])), j = eval(names(dt1)[i+1]), value = 0)
-    }
-    YVar <- names(dt1)[!names(dt1) %in% XVar]
-
-    if(Debug) print("Plot.River 10a")
-
-    # Plot
-    if(Debug) print("Plot.Line() Build Echarts 1")
-
-    # Build base plot depending on GroupVar availability
-    p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
-    for(i in YVar) p1 <- echarts4r::e_river_(e = p1, serie = i)
-
-    if(Debug) print("Plot.River 11a")
-
-    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_tooltip(e = p1)
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
-
-  } else {
-
-    if(Debug) print("Plot.River 6b")
-
-    # Plot
-    data.table::setorderv(x = dt1, cols = XVar, 1L)
-    cxv <- class(dt1[[XVar]])[1L]
-    if(cxv %in% "IDate") {
-      dt1[, eval(XVar) := as.Date(get(XVar))]
-    } else if(cxv %in% "IDateTime") {
-      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
-    }
-
-    if(Debug) print("Plot.River 7b")
-
-    # Build base plot depending on GroupVar availability
-    if(Debug) print("Plot.Line no group Echarts")
-    p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
-    for(i in YVar) p1 <- echarts4r::e_river_(e = p1, serie = i)
-
-    if(Debug) print("Plot.River 8b")
-
-    # Finalize Plot Build
-    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_tooltip(e = p1)
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
-
+  # Plot
+  data.table::setorderv(x = dt1, cols = XVar, 1L)
+  cxv <- class(dt1[[XVar]])[1L]
+  if(cxv %in% "IDate") {
+    dt1[, eval(XVar) := as.Date(get(XVar))]
+  } else if(cxv %in% "IDateTime") {
+    dt1[, eval(XVar) := as.POSIXct(get(XVar))]
   }
+
+  if(Debug) print("Plot.River 7b")
+
+  # Build base plot depending on GroupVar availability
+  if(Debug) print("Plot.Line no group Echarts")
+  p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+  for(i in YVar) p1 <- echarts4r::e_river_(e = p1, serie = i)
+
+  if(Debug) print("Plot.River 8b")
+
+  # Finalize Plot Build
+  if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+  if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_tooltip(e = p1)
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  # p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+  # Sp1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+
+
 
   if(Debug) print("Plot.River return")
 
@@ -3716,6 +3773,8 @@ Plot.River <- function(dt = NULL,
 #' @param YVar Column name of Y-Axis variable. If NULL then ignored
 #' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title title
 #' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "macaron"
@@ -3784,6 +3843,8 @@ Plot.Bar <- function(dt = NULL,
                      YVar = NULL,
                      GroupVar = NULL,
                      AggMethod = 'mean',
+                     Height = "600px",
+                     Width = "1135px",
                      Title = 'Bar Plot',
                      Engine = 'Echarts',
                      EchartsTheme = "macaron",
@@ -3886,7 +3947,9 @@ Plot.Bar <- function(dt = NULL,
             Y.HoverFormat,
             X.HoverFormat,
             "<extra></extra>"
-          ))
+          ),
+          width = Width,
+          height = Height)
         p1 <- plotly::layout(
           p = p1,
           font = AutoPlots:::font_(),
@@ -3907,7 +3970,7 @@ Plot.Bar <- function(dt = NULL,
             gridcolor = GridColor),
           barmode = 'group')
       } else {
-        p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE)
+        p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE, width = Width, height = Height)
         p1 <- echarts4r::e_bar_(e = p1, YVar)
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
         if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -3989,7 +4052,9 @@ Plot.Bar <- function(dt = NULL,
             Y.HoverFormat,
             X.HoverFormat,
             "<extra></extra>"
-          ))
+          ),
+          width = Width,
+          height = Height)
         p1 <- plotly::layout(
           p = p1,
           font = AutoPlots:::font_(),
@@ -4015,7 +4080,7 @@ Plot.Bar <- function(dt = NULL,
           XVar <- "Variable"
           YVar <- "Importance"
         }
-        p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE)
+        p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE, width = Width, height = Height)
         p1 <- echarts4r::e_bar_(e = p1, YVar)
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
         if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -4082,7 +4147,9 @@ Plot.Bar <- function(dt = NULL,
             Y.HoverFormat,
             X.HoverFormat,
             "<extra></extra>"
-          ))
+          ),
+          width = Width,
+          height = Height)
         p1 <- plotly::layout(
           p = p1,
           font = AutoPlots:::font_(),
@@ -4103,7 +4170,7 @@ Plot.Bar <- function(dt = NULL,
             gridcolor = GridColor),
           barmode = 'group')
       } else {
-        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L], dispose = TRUE)
+        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
         p1 <- echarts4r::e_bar_(e = p1, YVar)
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
         if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -4172,7 +4239,9 @@ Plot.Bar <- function(dt = NULL,
             Y.HoverFormat,
             X.HoverFormat,
             "<extra></extra>"
-          ))
+          ),
+          width = Width,
+          height = Height)
         p1 <- plotly::layout(
           p = p1,
           font = AutoPlots:::font_(),
@@ -4193,7 +4262,7 @@ Plot.Bar <- function(dt = NULL,
             gridcolor = GridColor),
           barmode = 'group')
       } else {
-        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L], dispose = TRUE)
+        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
         p1 <- echarts4r::e_bar_(e = p1, XVar)
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
         if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -4244,6 +4313,8 @@ Plot.Bar <- function(dt = NULL,
 #' @param YVar Column name of Y-Axis variable. If NULL then ignored
 #' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title title
 #' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "macaron"
@@ -4312,6 +4383,8 @@ Plot.StackedBar <- function(dt = NULL,
                             YVar = NULL,
                             GroupVar = NULL,
                             AggMethod = 'mean',
+                            Height = "600px",
+                            Width = "1135px",
                             Title = "~Stacked Bar~",
                             Engine = 'Echarts',
                             EchartsTheme = "macaron",
@@ -4335,6 +4408,8 @@ Plot.StackedBar <- function(dt = NULL,
                             yaxis.fontSize = 14,
                             xaxis.fontSize = 14,
                             Debug = FALSE) {
+
+  print("StackedBarPlot step 1")
 
   if(data.table::is.data.table(dt)) data.table::setDT(dt)
   X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
@@ -4394,7 +4469,7 @@ Plot.StackedBar <- function(dt = NULL,
         temp <- data.table::copy(dt)
       }
 
-      p1 <- echarts4r::e_charts_(data = temp |> dplyr::group_by(get(GroupVar[1L])), x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = temp |> dplyr::group_by(get(GroupVar[1L])), x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_bar_(e = p1, YVar, stack = XVar)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -4418,7 +4493,7 @@ Plot.StackedBar <- function(dt = NULL,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-
+      print("StackedBarPlot FINISHED BUILDING PLOT")
       return(p1)
 
     } else {
@@ -4467,7 +4542,7 @@ Plot.StackedBar <- function(dt = NULL,
         XVar <- "Variable"
         YVar <- "Importance"
       }
-      p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_bar_(e = p1, YVar, stack = XVar)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -4510,6 +4585,8 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param XVar = NULL,
 #' @param YVar = NULL,
 #' @param ZVar = NULL,
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Engine "plotly", "echarts4r"
 #' @param EchartsTheme "dark-blue"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
@@ -4587,6 +4664,8 @@ Plot.BarPlot3D <- function(dt,
                            NumberBins = 21,
                            NumLevels_Y = 33,
                            NumLevels_X = 33,
+                           Height = "600px",
+                           Width = "1135px",
                            Title = "Heatmap",
                            Engine = "Plotly",
                            EchartsTheme = "dark",
@@ -4598,6 +4677,12 @@ Plot.BarPlot3D <- function(dt,
                            FillColorReverse = "#97ff00",
                            GridColor =        "white",
                            TextColor =        "white",
+                           title.fontSize = 22,
+                           title.fontWeight = "bold", # normal
+                           title.textShadowColor = '#63aeff',
+                           title.textShadowBlur = 3,
+                           title.textShadowOffsetY = 1,
+                           title.textShadowOffsetX = -1,
                            yaxis.fontSize = 14,
                            xaxis.fontSize = 14,
                            zaxis.fontSize = 14,
@@ -4646,7 +4731,9 @@ Plot.BarPlot3D <- function(dt,
           X.HoverFormat,
           Z.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
       p1 <- plotly::layout(
         p = p1,
         title = AutoPlots:::bold_(Title),
@@ -4659,7 +4746,7 @@ Plot.BarPlot3D <- function(dt,
 
     } else if(Engine == "Echarts") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_tooltip(e = p1)
@@ -4724,7 +4811,9 @@ Plot.BarPlot3D <- function(dt,
           X.HoverFormat,
           Z.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
       p1 <- plotly::layout(
         p = p1,
         title = AutoPlots:::bold_(Title),
@@ -4737,7 +4826,7 @@ Plot.BarPlot3D <- function(dt,
 
     } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
 
@@ -4801,7 +4890,9 @@ Plot.BarPlot3D <- function(dt,
           X.HoverFormat,
           Z.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
       p1 <- plotly::layout(
         p = p1,
         title = AutoPlots:::bold_(Title),
@@ -4813,7 +4904,7 @@ Plot.BarPlot3D <- function(dt,
         paper_bgcolor = BackGroundColor)
     } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -4892,7 +4983,7 @@ Plot.BarPlot3D <- function(dt,
     }
 
     if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
-    p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+    p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
     p1 <- echarts4r::e_bar_3d_(e = p1, YVar, ZVar, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)))
     p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
 
@@ -4931,6 +5022,8 @@ Plot.BarPlot3D <- function(dt,
 #' @param XVar = NULL,
 #' @param YVar = NULL,
 #' @param ZVar = NULL,
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Engine "plotly", "echarts4r"
 #' @param EchartsTheme "dark-blue"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
@@ -5007,6 +5100,8 @@ Plot.HeatMap <- function(dt,
                          NumberBins = 21,
                          NumLevels_Y = 33,
                          NumLevels_X = 33,
+                         Height = "600px",
+                         Width = "1135px",
                          Title = "Heatmap",
                          Engine = "Plotly",
                          EchartsTheme = "dark",
@@ -5018,6 +5113,12 @@ Plot.HeatMap <- function(dt,
                          FillColorReverse = "#97ff00",
                          GridColor =        "white",
                          TextColor =        "white",
+                         title.fontSize = 22,
+                         title.fontWeight = "bold", # normal
+                         title.textShadowColor = '#63aeff',
+                         title.textShadowBlur = 3,
+                         title.textShadowOffsetY = 1,
+                         title.textShadowOffsetX = -1,
                          yaxis.fontSize = 14,
                          xaxis.fontSize = 14,
                          Debug     =        FALSE) {
@@ -5059,7 +5160,9 @@ Plot.HeatMap <- function(dt,
         y = ~get(YVar),
         z = ~Measure,
         colorscale = colz,
-        type = "heatmap")
+        type = "heatmap",
+        width = Width,
+        height = Height)
       p1 <- plotly::layout(
         p = p1,
         title = AutoPlots:::bold_(Title),
@@ -5073,7 +5176,7 @@ Plot.HeatMap <- function(dt,
 
     } else if(Engine == "Echarts") {
       g <- "Measure"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar)#, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, width = Width, height = Height)#, dispose = TRUE)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_tooltip(e = p1)
@@ -5138,7 +5241,9 @@ Plot.HeatMap <- function(dt,
           X.HoverFormat,
           Z.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
       p1 <- plotly::layout(
         p = p1,
         title = AutoPlots:::bold_(Title),
@@ -5151,7 +5256,7 @@ Plot.HeatMap <- function(dt,
 
     } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -5214,7 +5319,9 @@ Plot.HeatMap <- function(dt,
           X.HoverFormat,
           Z.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
       p1 <- plotly::layout(
         p = p1,
         title = AutoPlots:::bold_(Title),
@@ -5226,7 +5333,7 @@ Plot.HeatMap <- function(dt,
         paper_bgcolor = BackGroundColor)
     } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -5259,13 +5366,21 @@ Plot.HeatMap <- function(dt,
 
     # Starter pack
     if(!PreAgg) {
+      print("Echarts PreAgg 1")
       if(AggMethod == 'mean') {
+        print("Echarts PreAgg 2")
         temp_y <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        print("Echarts PreAgg 3")
         temp_x <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        print("Echarts PreAgg 4")
         temp_yy <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        print("Echarts PreAgg 5")
         temp_xx <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        print("Echarts PreAgg 6")
         dt1 <- dt1[get(YVar) %in% eval(temp_yy) & get(XVar) %in% eval(temp_xx)]
+        print("Echarts PreAgg 7")
         dt1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+        print("Echarts PreAgg 8")
       } else if(AggMethod == 'median') {
         temp_y <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
         temp_x <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
@@ -5313,7 +5428,9 @@ Plot.HeatMap <- function(dt,
         y = ~get(YVar),
         z = ~Measure_Variable,
         colors = grDevices::colorRamp(c(FillColorReverse,"black",FillColor)),
-        type = "heatmap")
+        type = "heatmap",
+        width = Width,
+        height = Height)
       p1 <- plotly::layout(
         p = p1,
         title = AutoPlots:::bold_(Title),
@@ -5324,18 +5441,29 @@ Plot.HeatMap <- function(dt,
         plot_bgcolor = ChartColor,
         paper_bgcolor = BackGroundColor)
     } else if(Engine == "Echarts") {
+      print("Echarts 1")
       if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE)
+      print("Echarts 2")
+      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      print("Echarts 3")
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)))
+      print("Echarts 4")
       p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
+      print("Echarts 5")
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+      print("Echarts 6")
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      print("Echarts 7")
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      print("Echarts 8")
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      print("Echarts 9")
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+      print("Echarts 10")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      print("Echarts 11")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      print("Echarts 12")
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -5348,6 +5476,7 @@ Plot.HeatMap <- function(dt,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
+      print("Echarts return")
 
     }
     return(p1)
@@ -5375,6 +5504,8 @@ Plot.HeatMap <- function(dt,
 #' @param dt Source data.table
 #' @param CorrVars character
 #' @param Method character
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title character
 #' @param Engine character
 #' @param EchartsTheme = "macaron"
@@ -5393,6 +5524,8 @@ Plot.CorrMatrix <- function(dt = NULL,
                             CorrVars = NULL,
                             Method = 'spearman',
                             PreAgg = FALSE,
+                            Height = "600px",
+                            Width = "1135px",
                             Title = "Correlation Matrix",
                             Engine = "Plotly",
                             EchartsTheme = "macaron",
@@ -5440,7 +5573,9 @@ Plot.CorrMatrix <- function(dt = NULL,
       y = ~Variables,
       z = ~Spearman,
       colors = grDevices::colorRamp(c(FillColorReverse,"black",FillColor)),
-      type = "heatmap")
+      type = "heatmap",
+      width = Width,
+      height = Height)
     p1 <- plotly::layout(
       p = p1,
       title = AutoPlots:::bold_(Title),
@@ -5496,6 +5631,8 @@ Plot.CorrMatrix <- function(dt = NULL,
 #' @param XVar Column name of X-Axis variable. If NULL then ignored
 #' @param YVar Column name of Y-Axis variable. If NULL then ignored
 #' @param GroupVar Requires an XVar and YVar already be defined
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title 'Violin Plot'
 #' @param Engine = "Plotly",
 #' @param EchartsTheme = "dark-blue",
@@ -5562,6 +5699,8 @@ Plot.Copula <- function(dt = NULL,
                         XVar = NULL,
                         YVar = NULL,
                         GroupVar = NULL,
+                        Height = "600px",
+                        Width = "1135px",
                         Title = 'Copula Plot',
                         Engine = "Plotly",
                         EchartsTheme = "dark-blue",
@@ -5616,7 +5755,9 @@ Plot.Copula <- function(dt = NULL,
           Y.HoverFormat,
           X.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
 
       # Add line
       if(Debug) print('Plot.Copula # Add Line')
@@ -5650,7 +5791,7 @@ Plot.Copula <- function(dt = NULL,
       if(Debug) print('Plot.Copula Echarts')
       dt1[, size_vals := seq_len(.N)/1000]
       sv <- "size_vals"
-      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_(e = p1, YVar, color = YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
@@ -5698,7 +5839,9 @@ Plot.Copula <- function(dt = NULL,
           Y.HoverFormat,
           X.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
 
       # Layout
       if(Debug) print('Plot.Copula plotly::layout')
@@ -5718,9 +5861,9 @@ Plot.Copula <- function(dt = NULL,
     } else {
       if(Debug) print('Plot.Copula Echarts')
       if(TimeLine) {
-        p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, colorBy = GroupVar[1L], timeline = TRUE, dispose = TRUE)
+        p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, colorBy = GroupVar[1L], timeline = TRUE, dispose = TRUE, width = Width, height = Height)
       } else {
-        p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, dispose = TRUE)
+        p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, dispose = TRUE, width = Width, height = Height)
       }
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
@@ -5770,6 +5913,8 @@ Plot.Copula <- function(dt = NULL,
 #' @param YVar Column name of Y-Axis variable. If NULL then ignored
 #' @param ZVar Column name of Z-Axis variable. If NULL then ignored
 #' @param GroupVar Requires an XVar and YVar already be defined
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title 'Violin Plot'
 #' @param Engine = "Plotly"
 #' @param EchartsTheme = "dark-blue"
@@ -5839,6 +5984,8 @@ Plot.Copula3D <- function(dt = NULL,
                           YVar = NULL,
                           ZVar = NULL,
                           GroupVar = NULL,
+                          Height = "600px",
+                          Width = "1135px",
                           Title = 'Copula 3D',
                           Engine = "Plotly",
                           EchartsTheme = "dark-blue",
@@ -5890,7 +6037,9 @@ Plot.Copula3D <- function(dt = NULL,
         sizes = c(1.5, 12),
         text = ~paste(
           paste0(GroupVar[[1L]], ":"),
-          get(GroupVar[[1L]])))
+          get(GroupVar[[1L]])),
+        width = Width,
+        height = Height)
 
       # Layout
       if(Debug) print('Plot.Copula3D Layout')
@@ -5926,7 +6075,7 @@ Plot.Copula3D <- function(dt = NULL,
         dt1 |> dplyr::group_by(get(GroupVar[1L])),
         x = XVar,
         timeline = TimeLine,
-        colorBy = GroupVar[1L], dispose = TRUE)
+        colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[[1L]])
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -5969,7 +6118,9 @@ Plot.Copula3D <- function(dt = NULL,
         marker = list(
           symbol = 'circle',
           sizemode = 'diameter'),
-        sizes = c(1.5, 12))
+        sizes = c(1.5, 12),
+        width = Width,
+        height = Height)
 
       # Layout
       if(Debug) print('Plot.Copula3D plotly::layout')
@@ -5999,7 +6150,7 @@ Plot.Copula3D <- function(dt = NULL,
         paper_bgcolor = "rgb(0, 20, 51, 0.61)")
     } else {
       if(Debug) print('Plot.Copula3D Echarts')
-      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6042,6 +6193,8 @@ Plot.Copula3D <- function(dt = NULL,
 #' @param XVar character
 #' @param YVar character
 #' @param GroupVar character
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title character
 #' @param Engine character
 #' @param EchartsTheme character
@@ -6113,6 +6266,8 @@ Plot.Scatter <- function(dt = NULL,
                          XVar = NULL,
                          YVar = NULL,
                          GroupVar = NULL,
+                         Height = "600px",
+                         Width = "1135px",
                          Title = 'Scatter Plot',
                          Engine = "Plotly",
                          EchartsTheme = "macaron",
@@ -6167,7 +6322,9 @@ Plot.Scatter <- function(dt = NULL,
           Y.HoverFormat,
           X.HoverFormat,
           "<extra></extra>"
-        ))
+        ),
+        width = Width,
+        height = Height)
 
       # Add line
       if(Debug) print('Plot.Scatter  # Add line')
@@ -6195,7 +6352,7 @@ Plot.Scatter <- function(dt = NULL,
 
     } else {
       if(Debug) print('Plot.Scatter  Echarts')
-      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
@@ -6235,7 +6392,9 @@ Plot.Scatter <- function(dt = NULL,
         x = ~get(XVar),
         y = ~get(YVar),
         color = ~get(GroupVar),
-        mode = 'markers')
+        mode = 'markers',
+        width = Width,
+        height = Height)
 
       # Layout
       if(Debug) print('Plot.Scatter  plotly::layout')
@@ -6259,7 +6418,7 @@ Plot.Scatter <- function(dt = NULL,
         dt1 |> dplyr::group_by(get(GroupVar[1L])),
         x = XVar,
         timeline = TimeLine,
-        colorBy = GroupVar[1L], dispose = TRUE)
+        colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -6306,6 +6465,8 @@ Plot.Scatter <- function(dt = NULL,
 #' @param YVar Column name of Y-Axis variable. If NULL then ignored
 #' @param ZVar Column name of Z-Axis variable. If NULL then ignored
 #' @param GroupVar Requires an XVar and YVar already be defined
+#' @param Height = NULL,
+#' @param Width = NULL,
 #' @param Title 'Violin Plot'
 #' @param Engine = "Plotly"
 #' @param EchartsTheme = "macaron"
@@ -6375,6 +6536,8 @@ Plot.Scatter3D <- function(dt = NULL,
                            YVar = NULL,
                            ZVar = NULL,
                            GroupVar = NULL,
+                           Height = "600px",
+                           Width = "1135px",
                            Title = '3D Scatter',
                            Engine = "Plotly",
                            EchartsTheme = "macaron",
@@ -6425,7 +6588,9 @@ Plot.Scatter3D <- function(dt = NULL,
         sizes = c(5, 25),
         text = ~paste(
           paste0(GroupVar, ":"),
-          get(GroupVar)))
+          get(GroupVar)),
+        width = Width,
+        height = Height)
 
       # Layout
       if(Debug) print('Plot.Scatter3D  plotly::layout')
@@ -6456,7 +6621,7 @@ Plot.Scatter3D <- function(dt = NULL,
         paper_bgcolor = "rgb(0, 20, 51, 0.61)")
     } else {
       if(Debug) print('Plot.Scatter3D  Echarts')
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, timeline = TimeLine, colorBy = GroupVar[1L], dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, timeline = TimeLine, colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[1L])
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6498,7 +6663,9 @@ Plot.Scatter3D <- function(dt = NULL,
         marker = list(
           symbol = 'circle',
           sizemode = 'diameter'),
-        sizes = c(5, 25))
+        sizes = c(5, 25),
+        width = Width,
+        height = Height)
 
       # Layout
       if(Debug) print('Plot.Scatter3D  plotly::layout')
@@ -6529,7 +6696,7 @@ Plot.Scatter3D <- function(dt = NULL,
         paper_bgcolor = "rgb(0, 20, 51, 0.61)")
     } else {
       if(Debug) print('Plot.Scatter3D  Echarts')
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(GroupVar[[1L]]), x = XVar, timeline = TRUE, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(GroupVar[[1L]]), x = XVar, timeline = TRUE, dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[[1L]])
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6824,7 +6991,9 @@ Plot.Stock <- function(StockDataOutput,
     high = ~h,
     low = ~l,
     decreasing = list(line = list(color = '#ff0055')),
-    increasing = list(line = list(color = '#66ff00')))
+    increasing = list(line = list(color = '#66ff00')),
+    width = Width,
+    height = Height)
   print('Plot.Stock 3')
   p1 <- plotly::layout(
     p = p1,

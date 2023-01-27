@@ -12,6 +12,8 @@ Plot.Pie(
   YVar = NULL,
   GroupVar = NULL,
   AggMethod = "mean",
+  Height = "600px",
+  Width = "1135px",
   Title = "Bar Plot",
   EchartsTheme = "macaron",
   TimeLine = TRUE,
@@ -50,6 +52,10 @@ Plot.Pie(
 \item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{title}
 

@@ -10,6 +10,8 @@ Plot.Copula(
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
+  Height = "600px",
+  Width = "1135px",
   Title = "Copula Plot",
   Engine = "Plotly",
   EchartsTheme = "dark-blue",
@@ -45,6 +47,10 @@ Plot.Copula(
 \item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
 
 \item{GroupVar}{Requires an XVar and YVar already be defined}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{'Violin Plot'}
 

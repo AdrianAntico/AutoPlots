@@ -14,6 +14,8 @@ Plot.HeatMap(
   NumberBins = 21,
   NumLevels_Y = 33,
   NumLevels_X = 33,
+  Height = "600px",
+  Width = "1135px",
   Title = "Heatmap",
   Engine = "Plotly",
   EchartsTheme = "dark",
@@ -25,6 +27,12 @@ Plot.HeatMap(
   FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = "#63aeff",
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
   yaxis.fontSize = 14,
   xaxis.fontSize = 14,
   Debug = FALSE
@@ -46,6 +54,10 @@ Plot.HeatMap(
 \item{NumLevels_Y}{= 20}
 
 \item{NumLevels_X}{= 20}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{"Heatmap"}
 

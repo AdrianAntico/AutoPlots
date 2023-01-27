@@ -10,6 +10,8 @@ Plot.Box(
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
+  Height = "600px",
+  Width = "1135px",
   Title = "Box Plot",
   Engine = "Plotly",
   EchartsTheme = "macaron",
@@ -45,6 +47,10 @@ Plot.Box(
 \item{YVar}{character}
 
 \item{GroupVar}{character}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{character}
 

@@ -10,6 +10,8 @@ Plot.Scatter(
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
+  Height = "600px",
+  Width = "1135px",
   Title = "Scatter Plot",
   Engine = "Plotly",
   EchartsTheme = "macaron",
@@ -45,6 +47,10 @@ Plot.Scatter(
 \item{YVar}{character}
 
 \item{GroupVar}{character}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{character}
 

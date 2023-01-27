@@ -11,6 +11,8 @@ Plot.Scatter3D(
   YVar = NULL,
   ZVar = NULL,
   GroupVar = NULL,
+  Height = "600px",
+  Width = "1135px",
   Title = "3D Scatter",
   Engine = "Plotly",
   EchartsTheme = "macaron",
@@ -47,6 +49,10 @@ Plot.Scatter3D(
 \item{ZVar}{Column name of Z-Axis variable. If NULL then ignored}
 
 \item{GroupVar}{Requires an XVar and YVar already be defined}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{'Violin Plot'}
 

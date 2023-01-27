@@ -10,6 +10,8 @@ Plot.Density(
   YVar = NULL,
   XVar = NULL,
   GroupVar = NULL,
+  Height = "600px",
+  Width = "1135px",
   Title = "Density Plot",
   Engine = "Plotly",
   EchartsTheme = "macarons",
@@ -43,6 +45,10 @@ Plot.Density(
 \item{XVar}{character}
 
 \item{GroupVar}{character}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{= "Density Plot"}
 

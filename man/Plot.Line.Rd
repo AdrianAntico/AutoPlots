@@ -12,6 +12,8 @@ Plot.Line(
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
+  Height = "600px",
+  Width = "1135px",
   Title = "Line Plot",
   EchartsTheme = "macaron",
   X_Scroll = FALSE,
@@ -54,6 +56,10 @@ Plot.Line(
 \item{YVar}{Column name of the target variable from your model}
 
 \item{GroupVar}{One Grouping Variable}
+
+\item{Height}{= NULL,}
+
+\item{Width}{= NULL,}
 
 \item{Title}{"Title"}
 

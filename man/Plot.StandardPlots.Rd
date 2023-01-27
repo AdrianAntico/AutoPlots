@@ -13,6 +13,8 @@ Plot.StandardPlots(
   XVar = NULL,
   ZVar = NULL,
   GroupVar = NULL,
+  Height = "600px",
+  Width = "1135px",
   PlotEngineType = "Plotly",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
@@ -45,6 +47,10 @@ Plot.StandardPlots(
 \item{ZVar}{character}
 
 \item{GroupVar}{character}
+
+\item{Height}{valid css unit}
+
+\item{Width}{valid css unit}
 
 \item{PlotEngineType}{character}
 
