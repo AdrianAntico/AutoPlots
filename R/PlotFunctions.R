@@ -523,25 +523,6 @@ Plot.StandardPlots <- function(dt = NULL,
 
   # Heat Map (Plotly & Echarts)
   if(tolower(PlotType) %in% c('heatmapplot')) {
-    print("Args Begin 5555555555555555555555555555555555555555555555555555")
-    print(PreAgg)
-    print(dt)
-    print(YVar)
-    print(XVar)
-    print(ZVar)
-    print(AggMethod)
-    print(21)
-    print(NumLevels_Y)
-    print(NumLevels_X)
-    print(Width)
-    print(Height)
-    print(PlotEngineType)
-    print(EchartsTheme)
-    print("Heatmap")
-    print(BackGroundColor)
-    print(ChartColor)
-    print(FillColor)
-    print(GridColor)
     p1 <- AutoPlots::Plot.HeatMap(
       PreAgg = PreAgg,
       dt = dt,
@@ -1328,6 +1309,10 @@ Plot.Pie <- function(Engine = 'Plotly',
 
     # Plotly
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       p1 <- plotly::plot_ly(
         data = temp,
         type = 'pie',
@@ -1370,6 +1355,7 @@ Plot.Pie <- function(Engine = 'Plotly',
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -1536,6 +1522,10 @@ Plot.Box <- function(dt = NULL,
 
     # Build plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       if(Debug) print('Plot.Box X_and_Y_and_GroupVars')
       if(Debug) print('Plot.Box plotly::plot_ly')
       p1 <- plotly::plot_ly(
@@ -1589,6 +1579,7 @@ Plot.Box <- function(dt = NULL,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       if(CoordFlip) p1 <- echarts4r::e_flip_coords(e = p1)
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -1610,6 +1601,9 @@ Plot.Box <- function(dt = NULL,
 
     if(Debug) print("Plot.Box X_and_Y")
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Box plotly::plot_ly')
@@ -1666,6 +1660,7 @@ Plot.Box <- function(dt = NULL,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       if(CoordFlip) p1 <- echarts4r::e_flip_coords(e = p1)
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -1691,6 +1686,9 @@ Plot.Box <- function(dt = NULL,
     if(Debug) print("Plot.Box Y Only")
 
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Box plotly::plot_ly')
@@ -1740,6 +1738,7 @@ Plot.Box <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -1762,6 +1761,9 @@ Plot.Box <- function(dt = NULL,
 
     if(Debug) print("Plot.Box X Only")
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print("Plot.Box plotly::plot_ly")
@@ -1814,6 +1816,7 @@ Plot.Box <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -2310,6 +2313,10 @@ Plot.Histogram <- function(dt = NULL,
 
   # Format
   if(Engine == "Plotly") {
+
+    Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+    Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
     print("Plotly Histogram 1")
     p1 <- plotly::plot_ly(
       data = dt1,
@@ -2391,6 +2398,7 @@ Plot.Histogram <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_title(
       p1, Title,
       textStyle = list(
@@ -2532,6 +2540,10 @@ Plot.Density <- function(dt = NULL,
 
     # Build plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       p1 <- ggplot2::ggplot(dt1, ggplot2::aes(x = get(YVar)))
       p1 <- p1 + ggplot2::geom_density(alpha = 0.3, color = GridColor)
       p1 <- p1 + ggplot2::xlab(eval(YVar))
@@ -2553,6 +2565,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -2573,6 +2586,10 @@ Plot.Density <- function(dt = NULL,
 
     # Prepare data
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       if(length(YVar) > 1L) {
         xx <- data.table::melt.data.table(
           data = dt1,
@@ -2608,6 +2625,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -2835,6 +2853,7 @@ Plot.Line <- function(dt = NULL,
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -2849,6 +2868,9 @@ Plot.Line <- function(dt = NULL,
           textShadowOffsetX = title.textShadowOffsetX))
 
     } else {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line group plotly::plot_ly")
@@ -2866,7 +2888,7 @@ Plot.Line <- function(dt = NULL,
           "<extra></extra>"
         ),
         width = Width,
-        height = Height)
+        height = 700)
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line group plotly::layout")
@@ -2913,6 +2935,7 @@ Plot.Line <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -3174,6 +3197,7 @@ Plot.Area <- function(dt = NULL,
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -3253,6 +3277,7 @@ Plot.Area <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -3501,6 +3526,7 @@ Plot.Step <- function(dt = NULL,
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_title(
       p1, Title,
       textStyle = list(
@@ -3540,6 +3566,7 @@ Plot.Step <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_title(
       p1, Title,
       textStyle = list(
@@ -3739,6 +3766,7 @@ Plot.River <- function(dt = NULL,
   p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
   # p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
   # Sp1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+  p1 <- echarts4r::e_brush(e = p1)
   p1 <- echarts4r::e_title(
     p1, Title,
     textStyle = list(
@@ -3934,6 +3962,10 @@ Plot.Bar <- function(dt = NULL,
 
       # Plotly
       if(Engine == "Plotly") {
+
+        Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+        Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
         p1 <- plotly::plot_ly(
           data = temp,
           x = ~get(XVar),
@@ -3979,6 +4011,7 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_tooltip(e = p1)
         p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
         p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+        p1 <- echarts4r::e_brush(e = p1)
         p1 <- echarts4r::e_title(
           p1, Title,
           textStyle = list(
@@ -4039,6 +4072,10 @@ Plot.Bar <- function(dt = NULL,
 
       # Plotly
       if(Engine == "Plotly") {
+
+        Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+        Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
         p1 <- plotly::plot_ly(
           data = temp,
           x = ~get(XVar),
@@ -4092,6 +4129,7 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
         p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
         p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+        p1 <- echarts4r::e_brush(e = p1)
         p1 <- echarts4r::e_title(
           p1, Title,
           textStyle = list(
@@ -4133,6 +4171,10 @@ Plot.Bar <- function(dt = NULL,
       }
 
       if(Engine == "Plotly") {
+
+        Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+        Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
         p1 <- plotly::plot_ly(
           data = temp,
           x = ~get(GroupVar[1L]),
@@ -4182,6 +4224,7 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
         p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
         p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+        p1 <- echarts4r::e_brush(e = p1)
         p1 <- echarts4r::e_title(
           p1, Title,
           textStyle = list(
@@ -4226,6 +4269,10 @@ Plot.Bar <- function(dt = NULL,
 
       # Plot
       if(Engine == "Plotly") {
+
+        Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+        Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
         p1 <- plotly::plot_ly(
           data = temp,
           x = ~get(GroupVar[1L]),
@@ -4273,6 +4320,7 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
         p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
         p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+        p1 <- echarts4r::e_brush(e = p1)
         p1 <- echarts4r::e_title(
           p1, Title,
           textStyle = list(
@@ -4481,6 +4529,7 @@ Plot.StackedBar <- function(dt = NULL,
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -4553,6 +4602,7 @@ Plot.StackedBar <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -4718,6 +4768,10 @@ Plot.BarPlot3D <- function(dt,
 
     # Create final data for plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       p1 <- plotly::plot_ly(
         dt1,
         x = ~get(XVar),
@@ -4759,6 +4813,7 @@ Plot.BarPlot3D <- function(dt,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -4798,6 +4853,10 @@ Plot.BarPlot3D <- function(dt,
 
     # Create final data for plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       p1 <- plotly::plot_ly(
         dt1,
         x = ~get(XVar),
@@ -4838,6 +4897,7 @@ Plot.BarPlot3D <- function(dt,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -4877,6 +4937,10 @@ Plot.BarPlot3D <- function(dt,
 
     # Create final dt1 for plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       p1 <- plotly::plot_ly(
         dt1,
         x = ~get(XVar),
@@ -4915,6 +4979,7 @@ Plot.BarPlot3D <- function(dt,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -4995,6 +5060,7 @@ Plot.BarPlot3D <- function(dt,
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_title(
       p1, Title,
       textStyle = list(
@@ -5154,6 +5220,10 @@ Plot.HeatMap <- function(dt,
 
     # Create final data for plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       p1 <- plotly::plot_ly(
         dt1,
         x = ~get(XVar),
@@ -5189,6 +5259,7 @@ Plot.HeatMap <- function(dt,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -5228,6 +5299,10 @@ Plot.HeatMap <- function(dt,
 
     # Create final data for plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       p1 <- plotly::plot_ly(
         dt1,
         x = ~get(XVar),
@@ -5267,6 +5342,7 @@ Plot.HeatMap <- function(dt,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -5306,6 +5382,10 @@ Plot.HeatMap <- function(dt,
 
     # Create final dt1 for plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       p1 <- plotly::plot_ly(
         dt1,
         x = ~get(XVar),
@@ -5344,6 +5424,7 @@ Plot.HeatMap <- function(dt,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -5421,6 +5502,10 @@ Plot.HeatMap <- function(dt,
 
     # Create final dt1 for plot
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
       p1 <- plotly::plot_ly(
         dt1,
@@ -5464,6 +5549,7 @@ Plot.HeatMap <- function(dt,
       print("Echarts 11")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       print("Echarts 12")
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -5562,6 +5648,9 @@ Plot.CorrMatrix <- function(dt = NULL,
 
   if(Engine == "Plotly") {
 
+    Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+    Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
     dt2 <- data.table::melt.data.table(
       data = data.table::as.data.table(corr_mat)[, Vars := rownames(corr_mat)],
       id.vars = "Vars", measure.vars = rownames(corr_mat), variable.name = "Variables", value.name = "Spearman")
@@ -5600,6 +5689,7 @@ Plot.CorrMatrix <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_title(
       p1, Title,
       textStyle = list(
@@ -5741,6 +5831,9 @@ Plot.Copula <- function(dt = NULL,
     if(Debug) print('Plot.Copula length(GroupVar) == 0L')
     if(Engine == "Plotly") {
 
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       # Build
       if(Debug) print('Plot.Copula plotly::plot_ly')
       p1 <- plotly::plot_ly(
@@ -5805,6 +5898,7 @@ Plot.Copula <- function(dt = NULL,
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -5824,6 +5918,9 @@ Plot.Copula <- function(dt = NULL,
 
     if(Debug) print('Plot.Copula length(GroupVar) > 0L')
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Copula plotly::plot_ly')
@@ -5879,6 +5976,7 @@ Plot.Copula <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -6022,6 +6120,9 @@ Plot.Copula3D <- function(dt = NULL,
     if(Debug) print('Plot.Copula3D length(GroupVar) > 0L')
     if(Engine == "Plotly") {
 
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       # Build
       if(Debug) print('Plot.Copula3D Build')
       p1 <- plotly::plot_ly(
@@ -6087,6 +6188,7 @@ Plot.Copula3D <- function(dt = NULL,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -6106,6 +6208,9 @@ Plot.Copula3D <- function(dt = NULL,
 
     if(Debug) print('Plot.Copula3D length(GroupVar) == 0L')
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Copula3D plotly::plot_ly')
@@ -6160,6 +6265,7 @@ Plot.Copula3D <- function(dt = NULL,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -6308,6 +6414,9 @@ Plot.Scatter <- function(dt = NULL,
     if(Debug) print('Plot.Scatter  length(GroupVar) == 0L')
     if(Engine == "Plotly") {
 
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       # Build
       if(Debug) print('Plot.Scatter  plotly::plot_ly')
       p1 <- plotly::plot_ly(
@@ -6366,6 +6475,7 @@ Plot.Scatter <- function(dt = NULL,
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -6384,6 +6494,9 @@ Plot.Scatter <- function(dt = NULL,
   } else {
     if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
@@ -6431,6 +6544,7 @@ Plot.Scatter <- function(dt = NULL,
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -6573,6 +6687,9 @@ Plot.Scatter3D <- function(dt = NULL,
     if(Debug) print('Plot.Scatter3D length(GroupVar) > 0L')
     if(Engine == "Plotly") {
 
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+
       # Build
       if(Debug) print('Plot.Scatter3D  plotly::plot_ly')
       p1 <- plotly::plot_ly(
@@ -6632,6 +6749,7 @@ Plot.Scatter3D <- function(dt = NULL,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
@@ -6651,6 +6769,9 @@ Plot.Scatter3D <- function(dt = NULL,
 
     if(Debug) print('Plot.Scatter3D length(GroupVar) == 0L')
     if(Engine == "Plotly") {
+
+      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      Heigth <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Scatter3D  plotly::plot_ly')
@@ -6706,6 +6827,7 @@ Plot.Scatter3D <- function(dt = NULL,
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
         textStyle = list(
