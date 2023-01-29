@@ -5678,7 +5678,7 @@ Plot.CorrMatrix <- function(dt = NULL,
 
   } else {
     if(Debug) print("Plot.CorrMatrix Echarts")
-    p1 <- echarts4r::e_charts(data = corr_mat)
+    p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
     p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
     p1 <- echarts4r::e_tooltip(e = p1)
     if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
