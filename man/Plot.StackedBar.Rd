@@ -10,6 +10,11 @@ Plot.StackedBar(
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
   AggMethod = "mean",
   Height = "600px",
   Width = "1135px",
@@ -48,6 +53,16 @@ Plot.StackedBar(
 \item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
 
 \item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
+
+\item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{XVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
+
+\item{FacetCols}{Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns}
+
+\item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 

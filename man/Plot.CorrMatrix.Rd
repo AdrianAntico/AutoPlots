@@ -7,6 +7,10 @@
 Plot.CorrMatrix(
   dt = NULL,
   CorrVars = NULL,
+  CorrVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
   Method = "spearman",
   PreAgg = FALSE,
   Height = "600px",
@@ -37,6 +41,12 @@ Plot.CorrMatrix(
 \item{dt}{Source data.table}
 
 \item{CorrVars}{character}
+
+\item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
+
+\item{FacetCols}{Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns}
+
+\item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
 \item{Method}{character}
 
@@ -69,6 +79,8 @@ Plot.CorrMatrix(
 \item{TextColor}{character hex}
 
 \item{Debug}{logical}
+
+\item{CorrVarsTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 }
 \description{
 Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.

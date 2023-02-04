@@ -9,10 +9,18 @@ Plot.StandardPlots(
   PreAgg = FALSE,
   PlotType = "Scatter",
   SampleSize = 100000L,
+  AggMethod = "mean",
+  NumberBins = 30,
   YVar = NULL,
   XVar = NULL,
   ZVar = NULL,
   GroupVar = NULL,
+  YVarTrans = NULL,
+  XVarTrans = NULL,
+  ZVarTrans = NULL,
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
   Height = "600px",
   Width = "1135px",
   PlotEngineType = "Plotly",
@@ -20,14 +28,13 @@ Plot.StandardPlots(
   TimeLine = FALSE,
   NumLevels_Y = 75,
   NumLevels_X = 40,
-  AggMethod = "mean",
-  NumberBins = 30,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",
   FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
+  FontSize = 14,
   Debug = FALSE
 )
 }
@@ -40,6 +47,10 @@ Plot.StandardPlots(
 
 \item{SampleSize}{character}
 
+\item{AggMethod}{character}
+
+\item{NumberBins}{character}
+
 \item{YVar}{character}
 
 \item{XVar}{character}
@@ -47,6 +58,18 @@ Plot.StandardPlots(
 \item{ZVar}{character}
 
 \item{GroupVar}{character}
+
+\item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{XVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{ZVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
+
+\item{FacetCols}{Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns}
+
+\item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
 \item{Height}{valid css unit}
 
@@ -57,10 +80,6 @@ Plot.StandardPlots(
 \item{EchartsTheme}{character}
 
 \item{TimeLine}{character}
-
-\item{AggMethod}{character}
-
-\item{NumberBins}{character}
 
 \item{BackGroundColor}{character}
 
@@ -73,6 +92,8 @@ Plot.StandardPlots(
 \item{GridColor}{character}
 
 \item{TextColor}{character}
+
+\item{FontSize}{numeric}
 
 \item{Debug}{character}
 }
