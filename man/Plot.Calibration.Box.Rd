@@ -21,7 +21,7 @@ Plot.Calibration.Box(
   Width = "1135px",
   Title = "Calibration Plot",
   Engine = "Echarts",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
@@ -116,7 +116,7 @@ AutoPlots::Plot.Calibration.Box(
   ZeroLineWidth = 1.25,
   Title = 'Bar Plot',
   Engine = "Echarts", # "Plotly"
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,

@@ -27,7 +27,7 @@ Plot.BinaryMetrics(
   Width = "1135px",
   Title = "Binary Metrics",
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   EchartsLabels = FALSE,
   TimeLine = TRUE,
   X_Scroll = TRUE,

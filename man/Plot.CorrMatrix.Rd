@@ -17,7 +17,7 @@ Plot.CorrMatrix(
   Width = "1135px",
   Title = "Correlation Matrix",
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
   BackGroundColor = "#6a6969",

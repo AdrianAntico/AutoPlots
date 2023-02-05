@@ -5,7 +5,6 @@
 \title{Plot.VariableImportance}
 \usage{
 Plot.VariableImportance(
-  Algo = "CatBoost",
   dt = NULL,
   XVar = NULL,
   YVar = NULL,
@@ -19,8 +18,8 @@ Plot.VariableImportance(
   Height = "600px",
   Width = "1135px",
   Title = "Variable Importance Plot",
-  Engine = "Plotly",
-  EchartsTheme = "macaron",
+  Engine = "Echarts",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
@@ -32,12 +31,18 @@ Plot.VariableImportance(
   TextColor = "white",
   ZeroLineColor = "#ffff",
   ZeroLineWidth = 1.25,
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = "#63aeff",
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  xaxis.fontSize = 14,
+  yaxis.fontSize = 14,
   Debug = FALSE
 )
 }
 \arguments{
-\item{Algo}{'catboost', 'xgboost', 'h2o'}
-
 \item{dt}{Source data.table}
 
 \item{XVar}{Column name of X-Axis variable. If NULL then ignored}
@@ -125,10 +130,9 @@ TextColor = 'white'
 Debug = FALSE
 
 Rappture::Plot.VariableImportance(
-# Algo = "catboost",
 # dt = data,
 # Engine = 'Plotly',
-# EchartsTheme = "macaron",
+# EchartsTheme = "macarons",
 # TimeLine = TRUE,
 # X_Scroll = TRUE,
 # Y_Scroll = TRUE,

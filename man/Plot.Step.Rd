@@ -20,7 +20,7 @@ Plot.Step(
   Height = "600px",
   Width = "1135px",
   Title = "Line Plot",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   X_Scroll = FALSE,
   Y_Scroll = FALSE,
   TimeLine = TRUE,
@@ -118,7 +118,7 @@ AutoPlots::Plot.Step(
   dt = data,
   PreAgg = TRUE,
   Engine = "Echarts", # "Plotly"
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   XVar = "Predict",
   YVar = "CHILLED_Margin_PerDay",

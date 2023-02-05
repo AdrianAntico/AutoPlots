@@ -20,7 +20,7 @@ Plot.Calibration.Line(
   Width = "1135px",
   Title = "Calibration Plot",
   Engine = "Echarts",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
@@ -105,7 +105,7 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 AutoPlots::Plot.Calibration.Line(
   dt = data,
   Engine = "Echarts", # "Plotly"
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   XVar = "Predict",
   YVar = "CHILLED_Margin_PerDay",

@@ -20,7 +20,7 @@ Plot.StackedBar(
   Width = "1135px",
   Title = "~Stacked Bar~",
   Engine = "Echarts",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
@@ -113,7 +113,7 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 # Run function
 AutoPlots:::Plot.Bar(
   Engine = 'Plotly', # "Echarts"
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   data = data,
   XVar = "Predict",

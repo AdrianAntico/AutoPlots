@@ -8,7 +8,7 @@
 #'
 #' @param Root NULL will setwd to project root as defined in function
 #'
-#' @noRd
+#' @export
 BuildBinary <- function(Root = NULL) {
   x <- getwd()
   if(!is.null(Root)) {
@@ -31,7 +31,7 @@ BuildBinary <- function(Root = NULL) {
 #'
 #' @param Root NULL will setwd to project root as defined in function
 #'
-#' @noRd
+#' @export
 Install <- function(Root = NULL) {
   x <- getwd()
   if(!is.null(Root)) {
@@ -52,7 +52,7 @@ Install <- function(Root = NULL) {
 #'
 #' @family Utilities
 #'
-#' @noRd
+#' @export
 UpdateDocs <- function(BuildVignette = FALSE, Root = NULL) {
   x <- getwd()
   if(!is.null(Root)) {

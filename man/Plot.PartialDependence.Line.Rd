@@ -22,7 +22,7 @@ Plot.PartialDependence.Line(
   Width = "1135px",
   Title = "Gains Plot",
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   EchartsLabels = FALSE,
   TimeLine = TRUE,
   X_Scroll = TRUE,

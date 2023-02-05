@@ -22,7 +22,7 @@ Plot.Lift(
   Width = "1135px",
   Title = "Confusion Matrix",
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,

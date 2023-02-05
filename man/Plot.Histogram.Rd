@@ -20,7 +20,7 @@ Plot.Histogram(
   Width = "1135px",
   Title = "Histogram",
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,

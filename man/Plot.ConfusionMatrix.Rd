@@ -23,7 +23,7 @@ Plot.ConfusionMatrix(
   Width = "1135px",
   Title = "Confusion Matrix",
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
@@ -96,8 +96,6 @@ Plot.ConfusionMatrix(
 \item{GroupVar}{= NULL}
 
 \item{Debug}{FALSE}
-
-\item{Algo}{'catboost', 'xgboost', 'h2o'}
 }
 \value{
 ROC Plot for classification models
@@ -140,7 +138,7 @@ Debug = FALSE
 # dt = data,
 # PreAgg = FALSE
 # Engine = 'Plotly',
-# EchartsTheme = "macaron",
+# EchartsTheme = "macarons",
 # TimeLine = TRUE,
 # XVar = "Importance",
 # YVar = "Variable",

@@ -21,7 +21,7 @@ Plot.Residuals.Histogram(
   Width = "1135px",
   Title = "Calibration Plot",
   Engine = "Echarts",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
@@ -118,7 +118,7 @@ AutoPlots::Plot.Residuals.Histogram(
   NumberBins = 20,
   Title = 'Bar Plot',
   Engine = "Echarts", # "Plotly"
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
   ChartColor = '#001534',

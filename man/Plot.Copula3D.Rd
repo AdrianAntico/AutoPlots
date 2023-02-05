@@ -121,7 +121,7 @@ AutoPlots:::Plot.Copula3D(
   GroupVar = NULL,
   Title = 'Copula 3D',
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = FALSE,
   BackGroundColor = "#bbbec7", #"#1b1959", #'#00060b',
   ChartColor = '#001534', # #5757576e

@@ -1024,7 +1024,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
 
   # ROC Plot ----
   if(PlotType == "ROCPlot") {
-    p1 <- AutoPlots::Plot.ROC(
+    p1 <- tryCatch({AutoPlots::Plot.ROC(
       dt = dt,
       SampleSize = SampleSize,
       XVar = XVar,
@@ -1048,15 +1048,17 @@ Plots.ModelEvaluation <- function(dt = NULL,
       FillColor = FillColor,
       ZeroLineColor = GridColor,
       ZeroLineWidth = 1.25,
-      Debug = Debug)
-    return(eval(p1))
+      Debug = Debug)}, error = function(x) NULL)
+    return(p1)
   }
 
   # ----
 
   # Gains Plot ----
   if(PlotType == "GainsPlot") {
-    p1 <- AutoPlots::Plot.Gains(
+    # tryCatch bc sometimes classifiers predict perfectly which
+    #  causes this to crash the app
+    p1 <- tryCatch({AutoPlots::Plot.Gains(
       dt = dt,
       PreAgg = FALSE,
       XVar = XVar,
@@ -1072,8 +1074,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       NumberBins = 20,
-      NumLevels_X = 50,
-      NumLevels_Y = 50,
       Title = "Gains Plot",
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -1085,7 +1085,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       TextColor = TextColor,
       ZeroLineColor = GridColor,
       ZeroLineWidth = 1.25,
-      Debug = FALSE)
+      Debug = FALSE)}, error = function(x) NULL)
     return(p1)
   }
 
@@ -1093,7 +1093,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
 
   # Lift Plot ----
   if(PlotType == "LiftPlot") {
-    p1 <- AutoPlots::Plot.Lift(
+    p1 <- tryCatch({AutoPlots::Plot.Lift(
       dt = dt,
       PreAgg = FALSE,
       XVar = XVar,
@@ -1102,14 +1102,13 @@ Plots.ModelEvaluation <- function(dt = NULL,
       GroupVar = NULL,
       YVarTrans = YVarTrans,
       XVarTrans = XVarTrans,
+      ZVarTrans = ZVarTrans,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
       Height = Height,
       Width = Width,
       NumberBins = 20,
-      NumLevels_X = 50,
-      NumLevels_Y = 50,
       Title = "Lift Plot",
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
@@ -1121,7 +1120,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       TextColor = TextColor,
       ZeroLineColor = GridColor,
       ZeroLineWidth = 1.25,
-      Debug = FALSE)
+      Debug = FALSE)}, error = function(x) NULL)
     return(p1)
   }
 
@@ -1130,7 +1129,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
   # Variable Importance Plot ----
   if(PlotType == "VariableImportance") {
     p1 <- AutoPlots::Plot.VariableImportance(
-      Algo = "CatBoost",
       dt = dt,
       AggMethod = 'mean',
       XVar = "Variable",
@@ -1155,7 +1153,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ZeroLineColor = GridColor,
       ZeroLineWidth = 1.25,
       Debug = FALSE)
-    if(Engine == "Echarts") {
+    if(PlotEngineType == "Echarts") {
       p1 <- echarts4r::e_flip_coords(e = p1)
     }
     return(p1)
@@ -1194,23 +1192,12 @@ Plots.ModelEvaluation <- function(dt = NULL,
 
   # Confusion Matrix Heatmap ----
   if(PlotType == "ConfusionMatrixHeatmap") {
-
-    # Prepare Data
-    if('Predict' %in% names(dt)) {
-      pred <- 'Predict'
-    } else if('p1' %in% names(dt)) {
-      pred <- 'p1'
-    } else {
-      return(NULL)
-    }
-
-    # Build
     p1 <- AutoPlots::Plot.ConfusionMatrix(
       dt = dt,
       Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      XVar = "Predict",
+      XVar = XVar,
       YVar = YVar,
       ZVar = NULL,
       YVarTrans = YVarTrans,
@@ -1446,7 +1433,7 @@ Plot.Histogram <- function(dt = NULL,
                            Width = "1135px",
                            Title = 'Histogram',
                            Engine = "Plotly",
-                           EchartsTheme = "macaron",
+                           EchartsTheme = "macarons",
                            TimeLine = FALSE,
                            X_Scroll = TRUE,
                            Y_Scroll = TRUE,
@@ -1972,7 +1959,7 @@ Plot.Density <- function(dt = NULL,
 #' # Run function
 #' AutoPlots:::Plot.Pie(
 #'   Engine = 'Plotly', # "Echarts"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   data = data,
 #'   XVar = "Predict",
@@ -2022,7 +2009,7 @@ Plot.Pie <- function(Engine = 'Plotly',
                      Height = "600px",
                      Width = "1135px",
                      Title = 'Bar Plot',
-                     EchartsTheme = "macaron",
+                     EchartsTheme = "macarons",
                      TimeLine = TRUE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
@@ -2234,7 +2221,7 @@ Plot.Pie <- function(Engine = 'Plotly',
 #' # Run function
 #' AutoPlots:::Plot.Box(
 #'   Engine = "Plotly",
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TimeLine,
 #'   dt = data,
 #'   XVar = 'Predict',
@@ -2287,7 +2274,7 @@ Plot.Box <- function(dt = NULL,
                      Width = "1135px",
                      Title = 'Box Plot',
                      Engine = "Plotly",
-                     EchartsTheme = "macaron",
+                     EchartsTheme = "macarons",
                      TimeLine = TimeLine,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
@@ -3120,7 +3107,7 @@ Plot.Violin <- function(dt = NULL,
 #'   dt = data,
 #'   PreAgg = TRUE,
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   XVar = "Predict",
 #'   YVar = "CHILLED_Margin_PerDay",
@@ -3176,7 +3163,7 @@ Plot.Line <- function(dt = NULL,
                       Height = "600px",
                       Width = "1135px",
                       Title = 'Line Plot',
-                      EchartsTheme = "macaron",
+                      EchartsTheme = "macarons",
                       X_Scroll = FALSE,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
@@ -3506,7 +3493,7 @@ Plot.Line <- function(dt = NULL,
 #'   dt = data,
 #'   PreAgg = TRUE,
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   XVar = "Predict",
 #'   YVar = "CHILLED_Margin_PerDay",
@@ -3562,7 +3549,7 @@ Plot.Area <- function(dt = NULL,
                       Height = "600px",
                       Width = "1135px",
                       Title = 'Line Plot',
-                      EchartsTheme = "macaron",
+                      EchartsTheme = "macarons",
                       X_Scroll = FALSE,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
@@ -3874,7 +3861,7 @@ Plot.Area <- function(dt = NULL,
 #'   dt = data,
 #'   PreAgg = TRUE,
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   XVar = "Predict",
 #'   YVar = "CHILLED_Margin_PerDay",
@@ -3930,7 +3917,7 @@ Plot.Step <- function(dt = NULL,
                       Height = "600px",
                       Width = "1135px",
                       Title = 'Line Plot',
-                      EchartsTheme = "macaron",
+                      EchartsTheme = "macarons",
                       X_Scroll = FALSE,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
@@ -4159,7 +4146,7 @@ Plot.Step <- function(dt = NULL,
 #'   dt = data,
 #'   PreAgg = TRUE,
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   XVar = "Predict",
 #'   YVar = "CHILLED_Margin_PerDay",
@@ -4215,7 +4202,7 @@ Plot.River <- function(dt = NULL,
                       Height = "600px",
                       Width = "1135px",
                       Title = 'River Plot',
-                      EchartsTheme = "macaron",
+                      EchartsTheme = "macarons",
                       X_Scroll = FALSE,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
@@ -4396,7 +4383,7 @@ Plot.River <- function(dt = NULL,
 #' # Run function
 #' AutoPlots:::Plot.Bar(
 #'   Engine = 'Plotly', # "Echarts"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   data = data,
 #'   XVar = "Predict",
@@ -4446,7 +4433,7 @@ Plot.Bar <- function(dt = NULL,
                      Width = "1135px",
                      Title = 'Bar Plot',
                      Engine = 'Echarts',
-                     EchartsTheme = "macaron",
+                     EchartsTheme = "macarons",
                      TimeLine = TRUE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
@@ -5062,7 +5049,7 @@ Plot.Bar <- function(dt = NULL,
 #' # Run function
 #' AutoPlots:::Plot.Bar(
 #'   Engine = 'Plotly', # "Echarts"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   data = data,
 #'   XVar = "Predict",
@@ -5112,7 +5099,7 @@ Plot.StackedBar <- function(dt = NULL,
                             Width = "1135px",
                             Title = "~Stacked Bar~",
                             Engine = 'Echarts',
-                            EchartsTheme = "macaron",
+                            EchartsTheme = "macarons",
                             TimeLine = TRUE,
                             X_Scroll = TRUE,
                             Y_Scroll = TRUE,
@@ -6411,7 +6398,7 @@ Plot.CorrMatrix <- function(dt = NULL,
                             Width = "1135px",
                             Title = "Correlation Matrix",
                             Engine = "Plotly",
-                            EchartsTheme = "macaron",
+                            EchartsTheme = "macarons",
                             X_Scroll = TRUE,
                             Y_Scroll = TRUE,
                             BackGroundColor =  "#6a6969",
@@ -6888,7 +6875,7 @@ Plot.Copula <- function(dt = NULL,
 #'   GroupVar = NULL,
 #'   Title = 'Copula 3D',
 #'   Engine = "Plotly",
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = FALSE,
 #'   BackGroundColor = "#bbbec7", #"#1b1959", #'#00060b',
 #'   ChartColor = '#001534', # #5757576e
@@ -7190,7 +7177,7 @@ Plot.Copula3D <- function(dt = NULL,
 #'   YVar = 'CHILLED_Margin_PerDay',
 #'   GroupVar = 'BRAND',
 #'   Engine = "Echarts",
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = FALSE,
 #'   X_Scroll = TRUE,
 #'   Y_Scroll = TRUE,
@@ -7236,7 +7223,7 @@ Plot.Scatter <- function(dt = NULL,
                          Width = "1135px",
                          Title = 'Scatter Plot',
                          Engine = "Plotly",
-                         EchartsTheme = "macaron",
+                         EchartsTheme = "macarons",
                          TimeLine = FALSE,
                          X_Scroll = TRUE,
                          Y_Scroll = TRUE,
@@ -7510,7 +7497,7 @@ Plot.Scatter <- function(dt = NULL,
 #'   GroupVar = 'Store',
 #'   Title = "Something",
 #'   Engine = "Plotly",
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = FALSE,
 #'   FillColor = "#0066ff",
 #'   ChartColor = 'lightsteelblue1',
@@ -7556,7 +7543,7 @@ Plot.Scatter3D <- function(dt = NULL,
                            Width = "1135px",
                            Title = '3D Scatter',
                            Engine = "Plotly",
-                           EchartsTheme = "macaron",
+                           EchartsTheme = "macarons",
                            TimeLine = FALSE,
                            BackGroundColor =  "#6a6969",
                            ChartColor =       "#001534",
@@ -8131,7 +8118,7 @@ Plot.Stock <- function(StockDataOutput,
 #'   NumberBins = 20,
 #'   Title = 'Bar Plot',
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
 #'   ChartColor = '#001534',
@@ -8182,7 +8169,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
                                      Width = "1135px",
                                      Title = 'Calibration Plot',
                                      Engine = 'Echarts',
-                                     EchartsTheme = "macaron",
+                                     EchartsTheme = "macarons",
                                      TimeLine = FALSE,
                                      X_Scroll = TRUE,
                                      Y_Scroll = TRUE,
@@ -8245,6 +8232,9 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 
   # Format
   if(Engine == "Plotly") {
+
+    X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
+    Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
     Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
     Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
@@ -8415,7 +8405,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 #'   NumberBins = 20,
 #'   Title = 'Bar Plot',
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   BackGroundColor = "#6a6969",
 #'   ChartColor = '#001534',
@@ -8465,7 +8455,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
                                    Width = "1135px",
                                    Title = 'Calibration Plot',
                                    Engine = 'Echarts',
-                                   EchartsTheme = "macaron",
+                                   EchartsTheme = "macarons",
                                    TimeLine = FALSE,
                                    X_Scroll = TRUE,
                                    Y_Scroll = TRUE,
@@ -8573,7 +8563,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 #' AutoPlots::Plot.Calibration.Line(
 #'   dt = data,
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   XVar = "Predict",
 #'   YVar = "CHILLED_Margin_PerDay",
@@ -8631,7 +8621,7 @@ Plot.Calibration.Line <- function(dt = NULL,
                                   Width = "1135px",
                                   Title = 'Calibration Plot',
                                   Engine = 'Echarts',
-                                  EchartsTheme = "macaron",
+                                  EchartsTheme = "macarons",
                                   TimeLine = FALSE,
                                   X_Scroll = TRUE,
                                   Y_Scroll = TRUE,
@@ -8778,7 +8768,7 @@ Plot.Calibration.Line <- function(dt = NULL,
 #'   ZeroLineWidth = 1.25,
 #'   Title = 'Bar Plot',
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   X_Scroll = TRUE,
 #'   Y_Scroll = TRUE,
@@ -8834,7 +8824,7 @@ Plot.Calibration.Box <- function(dt = NULL,
                                  Width = "1135px",
                                  Title = 'Calibration Plot',
                                  Engine = 'Echarts',
-                                 EchartsTheme = "macaron",
+                                 EchartsTheme = "macarons",
                                  TimeLine = FALSE,
                                  X_Scroll = TRUE,
                                  Y_Scroll = TRUE,
@@ -9015,7 +9005,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
                                         Width = "1135px",
                                         Title = "Gains Plot",
                                         Engine = 'Plotly',
-                                        EchartsTheme = "macaron",
+                                        EchartsTheme = "macarons",
                                         EchartsLabels = FALSE,
                                         TimeLine = TRUE,
                                         X_Scroll = TRUE,
@@ -9093,7 +9083,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     FacetLevels = FacetLevels,
     Height = Height,
     Width = Width,
-    Title = paste0("X-Axis: ", XVar, " - every 5th percentile"),
+    Title = "Partial Dependence",
     BackGroundColor = BackGroundColor,
     ChartColor = ChartColor,
     FillColor = FillColor,
@@ -9212,7 +9202,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
                                        Width = "1135px",
                                        Title = "Gains Plot",
                                        Engine = 'Plotly',
-                                       EchartsTheme = "macaron",
+                                       EchartsTheme = "macarons",
                                        EchartsLabels = FALSE,
                                        TimeLine = TRUE,
                                        X_Scroll = TRUE,
@@ -9267,7 +9257,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
     FacetLevels = NULL,
     Height = Height,
     Width = Width,
-    Title = paste0("X-Axis: ", XVar, " - every 5th percentile"),
+    Title = "Partial Dependence",
     Engine = Engine,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
@@ -9385,7 +9375,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            Width = "1135px",
                                            Title = "Gains Plot",
                                            Engine = 'Plotly',
-                                           EchartsTheme = "macaron",
+                                           EchartsTheme = "macarons",
                                            EchartsLabels = FALSE,
                                            TimeLine = TRUE,
                                            X_Scroll = TRUE,
@@ -9457,7 +9447,6 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' @author Adrian Antico
 #' @family Model Evaluation
 #'
-#' @param Algo 'catboost', 'xgboost', 'h2o'
 #' @param dt Source data.table
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param XVar Column name of X-Axis variable. If NULL then ignored
@@ -9516,10 +9505,9 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' Debug = FALSE
 #'
 #' Rappture::Plot.VariableImportance(
-#' # Algo = "catboost",
 #' # dt = data,
 #' # Engine = 'Plotly',
-#' # EchartsTheme = "macaron",
+#' # EchartsTheme = "macarons",
 #' # TimeLine = TRUE,
 #' # X_Scroll = TRUE,
 #' # Y_Scroll = TRUE,
@@ -9540,8 +9528,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #'
 #' @return ROC Plot for classification models
 #' @export
-Plot.VariableImportance <- function(Algo = "CatBoost",
-                                    dt = NULL,
+Plot.VariableImportance <- function(dt = NULL,
                                     XVar = NULL,
                                     YVar = NULL,
                                     GroupVar = NULL,
@@ -9554,8 +9541,8 @@ Plot.VariableImportance <- function(Algo = "CatBoost",
                                     Height = "600px",
                                     Width = "1135px",
                                     Title = 'Variable Importance Plot',
-                                    Engine = 'Plotly',
-                                    EchartsTheme = "macaron",
+                                    Engine = 'Echarts',
+                                    EchartsTheme = "macarons",
                                     TimeLine = TRUE,
                                     X_Scroll = TRUE,
                                     Y_Scroll = TRUE,
@@ -9567,38 +9554,97 @@ Plot.VariableImportance <- function(Algo = "CatBoost",
                                     TextColor =        "white",
                                     ZeroLineColor = '#ffff',
                                     ZeroLineWidth = 1.25,
+                                    title.fontSize = 22,
+                                    title.fontWeight = "bold", # normal
+                                    title.textShadowColor = '#63aeff',
+                                    title.textShadowBlur = 3,
+                                    title.textShadowOffsetY = 1,
+                                    title.textShadowOffsetX = -1,
+                                    xaxis.fontSize = 14,
+                                    yaxis.fontSize = 14,
                                     Debug = FALSE) {
 
-  # Bar Plot
-  p1 <- AutoPlots::Plot.Bar(
-    dt = dt,
-    PreAgg = TRUE,
-    XVar = if(Algo != "h2o") "Importance" else "ScaledImportance",
-    YVar = "Variable",
-    GroupVar = GroupVar,
-    YVarTrans = YVarTrans,
-    XVarTrans = XVarTrans,
-    FacetRows = FacetRows,
-    FacetCols = FacetCols,
-    FacetLevels = FacetLevels,
-    AggMethod = AggMethod,
-    Height = Height,
-    Width = Width,
-    Title = paste0(Algo, ": ", Title),
-    Engine = Engine,
-    EchartsTheme = EchartsTheme,
-    TimeLine = TimeLine,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    GridColor = GridColor,
-    TextColor = GridColor,
-    Debug = FALSE)
+
+  # Plotly
+  if(Engine == "Plotly") {
+
+    X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
+    Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+
+    Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+    Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+    dt <- dt[order(Importance)]
+    Var <- names(which(unlist(lapply(dt, is.character))))
+    if(length(Var) == 0L) {
+      Var <- names(which(unlist(lapply(dt, is.factor))))
+    }
+    Vals <- dt$Variable
+    dt[, eval(Var) := factor(get(Var), levels = c(Vals))]
+
+    p1 <- plotly::plot_ly(
+      data = dt,
+      x = ~get(XVar),
+      y = ~get(YVar),
+      type = "bar",
+      hovertemplate = paste(
+        "<b>%{text}</b><br><br>",
+        Y.HoverFormat,
+        X.HoverFormat,
+        "<extra></extra>"
+      ),
+      width = Width,
+      height = Height)
+    p1 <- plotly::layout(
+      p = p1,
+      font = AutoPlots:::font_(),
+      title = AutoPlots:::bold_(Title),
+      plot_bgcolor = ChartColor,
+      paper_bgcolor = BackGroundColor,
+      yaxis = list(
+        title = AutoPlots:::bold_(YVar),
+        zerolinecolor = ZeroLineColor,
+        zerolinewidth = ZeroLineWidth,
+        gridcolor = GridColor),
+      xaxis = list(
+        title = AutoPlots:::bold_(XVar),
+        categoryorder = "total descending",
+        zerolinecolor = ZeroLineColor,
+        zerolinewidth = ZeroLineWidth,
+        gridcolor = GridColor))
+  } else {
+    dt <- dt[order(Importance)]
+    Var <- names(which(unlist(lapply(dt, is.character))))
+    Var2 <- names(which(unlist(lapply(dt, is.numeric))))
+    if(length(Var) == 0L) {
+      Var <- names(which(unlist(lapply(dt, is.factor))))
+      dt[, eval(Var) := as.character(get(Var))]
+    }
+    p1 <- echarts4r::e_charts_(dt, x = Var, dispose = TRUE, width = Width, height = Height)
+    p1 <- echarts4r::e_bar_(e = p1, Var2)
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1)
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+  }
+
   if(class(p1)[1L] == "plotly") {
     p1 <- plotly::layout(p1, yaxis = list(autorange = "reversed"))
   } else {
+    print("Flip Coords")
     p1 <- echarts4r::e_flip_coords(e = p1)
   }
   return(p1)
@@ -9649,7 +9695,7 @@ Plot.VariableImportance <- function(Algo = "CatBoost",
 #' AutoPlots::Plot.ROC(
 #'   dt = data,
 #'   Engine = "Echarts", # "Plotly"
-#'   EchartsTheme = "macaron",
+#'   EchartsTheme = "macarons",
 #'   TimeLine = TRUE,
 #'   X_Scroll = TRUE,
 #'   Y_Scroll = TRUE,
@@ -9712,7 +9758,7 @@ Plot.ROC <- function(dt = NULL,
                      Width = "1135px",
                      Title = 'Calibration Plot',
                      Engine = 'Echarts',
-                     EchartsTheme = "macaron",
+                     EchartsTheme = "macarons",
                      TimeLine = FALSE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
@@ -9730,28 +9776,32 @@ Plot.ROC <- function(dt = NULL,
   if(dt[, .N] > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
   if(length(GroupVar) > 0L) {
     vals <- sort(unique(dt[[GroupVar[1L]]]))
-    for(i in seq_along(vals)) {
+    for(i in seq_along(vals)) { # i = 1
       temp <- dt[get(GroupVar[1L]) %in% eval(vals[i])]
-      AUC_Metrics <- pROC::roc(
-        response = temp[[YVar]],
-        predictor = temp[[XVar]],
-        na.rm = TRUE,
-        algorithm = 3L,
-        auc = TRUE,
-        ci = TRUE)
-      if(i == 1L) {
-        data <- data.table::data.table(
-          GroupLevels = vals[i],
-          Sensitivity = AUC_Metrics$sensitivities,
-          Specificity = AUC_Metrics$specificities)
-      } else {
-        data <- data.table::rbindlist(list(
-          data,
-          data.table::data.table(
+      summ <- temp[, sum(get(YVar))]
+      N <- temp[,.N]
+      if(summ > 0L && summ != N) {
+        AUC_Metrics <- pROC::roc(
+          response = temp[[YVar]],
+          predictor = temp[[XVar]],
+          na.rm = TRUE,
+          algorithm = 3L,
+          auc = TRUE,
+          ci = TRUE)
+        if(i == 1L) {
+          data <- data.table::data.table(
             GroupLevels = vals[i],
             Sensitivity = AUC_Metrics$sensitivities,
             Specificity = AUC_Metrics$specificities)
-        ))
+        } else {
+          data <- data.table::rbindlist(list(
+            data,
+            data.table::data.table(
+              GroupLevels = vals[i],
+              Sensitivity = AUC_Metrics$sensitivities,
+              Specificity = AUC_Metrics$specificities)
+          ))
+        }
       }
     }
 
@@ -9790,10 +9840,11 @@ Plot.ROC <- function(dt = NULL,
   data.table::setorderv(x = data, cols = c(gv, "Sensitivity"))
 
   # Build Plot
-  p1 <- AutoPlots::Plot.Line(
-    AggCheck = FALSE,
+  p1 <- AutoPlots::Plot.Area(
     dt = data,
-    Area = TRUE,
+    PreAgg = TRUE,
+    Smooth = TRUE,
+    ShowSymbol = FALSE,
     Alpha = 0.50,
     Engine = Engine,
     EchartsTheme = EchartsTheme,
@@ -9834,7 +9885,6 @@ Plot.ROC <- function(dt = NULL,
 #' @author Adrian Antico
 #' @family Model Evaluation
 #'
-#' @param Algo 'catboost', 'xgboost', 'h2o'
 #' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "macaron"
 #' @param TimeLine logical
@@ -9900,7 +9950,7 @@ Plot.ROC <- function(dt = NULL,
 #' # dt = data,
 #' # PreAgg = FALSE
 #' # Engine = 'Plotly',
-#' # EchartsTheme = "macaron",
+#' # EchartsTheme = "macarons",
 #' # TimeLine = TRUE,
 #' # XVar = "Importance",
 #' # YVar = "Variable",
@@ -9941,7 +9991,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
                                  Width = "1135px",
                                  Title = "Confusion Matrix",
                                  Engine = 'Plotly',
-                                 EchartsTheme = "macaron",
+                                 EchartsTheme = "macarons",
                                  TimeLine = TRUE,
                                  X_Scroll = TRUE,
                                  Y_Scroll = TRUE,
@@ -9959,16 +10009,20 @@ Plot.ConfusionMatrix <- function(dt = NULL,
 
   # Data prep
   if(!PreAgg) {
-    if(Debug) print("Confusion Matrix 1")
-    dt2 <- data.table::CJ(unique(dt[[YVar]]), unique(dt[[XVar]]))
+    if(length(unique(dt[[XVar]])) > 2) {
+      dt[, classPredict := data.table::fifelse(p1 > 0.5, 1, 0)]
+    }
+    dt2 <- data.table::CJ(unique(dt[[YVar]]), unique(dt[["classPredict"]]))
     data.table::setnames(dt2, c("V1","V2"), c(YVar, XVar))
-    dt1 <- dt[, list(Metric = .N), by = c(YVar, XVar)]
-    data.table::setkeyv(x = dt1, cols = c(YVar, XVar))
+    dt1 <- dt[, list(Metric = .N), by = c(YVar, "classPredict")]
+    data.table::setkeyv(x = dt1, cols = c(YVar, "classPredict"))
     data.table::setkeyv(x = dt2, cols = c(YVar, XVar))
     dt2[dt1, Metric := i.Metric]
     data.table::set(dt2, i = which(is.na(dt2[["Metric"]])), j = "Metric", value = 0)
     if(Debug) print("Confusion Matrix Plot.Heatmap")
-    ZVar = "Metric"
+    dt2[, `Proportion in Target` := sum(Metric), by = eval(YVar)]
+    dt2[, `Proportion in Target` := data.table::fifelse(`Proportion in Target` > 0, Metric / `Proportion in Target`, 0)]
+    ZVar = "Proportion in Target"
   } else {
     dt2 <- data.table::copy(dt)
   }
@@ -10055,7 +10109,7 @@ Plot.Lift <- function(dt = NULL,
                       Width = "1135px",
                       Title = "Confusion Matrix",
                       Engine = 'Plotly',
-                      EchartsTheme = "macaron",
+                      EchartsTheme = "macarons",
                       TimeLine = TRUE,
                       X_Scroll = TRUE,
                       Y_Scroll = TRUE,
@@ -10093,7 +10147,7 @@ Plot.Lift <- function(dt = NULL,
   ))
 
   # Build
-  p1 <- AutoPlots::Plot.Line(
+  p1 <- AutoPlots::Plot.Area(
     dt = dt6[2L:nrow(dt6)],
     PreAgg = TRUE,
     XVar = "Population",
@@ -10107,7 +10161,8 @@ Plot.Lift <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = Title,
-    Area = TRUE,
+    Smooth = TRUE,
+    ShowSymbol = FALSE,
     Engine = Engine,
     EchartsTheme = EchartsTheme,
     TimeLine = TRUE,
@@ -10188,7 +10243,7 @@ Plot.Gains <- function(dt = NULL,
                        Width = "1135px",
                        Title = "Gains Plot",
                        Engine = 'Plotly',
-                       EchartsTheme = "macaron",
+                       EchartsTheme = "macarons",
                        TimeLine = TRUE,
                        X_Scroll = TRUE,
                        Y_Scroll = TRUE,
@@ -10226,7 +10281,7 @@ Plot.Gains <- function(dt = NULL,
   ))
 
   # Build
-  p1 <- AutoPlots::Plot.Line(
+  p1 <- AutoPlots::Plot.Area(
     dt = dt6[2L:nrow(dt6)],
     PreAgg = TRUE,
     XVar = "Population",
@@ -10240,7 +10295,8 @@ Plot.Gains <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = Title,
-    Area = TRUE,
+    Smooth = TRUE,
+    ShowSymbol = FALSE,
     Engine = Engine,
     EchartsTheme = EchartsTheme,
     TimeLine = TimeLine,
@@ -10373,7 +10429,7 @@ Plot.BinaryMetrics <- function(dt = NULL,
                                Width = "1135px",
                                Title = "Binary Metrics",
                                Engine = 'Plotly',
-                               EchartsTheme = "macaron",
+                               EchartsTheme = "macarons",
                                EchartsLabels = FALSE,
                                TimeLine = TRUE,
                                X_Scroll = TRUE,
@@ -10562,7 +10618,6 @@ Plot.ShapImportance <- function(dt,
     return(p1)
   } else {
     p1 <- AutoPlots::Plot.VariableImportance(
-      Algo = "CatBoost",
       dt = dt2,
       AggMethod = 'mean',
       XVar = "Variable",

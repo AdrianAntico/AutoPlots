@@ -20,7 +20,7 @@ Plot.Residuals.Scatter(
   Width = "1135px",
   Title = "Calibration Plot",
   Engine = "Echarts",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
@@ -109,7 +109,7 @@ AutoPlots::Plot.Residuals.Scatter(
   NumberBins = 20,
   Title = 'Bar Plot',
   Engine = "Echarts", # "Plotly"
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   BackGroundColor = "#6a6969",
   ChartColor = '#001534',

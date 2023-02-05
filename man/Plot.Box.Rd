@@ -19,7 +19,7 @@ Plot.Box(
   Width = "1135px",
   Title = "Box Plot",
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TimeLine,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
@@ -112,7 +112,7 @@ data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
 # Run function
 AutoPlots:::Plot.Box(
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TimeLine,
   dt = data,
   XVar = 'Predict',

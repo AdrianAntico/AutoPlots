@@ -22,7 +22,7 @@ Plot.Gains(
   Width = "1135px",
   Title = "Gains Plot",
   Engine = "Plotly",
-  EchartsTheme = "macaron",
+  EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
