@@ -34,7 +34,7 @@ Plots.ModelEvaluation(
   FillColorReverse = "#97ff00",
   GridColor = "white",
   TextColor = "white",
-  FontSize = 14,
+  FontSize = 14L,
   NumberBins = 20,
   Debug = FALSE
 )

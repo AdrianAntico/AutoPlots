@@ -881,7 +881,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
                                   FillColorReverse = "#97ff00",
                                   GridColor =        "white",
                                   TextColor =        "white",
-                                  FontSize = 14,
+                                  FontSize = 14L,
                                   NumberBins = 20,
                                   Debug = FALSE) {
 
@@ -889,6 +889,8 @@ Plots.ModelEvaluation <- function(dt = NULL,
   if(Debug) {print('Running Plots.ModelEvaluation')}
   if(length(SampleSize) == 0L) SampleSize <- 30000L
   Title.FontSize = FontSize + 8L
+
+  print(paste0("Plots.ModelEvaluation == ", PlotType))
 
   # Copula Plot
   if(PlotType %in% 'Residuals1') {
@@ -988,7 +990,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
 
   # ----
 
-  # Evaluation BoxPlot ----
+  # Evaluation Heatmap ----
   if(PlotType == "CalibrationBox") {
     p1 <- AutoPlots::Plot.Calibration.Box(
       dt = dt,
@@ -1226,19 +1228,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
 
   # Partial Dependence Plot ----
   if(PlotType == 'PartialDependenceLine' && length(XVar) > 0L) {
-
-    # MultiClass Mgt
-    nam <- names(dt)
-    if(Debug) print(TargetLevel)
-    if(ZVar %in% nam) {
-      if(class(dt[[ZVar]])[1L] %in% c('character','factor')) {
-        dt[, paste0('Temp_', TargetLevel) := data.table::fifelse(get(YVar) == eval(TargetLevel), 1.0, 0.0)]
-        YVar <- paste0('Temp_', TargetLevel)
-        ZVar <- TargetLevel
-      }
-    }
-
-    # Build
     p1 <- AutoPlots::Plot.PartialDependence.Line(
       dt = dt,
       XVar = XVar,
@@ -1275,21 +1264,8 @@ Plots.ModelEvaluation <- function(dt = NULL,
   # ----
 
   # Partial Dependence Box Plot ----
-  if(PlotType == 'PartialDependenceHeatMap' && length(XVar) > 1L) {
-
-    # MultiClass Mgt
-    nam <- names(dt)
-    if(Debug) print(TargetLevel)
-    if(ZVar %in% nam) {
-      if(class(dt[[ZVar]])[1L] %in% c('character','factor')) {
-        dt[, paste0('Temp_', TargetLevel) := data.table::fifelse(get(YVar) == eval(TargetLevel), 1.0, 0.0)]
-        YVar <- paste0('Temp_', TargetLevel)
-        ZVar <- TargetLevel
-      }
-    }
-
-    # Build
-    p1 <- AutoPlots::Plot.PartialDependence.HeatMap(
+  if(PlotType == 'PartialDependenceHeatMap' && length(XVar) > 0L) {
+    p1 <- tryCatch({AutoPlots::Plot.PartialDependence.HeatMap(
       dt = dt,
       AggMethod = 'mean',
       XVar = XVar,
@@ -1319,7 +1295,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       TextColor = TextColor,
       ZeroLineColor = GridColor,
       ZeroLineWidth = 1.25,
-      Debug = Debug)
+      Debug = Debug)}, error = function(x) NULL)
     return(p1)
   }
 
@@ -8635,82 +8611,189 @@ Plot.Calibration.Line <- function(dt = NULL,
                                   ZeroLineWidth = 1.25,
                                   Debug = FALSE) {
 
-  # Minimize data before moving on
-  if(Debug) print("Plot.Calibration.Line # Minimize data before moving on")
-  Ncols <- ncol(dt)
-  if(Ncols > 2L && length(GroupVar) == 0L) {
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
-  } else if(Ncols > 3L && length(GroupVar) > 0L) {
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[[1L]])])
-  } else {
-    dt1 <- data.table::copy(dt)
-  }
+  # YVar check
+  y_class <- class(dt[[YVar]])[1L]
 
   # Define Aggregation function
-  if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
+  if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
   aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
 
-  # If actual is in factor form, convert to numeric
-  if(Debug) print("Plot.Calibration.Line # If actual is in factor form, convert to numeric")
-  if(!is.numeric(dt1[[YVar]])) {
-    data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
-  }
+  # Regression and Classification else MultiClass
+  if(!y_class %in% c("character","factor")) {
 
-  # Add a column that ranks predicted values
-  if(length(GroupVar) > 0L) {
-    if(Debug) print("Plot.Calibration.Line # if(length(GroupVar) > 0L)")
-
-    if(length(FacetLevels) > 0L) {
-      dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
+    # Minimize data before moving on
+    if(Debug) print("Plot.Calibration.Line # Minimize data before moving on")
+    Ncols <- ncol(dt)
+    if(Ncols > 2L && length(GroupVar) == 0L) {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+    } else if(Ncols > 3L && length(GroupVar) > 0L) {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[[1L]])])
+    } else {
+      dt1 <- data.table::copy(dt)
     }
 
-    dt1[, Percentile := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
-    dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c("Percentile",GroupVar[1L])]
-    dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
-    data.table::setorderv(x = dt1, cols = c("Percentile",GroupVar[1L]), c(1L,1L))
-  } else {
-    if(Debug) print("Plot.Calibration.Line # if(length(GroupVar) == 0L)")
-    dt1[, rank := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
-    dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = "rank"]
-    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "rank", measure.vars = c(YVar,XVar))
-    data.table::setnames(dt1, names(dt1), c("Percentile", "Variable", YVar))
-    data.table::setorderv(x = dt1, cols = c("Percentile","Variable"), c(1L,1L))
+    # If actual is in factor form, convert to numeric
+    if(Debug) print("Plot.Calibration.Line # If actual is in factor form, convert to numeric")
+    if(!is.numeric(dt1[[YVar]])) {
+      data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
+    }
+
+    # Add a column that ranks predicted values
+    if(length(GroupVar) > 0L) {
+      if(Debug) print("Plot.Calibration.Line # if(length(GroupVar) > 0L)")
+
+      if(length(FacetLevels) > 0L) {
+        dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
+      }
+
+      dt1[, Percentile := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c("Percentile",GroupVar[1L])]
+      dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
+      data.table::setorderv(x = dt1, cols = c("Percentile",GroupVar[1L]), c(1L,1L))
+    } else {
+      if(Debug) print("Plot.Calibration.Line # if(length(GroupVar) == 0L)")
+      dt1[, rank := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = "rank"]
+      dt1 <- data.table::melt.data.table(data = dt1, id.vars = "rank", measure.vars = c(YVar,XVar))
+      data.table::setnames(dt1, names(dt1), c("Percentile", "Variable", YVar))
+      data.table::setorderv(x = dt1, cols = c("Percentile","Variable"), c(1L,1L))
+    }
+
+    # Build Plot
+    if(Debug) print("Plot.Calibration.Line # AutoPlots::Plot.Line()")
+    yvar <- if(length(GroupVar) > 0L) "Target - Predicted" else YVar
+    gv <- if(length(GroupVar) == 0L) "Variable" else GroupVar
+    tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt1,
+      PreAgg = TRUE,
+      YVar = yvar,
+      XVar = "Percentile",
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Height = Height,
+      Width = Width,
+      Title = 'Calibration Line Plot',
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = tl,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = GridColor,
+      ZeroLineColor = ZeroLineColor,
+      ZeroLineWidth = ZeroLineWidth,
+      Debug = Debug)
+    return(p1)
+
+  } else { # multiclass model
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
+    GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
+
+    # Shrink data
+    yvar_levels <- dt[, unique(get(YVar))]
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(GroupVar, XVar, YVar, yvar_levels)])
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = if(length(GroupVar) == 0L) dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% XVar])] else dt1,
+      id.vars = c(GroupVar),
+      measure.vars = names(dt1)[!names(dt1) %in% c(GroupVar, YVar, XVar, nam)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = c(GroupVar,XVar),
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    # Add New Target
+    yvar <- "Target - Predicted"
+    dt2[, eval(yvar) := get(YVar) - get(XVar)]
+
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L || FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      }
+    } else if(length(GroupVar) == 0L && (FacetRows > 1L || FacetCols > 1L)) {
+      FacetLevels <- yvar_levels[seq_len(min(length(yvar_levels), FacetRows * FacetCols))]
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+    }
+
+    # Subset Cols
+    if(length(GroupVar) > 0L) {
+      dt2 <- dt2[, .SD, .SDcols = c("GroupVariables", yvar, XVar)]
+      dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+      dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar)]
+    } else {
+      dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
+      dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+      dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
+    }
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt2,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = FALSE,
+      XVar = XVar,
+      YVar = yvar,
+      GroupVar = if(length(GroupVar) > 0L) "GroupVariables" else "Level",
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Area = FALSE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Height = Height,
+      Width = Width,
+      Title = "Partial Dependence",
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = TextColor,
+      ZeroLineColor = GridColor,
+      ZeroLineWidth = 1.25,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      Debug = Debug)
+    return(p1)
   }
-
-  # Build Plot
-  if(Debug) print("Plot.Calibration.Line # AutoPlots::Plot.Line()")
-  yvar <- if(length(GroupVar) > 0L) "Target - Predicted" else YVar
-  gv <- if(length(GroupVar) == 0L) "Variable" else GroupVar
-  tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
-  p1 <- AutoPlots::Plot.Line(
-    dt = dt1,
-    PreAgg = TRUE,
-    YVar = yvar,
-    XVar = "Percentile",
-    GroupVar = gv,
-    YVarTrans = YVarTrans,
-    XVarTrans = XVarTrans,
-    FacetRows = FacetRows,
-    FacetCols = FacetCols,
-    FacetLevels = FacetLevels,
-    Height = Height,
-    Width = Width,
-    Title = 'Calibration Line Plot',
-    Engine = Engine,
-    EchartsTheme = EchartsTheme,
-    TimeLine = tl,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    GridColor = GridColor,
-    TextColor = GridColor,
-    ZeroLineColor = ZeroLineColor,
-    ZeroLineWidth = ZeroLineWidth,
-    Debug = Debug)
-
-  return(p1)
 }
 
 #' @title Plot.Calibration.Box
@@ -9020,81 +9103,199 @@ Plot.PartialDependence.Line <- function(dt = NULL,
                                         ZeroLineWidth = 1.25,
                                         Debug = FALSE) {
 
-  # Minimize data before moving on
-  if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
-  Ncols <- ncol(dt)
-  if(Ncols > 2L && length(GroupVar) == 0L) {
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
-  } else if(Ncols > 3L && length(GroupVar) > 0L) {
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar, GroupVar[1L])])
-  } else {
-    dt1 <- data.table::copy(dt)
-  }
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  xvar_class <- class(dt[[XVar]][1L])
 
   # Define Aggregation function
   if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
   aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
 
-  # If actual is in factor form, convert to numeric
-  if(Debug) print("Plot.PartialDependence.Line # If actual is in factor form, convert to numeric")
-  if(!is.numeric(dt1[[YVar]])) {
-    data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
-  }
+  # Regression and Classification else MultiClass
+  if(yvar_class %in% c("numeric","integer")) {
 
-  # Data Mgt
-  if(length(GroupVar) > 0L) {
-    if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) > 0L)")
-    dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
-    dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
-    dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
-    data.table::setorderv(x = dt1, cols = c(XVar,GroupVar[1L]), c(1L,1L))
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
+    Ncols <- ncol(dt)
+    if(Ncols > 2L && length(GroupVar) == 0L) {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
+    } else if(Ncols > 3L && length(GroupVar) > 0L) {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar, GroupVar[1L])])
+    } else {
+      dt1 <- data.table::copy(dt)
+    }
+
+    # If actual is in factor form, convert to numeric
+    if(Debug) print("Plot.PartialDependence.Line # If actual is in factor form, convert to numeric")
+    if(!is.numeric(dt1[[YVar]])) {
+      data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
+    }
+
+    # Data Mgt
+    if(length(GroupVar) > 0L) {
+      if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) > 0L)")
+      if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+      }
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
+      dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
+      data.table::setorderv(x = dt1, cols = c(XVar,GroupVar[1L]), c(1L,1L))
+      yvar <- "Target - Predicted"
+      gv <- GroupVar
+      tl <- TimeLine
+    } else {
+      if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) == 0L)")
+      if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+      }
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = eval(XVar)]
+      dt1 <- data.table::melt.data.table(data = dt1, id.vars = eval(XVar), measure.vars = c(YVar,ZVar))
+      data.table::setnames(dt1, names(dt1), c(XVar, "Variable", YVar))
+      data.table::setorderv(x = dt1, cols = c(XVar,"Variable"), c(1L,1L))
+      yvar <- YVar
+      gv <- "Variable"
+      tl <- FALSE
+    }
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    p1 <- AutoPlots::Plot.Line(
+      Area = FALSE,
+      dt = dt1,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = tl,
+      XVar = XVar,
+      YVar = yvar,
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Height = Height,
+      Width = Width,
+      Title = "Partial Dependence",
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = TextColor,
+      ZeroLineColor = GridColor,
+      ZeroLineWidth = 1.25,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      Debug = Debug)
+    return(p1)
+
+  } else { # multiclass model
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
+    GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
+
+    # Shrink data
+    yvar_levels <- dt[, unique(get(YVar))]
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(GroupVar, XVar, YVar, yvar_levels)])
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = c(GroupVar, XVar),
+      measure.vars = names(dt1)[!names(dt1) %in% c(GroupVar, XVar, YVar, nam)],
+      variable.name = c("Level"),
+      value.name = ZVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = c(GroupVar, XVar),
+      measure.vars = nam,
+      variable.name = c("Level"),
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      }
+    } else if(length(GroupVar) == 0L && (FacetRows > 1L || FacetCols > 1L)) {
+      FacetLevels <- yvar_levels[seq_len(min(length(yvar_levels), FacetRows * FacetCols))]
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+    }
+
+    # Add New Target
     yvar <- "Target - Predicted"
-    gv <- GroupVar
-    tl <- TimeLine
-  } else {
-    if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) == 0L)")
-    dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
-    dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = eval(XVar)]
-    dt1 <- data.table::melt.data.table(data = dt1, id.vars = eval(XVar), measure.vars = c(YVar,ZVar))
-    data.table::setnames(dt1, names(dt1), c(XVar, "Variable", YVar))
-    data.table::setorderv(x = dt1, cols = c(XVar,"Variable"), c(1L,1L))
-    yvar <- YVar
-    gv <- "Variable"
-    tl <- FALSE
-  }
+    dt2[, eval(yvar) := get(YVar) - get(ZVar)]
 
-  # Build
-  if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
-  p1 <- AutoPlots::Plot.Line(
-    Area = FALSE,
-    dt = dt1,
-    PreAgg = TRUE,
-    AggMethod = "mean",
-    Engine = Engine,
-    EchartsTheme = EchartsTheme,
-    TimeLine = tl,
-    XVar = XVar,
-    YVar = yvar,
-    GroupVar = gv,
-    YVarTrans = YVarTrans,
-    XVarTrans = XVarTrans,
-    FacetRows = FacetRows,
-    FacetCols = FacetCols,
-    FacetLevels = FacetLevels,
-    Height = Height,
-    Width = Width,
-    Title = "Partial Dependence",
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    GridColor = GridColor,
-    TextColor = TextColor,
-    ZeroLineColor = GridColor,
-    ZeroLineWidth = 1.25,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
-    Debug = Debug)
-  return(p1)
+    # Subset Cols
+    if(length(GroupVar) > 0L) {
+      dt2 <- dt2[, .SD, .SDcols = c("GroupVariables", yvar, XVar)]
+      if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+      }
+      dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar)]
+    } else {
+      dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
+      if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+      }
+      dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
+    }
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt2,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = FALSE,
+      XVar = XVar,
+      YVar = yvar,
+      GroupVar = if(length(GroupVar) > 0L) "GroupVariables" else "Level",
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Area = FALSE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Height = Height,
+      Width = Width,
+      Title = "Partial Dependence",
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = TextColor,
+      ZeroLineColor = GridColor,
+      ZeroLineWidth = 1.25,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      Debug = Debug)
+    return(p1)
+  }
 }
 
 #' @title Plot.PartialDependence.Box
@@ -9390,54 +9591,166 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            ZeroLineWidth = 1.25,
                                            Debug = FALSE) {
 
-  GroupVar <- NULL
+  print("Plot.PartialDependence.HeatMap Step 1")
 
-  # Minimize data before moving on
-  if(Debug) print("Plot.PartialDependence.HeatMap # Minimize data before moving on")
-  Ncols <- ncol(dt)
-  dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  xvar_class <- class(dt[[XVar]][1L])
 
-  if(Debug) print("Plot.PartialDependence.HeatMap # Define Aggregation function")
+  print("Plot.PartialDependence.HeatMap Step 2")
+  print(yvar_class)
+  print(xvar_class)
+
+  print("Plot.PartialDependence.HeatMap Step 3")
+
+  # Define Aggregation function
+  if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
   aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
-  if(Debug) print("Plot.PartialDependence.HeatMap # if(length(GroupVar) == 0L)")
-  for(i in seq_along(XVar)) dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L))]
-  dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(eval(XVar))]
-  dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
-  ZVar <- "Target - Predicted"
-  YVar <- XVar[2L]
-  XVar <- XVar[1L]
 
-  data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
-  for(i in c(XVar,YVar)) dt1[, eval(i) := get(i)]
+  # Regression and Classification else MultiClass
+  if(yvar_class %in% c("numeric","integer")) {
 
-  # Build
-  if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
-  p1 <- AutoPlots::Plot.HeatMap(
-    dt = dt1,
-    PreAgg = TRUE,
-    AggMethod = "mean",
-    Engine = Engine,
-    EchartsTheme = EchartsTheme,
-    XVar = XVar,
-    YVar = YVar,
-    ZVar = ZVar,
-    YVarTrans = YVarTrans,
-    XVarTrans = XVarTrans,
-    ZVarTrans = ZVarTrans,
-    Height = Height,
-    Width = Width,
-    Title = "Heatmap: Target - Predicted",
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    TextColor = TextColor,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
-    NumberBins = NumberBins,
-    FillColorReverse = FillColorReverse,
-    GridColor = GridColor,
-    Debug = Debug)
-  return(p1)
+    GroupVar <- NULL
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.HeatMap # Minimize data before moving on")
+    Ncols <- ncol(dt)
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
+
+    if(Debug) print("Plot.PartialDependence.HeatMap # Define Aggregation function")
+    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    if(Debug) print("Plot.PartialDependence.HeatMap # if(length(GroupVar) == 0L)")
+    for(i in seq_along(XVar)) dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L))]
+    dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(eval(XVar))]
+    dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
+    ZVar <- "Target - Predicted"
+    YVar <- XVar[2L]
+    XVar <- XVar[1L]
+
+    data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
+    for(i in c(XVar,YVar)) dt1[, eval(i) := get(i)]
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
+    p1 <- AutoPlots::Plot.HeatMap(
+      dt = dt1,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      XVar = XVar,
+      YVar = YVar,
+      ZVar = ZVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      ZVarTrans = ZVarTrans,
+      Height = Height,
+      Width = Width,
+      Title = "Heatmap: Target - Predicted",
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      TextColor = TextColor,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      NumberBins = NumberBins,
+      FillColorReverse = FillColorReverse,
+      GridColor = GridColor,
+      Debug = Debug)
+    return(p1)
+  } else {
+
+    print("ParDep Heatmap 1")
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
+
+    print("ParDep Heatmap 1")
+
+    # Shrink data
+    yvar_levels <- dt[, unique(get(YVar))]
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels)])
+
+    print("ParDep Heatmap 2")
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    print("ParDep Heatmap 3")
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = XVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(XVar, YVar, nam)],
+      variable.name = "Level",
+      value.name = ZVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    print("ParDep Heatmap 4")
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = XVar,
+      measure.vars = nam,
+      variable.name = c("Level"),
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    print("ParDep Heatmap 5")
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    # Add New Target
+    print("ParDep Heatmap 6")
+    yvar <- "Target - Predicted"
+    dt2[, eval(yvar) := get(YVar) - get(ZVar)]
+
+    # Subset Cols
+    print("ParDep Heatmap 7")
+    dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
+    if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+      dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+    }
+
+    print("ParDep Heatmap 8")
+    dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
+    p1 <- AutoPlots::Plot.HeatMap(
+      dt = dt2,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      XVar = XVar,
+      YVar = "Level",
+      ZVar = yvar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      ZVarTrans = ZVarTrans,
+      Height = Height,
+      Width = Width,
+      Title = "Heatmap: Target - Predicted",
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      TextColor = TextColor,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      NumberBins = NumberBins,
+      FillColorReverse = FillColorReverse,
+      GridColor = GridColor,
+      Debug = Debug)
+    return(p1)
+  }
 }
 
 #' @title Plot.VariableImportance
