@@ -9210,7 +9210,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       data = dt1,
       id.vars = c(GroupVar, XVar),
       measure.vars = names(dt1)[!names(dt1) %in% c(GroupVar, XVar, YVar, nam)],
-      variable.name = c("Level"),
+      variable.name = "Level",
       value.name = ZVar,
       na.rm = TRUE,
       variable.factor = FALSE)
@@ -9220,7 +9220,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       data = dt1,
       id.vars = c(GroupVar, XVar),
       measure.vars = nam,
-      variable.name = c("Level"),
+      variable.name = "Level",
       value.name = YVar,
       na.rm = TRUE,
       variable.factor = FALSE)
@@ -9591,17 +9591,9 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            ZeroLineWidth = 1.25,
                                            Debug = FALSE) {
 
-  print("Plot.PartialDependence.HeatMap Step 1")
-
   # YVar check
   yvar_class <- class(dt[[YVar]])[1L]
   xvar_class <- class(dt[[XVar]][1L])
-
-  print("Plot.PartialDependence.HeatMap Step 2")
-  print(yvar_class)
-  print(xvar_class)
-
-  print("Plot.PartialDependence.HeatMap Step 3")
 
   # Define Aggregation function
   if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
@@ -9660,25 +9652,17 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
     return(p1)
   } else {
 
-    print("ParDep Heatmap 1")
-
     # Minimize data before moving on
     if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
-
-    print("ParDep Heatmap 1")
 
     # Shrink data
     yvar_levels <- dt[, unique(get(YVar))]
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels)])
 
-    print("ParDep Heatmap 2")
-
     # Dummify Target
     nam <- data.table::copy(names(dt1))
     dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
-
-    print("ParDep Heatmap 3")
 
     # Melt Predict Cols
     dt2 <- data.table::melt.data.table(
@@ -9690,36 +9674,29 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       na.rm = TRUE,
       variable.factor = FALSE)
 
-    print("ParDep Heatmap 4")
-
     # Melt Target Cols
     dt3 <- data.table::melt.data.table(
       data = dt1,
       id.vars = XVar,
       measure.vars = nam,
-      variable.name = c("Level"),
+      variable.name = "Level",
       value.name = YVar,
       na.rm = TRUE,
       variable.factor = FALSE)
-
-    print("ParDep Heatmap 5")
 
     # Join data
     dt2[, eval(YVar) := dt3[[YVar]]]
 
     # Add New Target
-    print("ParDep Heatmap 6")
     yvar <- "Target - Predicted"
     dt2[, eval(yvar) := get(YVar) - get(ZVar)]
 
     # Subset Cols
-    print("ParDep Heatmap 7")
     dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
     if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
       dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
     }
 
-    print("ParDep Heatmap 8")
     dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
 
     # Build
@@ -10085,43 +10062,96 @@ Plot.ROC <- function(dt = NULL,
                      ZeroLineWidth = 1.25,
                      Debug = FALSE) {
 
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  if(yvar_class %in% c("factor","character")) {
+
+    # Shrink data
+    yvar_levels <- dt[, unique(get(YVar))]
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(nam,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(nam,XVar,GroupVar)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(yvar_levels,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      }
+    } else if(length(GroupVar) == 0L && (FacetRows > 1L || FacetCols > 1L)) {
+      FacetLevels <- yvar_levels[seq_len(min(length(yvar_levels), FacetRows * FacetCols))]
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      GroupVar <- "Level"
+    } else {
+      GroupVar <- "Level"
+    }
+
+  } else {
+    dt2 <- data.table::copy(dt)
+  }
+
   # Data Prep1
-  if(dt[, .N] > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
   if(length(GroupVar) > 0L) {
-    vals <- sort(unique(dt[[GroupVar[1L]]]))
-    for(i in seq_along(vals)) { # i = 1
-      temp <- dt[get(GroupVar[1L]) %in% eval(vals[i])]
-      summ <- temp[, sum(get(YVar))]
-      N <- temp[,.N]
-      if(summ > 0L && summ != N) {
-        AUC_Metrics <- pROC::roc(
-          response = temp[[YVar]],
-          predictor = temp[[XVar]],
-          na.rm = TRUE,
-          algorithm = 3L,
-          auc = TRUE,
-          ci = TRUE)
-        if(i == 1L) {
-          data <- data.table::data.table(
+    vals <- sort(unique(dt2[[GroupVar]]))
+    for(i in seq_along(vals)) { # i = 2
+      temp <- dt2[get(GroupVar) %in% eval(vals[i])]
+      print(i)
+      AUC_Metrics <- tryCatch({pROC::roc(
+        response = temp[[YVar]],
+        predictor = temp[[XVar]],
+        na.rm = TRUE,
+        algorithm = 3L,
+        auc = TRUE,
+        ci = TRUE)}, error = function(x) NULL)
+      if(i == 1L && length(AUC_Metrics) > 0L) {
+        data <- data.table::data.table(
+          GroupLevels = vals[i],
+          Sensitivity = AUC_Metrics$sensitivities,
+          Specificity = AUC_Metrics$specificities)
+      } else if(length(AUC_Metrics) > 0L) {
+        data <- data.table::rbindlist(list(
+          data,
+          data.table::data.table(
             GroupLevels = vals[i],
             Sensitivity = AUC_Metrics$sensitivities,
             Specificity = AUC_Metrics$specificities)
-        } else {
-          data <- data.table::rbindlist(list(
-            data,
-            data.table::data.table(
-              GroupLevels = vals[i],
-              Sensitivity = AUC_Metrics$sensitivities,
-              Specificity = AUC_Metrics$specificities)
-          ))
-        }
+        ))
       }
     }
 
     # For Title: auc = AUC_Metrics$auc
     AUC_Metrics <- pROC::roc(
-      response = dt[[YVar]],
-      predictor = dt[[XVar]],
+      response = dt2[[YVar]],
+      predictor = dt2[[XVar]],
       na.rm = TRUE,
       algorithm = 3L,
       auc = TRUE,
@@ -10129,8 +10159,8 @@ Plot.ROC <- function(dt = NULL,
 
   } else {
     AUC_Metrics <- pROC::roc(
-      response = dt[[YVar]],
-      predictor = dt[[XVar]],
+      response = dt2[[YVar]],
+      predictor = dt2[[XVar]],
       na.rm = TRUE,
       algorithm = 3L,
       auc = TRUE,
@@ -10148,41 +10178,78 @@ Plot.ROC <- function(dt = NULL,
   YVar <- "Sensitivity"
   XVar <- "1 - Specificity"
   tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
-  title <- paste0(Title, ": auc = ", 100 * round(AUC_Metrics$auc, 3), "%")
+  if(length(GroupVar) > 0L && (FacetRows > 1L && FacetCols > 1L)) {
+    title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC_Metrics$auc, 3), "%\n*Excluding cases of all 1's or 0's")
+  }
+  title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC_Metrics$auc, 3), "%")
   gv <- if(length(GroupVar) > 0L) "GroupLevels" else NULL
   data.table::setorderv(x = data, cols = c(gv, "Sensitivity"))
 
-  # Build Plot
-  p1 <- AutoPlots::Plot.Area(
-    dt = data,
-    PreAgg = TRUE,
-    Smooth = TRUE,
-    ShowSymbol = FALSE,
-    Alpha = 0.50,
-    Engine = Engine,
-    EchartsTheme = EchartsTheme,
-    TimeLine = tl,
-    YVar = YVar,
-    XVar = XVar,
-    GroupVar = gv,
-    YVarTrans = YVarTrans,
-    XVarTrans = XVarTrans,
-    FacetRows = FacetRows,
-    FacetCols = FacetCols,
-    FacetLevels = FacetLevels,
-    Height = Height,
-    Width = Width,
-    ZeroLineColor = ZeroLineColor,
-    ZeroLineWidth = ZeroLineWidth,
-    Title = title,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    GridColor = GridColor,
-    TextColor = GridColor,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
-    Debug = Debug)
+  # Build Plot (Line or Area)
+  if(length(GroupVar) > 0L && FacetRows == 1L && FacetCols == 1L) {
+    p1 <- AutoPlots::Plot.Line(
+      dt = data,
+      PreAgg = TRUE,
+      Smooth = TRUE,
+      Area = FALSE,
+      ShowSymbol = FALSE,
+      Alpha = 0.50,
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = tl,
+      YVar = YVar,
+      XVar = XVar,
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Height = Height,
+      Width = Width,
+      ZeroLineColor = ZeroLineColor,
+      ZeroLineWidth = ZeroLineWidth,
+      Title = title,
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = GridColor,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      Debug = Debug)
+  } else {
+    p1 <- AutoPlots::Plot.Area(
+      dt = data,
+      PreAgg = TRUE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Alpha = 0.50,
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = tl,
+      YVar = YVar,
+      XVar = XVar,
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Height = Height,
+      Width = Width,
+      ZeroLineColor = ZeroLineColor,
+      ZeroLineWidth = ZeroLineWidth,
+      Title = title,
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = GridColor,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      Debug = Debug)
+  }
 
   # Y == X dashed line
   if(class(p1)[1L] == "plotly") p1 <- plotly::add_segments(p = p1, x = 0, xend = 1, y = 0, yend = 1, line = list(dash = "dash", color = TextColor),inherit = FALSE, showlegend = FALSE)
@@ -10320,34 +10387,44 @@ Plot.ConfusionMatrix <- function(dt = NULL,
                                  GroupVar = NULL,
                                  Debug = FALSE) {
 
-  # Data prep
-  if(!PreAgg) {
-    if(length(unique(dt[[XVar]])) > 2) {
-      dt[, classPredict := data.table::fifelse(p1 > 0.5, 1, 0)]
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+
+  if(yvar_class %in% c("factor","character")) {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, GroupVar)])
+    dt1[, paste0(XVar,"_") := .N, by = XVar]
+    dt1[, paste0(YVar,"_") := .N, by = YVar]
+    dt4 <- dt1[, list(N = .N, Mean.X = mean(get(paste0(XVar,"_")), na.rm = TRUE)), by = c(YVar,XVar)]
+    dt4[, `Mean.X` := N / Mean.X]
+    ZVar <- "Mean.X"
+  } else if(!PreAgg) {
+
+    if(length(unique(dt2[[XVar]])) > 2L) {
+      dt2[, classPredict := data.table::fifelse(get(XVar) > 0.5, 1, 0)]
     }
-    dt2 <- data.table::CJ(unique(dt[[YVar]]), unique(dt[["classPredict"]]))
-    data.table::setnames(dt2, c("V1","V2"), c(YVar, XVar))
-    dt1 <- dt[, list(Metric = .N), by = c(YVar, "classPredict")]
-    data.table::setkeyv(x = dt1, cols = c(YVar, "classPredict"))
-    data.table::setkeyv(x = dt2, cols = c(YVar, XVar))
-    dt2[dt1, Metric := i.Metric]
-    data.table::set(dt2, i = which(is.na(dt2[["Metric"]])), j = "Metric", value = 0)
+    dt4 <- data.table::CJ(unique(dt2[[YVar]]), unique(dt2[["classPredict"]]))
+    data.table::setnames(dt4, c("V1","V2"), c(YVar, XVar))
+    dt3 <- dt2[, list(Metric = .N), by = c(YVar, "classPredict")]
+    data.table::setkeyv(x = dt3, cols = c(YVar, "classPredict"))
+    data.table::setkeyv(x = dt4, cols = c(YVar, XVar))
+    dt4[dt3, Metric := i.Metric]
+    data.table::set(dt4, i = which(is.na(dt4[["Metric"]])), j = "Metric", value = 0)
     if(Debug) print("Confusion Matrix Plot.Heatmap")
-    dt2[, `Proportion in Target` := sum(Metric), by = eval(YVar)]
-    dt2[, `Proportion in Target` := data.table::fifelse(`Proportion in Target` > 0, Metric / `Proportion in Target`, 0)]
+    dt4[, `Proportion in Target` := sum(Metric), by = eval(YVar)]
+    dt4[, `Proportion in Target` := data.table::fifelse(`Proportion in Target` > 0, Metric / `Proportion in Target`, 0)]
     ZVar = "Proportion in Target"
   } else {
-    dt2 <- data.table::copy(dt)
+    dt4 <- data.table::copy(dt)
   }
 
   # Corr Matrix for the automatic ordering
-  data.table::setorderv(dt2, c(XVar,YVar), c(1L,1L))
+  data.table::setorderv(dt4, c(XVar,YVar), c(1L,1L))
   p1 <- AutoPlots:::Plot.HeatMap(
     PreAgg = TRUE,
     Engine = Engine,
     EchartsTheme = EchartsTheme,
     Title = Title,
-    dt = dt2,
+    dt = dt4,
     YVar = YVar,
     XVar = XVar,
     ZVar = ZVar,
@@ -10363,7 +10440,6 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     ChartColor = ChartColor,
     FillColor = FillColor,
     GridColor = GridColor)
-  p1
 }
 
 #' @title Plot.Lift
