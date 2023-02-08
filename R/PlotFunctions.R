@@ -1,5 +1,3 @@
-# AggMethod "mean", "median", "sd", "skewnewss", "kurtosis", "CoeffVar"
-
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 # :: Helper Functions ::                                                      ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
@@ -1060,7 +1058,8 @@ Plots.ModelEvaluation <- function(dt = NULL,
   if(PlotType == "GainsPlot") {
     # tryCatch bc sometimes classifiers predict perfectly which
     #  causes this to crash the app
-    p1 <- tryCatch({AutoPlots::Plot.Gains(
+    #p1 <- tryCatch({
+    p1 <- AutoPlots::Plot.Gains(
       dt = dt,
       PreAgg = FALSE,
       XVar = XVar,
@@ -1087,7 +1086,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       TextColor = TextColor,
       ZeroLineColor = GridColor,
       ZeroLineWidth = 1.25,
-      Debug = FALSE)}, error = function(x) NULL)
+      Debug = FALSE)#}, error = function(x) NULL)
     return(p1)
   }
 
@@ -1095,7 +1094,8 @@ Plots.ModelEvaluation <- function(dt = NULL,
 
   # Lift Plot ----
   if(PlotType == "LiftPlot") {
-    p1 <- tryCatch({AutoPlots::Plot.Lift(
+    #p1 <- tryCatch({
+    p1 <- AutoPlots::Plot.Lift(
       dt = dt,
       PreAgg = FALSE,
       XVar = XVar,
@@ -1122,7 +1122,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       TextColor = TextColor,
       ZeroLineColor = GridColor,
       ZeroLineWidth = 1.25,
-      Debug = FALSE)}, error = function(x) NULL)
+      Debug = FALSE)#}, error = function(x) NULL)
     return(p1)
   }
 
@@ -1155,9 +1155,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ZeroLineColor = GridColor,
       ZeroLineWidth = 1.25,
       Debug = FALSE)
-    if(PlotEngineType == "Echarts") {
-      p1 <- echarts4r::e_flip_coords(e = p1)
-    }
     return(p1)
   }
 
@@ -10512,63 +10509,249 @@ Plot.Lift <- function(dt = NULL,
                       ZeroLineWidth = 1.25,
                       Debug = FALSE) {
 
-  # Data Prep
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
-  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar)]
-  dt1[, NegScore := -get(XVar)]
-  NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
-  Cuts <- quantile(x = dt1[["NegScore"]], probs = NumberBins)
-  dt1[, eval(YVar) := as.character(get(YVar))]
-  grp <- dt1[, .N, by = eval(YVar)][order(N)]
-  smaller_class <- grp[1L, 1L][[1L]]
-  dt2 <- round(100 * sapply(Cuts, function(x) {
-    dt1[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt1[get(YVar) == eval(smaller_class), .N]
-  }), 2)
-  dt3 <- rbind(dt2, -Cuts)
-  rownames(dt3) <- c("Gain", "Score.Point")
-  dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
-  dt5 <- data.table::as.data.table(t(dt3))
-  dt5[, Population := as.numeric(100 * eval(NumberBins))]
-  dt5[, Lift := round(Gain / 100 / NumberBins, 2)]
-  dt6 <- data.table::rbindlist(list(
-    data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Lift = 0),
-    dt5
-  ))
+  print("here 1")
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  print(yvar_class)
+  if(yvar_class %in% c("factor","character")) {
+
+    print("here 2")
+
+    # Shrink data
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
+
+    print("here 3")
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    print("here 4")
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(nam,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(nam,XVar,GroupVar)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    print("here 5")
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(yvar_levels,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    print("here 6")
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    print("here 7")
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      } else {
+        FacetLevels <- yvar_levels
+      }
+    } else {
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- yvar_levels
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      } else {
+        FacetLevels <- yvar_levels
+      }
+      GroupVar <- "Level"
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      GroupVar <- "Level"
+    }
+
+  } else {
+    dt2 <- data.table::copy(dt)
+  }
+
+  print("here 9")
+
+  if(yvar_class %in% c("factor","character") || length(GroupVar) > 0L) {
+    dl <- list()
+    print("Start For-Loop")
+    if(length(NumberBins) == 0L) NumberBins <- 21
+    if(max(NumberBins) > 1L) NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
+    for(i in FacetLevels) {# i = 1
+      print("iter")
+      print(i)
+      dt_ <- dt2[get(GroupVar) %in% eval(i)]
+      print(" iter 2")
+      dt_[, NegScore := -get(XVar)]
+      print(" iter 3")
+      print(" iter 4")
+      Cuts <- quantile(x = dt_[["NegScore"]], probs = NumberBins)
+      print(" iter 5")
+      dt_[, eval(YVar) := as.character(get(YVar))]
+      print(" iter 6")
+      grp <- dt_[, .N, by = eval(YVar)][order(N)]
+      print(" iter 7")
+      smaller_class <- grp[1L, 1L][[1L]]
+      print(" iter 8")
+      dt3 <- round(100 * sapply(Cuts, function(x) {
+        dt_[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt_[get(YVar) == eval(smaller_class), .N]
+      }), 2)
+      print(" iter 9")
+      dt3 <- rbind(dt3, -Cuts)
+      print(" iter 10")
+      rownames(dt3) <- c("Gain", "Score.Point")
+      print(" iter 11")
+      dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
+      print(" iter 12")
+      dt5 <- data.table::as.data.table(t(dt3))
+      print(" iter 13")
+      dt5[, Population := as.numeric(100 * eval(NumberBins))]
+      print(" iter 14")
+      dt5[, Lift := round(Gain / 100 / NumberBins, 2)]
+      print(" iter 15")
+      dt5[, Level := eval(i)]
+      print(" iter 16")
+      if(data.table::is.data.table(dt5)) {
+        print(" iter rbindlist")
+        dl[[i]] <- data.table::rbindlist(list(
+          data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Lift = 0, Level = eval(i)),
+          dt5
+        ))
+      }
+    }
+    print(" For Loop Done: rbindlist")
+    dt6 <- data.table::rbindlist(dl)
+
+  } else {
+
+    print("here 10")
+
+    # Data Prep
+    dt2[, NegScore := -get(XVar)]
+    NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
+    Cuts <- quantile(x = dt2[["NegScore"]], probs = NumberBins)
+    dt2[, eval(YVar) := as.character(get(YVar))]
+    grp <- dt2[, .N, by = eval(YVar)][order(N)]
+    smaller_class <- grp[1L, 1L][[1L]]
+    dt3 <- round(100 * sapply(Cuts, function(x) {
+      dt2[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt2[get(YVar) == eval(smaller_class), .N]
+    }), 2)
+    dt3 <- rbind(dt3, -Cuts)
+    rownames(dt3) <- c("Gain", "Score.Point")
+    dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
+    dt5 <- data.table::as.data.table(t(dt3))
+    dt5[, Population := as.numeric(100 * eval(NumberBins))]
+    dt5[, Lift := round(Gain / 100 / NumberBins, 2)]
+    if(data.table::is.data.table(dt5)) {
+      dt6 <- data.table::rbindlist(list(
+        data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Lift = 0),
+        dt5
+      ))
+    }
+  }
+
+  print("here 11")
 
   # Build
-  p1 <- AutoPlots::Plot.Area(
-    dt = dt6[2L:nrow(dt6)],
-    PreAgg = TRUE,
-    XVar = "Population",
-    YVar = "Lift",
-    GroupVar = NULL,
-    YVarTrans = YVarTrans,
-    XVarTrans = XVarTrans,
-    FacetRows = FacetRows,
-    FacetCols = FacetCols,
-    FacetLevels = NULL,
-    Height = Height,
-    Width = Width,
-    Title = Title,
-    Smooth = TRUE,
-    ShowSymbol = FALSE,
-    Engine = Engine,
-    EchartsTheme = EchartsTheme,
-    TimeLine = TRUE,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    GridColor = GridColor,
-    TextColor = TextColor,
-    ZeroLineColor = GridColor,
-    ZeroLineWidth = 1.25,
-    Debug = FALSE)
+  print(names(dt6))
+  dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift", GroupVar)]
+
+  print("here 12")
+
+  if(FacetRows == 1L && FacetCols == 1L && length(GroupVar) > 0L) {
+
+    print("here 13")
+
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt6,
+      PreAgg = TRUE,
+      XVar = "Population",
+      YVar = "Lift",
+      GroupVar = GroupVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = NULL,
+      Height = Height,
+      Width = Width,
+      Title = Title,
+      Area = FALSE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = FALSE,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = TextColor,
+      ZeroLineColor = GridColor,
+      ZeroLineWidth = 1.25,
+      Debug = FALSE)
+  } else {
+
+    print("here 14")
+
+    p1 <- AutoPlots::Plot.Area(
+      dt = dt6,
+      PreAgg = TRUE,
+      XVar = "Population",
+      YVar = "Lift",
+      GroupVar = GroupVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = NULL,
+      Height = Height,
+      Width = Width,
+      Title = Title,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = FALSE,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = TextColor,
+      ZeroLineColor = GridColor,
+      ZeroLineWidth = 1.25,
+      Debug = FALSE)
+  }
+
+  print("here 16")
+
   g <- class(p1)[1L]
   if(g == "plotly") {
     p1 <- plotly::layout(p = p1, uniformtext = list(minsize=8, mode='hide', color="white"))
   } else if(g == "echarts4r") {
+    print("here 17")
     p1 <- echarts4r::e_labels(e = p1, show = TRUE)
   }
 
@@ -10646,63 +10829,249 @@ Plot.Gains <- function(dt = NULL,
                        ZeroLineWidth = 1.25,
                        Debug = FALSE) {
 
-  # Data prep
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
-  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar)]
-  dt1[, NegScore := -get(XVar)]
-  NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
-  Cuts <- quantile(x = dt1[["NegScore"]], probs = NumberBins)
-  dt1[, eval(YVar) := as.character(get(YVar))]
-  grp <- dt1[, .N, by = eval(YVar)][order(N)]
-  smaller_class <- grp[1L, 1L][[1L]]
-  dt2 <- round(100 * sapply(Cuts, function(x) {
-    dt1[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt1[get(YVar) == eval(smaller_class), .N]
-  }), 2)
-  dt3 <- rbind(dt2, -Cuts)
-  rownames(dt3) <- c("Gain", "Score.Point")
-  dt4 <- grp[1L,2L] / (grp[2L,2L] + grp[1L,2L])
-  dt5 <- data.table::as.data.table(t(dt3))
-  dt5[, Population := as.numeric(100 * eval(NumberBins))]
-  dt5[, Lift := round(Gain / 100 / NumberBins, 2)]
-  dt6 <- data.table::rbindlist(list(
-    data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Lift = 0),
-    dt5
-  ))
+  print("here 1")
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  print(yvar_class)
+  if(yvar_class %in% c("factor","character")) {
+
+    print("here 2")
+
+    # Shrink data
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
+
+    print("here 3")
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    print("here 4")
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(nam,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(nam,XVar,GroupVar)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    print("here 5")
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(yvar_levels,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    print("here 6")
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    print("here 7")
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      } else {
+        FacetLevels <- yvar_levels
+      }
+    } else {
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- yvar_levels
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      } else {
+        FacetLevels <- yvar_levels
+      }
+      GroupVar <- "Level"
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      GroupVar <- "Level"
+    }
+
+  } else {
+    dt2 <- data.table::copy(dt)
+  }
+
+  print("here 9")
+
+  if(yvar_class %in% c("factor","character") || length(GroupVar) > 0L) {
+    dl <- list()
+    print("Start For-Loop")
+    if(length(NumberBins) == 0L) NumberBins <- 21
+    if(max(NumberBins) > 1L) NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
+    for(i in FacetLevels) {# i = 1
+      print("iter")
+      print(i)
+      dt_ <- dt2[get(GroupVar) %in% eval(i)]
+      print(" iter 2")
+      dt_[, NegScore := -get(XVar)]
+      print(" iter 3")
+      print(" iter 4")
+      Cuts <- quantile(x = dt_[["NegScore"]], probs = NumberBins)
+      print(" iter 5")
+      dt_[, eval(YVar) := as.character(get(YVar))]
+      print(" iter 6")
+      grp <- dt_[, .N, by = eval(YVar)][order(N)]
+      print(" iter 7")
+      smaller_class <- grp[1L, 1L][[1L]]
+      print(" iter 8")
+      dt3 <- round(100 * sapply(Cuts, function(x) {
+        dt_[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt_[get(YVar) == eval(smaller_class), .N]
+      }), 2)
+      print(" iter 9")
+      dt3 <- rbind(dt3, -Cuts)
+      print(" iter 10")
+      rownames(dt3) <- c("Gain", "Score.Point")
+      print(" iter 11")
+      dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
+      print(" iter 12")
+      dt5 <- data.table::as.data.table(t(dt3))
+      print(" iter 13")
+      dt5[, Population := as.numeric(100 * eval(NumberBins))]
+      print(" iter 14")
+      dt5[, Lift := round(Gain / 100 / NumberBins, 2)]
+      print(" iter 15")
+      dt5[, Level := eval(i)]
+      print(" iter 16")
+      if(data.table::is.data.table(dt5)) {
+        print(" iter rbindlist")
+        dl[[i]] <- data.table::rbindlist(list(
+          data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Lift = 0, Level = eval(i)),
+          dt5
+        ))
+      }
+    }
+    print(" For Loop Done: rbindlist")
+    dt6 <- data.table::rbindlist(dl)
+
+  } else {
+
+    print("here 10")
+
+    # Data Prep
+    dt2[, NegScore := -get(XVar)]
+    NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
+    Cuts <- quantile(x = dt2[["NegScore"]], probs = NumberBins)
+    dt2[, eval(YVar) := as.character(get(YVar))]
+    grp <- dt2[, .N, by = eval(YVar)][order(N)]
+    smaller_class <- grp[1L, 1L][[1L]]
+    dt3 <- round(100 * sapply(Cuts, function(x) {
+      dt2[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt2[get(YVar) == eval(smaller_class), .N]
+    }), 2)
+    dt3 <- rbind(dt3, -Cuts)
+    rownames(dt3) <- c("Gain", "Score.Point")
+    dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
+    dt5 <- data.table::as.data.table(t(dt3))
+    dt5[, Population := as.numeric(100 * eval(NumberBins))]
+    dt5[, Lift := round(Gain / 100 / NumberBins, 2)]
+    if(data.table::is.data.table(dt5)) {
+      dt6 <- data.table::rbindlist(list(
+        data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Lift = 0),
+        dt5
+      ))
+    }
+  }
+
+  print("here 11")
 
   # Build
-  p1 <- AutoPlots::Plot.Area(
-    dt = dt6[2L:nrow(dt6)],
-    PreAgg = TRUE,
-    XVar = "Population",
-    YVar = "Gain",
-    GroupVar = NULL,
-    YVarTrans = YVarTrans,
-    XVarTrans = XVarTrans,
-    FacetRows = FacetRows,
-    FacetCols = FacetCols,
-    FacetLevels = NULL,
-    Height = Height,
-    Width = Width,
-    Title = Title,
-    Smooth = TRUE,
-    ShowSymbol = FALSE,
-    Engine = Engine,
-    EchartsTheme = EchartsTheme,
-    TimeLine = TimeLine,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    GridColor = GridColor,
-    TextColor = TextColor,
-    ZeroLineColor = '#ffff',
-    ZeroLineWidth = 1.25,
-    Debug = FALSE)
+  print(names(dt6))
+  dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Gain", GroupVar)]
+
+  print("here 12")
+
+  if(FacetRows == 1L && FacetCols == 1L && length(GroupVar) > 0L) {
+
+    print("here 13")
+
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt6,
+      PreAgg = TRUE,
+      XVar = "Population",
+      YVar = "Gain",
+      GroupVar = GroupVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = NULL,
+      Height = Height,
+      Width = Width,
+      Title = Title,
+      Area = FALSE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = FALSE,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = TextColor,
+      ZeroLineColor = GridColor,
+      ZeroLineWidth = 1.25,
+      Debug = FALSE)
+  } else {
+
+    print("here 14")
+
+    p1 <- AutoPlots::Plot.Area(
+      dt = dt6,
+      PreAgg = TRUE,
+      XVar = "Population",
+      YVar = "Gain",
+      GroupVar = GroupVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = NULL,
+      Height = Height,
+      Width = Width,
+      Title = Title,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Engine = Engine,
+      EchartsTheme = EchartsTheme,
+      TimeLine = FALSE,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      BackGroundColor = BackGroundColor,
+      ChartColor = ChartColor,
+      FillColor = FillColor,
+      GridColor = GridColor,
+      TextColor = TextColor,
+      ZeroLineColor = GridColor,
+      ZeroLineWidth = 1.25,
+      Debug = FALSE)
+  }
+
+  print("here 16")
+
   g <- class(p1)[1L]
   if(g == "plotly") {
     p1 <- plotly::layout(p = p1, uniformtext = list(minsize=8, mode='hide', color="white"))
   } else if(g == "echarts4r") {
+    print("here 17")
     p1 <- echarts4r::e_labels(e = p1, show = TRUE)
   }
 
