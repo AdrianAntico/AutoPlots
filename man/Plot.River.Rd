@@ -177,9 +177,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
 \code{\link{Plot.Step}()},
-\code{\link{Plot.Stock}()},
-\code{\link{Plot.Violin}()},
-\code{\link{StockData}()}
+\code{\link{Plot.Violin}()}
 }
 \author{
 Adrian Antico

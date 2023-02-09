@@ -137,9 +137,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Stock}()},
-\code{\link{StockData}()}
+\code{\link{Plot.Step}()}
 }
 \author{
 Adrian Antico

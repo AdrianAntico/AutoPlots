@@ -7918,7 +7918,7 @@ Financials <- function() {
 #'
 #' @description  Create stock data for plotting using Plot.Stock()
 #'
-#' @family Standard Plots
+#' @family Stock Plots
 #' @author Adrian Antico
 #'
 #' @param PolyOut NULL. If NULL, data is pulled. If supplied, data is not pulled.
@@ -7930,6 +7930,7 @@ Financials <- function() {
 #' @param StartDate Supply a start date. E.g. '2022-01-01'
 #' @param EndDate Supply an end date. E.g. `Sys.Date()`
 #' @param APIKey Supply your polygon API key
+#' @param timeElapsed = 60
 #'
 #' @export
 StockData <- function(PolyOut = NULL,
@@ -7937,28 +7938,43 @@ StockData <- function(PolyOut = NULL,
                       CompanyName = 'Tesla Inc. Common Stock',
                       Metric = 'Stock Price',
                       TimeAgg = 'days',
-                      StartDate = '2021-01-01',
-                      EndDate = '2022-01-01',
-                      APIKey = NULL) {
-  print("StockData 1")
+                      StartDate = '2022-01-01',
+                      EndDate = Sys.Date(),
+                      APIKey = NULL,
+                      timeElapsed = 61) {
   StartDate <- as.Date(StartDate)
-  EndDate <- as.Date(EndDate)
-  PolyOut <- jsonlite::fromJSON(paste0("https://api.polygon.io/v2/aggs/ticker/",Symbol,"/range/1/day/",StartDate, "/", EndDate, "?adjusted=true&sort=asc&limit=10000&apiKey=", APIKey))
-  print("StockData 2")
-  data <- data.table::setDT(PolyOut$results)
-  print("StockData 3")
-  datas <- data.table::data.table(Date = seq(StartDate, EndDate, 'days'))
-  print("StockData 4")
-  datas <- AutoQuant::CreateCalendarVariables(data = datas, DateCols = 'Date', AsFactor = FALSE, TimeUnits = 'wday')
-  print("StockData 5")
-  datas <- datas[Date_wday %in% c(2L:6L)]
-  print("StockData 6")
-  datas <- datas[!Date %in% as.Date(holidayNYSE(year = c(data.table::year(StartDate),data.table::year(EndDate))))]
-  print("StockData 7")
-  if(nrow(datas) == nrow(data) + 1L) datas <- datas[seq_len(.N-1L)]
-  print("StockData 8")
-  data <- cbind(data, datas)
-  print("StockData 9")
+  EndDate <- min(Sys.Date()-1, as.Date(EndDate))
+
+  # Use data if provided
+  #if(!data.table::is.data.table(PolyOut)) {
+  print("data.table check here")
+  print(data.table::is.data.table(PolyOut))
+  if(!data.table::is.data.table(PolyOut)) {
+    print("here 1a")
+    PolyOut <- jsonlite::fromJSON(paste0("https://api.polygon.io/v2/aggs/ticker/",Symbol,"/range/1/day/",StartDate, "/", EndDate, "?adjusted=true&sort=asc&limit=10000&apiKey=", APIKey))
+    # print(PolyOut) # list
+    data <- data.table::as.data.table(PolyOut$results)
+    print(head(data))
+    RunTime <- Sys.time()
+    datas <- data.table::data.table(Date = seq(StartDate, EndDate, 'days'))[seq_len(.N-1L)]
+    print("here 1c")
+    datas <- AutoQuant::CreateCalendarVariables(data = datas, DateCols = 'Date', AsFactor = FALSE, TimeUnits = 'wday')
+    print("here 1d")
+    datas <- datas[Date_wday %in% c(2L:6L)]
+    print("here 1e")
+    datas <- datas[!Date %in% as.Date(holidayNYSE(year = c(data.table::year(StartDate),data.table::year(EndDate))))]
+    print("here 1f")
+    if(nrow(datas) == nrow(data) + 1L) datas <- datas[seq_len(.N-1L)]
+    print("here 1g")
+    data <- cbind(data, datas)
+    print("here 1h")
+
+  } else {
+    print("here 1b")
+    data <- PolyOut
+    print(head(data))
+  }
+
   if(TimeAgg == 'weeks') {
     data[, Date := lubridate::floor_date(Date, unit = 'weeks')]
     data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
@@ -7972,7 +7988,7 @@ StockData <- function(PolyOut = NULL,
     data[, Date := lubridate::floor_date(Date, unit = 'years')]
     data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
   }
-  print("StockData 10")
+
   if(Metric == '% Returns') {
     for(i in c('o','c','h','l')) data[, paste0(i) := get(i) / data.table::shift(x = get(i)) - 1]
   } else if(Metric  == '% Log Returns') {
@@ -7982,55 +7998,168 @@ StockData <- function(PolyOut = NULL,
   } else if(Metric  == 'Quadratic Variation') {
     for(i in c('o','c','h','l')) data[, temp_temp := data.table::shift(x = get(i), n = 1L, fill = NA, type = 'lag')][, paste0(i) := (get(i) - temp_temp)^2][, temp_temp := NULL]
   }
-  print("StockData 11")
-  return(list(data = data, PolyOut = PolyOut, CompanyName = CompanyName, Symbol = Symbol, Metric = Metric, StartDate = StartDate, EndDate = EndDate, APIKey = APIKey))
+
+  return(list(results = data, PolyOut = PolyOut, CompanyName = CompanyName, Symbol = Symbol, Metric = Metric, StartDate = StartDate, EndDate = EndDate, APIKey = APIKey, RunTime = RunTime))
 }
 
 #' @title Plot.Stock
 #'
 #' @description  Create a candlestick plot for stocks. See https://plotly.com/r/figure-labels/
 #'
-#' @family Standard Plots
+#' @family Stock Plots
 #' @author Adrian Antico
 #'
 #' @param Type 'candlestick', 'ohlc'
 #' @param StockDataOutput PolyOut returned from StockData()
+#' @param PlotEngineType = "Echarts" or "Plotly"
+#' @param Width = "1450px"
+#' @param Height = "600px"
+#' @param EchartsTheme = "macarons"
+#' @param ShadowBlur = 5. Chart boxes' shadow blur amount. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component
+#' @param ShadowColor "black"
+#' @param ShadowOffsetX 0
+#' @param ShadowOffsetY 0
+#' @param TextColor = "white"
+#' @param title.fontSize = 22
+#' @param title.fontWeight = "bold", # norma
+#' @param title.textShadowColor = '#63aeff'
+#' @param title.textShadowBlur = 3
+#' @param title.textShadowOffsetY = 1
+#' @param title.textShadowOffsetX = -1
+#' @param xaxis.fontSize = 14
+#' @param yaxis.fontSize = 14
 #'
 #' @export
 Plot.Stock <- function(StockDataOutput,
-                       Type = 'candlestick') {
-  print('Plot.Stock 1')
+                       Type = 'candlestick',
+                       Metric = "Stock Price",
+                       PlotEngineType = "Echarts",
+                       Width = "1450px",
+                       Height = "600px",
+                       EchartsTheme = "macarons",
+                       TextColor = "white",
+                       ShadowBlur = 0,
+                       ShadowColor = "black",
+                       ShadowOffsetX = 0,
+                       ShadowOffsetY = 0,
+                       title.fontSize = 22,
+                       title.fontWeight = "bold",
+                       title.textShadowColor = '#63aeff',
+                       title.textShadowBlur = 3,
+                       title.textShadowOffsetY = 1,
+                       title.textShadowOffsetX = -1,
+                       Color = "green",
+                       Color0 = "red",
+                       BorderColor = "transparent",
+                       BorderColor0 = "transparent",
+                       BorderColorDoji = "transparent",
+                       xaxis.fontSize = 14,
+                       yaxis.fontSize = 14) {
+
+# Width = "1450px"
+# Height = "600px"
+# EchartsTheme = "macarons"
+# TextColor = "white"
+# ShadowBlur = 5
+# title.fontSize = 22
+# title.fontWeight = "bold"
+# title.textShadowColor = '#63aeff'
+# title.textShadowBlur = 3
+# title.textShadowOffsetY = 1
+# title.textShadowOffsetX = -1
+# Color = "green"
+# Color0 = "red"
+# BorderColor = "transparent"
+# BorderColor0 = "transparent"
+# BorderColorDoji = "transparent"
+# xaxis.fontSize = 14
+  print(StockDataOutput$data)
   if(missing(StockDataOutput)) stop('StockDataOutput cannot be missing')
   if(Type == 'CandlestickPlot') Type <- 'candlestick'
   if(Type == 'OHLCPlot') Type <- 'ohlc'
-  print(length(StockDataOutput))
-  print(length(StockDataOutput$data))
-  print('Plot.Stock 2')
-  p1 <- plotly::plot_ly(
-    data = StockDataOutput$data,
-    x = ~Date,
-    type = Type,
-    open = ~o,
-    close = ~c,
-    high = ~h,
-    low = ~l,
-    decreasing = list(line = list(color = '#ff0055')),
-    increasing = list(line = list(color = '#66ff00')),
-    width = Width,
-    height = Height)
-  print('Plot.Stock 3')
-  p1 <- plotly::layout(
-    p = p1,
-    font = AutoPlots:::font_(),
-    title = if(length(StockDataOutput$CompanyName) == 0L) list(text = paste0(StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate), font = 'Segoe UI') else list(text = paste0(StockDataOutput$CompanyName, " - ", StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate), font = 'Segoe UI'),
-    plot_bgcolor = '#001534',
-    paper_bgcolor = "#6a6969",
-    yaxis = list(title = AutoPlots:::bold_(StockDataOutput$Metric)),
-    xaxis = list(title = AutoPlots:::bold_('Date')))
-  print('Plot.Stock 3: done')
-  return(p1)
-}
+  if(PlotEngineType == "Plotly") {
+    p1 <- plotly::plot_ly(
+      data = StockDataOutput$data,
+      x = ~Date,
+      type = Type,
+      open = ~o,
+      close = ~c,
+      high = ~h,
+      low = ~l,
+      decreasing = list(line = list(color = '#ff0055')),
+      increasing = list(line = list(color = '#66ff00')),
+      width = Width,
+      height = Height)
+    print('Plot.Stock 3')
+    p1 <- plotly::layout(
+      p = p1,
+      font = AutoPlots:::font_(),
+      title = if(length(StockDataOutput$CompanyName) == 0L) list(text = paste0(StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate), font = 'Segoe UI') else list(text = paste0(StockDataOutput$CompanyName, " - ", StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate), font = 'Segoe UI'),
+      plot_bgcolor = '#001534',
+      paper_bgcolor = "#6a6969",
+      yaxis = list(title = AutoPlots:::bold_(StockDataOutput$Metric)),
+      xaxis = list(title = AutoPlots:::bold_('Date')))
+    print('Plot.Stock 3: done')
+    return(p1)
 
+  } else if(PlotEngineType == "Echarts") {
+
+    # Build base plot depending on GroupVar availability
+    dt <- StockDataOutput$results
+    dt[, Date := as.character(Date)]
+    p1 <- echarts4r::e_charts_(
+      data = dt,
+      x = "Date",
+      dispose = TRUE,
+      width = Width,
+      height = Height)
+    p1 <- echarts4r::e_candle_(
+      e = p1,
+      high = "h",
+      low = "l",
+      closing = "c",
+      opening = "o",
+      itemStyle = list(
+        shadowBlur = ShadowBlur,
+        shadowColor = ShadowColor,
+        shadowOffsetX = ShadowOffsetX,
+        shadowOffsetY = ShadowOffsetY,
+        color = Color,
+        color0 = Color0,
+        backgroundColor = "white",
+        borderColor = BorderColor,
+        borderColor0 = BorderColor0,
+        borderColorDoji = BorderColorDoji
+      ),
+      name = StockDataOutput$Symbol)
+
+    # Finalize Plot Build
+    p1 <- echarts4r::e_legend(e = p1, show = FALSE)
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1 , trigger = "axis")
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = "Date", nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    p1 <- echarts4r::e_title(
+      p1,
+      text = if(length(StockDataOutput$CompanyName) == 0L) paste0(StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate) else paste0(StockDataOutput$CompanyName, " - ", StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate, " :: Measure: ", Metric),
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    print("Plot.Line no group Echarts 9")
+    return(p1)
+  }
+}
 
 # ----
 

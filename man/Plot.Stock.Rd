@@ -4,39 +4,81 @@
 \alias{Plot.Stock}
 \title{Plot.Stock}
 \usage{
-Plot.Stock(StockDataOutput, Type = "candlestick")
+Plot.Stock(
+  StockDataOutput,
+  Type = "candlestick",
+  Metric = "Stock Price",
+  PlotEngineType = "Echarts",
+  Width = "1450px",
+  Height = "600px",
+  EchartsTheme = "macarons",
+  TextColor = "white",
+  ShadowBlur = 0,
+  ShadowColor = "black",
+  ShadowOffsetX = 0,
+  ShadowOffsetY = 0,
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = "#63aeff",
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  Color = "green",
+  Color0 = "red",
+  BorderColor = "transparent",
+  BorderColor0 = "transparent",
+  BorderColorDoji = "transparent",
+  xaxis.fontSize = 14,
+  yaxis.fontSize = 14
+)
 }
 \arguments{
 \item{StockDataOutput}{PolyOut returned from StockData()}
 
 \item{Type}{'candlestick', 'ohlc'}
+
+\item{PlotEngineType}{= "Echarts" or "Plotly"}
+
+\item{Width}{= "1450px"}
+
+\item{Height}{= "600px"}
+
+\item{EchartsTheme}{= "macarons"}
+
+\item{TextColor}{= "white"}
+
+\item{ShadowBlur}{= 5. Chart boxes' shadow blur amount. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component}
+
+\item{ShadowColor}{"black"}
+
+\item{ShadowOffsetX}{0}
+
+\item{ShadowOffsetY}{0}
+
+\item{title.fontSize}{= 22}
+
+\item{title.fontWeight}{= "bold", # norma}
+
+\item{title.textShadowColor}{= '#63aeff'}
+
+\item{title.textShadowBlur}{= 3}
+
+\item{title.textShadowOffsetY}{= 1}
+
+\item{title.textShadowOffsetX}{= -1}
+
+\item{xaxis.fontSize}{= 14}
+
+\item{yaxis.fontSize}{= 14}
 }
 \description{
 Create a candlestick plot for stocks. See https://plotly.com/r/figure-labels/
 }
 \seealso{
-Other Standard Plots: 
-\code{\link{Plot.Area}()},
-\code{\link{Plot.BarPlot3D}()},
-\code{\link{Plot.Bar}()},
-\code{\link{Plot.Box}()},
-\code{\link{Plot.Copula3D}()},
-\code{\link{Plot.Copula}()},
-\code{\link{Plot.CorrMatrix}()},
-\code{\link{Plot.Density}()},
-\code{\link{Plot.HeatMap}()},
-\code{\link{Plot.Histogram}()},
-\code{\link{Plot.Line}()},
-\code{\link{Plot.Pie}()},
-\code{\link{Plot.River}()},
-\code{\link{Plot.Scatter3D}()},
-\code{\link{Plot.Scatter}()},
-\code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Violin}()},
+Other Stock Plots: 
 \code{\link{StockData}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Standard Plots}
+\concept{Stock Plots}

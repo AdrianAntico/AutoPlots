@@ -10,9 +10,10 @@ StockData(
   CompanyName = "Tesla Inc. Common Stock",
   Metric = "Stock Price",
   TimeAgg = "days",
-  StartDate = "2021-01-01",
-  EndDate = "2022-01-01",
-  APIKey = NULL
+  StartDate = "2022-01-01",
+  EndDate = Sys.Date(),
+  APIKey = NULL,
+  timeElapsed = 61
 )
 }
 \arguments{
@@ -32,34 +33,18 @@ StockData(
 
 \item{APIKey}{Supply your polygon API key}
 
+\item{timeElapsed}{= 60}
+
 \item{Type}{'candlestick', 'ohlc'}
 }
 \description{
 Create stock data for plotting using Plot.Stock()
 }
 \seealso{
-Other Standard Plots: 
-\code{\link{Plot.Area}()},
-\code{\link{Plot.BarPlot3D}()},
-\code{\link{Plot.Bar}()},
-\code{\link{Plot.Box}()},
-\code{\link{Plot.Copula3D}()},
-\code{\link{Plot.Copula}()},
-\code{\link{Plot.CorrMatrix}()},
-\code{\link{Plot.Density}()},
-\code{\link{Plot.HeatMap}()},
-\code{\link{Plot.Histogram}()},
-\code{\link{Plot.Line}()},
-\code{\link{Plot.Pie}()},
-\code{\link{Plot.River}()},
-\code{\link{Plot.Scatter3D}()},
-\code{\link{Plot.Scatter}()},
-\code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Stock}()},
-\code{\link{Plot.Violin}()}
+Other Stock Plots: 
+\code{\link{Plot.Stock}()}
 }
 \author{
 Adrian Antico
 }
-\concept{Standard Plots}
+\concept{Stock Plots}
