@@ -1796,8 +1796,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "y", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
       p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
@@ -2124,7 +2123,7 @@ Plot.Pie <- function(Engine = 'Plotly',
       }
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", backgroundColor = "aliceblue")
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
