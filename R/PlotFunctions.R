@@ -571,7 +571,7 @@ Plot.StandardPlots <- function(dt = NULL,
   }
 
   # 3D Bar Plot
-  if(tolower(PlotType) %in% 'barplot3d') {
+  if(tolower(PlotType) %in% c('barplot3d','barplotd')) {
     p1 <- AutoPlots::Plot.BarPlot3D(
       PreAgg = PreAgg,
       dt = dt,
@@ -728,7 +728,7 @@ Plot.StandardPlots <- function(dt = NULL,
   }
 
   # Scatter3D Plot
-  if(tolower(PlotType) %in% 'scatterplot3d') {
+  if(tolower(PlotType) %in% c('scatterplot3d','scatterplotd')) {
     p1 <- AutoPlots:::Plot.Scatter3D(
       dt = dt,
       SampleSize = SampleSize,
@@ -759,7 +759,7 @@ Plot.StandardPlots <- function(dt = NULL,
   }
 
   # Copula Plot
-  if(tolower(PlotType) %in% 'copulaplot3d') {
+  if(tolower(PlotType) %in% c('copulaplot3d','copulaplotd')) {
     p1 <- AutoPlots:::Plot.Copula3D(
       dt = dt,
       SampleSize = SampleSize,
@@ -891,7 +891,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
   print(paste0("Plots.ModelEvaluation == ", PlotType))
 
   # Copula Plot
-  if(PlotType %in% 'Residuals1') {
+  if(PlotType %in% 'Residuals') {
     p1 <- AutoPlots::Plot.Residuals.Histogram(
       dt = dt,
       SampleSize = 50000L,
@@ -924,7 +924,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
 
   # ----
   # Residuals_2 Scatter Plot ----
-  if(PlotType %chin% "Residuals2") {
+  if(PlotType %chin% "ResidScatter") {
     p1 <- AutoPlots::Plot.Residuals.Scatter(
       dt = dt,
       SampleSize = min(SampleSize, 30000L),
@@ -5755,13 +5755,15 @@ Plot.BarPlot3D <- function(dt,
 
     # Starter pack
     if(!PreAgg) {
-      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
-      temp <- temp[seq_len(min(NumLevels_Y, temp[, .N]))][[1L]]
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      temp1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+      temp1 <- temp1[seq_len(min(NumLevels_Y, temp1[, .N]))][[1L]]
+      temp2 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+      temp2 <- temp2[seq_len(min(NumLevels_X, temp2[, .N]))][[1L]]
+      dt1 <- dt1[get(YVar) %in% eval(temp1) & get(XVar) %in% eval(temp2), lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
     }
 
     # Transformation
-    if(ZVarTrans != "Identity") {
+    if(length(ZVarTrans) > 0 && ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
         dt1 <- AutoQuant::PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
@@ -5776,8 +5778,9 @@ Plot.BarPlot3D <- function(dt,
     p1 <- echarts4r::e_bar_3d_(e = p1, YVar, ZVar, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)))
     p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    # They do nothing for this plot type
+    # p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))  # They do nothing for this plot type
+    # p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
