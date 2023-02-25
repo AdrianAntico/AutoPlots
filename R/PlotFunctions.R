@@ -207,7 +207,7 @@ Plot.StandardPlots <- function(dt = NULL,
   # Debug
   if(Debug) print(paste0('Plot.StandardPlots() begin, PlotType = ', PlotType))
 
-  Title.FontSize = FontSize + 8L
+  Title.FontSize <- FontSize + 8L
 
   # Pie Plot
   if(tolower(PlotType) == 'pieplot') {
@@ -2057,8 +2057,8 @@ Plot.Pie <- function(Engine = 'Plotly',
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')
-      byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")
+      numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
     }
 
     yvar <- temp[[YVar]]
@@ -4495,8 +4495,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")
+        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -4626,8 +4626,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")
+        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -4752,8 +4752,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")
+        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -4872,8 +4872,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")
+        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -5167,8 +5167,8 @@ Plot.StackedBar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")
+        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -5256,8 +5256,8 @@ Plot.StackedBar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")
+        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -5476,11 +5476,11 @@ Plot.BarPlot3D <- function(dt,
     # Transformation
     if(ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
-        dt1 <- AutoQuant::PercRank(data = dt1, ColNames = Measure_Variable, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- AutoQuant::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
-        dt1 <- AutoQuant::Standardize(data = dt1, ColNames = Measure_Variable, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- AutoQuant::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = Measure_Variable, Methods = ZVarTrans)$Data
+        dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
       }
     }
 
@@ -5580,11 +5580,11 @@ Plot.BarPlot3D <- function(dt,
     # Transformation
     if(ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
-        dt1 <- AutoQuant::PercRank(data = dt1, ColNames = Measure_Variable, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- AutoQuant::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
-        dt1 <- AutoQuant::Standardize(data = dt1, ColNames = Measure_Variable, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- AutoQuant::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = Measure_Variable, Methods = ZVarTrans)$Data
+        dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
       }
     }
 
@@ -5671,11 +5671,11 @@ Plot.BarPlot3D <- function(dt,
       # Transformation
       if(ZVarTrans != "Identity") {
         if(ZVarTrans == "PercRank") {
-          dt1 <- AutoQuant::PercRank(data = dt1, ColNames = Measure_Variable, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+          dt1 <- AutoQuant::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
         } else if(ZVarTrans == "Standardize") {
-          dt1 <- AutoQuant::Standardize(data = dt1, ColNames = Measure_Variable, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          dt1 <- AutoQuant::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = Measure_Variable, Methods = ZVarTrans)$Data
+          dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
         }
       }
 
@@ -6040,11 +6040,11 @@ Plot.HeatMap <- function(dt,
       # Transformation
       if(ZVarTrans != "Identity") {
         if(ZVarTrans == "PercRank") {
-          temp <- AutoQuant::PercRank(data = temp, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+          dt1 <- AutoQuant::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
         } else if(ZVarTrans == "Standardize") {
-          temp <- AutoQuant::Standardize(data = temp, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          dt1 <- AutoQuant::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          temp <- AutoQuant::AutoTransformationCreate(data = temp, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+          dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
         }
       }
 
@@ -6135,11 +6135,11 @@ Plot.HeatMap <- function(dt,
       # Transformation
       if(ZVarTrans != "Identity") {
         if(ZVarTrans == "PercRank") {
-          temp <- AutoQuant::PercRank(data = temp, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+          dt1 <- AutoQuant::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
         } else if(ZVarTrans == "Standardize") {
-          temp <- AutoQuant::Standardize(data = temp, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          dt1 <- AutoQuant::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          temp <- AutoQuant::AutoTransformationCreate(data = temp, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+          dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
         }
       }
 
@@ -6267,11 +6267,11 @@ Plot.HeatMap <- function(dt,
     # Transformation
     if(ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
-        temp <- AutoQuant::PercRank(data = temp, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- AutoQuant::PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
-        temp <- AutoQuant::Standardize(data = temp, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- AutoQuant::Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        temp <- AutoQuant::AutoTransformationCreate(data = temp, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+        dt1 <- AutoQuant::AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
       }
     }
 
@@ -6459,6 +6459,9 @@ Plot.CorrMatrix <- function(dt = NULL,
 
   } else {
     if(Debug) print("Plot.CorrMatrix Echarts")
+    print(Width)
+    print(Height)
+    print(corr_mat)
     p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
     p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
     p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
