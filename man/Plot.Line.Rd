@@ -44,6 +44,7 @@ Plot.Line(
   title.textShadowOffsetX = -1,
   xaxis.fontSize = 14,
   yaxis.fontSize = 14,
+  DarkMode = FALSE,
   Debug = FALSE
 )
 }
@@ -109,6 +110,8 @@ Plot.Line(
 \item{ZeroLineColor}{color}
 
 \item{ZeroLineWidth}{1}
+
+\item{DarkMode}{FALSE}
 
 \item{Debug}{FALSE}
 }

@@ -39,6 +39,7 @@ Plot.Scatter(
   title.textShadowOffsetX = -1,
   yaxis.fontSize = 14,
   xaxis.fontSize = 14,
+  tooltip.trigger = "axis",
   Debug = FALSE
 )
 }

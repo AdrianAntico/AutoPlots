@@ -1482,8 +1482,6 @@ Plot.Histogram <- function(dt = NULL,
 
     Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
     Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-    print("Plotly Histogram 1")
     p1 <- plotly::plot_ly(
       data = dt1,
       alpha = 0.6,
@@ -1545,42 +1543,35 @@ Plot.Histogram <- function(dt = NULL,
 
     if(Debug) print("Echarts Histogram 1")
     if(length(GroupVar) > 0L) {
-      print("here 1a")
       p1 <- echarts4r::e_charts_(
         dt1 |> dplyr::group_by(get(GroupVar)),
         timeline = TimeLine,
         dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
         width = Width,
         height = Height)
     } else {
-      print("here 1b")
       p1 <- echarts4r::e_charts_(
         dt1,
         x = NULL,
         dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
         width = Width,
         height = Height)
     }
-    print("here 2")
     p1 <- echarts4r::e_histogram_(e = p1, YVar, breaks = NumberBins, bar_width = "100%")
     if(FacetRows == 1L && FacetCols == 1L) {
-      print("here 3")
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
     }
-    print("here 4")
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    print("here 5")
     p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-    print("here 6")
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    print("here 7")
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    print("here 8")
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    print("here 9")
     p1 <- echarts4r::e_brush(e = p1)
-    print("here 10")
     p1 <- echarts4r::e_title(
       p1, Title,
       textStyle = list(
@@ -1594,19 +1585,13 @@ Plot.Histogram <- function(dt = NULL,
         textShadowOffsetY = title.textShadowOffsetY,
         textShadowOffsetX = title.textShadowOffsetX))
     if(FacetRows > 1L || FacetCols > 1L) {
-      print("here 11")
-      print(FacetRows)
-      print(FacetCols)
-      print(class(p1))
       p1 <- echarts4r::e_facet(
         e = p1,
         rows = FacetRows,
         cols = FacetCols,
         legend_space = 16,
         legend_pos = "top")
-      print("here 12")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      print("here 13")
     } else {
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
@@ -1785,7 +1770,13 @@ Plot.Density <- function(dt = NULL,
         BackGroundColor = BackGroundColor)
       p1 <- plotly::ggplotly(p1)
     } else {
-      p1 <- echarts4r::e_charts_(dt1, x = NULL, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1,
+        x = NULL,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -1846,7 +1837,16 @@ Plot.Density <- function(dt = NULL,
     } else {
 
       data.table::setorderv(x = dt1, cols = GroupVar[1L], 1)
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
+
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        timeline = TimeLine,
+        dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width,
+        height = Height)
+
       p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -2115,7 +2115,13 @@ Plot.Pie <- function(Engine = 'Plotly',
         barmode = 'group')
 
     } else {
-      p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        temp,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width, height = Height)
       p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -2371,8 +2377,14 @@ Plot.Box <- function(dt = NULL,
       return(p1)
     } else {
       if(Debug) print("Plot.Box Echarts")
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, dispose = TRUE, width = Width, height = Height)
-      #p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar),get(XVar)), x = YVar, dispose = TRUE, color = GroupVar, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_boxplot_(e = p1, YVar)
       p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
@@ -2456,7 +2468,15 @@ Plot.Box <- function(dt = NULL,
           gridcolor = GridColor))#,showlegend = FALSE)
     } else {
       if(Debug) print("Plot.Box Echarts")
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(XVar)), x = YVar, dispose = TRUE, color = GroupVar, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(get(XVar)),
+        x = YVar,
+        darkMode = TRUE,
+        dispose = TRUE,
+        color = GroupVar,
+        width = Width,
+        height = Height)
+
       p1 <- echarts4r::e_boxplot_(e = p1, YVar)
       p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
@@ -2538,7 +2558,12 @@ Plot.Box <- function(dt = NULL,
           gridcolor = GridColor))
     } else {
       if(Debug) print("Plot.Box Echarts")
-      p1 <- echarts4r::e_charts_(dt1, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_boxplot_(e = p1, YVar)
       p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
@@ -2617,7 +2642,12 @@ Plot.Box <- function(dt = NULL,
     } else {
 
       if(Debug) print("Plot.Box Echarts")
-      p1 <- echarts4r::e_charts_(dt1, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_boxplot_(e = p1, XVar)
       p1 <- echarts4r::e_visual_map_(e = p1, XVar, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
@@ -3066,6 +3096,7 @@ Plot.Violin <- function(dt = NULL,
 #' @param FillColorReverse character
 #' @param GridColor color
 #' @param TextColor "Not Implemented"
+#' @param DarkMode FALSE
 #' @param Debug FALSE
 #'
 #' @return Calibration plot or boxplot
@@ -3159,6 +3190,7 @@ Plot.Line <- function(dt = NULL,
                       title.textShadowOffsetX = -1,
                       xaxis.fontSize = 14,
                       yaxis.fontSize = 14,
+                      DarkMode = FALSE,
                       Debug = FALSE) {
 
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
@@ -3239,6 +3271,8 @@ Plot.Line <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(
         data = dt1 |> dplyr::group_by(get(gv)),
         x = XVar,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
         timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
 
       # Finalize Plot Build
@@ -3338,7 +3372,13 @@ Plot.Line <- function(dt = NULL,
 
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line no group Echarts")
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
 
       # Finalize Plot Build
@@ -3625,7 +3665,12 @@ Plot.Area <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(
         data = dt1 |> dplyr::group_by(get(gv)),
         x = XVar,
-        timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        timeline = TimeLine,
+        dispose = TRUE,
+        width = Width,
+        height = Height)
 
       # Finalize Plot Build
       if(Debug) print("Plot.Line() Build Echarts 4")
@@ -3714,7 +3759,13 @@ Plot.Area <- function(dt = NULL,
 
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line no group Echarts")
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        darkMode = TRUE,
+        dispose = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
 
       # Finalize Plot Build
@@ -3988,7 +4039,12 @@ Plot.Step <- function(dt = NULL,
     p1 <- echarts4r::e_charts_(
       data = dt1 |> dplyr::group_by(get(gv)),
       x = XVar,
-      timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
+      timeline = TimeLine,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      dispose = TRUE,
+      width = Width,
+      height = Height)
 
     # Finalize Plot Build
     if(Debug) print("Plot.Line() Build Echarts 4")
@@ -4037,7 +4093,13 @@ Plot.Step <- function(dt = NULL,
 
     # Build base plot depending on GroupVar availability
     if(Debug) print("Plot.Line no group Echarts")
-    p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
     p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol)
 
     # Finalize Plot Build
@@ -4275,7 +4337,13 @@ Plot.River <- function(dt = NULL,
 
   # Build base plot depending on GroupVar availability
   if(Debug) print("Plot.Line no group Echarts")
-  p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+  p1 <- echarts4r::e_charts_(
+    data = dt1,
+    x = XVar,
+    dispose = TRUE,
+    darkMode = TRUE,
+    width = Width,
+    height = Height)
   for(i in YVar) p1 <- echarts4r::e_river_(e = p1, serie = i)
 
   if(Debug) print("Plot.River 8b")
@@ -4556,9 +4624,23 @@ Plot.Bar <- function(dt = NULL,
           barmode = 'group')
       } else {
         if(length(GroupVar) > 0L) {
-          p1 <- echarts4r::e_charts_(temp |> dplyr::group_by(get(GroupVar[1L])), x = XVar, dispose = TRUE, width = Width, height = Height)
+          p1 <- echarts4r::e_charts_(
+            temp |> dplyr::group_by(get(GroupVar[1L])),
+            x = XVar,
+            darkMode = TRUE,
+            emphasis = list(focus = "series"),
+            dispose = TRUE,
+            width = Width,
+            height = Height)
         } else {
-          p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE, width = Width, height = Height)
+          p1 <- echarts4r::e_charts_(
+            temp,
+            x = XVar,
+            dispose = TRUE,
+            darkMode = TRUE,
+            emphasis = list(focus = "series"),
+            width = Width,
+            height = Height)
         }
 
         p1 <- echarts4r::e_bar_(e = p1, YVar)
@@ -4694,7 +4776,13 @@ Plot.Bar <- function(dt = NULL,
           XVar <- "Variable"
           YVar <- "Importance"
         }
-        p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE, width = Width, height = Height)
+        p1 <- echarts4r::e_charts_(
+          temp,
+          x = XVar,
+          dispose = TRUE,
+          darkMode = TRUE,
+          width = Width,
+          height = Height)
         p1 <- echarts4r::e_bar_(e = p1, YVar)
         if(FacetRows == 1L && FacetCols == 1L) {
           if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -4812,7 +4900,12 @@ Plot.Bar <- function(dt = NULL,
             gridcolor = GridColor),
           barmode = 'group')
       } else {
-        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
+        p1 <- echarts4r::e_charts_(
+          temp, x = GroupVar[1L],
+          dispose = TRUE,
+          darkMode = TRUE,
+          width = Width,
+          height = Height)
         p1 <- echarts4r::e_bar_(e = p1, YVar)
         if(FacetRows == 1L && FacetCols == 1L) {
           if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -4932,7 +5025,13 @@ Plot.Bar <- function(dt = NULL,
             gridcolor = GridColor),
           barmode = 'group')
       } else {
-        p1 <- echarts4r::e_charts_(temp, x = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
+        p1 <- echarts4r::e_charts_(
+          temp,
+          x = GroupVar[1L],
+          dispose = TRUE,
+          darkMode = TRUE,
+          width = Width,
+          height = Height)
         p1 <- echarts4r::e_bar_(e = p1, XVar)
         if(FacetRows == 1L && FacetCols == 1L) {
           if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -5185,7 +5284,14 @@ Plot.StackedBar <- function(dt = NULL,
         }
       }
 
-      p1 <- echarts4r::e_charts_(data = temp |> dplyr::group_by(get(GroupVar[1L])), x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = temp |> dplyr::group_by(get(GroupVar[1L])),
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_bar_(e = p1, YVar, stack = XVar)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -5281,7 +5387,13 @@ Plot.StackedBar <- function(dt = NULL,
         XVar <- "Variable"
         YVar <- "Importance"
       }
-      p1 <- echarts4r::e_charts_(temp, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        temp,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_bar_(e = p1, YVar, stack = XVar)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -5524,7 +5636,13 @@ Plot.BarPlot3D <- function(dt,
 
     } else if(Engine == "Echarts") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
@@ -5622,7 +5740,13 @@ Plot.BarPlot3D <- function(dt,
 
     } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
@@ -5720,7 +5844,13 @@ Plot.BarPlot3D <- function(dt,
         paper_bgcolor = BackGroundColor)
     } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -5774,7 +5904,13 @@ Plot.BarPlot3D <- function(dt,
     }
 
     if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
-    p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
     p1 <- echarts4r::e_bar_3d_(e = p1, YVar, ZVar, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)))
     p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -5996,7 +6132,12 @@ Plot.HeatMap <- function(dt,
 
     } else if(Engine == "Echarts") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, width = Width, height = Height)#, dispose = TRUE)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)#, dispose = TRUE)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
@@ -6089,7 +6230,13 @@ Plot.HeatMap <- function(dt,
 
     } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        darkMode = TRUE,
+        dispose = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
@@ -6184,7 +6331,13 @@ Plot.HeatMap <- function(dt,
         paper_bgcolor = BackGroundColor)
     } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -6302,7 +6455,13 @@ Plot.HeatMap <- function(dt,
         paper_bgcolor = BackGroundColor)
     } else if(Engine == "Echarts") {
       if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
-      p1 <- echarts4r::e_charts_(data = dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        data = dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)))
       p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -6683,7 +6842,13 @@ Plot.Copula <- function(dt = NULL,
       if(Debug) print('Plot.Copula Echarts')
       dt1[, size_vals := seq_len(.N)/1000]
       sv <- "size_vals"
-      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_scatter_(e = p1, YVar, color = YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
@@ -6762,9 +6927,25 @@ Plot.Copula <- function(dt = NULL,
     } else {
       if(Debug) print('Plot.Copula Echarts')
       if(TimeLine) {
-        p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, colorBy = GroupVar[1L], timeline = TRUE, dispose = TRUE, width = Width, height = Height)
+        p1 <- echarts4r::e_charts_(
+          dt1 |> dplyr::group_by(get(GroupVar[1L])),
+          x = XVar,
+          colorBy = GroupVar[1L],
+          timeline = TRUE,
+          darkMode = TRUE,
+          emphasis = list(focus = "series"),
+          dispose = TRUE,
+          width = Width,
+          height = Height)
       } else {
-        p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, dispose = TRUE, width = Width, height = Height)
+        p1 <- echarts4r::e_charts_(
+          dt1 |> dplyr::group_by(get(GroupVar[1L])),
+          x = XVar,
+          dispose = TRUE,
+          darkMode = TRUE,
+          emphasis = list(focus = "series"),
+          width = Width,
+          height = Height)
       }
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
@@ -7000,6 +7181,8 @@ Plot.Copula3D <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(
         dt1 |> dplyr::group_by(get(GroupVar[1L])),
         x = XVar,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
         timeline = TimeLine,
         colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[[1L]])
@@ -7080,7 +7263,13 @@ Plot.Copula3D <- function(dt = NULL,
         paper_bgcolor = "rgb(0, 20, 51, 0.61)")
     } else {
       if(Debug) print('Plot.Copula3D Echarts')
-      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar)
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -7232,6 +7421,7 @@ Plot.Scatter <- function(dt = NULL,
                          title.textShadowOffsetX = -1,
                          yaxis.fontSize = 14,
                          xaxis.fontSize = 14,
+                         tooltip.trigger = "axis",
                          Debug = FALSE) {
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
@@ -7313,7 +7503,13 @@ Plot.Scatter <- function(dt = NULL,
 
     } else {
       if(Debug) print('Plot.Scatter  Echarts')
-      p1 <- echarts4r::e_charts_(dt1, x = XVar, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
       p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
@@ -7323,7 +7519,7 @@ Plot.Scatter <- function(dt = NULL,
       }
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+      p1 <- echarts4r::e_tooltip(e = p1, trigger = tooltip.trigger, backgroundColor = "aliceblue")
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -7390,6 +7586,8 @@ Plot.Scatter <- function(dt = NULL,
         dt1 |> dplyr::group_by(get(GroupVar[1L])),
         x = XVar,
         timeline = TimeLine,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
         colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
@@ -7652,7 +7850,16 @@ Plot.Scatter3D <- function(dt = NULL,
         paper_bgcolor = "rgb(0, 20, 51, 0.61)")
     } else {
       if(Debug) print('Plot.Scatter3D  Echarts')
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(get(GroupVar[1L])), x = XVar, timeline = TimeLine, colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        x = XVar,
+        timeline = TimeLine,
+        colorBy = GroupVar[1L],
+        dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[1L])
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -7736,7 +7943,15 @@ Plot.Scatter3D <- function(dt = NULL,
         paper_bgcolor = "rgb(0, 20, 51, 0.61)")
     } else {
       if(Debug) print('Plot.Scatter3D  Echarts')
-      p1 <- echarts4r::e_charts_(dt1 |> dplyr::group_by(GroupVar[[1L]]), x = XVar, timeline = TRUE, dispose = TRUE, width = Width, height = Height)
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(GroupVar[[1L]]),
+        x = XVar,
+        timeline = TRUE,
+        dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width,
+        height = Height)
       p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[[1L]])
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -8136,6 +8351,7 @@ Plot.Stock <- function(StockDataOutput,
       data = dt,
       x = "Date",
       dispose = TRUE,
+      darkMode = TRUE,
       width = Width,
       height = Height)
     p1 <- echarts4r::e_candle_(
@@ -8432,6 +8648,8 @@ Plot.Residuals.Histogram <- function(dt = NULL,
         x = NULL,
         timeline = TimeLine,
         dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
         width = Width,
         height = Height)
     } else {
@@ -8439,6 +8657,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(
         dt1,
         x = NULL,
+        darkMode = TRUE,
         dispose = TRUE,
         width = Width,
         height = Height)
@@ -8641,6 +8860,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
     TextColor = GridColor,
     ZeroLineColor = ZeroLineColor,
     ZeroLineWidth = ZeroLineWidth,
+    tooltip.trigger = "item",
     Debug = Debug)
   return(p1)
 }
@@ -10060,7 +10280,13 @@ Plot.VariableImportance <- function(dt = NULL,
       Var <- names(which(unlist(lapply(dt, is.factor))))
       dt[, eval(Var) := as.character(get(Var))]
     }
-    p1 <- echarts4r::e_charts_(dt, x = Var, dispose = TRUE, width = Width, height = Height)
+    p1 <- echarts4r::e_charts_(
+      dt,
+      x = Var,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
     p1 <- echarts4r::e_bar_(e = p1, Var2)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
