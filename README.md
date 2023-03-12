@@ -26,6 +26,7 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 - Updating Titles, Axes Labels, and Values displayed on plots
 - There are 30+ plot types (18+ standard and 12 model evaluation) including 3D Plots
 - Display size sampling (sampled right before plot building, not before data management)
+- Model evaluation plots by grouping variables (or faceted)
 
 
 ### Available Plots
