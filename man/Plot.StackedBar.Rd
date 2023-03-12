@@ -16,8 +16,8 @@ Plot.StackedBar(
   FacetCols = 1,
   FacetLevels = NULL,
   AggMethod = "mean",
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Stacked Bar",
   Title.YAxis = NULL,
   Title.XAxis = NULL,
@@ -47,13 +47,13 @@ Plot.StackedBar(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{PreAgg}{logical}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+\item{YVar}{Y-Axis variable name}
 
 \item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
 
@@ -83,7 +83,7 @@ Plot.StackedBar(
 
 \item{Engine}{'Plotly' or "Echarts"}
 
-\item{EchartsTheme}{"macaron"}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
 
@@ -91,7 +91,7 @@ Plot.StackedBar(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{'gray95'}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{'lightsteelblue'}
 
@@ -109,53 +109,6 @@ Plot.StackedBar(
 }
 \description{
 Build a stacked bar plot vs a grouped bar plot
-}
-\examples{
-\dontrun{
-# Load packages
-library(AutoPlots)
-library(data.table)
-
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-AutoPlots:::Plot.Bar(
-  Engine = 'Plotly', # "Echarts"
-  EchartsTheme = "macarons",
-  TimeLine = TRUE,
-  data = data,
-  XVar = "Predict",
-  YVar = "CHILLED_Margin_PerDay",
-  GroupVar = "BRAND",
-  AggMethod = 'mean',
-  FillColor = "#0066ff",
-  ChartColor = 'lightsteelblue1',
-  TextColor = 'darkblue',
-  GridColor = 'white',
-  BackGroundColor = 'gray95',
-  Debug = FALSE)
-
-# # Step through function
-# dt <- data
-# Engine = 'Plotly' # "Echarts"
-# EchartsTheme = "macaron"
-# XVar = "Predict"
-# YVar = "CHILLED_Margin_PerDay"
-# GroupVar = "BRAND"
-# AggMethod = 'mean'
-# GroupVar = NULL
-# ZeroLineColor = '#ffff'
-# ZeroLineWidth = 1.25
-# Title = 'Bar Plot'
-# FillColor = "#0066ff"
-# BackGroundColor = "#6a6969" #, #"#1b1959", #'#00060b',
-# ChartColor = '#001534'
-# TextColor = 'darkblue'
-# GridColor = 'white'
-# Debug = FALSE
-}
-
 }
 \seealso{
 Other Standard Plots: 

@@ -21,8 +21,8 @@ Plot.StandardPlots(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   PlotEngineType = "Plotly",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
@@ -43,9 +43,9 @@ Plot.StandardPlots(
 )
 }
 \arguments{
-\item{dt}{character}
+\item{dt}{source data.table}
 
-\item{PreAgg}{= FALSE}
+\item{PreAgg}{FALSE}
 
 \item{PlotType}{character}
 
@@ -53,15 +53,15 @@ Plot.StandardPlots(
 
 \item{AggMethod}{character}
 
-\item{NumberBins}{character}
+\item{NumberBins}{For histograms}
 
-\item{YVar}{character}
+\item{YVar}{Y-Axis variable name}
 
-\item{XVar}{character}
+\item{XVar}{X-Axis variable name}
 
-\item{ZVar}{character}
+\item{ZVar}{Z-Axis variable name}
 
-\item{GroupVar}{character}
+\item{GroupVar}{Character variable variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -75,13 +75,13 @@ Plot.StandardPlots(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{Height}{valid css unit}
+\item{Height}{NULL or valid css unit}
 
-\item{Width}{valid css unit}
+\item{Width}{NULL or valid css unit}
 
-\item{PlotEngineType}{character}
+\item{PlotEngineType}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{character}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{character}
 
@@ -93,7 +93,7 @@ Plot.StandardPlots(
 
 \item{Title.XAxis}{character}
 
-\item{BackGroundColor}{character}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{character}
 

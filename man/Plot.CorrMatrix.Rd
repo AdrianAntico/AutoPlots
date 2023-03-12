@@ -13,8 +13,8 @@ Plot.CorrMatrix(
   FacetLevels = NULL,
   Method = "spearman",
   PreAgg = FALSE,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Correlation Matrix",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -41,9 +41,9 @@ Plot.CorrMatrix(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
-\item{CorrVars}{character}
+\item{CorrVars}{vector of variable names}
 
 \item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
 
@@ -67,15 +67,15 @@ Plot.CorrMatrix(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{character}
+\item{Engine}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{= "macaron"}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{X_Scroll}{logical}
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{character hex}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{character hex}
 

@@ -17,8 +17,8 @@ Plot.Step(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Line Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -48,7 +48,7 @@ Plot.Step(
 )
 }
 \arguments{
-\item{dt}{data.table}
+\item{dt}{source data.table}
 
 \item{AggMethod}{character}
 
@@ -56,9 +56,9 @@ Plot.Step(
 
 \item{Engine}{"Echarts" or "Plotly"}
 
-\item{XVar}{Column name of the predicted values from your model}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{Column name of the target variable from your model}
+\item{YVar}{Y-Axis variable name}
 
 \item{GroupVar}{One Grouping Variable}
 
@@ -94,7 +94,7 @@ Plot.Step(
 
 \item{ShowSymbol}{= FALSE}
 
-\item{BackGroundColor}{color}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex}
 
 \item{ChartColor}{color}
 
@@ -112,61 +112,8 @@ Plot.Step(
 
 \item{Debug}{FALSE}
 }
-\value{
-Calibration plot or boxplot
-}
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
-}
-\examples{
-\dontrun{
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Build Plot
-AutoPlots::Plot.Step(
-  dt = data,
-  PreAgg = TRUE,
-  Engine = "Echarts", # "Plotly"
-  EchartsTheme = "macarons",
-  TimeLine = TRUE,
-  XVar = "Predict",
-  YVar = "CHILLED_Margin_PerDay",
-  GroupVar = "BRAND",
-  ZeroLineColor = '#ffff',
-  ZeroLineWidth = 1.25,
-  Title = 'Bar Plot',
-  FillColor = "#0066ff",
-  BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
-  ChartColor = '#001534',
-  GridColor = 'white',
-  TextColor = 'white',
-  Debug = FALSE)
-
-# # Step Through Function
-# library(AutoPlots)
-# library(data.table)
-# dt = data
-# Y_Scroll = FALSE
-# X_Scroll = FALSE
-# Engine = "Echarts" # "Plotly"
-# TimeLine = TRUE
-# EchartsTheme = "macaron"
-# Area = TRUE
-# Alpha = 0.50
-# XVar = "Predict"
-# YVar = "CHILLED_Margin_PerDay"
-# GroupVar = "BRAND"
-# ZeroLineColor = '#ffff'
-# ZeroLineWidth = 1.25
-# Title = 'Bar Plot'
-# FillColor = "#0066ff"
-# BackGroundColor = "#6a6969"
-# ChartColor = '#001534'
-# GridColor = 'white'
-# TextColor = 'white'
-# PreAgg = TRUE
-# Debug = FALSE
-}
 }
 \seealso{
 Other Standard Plots: 

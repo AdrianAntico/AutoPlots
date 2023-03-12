@@ -15,8 +15,8 @@ Plot.Copula(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Copula Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -46,13 +46,13 @@ Plot.Copula(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+\item{YVar}{Y-Axis variable name}
 
 \item{GroupVar}{Requires an XVar and YVar already be defined}
 
@@ -88,7 +88,7 @@ Plot.Copula(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{'gray95'}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{'lightsteelblue'}
 
@@ -108,51 +108,6 @@ Plot.Copula(
 }
 \description{
 Build a copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-}
-\examples{
-\dontrun{
-# Load packages
-library(AutoQuant)
-library(data.table)
-library(echarts4r)
-
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-AutoPlots:::Plot.Scatter(
-  dt = data,
-  SampleSize = 100000,
-  XVar = 'CHILLED_Units_PerDay',
-  YVar = 'CHILLED_Margin_PerDay',
-  GroupVar = 'BRAND',
-  TimeLine = FALSE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
-  BackGroundColor = 'gray95',
-  ChartColor = 'lightsteelblue1',
-  FillColor = "#0066ff",
-  GridColor = 'white',
-  TextColor = 'darkblue',
-  Debug = FALSE)
-
-# Step through function
-data# = data |> dplyr::group_by(Region)
-Engine = "Echarts"
-EchartsTheme = "macaron"
-TimeLine = FALSE
-XVar = 'CHILLED_Units_PerDay'
-YVar = 'CHILLED_Margin_PerDay'
-GroupVar = 'Store'
-SampleSize = 100000
-BackGroundColor = 'gray95'
-ChartColor = 'lightsteelblue1'
-FillColor = "#0066ff"
-TextColor = 'darkblue'
-GridColor = 'white'
-Debug = FALSE
-}
-
 }
 \seealso{
 Other Standard Plots: 

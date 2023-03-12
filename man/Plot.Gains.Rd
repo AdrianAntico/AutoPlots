@@ -18,8 +18,8 @@ Plot.Gains(
   FacetCols = 1,
   FacetLevels = NULL,
   NumberBins = 20,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Gains Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -41,17 +41,17 @@ Plot.Gains(
 )
 }
 \arguments{
-\item{dt}{data.table}
+\item{dt}{source data.table}
 
 \item{PreAgg}{logical}
 
-\item{XVar}{character}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{character}
+\item{YVar}{Y-Axis variable name}
 
 \item{ZVar}{character}
 
-\item{GroupVar}{character}
+\item{GroupVar}{Character variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -75,9 +75,9 @@ Plot.Gains(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{character}
+\item{Engine}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{character}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
 
@@ -85,7 +85,7 @@ Plot.Gains(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{character hex}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{character hex}
 

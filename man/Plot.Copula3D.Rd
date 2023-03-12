@@ -17,8 +17,8 @@ Plot.Copula3D(
   FacetCols = 1,
   FacetLevels = NULL,
   GroupVar = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Copula 3D",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -47,15 +47,15 @@ Plot.Copula3D(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+\item{YVar}{Y-Axis variable name}
 
-\item{ZVar}{Column name of Z-Axis variable. If NULL then ignored}
+\item{ZVar}{Z-Axis variable name}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -89,7 +89,7 @@ Plot.Copula3D(
 
 \item{TimeLine}{Logical}
 
-\item{BackGroundColor}{'gray95'}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{'lightsteelblue'}
 
@@ -109,55 +109,6 @@ Plot.Copula3D(
 }
 \description{
 Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-}
-\examples{
-\dontrun{
-# Load packages
-library(AutoQuant)
-library(data.table)
-library(magrittr)
-
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-AutoPlots:::Plot.Copula3D(
-  dt = data,
-  SampleSize = 100000,
-  XVar = 'CHILLED_Units_PerDay',
-  YVar = 'CHILLED_Margin_PerDay',
-  ZVar = 'CHILLED_Liters_PerDay',
-  GroupVar = NULL,
-  Title = 'Copula 3D',
-  Engine = "Plotly",
-  EchartsTheme = "macarons",
-  TimeLine = FALSE,
-  BackGroundColor = "#bbbec7", #"#1b1959", #'#00060b',
-  ChartColor = '#001534', # #5757576e
-  FillColor = "#0066ff",
-  GridColor = '#ffff',
-  TextColor = '#FFFFFF',
-  ZeroLineColor = '#ffff',
-  ZeroLineWidth = 1.25,
-  Debug = FALSE)
-
-dt = data
-XVar = 'XREG1'
-YVar = 'XREG2'
-ZVar = 'XREG3'
-GroupVar = NULL
-Title = 'Copula 3D'
-SampleSize = 100000
-FillColor = "#0066ff"
-BackGroundColor = "#bbbec7"
-ChartColor = '#001534'
-GridColor = '#ffff'
-TextColor = '#FFFFFF'
-ZeroLineColor = '#ffff'
-ZeroLineWidth = 1.25
-Debug = FALSE
-}
-
 }
 \seealso{
 Other Standard Plots: 

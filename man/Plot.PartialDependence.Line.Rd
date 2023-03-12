@@ -18,8 +18,8 @@ Plot.PartialDependence.Line(
   GroupVar = NULL,
   NumberBins = 20,
   AggMethod = "mean",
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Gains Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -42,11 +42,11 @@ Plot.PartialDependence.Line(
 )
 }
 \arguments{
-\item{dt}{data.table}
+\item{dt}{source data.table}
 
-\item{XVar}{character}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{character}
+\item{YVar}{Y-Axis variable name}
 
 \item{ZVar}{character}
 
@@ -62,7 +62,7 @@ Plot.PartialDependence.Line(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{GroupVar}{character}
+\item{GroupVar}{Character variable}
 
 \item{NumberBins}{numeric}
 
@@ -76,9 +76,9 @@ Plot.PartialDependence.Line(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{character}
+\item{Engine}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{character}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{EchartsLabels}{character}
 
@@ -88,7 +88,7 @@ Plot.PartialDependence.Line(
 
 \item{Y_Scroll}{= TRUE,}
 
-\item{BackGroundColor}{hex character}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{hex character}
 
@@ -106,56 +106,8 @@ Plot.PartialDependence.Line(
 
 \item{Debug}{logical}
 }
-\value{
-Partial dependence calibration plot
-}
 \description{
 This function automatically builds partial dependence calibration plots
-}
-\examples{
-\dontrun{
-# Query postgres
-data <- AutoPlots::DM.pgQuery(
-  Host = 'localhost',
-  DataBase = 'KompsProcessed',
-  SELECT = c('ARTICLE','BRAND','CHILLED_Liters_PerDay','CHILLED_Margin_PerDay','CHILLED_Net_Revenue_PerDay','CHILLED_Units_PerDay','CUSTOMER_COD_char','DATE_ISO'),
-  AggStat = 'AVG',
-  FROM = 'POS_Processed_Long_Daily_backward',
-  GroupBy = NULL,
-  SamplePercent = 1,
-  User = 'postgres',
-  Port = 5432,
-  Password = 'Aa')
-
-# # Step Through Function
-# library(AutoPlots)
-# library(data.table)
-# dt = data
-# SampleSize = 100000L
-# PlotEngineType = Engine =  "Echarts" # "Plotly"
-# TimeLine = FALSE
-# EchartsLabels = FALSE
-# EchartsTheme = "purple-passion"
-# X_Scroll = TRUE,
-# Y_Scroll = TRUE,
-# XVar = "CHILLED_Liters_PerDay" # "Predict"
-# YVar = "CHILLED_Margin_PerDay"
-# ZVar = "CHILLED_Units_PerDay"
-# GroupVar = NULL
-# AggMethod = 'mean'
-# GroupVar = NULL # "BRAND"
-# NumberBins = 20
-# AggStat = "mean"
-# ZeroLineColor = '#ffff'
-# ZeroLineWidth = 1.25
-# Title = 'Bar Plot'
-# FillColor = "#0066ff"
-# BackGroundColor = "#6a6969"
-# ChartColor = '#001534'
-# GridColor = 'white'
-# TextColor = 'white'
-# Debug = FALSE
-}
 }
 \seealso{
 Other Model Evaluation: 

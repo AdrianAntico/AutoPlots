@@ -15,8 +15,8 @@ Plot.Scatter(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Scatter Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -47,15 +47,15 @@ Plot.Scatter(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{SampleSize}{numeric}
 
-\item{XVar}{character}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{character}
+\item{YVar}{Y-Axis variable name}
 
-\item{GroupVar}{character}
+\item{GroupVar}{Character variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -79,9 +79,9 @@ Plot.Scatter(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{character}
+\item{Engine}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{character}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
 
@@ -89,7 +89,7 @@ Plot.Scatter(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{character hexb}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex characterb}
 
 \item{ChartColor}{character hex}
 
@@ -109,56 +109,6 @@ Plot.Scatter(
 }
 \description{
 Build a copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-}
-\examples{
-\dontrun{
-# Load packages
-library(AutoQuant)
-library(data.table)
-library(echarts4r)
-
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-AutoPlots:::Plot.Scatter(
-  dt = data,
-  SampleSize = 100000,
-  XVar = 'CHILLED_Units_PerDay',
-  YVar = 'CHILLED_Margin_PerDay',
-  GroupVar = 'BRAND',
-  Engine = "Echarts",
-  EchartsTheme = "macarons",
-  TimeLine = FALSE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
-  FillColor = "#0066ff",
-  BackGroundColor = 'gray95',
-  ChartColor = 'lightsteelblue1',
-  TextColor = 'darkblue',
-  GridColor = 'white',
-  Debug = FALSE)
-
-# Step through function
-# dt = data |> dplyr::group_by(Region)
-# SampleSize = 100000
-# XVar = 'XREG1'
-# YVar = 'XREG2'
-# GroupVar = 'Store'
-# Engine = "Echarts"
-# EchartsTheme = "macaron"
-# TimeLine = FALSE
-# X_Scroll = TRUE
-# Y_Scroll = TRUE
-# Title = "Bla"
-# FillColor = "#0066ff"
-# BackGroundColor = 'gray95'
-# ChartColor = 'lightsteelblue1'
-# TextColor = 'darkblue'
-# GridColor = 'white'
-# Debug = FALSE
-}
-
 }
 \seealso{
 Other Standard Plots: 

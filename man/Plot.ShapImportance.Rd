@@ -19,8 +19,8 @@ Plot.ShapImportance(
   NumberBins = 21,
   NumLevels_X = 33,
   NumLevels_Y = 33,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Shap Importance",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -39,7 +39,7 @@ Plot.ShapImportance(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{AggMethod}{"mean", "median", "sum", "sd", "skewness","kurtosis", "coeffvar", "meanabs", "medianabs", "sumabs", "sdabs", "skewnessabs", "kurtosisabs", "CoeffVarabs"}
 
@@ -73,7 +73,7 @@ Plot.ShapImportance(
 
 \item{EchartsTheme}{"dark-blue"}
 
-\item{BackGroundColor}{= "#6a6969"}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{= '#001534'}
 

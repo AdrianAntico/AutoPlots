@@ -15,8 +15,8 @@ Plot.Density(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Density Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -44,15 +44,15 @@ Plot.Density(
 )
 }
 \arguments{
-\item{dt}{From App}
+\item{dt}{source data.table}
 
 \item{SampleSize}{= 100000L}
 
-\item{YVar}{From App}
+\item{YVar}{Y-Axis variable name}
 
-\item{XVar}{character}
+\item{XVar}{X-Axis variable name}
 
-\item{GroupVar}{character}
+\item{GroupVar}{Character variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -76,9 +76,9 @@ Plot.Density(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{character}
+\item{Engine}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{character}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
 
@@ -86,7 +86,7 @@ Plot.Density(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{"#6a6969",}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{"#001534",}
 
@@ -102,44 +102,6 @@ Plot.Density(
 }
 \description{
 Density plots, by groups, with transparent continuous plots
-}
-\examples{
-\dontrun{
-# Load packages
-library(AutoPlots)
-library(data.table)
-
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-p1 <- AutoPlots:::Plot.Density(
-  TimeLine = FALSE,
-  data = data,
-  YVar = NULL,
-  GroupVar = 'Weekly_Sales',
-  ChartColor = 'lightsteelblue1',
-  TextColor = 'darkblue',
-  GridColor = 'white',
-  BackGroundColor = 'gray95',
-  Debug = FALSE)
-
-# Step through function
-# # plotly::ggplotly(p1)
-# TimeLine = FALSE
-# Engine = "Plotly"
-# EchartsTheme = "macarons"
-# data = data
-# YVar = 'Weekly_Sales'
-# GroupVar = c('Store','Dept')
-# ChartColor = 'lightsteelblue1'
-# TextColor = 'darkblue'
-# GridColor = 'white'
-# BackGroundColor = 'gray95'
-# Debug = FALSE
-# NumberBins
-}
-
 }
 \seealso{
 Other Standard Plots: 

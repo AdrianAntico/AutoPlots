@@ -17,8 +17,8 @@ Plot.Residuals.Histogram(
   FacetCols = 1,
   FacetLevels = NULL,
   NumberBins = 20,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Calibration Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -48,17 +48,17 @@ Plot.Residuals.Histogram(
 )
 }
 \arguments{
-\item{dt}{data.table}
+\item{dt}{source data.table}
 
 \item{AggMethod}{character}
 
 \item{SampleSize}{numeric}
 
-\item{XVar}{character}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{character}
+\item{YVar}{Y-Axis variable name}
 
-\item{GroupVar}{character}
+\item{GroupVar}{Character variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -80,9 +80,9 @@ Plot.Residuals.Histogram(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{character}
+\item{Engine}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{character}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
 
@@ -90,7 +90,7 @@ Plot.Residuals.Histogram(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{character hex}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{character hex}
 
@@ -110,57 +110,6 @@ Plot.Residuals.Histogram(
 }
 \description{
 Residuals Plot
-}
-\examples{
-\dontrun{
-# Create fake data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Build Plot
-AutoPlots::Plot.Residuals.Histogram(
-  dt = data,
-  AggMethod = 'mean',
-  SampleSize = 100000,
-  XVar = "Predict",
-  YVar = "CHILLED_Margin_PerDay",
-  GroupVar = "BRAND",
-  NumberBins = 20,
-  Title = 'Bar Plot',
-  Engine = "Echarts", # "Plotly"
-  EchartsTheme = "macarons",
-  TimeLine = TRUE,
-  BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
-  ChartColor = '#001534',
-  FillColor = "#0066ff",
-  GridColor = 'white',
-  TextColor = 'white',
-  ZeroLineColor = '#ffff',
-  ZeroLineWidth = 1.25,
-  Debug = FALSE)
-
-# # Step Through Function
-# library(AutoPlots)
-# library(data.table)
-# dt = data
-# AggMethod = 'mean',
-# SampleSize = 100000
-# XVar = "Predict"
-# YVar = "CHILLED_Margin_PerDay",
-# GroupVar = "BRAND",
-# NumberBins = 20
-# Title = 'Bar Plot'
-# Engine = "Echarts" # "Plotly"
-# EchartsTheme = "macaron"
-# TimeLine = FALSE
-# BackGroundColor = "#6a6969"
-# ChartColor = '#001534'
-# FillColor = "#0066ff"
-# GridColor = 'white'
-# TextColor = 'white'
-# ZeroLineColor = '#ffff'
-# ZeroLineWidth = 1.25
-# Debug = FALSE
-}
 }
 \seealso{
 Other Model Evaluation: 

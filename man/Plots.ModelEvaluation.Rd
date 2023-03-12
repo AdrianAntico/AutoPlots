@@ -22,8 +22,8 @@ Plots.ModelEvaluation(
   FacetLevels = NULL,
   NumLevels_Y = 75,
   NumLevels_X = 40,
-  Height = "600px",
-  Width = "1100px",
+  Height = NULL,
+  Width = NULL,
   Title = NULL,
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -43,7 +43,7 @@ Plots.ModelEvaluation(
 )
 }
 \arguments{
-\item{dt}{data.table}
+\item{dt}{source data.table}
 
 \item{AggMethod}{character}
 
@@ -51,15 +51,13 @@ Plots.ModelEvaluation(
 
 \item{PlotType}{character}
 
-\item{YVar}{character}
+\item{YVar}{Y-Axis variable name}
 
-\item{TargetLevel}{character}
+\item{ZVar}{Z-Axis variable name}
 
-\item{ZVar}{character}
+\item{XVar}{X-Axis variable name}
 
-\item{XVar}{character}
-
-\item{GroupVar}{character}
+\item{GroupVar}{Character variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -77,17 +75,17 @@ Plots.ModelEvaluation(
 
 \item{NumLevels_X}{= 40}
 
-\item{Height}{= "600px",}
+\item{Height}{= NULL,}
 
-\item{Width}{= "1100px",}
+\item{Width}{= NULL,}
 
-\item{PlotEngineType}{character}
+\item{PlotEngineType}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{character}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
 
-\item{BackGroundColor}{hex}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{hex}
 
@@ -105,29 +103,6 @@ Plots.ModelEvaluation(
 }
 \description{
 Plot helper for model evaluation plot types
-}
-\examples{
-\dontrun{
-dt = NULL,
-SampleSize = 100000L,
-PlotType = NULL,
-YVar = NULL,
-TargetLevel = NULL,
-ZVar = NULL,
-XVar = NULL,
-Title = NULL,
-PlotEngineType = "Plotly",
-EchartsTheme = "dark-blue",
-TimeLine = FALSE,
-BackGroundColor = "#6a6969",
-ChartColor = '#001534',
-GridColor = 'white',
-FillColor = "#0066ff",
-TextColor = 'white',
-NumberBins = 20,
-Debug = FALSE
-}
-
 }
 \seealso{
 Other Auto Plotting: 

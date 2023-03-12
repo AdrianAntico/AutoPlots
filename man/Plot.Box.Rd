@@ -15,8 +15,8 @@ Plot.Box(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Box Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -46,15 +46,15 @@ Plot.Box(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{SampleSize}{numeric}
 
-\item{XVar}{character}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{character}
+\item{YVar}{Y-Axis variable name}
 
-\item{GroupVar}{character}
+\item{GroupVar}{Character variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -78,9 +78,9 @@ Plot.Box(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{character}
+\item{Engine}{"Echarts" or "Plotly"}
 
-\item{EchartsTheme}{character}
+\item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{Logical}
 
@@ -88,7 +88,7 @@ Plot.Box(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{character hex}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{character hex}
 
@@ -108,57 +108,6 @@ Plot.Box(
 }
 \description{
 Build a box plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-}
-\examples{
-\dontrun{
-# Load packages
-library(AutoPlots)
-library(data.table)
-
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-AutoPlots:::Plot.Box(
-  Engine = "Plotly",
-  EchartsTheme = "macarons",
-  TimeLine = TimeLine,
-  dt = data,
-  XVar = 'Predict',
-  YVar = 'CHILLED_Margin_PerDay',
-  GroupVar = 'BRAND',
-  Title = 'Box Plot',
-  ZeroLineColor = '#ffff',
-  ZeroLineWidth = 1.25,
-  SampleSize = 100000,
-  FillColor = "#0066ff",
-  FillColorReverse = "#ff9900",
-  BackGroundColor = "#6a6969",
-  ChartColor = '#001534',
-  GridColor = '#ffff',
-  TextColor = 'white',
-  Debug = FALSE)
-
-# # Step through function
-# Engine = "Plotly"
-# EchartsTheme = "macaron"
-# TimeLine = TimeLine
-# data = data
-# XVar = 'Predict'
-# YVar = 'CHILLED_Margin_PerDay'
-# GroupVar = 'BRAND'
-# Title = 'Box Plot'
-# ZeroLineColor = '#ffff'
-# ZeroLineWidth = 1.25
-# SampleSize = 100000
-# FillColor = "#0066ff"
-# FillColorReverse = "#ff9900"
-# BackGroundColor = "#6a6969"
-# ChartColor = '#001534'
-# GridColor = '#ffff'
-# TextColor = 'white'
-# Debug = FALSE
-}
 }
 \seealso{
 Other Standard Plots: 

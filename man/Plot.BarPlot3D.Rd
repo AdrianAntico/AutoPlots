@@ -20,8 +20,8 @@ Plot.BarPlot3D(
   NumberBins = 21,
   NumLevels_Y = 33,
   NumLevels_X = 33,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "3D Bar Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -49,15 +49,15 @@ Plot.BarPlot3D(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{AggMethod}{'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'}
 
-\item{XVar}{= NULL,}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{= NULL,}
+\item{YVar}{Y-Axis variable name}
 
-\item{ZVar}{= NULL,}
+\item{ZVar}{Z-Axis variable name}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
@@ -93,7 +93,7 @@ Plot.BarPlot3D(
 
 \item{EchartsTheme}{"dark-blue"}
 
-\item{BackGroundColor}{= "#6a6969"}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{= '#001534'}
 
@@ -107,60 +107,6 @@ Plot.BarPlot3D(
 }
 \description{
 Build a 3D Bar Plot
-}
-\examples{
-\dontrun{
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-Columns <- c(
-  "DATE_ISO",
-  "ARTICLE",
-  "BRAND",
-  "CUSTOMER_COD_char",
-  "CHILLED_Margin_PerDay",
-  "CHILLED_Liters_PerDay",
-  "CHILLED_Units_PerDay")
-data <- AutoPlots::DM.pgQuery(
-  Query = NULL,
-  DataBase = "KompsProcessed",
-  SELECT = Columns,
-  AggStat = "AVG",
-  FROM = "POS_Processed_Long_Daily_backward",
-  GroupBy = NULL,
-  SamplePercent = 1,
-  Host = 'localhost',
-  User = 'postgres',
-  Port = 5432,
-  Password = "Aa...")
-
-AutoPlots:::Plot.BarPlot3D(
-  data,
-  PreAgg = FALSE,
-  Engine = 'echarts4r',
-  XVar = 'ARTICLE',
-  YVar = 'BRAND',
-  ZVar = 'CHILLED_Margin_PerDay',
-  AggMethod = 'mean',
-  NumberBins = 21,
-  NumLevels_Y = 33,
-  NumLevels_X = 33)
-
-# QA
-data
-PreAgg = FALSE
-Engine = 'echarts4r'
-XVar = 'ARTICLE'
-YVar = 'BRAND'
-ZVar = 'CHILLED_Margin_PerDay'
-AggMethod = 'mean'
-NumberBins = 21
-NumLevels_Y = 33
-NumLevels_X = 33
-gridcolor = GridColor
-plot_bgcolor = ChartColor
-paper_bgcolor = BackGroundColor
-
-}
-
 }
 \seealso{
 Other Standard Plots: 

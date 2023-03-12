@@ -16,8 +16,8 @@ Plot.Histogram(
   FacetCols = 1,
   FacetLevels = NULL,
   NumberBins = 30,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Histogram",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -47,13 +47,13 @@ Plot.Histogram(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+\item{YVar}{Y-Axis variable name}
 
 \item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
 
@@ -73,7 +73,7 @@ Plot.Histogram(
 
 \item{Width}{= NULL,}
 
-\item{Engine}{= PlotEngineType,}
+\item{Engine}{"Echarts" or "Plotly"}
 
 \item{EchartsTheme}{= EchartsTheme,}
 
@@ -83,7 +83,7 @@ Plot.Histogram(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{'gray95'}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{'lightsteelblue'}
 
@@ -103,51 +103,6 @@ Plot.Histogram(
 }
 \description{
 Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-}
-\examples{
-\dontrun{
-# Load packages
-library(AutoPlots)
-library(data.table)
-
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-p1 <- AutoPlots:::Plot.Histogram(
-  dt = data,
-  TimeLine = FALSE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
-  XVar = "Predict",
-  YVar = "CHILLED_Margin_PerDay",
-  GroupVar = "BRAND",
-  SampleSize = 100000,
-  NumberBins = 20,
-  FillColor = "#0066ff",
-  ChartColor = 'lightsteelblue1',
-  TextColor = 'darkblue',
-  GridColor = 'white',
-  BackGroundColor = 'gray95',
-  Debug = FALSE)
-
-# # Step through function
-# XVar = "Predict"
-# YVar = "CHILLED_Margin_PerDay"
-# GroupVar = "BRAND"
-# TimeLine = FALSE
-# AggMethod = 'mean'
-# ZeroLineWidth = 1.25
-# Title = 'Histogram'
-# NumberBins = 20
-# SampleSize = 100000
-# FillColor = "#0066ff"
-# ChartColor = '#001534'
-# GridColor = 'white'
-# TextColor = 'darkblue'
-# Debug = FALSE
-}
-
 }
 \seealso{
 Other Standard Plots: 

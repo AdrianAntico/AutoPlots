@@ -17,8 +17,8 @@ Plot.Scatter3D(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "3D Scatter",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
@@ -47,15 +47,15 @@ Plot.Scatter3D(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
 \item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+\item{YVar}{Y-Axis variable name}
 
-\item{ZVar}{Column name of Z-Axis variable. If NULL then ignored}
+\item{ZVar}{Z-Axis variable name}
 
 \item{GroupVar}{Requires an XVar and YVar already be defined}
 
@@ -89,7 +89,7 @@ Plot.Scatter3D(
 
 \item{TimeLine}{Logical}
 
-\item{BackGroundColor}{'gray95'}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{'lightsteelblue'}
 
@@ -109,55 +109,6 @@ Plot.Scatter3D(
 }
 \description{
 Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-}
-\examples{
-\dontrun{
-# Load packages
-library(AutoQuant)
-library(data.table)
-
-# Load data
-data <- data.table::fread("./CatBoost_ML1_ScoringData.csv")
-
-# Run function
-AutoPlots:::Plot.Scatter3D(
-  dt = data,
-  SampleSize = 100000,
-  XVar = 'ARTICLE',
-  YVar = 'BRAND',
-  ZVar = 'CHILLED_Units_PerDay',
-  GroupVar = 'Store',
-  Title = "Something",
-  Engine = "Plotly",
-  EchartsTheme = "macarons",
-  TimeLine = FALSE,
-  FillColor = "#0066ff",
-  ChartColor = 'lightsteelblue1',
-  TextColor = 'darkblue',
-  GridColor = 'white',
-  BackGroundColor = 'gray95',
-  Debug = FALSE)
-
-# Step through function
-# dt = data
-# SampleSize = 100000
-# XVar = "Predict",
-# YVar = "CHILLED_Margin_PerDay",
-# GroupVar = "BRAND",
-# Title = 'Copula 3D'
-# Engine = "Plotly"
-# EchartsTheme = "macaron"
-# TimeLine = FALSE
-# FillColor = "#0066ff"
-# BackGroundColor = "#bbbec7"
-# ChartColor = '#001534'
-# GridColor = '#ffff'
-# TextColor = '#FFFFFF'
-# ZeroLineColor = '#ffff'
-# ZeroLineWidth = 1.25
-# Debug = FALSE
-}
-
 }
 \seealso{
 Other Standard Plots: 

@@ -14,8 +14,8 @@ Plot.Violin(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  Height = "600px",
-  Width = "1135px",
+  Height = NULL,
+  Width = NULL,
   Title = "Violin Plot",
   SampleSize = 1e+05,
   BackGroundColor = "#6a6969",
@@ -30,11 +30,11 @@ Plot.Violin(
 )
 }
 \arguments{
-\item{dt}{Source data.table}
+\item{dt}{source data.table}
 
-\item{XVar}{Column name of X-Axis variable. If NULL then ignored}
+\item{XVar}{X-Axis variable name}
 
-\item{YVar}{Column name of Y-Axis variable. If NULL then ignored}
+\item{YVar}{Y-Axis variable name}
 
 \item{GroupVar}{Requires an XVar and YVar already be defined}
 
@@ -56,7 +56,7 @@ Plot.Violin(
 
 \item{SampleSize}{An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored}
 
-\item{BackGroundColor}{'gray95'}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 
 \item{ChartColor}{'lightsteelblue'}
 
@@ -82,48 +82,6 @@ Plot.Violin(
 }
 \description{
 Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-}
-\examples{
-\dontrun{
-# Step Through Function
-library(Rappture)
-library(data.table)
-dt <- data.table::fread("C:/Users/Bizon/Documents/GitHub/rappwd/CatBoost_ML_Regression_ScoringData.csv")
-PreAgg = TRUE
-DataReady = FALSE
-PlotEngineType = Engine =  "Echarts" # "Plotly"
-TimeLine = FALSE
-EchartsTheme = "purple-passion"
-GroupVar = NULL# "ARTICLE" # "BRAND" #c("BRAND",'ARTICLE')
-GroupVars = NULL# c("BRAND",'ARTICLE')
-CorrVars = c("CHILLED_Net_Revenue_PerDay","CHILLED_Margin_PerDay","CHILLED_Liters_PerDay","CHILLED_Units_PerDay")
-Method = 'spearman'
-NumLevelsDisplay = 50L
-AggMethod = 'mean'
-NumberBins = 20
-ZeroLineColor = '#ffff'
-ZeroLineWidth = 1.25
-Title = 'Bar Plot'
-SampleSize = 100000
-FillColor = "#0066ff"
-FillColorReverse = "#97ff00"
-BackGroundColor = "#6a6969"
-ChartColor = '#001534'
-GridColor = 'white'
-TextColor = 'white'
-X_Scroll = TRUE
-Y_Scroll = TRUE
-NumLevels_X = 15
-NumLevels_Y = 15
-Debug = FALSE
-Alpha = 0.8
-
-# BoxPlot
-XVar <- NULL
-GroupVar <- "BRAND"
-YVar <- "CHILLED_Margin_PerDay"
-}
-
 }
 \seealso{
 Other Standard Plots: 
