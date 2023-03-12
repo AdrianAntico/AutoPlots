@@ -18,14 +18,14 @@ These plot types are most useful for those looking to evaluate the performance o
 Another giant bonus is that the user can either pre-aggregate their data and pass that through to these functions (using PreAgg = TRUE) or they can leave their data in transaction form and let my optimized data.table code to manage it for them. This means you can develop plots from giant data sets without having to wait for long running data operations. Further, there is a SampleSize parameter in the functions to limit the number of records to display, in the giant data cases (or for scatter / copula plots).
 
 #### Features
-> Choose from Echarts or Plotly
-> Common API across all functions, regardless of Echarts usage or Plotly usage
-> Automatic data management
-> Automatic faceting
-> Automatic formatting
-> Updating Titles, Axes Labels, and Values display
-> There are 30+ plot types (18+ standard and 12 model evaluation)
-> Display size sampling
+- Choose from Echarts or Plotly
+- Common API across all functions, regardless of Echarts usage or Plotly usage
+- Automatic data management
+- Automatic faceting
+- Automatic formatting
+- Updating Titles, Axes Labels, and Values display
+- There are 30+ plot types (18+ standard and 12 model evaluation)
+- Display size sampling
 
 
 ### Available Plots
