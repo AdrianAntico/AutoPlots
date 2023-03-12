@@ -7,8 +7,6 @@
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/logo.PNG" align="center" width="800" />
 
-# AutoPlots
-
 ### Available Plots
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AvailablePlots.PNG" align="center" width="800" />
