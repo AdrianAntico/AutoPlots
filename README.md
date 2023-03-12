@@ -11,7 +11,8 @@ I'm sick of looking up plotting syntax every time I build a plot. Even after tho
 #### Standard plots 
 These plot types should be known to most, although there are some that might not fit that category, such as river plots.
 
-#### Model evaluation plots are most useful for those looking to evaluate the performance of regression, binary classification, and multiclass models. Designing plots for multiclass models are rather challenging but I've abstracted all that work away so the user only has to pass their categorical target variable along with their categorical predicted value, and the plots will display all the levels appropriately without requiring the user to do the data manipulation ahead of time.
+#### Model evaluation 
+These plot types are most useful for those looking to evaluate the performance of regression, binary classification, and multiclass models. Designing plots for multiclass models are rather challenging but I've abstracted all that work away so the user only has to pass their categorical target variable along with their categorical predicted value, and the plots will display all the levels appropriately without requiring the user to do the data manipulation ahead of time.
 
 #### Data Management
 Another giant bonus is that the user can either pre-aggregate their data and pass that through to these functions (using PreAgg = TRUE) or they can leave their data in transaction form and let my optimized data.table code to manage it for them. This means you can develop plots from giant data sets without having to wait for long running data operations. Further, there is a SampleSize parameter in the functions to limit the number of records to display, in the giant data cases (or for scatter / copula plots).
