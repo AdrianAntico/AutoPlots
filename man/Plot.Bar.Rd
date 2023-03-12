@@ -105,7 +105,7 @@ Plot.Bar(
 
 \item{ZeroLineColor}{= '#ffff'}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Build a bar plot by simply passing arguments to a single function

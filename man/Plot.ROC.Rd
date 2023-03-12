@@ -95,7 +95,7 @@ Plot.ROC(
 
 \item{ZeroLineWidth}{numeric}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 
 \item{NumberBins}{numeric}
 }

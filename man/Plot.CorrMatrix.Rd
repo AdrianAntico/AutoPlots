@@ -87,7 +87,7 @@ Plot.CorrMatrix(
 
 \item{TextColor}{character hex}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 
 \item{CorrVarsTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 }

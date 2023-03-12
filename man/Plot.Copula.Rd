@@ -104,7 +104,7 @@ Plot.Copula(
 
 \item{ZeroLineWidth}{= 2,}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Build a copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.

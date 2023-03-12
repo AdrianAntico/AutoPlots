@@ -110,7 +110,7 @@ Plot.PartialDependence.Box(
 
 \item{ZeroLineWidth}{numeric}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 }
 \description{
 This function automatically builds partial dependence calibration plots

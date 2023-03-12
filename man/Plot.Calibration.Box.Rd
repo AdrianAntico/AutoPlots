@@ -98,7 +98,7 @@ Plot.Calibration.Box(
 
 \item{ZeroLineWidth}{numeric}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification

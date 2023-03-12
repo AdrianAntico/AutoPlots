@@ -101,7 +101,7 @@ Plot.Lift(
 
 \item{ZeroLineWidth}{numeric}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Create a cumulative gains chart

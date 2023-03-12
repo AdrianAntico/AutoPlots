@@ -116,7 +116,7 @@ Plot.Area(
 
 \item{ZeroLineWidth}{1}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 
 \item{Area}{logical}
 }

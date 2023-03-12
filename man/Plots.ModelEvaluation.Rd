@@ -99,7 +99,7 @@ Plots.ModelEvaluation(
 
 \item{NumberBins}{numeric}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Plot helper for model evaluation plot types

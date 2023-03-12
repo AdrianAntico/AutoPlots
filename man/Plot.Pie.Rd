@@ -105,7 +105,7 @@ Plot.Pie(
 
 \item{ZeroLineColor}{= '#ffff'}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Build a pie chart by simply passing arguments to a single function

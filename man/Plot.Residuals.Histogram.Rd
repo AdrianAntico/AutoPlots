@@ -106,7 +106,7 @@ Plot.Residuals.Histogram(
 
 \item{ZeroLineWidth}{numeric}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Residuals Plot

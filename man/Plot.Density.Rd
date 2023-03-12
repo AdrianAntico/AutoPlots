@@ -98,7 +98,7 @@ Plot.Density(
 
 \item{TextColor}{"white",}
 
-\item{Debug}{From App}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Density plots, by groups, with transparent continuous plots

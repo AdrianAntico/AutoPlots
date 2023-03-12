@@ -115,7 +115,7 @@ Plot.BinaryMetrics(
 
 \item{ZeroLineWidth}{numeric}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Line plot of evaluation metrics across thresholds

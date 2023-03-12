@@ -107,7 +107,7 @@ Plot.StandardPlots(
 
 \item{FontSize}{numeric}
 
-\item{Debug}{character}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Helper for standard plots

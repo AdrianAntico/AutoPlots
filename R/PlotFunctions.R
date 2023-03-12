@@ -158,7 +158,7 @@ ChartTheme <- function(Size = 12,
 #' @param GridColor character
 #' @param TextColor character
 #' @param FontSize numeric
-#' @param Debug character
+#' @param Debug Debugging purposes
 #'
 #' @export
 Plot.StandardPlots <- function(dt = NULL,
@@ -869,7 +869,7 @@ Plot.StandardPlots <- function(dt = NULL,
 #' @param GridColor hex
 #' @param TextColor hex
 #' @param NumberBins numeric
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plots.ModelEvaluation <- function(dt = NULL,
                                   AggMethod = "mean",
@@ -1400,7 +1400,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param ZeroLineWidth = 1.25,
 #' @param ZeroLineColor = "white",
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Histogram <- function(dt = NULL,
                            SampleSize = 30000L,
@@ -1668,7 +1668,7 @@ Plot.Histogram <- function(dt = NULL,
 #' @param FillColorReverse "#97ff00",
 #' @param GridColor "white",
 #' @param TextColor "white",
-#' @param Debug From App
+#' @param Debug Debugging purposes
 #' @export
 Plot.Density <- function(dt = NULL,
                          SampleSize = 100000L,
@@ -1964,7 +1964,7 @@ Plot.Density <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param GridColor 'white'
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Pie <- function(Engine = 'Plotly',
                      dt = NULL,
@@ -2197,7 +2197,7 @@ Plot.Pie <- function(Engine = 'Plotly',
 #' @param TextColor character hex
 #' @param ZeroLineColor character hex
 #' @param ZeroLineWidth numeric
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.Box <- function(dt = NULL,
                      SampleSize = 100000L,
@@ -2741,7 +2741,7 @@ Plot.Box <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param GridColor 'white'
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Violin <- function(dt = NULL,
                         XVar = NULL,
@@ -3088,7 +3088,7 @@ Plot.Violin <- function(dt = NULL,
 #' @param GridColor color
 #' @param TextColor "Not Implemented"
 #' @param DarkMode FALSE
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Line <- function(dt = NULL,
                       AggMethod = "mean",
@@ -3469,7 +3469,7 @@ Plot.Line <- function(dt = NULL,
 #' @param FillColorReverse character
 #' @param GridColor color
 #' @param TextColor "Not Implemented"
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Area <- function(dt = NULL,
                       AggMethod = "mean",
@@ -3832,7 +3832,7 @@ Plot.Area <- function(dt = NULL,
 #' @param FillColorReverse character
 #' @param GridColor color
 #' @param TextColor "Not Implemented"
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Step <- function(dt = NULL,
                       AggMethod = "mean",
@@ -4113,7 +4113,7 @@ Plot.Step <- function(dt = NULL,
 #' @param FillColorReverse character
 #' @param GridColor color
 #' @param TextColor "Not Implemented"
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.River <- function(dt = NULL,
                       AggMethod = "mean",
@@ -4309,7 +4309,7 @@ Plot.River <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param GridColor 'white'
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Bar <- function(dt = NULL,
                      PreAgg = FALSE,
@@ -5015,7 +5015,7 @@ Plot.Bar <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param GridColor 'white'
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.StackedBar <- function(dt = NULL,
                             PreAgg = FALSE,
@@ -5250,7 +5250,7 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param FillColor = "#0066ff"
 #' @param FillColorReverse character
 #' @param GridColor = '#ffffff'
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.BarPlot3D <- function(dt,
                            PreAgg = FALSE,
@@ -6356,7 +6356,7 @@ Plot.HeatMap <- function(dt,
 #' @param FillColorReverse character
 #' @param GridColor character hex
 #' @param TextColor character hex
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.CorrMatrix <- function(dt = NULL,
                             CorrVars = NULL,
@@ -6518,7 +6518,7 @@ Plot.CorrMatrix <- function(dt = NULL,
 #' @param GridColor 'white'
 #' @param FillColorReverse character
 #' @param TextColor 'darkblue'
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Copula <- function(dt = NULL,
                         SampleSize = 30000L,
@@ -6845,7 +6845,7 @@ Plot.Copula <- function(dt = NULL,
 #' @param GridColor 'white'
 #' @param ZeroLineColor = '#ffff',
 #' @param ZeroLineWidth = 2,
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Copula3D <- function(dt = NULL,
                           SampleSize = 100000,
@@ -7148,7 +7148,7 @@ Plot.Copula3D <- function(dt = NULL,
 #' @param GridColor character hex
 #' @param ZeroLineColor character hex
 #' @param ZeroLineWidth numeric
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.Scatter <- function(dt = NULL,
                          SampleSize = 30000L,
@@ -7466,7 +7466,7 @@ Plot.Scatter <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param ZeroLineColor = '#ffff',
 #' @param ZeroLineWidth = 2,
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.Scatter3D <- function(dt = NULL,
                            SampleSize = 100000,
@@ -8243,7 +8243,7 @@ Plot.Stock <- function(StockDataOutput,
 #' @param FillColorReverse character hex
 #' @param GridColor character hex
 #' @param TextColor Not Implemented
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.Residuals.Histogram <- function(dt = NULL,
                                      AggMethod = 'mean',
@@ -8494,7 +8494,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 #' @param TextColor "Not Implemented"
 #' @param ZeroLineColor character hex
 #' @param ZeroLineWidth numeric
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.Residuals.Scatter <- function(dt = NULL,
                                    AggMethod = 'mean',
@@ -8614,7 +8614,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 #' @param FillColorReverse character hex
 #' @param GridColor character hex
 #' @param TextColor "Not Implemented"
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.Calibration.Line <- function(dt = NULL,
                                   AggMethod = 'mean',
@@ -8869,7 +8869,7 @@ Plot.Calibration.Line <- function(dt = NULL,
 #' @param TextColor "Not Implemented"
 #' @param ZeroLineColor character hex
 #' @param ZeroLineWidth numeric
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.Calibration.Box <- function(dt = NULL,
                                  SampleSize = 100000L,
@@ -9009,7 +9009,7 @@ Plot.Calibration.Box <- function(dt = NULL,
 #' @param ZeroLineWidth numeric
 #' @param AggMethod character
 #' @param GroupVar Character variable
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.PartialDependence.Line <- function(dt = NULL,
                                         XVar = NULL,
@@ -9281,7 +9281,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
 #' @param ZeroLineWidth numeric
 #' @param AggMethod character
 #' @param GroupVar Character variable
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.PartialDependence.Box <- function(dt = NULL,
                                        PreAgg = FALSE,
@@ -9416,7 +9416,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
 #' @param ZeroLineWidth numeric
 #' @param AggMethod character
 #' @param GroupVar Character variable
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            XVar = NULL,
@@ -9625,7 +9625,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' @param GridColor 'white'
 #' @param TextColor 'darkblue'
 #' @param ZeroLineColor = '#ffff'
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.VariableImportance <- function(dt = NULL,
                                     XVar = NULL,
@@ -9791,7 +9791,7 @@ Plot.VariableImportance <- function(dt = NULL,
 #' @param TextColor character hex
 #' @param ZeroLineColor character hex
 #' @param ZeroLineWidth numeric
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.ROC <- function(dt = NULL,
                      SampleSize = 100000,
@@ -10059,7 +10059,7 @@ Plot.ROC <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param GridColor 'white'
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param Debug FALSE
+#' @param Debug Debugging purposes
 #' @export
 Plot.ConfusionMatrix <- function(dt = NULL,
                                  PreAgg = FALSE,
@@ -10192,7 +10192,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
 #' @param TextColor character hex
 #' @param ZeroLineColor character hex
 #' @param ZeroLineWidth numeric
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #'
 #' @export
 Plot.Lift <- function(dt = NULL,
@@ -10518,7 +10518,7 @@ Plot.Lift <- function(dt = NULL,
 #' @param TextColor character hex
 #' @param ZeroLineColor character hex
 #' @param ZeroLineWidth numeric
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #'
 #' @export
 Plot.Gains <- function(dt = NULL,
@@ -10846,7 +10846,7 @@ Plot.Gains <- function(dt = NULL,
 #' @param ZeroLineWidth numeric
 #' @param AggMethod character
 #' @param GroupVar Character variable
-#' @param Debug logical
+#' @param Debug Debugging purposes
 #' @export
 Plot.BinaryMetrics <- function(dt = NULL,
                                PreAgg = FALSE,

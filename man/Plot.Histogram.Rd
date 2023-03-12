@@ -99,7 +99,7 @@ Plot.Histogram(
 
 \item{ZeroLineColor}{= "white",}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.

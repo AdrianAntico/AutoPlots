@@ -103,7 +103,7 @@ Plot.BarPlot3D(
 
 \item{GridColor}{= '#ffffff'}
 
-\item{Debug}{logical}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Build a 3D Bar Plot

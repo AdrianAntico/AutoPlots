@@ -105,7 +105,7 @@ Plot.StackedBar(
 
 \item{ZeroLineColor}{'#ffff'}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Build a stacked bar plot vs a grouped bar plot

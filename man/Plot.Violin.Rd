@@ -72,7 +72,7 @@ Plot.Violin(
 
 \item{ZeroLineWidth}{= 2,}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 
 \item{ShowLabels}{character}
 

@@ -98,7 +98,7 @@ Plot.VariableImportance(
 
 \item{ZeroLineColor}{= '#ffff'}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 }
 \description{
 Generate variable importance plots

@@ -110,7 +110,7 @@ Plot.River(
 
 \item{ZeroLineWidth}{1}
 
-\item{Debug}{FALSE}
+\item{Debug}{Debugging purposes}
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
