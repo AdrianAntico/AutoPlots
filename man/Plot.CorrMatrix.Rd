@@ -16,6 +16,9 @@ Plot.CorrMatrix(
   Height = "600px",
   Width = "1135px",
   Title = "Correlation Matrix",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "macarons",
   X_Scroll = TRUE,
@@ -57,6 +60,12 @@ Plot.CorrMatrix(
 \item{Width}{= NULL,}
 
 \item{Title}{character}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{character}
 

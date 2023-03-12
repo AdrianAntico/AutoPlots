@@ -19,6 +19,9 @@ Plot.Residuals.Scatter(
   Height = "600px",
   Width = "1135px",
   Title = "Calibration Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Echarts",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
@@ -59,6 +62,12 @@ Plot.Residuals.Scatter(
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
 \item{Title}{character}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{character}
 

@@ -22,6 +22,9 @@ Plot.ShapImportance(
   Height = "600px",
   Width = "1135px",
   Title = "Shap Importance",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "dark",
   X_Scroll = TRUE,
@@ -59,6 +62,12 @@ Plot.ShapImportance(
 \item{NumLevels_Y}{= 20}
 
 \item{Title}{"Heatmap"}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{"plotly", "echarts4r"}
 

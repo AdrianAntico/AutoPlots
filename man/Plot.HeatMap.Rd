@@ -23,6 +23,9 @@ Plot.HeatMap(
   Height = "600px",
   Width = "1135px",
   Title = "Heatmap",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "dark",
   X_Scroll = TRUE,
@@ -78,6 +81,12 @@ Plot.HeatMap(
 \item{Width}{= NULL,}
 
 \item{Title}{"Heatmap"}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{"plotly", "echarts4r"}
 

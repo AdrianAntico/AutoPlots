@@ -23,6 +23,9 @@ Plot.PartialDependence.Box(
   Height = "600px",
   Width = "1135px",
   Title = "Gains Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "macarons",
   EchartsLabels = FALSE,
@@ -72,6 +75,12 @@ Plot.PartialDependence.Box(
 \item{AggMethod}{character}
 
 \item{Title}{character}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{character}
 

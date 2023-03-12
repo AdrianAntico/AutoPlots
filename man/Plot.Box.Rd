@@ -18,6 +18,9 @@ Plot.Box(
   Height = "600px",
   Width = "1135px",
   Title = "Box Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "macarons",
   TimeLine = TimeLine,
@@ -68,6 +71,12 @@ Plot.Box(
 \item{Width}{= NULL,}
 
 \item{Title}{character}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{character}
 

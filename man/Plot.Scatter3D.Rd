@@ -20,6 +20,9 @@ Plot.Scatter3D(
   Height = "600px",
   Width = "1135px",
   Title = "3D Scatter",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
@@ -73,6 +76,12 @@ Plot.Scatter3D(
 \item{Width}{= NULL,}
 
 \item{Title}{'Violin Plot'}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{= "Plotly"}
 

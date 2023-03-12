@@ -18,6 +18,9 @@ Plot.Copula(
   Height = "600px",
   Width = "1135px",
   Title = "Copula Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
@@ -67,7 +70,13 @@ Plot.Copula(
 
 \item{Width}{= NULL,}
 
-\item{Title}{'Violin Plot'}
+\item{Title}{'Copula Plot'}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{= "Plotly",}
 

@@ -26,6 +26,9 @@ Plot.BinaryMetrics(
   Height = "600px",
   Width = "1135px",
   Title = "Binary Metrics",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "macarons",
   EchartsLabels = FALSE,
@@ -77,6 +80,12 @@ Plot.BinaryMetrics(
 \item{NumberBins}{numeric}
 
 \item{Title}{character}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{character}
 

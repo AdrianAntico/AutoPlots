@@ -18,6 +18,9 @@ Plot.VariableImportance(
   Height = "600px",
   Width = "1135px",
   Title = "Variable Importance Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Echarts",
   EchartsTheme = "macarons",
   TimeLine = TRUE,
@@ -64,6 +67,12 @@ Plot.VariableImportance(
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
 \item{Title}{title}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{'Plotly' or "Echarts"}
 

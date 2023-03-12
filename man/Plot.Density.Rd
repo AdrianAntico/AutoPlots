@@ -18,6 +18,9 @@ Plot.Density(
   Height = "600px",
   Width = "1135px",
   Title = "Density Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Plotly",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
@@ -66,6 +69,12 @@ Plot.Density(
 \item{Width}{= NULL,}
 
 \item{Title}{= "Density Plot"}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{character}
 

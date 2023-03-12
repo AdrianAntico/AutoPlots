@@ -19,6 +19,9 @@ Plot.ROC(
   Height = "600px",
   Width = "1135px",
   Title = "Calibration Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Echarts",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
@@ -59,6 +62,12 @@ Plot.ROC(
 \item{AggMethod}{character}
 
 \item{Title}{character}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{character}
 

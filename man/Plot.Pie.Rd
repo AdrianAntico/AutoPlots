@@ -20,6 +20,9 @@ Plot.Pie(
   Height = "600px",
   Width = "1135px",
   Title = "Bar Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,
@@ -73,6 +76,12 @@ Plot.Pie(
 \item{Width}{= NULL,}
 
 \item{Title}{title}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{EchartsTheme}{"macaron"}
 

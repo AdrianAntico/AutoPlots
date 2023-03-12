@@ -18,7 +18,10 @@ Plot.StackedBar(
   AggMethod = "mean",
   Height = "600px",
   Width = "1135px",
-  Title = "~Stacked Bar~",
+  Title = "Stacked Bar",
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  ShowLabels = FALSE,
   Engine = "Echarts",
   EchartsTheme = "macarons",
   TimeLine = TRUE,
@@ -66,11 +69,17 @@ Plot.StackedBar(
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
-\item{Height}{= NULL,}
+\item{Height}{NULL}
 
-\item{Width}{= NULL,}
+\item{Width}{NULL}
 
 \item{Title}{title}
+
+\item{Title.YAxis}{NULL. If NULL, YVar name will be used}
+
+\item{Title.XAxis}{NULL. If NULL, XVar name will be used}
+
+\item{ShowLabels}{logical}
 
 \item{Engine}{'Plotly' or "Echarts"}
 
@@ -94,7 +103,7 @@ Plot.StackedBar(
 
 \item{TextColor}{'darkblue'}
 
-\item{ZeroLineColor}{= '#ffff'}
+\item{ZeroLineColor}{'#ffff'}
 
 \item{Debug}{FALSE}
 }

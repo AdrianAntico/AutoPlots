@@ -26,6 +26,10 @@ Plot.StandardPlots(
   PlotEngineType = "Plotly",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
+  Title = NULL,
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   NumLevels_Y = 75,
   NumLevels_X = 40,
   BackGroundColor = "#6a6969",
@@ -80,6 +84,14 @@ Plot.StandardPlots(
 \item{EchartsTheme}{character}
 
 \item{TimeLine}{character}
+
+\item{Title}{character}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{BackGroundColor}{character}
 

@@ -73,6 +73,12 @@ Plot.Violin(
 \item{ZeroLineWidth}{= 2,}
 
 \item{Debug}{FALSE}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 }
 \description{
 Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.

@@ -20,6 +20,9 @@ Plot.Residuals.Histogram(
   Height = "600px",
   Width = "1135px",
   Title = "Calibration Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Echarts",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
@@ -70,6 +73,12 @@ Plot.Residuals.Histogram(
 \item{NumberBins}{numeric}
 
 \item{Title}{character}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{Engine}{character}
 

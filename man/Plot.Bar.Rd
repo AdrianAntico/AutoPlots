@@ -19,6 +19,9 @@ Plot.Bar(
   Height = "600px",
   Width = "1135px",
   Title = "Bar Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   Engine = "Echarts",
   EchartsTheme = "macarons",
   TimeLine = TRUE,
@@ -71,6 +74,12 @@ Plot.Bar(
 \item{Width}{= NULL,}
 
 \item{Title}{title}
+
+\item{ShowLabels}{logical}
+
+\item{Title.YAxis}{NULL. If NULL, YVar name will be used}
+
+\item{Title.XAxis}{NULL. If NULL, XVar name will be used}
 
 \item{Engine}{'Plotly' or "Echarts"}
 

@@ -20,6 +20,9 @@ Plot.Area(
   Height = "600px",
   Width = "1135px",
   Title = "Line Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
   EchartsTheme = "macarons",
   X_Scroll = FALSE,
   Y_Scroll = FALSE,
@@ -76,6 +79,12 @@ Plot.Area(
 \item{Width}{= NULL,}
 
 \item{Title}{"Title"}
+
+\item{ShowLabels}{character}
+
+\item{Title.YAxis}{character}
+
+\item{Title.XAxis}{character}
 
 \item{EchartsTheme}{Provide an "Echarts" theme}
 
