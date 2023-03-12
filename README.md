@@ -20,12 +20,12 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 #### Features
 - Choose from Echarts or Plotly
 - Common API across all functions, regardless of Echarts usage or Plotly usage
-- Automatic data management
-- Automatic faceting
-- Automatic formatting
-- Updating Titles, Axes Labels, and Values display
+- Automatic data management with data.table operations
+- Easy faceting by specifying FacetRows and FacetCols
+- Automatic formatting from Echarts and Plotly (Echarts has some really great features!)
+- Updating Titles, Axes Labels, and Values displayed on plots
 - There are 30+ plot types (18+ standard and 12 model evaluation)
-- Display size sampling
+- Display size sampling (sampled right before plot building, not before data management)
 
 
 ### Available Plots
