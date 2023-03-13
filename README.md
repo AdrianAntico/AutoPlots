@@ -1,7 +1,7 @@
 ![Version:1.0.0](https://img.shields.io/static/v1?label=Version&message=1.0.0&color=blue&?style=plastic)
 [![PRsWelcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=default)](http://makeapullrequest.com)
 
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/logo1.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Logo1.PNG" align="center" width="800" />
 
 ### Motivation
 I'm sick of looking up plotting syntax every time I build a plot. Further, I'm tired of looking up 10 functions when I want basic plots put together. Even after thousands of plots developed, I still have to look up syntax. This package is intended to reduce that behavior. The plots returned in AutoPlots are sufficiently good for 99% of plotting purposes. Further customizations can be handling by going back to source packages if needed. There are two broad classes of plots available: standard and model evaluation. 
