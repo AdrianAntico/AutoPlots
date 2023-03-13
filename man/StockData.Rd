@@ -13,7 +13,8 @@ StockData(
   StartDate = "2022-01-01",
   EndDate = Sys.Date(),
   APIKey = NULL,
-  timeElapsed = 61
+  timeElapsed = 61,
+  Debug = FALSE
 )
 }
 \arguments{

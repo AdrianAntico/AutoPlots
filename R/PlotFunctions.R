@@ -7967,7 +7967,8 @@ StockData <- function(PolyOut = NULL,
                       StartDate = '2022-01-01',
                       EndDate = Sys.Date(),
                       APIKey = NULL,
-                      timeElapsed = 61) {
+                      timeElapsed = 61,
+                      Debug = FALSE) {
   StartDate <- as.Date(StartDate)
   EndDate <- min(Sys.Date()-1, as.Date(EndDate))
 
