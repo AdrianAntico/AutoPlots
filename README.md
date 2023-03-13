@@ -37,7 +37,10 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AvailablePlots.PNG" align="center" width="800" />
 
 
-### Distributions
+### Histogram, Density, BoxPlot
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Distribution.PNG" align="center" width="800" />
 
+### Area, Steam, Pie
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Area_Steam_Pie.PNG" align="center" width="800" />
