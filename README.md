@@ -66,7 +66,7 @@ devtools::install_github("AdrianAntico/AutoPlots")
 # Create fake data
 data <- AutoQuant::FakeDataGenerator(N = 100000)
 
-# Build bar plot
+# Echarts Bar Chart
 AutoPlots::Plot.Bar(
   dt = data,
   PreAgg = FALSE,
@@ -75,6 +75,15 @@ AutoPlots::Plot.Bar(
   YVarTrans = "Identity",
   Engine = 'Echarts',
   EchartsTheme = "macarons")
+  
+# Plotly Bar Chart
+AutoPlots::Plot.Bar(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Adrian",
+  YVarTrans = "Identity",
+  Engine = 'Plotly')
 ```
 
 ### Bigger Data
@@ -92,6 +101,15 @@ AutoPlots::Plot.Bar(
   YVarTrans = "Identity",
   Engine = 'Echarts',
   EchartsTheme = "macarons")
+
+# Plotly Bar Chart
+AutoPlots::Plot.Bar(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Adrian",
+  YVarTrans = "Identity",
+  Engine = 'Plotly')
 ```
 
 ### Even Bigger Data
@@ -109,4 +127,13 @@ AutoPlots::Plot.Bar(
   YVarTrans = "Identity",
   Engine = 'Echarts',
   EchartsTheme = "macarons")
+  
+# Plotly Bar Chart
+AutoPlots::Plot.Bar(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Adrian",
+  YVarTrans = "Identity",
+  Engine = 'Plotly')
 ```
