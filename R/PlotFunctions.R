@@ -3603,9 +3603,9 @@ Plot.Area <- function(dt = NULL,
       # Finalize Plot Build
       if(Debug) print("Plot.Line() Build Echarts 4")
       if(ShowLabels) {
-        p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+        p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
       } else {
-        p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+        p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
       }
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
