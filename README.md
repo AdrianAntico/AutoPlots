@@ -54,15 +54,59 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Relationships.PNG" align="center" width="800" />
 
+### Installation
 
+```{r}
+devtools::install_github("AdrianAntico/AutoPlots")
+```
 
+### Getting Started
 
+```{r}
+# Create fake data
+data <- AutoQuant::FakeDataGenerator(N = 100000)
 
+# Build bar plot
+Plot.Bar(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Adrian",
+  YVarTrans = "Identity",
+  Engine = 'Echarts',
+  EchartsTheme = "macarons")
+```
 
+### Bigger Data
 
+```{r}
+# Create fake data
+data <- AutoQuant::FakeDataGenerator(N = 1000000)
 
+# Build bar plot
+Plot.Bar(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Adrian",
+  YVarTrans = "Identity",
+  Engine = 'Echarts',
+  EchartsTheme = "macarons")
+```
 
+### Even Bigger Data
 
+```{r}
+# Create fake data
+data <- AutoQuant::FakeDataGenerator(N = 10000000)
 
-
-
+# Build bar plot
+Plot.Bar(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Adrian",
+  YVarTrans = "Identity",
+  Engine = 'Echarts',
+  EchartsTheme = "macarons")
+```
