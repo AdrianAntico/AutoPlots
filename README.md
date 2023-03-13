@@ -67,7 +67,7 @@ devtools::install_github("AdrianAntico/AutoPlots")
 data <- AutoQuant::FakeDataGenerator(N = 100000)
 
 # Build bar plot
-Plot.Bar(
+AutoPlots::Plot.Bar(
   dt = data,
   PreAgg = FALSE,
   XVar = "Factor_1",
@@ -84,7 +84,7 @@ Plot.Bar(
 data <- AutoQuant::FakeDataGenerator(N = 1000000)
 
 # Build bar plot
-Plot.Bar(
+AutoPlots::Plot.Bar(
   dt = data,
   PreAgg = FALSE,
   XVar = "Factor_1",
@@ -101,7 +101,7 @@ Plot.Bar(
 data <- AutoQuant::FakeDataGenerator(N = 10000000)
 
 # Build bar plot
-Plot.Bar(
+AutoPlots::Plot.Bar(
   dt = data,
   PreAgg = FALSE,
   XVar = "Factor_1",

@@ -1510,8 +1510,8 @@ Plot.Histogram <- function(dt = NULL,
   # Format
   if(Engine == "Plotly") {
 
-    Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-    Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+    if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+    if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
     p1 <- plotly::plot_ly(
       data = dt1,
       alpha = 0.6,
@@ -1776,8 +1776,8 @@ Plot.Density <- function(dt = NULL,
     # Build plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       p1 <- ggplot2::ggplot(dt1, ggplot2::aes(x = get(YVar)))
       p1 <- p1 + ggplot2::geom_density(alpha = 0.3, color = GridColor)
@@ -1852,8 +1852,8 @@ Plot.Density <- function(dt = NULL,
     # Prepare data
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       if(length(YVar) > 1L) {
         xx <- data.table::melt.data.table(
@@ -2099,8 +2099,8 @@ Plot.Pie <- function(Engine = 'Plotly',
     # Plotly
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       p1 <- plotly::plot_ly(
         data = temp,
@@ -2314,8 +2314,8 @@ Plot.Box <- function(dt = NULL,
     # Build plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       if(Debug) print('Plot.Box X_and_Y_and_GroupVars')
       if(Debug) print('Plot.Box plotly::plot_ly')
@@ -2420,8 +2420,8 @@ Plot.Box <- function(dt = NULL,
     if(Debug) print("Plot.Box X_and_Y")
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Box plotly::plot_ly')
@@ -2532,8 +2532,8 @@ Plot.Box <- function(dt = NULL,
 
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Box plotly::plot_ly')
@@ -2628,8 +2628,8 @@ Plot.Box <- function(dt = NULL,
     if(Debug) print("Plot.Box X Only")
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print("Plot.Box plotly::plot_ly")
@@ -3293,8 +3293,8 @@ Plot.Line <- function(dt = NULL,
 
     } else {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line group plotly::plot_ly")
@@ -4456,8 +4456,8 @@ Plot.Bar <- function(dt = NULL,
       # Plotly
       if(Engine == "Plotly") {
 
-        Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-        Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+        if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+        if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
         p1 <- plotly::plot_ly(
           data = temp,
@@ -4609,8 +4609,8 @@ Plot.Bar <- function(dt = NULL,
       # Plotly
       if(Engine == "Plotly") {
 
-        Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-        Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+        if(length(Width) > 0L) if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+        if(length(Height) > 0L) if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
         p1 <- plotly::plot_ly(
           data = temp,
@@ -4752,8 +4752,8 @@ Plot.Bar <- function(dt = NULL,
 
       if(Engine == "Plotly") {
 
-        Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-        Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+        if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+        if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
         p1 <- plotly::plot_ly(
           data = temp,
@@ -4893,8 +4893,8 @@ Plot.Bar <- function(dt = NULL,
       # Plot
       if(Engine == "Plotly") {
 
-        Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-        Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+        if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+        if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
         p1 <- plotly::plot_ly(
           data = temp,
@@ -5360,8 +5360,8 @@ Plot.BarPlot3D <- function(dt,
     # Create final data for plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       p1 <- plotly::plot_ly(
         dt1,
@@ -5467,8 +5467,8 @@ Plot.BarPlot3D <- function(dt,
     # Create final data for plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       p1 <- plotly::plot_ly(
         dt1,
@@ -5589,8 +5589,8 @@ Plot.BarPlot3D <- function(dt,
     # Create final dt1 for plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       p1 <- plotly::plot_ly(
         dt1,
@@ -5867,8 +5867,8 @@ Plot.HeatMap <- function(dt,
     # Create final data for plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       p1 <- plotly::plot_ly(
         dt1,
@@ -5976,8 +5976,8 @@ Plot.HeatMap <- function(dt,
     # Create final data for plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       p1 <- plotly::plot_ly(
         dt1,
@@ -6095,8 +6095,8 @@ Plot.HeatMap <- function(dt,
     # Create final dt1 for plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       p1 <- plotly::plot_ly(
         dt1,
@@ -6242,8 +6242,8 @@ Plot.HeatMap <- function(dt,
     # Create final dt1 for plot
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
       p1 <- plotly::plot_ly(
@@ -6420,8 +6420,8 @@ Plot.CorrMatrix <- function(dt = NULL,
 
   if(Engine == "Plotly") {
 
-    Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-    Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+    if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+    if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
     dt2 <- data.table::melt.data.table(
       data = data.table::as.data.table(corr_mat)[, Vars := rownames(corr_mat)],
@@ -6582,8 +6582,8 @@ Plot.Copula <- function(dt = NULL,
     if(Debug) print('Plot.Copula length(GroupVar) == 0L')
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Copula plotly::plot_ly')
@@ -6698,8 +6698,8 @@ Plot.Copula <- function(dt = NULL,
     if(Debug) print('Plot.Copula length(GroupVar) > 0L')
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Copula plotly::plot_ly')
@@ -6904,8 +6904,8 @@ Plot.Copula3D <- function(dt = NULL,
     if(Debug) print('Plot.Copula3D length(GroupVar) > 0L')
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Copula3D Build')
@@ -6998,8 +6998,8 @@ Plot.Copula3D <- function(dt = NULL,
     if(Debug) print('Plot.Copula3D length(GroupVar) == 0L')
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Copula3D plotly::plot_ly')
@@ -7210,8 +7210,8 @@ Plot.Scatter <- function(dt = NULL,
     if(Debug) print('Plot.Scatter  length(GroupVar) == 0L')
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Scatter  plotly::plot_ly')
@@ -7321,8 +7321,8 @@ Plot.Scatter <- function(dt = NULL,
     if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
@@ -7544,8 +7544,8 @@ Plot.Scatter3D <- function(dt = NULL,
     if(Debug) print('Plot.Scatter3D length(GroupVar) > 0L')
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Scatter3D  plotly::plot_ly')
@@ -7644,8 +7644,8 @@ Plot.Scatter3D <- function(dt = NULL,
     if(Debug) print('Plot.Scatter3D length(GroupVar) == 0L')
     if(Engine == "Plotly") {
 
-      Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
       # Build
       if(Debug) print('Plot.Scatter3D  plotly::plot_ly')
@@ -8289,8 +8289,8 @@ Plot.Residuals.Histogram <- function(dt = NULL,
     X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
     Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
-    Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-    Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+    if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+    if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
 
     p1 <- plotly::plot_ly(
       data = dt1,
@@ -9630,8 +9630,8 @@ Plot.VariableImportance <- function(dt = NULL,
     X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
     Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
-    Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-    Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
+    if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
+    if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
     dt <- dt[order(Importance)]
     Var <- names(which(unlist(lapply(dt, is.character))))
     if(length(Var) == 0L) {
