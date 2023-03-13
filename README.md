@@ -22,6 +22,8 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 - Choose from Echarts or Plotly
 - Common API across all functions, regardless of Echarts usage or Plotly usage
 - Automatic data management with data.table operations
+- Large variety of aggregation statistics
+- Large number of numeric transformations
 - Easy faceting by specifying FacetRows and FacetCols
 - Automatic formatting from Echarts and Plotly (Echarts has some really great features!)
 - Updating Titles, Axes Labels, and Values displayed on plots
@@ -33,3 +35,9 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 ### Available Plots
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AvailablePlots.PNG" align="center" width="800" />
+
+
+### Distributions
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Distribution.PNG" align="center" width="800" />
+
