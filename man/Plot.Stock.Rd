@@ -29,7 +29,8 @@ Plot.Stock(
   BorderColor0 = "transparent",
   BorderColorDoji = "transparent",
   xaxis.fontSize = 14,
-  yaxis.fontSize = 14
+  yaxis.fontSize = 14,
+  Debug = FALSE
 )
 }
 \arguments{

@@ -7981,20 +7981,8 @@ StockData <- function(PolyOut = NULL,
     PolyOut <- jsonlite::fromJSON(paste0("https://api.polygon.io/v2/aggs/ticker/",Symbol,"/range/1/day/",StartDate, "/", EndDate, "?adjusted=true&sort=asc&limit=10000&apiKey=", APIKey))
 
     data <- data.table::as.data.table(PolyOut$results)
+    data[, Date := as.Date(lubridate::as_datetime((t+10800000)/1000, origin = "1970-01-01"))]
     if(Debug) print(head(data))
-
-    datas <- data.table::data.table(Date = seq(StartDate, EndDate, 'days'))[seq_len(.N-1L)]
-    if(Debug) print("here 1c")
-    datas <- AutoQuant::CreateCalendarVariables(data = datas, DateCols = 'Date', AsFactor = FALSE, TimeUnits = 'wday')
-    if(Debug) print("here 1d")
-    datas <- datas[Date_wday %in% c(2L:6L)]
-    if(Debug) print("here 1e")
-    datas <- datas[!Date %in% as.Date(holidayNYSE(year = c(data.table::year(StartDate),data.table::year(EndDate))))]
-    if(Debug) print("here 1f")
-    if(nrow(datas) != nrow(data) + 1L) datas <- datas[seq_len(.N-1L)]
-    if(Debug) print("here 1g")
-    data <- cbind(data, datas)
-    if(Debug) print("here 1h")
 
     tryCatch({
       if(TimeAgg == 'weeks') {
@@ -8086,7 +8074,8 @@ Plot.Stock <- function(StockDataOutput,
                        BorderColor0 = "transparent",
                        BorderColorDoji = "transparent",
                        xaxis.fontSize = 14,
-                       yaxis.fontSize = 14) {
+                       yaxis.fontSize = 14,
+                       Debug = FALSE) {
 
 # Width = "1450px"
 # Height = "600px"
@@ -8105,10 +8094,9 @@ Plot.Stock <- function(StockDataOutput,
 # BorderColor0 = "transparent"
 # BorderColorDoji = "transparent"
 # xaxis.fontSize = 14
-  print(StockDataOutput$data)
+  print(StockDataOutput$results)
   if(missing(StockDataOutput)) stop('StockDataOutput cannot be missing')
   if(Type == 'CandlestickPlot') Type <- 'candlestick'
-  if(Type == 'OHLCPlot') Type <- 'ohlc'
   if(PlotEngineType == "Plotly") {
     p1 <- plotly::plot_ly(
       data = StockDataOutput$data,
@@ -8170,16 +8158,11 @@ Plot.Stock <- function(StockDataOutput,
     p1 <- echarts4r::e_legend(e = p1, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_tooltip(e = p1 , trigger = "axis")
+    p1 <- echarts4r::e_tooltip(e = p1 , trigger = "cross")
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-    if(length(Title.XAxis) == 0L) {
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    } else {
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.XAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    }
-
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = "Date", nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
     p1 <- echarts4r::e_title(
