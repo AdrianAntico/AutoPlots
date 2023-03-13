@@ -114,7 +114,7 @@ AutoPlots::Plot.Bar(
 
 ### Even Bigger Data
 
-```{r}
+```r
 # Create fake data
 data <- AutoQuant::FakeDataGenerator(N = 10000000)
 
