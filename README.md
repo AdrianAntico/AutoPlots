@@ -44,3 +44,22 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 ### Area, Steam, Pie
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Area_Steam_Pie.PNG" align="center" width="800" />
+
+### Bar3D, Stacked Bar, Heatmap
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Bar3D_StackBar_Heatmap.PNG" align="center" width="800" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

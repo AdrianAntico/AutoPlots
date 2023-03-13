@@ -5384,9 +5384,9 @@ Plot.BarPlot3D <- function(dt,
         height = Height)
 
       if(ShowLabels) {
-        p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+        p1 <- echarts4r::e_bar_3d_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
       } else {
-        p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+        p1 <- echarts4r::e_bar_3d_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
       }
 
       p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
