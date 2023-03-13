@@ -31,7 +31,7 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 ### Available Plots
 
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Available_Plots.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Available_Plots1.PNG" align="center" width="800" />
 
 
 ### Histogram, Density, BoxPlot
