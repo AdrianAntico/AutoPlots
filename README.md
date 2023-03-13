@@ -56,13 +56,13 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 ### Installation
 
-```{r}
+```r
 devtools::install_github("AdrianAntico/AutoPlots")
 ```
 
 ### Getting Started
 
-```{r}
+```r
 # Create fake data
 data <- AutoQuant::FakeDataGenerator(N = 100000)
 
@@ -88,7 +88,7 @@ AutoPlots::Plot.Bar(
 
 ### Bigger Data
 
-```{r}
+```r
 # Create fake data
 data <- AutoQuant::FakeDataGenerator(N = 1000000)
 
