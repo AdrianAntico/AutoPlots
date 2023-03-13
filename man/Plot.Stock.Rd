@@ -17,7 +17,7 @@ Plot.Stock(
   ShadowColor = "black",
   ShadowOffsetX = 0,
   ShadowOffsetY = 0,
-  title.fontSize = 22,
+  title.fontSize = 14,
   title.fontWeight = "bold",
   title.textShadowColor = "#63aeff",
   title.textShadowBlur = 3,

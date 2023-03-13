@@ -49,7 +49,7 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Bar3D_StackBar_Heatmap.PNG" align="center" width="800" />
 
-### Stocks: quadratic variation, stock price, % log returns
+### Stocks: Stock Price, % Log Returns (log(s1) - log(s0)), Quadratic Variation (% Log Returns)^2
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Stocks.PNG" align="center" width="800" />
 
