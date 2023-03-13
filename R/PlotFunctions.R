@@ -8062,7 +8062,7 @@ Plot.Stock <- function(StockDataOutput,
                        ShadowColor = "black",
                        ShadowOffsetX = 0,
                        ShadowOffsetY = 0,
-                       title.fontSize = 22,
+                       title.fontSize = 14,
                        title.fontWeight = "bold",
                        title.textShadowColor = '#63aeff',
                        title.textShadowBlur = 3,
@@ -8158,7 +8158,7 @@ Plot.Stock <- function(StockDataOutput,
     p1 <- echarts4r::e_legend(e = p1, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_tooltip(e = p1 , trigger = "cross")
+    p1 <- echarts4r::e_tooltip(e = p1 , trigger = "axis")
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
