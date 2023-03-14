@@ -34,7 +34,7 @@ These plot types should be known to most, although there are some that might not
 ### Model evaluation 
 These plot types are most useful for those looking to evaluate the performance of regression, binary classification, and multiclass models. Designing plots for multiclass models are rather challenging but I've abstracted all that work away so the user only has to pass their categorical target variable along with their categorical predicted value, and the plots will display all the levels appropriately without requiring the user to do the data manipulation ahead of time. Same goes for regression and classification, which are easier, but still requires time and energy.
 
-Additionaly, all model evaluation plots supports grouping variables for by-analysis of models!
+Additionaly, all model evaluation plots supports grouping variables for by-analysis of models, even for multiclass models! 
 - Calibration Plots
 - Calibration Scatter Plots
 - Partital Dependence Plots
