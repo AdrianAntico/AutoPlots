@@ -68,7 +68,7 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Available_Plots1.PNG" align="center" width="800" />
 
 
-### Histogram, Density, BoxPlot
+### BoxPlot, Histogram, Density
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Distribution.PNG" align="center" width="800" />
 
