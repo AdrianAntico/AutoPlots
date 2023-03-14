@@ -4,16 +4,48 @@
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Logo2.PNG" align="center" width="800" />
 
 ### Motivation
-I'm sick of looking up plotting syntax every time I build a plot. Further, I'm tired of looking up 10 functions when I want basic plots put together. Even after thousands of plots developed, I still have to look up syntax. This package is intended to reduce that behavior. The plots returned in AutoPlots are sufficiently good for 99% of plotting purposes. Further customizations can be handling by going back to source packages if needed. There are two broad classes of plots available: standard and model evaluation. 
+I want to make building the best plots as easy as possible. I've never really been a fan of incrementally building a plot by calling function after function, mostly because I have to keep going to stackoverflow to get the syntax or flip through entire documentation just to see what's possible. I'm sorry but that is a gigantic waste of everyone's time, especially when a simple API solution is possible.
+
+This package is intended to reduce or eliminate that behavior (hence the "Auto" part of the name "AutoPlots"). The plots returned in AutoPlots are sufficiently good for 99% of plotting purposes. There are two broad classes of plots available in AutoPlots: Standard Plots and Model Evaluation Plots. If other users find additional plots that this package can support I'm open to having them incorporated.
 
 ### Standard plots 
 These plot types should be known to most, although there are some that might not fit that category, such as river plots.
+- Histogram Plots
+- Density Plots
+- Box Plots
+- Violin Plots
+- Pie Charts
+- Bar Plots
+- 3D Bar Plots
+- Stacked Bar Plots
+- Line Plots
+- Step Plots
+- Area Plots
+- River Plots
+- Scatter Plots
+- 3D Scatter Plots
+- Copula Plots
+- 3D Copula Plots
+- Correlation Matrix Plots
+- Heatmaps
+- Candlestick Plots
+
 
 ### Model evaluation 
 These plot types are most useful for those looking to evaluate the performance of regression, binary classification, and multiclass models. Designing plots for multiclass models are rather challenging but I've abstracted all that work away so the user only has to pass their categorical target variable along with their categorical predicted value, and the plots will display all the levels appropriately without requiring the user to do the data manipulation ahead of time. Same goes for regression and classification, which are easier, but still requires time and energy.
+- Calibration Plots
+- Calibration Scatter Plots
+- Partital Dependence Plots
+- Partital Dependence Heatmaps
+- Variable Importance Plots
+- Shapely Importance Plots
+- ROC Plots
+- Confusion Matrix Heatmaps
+- Lift Plots
+- Gain Plots
 
 ### Data Management
-Another giant bonus is that the user can either pre-aggregate their data and pass that through to these functions (using PreAgg = TRUE) or they can leave their data in raw form and let my optimized data.table code manage it for them. This means you can develop plots from giant data sets without having to wait for long running data operations. Further, there is a SampleSize parameter in the functions to limit the number of records to display, for the giant data cases (or for scatter / copula plots).
+Another giant bonus is that the user can either pre-aggregate their data and pass that through to these functions (using PreAgg = TRUE) or they can leave their data in raw form and let my optimized data.table code manage it for them. This means you can develop plots from giant data sets without having to wait for long running data operations. Further, there is a SampleSize parameter in the functions to limit the number of records to display, for the giant data cases (or for scatter / copula plots). This sampling takes place AFTER data aggregation, not before.
 
 ### Features
 - Choose from Echarts or Plotly via functions parameter
