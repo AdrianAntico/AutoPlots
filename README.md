@@ -9,7 +9,6 @@ I want to make building the best plots as easy as possible. I've never really be
 This package is intended to reduce or eliminate that behavior (hence the "Auto" part of the name "AutoPlots"). The plots returned in AutoPlots are sufficiently good for 99% of plotting purposes. There are two broad classes of plots available in AutoPlots: Standard Plots and Model Evaluation Plots. If other users find additional plots that this package can support I'm open to having them incorporated.
 
 ### Standard plots 
-These plot types should be known to most, although there are some that might not fit that category, such as river plots.
 - Histogram Plots
 - Density Plots
 - Box Plots
@@ -88,13 +87,16 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Relationships.PNG" align="center" width="800" />
 
+
+# Getting Started
+
 ### Installation
 
 ```r
 devtools::install_github("AdrianAntico/AutoPlots")
 ```
 
-### Getting Started
+### Basic Usage
 
 ```r
 # Create fake data
