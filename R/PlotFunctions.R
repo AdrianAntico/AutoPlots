@@ -2631,11 +2631,11 @@ Plot.Histogram <- function(dt = NULL,
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- tryCatch({Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
+      dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
     }
   }
 
@@ -2895,11 +2895,11 @@ Plot.Density <- function(dt = NULL,
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
@@ -3223,11 +3223,11 @@ Plot.Pie <- function(Engine = 'Plotly',
     # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
     if(YVarTrans != "Identity") {
       if(YVarTrans == "PercRank") {
-        temp <- Rodeo::PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
+        temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
       } else if(YVarTrans == "Standardize") {
-        temp <- Rodeo::Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        temp <- Rodeo::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
       }
     }
 
@@ -3429,11 +3429,11 @@ Plot.Box <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = XVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = XVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = XVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = XVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
@@ -3945,11 +3945,11 @@ Plot.Violin <- function(dt = NULL,
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = XVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = XVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = XVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = XVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
@@ -4332,11 +4332,11 @@ Plot.Line <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
@@ -4712,11 +4712,11 @@ Plot.Area <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
@@ -5071,11 +5071,11 @@ Plot.Step <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
@@ -5362,11 +5362,11 @@ Plot.River <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
@@ -5580,11 +5580,11 @@ Plot.Bar <- function(dt = NULL,
       }
       if(YVarTrans != "Identity") {
         if(YVarTrans == "PercRank") {
-          temp <- Rodeo::PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
+          temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
         } else if(YVarTrans == "Standardize") {
-          temp <- Rodeo::Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          temp <- Rodeo::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+          temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
         }
       }
 
@@ -5730,11 +5730,11 @@ Plot.Bar <- function(dt = NULL,
       }
       if(YVarTrans != "Identity") {
         if(YVarTrans == "PercRank") {
-          temp <- Rodeo::PercRank(data = temp, ColNames = numvars, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+          temp <- PercRank(data = temp, ColNames = numvars, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
         } else if(YVarTrans == "Standardize") {
-          temp <- Rodeo::Standardize(data = temp, ColNames = numvars, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          temp <- Standardize(data = temp, ColNames = numvars, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          temp <- Rodeo::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+          temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
         }
       }
 
@@ -5877,11 +5877,11 @@ Plot.Bar <- function(dt = NULL,
       }
       if(YVarTrans != "Identity") {
         if(YVarTrans == "PercRank") {
-          temp <- Rodeo::PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
+          temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
         } else if(YVarTrans == "Standardize") {
-          temp <- Rodeo::Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          temp <- Rodeo::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+          temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
         }
       }
 
@@ -6017,11 +6017,11 @@ Plot.Bar <- function(dt = NULL,
       }
       if(YVarTrans != "Identity") {
         if(YVarTrans == "PercRank") {
-          temp <- Rodeo::PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
+          temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
         } else if(YVarTrans == "Standardize") {
-          temp <- Rodeo::Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          temp <- Rodeo::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+          temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
         }
       }
 
@@ -6291,11 +6291,11 @@ Plot.StackedBar <- function(dt = NULL,
     }
     if(YVarTrans != "Identity") {
       if(YVarTrans == "PercRank") {
-        temp <- Rodeo::PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
+        temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
       } else if(YVarTrans == "Standardize") {
-        temp <- Rodeo::Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        temp <- Rodeo::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
       }
     }
 
@@ -6478,11 +6478,11 @@ Plot.BarPlot3D <- function(dt,
     # Transformation
     if(ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
-        dt1 <- Rodeo::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
-        dt1 <- Rodeo::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
       }
     }
 
@@ -6591,11 +6591,11 @@ Plot.BarPlot3D <- function(dt,
     # Transformation
     if(ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
-        dt1 <- Rodeo::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
-        dt1 <- Rodeo::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
       }
     }
 
@@ -6705,11 +6705,11 @@ Plot.BarPlot3D <- function(dt,
       # Transformation
       if(ZVarTrans != "Identity") {
         if(ZVarTrans == "PercRank") {
-          dt1 <- Rodeo::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+          dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
         } else if(ZVarTrans == "Standardize") {
-          dt1 <- Rodeo::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+          dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
         }
       }
 
@@ -6821,11 +6821,11 @@ Plot.BarPlot3D <- function(dt,
     # Transformation
     if(length(ZVarTrans) > 0 && ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
-        dt1 <- Rodeo::PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
-        dt1 <- Rodeo::Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
       }
     }
 
@@ -6983,11 +6983,11 @@ Plot.HeatMap <- function(dt,
     # Transformation
     if(ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
-        dt1 <- Rodeo::PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
-        dt1 <- Rodeo::Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
       }
     }
 
@@ -7093,11 +7093,11 @@ Plot.HeatMap <- function(dt,
       # Transformation
       if(ZVarTrans != "Identity") {
         if(ZVarTrans == "PercRank") {
-          dt1 <- Rodeo::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+          dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
         } else if(ZVarTrans == "Standardize") {
-          dt1 <- Rodeo::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+          dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
         }
       }
 
@@ -7211,11 +7211,11 @@ Plot.HeatMap <- function(dt,
       # Transformation
       if(ZVarTrans != "Identity") {
         if(ZVarTrans == "PercRank") {
-          dt1 <- Rodeo::PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+          dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
         } else if(ZVarTrans == "Standardize") {
-          dt1 <- Rodeo::Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+          dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
         } else {
-          dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+          dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
         }
       }
 
@@ -7366,11 +7366,11 @@ Plot.HeatMap <- function(dt,
     # Transformation
     if(ZVarTrans != "Identity") {
       if(ZVarTrans == "PercRank") {
-        dt1 <- Rodeo::PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
       } else if(ZVarTrans == "Standardize") {
-        dt1 <- Rodeo::Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
       }
     }
 
@@ -7536,11 +7536,11 @@ Plot.CorrMatrix <- function(dt = NULL,
     # Transformation
     if(CorrVarTrans != "Identity") {
       if(CorrVarTrans == "PercRank") {
-        dt1 <- Rodeo::PercRank(data = dt1, ColNames = CorrVars, GroupVars = NULL, Granularity = 0.0001, ScoreTable = FALSE)
+        dt1 <- PercRank(data = dt1, ColNames = CorrVars, GroupVars = NULL, Granularity = 0.0001, ScoreTable = FALSE)
       } else if(CorrVarTrans == "Standardize") {
-        dt1 <- Rodeo::Standardize(data = dt1, ColNames = CorrVars, GroupVars = NULL, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+        dt1 <- Standardize(data = dt1, ColNames = CorrVars, GroupVars = NULL, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
       } else {
-        dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = CorrVars, Methods = CorrVarTrans)$Data
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = CorrVars, Methods = CorrVarTrans)$Data
       }
     }
     for(i in seq_along(names(dt1))) {
@@ -8333,11 +8333,11 @@ Plot.Scatter <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
@@ -8645,33 +8645,33 @@ Plot.Scatter3D <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
     }
   }
 
   # Transformation
   if(XVarTrans != "Identity") {
     if(XVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = XVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = XVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = XVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = XVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
     }
   }
 
   # Transformation
   if(ZVarTrans != "Identity") {
     if(ZVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = ZVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = ZVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = ZVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = ZVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
     }
   }
 
@@ -9407,11 +9407,11 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- Rodeo::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Rodeo::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- tryCatch({Rodeo::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
+      dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
     }
   }
 
