@@ -90,7 +90,7 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 # Getting Started
 
-### Package Dependencies]
+### Package Dependencies
 ```r
 install.packages("bit64")
 install.packages("data.table")
