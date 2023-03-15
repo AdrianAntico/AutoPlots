@@ -98,7 +98,6 @@ install.packages("lubridate")
 install.packages("ggplot2")
 install.packages("plotly")
 install.packages("echarts4r")
-devtools::install_github("AdrianAntico/Rodeo")
 ```
 
 ### Installation
