@@ -110,7 +110,7 @@ devtools::install_github("AdrianAntico/AutoPlots")
 
 ```r
 # Create fake data
-data <- AutoQuant::FakeDataGenerator(N = 100000)
+data <- AutoPlots::FakeDataGenerator(N = 100000)
 
 # Echarts Bar Chart
 AutoPlots::Plot.Bar(
@@ -136,7 +136,7 @@ AutoPlots::Plot.Bar(
 
 ```r
 # Create fake data
-data <- AutoQuant::FakeDataGenerator(N = 1000000)
+data <- AutoPlots::FakeDataGenerator(N = 1000000)
 
 # Build bar plot
 AutoPlots::Plot.Bar(
@@ -162,7 +162,7 @@ AutoPlots::Plot.Bar(
 
 ```r
 # Create fake data
-data <- AutoQuant::FakeDataGenerator(N = 10000000)
+data <- AutoPlots::FakeDataGenerator(N = 10000000)
 
 # Build bar plot
 AutoPlots::Plot.Bar(
