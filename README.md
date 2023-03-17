@@ -132,7 +132,7 @@ AutoPlots::Plot.Bar(
   Engine = 'Plotly')
 ```
 
-### Bigger Data
+### Bigger Data (1M rows)
 
 ```r
 # Create fake data
@@ -158,7 +158,7 @@ AutoPlots::Plot.Bar(
   Engine = 'Plotly')
 ```
 
-### Even Bigger Data
+### Even Bigger Data (10M rows)
 
 ```r
 # Create fake data

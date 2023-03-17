@@ -5360,15 +5360,18 @@ Plot.River <- function(dt = NULL,
   }
 
   # Transformation
-  if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+  for(yvart in YVarTrans) {
+    if(YVarTrans != "Identity") {
+      if(YVarTrans == "PercRank") {
+        dt1 <- PercRank(data = dt1, ColNames = yvart, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      } else if(YVarTrans == "Standardize") {
+        dt1 <- Standardize(data = dt1, ColNames = yvart, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      } else {
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = yvart, Methods = YVarTrans)$Data
+      }
     }
   }
+
 
   if(Debug) print("Plot.River 6b")
 
@@ -8733,7 +8736,7 @@ Plot.Scatter3D <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(
         dt1 |> dplyr::group_by(get(GroupVar[1L])),
         x = XVar,
-        timeline = TimeLine,
+        timeline = FALSE,
         colorBy = GroupVar[1L],
         dispose = TRUE,
         darkMode = TRUE,
@@ -8829,7 +8832,7 @@ Plot.Scatter3D <- function(dt = NULL,
       p1 <- echarts4r::e_charts_(
         dt1 |> dplyr::group_by(GroupVar[[1L]]),
         x = XVar,
-        timeline = TRUE,
+        timeline = FALSE,
         dispose = TRUE,
         darkMode = TRUE,
         emphasis = list(focus = "series"),
