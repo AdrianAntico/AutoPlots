@@ -23,7 +23,7 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - River Plots
 - Scatter Plots
 - 3D Scatter Plots
-- Copula Plots
+- Copula Plots (scatter plot using a percent rank of variables - spearman scatter)
 - 3D Copula Plots
 - Correlation Matrix Plots
 - Heatmaps
