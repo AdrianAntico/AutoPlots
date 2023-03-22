@@ -981,7 +981,7 @@ InvApply_Log <- function(x) {
 Test_LogPlus1 <- function(x) {
   stopifnot(is.numeric(x))
   xx <- min(x, na.rm = TRUE)
-  if(xx < 0) trans_data <- log(x+xx) else trans_data <- log(x)
+  if(xx <= 0) trans_data <- log(x+xx+0.01) else trans_data <- log(x)
   mu <- mean(trans_data, na.rm = TRUE)
   sigma <- sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
@@ -1109,7 +1109,7 @@ AutoTransformationCreate <- function(data,
 
   # Loop through ColumnNames ----
   # colNames = 1
-  for(colNames in seq_along(ColumnNames)) {
+  for(colNames in seq_along(ColumnNames)) {# colNames = 1L
 
     # Collection Object----
     if(length(Methods) < 5) {
@@ -2751,10 +2751,16 @@ Plot.Histogram <- function(dt = NULL,
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-    if(length(Title.XAxis) == 0L) {
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    } else {
+    if(length(Title.XAxis) == 0L && length(Title.YAxis) == 0L) {
+      if(length(XVar) > 0L) {
+        p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      } else {
+        p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      }
+    } else if(length(Title.XAxis) > 0L) {
       p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.XAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+    } else {
+      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.YAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     }
 
     p1 <- echarts4r::e_brush(e = p1)
@@ -2959,10 +2965,16 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-      if(length(Title.XAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-      } else {
+      if(length(Title.XAxis) == 0L && length(Title.YAxis) == 0L) {
+        if(length(XVar) > 0L) {
+          p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+        } else {
+          p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+        }
+      } else if(length(Title.XAxis) > 0L) {
         p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.XAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+      } else {
+        p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.YAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
       }
 
       p1 <- echarts4r::e_brush(e = p1)
