@@ -5,7 +5,7 @@
 \title{Plot.Pie}
 \usage{
 Plot.Pie(
-  Engine = "Plotly",
+  Engine = "Echarts",
   dt = NULL,
   PreAgg = FALSE,
   XVar = NULL,

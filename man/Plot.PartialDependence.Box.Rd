@@ -26,7 +26,7 @@ Plot.PartialDependence.Box(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Plotly",
+  Engine = "Echarts",
   EchartsTheme = "macarons",
   EchartsLabels = FALSE,
   TimeLine = TRUE,

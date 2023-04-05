@@ -17,7 +17,7 @@ Plot.Violin(
   Height = NULL,
   Width = NULL,
   Title = "Violin Plot",
-  SampleSize = 1e+05,
+  SampleSize = 100000,
   BackGroundColor = "#6a6969",
   ChartColor = "#001534",
   FillColor = "#0066ff",

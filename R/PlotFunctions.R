@@ -3129,7 +3129,7 @@ Plot.Density <- function(dt = NULL,
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param Debug Debugging purposes
 #' @export
-Plot.Pie <- function(Engine = 'Plotly',
+Plot.Pie <- function(Engine = 'Echarts',
                      dt = NULL,
                      PreAgg = FALSE,
                      XVar = NULL,
@@ -9367,7 +9367,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
                                      NumberBins = 20,
                                      Height = NULL,
                                      Width = NULL,
-                                     Title = 'Calibration Plot',
+                                     Title = 'Residuals Histogram',
                                      ShowLabels = FALSE,
                                      Title.YAxis = NULL,
                                      Title.XAxis = NULL,
@@ -10051,7 +10051,7 @@ Plot.Calibration.Box <- function(dt = NULL,
   p1 <- AutoPlots:::Plot.Box(
     dt = dt1,
     SampleSize = SampleSize,
-    XVar = NULL,
+    XVar = XVar,
     YVar = "Target - Predicted",
     GroupVar = GroupVar,
     YVarTrans = YVarTrans,
@@ -10138,7 +10138,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
                                         ShowLabels = FALSE,
                                         Title.YAxis = NULL,
                                         Title.XAxis = NULL,
-                                        Engine = 'Plotly',
+                                        Engine = 'Echarts',
                                         EchartsTheme = "macarons",
                                         EchartsLabels = FALSE,
                                         TimeLine = TRUE,
@@ -10412,7 +10412,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
                                        ShowLabels = FALSE,
                                        Title.YAxis = NULL,
                                        Title.XAxis = NULL,
-                                       Engine = 'Plotly',
+                                       Engine = 'Echarts',
                                        EchartsTheme = "macarons",
                                        EchartsLabels = FALSE,
                                        TimeLine = TRUE,
@@ -10545,7 +10545,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            ShowLabels = FALSE,
                                            Title.YAxis = NULL,
                                            Title.XAxis = NULL,
-                                           Engine = 'Plotly',
+                                           Engine = 'Echarts',
                                            EchartsTheme = "macarons",
                                            EchartsLabels = FALSE,
                                            TimeLine = TRUE,
@@ -10586,40 +10586,119 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
     dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(eval(XVar))]
     dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
     ZVar <- "Target - Predicted"
-    YVar <- XVar[2L]
-    XVar <- XVar[1L]
+    if(length(XVar) > 1L) {
+      YVar <- XVar[2L]
+      XVar <- XVar[1L]
+      data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
+      for(i in c(XVar,YVar)) dt1[, eval(i) := get(i)]
 
-    data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
-    for(i in c(XVar,YVar)) dt1[, eval(i) := get(i)]
+      # Build
+      if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
+      p1 <- AutoPlots::Plot.HeatMap(
+        dt = dt1,
+        PreAgg = TRUE,
+        AggMethod = "mean",
+        Engine = Engine,
+        EchartsTheme = EchartsTheme,
+        XVar = XVar,
+        YVar = YVar,
+        ZVar = ZVar,
+        YVarTrans = YVarTrans,
+        XVarTrans = XVarTrans,
+        ZVarTrans = ZVarTrans,
+        Height = Height,
+        Width = Width,
+        Title = "Heatmap: Target - Predicted",
+        BackGroundColor = BackGroundColor,
+        ChartColor = ChartColor,
+        FillColor = FillColor,
+        TextColor = TextColor,
+        X_Scroll = X_Scroll,
+        Y_Scroll = Y_Scroll,
+        NumberBins = NumberBins,
+        FillColorReverse = FillColorReverse,
+        GridColor = GridColor,
+        Debug = Debug)
+      return(p1)
 
-    # Build
-    if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
-    p1 <- AutoPlots::Plot.HeatMap(
-      dt = dt1,
-      PreAgg = TRUE,
-      AggMethod = "mean",
-      Engine = Engine,
-      EchartsTheme = EchartsTheme,
-      XVar = XVar,
-      YVar = YVar,
-      ZVar = ZVar,
-      YVarTrans = YVarTrans,
-      XVarTrans = XVarTrans,
-      ZVarTrans = ZVarTrans,
-      Height = Height,
-      Width = Width,
-      Title = "Heatmap: Target - Predicted",
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      TextColor = TextColor,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
-      NumberBins = NumberBins,
-      FillColorReverse = FillColorReverse,
-      GridColor = GridColor,
-      Debug = Debug)
-    return(p1)
+    } else {
+      data.table::setorderv(x = dt1, cols = XVar,1L)
+
+      p1 <- AutoPlots::Plot.Bar(
+        dt = dt1,
+        PreAgg = TRUE,
+        XVar = XVar,
+        YVar = ZVar,
+        GroupVar = NULL,
+        YVarTrans = "Identity",
+        XVarTrans = "Identity",
+        FacetRows = 1,
+        FacetCols = 1,
+        FacetLevels = NULL,
+        AggMethod = "mean",
+        Height = NULL,
+        Width = NULL,
+        Title = "Bar Plot",
+        ShowLabels = FALSE,
+        Title.YAxis = NULL,
+        Title.XAxis = NULL,
+        Engine = "Echarts",
+        EchartsTheme = "macarons",
+        TimeLine = TRUE,
+        X_Scroll = TRUE,
+        Y_Scroll = TRUE,
+        BackGroundColor = "#6a6969",
+        ChartColor = "#001534",
+        FillColor = "#0066ff",
+        FillColorReverse = "#97ff00",
+        GridColor = "white",
+        TextColor = "white",
+        ZeroLineColor = "#ffff",
+        ZeroLineWidth = 1.25,
+        title.fontSize = 22,
+        title.fontWeight = "bold",
+        title.textShadowColor = "#63aeff",
+        title.textShadowBlur = 3,
+        title.textShadowOffsetY = 1,
+        title.textShadowOffsetX = -1,
+        xaxis.fontSize = 14,
+        yaxis.fontSize = 14,
+        Debug = FALSE)
+      return(p1)
+
+      # Build
+      if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
+      p1 <- AutoPlots::Plot.HeatMap(
+        dt = dt1,
+        PreAgg = TRUE,
+        AggMethod = "mean",
+        Engine = Engine,
+        EchartsTheme = EchartsTheme,
+        XVar = XVar,
+        YVar = YVar,
+        ZVar = ZVar,
+        YVarTrans = YVarTrans,
+        XVarTrans = XVarTrans,
+        ZVarTrans = ZVarTrans,
+        Height = Height,
+        Width = Width,
+        Title = "Heatmap: Target - Predicted",
+        BackGroundColor = BackGroundColor,
+        ChartColor = ChartColor,
+        FillColor = FillColor,
+        TextColor = TextColor,
+        X_Scroll = X_Scroll,
+        Y_Scroll = Y_Scroll,
+        NumberBins = NumberBins,
+        FillColorReverse = FillColorReverse,
+        GridColor = GridColor,
+        Debug = Debug)
+      return(p1)
+
+    }
+
+
+
   } else {
 
     # Minimize data before moving on
@@ -10823,7 +10902,7 @@ Plot.VariableImportance <- function(dt = NULL,
   } else {
     dt <- dt[order(Importance)]
     Var <- names(which(unlist(lapply(dt, is.character))))
-    Var2 <- names(which(unlist(lapply(dt, is.numeric))))
+    Var2 <- names(which(unlist(lapply(dt, is.numeric))))[1L]
     if(length(Var) == 0L) {
       Var <- names(which(unlist(lapply(dt, is.factor))))
       dt[, eval(Var) := as.character(get(Var))]
@@ -11189,7 +11268,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
                                  ShowLabels = FALSE,
                                  Title.YAxis = NULL,
                                  Title.XAxis = NULL,
-                                 Engine = 'Plotly',
+                                 Engine = 'Echarts',
                                  EchartsTheme = "macarons",
                                  TimeLine = TRUE,
                                  X_Scroll = TRUE,
@@ -11322,7 +11401,7 @@ Plot.Lift <- function(dt = NULL,
                       ShowLabels = FALSE,
                       Title.YAxis = NULL,
                       Title.XAxis = NULL,
-                      Engine = 'Plotly',
+                      Engine = 'Echarts',
                       EchartsTheme = "macarons",
                       TimeLine = TRUE,
                       X_Scroll = TRUE,
@@ -11648,7 +11727,7 @@ Plot.Gains <- function(dt = NULL,
                        ShowLabels = FALSE,
                        Title.YAxis = NULL,
                        Title.XAxis = NULL,
-                       Engine = 'Plotly',
+                       Engine = 'Echarts',
                        EchartsTheme = "macarons",
                        TimeLine = TRUE,
                        X_Scroll = TRUE,
@@ -11979,7 +12058,7 @@ Plot.BinaryMetrics <- function(dt = NULL,
                                ShowLabels = FALSE,
                                Title.YAxis = NULL,
                                Title.XAxis = NULL,
-                               Engine = 'Plotly',
+                               Engine = 'Echarts',
                                EchartsTheme = "macarons",
                                EchartsLabels = FALSE,
                                TimeLine = TRUE,

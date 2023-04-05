@@ -6,7 +6,7 @@
 \usage{
 Plot.Copula3D(
   dt = NULL,
-  SampleSize = 1e+05,
+  SampleSize = 100000,
   XVar = NULL,
   YVar = NULL,
   ZVar = NULL,

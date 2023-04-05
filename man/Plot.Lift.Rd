@@ -24,7 +24,7 @@ Plot.Lift(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Plotly",
+  Engine = "Echarts",
   EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,

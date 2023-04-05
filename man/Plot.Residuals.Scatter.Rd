@@ -7,7 +7,7 @@
 Plot.Residuals.Scatter(
   dt = NULL,
   AggMethod = "mean",
-  SampleSize = 1e+05,
+  SampleSize = 100000,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
