@@ -10013,6 +10013,7 @@ Plot.Calibration.Box <- function(dt = NULL,
                                  Debug = FALSE) {
 
   # Minimize data before moving on
+  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
   if(dt[, .N] > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
@@ -10024,7 +10025,6 @@ Plot.Calibration.Box <- function(dt = NULL,
   }
 
   # If actual is in factor form, convert to numeric
-  if(!data.table::is.data.table(dt1)) data.table::setDT(dt1)
   if(!is.numeric(dt1[[YVar]])) {
     data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
   }
@@ -10044,14 +10044,15 @@ Plot.Calibration.Box <- function(dt = NULL,
     data.table::setorderv(x = dt1, cols = "Percentile", 1L)
   }
 
-  dt1 <- dt1[, .SD, .SDcols = c("Target - Predicted",GroupVar)]
+  dt1 <- dt1[, .SD, .SDcols = c("Target - Predicted","Percentile")]
+  if(!is.character(dt1[["Percentile"]])) dt1[, Percentile := as.character(Percentile)]
 
   # Plot
   if(Debug) print(paste0("TimeLine for AutoPlots:::Plot.Box=", TimeLine))
   p1 <- AutoPlots:::Plot.Box(
     dt = dt1,
     SampleSize = SampleSize,
-    XVar = XVar,
+    XVar = "Percentile",
     YVar = "Target - Predicted",
     GroupVar = GroupVar,
     YVarTrans = YVarTrans,
