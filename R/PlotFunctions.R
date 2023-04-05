@@ -9845,12 +9845,12 @@ Plot.Calibration.Line <- function(dt = NULL,
     GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
 
     # Shrink data
-    yvar_levels <- dt[, unique(get(YVar))]
+    yvar_levels <- as.character(as.character(dt[, unique(get(YVar))]))
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(GroupVar, XVar, YVar, yvar_levels)])
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     # Melt Predict Cols
@@ -10248,12 +10248,12 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
 
     # Shrink data
-    yvar_levels <- dt[, unique(get(YVar))]
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(GroupVar, XVar, YVar, yvar_levels)])
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     # Melt Predict Cols
@@ -10705,12 +10705,12 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
     if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
 
     # Shrink data
-    yvar_levels <- dt[, unique(get(YVar))]
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels)])
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     # Melt Predict Cols
@@ -11017,12 +11017,12 @@ Plot.ROC <- function(dt = NULL,
   if(yvar_class %in% c("factor","character")) {
 
     # Shrink data
-    yvar_levels <- dt[, unique(get(YVar))]
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     # Melt Predict Cols
@@ -11426,14 +11426,14 @@ Plot.Lift <- function(dt = NULL,
     if(Debug) print("here 2")
 
     # Shrink data
-    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    yvar_levels <- as.character(as.character(dt[, unique(get(YVar))]))
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
 
     if(Debug) print("here 3")
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     if(Debug) print("here 4")
@@ -11752,14 +11752,14 @@ Plot.Gains <- function(dt = NULL,
     if(Debug) print("here 2")
 
     # Shrink data
-    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    yvar_levels <- as.character(as.character(dt[, unique(get(YVar))]))
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
 
     if(Debug) print("here 3")
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- AutoQuant::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     if(Debug) print("here 4")

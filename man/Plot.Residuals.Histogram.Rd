@@ -7,7 +7,7 @@
 Plot.Residuals.Histogram(
   dt = NULL,
   AggMethod = "mean",
-  SampleSize = 100000,
+  SampleSize = 1e+05,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -19,7 +19,7 @@ Plot.Residuals.Histogram(
   NumberBins = 20,
   Height = NULL,
   Width = NULL,
-  Title = "Calibration Plot",
+  Title = "Residuals Histogram",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
