@@ -1348,6 +1348,10 @@ Plot.StandardPlots <- function(dt = NULL,
                                FontSize = 14,
                                Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   # Debug
   if(Debug) print(paste0('Plot.StandardPlots() begin, PlotType = ', PlotType))
 
@@ -2058,6 +2062,10 @@ Plots.ModelEvaluation <- function(dt = NULL,
                                   NumberBins = 20,
                                   Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   # Debugging
   if(Debug) {print('Running Plots.ModelEvaluation')}
   if(length(SampleSize) == 0L) SampleSize <- 30000L
@@ -2593,12 +2601,15 @@ Plot.Histogram <- function(dt = NULL,
                            yaxis.fontSize = 14,
                            Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   TimeLine <- FALSE
   Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
   if(dt[, .N] > SampleSize) {
     dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
   } else {
@@ -2868,7 +2879,9 @@ Plot.Density <- function(dt = NULL,
 
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   if(dt[, .N] > SampleSize) {
     dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
   } else {
@@ -3175,12 +3188,13 @@ Plot.Pie <- function(Engine = 'Echarts',
   X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
   Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
-  if(data.table::is.data.table(dt)) data.table::setDT(dt)
-
   # Used multiple times
   check1 <- length(XVar) != 0 && length(YVar) != 0
 
   if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
     aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
   }
 
@@ -3406,7 +3420,9 @@ Plot.Box <- function(dt = NULL,
   FacetCols <- 1L
 
   # Ensure data.table
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   if(Debug) print("Plot.BoxPlot 1")
 
   X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
@@ -3934,7 +3950,9 @@ Plot.Violin <- function(dt = NULL,
   FacetCols <- 1L
 
   # Ensure data.table
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   # XVar > 0 & YVar > 0 --> remove GroupVar?
   if(length(XVar) > 0 && length(YVar) == 0) {
@@ -4308,7 +4326,9 @@ Plot.Line <- function(dt = NULL,
     GroupVar <- NULL
   }
 
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
     if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
@@ -4688,7 +4708,9 @@ Plot.Area <- function(dt = NULL,
     GroupVar <- NULL
   }
 
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
     if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
@@ -5047,7 +5069,9 @@ Plot.Step <- function(dt = NULL,
     GroupVar <- NULL
   }
 
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
     if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
@@ -5330,7 +5354,9 @@ Plot.River <- function(dt = NULL,
 
   if(Debug) print("Plot.River 2")
 
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   Ncols <- ncol(dt)
   if(length(FacetLevels) > 0L) {
     dt1 <- data.table::copy(dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar, XVar, GroupVar)])
@@ -5517,7 +5543,9 @@ Plot.Bar <- function(dt = NULL,
                      yaxis.fontSize = 14,
                      Debug = FALSE) {
 
-  if(data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
@@ -6227,6 +6255,10 @@ Plot.StackedBar <- function(dt = NULL,
   if(length(YVar) == 0L) return(NULL)
   if(length(GroupVar) == 0L) return(NULL)
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   if(class(dt[[YVar]])[1L] %in% c("character","factor") && class(dt[[XVar]])[1L] %in% c("numeric","integer")) {
     l <- YVar
     YVar <- XVar
@@ -6234,9 +6266,7 @@ Plot.StackedBar <- function(dt = NULL,
     rm(l)
   }
 
-  print("StackedBarPlot step 1")
   if(length(GroupVar) == 0L) TimeLine <- FALSE
-  if(data.table::is.data.table(dt)) data.table::setDT(dt)
   X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
   Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
@@ -6459,6 +6489,10 @@ Plot.BarPlot3D <- function(dt,
                            xaxis.fontSize = 14,
                            zaxis.fontSize = 14,
                            Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   # Subset cols
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
@@ -6973,6 +7007,10 @@ Plot.HeatMap <- function(dt,
                          yaxis.fontSize = 14,
                          xaxis.fontSize = 14,
                          Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   # Subset cols
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
@@ -7546,6 +7584,9 @@ Plot.CorrMatrix <- function(dt = NULL,
 
   # Plot
   if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
     dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
 
     # Transformation
@@ -7710,6 +7751,10 @@ Plot.Copula <- function(dt = NULL,
                         title.textShadowOffsetY = 1,
                         title.textShadowOffsetX = -1,
                         Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
@@ -8039,6 +8084,10 @@ Plot.Copula3D <- function(dt = NULL,
                           zaxis.fontSize = 14,
                           Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
   # Cap number of records
@@ -8338,7 +8387,9 @@ Plot.Scatter <- function(dt = NULL,
   # Cap number of records
   if(Debug) print('Plot.Scatter # Cap number of records')
   if(length(SampleSize) == 0L) SampleSize <- 30000L
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   if(dt[,.N] > SampleSize) {
     dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
   } else {
@@ -8645,6 +8696,10 @@ Plot.Scatter3D <- function(dt = NULL,
                            xaxis.fontSize = 14,
                            zaxis.fontSize = 14,
                            Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
@@ -9097,9 +9152,6 @@ StockData <- function(PolyOut = NULL,
   EndDate <- min(Sys.Date()-1, as.Date(EndDate))
 
   # Use data if provided
-  #if(!data.table::is.data.table(PolyOut)) {
-  print("data.table check here")
-  print(data.table::is.data.table(PolyOut))
   if(!data.table::is.data.table(PolyOut)) {
     if(Debug) print("here 1a")
     PolyOut <- jsonlite::fromJSON(paste0("https://api.polygon.io/v2/aggs/ticker/",Symbol,"/range/1/day/",StartDate, "/", EndDate, "?adjusted=true&sort=asc&limit=10000&apiKey=", APIKey))
@@ -9218,7 +9270,6 @@ Plot.Stock <- function(StockDataOutput,
 # BorderColor0 = "transparent"
 # BorderColorDoji = "transparent"
 # xaxis.fontSize = 14
-  print(StockDataOutput$results)
   if(missing(StockDataOutput)) stop('StockDataOutput cannot be missing')
   if(Type == 'CandlestickPlot') Type <- 'candlestick'
   if(PlotEngineType == "Plotly") {
@@ -9396,7 +9447,9 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 
   # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)
   if(length(SampleSize) == 0L) SampleSize <- 30000L
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
   data.table::set(dt1, j = c(YVar), value = NULL)
@@ -9638,7 +9691,9 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 
   # Data Prep1
   if(length(SampleSize) == 0L) SampleSize <- 30000L
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
   if(dt1[, .N] > SampleSize) dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
@@ -9755,6 +9810,10 @@ Plot.Calibration.Line <- function(dt = NULL,
                                   ZeroLineColor = '#ffff',
                                   ZeroLineWidth = 1.25,
                                   Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   # YVar check
   y_class <- class(dt[[YVar]])[1L]
@@ -10013,7 +10072,9 @@ Plot.Calibration.Box <- function(dt = NULL,
                                  Debug = FALSE) {
 
   # Minimize data before moving on
-  if(!data.table::is.data.table(dt)) data.table::setDT(dt)
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
   if(dt[, .N] > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
@@ -10154,6 +10215,10 @@ Plot.PartialDependence.Line <- function(dt = NULL,
                                         ZeroLineColor = '#ffff',
                                         ZeroLineWidth = 1.25,
                                         Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   # YVar check
   yvar_class <- class(dt[[YVar]])[1L]
@@ -10429,6 +10494,10 @@ Plot.PartialDependence.Box <- function(dt = NULL,
                                        ZeroLineWidth = 1.25,
                                        Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   GroupVar <- NULL
 
   # Minimize data before moving on
@@ -10561,6 +10630,10 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            ZeroLineColor = '#ffff',
                                            ZeroLineWidth = 1.25,
                                            Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   # YVar check
   yvar_class <- class(dt[[YVar]])[1L]
@@ -10854,6 +10927,10 @@ Plot.VariableImportance <- function(dt = NULL,
                                     yaxis.fontSize = 14,
                                     Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   # Plotly
   if(Engine == "Plotly") {
 
@@ -11012,6 +11089,10 @@ Plot.ROC <- function(dt = NULL,
                      ZeroLineColor = '#ffff',
                      ZeroLineWidth = 1.25,
                      Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   # YVar check
   yvar_class <- class(dt[[YVar]])[1L]
@@ -11286,6 +11367,10 @@ Plot.ConfusionMatrix <- function(dt = NULL,
                                  GroupVar = NULL,
                                  Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   # YVar check
   yvar_class <- class(dt[[YVar]])[1L]
 
@@ -11417,11 +11502,14 @@ Plot.Lift <- function(dt = NULL,
                       ZeroLineWidth = 1.25,
                       Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   if(Debug) print("here 1")
 
   # YVar check
   yvar_class <- class(dt[[YVar]])[1L]
-  print(yvar_class)
   if(yvar_class %in% c("factor","character")) {
 
     if(Debug) print("here 2")
@@ -11744,10 +11832,12 @@ Plot.Gains <- function(dt = NULL,
                        Debug = FALSE) {
 
   if(Debug) print("here 1")
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
 
   # YVar check
   yvar_class <- class(dt[[YVar]])[1L]
-  print(yvar_class)
   if(yvar_class %in% c("factor","character")) {
 
     if(Debug) print("here 2")
@@ -12075,6 +12165,10 @@ Plot.BinaryMetrics <- function(dt = NULL,
                                ZeroLineWidth = 1.25,
                                Debug = FALSE) {
 
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
   # Minimize data before moving on
   if(Debug) print("Plot.PartialDependence.Box # Minimize data before moving on")
   Ncols <- ncol(dt)
@@ -12208,6 +12302,9 @@ Plot.ShapImportance <- function(dt,
 
   # Subset columns
   if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
     if(Debug) print("ShapImportance Step 2")
     if(length(GroupVar) > 1L) GroupVar <- GroupVar[1L]
     if(length(YVar) == 0L) YVar <- names(dt)[names(dt) %like% "Shap_"]
