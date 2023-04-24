@@ -5,7 +5,6 @@
 \title{Plot.Pie}
 \usage{
 Plot.Pie(
-  Engine = "Echarts",
   dt = NULL,
   PreAgg = FALSE,
   XVar = NULL,
@@ -27,14 +26,7 @@ Plot.Pie(
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
-  ZeroLineColor = "#ffff",
-  ZeroLineWidth = 1.25,
   title.fontSize = 22,
   title.fontWeight = "bold",
   title.textShadowColor = "#63aeff",
@@ -47,8 +39,6 @@ Plot.Pie(
 )
 }
 \arguments{
-\item{Engine}{'Plotly' or "Echarts"}
-
 \item{dt}{source data.table}
 
 \item{PreAgg}{logical}
@@ -91,21 +81,11 @@ Plot.Pie(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{'lightsteelblue'}
-
-\item{FillColor}{'gray'}
-
-\item{FillColorReverse}{character}
-
-\item{GridColor}{'white'}
-
 \item{TextColor}{'darkblue'}
 
-\item{ZeroLineColor}{= '#ffff'}
-
 \item{Debug}{Debugging purposes}
+
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 }
 \description{
 Build a pie chart by simply passing arguments to a single function
@@ -127,8 +107,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Violin}()}
+\code{\link{Plot.Step}()}
 }
 \author{
 Adrian Antico

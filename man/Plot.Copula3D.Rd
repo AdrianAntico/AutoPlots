@@ -23,17 +23,9 @@ Plot.Copula3D(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Plotly",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
-  ZeroLineColor = "#ffff",
-  ZeroLineWidth = 1.25,
   title.fontSize = 22,
   title.fontWeight = "bold",
   title.textShadowColor = "#63aeff",
@@ -83,29 +75,15 @@ Plot.Copula3D(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{= "Plotly"}
-
 \item{EchartsTheme}{= "dark-blue"}
 
 \item{TimeLine}{Logical}
 
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{'lightsteelblue'}
-
-\item{FillColor}{'gray'}
-
-\item{FillColorReverse}{character}
-
-\item{GridColor}{'white'}
-
 \item{TextColor}{'darkblue'}
 
-\item{ZeroLineColor}{= '#ffff',}
-
-\item{ZeroLineWidth}{= 2,}
-
 \item{Debug}{Debugging purposes}
+
+\item{GridColor}{'white'}
 }
 \description{
 Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -127,8 +105,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Violin}()}
+\code{\link{Plot.Step}()}
 }
 \author{
 Adrian Antico

@@ -26,15 +26,9 @@ Plot.HeatMap(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Plotly",
   EchartsTheme = "dark",
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
@@ -88,19 +82,7 @@ Plot.HeatMap(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{"plotly", "echarts4r"}
-
 \item{EchartsTheme}{"dark-blue"}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{= '#001534'}
-
-\item{FillColor}{= "#0066ff"}
-
-\item{FillColorReverse}{character}
-
-\item{GridColor}{= '#ffffff'}
 }
 \description{
 Create heat maps with numeric or categorical dt
@@ -122,8 +104,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Violin}()}
+\code{\link{Plot.Step}()}
 }
 \author{
 Adrian Antico

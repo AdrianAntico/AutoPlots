@@ -23,7 +23,6 @@ Plot.StandardPlots(
   FacetLevels = NULL,
   Height = NULL,
   Width = NULL,
-  PlotEngineType = "Plotly",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
   Title = NULL,
@@ -32,11 +31,6 @@ Plot.StandardPlots(
   Title.XAxis = NULL,
   NumLevels_Y = 75,
   NumLevels_X = 40,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
   FontSize = 14,
   Debug = FALSE
@@ -79,8 +73,6 @@ Plot.StandardPlots(
 
 \item{Width}{NULL or valid css unit}
 
-\item{PlotEngineType}{"Echarts" or "Plotly"}
-
 \item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{character}
@@ -92,16 +84,6 @@ Plot.StandardPlots(
 \item{Title.YAxis}{character}
 
 \item{Title.XAxis}{character}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{character}
-
-\item{FillColor}{character}
-
-\item{FillColorReverse}{character}
-
-\item{GridColor}{character}
 
 \item{TextColor}{character}
 

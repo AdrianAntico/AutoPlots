@@ -25,15 +25,9 @@ Plot.ShapImportance(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Plotly",
   EchartsTheme = "dark",
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
   Debug = FALSE
 )
@@ -69,19 +63,7 @@ Plot.ShapImportance(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{"plotly", "echarts4r"}
-
 \item{EchartsTheme}{"dark-blue"}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{= '#001534'}
-
-\item{FillColor}{= "#0066ff"}
-
-\item{FillColorReverse}{character hex}
-
-\item{GridColor}{= '#ffffff'}
 
 \item{Debug}{= FALSE}
 }

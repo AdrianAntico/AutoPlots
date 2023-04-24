@@ -22,19 +22,11 @@ Plot.Histogram(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Plotly",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
-  ZeroLineWidth = 1.25,
-  ZeroLineColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
   title.textShadowColor = "#63aeff",
@@ -73,8 +65,6 @@ Plot.Histogram(
 
 \item{Width}{= NULL,}
 
-\item{Engine}{"Echarts" or "Plotly"}
-
 \item{EchartsTheme}{= EchartsTheme,}
 
 \item{TimeLine}{logical}
@@ -83,23 +73,13 @@ Plot.Histogram(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
+\item{Debug}{Debugging purposes}
 
-\item{ChartColor}{'lightsteelblue'}
-
-\item{FillColor}{'gray'}
-
-\item{FillColorReverse}{character}
+\item{Engine}{"Echarts" or "Plotly"}
 
 \item{GridColor}{'white'}
 
-\item{TextColor}{'darkblue'}
-
-\item{ZeroLineWidth}{= 1.25,}
-
-\item{ZeroLineColor}{= "white",}
-
-\item{Debug}{Debugging purposes}
+\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 }
 \description{
 Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -121,8 +101,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Violin}()}
+\code{\link{Plot.Step}()}
 }
 \author{
 Adrian Antico

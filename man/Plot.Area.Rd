@@ -8,7 +8,6 @@ Plot.Area(
   dt = NULL,
   AggMethod = "mean",
   PreAgg = TRUE,
-  Engine = "Echarts",
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -30,14 +29,7 @@ Plot.Area(
   Alpha = 0.5,
   Smooth = TRUE,
   ShowSymbol = FALSE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
-  ZeroLineColor = "#ffff",
-  ZeroLineWidth = 1.25,
   title.fontSize = 22,
   title.fontWeight = "bold",
   title.textShadowColor = "#63aeff",
@@ -55,8 +47,6 @@ Plot.Area(
 \item{AggMethod}{character}
 
 \item{PreAgg}{logical}
-
-\item{Engine}{"Echarts" or "Plotly"}
 
 \item{XVar}{X-Axis variable name}
 
@@ -100,21 +90,7 @@ Plot.Area(
 
 \item{ShowSymbol}{= FALSE}
 
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex}
-
-\item{ChartColor}{color}
-
-\item{FillColor}{color}
-
-\item{FillColorReverse}{character}
-
-\item{GridColor}{color}
-
 \item{TextColor}{"Not Implemented"}
-
-\item{ZeroLineColor}{color}
-
-\item{ZeroLineWidth}{1}
 
 \item{Debug}{Debugging purposes}
 
@@ -140,8 +116,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Violin}()}
+\code{\link{Plot.Step}()}
 }
 \author{
 Adrian Antico

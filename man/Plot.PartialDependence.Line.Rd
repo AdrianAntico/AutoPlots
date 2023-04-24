@@ -24,20 +24,12 @@ Plot.PartialDependence.Line(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Echarts",
   EchartsTheme = "macarons",
   EchartsLabels = FALSE,
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
-  ZeroLineColor = "#ffff",
-  ZeroLineWidth = 1.25,
   Debug = FALSE
 )
 }
@@ -76,8 +68,6 @@ Plot.PartialDependence.Line(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{"Echarts" or "Plotly"}
-
 \item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{EchartsLabels}{character}
@@ -88,21 +78,7 @@ Plot.PartialDependence.Line(
 
 \item{Y_Scroll}{= TRUE,}
 
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{hex character}
-
-\item{FillColor}{hex character}
-
-\item{FillColorReverse}{hex character}
-
-\item{GridColor}{hex character}
-
 \item{TextColor}{hex character}
-
-\item{ZeroLineColor}{hex character}
-
-\item{ZeroLineWidth}{numeric}
 
 \item{Debug}{Debugging purposes}
 }

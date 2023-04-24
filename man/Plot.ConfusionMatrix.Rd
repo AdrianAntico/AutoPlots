@@ -25,19 +25,11 @@ Plot.ConfusionMatrix(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Echarts",
   EchartsTheme = "macarons",
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
-  ZeroLineColor = "#ffff",
-  ZeroLineWidth = 1.25,
   AggMethod = "count",
   GroupVar = NULL,
   Debug = FALSE
@@ -80,25 +72,11 @@ Plot.ConfusionMatrix(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{'Plotly' or "Echarts"}
-
 \item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
 
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{'lightsteelblue'}
-
-\item{FillColor}{'gray'}
-
-\item{FillColorReverse}{character hex}
-
-\item{GridColor}{'white'}
-
 \item{TextColor}{'darkblue'}
-
-\item{ZeroLineColor}{= '#ffff'}
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 

@@ -8,7 +8,6 @@ Plot.River(
   dt = NULL,
   AggMethod = "mean",
   PreAgg = TRUE,
-  Engine = "Echarts",
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -28,14 +27,7 @@ Plot.River(
   Y_Scroll = FALSE,
   TimeLine = TRUE,
   ShowSymbol = FALSE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
-  ZeroLineColor = "#ffff",
-  ZeroLineWidth = 1.25,
   title.fontSize = 22,
   title.fontWeight = "bold",
   title.textShadowColor = "#63aeff",
@@ -53,8 +45,6 @@ Plot.River(
 \item{AggMethod}{character}
 
 \item{PreAgg}{logical}
-
-\item{Engine}{"Echarts" or "Plotly"}
 
 \item{XVar}{X-Axis variable name}
 
@@ -94,6 +84,16 @@ Plot.River(
 
 \item{ShowSymbol}{= FALSE}
 
+\item{TextColor}{"Not Implemented"}
+
+\item{Debug}{Debugging purposes}
+
+\item{Engine}{"Echarts" or "Plotly"}
+
+\item{ZeroLineColor}{color}
+
+\item{ZeroLineWidth}{1}
+
 \item{BackGroundColor}{color outside of plot window. Rcolors and hex}
 
 \item{ChartColor}{color}
@@ -103,14 +103,6 @@ Plot.River(
 \item{FillColorReverse}{character}
 
 \item{GridColor}{color}
-
-\item{TextColor}{"Not Implemented"}
-
-\item{ZeroLineColor}{color}
-
-\item{ZeroLineWidth}{1}
-
-\item{Debug}{Debugging purposes}
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
@@ -132,8 +124,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Violin}()}
+\code{\link{Plot.Step}()}
 }
 \author{
 Adrian Antico

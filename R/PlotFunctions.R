@@ -1295,18 +1295,12 @@ AutoTransformationCreate <- function(data,
 #' @param NumberBins For histograms
 #' @param Height NULL or valid css unit
 #' @param Width NULL or valid css unit
-#' @param PlotEngineType "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine character
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character
-#' @param FillColor character
-#' @param FillColorReverse character
-#' @param GridColor character
 #' @param TextColor character
 #' @param FontSize numeric
 #' @param Debug Debugging purposes
@@ -1330,7 +1324,6 @@ Plot.StandardPlots <- function(dt = NULL,
                                FacetLevels = NULL,
                                Height = NULL,
                                Width = NULL,
-                               PlotEngineType = "Plotly",
                                EchartsTheme = "dark-blue",
                                TimeLine = FALSE,
                                Title = NULL,
@@ -1339,11 +1332,6 @@ Plot.StandardPlots <- function(dt = NULL,
                                Title.XAxis = NULL,
                                NumLevels_Y = 75,
                                NumLevels_X = 40,
-                               BackGroundColor =  "#6a6969",
-                               ChartColor =       "#001534",
-                               FillColor =        "#0066ff",
-                               FillColorReverse = "#97ff00",
-                               GridColor =        "white",
                                TextColor =        "white",
                                FontSize = 14,
                                Debug = FALSE) {
@@ -1377,17 +1365,11 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
       TextColor = TextColor,
-      GridColor = GridColor,
-      ZeroLineColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1412,45 +1394,11 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      FillColorReverse = FillColorReverse,
       TextColor = TextColor,
-      GridColor = GridColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
-      title.fontSize = Title.FontSize,
-      Debug = Debug)
-    return(p1)
-  }
-
-  # Violin Plot (Plotly Only)
-  if(tolower(PlotType) == 'violinplot') {
-    p1 <- AutoPlots:::Plot.Violin(
-      dt = dt,
-      SampleSize = SampleSize,
-      XVar = XVar,
-      YVar = YVar,
-      GroupVar = GroupVar,
-      YVarTrans = YVarTrans,
-      XVarTrans = XVarTrans,
-      FacetRows = FacetRows,
-      FacetCols = FacetCols,
-      FacetLevels = FacetLevels,
-      Width = Width,
-      Height = Height,
-      Title = 'Violin Plot',
-      FillColor = FillColor,
-      ChartColor = ChartColor,
-      BackGroundColor = BackGroundColor,
-      TextColor = TextColor,
-      GridColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1478,16 +1426,9 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      FillColor = FillColor,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
       TextColor = TextColor,
-      GridColor = GridColor,
-      ZeroLineWidth = 1.25,
-      ZeroLineColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1514,13 +1455,9 @@ Plot.StandardPlots <- function(dt = NULL,
       Height = Height,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      ChartColor = ChartColor,
       TextColor = TextColor,
-      GridColor = GridColor,
-      BackGroundColor = BackGroundColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1546,18 +1483,11 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1583,18 +1513,11 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1625,13 +1548,7 @@ Plot.StandardPlots <- function(dt = NULL,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1657,20 +1574,12 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
       ShowSymbol = FALSE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      FillColorReverse = FillColorReverse,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1696,17 +1605,11 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
       TextColor = TextColor,
-      GridColor = GridColor,
-      ZeroLineColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1732,17 +1635,11 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
       TextColor = TextColor,
-      GridColor = GridColor,
-      ZeroLineColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1768,7 +1665,6 @@ Plot.StandardPlots <- function(dt = NULL,
       NumLevels_Y = NumLevels_X,
       Width = Width,
       Height = Height,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
@@ -1776,10 +1672,6 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1806,16 +1698,11 @@ Plot.StandardPlots <- function(dt = NULL,
       NumLevels_Y = NumLevels_X,
       Width = Width,
       Height = Height,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       Title = Title,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1832,7 +1719,6 @@ Plot.StandardPlots <- function(dt = NULL,
       FacetLevels = FacetLevels,
       Width = Width,
       Height = Height,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
@@ -1840,10 +1726,6 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1870,15 +1752,10 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1901,7 +1778,6 @@ Plot.StandardPlots <- function(dt = NULL,
       FacetLevels = FacetLevels,
       Width = Width,
       Height = Height,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
@@ -1910,11 +1786,7 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      FillColor = FillColor,
-      ChartColor = ChartColor,
-      BackGroundColor = BackGroundColor,
       TextColor = TextColor,
-      GridColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1941,14 +1813,9 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      FillColor = FillColor,
-      ChartColor = ChartColor,
-      BackGroundColor = BackGroundColor,
       TextColor = TextColor,
-      GridColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1975,14 +1842,9 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      FillColor = FillColor,
-      ChartColor = ChartColor,
-      BackGroundColor = BackGroundColor,
       TextColor = TextColor,
-      GridColor = GridColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -1999,7 +1861,6 @@ Plot.StandardPlots <- function(dt = NULL,
 #' @param dt source data.table
 #' @param AggMethod character
 #' @param SampleSize 100000L
-#' @param PlotEngineType "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param PlotType character
@@ -2017,11 +1878,6 @@ Plot.StandardPlots <- function(dt = NULL,
 #' @param NumLevels_X = 40
 #' @param Height = NULL,
 #' @param Width = NULL,
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor hex
-#' @param FillColor hex
-#' @param FillColorReverse hex
-#' @param GridColor hex
 #' @param TextColor hex
 #' @param NumberBins numeric
 #' @param Debug Debugging purposes
@@ -2049,14 +1905,8 @@ Plots.ModelEvaluation <- function(dt = NULL,
                                   ShowLabels = FALSE,
                                   Title.YAxis = NULL,
                                   Title.XAxis = NULL,
-                                  PlotEngineType = "Echarts",
                                   EchartsTheme = "dark-blue",
                                   TimeLine = FALSE,
-                                  BackGroundColor =  "#6a6969",
-                                  ChartColor =       "#001534",
-                                  FillColor =        "#0066ff",
-                                  FillColorReverse = "#97ff00",
-                                  GridColor =        "white",
                                   TextColor =        "white",
                                   FontSize = 14L,
                                   NumberBins = 20,
@@ -2093,16 +1943,9 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       title.fontSize = Title.FontSize,
       Debug = Debug)
     return(p1)
@@ -2128,16 +1971,9 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = Debug)
     return(p1)
   }
@@ -2148,7 +1984,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
   if(PlotType == "CalibrationLine") {
     p1 <- AutoPlots::Plot.Calibration.Line(
       dt = dt,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       XVar = XVar,
@@ -2167,13 +2002,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = Debug)
     return(eval(p1))
   }
@@ -2184,7 +2013,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
   if(PlotType == "CalibrationBox") {
     p1 <- AutoPlots::Plot.Calibration.Box(
       dt = dt,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       XVar = XVar,
@@ -2204,13 +2032,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
       SampleSize = SampleSize,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      FillColor = FillColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = FALSE)
     return(eval(p1))
   }
@@ -2236,16 +2058,9 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      FillColor = FillColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = Debug)}, error = function(x) NULL)
     return(p1)
   }
@@ -2274,16 +2089,9 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = FALSE)
     return(p1)
   }
@@ -2312,16 +2120,9 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = FALSE)
     return(p1)
   }
@@ -2347,16 +2148,9 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = FALSE)
     return(p1)
   }
@@ -2380,16 +2174,11 @@ Plots.ModelEvaluation <- function(dt = NULL,
       NumberBins = 21,
       NumLevels_X = NumLevels_Y,
       NumLevels_Y = NumLevels_X,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       Title = Title,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
-      Title.XAxis = Title.XAxis,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor)
+      Title.XAxis = Title.XAxis)
     return(p1)
   }
 
@@ -2399,7 +2188,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
   if(PlotType == "ConfusionMatrixHeatmap") {
     p1 <- AutoPlots::Plot.ConfusionMatrix(
       dt = dt,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       XVar = XVar,
@@ -2420,13 +2208,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
-      TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25)
+      TextColor = TextColor)
     return(p1)
   }
 
@@ -2454,18 +2236,11 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = Debug)
     return(p1)
   }
@@ -2494,19 +2269,11 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      FillColorReverse = FillColorReverse,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = Debug)}, error = function(x) NULL)
     return(p1)
   }
@@ -2551,14 +2318,8 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
-#' @param ChartColor 'lightsteelblue'
-#' @param TextColor 'darkblue'
 #' @param GridColor 'white'
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ZeroLineWidth = 1.25,
-#' @param ZeroLineColor = "white",
 #' @param Debug Debugging purposes
 #' @export
 Plot.Histogram <- function(dt = NULL,
@@ -2578,19 +2339,11 @@ Plot.Histogram <- function(dt = NULL,
                            ShowLabels = FALSE,
                            Title.YAxis = NULL,
                            Title.XAxis = NULL,
-                           Engine = "Plotly",
                            EchartsTheme = "macarons",
                            TimeLine = FALSE,
                            X_Scroll = TRUE,
                            Y_Scroll = TRUE,
-                           BackGroundColor =  "#6a6969",
-                           ChartColor =       "#001534",
-                           FillColor =        "#0066ff",
-                           FillColorReverse = "#97ff00",
-                           GridColor =        "white",
                            TextColor =        "white",
-                           ZeroLineWidth = 1.25,
-                           ZeroLineColor = "white",
                            title.fontSize = 22,
                            title.fontWeight = "bold", # normal
                            title.textShadowColor = '#63aeff',
@@ -2605,8 +2358,13 @@ Plot.Histogram <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
 
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
   TimeLine <- FALSE
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+
 
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
@@ -2653,69 +2411,6 @@ Plot.Histogram <- function(dt = NULL,
   # Create base plot object
   if(Debug) print('Create Plot with only data')
 
-  # Format
-  if(Engine == "Plotly") {
-
-    if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-    if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-    p1 <- plotly::plot_ly(
-      data = dt1,
-      alpha = 0.6,
-      nbinsx = NumberBins,
-      width = Width,
-      height = Height)
-    if(length(GroupVar) > 0L) {
-      if(is.numeric(dt1[[GroupVar]])) {
-        p1 <- plotly::add_histogram(
-          p = p1,
-          x = ~get(YVar),
-          color = ~get(GroupVar[1L]),
-          text = ~get(GroupVar[1L]),
-          hovertemplate = paste(
-            "<b>%{text}</b><br><br>", # Group Var
-            Y.HoverFormat,
-            "<extra></extra>"
-          )
-        )
-      } else {
-        p1 <- plotly::add_histogram(
-          p = p1,
-          x = ~get(YVar),
-          color = ~get(GroupVar[1L]),
-          legendgroup = GroupVar[1L],
-          text = ~get(GroupVar[1L]),
-          hovertemplate = paste(
-            "<b>%{text}</b><br><br>", # Group Var
-            Y.HoverFormat,
-            "<extra></extra>"
-          ))
-      }
-    } else {
-      p1 <- plotly::add_histogram(
-        p = p1,
-        x = ~get(YVar),
-        color = I(FillColor),
-        showlegend = FALSE,
-        text = NULL,
-        hovertemplate = paste(
-          "<b>Histogram:</b><br><br>", # Group Var
-          Y.HoverFormat,
-          "<extra></extra>"
-        ))
-    }
-    p1 <- plotly::layout(
-      p = p1,
-      font = AutoPlots:::font_(),
-      title = AutoPlots:::bold_(Title),
-      plot_bgcolor = ChartColor,
-      paper_bgcolor = BackGroundColor,
-      xaxis = list(
-        title = AutoPlots:::bold_(YVar),
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor),
-      barmode = 'stack')
-
-  } else {
 
     if(Debug) print("Echarts Histogram 1")
     if(length(GroupVar) > 0L) {
@@ -2798,7 +2493,6 @@ Plot.Histogram <- function(dt = NULL,
     } else {
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
-  }
   return(p1)
 }
 
@@ -2825,16 +2519,10 @@ Plot.Histogram <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor "#001534",
-#' @param FillColor "#0066ff",
-#' @param FillColorReverse "#97ff00",
-#' @param GridColor "white",
 #' @param TextColor "white",
 #' @param Debug Debugging purposes
 #' @export
@@ -2854,16 +2542,10 @@ Plot.Density <- function(dt = NULL,
                          ShowLabels = FALSE,
                          Title.YAxis = NULL,
                          Title.XAxis = NULL,
-                         Engine = "Plotly",
                          EchartsTheme = "macarons",
                          TimeLine = FALSE,
                          X_Scroll = TRUE,
                          Y_Scroll = TRUE,
-                         BackGroundColor =  "#6a6969",
-                         ChartColor =       "#001534",
-                         FillColor =        "#0066ff",
-                         FillColorReverse = "#97ff00",
-                         GridColor =        "white",
                          TextColor =        "white",
                          title.fontSize = 22,
                          title.fontWeight = "bold", # normal
@@ -2882,6 +2564,12 @@ Plot.Density <- function(dt = NULL,
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
   if(dt[, .N] > SampleSize) {
     dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
   } else {
@@ -2927,22 +2615,6 @@ Plot.Density <- function(dt = NULL,
 
   if(length(GroupVar) == 0L) {
 
-    # Build plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      p1 <- ggplot2::ggplot(dt1, ggplot2::aes(x = get(YVar)))
-      p1 <- p1 + ggplot2::geom_density(alpha = 0.3, color = GridColor)
-      p1 <- p1 + ggplot2::xlab(eval(YVar))
-      p1 <- p1 + AutoPlots:::ChartTheme(
-        ChartColor = ChartColor,
-        TextColor = TextColor,
-        GridColor = GridColor,
-        BackGroundColor = BackGroundColor)
-      p1 <- plotly::ggplotly(p1)
-    } else {
       p1 <- echarts4r::e_charts_(
         dt1,
         x = NULL,
@@ -3004,39 +2676,10 @@ Plot.Density <- function(dt = NULL,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
 
-    }
+
     return(p1)
 
   } else {
-
-    # Prepare data
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      if(length(YVar) > 1L) {
-        xx <- data.table::melt.data.table(
-          data = dt1,
-          id.vars = c(GroupVar), measure.vars= c(YVar), variable.name='Method', value.name='Value')
-        p1 <- ggplot2::ggplot(xx, ggplot2::aes(x = Value, fill = Method)) +
-          ggplot2::geom_density(alpha = 0.3)
-      } else {
-        p1 <- ggplot2::ggplot(dt1, ggplot2::aes(x = get(YVar), group = get(GroupVar[1L]), fill = get(GroupVar[1L]))) + ggplot2::geom_density(alpha = 0.3)
-      }
-
-      # Add ChartTheme
-      if(Debug) print('ChartTheme')
-      p1 <- p1 + AutoPlots:::ChartTheme(
-        ChartColor = ChartColor,
-        TextColor = TextColor,
-        GridColor = GridColor,
-        BackGroundColor = BackGroundColor)
-      p1 <- tryCatch({p1 + ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))}, error = function(x) p1)
-      p1 <- p1 + ggplot2::xlab(GroupVar[1L])
-      p1 <- plotly::ggplotly(p1)
-
-    } else {
 
       data.table::setorderv(x = dt1, cols = GroupVar[1L], 1)
 
@@ -3098,7 +2741,7 @@ Plot.Density <- function(dt = NULL,
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
 
-    }
+
     return(p1)
   }
 }
@@ -3128,22 +2771,15 @@ Plot.Density <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param ZeroLineColor = '#ffff'
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
-#' @param ChartColor 'lightsteelblue'
 #' @param TextColor 'darkblue'
-#' @param GridColor 'white'
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param Debug Debugging purposes
 #' @export
-Plot.Pie <- function(Engine = 'Echarts',
-                     dt = NULL,
+Plot.Pie <- function(dt = NULL,
                      PreAgg = FALSE,
                      XVar = NULL,
                      YVar = NULL,
@@ -3164,14 +2800,7 @@ Plot.Pie <- function(Engine = 'Echarts',
                      TimeLine = TRUE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
-                     BackGroundColor =  "#6a6969",
-                     ChartColor =       "#001534",
-                     FillColor =        "#0066ff",
-                     FillColorReverse = "#97ff00",
-                     GridColor =        "white",
                      TextColor =        "white",
-                     ZeroLineColor = '#ffff',
-                     ZeroLineWidth = 1.25,
                      title.fontSize = 22,
                      title.fontWeight = "bold", # normal
                      title.textShadowColor = '#63aeff',
@@ -3185,8 +2814,8 @@ Plot.Pie <- function(Engine = 'Echarts',
   if(length(YVar) > 0L) YVar <- YVar[1L]
   if(length(XVar) > 0L) XVar <- XVar[1L]
 
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+
+
 
   # Used multiple times
   check1 <- length(XVar) != 0 && length(YVar) != 0
@@ -3196,6 +2825,15 @@ Plot.Pie <- function(Engine = 'Echarts',
       dt <- data.table::as.data.table(dt)
     })
     aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+  }
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
   }
 
   # Create base plot object
@@ -3257,44 +2895,6 @@ Plot.Pie <- function(Engine = 'Echarts',
       }
     }
 
-    # Plotly
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      p1 <- plotly::plot_ly(
-        data = temp,
-        type = 'pie',
-        labels = xvar,
-        values = yvar,
-        textinfo='label+percent',
-        insidetextorientation='radial',
-        color = I(FillColor[1]),
-        showlegend = TRUE,
-        width = Width,
-        height = Height)
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        legend = list(title=list(text = paste0('<b> ', XVar[1L], ' </b>'))),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinecolor = ZeroLineColor,
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          categoryorder = "total descending",
-          zerolinecolor = ZeroLineColor,
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        barmode = 'group')
-
-    } else {
       p1 <- echarts4r::e_charts_(
         temp,
         x = XVar,
@@ -3332,7 +2932,7 @@ Plot.Pie <- function(Engine = 'Echarts',
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
+
     return(p1)
   }
 }
@@ -3361,19 +2961,11 @@ Plot.Pie <- function(Engine = 'Echarts',
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character hex
-#' @param GridColor character hex
 #' @param TextColor character hex
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Debug Debugging purposes
 #' @export
 Plot.Box <- function(dt = NULL,
@@ -3392,19 +2984,11 @@ Plot.Box <- function(dt = NULL,
                      ShowLabels = FALSE,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,
-                     Engine = "Plotly",
                      EchartsTheme = "macarons",
                      TimeLine = TimeLine,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
-                     BackGroundColor =  "#6a6969",
-                     ChartColor =       "#001534",
-                     FillColor =        "#0066ff",
-                     FillColorReverse = "#97ff00",
-                     GridColor =        "white",
                      TextColor =        "white",
-                     ZeroLineColor = '#ffff',
-                     ZeroLineWidth = 1.25,
                      title.fontSize = 22,
                      title.fontWeight = "bold", # normal
                      title.textShadowColor = '#63aeff',
@@ -3423,10 +3007,20 @@ Plot.Box <- function(dt = NULL,
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+
   if(Debug) print("Plot.BoxPlot 1")
 
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+
+
 
   # Cap number of records
   if(dt[,.N] > SampleSize) {
@@ -3474,51 +3068,6 @@ Plot.Box <- function(dt = NULL,
   # X,Y,GroupVar
   if(X_and_Y_and_GroupVars) {
 
-    # Build plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      if(Debug) print('Plot.Box X_and_Y_and_GroupVars')
-      if(Debug) print('Plot.Box plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        color = ~get(GroupVar[1L]),
-        type = "box",
-        text = ~get(GroupVar[1L]),
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-
-      # Layout
-      if(Debug) print('Plot.Box plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinecolor = ZeroLineColor,
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinecolor = ZeroLineColor,
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        boxmode = 'group')
-      return(p1)
-    } else {
       if(Debug) print("Plot.Box Echarts")
       p1 <- echarts4r::e_charts_(
         dt1 |> dplyr::group_by(get(GroupVar[1L])),
@@ -3574,59 +3123,13 @@ Plot.Box <- function(dt = NULL,
           textShadowOffsetX = title.textShadowOffsetX))
       if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       return(p1)
-    }
+
   }
 
   # X,Y
   if(X_and_Y) {
 
     if(Debug) print("Plot.Box X_and_Y")
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Box plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        type = "box",
-        width = Width,
-        height = Height)
-
-      # Add lines
-      if(Debug) print('Plot.Box # Add Lines')
-      p1 <- plotly::add_boxplot(
-        p = p1,
-        x = if(CoordFlip) ~get(YVar) else ~get(XVar),
-        y = if(CoordFlip) ~get(XVar) else ~get(YVar),
-        color = I(FillColor),
-        marker = list(color = FillColorReverse),
-        showlegend = FALSE,
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          "<extra></extra>"
-        ))
-
-      # Format
-      if(Debug) print('Plot.Box plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        xaxis = list(
-          title = AutoPlots:::bold_(if(CoordFlip) YVar else XVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        yaxis = list(
-          title = AutoPlots:::bold_(if(CoordFlip) XVar else YVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))#,showlegend = FALSE)
-    } else {
       if(Debug) print("Plot.Box Echarts")
       p1 <- echarts4r::e_charts_(
         dt1 |> dplyr::group_by(get(XVar)),
@@ -3682,7 +3185,7 @@ Plot.Box <- function(dt = NULL,
           textShadowOffsetX = title.textShadowOffsetX))
       if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
-    }
+
 
     # Return
     return(p1)
@@ -3693,46 +3196,6 @@ Plot.Box <- function(dt = NULL,
 
     if(Debug) print("Plot.Box Y Only")
 
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Box plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        type = "box",
-        width = Width,
-        height = Height)
-
-      # Add lines
-      p1 <- plotly::add_boxplot(
-        p = p1,
-        x = "",
-        y = ~get(YVar),
-        color = I(FillColor),
-        marker = list(color = FillColorReverse),
-        showlegend = FALSE,
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          "<extra></extra>"
-        ))
-
-      # Format
-      if(Debug) print('Plot.Box plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))
-    } else {
       if(Debug) print("Plot.Box Echarts")
       p1 <- echarts4r::e_charts_(
         dt1,
@@ -3781,7 +3244,7 @@ Plot.Box <- function(dt = NULL,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
+
     return(p1)
   }
 
@@ -3789,48 +3252,6 @@ Plot.Box <- function(dt = NULL,
   if(length(XVar) > 0L) {
 
     if(Debug) print("Plot.Box X Only")
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print("Plot.Box plotly::plot_ly")
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        type = "box",
-        width = Width,
-        height = Height)
-
-      # Add lines
-      if(Debug) print("Plot.Box # Add Lines")
-      p1 <- plotly::add_boxplot(
-        p = p1,
-        x = ~get(XVar),
-        y = "",
-        color = I(FillColor),
-        marker = list(color = FillColorReverse),
-        showlegend = FALSE,
-        text = NULL,
-        hovertemplate = paste(
-          X.HoverFormat,
-          "<extra></extra>"
-        ))
-
-      # Format
-      if(Debug) print('Plot.Box plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))
-
-    } else {
 
       if(Debug) print("Plot.Box Echarts")
       p1 <- echarts4r::e_charts_(
@@ -3880,338 +3301,7 @@ Plot.Box <- function(dt = NULL,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
 
-    # Return
-    return(p1)
-  }
-  return(NULL)
-}
-
-#' @title Plot.Violin
-#'
-#' @description Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
-#'
-#' @family Standard Plots
-#'
-#' @author Adrian Antico
-#'
-#' @param dt source data.table
-#' @param YVar Y-Axis variable name
-#' @param XVar X-Axis variable name
-#' @param GroupVar Requires an XVar and YVar already be defined
-#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
-#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
-#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
-#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
-#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
-#' @param Title 'Violin Plot'
-#' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
-#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
-#' @param ZeroLineColor = '#ffff',
-#' @param ZeroLineWidth = 2,
-#' @param ChartColor 'lightsteelblue'
-#' @param TextColor 'darkblue'
-#' @param GridColor 'white'
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param Debug Debugging purposes
-#' @export
-Plot.Violin <- function(dt = NULL,
-                        XVar = NULL,
-                        YVar = NULL,
-                        GroupVar = NULL,
-                        YVarTrans = "Identity",
-                        XVarTrans = "Identity",
-                        FacetRows = 1,
-                        FacetCols = 1,
-                        FacetLevels = NULL,
-                        Height = NULL,
-                        Width = NULL,
-                        Title = 'Violin Plot',
-                        SampleSize = 100000,
-                        BackGroundColor =  "#6a6969",
-                        ChartColor =       "#001534",
-                        FillColor =        "#0066ff",
-                        FillColorReverse = "#97ff00",
-                        GridColor =        "white",
-                        TextColor =        "white",
-                        ZeroLineColor = '#ffff',
-                        ZeroLineWidth = 1.25,
-                        Debug = FALSE) {
-
-  # Turn off Faceting until I can figure out how to supply it
-  FacetRows <- 1L
-  FacetCols <- 1L
-
-  # Ensure data.table
-  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-    dt <- data.table::as.data.table(dt)
-  })
-
-  # XVar > 0 & YVar > 0 --> remove GroupVar?
-  if(length(XVar) > 0 && length(YVar) == 0) {
-    YVar <- XVar
-    if(length(GroupVar) > 0L) {
-      XVar <- GroupVar
-      GroupVar <- NULL
-    }
-  } else if(length(XVar) == 0 && length(YVar) > 0) {
-    if(length(GroupVar) > 0L) {
-      XVar <- GroupVar
-      GroupVar <- NULL
-    }
-  }
-
-  dt1 <- dt1[get(XVar) %in% eval(FacetLevels), .SD, .SDcols = c(YVar,XVar)]
-
-  # Transformation
-  # "PercRank"  "Standardize"
-  # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
-  if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = XVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = XVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
-  }
-
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
-
-  # Cap number of records
-  if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
-  } else {
-    dt1 <- data.table::copy(dt)
-  }
-
-  # Build Plot Based on Available Variables
-  # Create logic checks to determine each case distinctly
-  X_and_Y_and_GroupVar <- length(XVar) > 0L && length(YVar) > 0L && length(GroupVar) > 0L
-  X_and_Y <- length(XVar) > 0L && length(YVar) > 0L
-
-  # Create base plot object
-  if(Debug) print('Create Plot with only data')
-
-  # X,Y,GroupVar
-  if(X_and_Y_and_GroupVar) {
-
-    # Initalize vars
-    vals <- Rappture:::ColorPallete()
-    levels <- sort(dt1[, unique(get(GroupVar[1L]))])
-    ColorInc <- 1
-
-    # If length(levels) == 2, then do an overlay with the left side being the one case and the right side being the other
-    # both sides get different colors
-    if(length(levels) != 2L) {
-
-      # Build plot
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        color = ~as.factor(get(GroupVar[1L])),
-        type = "violin",
-        name = eval(GroupVar[1L]),
-        text = ~get(GroupVar[1L]),
-        hovertemplate = paste(
-          "<b>%{text}</b><br><br>", # Group Var
-          Y.HoverFormat,
-          X.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-      p1 <- plotly::add_trace(
-        p = p1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        color = ~get(GroupVar[1L]),
-        box = list(visible = TRUE),
-        meanline = list(visible = TRUE))
-
-      # Format
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinecolor = ZeroLineColor,
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinecolor = ZeroLineColor,
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        violinmode = 'group')
-
-    } else {
-
-      p1 <- plotly::plot_ly(data = dt1, type = 'violin', width = Width, height = Height)
-
-      # Loop through levels, supplying subsets of the data for x and y each iteration
-      for(g in levels) { # g = levels[2]
-        p1 <- plotly::add_trace(
-          p = p1,
-          x = ~dt1[get(GroupVar) == eval(g)][[eval(XVar)]],
-          y = ~dt1[get(GroupVar) == eval(g)][[eval(YVar)]],
-          legendgroup = g,
-          scalegroup = g,
-          name = g,
-          side = if(ColorInc == 1) 'negative' else 'positive',
-          box = list(visible = TRUE),
-          meanline = list(visible = TRUE),
-          color = if(ColorInc == 1) I(Rappture:::transp_('#0000FF', 0.62)) else I(Rappture:::transp_('#7CFC00', 0.62)))
-        ColorInc <- ColorInc + 1L
-      }
-
-      # Format
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinewidth = ZeroLineWidth,
-          zerolinecolor = ZeroLineColor,
-          gridcolor = GridColor),
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinewidth = ZeroLineWidth,
-          zerolinecolor = ZeroLineColor,
-          gridcolor = GridColor),
-        violingap = 0,
-        violingroupgap = -2,
-        violinmode = 'overlay')
-    }
-
-    # Return
-    return(p1)
-  }
-
-  # X,Y
-  if(X_and_Y) {
-
-    p1 <- plotly::plot_ly(
-      data = dt1,
-      type = 'violin',
-      width = Width,
-      height = Height)
-
-    # Add lines
-    p1 <- plotly::add_trace(
-      p = p1,
-      x = ~get(XVar),
-      y = ~get(YVar),
-      color = I(FillColor),
-      showlegend = FALSE,
-      text = NULL,
-      hovertemplate = paste(
-        Y.HoverFormat,
-        X.HoverFormat,
-        "<extra></extra>"
-      ))
-
-    # Format
-    p1 <- plotly::layout(
-      p = p1,
-      font = AutoPlots:::font_(),
-      title = AutoPlots:::bold_(Title),
-      plot_bgcolor = ChartColor,
-      paper_bgcolor = BackGroundColor,
-      xaxis = list(
-        title = AutoPlots:::bold_(XVar),
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor),
-      yaxis = list(
-        title = AutoPlots:::bold_(YVar),
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor))
-
-    # Return
-    return(p1)
-  }
-
-  # Y Only
-  if(length(YVar) > 0L) {
-
-    if(Debug) print('YVar > 0L')
-    p1 <- plotly::plot_ly(
-      data = dt1,
-      type = 'violin',
-      width = Width,
-      height = Height)
-    p1 <- plotly::add_trace(
-      p = p1,
-      x = "",
-      y = ~get(YVar),
-      color = I(FillColor),
-      showlegend = FALSE,
-      text = NULL,
-      hovertemplate = paste(
-        Y.HoverFormat,
-        "<extra></extra>"
-      ))
-    p1 <- plotly::layout(
-      p = p1,
-      font = AutoPlots:::font_(),
-      title = AutoPlots:::bold_(Title),
-      plot_bgcolor = ChartColor,
-      paper_bgcolor = BackGroundColor,
-      yaxis = list(
-        title = AutoPlots:::bold_(YVar),
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor))
-
-    # Return
-    return(p1)
-  }
-
-  # X Only
-  if(length(XVar) > 0L) {
-    p1 <- plotly::plot_ly(
-      data = dt1,
-      type = 'violin',
-      width = Width,
-      height = Height)
-    p1 <- plotly::add_trace(
-      p = p1,
-      x = ~get(XVar),
-      y = "",
-      color = I(FillColor),
-      showlegend = FALSE,
-      text = NULL,
-      hovertemplate = paste(
-        X.HoverFormat,
-        "<extra></extra>"
-      ))
-
-    # Format
-    p1 <- plotly::layout(
-      p = p1,
-      font = AutoPlots:::font_(),
-      title = AutoPlots:::bold_(Title),
-      plot_bgcolor = ChartColor,
-      paper_bgcolor = BackGroundColor,
-      xaxis = list(
-        title = AutoPlots:::bold_(XVar),
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor))
 
     # Return
     return(p1)
@@ -4251,7 +3341,6 @@ Plot.Violin <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
 #' @param X_Scroll logical
@@ -4260,13 +3349,7 @@ Plot.Violin <- function(dt = NULL,
 #' @param Alpha 0 to 1 for setting transparency
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
-#' @param ZeroLineColor color
-#' @param ZeroLineWidth 1
 #' @param BackGroundColor color outside of plot window. Rcolors and hex
-#' @param ChartColor color
-#' @param FillColor color
-#' @param FillColorReverse character
-#' @param GridColor color
 #' @param TextColor "Not Implemented"
 #' @param DarkMode FALSE
 #' @param Debug Debugging purposes
@@ -4274,7 +3357,6 @@ Plot.Violin <- function(dt = NULL,
 Plot.Line <- function(dt = NULL,
                       AggMethod = "mean",
                       PreAgg = TRUE,
-                      Engine = 'Echarts',
                       XVar = NULL,
                       YVar = NULL,
                       GroupVar = NULL,
@@ -4297,14 +3379,7 @@ Plot.Line <- function(dt = NULL,
                       Alpha = 0.50,
                       Smooth = TRUE,
                       ShowSymbol = FALSE,
-                      BackGroundColor =  "#6a6969",
-                      ChartColor =       "#001534",
-                      FillColor =        "#0066ff",
-                      FillColorReverse = "#97ff00",
-                      GridColor =        "white",
                       TextColor =        "white",
-                      ZeroLineColor = '#ffff',
-                      ZeroLineWidth = 1.25,
                       title.fontSize = 22,
                       title.fontWeight = "bold", # normal
                       title.textShadowColor = '#63aeff',
@@ -4318,7 +3393,7 @@ Plot.Line <- function(dt = NULL,
 
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+
 
   # Correct args
   if(length(GroupVar) > 0L && length(XVar) == 0L) {
@@ -4329,6 +3404,12 @@ Plot.Line <- function(dt = NULL,
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
     if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
@@ -4388,7 +3469,6 @@ Plot.Line <- function(dt = NULL,
     }
 
     # Plot
-    if(Engine == "Echarts") {
       if(Debug) print("Plot.Line() Build Echarts 1")
 
       # Build base plot depending on GroupVar availability
@@ -4458,46 +3538,6 @@ Plot.Line <- function(dt = NULL,
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
 
-    } else {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line group plotly::plot_ly")
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        color = ~get(gv[1L]),
-        type = "scatter",
-        mode = "lines",
-        text = ~get(gv[1L]),
-        hovertemplate = paste(
-          "<b>%{text}</b><br><br>", # Group Var
-          Y.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = 700)
-
-      # Finalize Plot Build
-      if(Debug) print("Plot.Line group plotly::layout")
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))
-    }
 
   } else {
 
@@ -4509,7 +3549,6 @@ Plot.Line <- function(dt = NULL,
     } else if(cxv %in% "IDateTime") {
       dt1[, eval(XVar) := as.POSIXct(get(XVar))]
     }
-    if(Engine == "Echarts") {
 
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line no group Echarts")
@@ -4564,49 +3603,7 @@ Plot.Line <- function(dt = NULL,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
 
-    } else {
 
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line no group plotly::plot_ly")
-      if(Area) {
-        Fill <- "tozeroy"
-      } else {
-        Fill <- "Tozeroyr"
-      }
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        type = "scatter",
-        mode = "lines",
-        fill = Fill,
-        fillcolor = FillColor,
-        alpha = Alpha,
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-
-      # Finalize Plot Build
-      if(Debug) print("Plot.Line no group plotly::layout")
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))
-    }
   }
   return(p1)
 }
@@ -4635,7 +3632,6 @@ Plot.Line <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
 #' @param X_Scroll logical
@@ -4644,20 +3640,12 @@ Plot.Line <- function(dt = NULL,
 #' @param Alpha 0 to 1 for setting transparency
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
-#' @param ZeroLineColor color
-#' @param ZeroLineWidth 1
-#' @param BackGroundColor color outside of plot window. Rcolors and hex
-#' @param ChartColor color
-#' @param FillColor color
-#' @param FillColorReverse character
-#' @param GridColor color
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @export
 Plot.Area <- function(dt = NULL,
                       AggMethod = "mean",
                       PreAgg = TRUE,
-                      Engine = 'Echarts',
                       XVar = NULL,
                       YVar = NULL,
                       GroupVar = NULL,
@@ -4679,14 +3667,7 @@ Plot.Area <- function(dt = NULL,
                       Alpha = 0.50,
                       Smooth = TRUE,
                       ShowSymbol = FALSE,
-                      BackGroundColor =  "#6a6969",
-                      ChartColor =       "#001534",
-                      FillColor =        "#0066ff",
-                      FillColorReverse = "#97ff00",
-                      GridColor =        "white",
                       TextColor =        "white",
-                      ZeroLineColor = '#ffff',
-                      ZeroLineWidth = 1.25,
                       title.fontSize = 22,
                       title.fontWeight = "bold", # normal
                       title.textShadowColor = '#63aeff',
@@ -4700,7 +3681,7 @@ Plot.Area <- function(dt = NULL,
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+
 
   # Correct args
   if(length(GroupVar) > 0L && length(XVar) == 0L) {
@@ -4711,6 +3692,12 @@ Plot.Area <- function(dt = NULL,
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
     if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
@@ -4770,7 +3757,6 @@ Plot.Area <- function(dt = NULL,
     }
 
     # Plot
-    if(Engine == "Echarts") {
       if(Debug) print("Plot.Line() Build Echarts 1")
 
       # Build base plot depending on GroupVar availability
@@ -4834,44 +3820,7 @@ Plot.Area <- function(dt = NULL,
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
 
-    } else {
 
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line group plotly::plot_ly")
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        color = ~get(gv[1L]),
-        type = "scatter",
-        fill = "tozeroy",
-        mode = "lines",
-        text = ~get(gv[1L]),
-        hovertemplate = paste(
-          "<b>%{text}</b><br><br>", # Group Var
-          Y.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-
-      # Finalize Plot Build
-      if(Debug) print("Plot.Line group plotly::layout")
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))
-    }
 
   } else {
 
@@ -4883,7 +3832,6 @@ Plot.Area <- function(dt = NULL,
     } else if(cxv %in% "IDateTime") {
       dt1[, eval(XVar) := as.POSIXct(get(XVar))]
     }
-    if(Engine == "Echarts") {
 
       # Build base plot depending on GroupVar availability
       if(Debug) print("Plot.Line no group Echarts")
@@ -4937,44 +3885,7 @@ Plot.Area <- function(dt = NULL,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
 
-    } else {
 
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line no group plotly::plot_ly")
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        type = "scatter",
-        mode = "lines",
-        fill = "tozeroy",
-        fillcolor = FillColor,
-        alpha = Alpha,
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-
-      # Finalize Plot Build
-      if(Debug) print("Plot.Line no group plotly::layout")
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor),
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          zerolinewidth = ZeroLineWidth,
-          gridcolor = GridColor))
-    }
   }
   return(p1)
 }
@@ -5003,26 +3914,17 @@ Plot.Area <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
 #' @param ShowSymbol = FALSE
-#' @param ZeroLineColor color
-#' @param ZeroLineWidth 1
-#' @param BackGroundColor color outside of plot window. Rcolors and hex
-#' @param ChartColor color
-#' @param FillColor color
-#' @param FillColorReverse character
-#' @param GridColor color
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @export
 Plot.Step <- function(dt = NULL,
                       AggMethod = "mean",
                       PreAgg = TRUE,
-                      Engine = 'Echarts',
                       XVar = NULL,
                       YVar = NULL,
                       GroupVar = NULL,
@@ -5042,14 +3944,7 @@ Plot.Step <- function(dt = NULL,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
                       ShowSymbol = FALSE,
-                      BackGroundColor =  "#6a6969",
-                      ChartColor =       "#001534",
-                      FillColor =        "#0066ff",
-                      FillColorReverse = "#97ff00",
-                      GridColor =        "white",
                       TextColor =        "white",
-                      ZeroLineColor = '#ffff',
-                      ZeroLineWidth = 1.25,
                       title.fontSize = 22,
                       title.fontWeight = "bold", # normal
                       title.textShadowColor = '#63aeff',
@@ -5072,6 +3967,12 @@ Plot.Step <- function(dt = NULL,
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
     if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
@@ -5305,7 +4206,6 @@ Plot.Step <- function(dt = NULL,
 Plot.River <- function(dt = NULL,
                       AggMethod = "mean",
                       PreAgg = TRUE,
-                      Engine = 'Echarts',
                       XVar = NULL,
                       YVar = NULL,
                       GroupVar = NULL,
@@ -5325,14 +4225,7 @@ Plot.River <- function(dt = NULL,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
                       ShowSymbol = FALSE,
-                      BackGroundColor =  "#6a6969",
-                      ChartColor =       "#001534",
-                      FillColor =        "#0066ff",
-                      FillColorReverse = "#97ff00",
-                      GridColor =        "white",
                       TextColor =        "white",
-                      ZeroLineColor = '#ffff',
-                      ZeroLineWidth = 1.25,
                       title.fontSize = 22,
                       title.fontWeight = "bold", # normal
                       title.textShadowColor = '#63aeff',
@@ -5489,18 +4382,11 @@ Plot.River <- function(dt = NULL,
 #' @param Title.YAxis NULL. If NULL, YVar name will be used
 #' @param Title.XAxis NULL. If NULL, XVar name will be used
 #' @param ShowLabels logical
-#' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param ZeroLineColor = '#ffff'
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
-#' @param ChartColor 'lightsteelblue'
 #' @param TextColor 'darkblue'
-#' @param GridColor 'white'
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param Debug Debugging purposes
 #' @export
 Plot.Bar <- function(dt = NULL,
@@ -5520,19 +4406,11 @@ Plot.Bar <- function(dt = NULL,
                      ShowLabels = FALSE,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,
-                     Engine = 'Echarts',
                      EchartsTheme = "macarons",
                      TimeLine = TRUE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
-                     BackGroundColor =  "#6a6969",
-                     ChartColor =       "#001534",
-                     FillColor =        "#0066ff",
-                     FillColorReverse = "#97ff00",
-                     GridColor =        "white",
                      TextColor =        "white",
-                     ZeroLineColor = '#ffff',
-                     ZeroLineWidth = 1.25,
                      title.fontSize = 22,
                      title.fontWeight = "bold", # normal
                      title.textShadowColor = '#63aeff',
@@ -5549,8 +4427,19 @@ Plot.Bar <- function(dt = NULL,
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
+
+
 
   # Used multiple times
   check1 <- length(XVar) != 0 && length(YVar) != 0
@@ -5631,48 +4520,7 @@ Plot.Bar <- function(dt = NULL,
         }
       }
 
-      # Plotly
-      if(Engine == "Plotly") {
-
-        if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-        if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-        p1 <- plotly::plot_ly(
-          data = temp,
-          x = ~get(XVar),
-          y = ~get(YVar),
-          color = ~as.factor(get(GroupVar[1L])),
-          type = "bar",
-          name = eval(GroupVar[1L]),
-          text = ~get(GroupVar[1L]),
-          hovertemplate = paste(
-            "<b>%{text}</b><br><br>",
-            Y.HoverFormat,
-            X.HoverFormat,
-            "<extra></extra>"
-          ),
-          width = Width,
-          height = Height)
-        p1 <- plotly::layout(
-          p = p1,
-          font = AutoPlots:::font_(),
-          title = AutoPlots:::bold_(Title),
-          plot_bgcolor = ChartColor,
-          paper_bgcolor = BackGroundColor,
-          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          xaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            categoryorder = "total descending",
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          barmode = 'group')
-      } else {
+      # Plot
         if(length(GroupVar) > 0L) {
           p1 <- echarts4r::e_charts_(
             temp |> dplyr::group_by(get(GroupVar[1L])),
@@ -5723,7 +4571,7 @@ Plot.Bar <- function(dt = NULL,
             textShadowOffsetX = title.textShadowOffsetX))
         if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
-      }
+
       return(p1)
 
     } else {
@@ -5784,49 +4632,7 @@ Plot.Bar <- function(dt = NULL,
       yvar <- temp[[YVar]]
       xvar <- temp[[XVar]]
 
-      # Plotly
-      if(Engine == "Plotly") {
-
-        if(length(Width) > 0L) if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-        if(length(Height) > 0L) if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-        p1 <- plotly::plot_ly(
-          data = temp,
-          x = ~get(XVar),
-          y = ~get(YVar),
-          type = 'bar',
-          color = I(FillColor[1]),
-          orientation = "vert",
-          showlegend = FALSE,
-          text = NULL,
-          hovertemplate = paste(
-            Y.HoverFormat,
-            X.HoverFormat,
-            "<extra></extra>"
-          ),
-          width = Width,
-          height = Height)
-        p1 <- plotly::layout(
-          p = p1,
-          font = AutoPlots:::font_(),
-          title = AutoPlots:::bold_(Title),
-          plot_bgcolor = ChartColor,
-          paper_bgcolor = BackGroundColor,
-          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          xaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            categoryorder = "total descending",
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          barmode = 'group')
-
-      } else {
+      # Plot
         if(XVar == "Importance" && YVar == "Variable") {
           XVar <- "Variable"
           YVar <- "Importance"
@@ -5885,7 +4691,7 @@ Plot.Bar <- function(dt = NULL,
           p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
         }
 
-      }
+
       return(p1)
     }
 
@@ -5928,48 +4734,6 @@ Plot.Bar <- function(dt = NULL,
         }
       }
 
-      if(Engine == "Plotly") {
-
-        if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-        if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-        p1 <- plotly::plot_ly(
-          data = temp,
-          x = ~get(GroupVar[1L]),
-          y = ~get(YVar),
-          type = 'bar',
-          name = eval(YVar),
-          color = I(FillColor),
-          showlegend = FALSE,
-          text = ~get(GroupVar[1L]),
-          hovertemplate = paste(
-            "<b>%{text}</b><br><br>", # Group Var
-            Y.HoverFormat,
-            X.HoverFormat,
-            "<extra></extra>"
-          ),
-          width = Width,
-          height = Height)
-        p1 <- plotly::layout(
-          p = p1,
-          font = AutoPlots:::font_(),
-          title = AutoPlots:::bold_(Title),
-          plot_bgcolor = ChartColor,
-          paper_bgcolor = BackGroundColor,
-          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          xaxis = list(
-            title = AutoPlots:::bold_(GroupVar[1L]),
-            categoryorder = "total descending",
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          barmode = 'group')
-      } else {
         p1 <- echarts4r::e_charts_(
           temp, x = GroupVar[1L],
           dispose = TRUE,
@@ -6023,7 +4787,7 @@ Plot.Bar <- function(dt = NULL,
           p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
         }
 
-      }
+
       return(p1)
     } else {
       return(NULL)
@@ -6069,47 +4833,6 @@ Plot.Bar <- function(dt = NULL,
       }
 
       # Plot
-      if(Engine == "Plotly") {
-
-        if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-        if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-        p1 <- plotly::plot_ly(
-          data = temp,
-          x = ~get(GroupVar[1L]),
-          y = ~get(XVar),
-          type = 'bar',
-          name = eval(XVar),
-          color = I(FillColor),
-          showlegend = FALSE,
-          text = ~get(GroupVar[1L]),
-          hovertemplate = paste(
-            Y.HoverFormat,
-            X.HoverFormat,
-            "<extra></extra>"
-          ),
-          width = Width,
-          height = Height)
-        p1 <- plotly::layout(
-          p = p1,
-          font = AutoPlots:::font_(),
-          title = AutoPlots:::bold_(Title),
-          plot_bgcolor = ChartColor,
-          paper_bgcolor = BackGroundColor,
-          legend = list(title=list(text = paste0('<b> ', GroupVar[1L], ' </b>'))),
-          yaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          xaxis = list(
-            title = AutoPlots:::bold_(GroupVar[1L]),
-            categoryorder = "total descending",
-            zerolinecolor = ZeroLineColor,
-            zerolinewidth = ZeroLineWidth,
-            gridcolor = GridColor),
-          barmode = 'group')
-      } else {
         p1 <- echarts4r::e_charts_(
           temp,
           x = GroupVar[1L],
@@ -6159,7 +4882,7 @@ Plot.Bar <- function(dt = NULL,
             textShadowOffsetX = title.textShadowOffsetX))
         if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
-      }
+
       return(p1)
     } else {
       return(NULL)
@@ -6169,7 +4892,7 @@ Plot.Bar <- function(dt = NULL,
   }
 
   # Return plot
-  return(eval(p1))
+  return(p1)
 }
 
 #' @title Plot.StackedBar
@@ -6197,18 +4920,11 @@ Plot.Bar <- function(dt = NULL,
 #' @param Title.YAxis NULL. If NULL, YVar name will be used
 #' @param Title.XAxis NULL. If NULL, XVar name will be used
 #' @param ShowLabels logical
-#' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param ZeroLineColor '#ffff'
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
-#' @param ChartColor 'lightsteelblue'
 #' @param TextColor 'darkblue'
-#' @param GridColor 'white'
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param Debug Debugging purposes
 #' @export
 Plot.StackedBar <- function(dt = NULL,
@@ -6228,19 +4944,11 @@ Plot.StackedBar <- function(dt = NULL,
                             Title.YAxis = NULL,
                             Title.XAxis = NULL,
                             ShowLabels = FALSE,
-                            Engine = 'Echarts',
                             EchartsTheme = "macarons",
                             TimeLine = TRUE,
                             X_Scroll = TRUE,
                             Y_Scroll = TRUE,
-                            BackGroundColor =  "#6a6969",
-                            ChartColor =       "#001534",
-                            FillColor =        "#0066ff",
-                            FillColorReverse = "#97ff00",
-                            GridColor =        "white",
                             TextColor =        "white",
-                            ZeroLineColor = '#ffff',
-                            ZeroLineWidth = 1.25,
                             title.fontSize = 22,
                             title.fontWeight = "bold", # normal
                             title.textShadowColor = '#63aeff',
@@ -6259,6 +4967,17 @@ Plot.StackedBar <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
 
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
   if(class(dt[[YVar]])[1L] %in% c("character","factor") && class(dt[[XVar]])[1L] %in% c("numeric","integer")) {
     l <- YVar
     YVar <- XVar
@@ -6267,8 +4986,6 @@ Plot.StackedBar <- function(dt = NULL,
   }
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
   # Used multiple times
   check1 <- length(XVar) != 0 && length(YVar) != 0 && length(GroupVar) > 0L
@@ -6431,7 +5148,6 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height = NULL,
 #' @param Width = NULL,
-#' @param Engine "plotly", "echarts4r"
 #' @param EchartsTheme "dark-blue"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
@@ -6441,11 +5157,6 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor = '#001534'
-#' @param FillColor = "#0066ff"
-#' @param FillColorReverse character
-#' @param GridColor = '#ffffff'
 #' @param Debug Debugging purposes
 #' @export
 Plot.BarPlot3D <- function(dt,
@@ -6469,15 +5180,9 @@ Plot.BarPlot3D <- function(dt,
                            ShowLabels = FALSE,
                            Title.YAxis = NULL,
                            Title.XAxis = NULL,
-                           Engine = "Plotly",
                            EchartsTheme = "dark",
                            X_Scroll = TRUE,
                            Y_Scroll = TRUE,
-                           BackGroundColor =  "#6a6969",
-                           ChartColor =       "#001534",
-                           FillColor =        "#0066ff",
-                           FillColorReverse = "#97ff00",
-                           GridColor =        "white",
                            TextColor =        "white",
                            title.fontSize = 22,
                            title.fontWeight = "bold", # normal
@@ -6494,6 +5199,17 @@ Plot.BarPlot3D <- function(dt,
     dt <- data.table::as.data.table(dt)
   })
 
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
   # Subset cols
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
   x_check <- class(dt1[[XVar]])[1L] %in% c('numeric','integer')
@@ -6502,8 +5218,8 @@ Plot.BarPlot3D <- function(dt,
   x_num <- x_check && !y_check
   x_char <- !x_check && y_check
   all_char <- !x_check && !y_check
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+
+
   Z.HoverFormat <- "%{zaxis.title.text}: %{y:,.2f}<br>"
 
   TimeLine <- FALSE
@@ -6542,38 +5258,6 @@ Plot.BarPlot3D <- function(dt,
     colz <- setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Create final data for plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colorscale = colz,
-        type = "heatmap",
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          Z.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        font = AutoPlots:::font_(),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-
-    } else if(Engine == "Echarts") {
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(
         data = dt1,
@@ -6614,7 +5298,7 @@ Plot.BarPlot3D <- function(dt,
           textShadowOffsetX = title.textShadowOffsetX))
       if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
-    }
+
     return(p1)
   }
 
@@ -6649,38 +5333,6 @@ Plot.BarPlot3D <- function(dt,
     }
 
     # Create final data for plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colorscale = colz,
-        type = "heatmap",
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          Z.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        font = AutoPlots:::font_(),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-
-    } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(
         data = dt1,
@@ -6733,7 +5385,7 @@ Plot.BarPlot3D <- function(dt,
           textShadowOffsetX = title.textShadowOffsetX))
       if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
-    }
+
     return(p1)
   }
 
@@ -6771,37 +5423,6 @@ Plot.BarPlot3D <- function(dt,
     }
 
     # Create final dt1 for plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colorscale = colz,
-        type = "heatmap",
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          Z.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        font = AutoPlots:::font_(),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-    } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(
         data = dt1,
@@ -6851,7 +5472,7 @@ Plot.BarPlot3D <- function(dt,
           textShadowOffsetX = title.textShadowOffsetX))
       if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
-    }
+
     return(p1)
   }
 
@@ -6951,7 +5572,6 @@ Plot.BarPlot3D <- function(dt,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height = NULL,
 #' @param Width = NULL,
-#' @param Engine "plotly", "echarts4r"
 #' @param EchartsTheme "dark-blue"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
@@ -6961,11 +5581,6 @@ Plot.BarPlot3D <- function(dt,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor = '#001534'
-#' @param FillColor = "#0066ff"
-#' @param FillColorReverse character
-#' @param GridColor = '#ffffff'
 #' @export
 Plot.HeatMap <- function(dt,
                          PreAgg = FALSE,
@@ -6988,15 +5603,9 @@ Plot.HeatMap <- function(dt,
                          ShowLabels = FALSE,
                          Title.YAxis = NULL,
                          Title.XAxis = NULL,
-                         Engine = "Plotly",
                          EchartsTheme = "dark",
                          X_Scroll = TRUE,
                          Y_Scroll = TRUE,
-                         BackGroundColor =  "#6a6969",
-                         ChartColor =       "#001534",
-                         FillColor =        "#0066ff",
-                         FillColorReverse = "#97ff00",
-                         GridColor =        "white",
                          TextColor =        "white",
                          title.fontSize = 22,
                          title.fontWeight = "bold", # normal
@@ -7012,6 +5621,17 @@ Plot.HeatMap <- function(dt,
     dt <- data.table::as.data.table(dt)
   })
 
+  # Convert factor to character
+  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] == "factor") {
+    dt[, eval(ZVar) := as.character(get(ZVar))]
+  }
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
   # Subset cols
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
   x_check <- class(dt1[[XVar]])[1L] %in% c('numeric','integer')
@@ -7020,8 +5640,8 @@ Plot.HeatMap <- function(dt,
   x_num <- x_check && !y_check
   x_char <- !x_check && y_check
   all_char <- !x_check && !y_check
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
+
+
   Z.HoverFormat <- "%{zaxis.title.text}: %{y:,.2f}<br>"
 
   # XVar == numeric or integer && YVar == numeric or integer
@@ -7053,32 +5673,6 @@ Plot.HeatMap <- function(dt,
     data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
 
     # Create final data for plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colorscale = colz,
-        type = "heatmap",
-        width = Width,
-        height = Height)
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        font = AutoPlots:::font_(),
-        xaxis = list(title = XVar),
-        yaxis = list(title = YVar),
-        legend = list(title = list(text = "yo")),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-
-    } else if(Engine == "Echarts") {
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(
         data = dt1,
@@ -7126,7 +5720,7 @@ Plot.HeatMap <- function(dt,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
+
     return(p1)
   }
 
@@ -7162,38 +5756,6 @@ Plot.HeatMap <- function(dt,
     }
 
     # Create final data for plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colorscale = colz,
-        type = "heatmap",
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          Z.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        font = AutoPlots:::font_(),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-
-    } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(
         data = dt1,
@@ -7245,7 +5807,7 @@ Plot.HeatMap <- function(dt,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
+
     return(p1)
   }
 
@@ -7281,37 +5843,6 @@ Plot.HeatMap <- function(dt,
     }
 
     # Create final dt1 for plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colorscale = colz,
-        type = "heatmap",
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          Z.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        font = AutoPlots:::font_(),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-    } else if(Engine == "echarts4r") {
       g <- "Measure_Variable"
       p1 <- echarts4r::e_charts_(
         data = dt1,
@@ -7361,7 +5892,7 @@ Plot.HeatMap <- function(dt,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
+
     return(p1)
   }
 
@@ -7428,31 +5959,6 @@ Plot.HeatMap <- function(dt,
     }
 
     # Create final dt1 for plot
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~Measure_Variable,
-        colors = grDevices::colorRamp(c(FillColorReverse,"black",FillColor)),
-        type = "heatmap",
-        width = Width,
-        height = Height)
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        xaxis = list(title = ''),
-        yaxis = list(title = ''),
-        font = AutoPlots:::font_(),
-        gridcolor = GridColor,
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor)
-    } else if(Engine == "Echarts") {
       if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
       p1 <- echarts4r::e_charts_(
         data = dt1,
@@ -7501,7 +6007,7 @@ Plot.HeatMap <- function(dt,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
+
     return(p1)
   }
 }
@@ -7535,16 +6041,10 @@ Plot.HeatMap <- function(dt,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
 #' @param PreAgg logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character
-#' @param GridColor character hex
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
 #' @export
@@ -7562,15 +6062,9 @@ Plot.CorrMatrix <- function(dt = NULL,
                             ShowLabels = FALSE,
                             Title.YAxis = NULL,
                             Title.XAxis = NULL,
-                            Engine = "Plotly",
                             EchartsTheme = "macarons",
                             X_Scroll = TRUE,
                             Y_Scroll = TRUE,
-                            BackGroundColor =  "#6a6969",
-                            ChartColor =       "#001534",
-                            FillColor =        "#0066ff",
-                            FillColorReverse = "#97ff00",
-                            GridColor =        "white",
                             TextColor =        "white",
                             title.fontSize = 22,
                             title.fontWeight = "bold", # normal
@@ -7609,37 +6103,6 @@ Plot.CorrMatrix <- function(dt = NULL,
     corr_mat <- dt
   }
 
-  if(Engine == "Plotly") {
-
-    if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-    if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-    dt2 <- data.table::melt.data.table(
-      data = data.table::as.data.table(corr_mat)[, Vars := rownames(corr_mat)],
-      id.vars = "Vars", measure.vars = rownames(corr_mat), variable.name = "Variables", value.name = "Spearman")
-
-    # Build
-    p1 <- plotly::plot_ly(
-      dt2,
-      x = ~Vars,
-      y = ~Variables,
-      z = ~Spearman,
-      colors = grDevices::colorRamp(c(FillColorReverse,"black",FillColor)),
-      type = "heatmap",
-      width = Width,
-      height = Height)
-    p1 <- plotly::layout(
-      p = p1,
-      title = AutoPlots:::bold_(Title),
-      font = AutoPlots:::font_(),
-      xaxis = list(title = ''),
-      yaxis = list(title = ''),
-      zaxis = list(title = "Spearman rank correlation: "),
-      gridcolor = GridColor,
-      plot_bgcolor = FillColor,
-      paper_bgcolor = BackGroundColor)
-
-  } else {
     if(Debug) print("Plot.CorrMatrix Echarts")
     if(Debug) print(Width)
     if(Debug) print(Height)
@@ -7669,7 +6132,7 @@ Plot.CorrMatrix <- function(dt = NULL,
         textShadowOffsetY = title.textShadowOffsetY,
         textShadowOffsetX = title.textShadowOffsetX))
 
-  }
+
 
   # Return plot
   return(p1)
@@ -7698,18 +6161,10 @@ Plot.CorrMatrix <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine = "Plotly",
 #' @param EchartsTheme = "dark-blue",
 #' @param TimeLine Logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param ZeroLineColor = '#ffff',
-#' @param ZeroLineWidth = 2,
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor 'lightsteelblue'
-#' @param FillColor 'gray'
-#' @param GridColor 'white'
-#' @param FillColorReverse character
 #' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #' @export
@@ -7729,19 +6184,11 @@ Plot.Copula <- function(dt = NULL,
                         ShowLabels = FALSE,
                         Title.YAxis = NULL,
                         Title.XAxis = NULL,
-                        Engine = "Plotly",
                         EchartsTheme = "dark-blue",
                         TimeLine = FALSE,
                         X_Scroll = TRUE,
                         Y_Scroll = TRUE,
-                        BackGroundColor =  "#6a6969",
-                        ChartColor =       "#001534",
-                        FillColor =        "#0066ff",
-                        FillColorReverse = "#97ff00",
-                        GridColor =        "white",
                         TextColor =        "white",
-                        ZeroLineColor = '#ffff',
-                        ZeroLineWidth = 1.25,
                         yaxis.fontSize = 14,
                         xaxis.fontSize = 14,
                         title.fontSize = 22,
@@ -7758,9 +6205,6 @@ Plot.Copula <- function(dt = NULL,
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
-
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
   # Cap number of records
@@ -7775,58 +6219,7 @@ Plot.Copula <- function(dt = NULL,
 
   if(length(GroupVar) == 0L) {
     if(Debug) print('Plot.Copula length(GroupVar) == 0L')
-    if(Engine == "Plotly") {
 
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Copula plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        type = 'scatter',
-        mode = 'markers',
-        color = I(FillColor),
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-
-      # Add line
-      if(Debug) print('Plot.Copula # Add Line')
-      if(Debug) print('copulaplot 3')
-      p1 <- plotly::add_trace(
-        p = p1,
-        data = dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        type = "scatter",
-        mode = "markers",
-        color = I(FillColor))
-
-      # Layout
-      if(Debug) print('Plot.Copula plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        font = AutoPlots:::font_(),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          gridColor = GridColor),
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          gridColor = GridColor))
-      p1 <- plotly::hide_legend(p = p1)
-
-    } else {
       if(Debug) print('Plot.Copula Echarts')
       dt1[, size_vals := seq_len(.N)/1000]
       sv <- "size_vals"
@@ -7882,7 +6275,7 @@ Plot.Copula <- function(dt = NULL,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
+
 
   } else {
 
@@ -7891,45 +6284,6 @@ Plot.Copula <- function(dt = NULL,
     }
 
     if(Debug) print('Plot.Copula length(GroupVar) > 0L')
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Copula plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        color = ~get(GroupVar),
-        mode = 'markers',
-        text = ~get(GroupVar[1L]),
-        hovertemplate = paste(
-          "<b>%{text}</b><br><br>", # Group Var
-          Y.HoverFormat,
-          X.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-
-      # Layout
-      if(Debug) print('Plot.Copula plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        title = AutoPlots:::bold_(Title),
-        font = AutoPlots:::font_(),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          gridColor = GridColor),
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          gridColor = GridColor))
-
-    } else {
       if(Debug) print('Plot.Copula Echarts')
       if(TimeLine) {
         p1 <- echarts4r::e_charts_(
@@ -7998,11 +6352,11 @@ Plot.Copula <- function(dt = NULL,
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
 
-    }
+
   }
 
   # Return plot
-  return(eval(p1))
+  return(p1)
 }
 
 #' @title Plot.Copula3D
@@ -8031,17 +6385,10 @@ Plot.Copula <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine = "Plotly"
 #' @param EchartsTheme = "dark-blue"
 #' @param TimeLine Logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor 'lightsteelblue'
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
 #' @param TextColor 'darkblue'
 #' @param GridColor 'white'
-#' @param ZeroLineColor = '#ffff',
-#' @param ZeroLineWidth = 2,
 #' @param Debug Debugging purposes
 #' @export
 Plot.Copula3D <- function(dt = NULL,
@@ -8062,17 +6409,9 @@ Plot.Copula3D <- function(dt = NULL,
                           ShowLabels = FALSE,
                           Title.YAxis = NULL,
                           Title.XAxis = NULL,
-                          Engine = "Plotly",
                           EchartsTheme = "dark-blue",
                           TimeLine = FALSE,
-                          BackGroundColor =  "#6a6969",
-                          ChartColor =       "#001534",
-                          FillColor =        "#0066ff",
-                          FillColorReverse = "#97ff00",
-                          GridColor =        "white",
                           TextColor =        "white",
-                          ZeroLineColor = '#ffff',
-                          ZeroLineWidth = 1.25,
                           title.fontSize = 22,
                           title.fontWeight = "bold", # normal
                           title.textShadowColor = '#63aeff',
@@ -8101,58 +6440,6 @@ Plot.Copula3D <- function(dt = NULL,
   dt1[, eval(ZVar) := data.table::frank(get(ZVar)) * (1 / 0.001) / .N * 0.001]
   if(length(GroupVar) > 0L) {
     if(Debug) print('Plot.Copula3D length(GroupVar) > 0L')
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Copula3D Build')
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~get(ZVar),
-        color = ~get(GroupVar[[1L]]),
-        size = ~get(ZVar),
-        marker = list(
-          symbol = 'circle',
-          sizemode = 'diameter'),
-        sizes = c(1.5, 12),
-        text = ~paste(
-          paste0(GroupVar[[1L]], ":"),
-          get(GroupVar[[1L]])),
-        width = Width,
-        height = Height)
-
-      # Layout
-      if(Debug) print('Plot.Copula3D Layout')
-      p1 <- p1 |> plotly::layout(
-        title = Title,
-        font = list(color = TextColor),
-        scene = list(
-          xaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2),
-          zaxis = list(
-            title = AutoPlots:::bold_(ZVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2)),
-        backgroundcolor = BackGroundColor,
-        paper_bgcolor = "rgb(0, 20, 51, 0.61)")
-
-    } else {
 
       if(Debug) print('Plot.Copula3D Echarts')
       p1 <- echarts4r::e_charts_(
@@ -8190,58 +6477,11 @@ Plot.Copula3D <- function(dt = NULL,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
 
-    }
+
 
   } else {
 
     if(Debug) print('Plot.Copula3D length(GroupVar) == 0L')
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Copula3D plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~get(ZVar),
-        size = ~get(ZVar),
-        marker = list(
-          symbol = 'circle',
-          sizemode = 'diameter'),
-        sizes = c(1.5, 12),
-        width = Width,
-        height = Height)
-
-      # Layout
-      if(Debug) print('Plot.Copula3D plotly::layout')
-      p1 <- p1 %>% plotly::layout(
-        title = Title,
-        font = list(color = TextColor),
-        scene = list(
-          xaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2),
-          zaxis = list(
-            title = AutoPlots:::bold_(ZVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2)),
-        backgroundcolor = BackGroundColor,
-        paper_bgcolor = "rgb(0, 20, 51, 0.61)")
-    } else {
       if(Debug) print('Plot.Copula3D Echarts')
       p1 <- echarts4r::e_charts_(
         dt1,
@@ -8291,7 +6531,7 @@ Plot.Copula3D <- function(dt = NULL,
           textShadowOffsetX = title.textShadowOffsetX))
       if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
-    }
+
   }
 
   # Return plot
@@ -8322,19 +6562,11 @@ Plot.Copula3D <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param FillColor character hex
-#' @param FillColorReverse character
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex characterb
-#' @param ChartColor character hex
 #' @param TextColor character hex
-#' @param GridColor character hex
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Debug Debugging purposes
 #' @export
 Plot.Scatter <- function(dt = NULL,
@@ -8353,19 +6585,11 @@ Plot.Scatter <- function(dt = NULL,
                          ShowLabels = FALSE,
                          Title.YAxis = NULL,
                          Title.XAxis = NULL,
-                         Engine = "Plotly",
                          EchartsTheme = "macarons",
                          TimeLine = FALSE,
                          X_Scroll = TRUE,
                          Y_Scroll = TRUE,
-                         BackGroundColor =  "#6a6969",
-                         ChartColor =       "#001534",
-                         FillColor =        "#0066ff",
-                         FillColorReverse = "#97ff00",
-                         GridColor =        "white",
                          TextColor =        "white",
-                         ZeroLineColor = '#ffff',
-                         ZeroLineWidth = 1.25,
                          title.fontSize = 22,
                          title.fontWeight = "bold", # normal
                          title.textShadowColor = '#63aeff',
@@ -8378,9 +6602,6 @@ Plot.Scatter <- function(dt = NULL,
                          Debug = FALSE) {
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
-
-  X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-  Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
 
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
@@ -8409,54 +6630,6 @@ Plot.Scatter <- function(dt = NULL,
 
   if(length(GroupVar) == 0L) {
     if(Debug) print('Plot.Scatter  length(GroupVar) == 0L')
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Scatter  plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        type = 'scatter',
-        mode = 'markers',
-        color = I(FillColor),
-        text = NULL,
-        hovertemplate = paste(
-          Y.HoverFormat,
-          X.HoverFormat,
-          "<extra></extra>"
-        ),
-        width = Width,
-        height = Height)
-
-      # Add line
-      if(Debug) print('Plot.Scatter  # Add line')
-      dt1 <- tryCatch({dt1[, lm := lm(formula = get(YVar) ~ get(XVar), data = dt1)$fitted]}, error = function(x) data)
-      p1 <- plotly::add_trace(p = p1, data = dt1, x = ~get(XVar), y = ~get(YVar), type = "scatter", mode = "markers")
-      if('lm' %in% names(data)) {
-        p1 <- plotly::add_trace(p = p1, data = dt1, x = ~get(XVar), y = ~lm, type = "scatter", mode = "line")
-      }
-
-      # Layout
-      if(Debug) print('Plot.Scatter  plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          gridColor = GridColor),
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          gridColor = GridColor))
-      p1 <- plotly::hide_legend(p = p1)
-
-    } else {
       if(Debug) print('Plot.Scatter  Echarts')
       p1 <- echarts4r::e_charts_(
         dt1,
@@ -8511,7 +6684,7 @@ Plot.Scatter <- function(dt = NULL,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
 
-    }
+
 
   } else {
 
@@ -8520,38 +6693,6 @@ Plot.Scatter <- function(dt = NULL,
     }
 
     if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
-      p1 <- plotly::plot_ly(
-        data = dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        color = ~get(GroupVar),
-        mode = 'markers',
-        width = Width,
-        height = Height)
-
-      # Layout
-      if(Debug) print('Plot.Scatter  plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        font = AutoPlots:::font_(),
-        title = AutoPlots:::bold_(Title),
-        plot_bgcolor = ChartColor,
-        paper_bgcolor = BackGroundColor,
-        yaxis = list(
-          title = AutoPlots:::bold_(YVar),
-          gridColor = GridColor),
-        xaxis = list(
-          title = AutoPlots:::bold_(XVar),
-          gridColor = GridColor))
-
-    } else {
 
       if(Debug) print('Plot.Scatter  Echarts')
       p1 <- echarts4r::e_charts_(
@@ -8611,7 +6752,7 @@ Plot.Scatter <- function(dt = NULL,
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
 
-    }
+
   }
 
   # Return plot
@@ -8644,17 +6785,9 @@ Plot.Scatter <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine = "Plotly"
 #' @param EchartsTheme = "macaron"
 #' @param TimeLine Logical
-#' @param FillColor 'gray'
-#' @param FillColorReverse character
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor 'lightsteelblue'
-#' @param GridColor 'white'
 #' @param TextColor 'darkblue'
-#' @param ZeroLineColor = '#ffff',
-#' @param ZeroLineWidth = 2,
 #' @param Debug Debugging purposes
 #' @export
 Plot.Scatter3D <- function(dt = NULL,
@@ -8675,17 +6808,9 @@ Plot.Scatter3D <- function(dt = NULL,
                            ShowLabels = FALSE,
                            Title.YAxis = NULL,
                            Title.XAxis = NULL,
-                           Engine = "Plotly",
                            EchartsTheme = "macarons",
                            TimeLine = FALSE,
-                           BackGroundColor =  "#6a6969",
-                           ChartColor =       "#001534",
-                           FillColor =        "#0066ff",
-                           FillColorReverse = "#97ff00",
-                           GridColor =        "white",
                            TextColor =        "white",
-                           ZeroLineColor = '#ffff',
-                           ZeroLineWidth = 1.25,
                            title.fontSize = 22,
                            title.fontWeight = "bold", # normal
                            title.textShadowColor = '#63aeff',
@@ -8747,58 +6872,6 @@ Plot.Scatter3D <- function(dt = NULL,
 
   if(length(GroupVar) > 0L) {
     if(Debug) print('Plot.Scatter3D length(GroupVar) > 0L')
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Scatter3D  plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~get(ZVar),
-        color = ~get(GroupVar),
-        size = ~get(ZVar),
-        marker = list(
-          symbol = 'circle',
-          sizemode = 'diameter'),
-        sizes = c(5, 25),
-        text = ~paste(
-          paste0(GroupVar, ":"),
-          get(GroupVar)),
-        width = Width,
-        height = Height)
-
-      # Layout
-      if(Debug) print('Plot.Scatter3D  plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        title = Title,
-        font = list(color = '#FFFFFF'),
-        scene = list(
-          xaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2),
-          zaxis = list(
-            title = AutoPlots:::bold_(ZVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2)),
-        backgroundcolor = BackGroundColor,
-        paper_bgcolor = "rgb(0, 20, 51, 0.61)")
-    } else {
       if(Debug) print('Plot.Scatter3D  Echarts')
       p1 <- echarts4r::e_charts_(
         dt1 |> dplyr::group_by(get(GroupVar[1L])),
@@ -8842,59 +6915,11 @@ Plot.Scatter3D <- function(dt = NULL,
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
 
-    }
+
 
   } else {
 
     if(Debug) print('Plot.Scatter3D length(GroupVar) == 0L')
-    if(Engine == "Plotly") {
-
-      if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-      if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-      # Build
-      if(Debug) print('Plot.Scatter3D  plotly::plot_ly')
-      p1 <- plotly::plot_ly(
-        dt1,
-        x = ~get(XVar),
-        y = ~get(YVar),
-        z = ~get(ZVar),
-        size = ~get(ZVar),
-        marker = list(
-          symbol = 'circle',
-          sizemode = 'diameter'),
-        sizes = c(5, 25),
-        width = Width,
-        height = Height)
-
-      # Layout
-      if(Debug) print('Plot.Scatter3D  plotly::layout')
-      p1 <- plotly::layout(
-        p = p1,
-        title = Title,
-        font = list(color = '#FFFFFF'),
-        scene = list(
-          xaxis = list(
-            title = AutoPlots:::bold_(XVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2),
-          yaxis = list(
-            title = AutoPlots:::bold_(YVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2),
-          zaxis = list(
-            title = AutoPlots:::bold_(ZVar),
-            gridcolor = GridColor,
-            zerolinewidth = 1,
-            ticklen = 5,
-            gridwidth = 2)),
-        backgroundcolor = BackGroundColor,
-        paper_bgcolor = "rgb(0, 20, 51, 0.61)")
-    } else {
       if(Debug) print('Plot.Scatter3D  Echarts')
       p1 <- echarts4r::e_charts_(
         dt1 |> dplyr::group_by(GroupVar[[1L]]),
@@ -8944,7 +6969,7 @@ Plot.Scatter3D <- function(dt = NULL,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-    }
+
   }
 
   # Return plot
@@ -9148,6 +7173,9 @@ StockData <- function(PolyOut = NULL,
                       APIKey = NULL,
                       timeElapsed = 61,
                       Debug = FALSE) {
+
+  if(length(APIKey) == 0L) return(NULL)
+
   StartDate <- as.Date(StartDate)
   EndDate <- min(Sys.Date()-1, as.Date(EndDate))
 
@@ -9391,16 +7419,10 @@ Plot.Stock <- function(StockDataOutput,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character hex
-#' @param GridColor character hex
 #' @param TextColor Not Implemented
 #' @param Debug Debugging purposes
 #' @export
@@ -9422,19 +7444,11 @@ Plot.Residuals.Histogram <- function(dt = NULL,
                                      ShowLabels = FALSE,
                                      Title.YAxis = NULL,
                                      Title.XAxis = NULL,
-                                     Engine = 'Echarts',
                                      EchartsTheme = "macarons",
                                      TimeLine = FALSE,
                                      X_Scroll = TRUE,
                                      Y_Scroll = TRUE,
-                                     BackGroundColor =  "#6a6969",
-                                     ChartColor =       "#001534",
-                                     FillColor =        "#0066ff",
-                                     FillColorReverse = "#97ff00",
-                                     GridColor =        "white",
                                      TextColor =        "white",
-                                     ZeroLineColor = '#ffff',
-                                     ZeroLineWidth = 1.25,
                                      title.fontSize = 22,
                                      title.fontWeight = "bold", # normal
                                      title.textShadowColor = '#63aeff',
@@ -9487,72 +7501,6 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   if(Debug) print('Create Plot with only data')
 
   # Format
-  if(Engine == "Plotly") {
-
-    X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-    Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
-
-    if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-    if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-
-    p1 <- plotly::plot_ly(
-      data = dt1,
-      alpha = 0.6,
-      nbinsx = NumberBins,
-      width = Width,
-      height = Height)
-    if(length(GroupVar) > 0L) {
-      if(is.numeric(dt1[[GroupVar]])) {
-        p1 <- plotly::add_histogram(
-          p = p1,
-          x = ~get(YVar),
-          color = ~get(GroupVar[1L]),
-          text = ~get(GroupVar[1L]),
-          hovertemplate = paste(
-            "<b>%{text}</b><br><br>", # Group Var
-            Y.HoverFormat,
-            "<extra></extra>"
-          )
-        )
-      } else {
-        p1 <- plotly::add_histogram(
-          p = p1,
-          x = ~get(YVar),
-          color = ~get(GroupVar[1L]),
-          legendgroup = GroupVar[1L],
-          text = ~get(GroupVar[1L]),
-          hovertemplate = paste(
-            "<b>%{text}</b><br><br>", # Group Var
-            Y.HoverFormat,
-            "<extra></extra>"
-          ))
-      }
-    } else {
-      p1 <- plotly::add_histogram(
-        p = p1,
-        x = ~get(YVar),
-        color = I(FillColor),
-        showlegend = FALSE,
-        text = NULL,
-        hovertemplate = paste(
-          "<b>Histogram:</b><br><br>", # Group Var
-          Y.HoverFormat,
-          "<extra></extra>"
-        ))
-    }
-    p1 <- plotly::layout(
-      p = p1,
-      font = AutoPlots:::font_(),
-      title = AutoPlots:::bold_(Title),
-      plot_bgcolor = ChartColor,
-      paper_bgcolor = BackGroundColor,
-      xaxis = list(
-        title = AutoPlots:::bold_(YVar),
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor),
-      barmode = 'stack')
-
-  } else {
 
     if(Debug) print("Echarts Histogram 1")
     if(length(GroupVar) > 0L) {
@@ -9615,7 +7563,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
     } else {
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
-  }
+
   return(p1)
 }
 
@@ -9642,19 +7590,11 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character hex
-#' @param GridColor character hex
 #' @param TextColor "Not Implemented"
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Debug Debugging purposes
 #' @export
 Plot.Residuals.Scatter <- function(dt = NULL,
@@ -9674,19 +7614,11 @@ Plot.Residuals.Scatter <- function(dt = NULL,
                                    ShowLabels = FALSE,
                                    Title.YAxis = NULL,
                                    Title.XAxis = NULL,
-                                   Engine = 'Echarts',
                                    EchartsTheme = "macarons",
                                    TimeLine = FALSE,
                                    X_Scroll = TRUE,
                                    Y_Scroll = TRUE,
-                                   BackGroundColor =  "#6a6969",
-                                   ChartColor =       "#001534",
-                                   FillColor =        "#0066ff",
-                                   FillColorReverse = "#97ff00",
-                                   GridColor =        "white",
                                    TextColor =        "white",
-                                   ZeroLineColor = '#ffff',
-                                   ZeroLineWidth = 1.25,
                                    Debug = FALSE) {
 
   # Data Prep1
@@ -9724,18 +7656,11 @@ Plot.Residuals.Scatter <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = Title,
-    Engine = Engine,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
     X_Scroll = X_Scroll,
     Y_Scroll = Y_Scroll,
-    FillColor = FillColor,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    GridColor = GridColor,
-    TextColor = GridColor,
-    ZeroLineColor = ZeroLineColor,
-    ZeroLineWidth = ZeroLineWidth,
+    TextColor = TextColor,
     tooltip.trigger = "item",
     Debug = Debug)
   return(p1)
@@ -9760,22 +7685,14 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumberBins numeric
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character hex
-#' @param GridColor character hex
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @export
@@ -9796,19 +7713,11 @@ Plot.Calibration.Line <- function(dt = NULL,
                                   ShowLabels = FALSE,
                                   Title.YAxis = NULL,
                                   Title.XAxis = NULL,
-                                  Engine = 'Echarts',
                                   EchartsTheme = "macarons",
                                   TimeLine = FALSE,
                                   X_Scroll = TRUE,
                                   Y_Scroll = TRUE,
-                                  BackGroundColor =  "#6a6969",
-                                  ChartColor =       "#001534",
-                                  FillColor =        "#0066ff",
-                                  FillColorReverse = "#97ff00",
-                                  GridColor =        "white",
                                   TextColor =        "white",
-                                  ZeroLineColor = '#ffff',
-                                  ZeroLineWidth = 1.25,
                                   Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -9882,18 +7791,11 @@ Plot.Calibration.Line <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = 'Calibration Line Plot',
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = tl,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
-      TextColor = GridColor,
-      ZeroLineColor = ZeroLineColor,
-      ZeroLineWidth = ZeroLineWidth,
+      TextColor = TextColor,
       Debug = Debug)
     return(p1)
 
@@ -9969,7 +7871,6 @@ Plot.Calibration.Line <- function(dt = NULL,
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
       XVar = XVar,
@@ -9986,13 +7887,7 @@ Plot.Calibration.Line <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = "Partial Dependence",
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
       Debug = Debug)
@@ -10023,19 +7918,11 @@ Plot.Calibration.Line <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character hex
-#' @param GridColor character hex
 #' @param TextColor "Not Implemented"
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Debug Debugging purposes
 #' @export
 Plot.Calibration.Box <- function(dt = NULL,
@@ -10056,19 +7943,11 @@ Plot.Calibration.Box <- function(dt = NULL,
                                  ShowLabels = FALSE,
                                  Title.YAxis = NULL,
                                  Title.XAxis = NULL,
-                                 Engine = 'Echarts',
                                  EchartsTheme = "macarons",
                                  TimeLine = FALSE,
                                  X_Scroll = TRUE,
                                  Y_Scroll = TRUE,
-                                 BackGroundColor =  "#6a6969",
-                                 ChartColor =       "#001534",
-                                 FillColor =        "#0066ff",
-                                 FillColorReverse = "#97ff00",
-                                 GridColor =        "white",
                                  TextColor =        "white",
-                                 ZeroLineColor = '#ffff',
-                                 ZeroLineWidth = 1.25,
                                  Debug = FALSE) {
 
   # Minimize data before moving on
@@ -10124,19 +8003,11 @@ Plot.Calibration.Box <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = 'Calibration Box Plot',
-    Engine = Engine,
     EchartsTheme = EchartsTheme,
     TimeLine = TimeLine,
     X_Scroll = X_Scroll,
     Y_Scroll = Y_Scroll,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    FillColorReverse = FillColorReverse,
-    TextColor = GridColor,
-    GridColor = GridColor,
-    ZeroLineColor = '#ffff',
-    ZeroLineWidth = 1.25,
+    TextColor = TextColor,
     Debug = Debug)
   return(p1)
 }
@@ -10157,7 +8028,6 @@ Plot.Calibration.Box <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
@@ -10169,14 +8039,7 @@ Plot.Calibration.Box <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param X_Scroll = TRUE,
 #' @param Y_Scroll = TRUE,
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor hex character
-#' @param FillColor hex character
-#' @param FillColorReverse hex character
-#' @param GridColor hex character
 #' @param TextColor hex character
-#' @param ZeroLineColor hex character
-#' @param ZeroLineWidth numeric
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
@@ -10200,20 +8063,12 @@ Plot.PartialDependence.Line <- function(dt = NULL,
                                         ShowLabels = FALSE,
                                         Title.YAxis = NULL,
                                         Title.XAxis = NULL,
-                                        Engine = 'Echarts',
                                         EchartsTheme = "macarons",
                                         EchartsLabels = FALSE,
                                         TimeLine = TRUE,
                                         X_Scroll = TRUE,
                                         Y_Scroll = TRUE,
-                                        BackGroundColor =  "#6a6969",
-                                        ChartColor =       "#001534",
-                                        FillColor =        "#0066ff",
-                                        FillColorReverse = "#97ff00",
-                                        GridColor =        "white",
                                         TextColor =        "white",
-                                        ZeroLineColor = '#ffff',
-                                        ZeroLineWidth = 1.25,
                                         Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -10281,7 +8136,6 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       dt = dt1,
       PreAgg = TRUE,
       AggMethod = "mean",
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = tl,
       XVar = XVar,
@@ -10295,13 +8149,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = "Partial Dependence",
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
       Debug = Debug)
@@ -10384,7 +8232,6 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
       XVar = XVar,
@@ -10401,13 +8248,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = "Partial Dependence",
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
       Debug = Debug)
@@ -10439,20 +8280,12 @@ Plot.PartialDependence.Line <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor hex character
-#' @param FillColor hex character
-#' @param FillColorReverse hex character
-#' @param GridColor hex character
 #' @param TextColor hex character
-#' @param ZeroLineColor hex character
-#' @param ZeroLineWidth numeric
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
@@ -10478,20 +8311,12 @@ Plot.PartialDependence.Box <- function(dt = NULL,
                                        ShowLabels = FALSE,
                                        Title.YAxis = NULL,
                                        Title.XAxis = NULL,
-                                       Engine = 'Echarts',
                                        EchartsTheme = "macarons",
                                        EchartsLabels = FALSE,
                                        TimeLine = TRUE,
                                        X_Scroll = TRUE,
                                        Y_Scroll = FALSE,
-                                       BackGroundColor =  "#6a6969",
-                                       ChartColor =       "#001534",
-                                       FillColor =        "#0066ff",
-                                       FillColorReverse = "#97ff00",
-                                       GridColor =        "white",
                                        TextColor =        "white",
-                                       ZeroLineColor = '#ffff',
-                                       ZeroLineWidth = 1.25,
                                        Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -10539,19 +8364,11 @@ Plot.PartialDependence.Box <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = "Partial Dependence",
-    Engine = Engine,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    FillColorReverse = FillColorReverse,
-    GridColor = GridColor,
     TextColor = TextColor,
     X_Scroll = X_Scroll,
     Y_Scroll = Y_Scroll,
-    ZeroLineColor = GridColor,
-    ZeroLineWidth = 1.25,
     Debug = Debug)
   return(p1)
 }
@@ -10578,20 +8395,12 @@ Plot.PartialDependence.Box <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param X_Scroll = TRUE,
 #' @param Y_Scroll = TRUE,
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor hex character
-#' @param FillColor hex character
-#' @param FillColorReverse hex character
-#' @param GridColor hex character
 #' @param TextColor hex character
-#' @param ZeroLineColor hex character
-#' @param ZeroLineWidth numeric
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
@@ -10615,20 +8424,12 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            ShowLabels = FALSE,
                                            Title.YAxis = NULL,
                                            Title.XAxis = NULL,
-                                           Engine = 'Echarts',
                                            EchartsTheme = "macarons",
                                            EchartsLabels = FALSE,
                                            TimeLine = TRUE,
                                            X_Scroll = TRUE,
                                            Y_Scroll = TRUE,
-                                           BackGroundColor =  "#6a6969",
-                                           ChartColor =       "#001534",
-                                           FillColor =        "#0066ff",
-                                           FillColorReverse = "#97ff00",
-                                           GridColor =        "white",
                                            TextColor =        "white",
-                                           ZeroLineColor = '#ffff',
-                                           ZeroLineWidth = 1.25,
                                            Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -10672,7 +8473,6 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         dt = dt1,
         PreAgg = TRUE,
         AggMethod = "mean",
-        Engine = Engine,
         EchartsTheme = EchartsTheme,
         XVar = XVar,
         YVar = YVar,
@@ -10683,15 +8483,10 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         Height = Height,
         Width = Width,
         Title = "Heatmap: Target - Predicted",
-        BackGroundColor = BackGroundColor,
-        ChartColor = ChartColor,
-        FillColor = FillColor,
         TextColor = TextColor,
         X_Scroll = X_Scroll,
         Y_Scroll = Y_Scroll,
         NumberBins = NumberBins,
-        FillColorReverse = FillColorReverse,
-        GridColor = GridColor,
         Debug = Debug)
       return(p1)
 
@@ -10716,19 +8511,11 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         ShowLabels = FALSE,
         Title.YAxis = NULL,
         Title.XAxis = NULL,
-        Engine = "Echarts",
         EchartsTheme = "macarons",
         TimeLine = TRUE,
         X_Scroll = TRUE,
         Y_Scroll = TRUE,
-        BackGroundColor = "#6a6969",
-        ChartColor = "#001534",
-        FillColor = "#0066ff",
-        FillColorReverse = "#97ff00",
-        GridColor = "white",
         TextColor = "white",
-        ZeroLineColor = "#ffff",
-        ZeroLineWidth = 1.25,
         title.fontSize = 22,
         title.fontWeight = "bold",
         title.textShadowColor = "#63aeff",
@@ -10746,7 +8533,6 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         dt = dt1,
         PreAgg = TRUE,
         AggMethod = "mean",
-        Engine = Engine,
         EchartsTheme = EchartsTheme,
         XVar = XVar,
         YVar = YVar,
@@ -10757,21 +8543,14 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         Height = Height,
         Width = Width,
         Title = "Heatmap: Target - Predicted",
-        BackGroundColor = BackGroundColor,
-        ChartColor = ChartColor,
-        FillColor = FillColor,
         TextColor = TextColor,
         X_Scroll = X_Scroll,
         Y_Scroll = Y_Scroll,
         NumberBins = NumberBins,
-        FillColorReverse = FillColorReverse,
-        GridColor = GridColor,
         Debug = Debug)
       return(p1)
 
     }
-
-
 
   } else {
 
@@ -10828,7 +8607,6 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       XVar = XVar,
       YVar = "Level",
@@ -10839,15 +8617,10 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = "Heatmap: Target - Predicted",
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
       TextColor = TextColor,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
       NumberBins = NumberBins,
-      FillColorReverse = FillColorReverse,
-      GridColor = GridColor,
       Debug = Debug)
     return(p1)
   }
@@ -10874,18 +8647,11 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor 'lightsteelblue'
-#' @param FillColor 'gray'
-#' @param FillColorReverse character hex
-#' @param GridColor 'white'
 #' @param TextColor 'darkblue'
-#' @param ZeroLineColor = '#ffff'
 #' @param Debug Debugging purposes
 #' @export
 Plot.VariableImportance <- function(dt = NULL,
@@ -10904,19 +8670,11 @@ Plot.VariableImportance <- function(dt = NULL,
                                     ShowLabels = FALSE,
                                     Title.YAxis = NULL,
                                     Title.XAxis = NULL,
-                                    Engine = 'Echarts',
                                     EchartsTheme = "macarons",
                                     TimeLine = TRUE,
                                     X_Scroll = TRUE,
                                     Y_Scroll = TRUE,
-                                    BackGroundColor =  "#6a6969",
-                                    ChartColor =       "#001534",
-                                    FillColor =        "#0066ff",
-                                    FillColorReverse = "#97ff00",
-                                    GridColor =        "white",
                                     TextColor =        "white",
-                                    ZeroLineColor = '#ffff',
-                                    ZeroLineWidth = 1.25,
                                     title.fontSize = 22,
                                     title.fontWeight = "bold", # normal
                                     title.textShadowColor = '#63aeff',
@@ -10931,53 +8689,7 @@ Plot.VariableImportance <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
 
-  # Plotly
-  if(Engine == "Plotly") {
-
-    X.HoverFormat <- "%{xaxis.title.text}: %{x:,.2f}<br>"
-    Y.HoverFormat <- "%{yaxis.title.text}: %{y:,.2f}<br>"
-
-    if(length(Width) > 0L) Width <- as.integer(gsub("[^\\d]+", "", Width, perl=TRUE))
-    if(length(Height) > 0L) Height <- as.integer(gsub("[^\\d]+", "", Height, perl=TRUE))
-    dt <- dt[order(Importance)]
-    Var <- names(which(unlist(lapply(dt, is.character))))
-    if(length(Var) == 0L) {
-      Var <- names(which(unlist(lapply(dt, is.factor))))
-    }
-    Vals <- dt$Variable
-    dt[, eval(Var) := factor(get(Var), levels = c(Vals))]
-
-    p1 <- plotly::plot_ly(
-      data = dt,
-      x = ~get(XVar),
-      y = ~get(YVar),
-      type = "bar",
-      hovertemplate = paste(
-        "<b>%{text}</b><br><br>",
-        Y.HoverFormat,
-        X.HoverFormat,
-        "<extra></extra>"
-      ),
-      width = Width,
-      height = Height)
-    p1 <- plotly::layout(
-      p = p1,
-      font = AutoPlots:::font_(),
-      title = AutoPlots:::bold_(Title),
-      plot_bgcolor = ChartColor,
-      paper_bgcolor = BackGroundColor,
-      yaxis = list(
-        title = AutoPlots:::bold_(YVar),
-        zerolinecolor = ZeroLineColor,
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor),
-      xaxis = list(
-        title = AutoPlots:::bold_(XVar),
-        categoryorder = "total descending",
-        zerolinecolor = ZeroLineColor,
-        zerolinewidth = ZeroLineWidth,
-        gridcolor = GridColor))
-  } else {
+  # Plot
     dt <- dt[order(Importance)]
     Var <- names(which(unlist(lapply(dt, is.character))))
     Var2 <- names(which(unlist(lapply(dt, is.numeric))))[1L]
@@ -11012,7 +8724,7 @@ Plot.VariableImportance <- function(dt = NULL,
         textShadowOffsetY = title.textShadowOffsetY,
         textShadowOffsetX = title.textShadowOffsetX))
     p1 <- echarts4r::e_flip_coords(e = p1)
-  }
+
 
   if(class(p1)[1L] == "plotly") {
     p1 <- plotly::layout(p1, yaxis = list(autorange = "reversed"))
@@ -11042,20 +8754,12 @@ Plot.VariableImportance <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
 #' @param SampleSize numeric
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character hex
-#' @param GridColor character hex
 #' @param TextColor character hex
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Debug Debugging purposes
 #' @export
 Plot.ROC <- function(dt = NULL,
@@ -11075,19 +8779,11 @@ Plot.ROC <- function(dt = NULL,
                      ShowLabels = FALSE,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,
-                     Engine = 'Echarts',
                      EchartsTheme = "macarons",
                      TimeLine = FALSE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
-                     BackGroundColor =  "#6a6969",
-                     ChartColor =       "#001534",
-                     FillColor =        "#0066ff",
-                     FillColorReverse = "#97ff00",
-                     GridColor =        "white",
                      TextColor =        "white",
-                     ZeroLineColor = '#ffff',
-                     ZeroLineWidth = 1.25,
                      Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -11226,7 +8922,6 @@ Plot.ROC <- function(dt = NULL,
       Area = FALSE,
       ShowSymbol = FALSE,
       Alpha = 0.50,
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = tl,
       YVar = YVar,
@@ -11239,14 +8934,8 @@ Plot.ROC <- function(dt = NULL,
       FacetLevels = FacetLevels,
       Height = Height,
       Width = Width,
-      ZeroLineColor = ZeroLineColor,
-      ZeroLineWidth = ZeroLineWidth,
       Title = title,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
-      TextColor = GridColor,
+      TextColor = TextColor,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
       Debug = Debug)
@@ -11257,7 +8946,6 @@ Plot.ROC <- function(dt = NULL,
       Smooth = TRUE,
       ShowSymbol = FALSE,
       Alpha = 0.50,
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = tl,
       YVar = YVar,
@@ -11270,14 +8958,8 @@ Plot.ROC <- function(dt = NULL,
       FacetLevels = FacetLevels,
       Height = Height,
       Width = Width,
-      ZeroLineColor = ZeroLineColor,
-      ZeroLineWidth = ZeroLineWidth,
       Title = title,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
-      TextColor = GridColor,
+      TextColor = TextColor,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
       Debug = Debug)
@@ -11297,7 +8979,6 @@ Plot.ROC <- function(dt = NULL,
 #' @author Adrian Antico
 #' @family Model Evaluation
 #'
-#' @param Engine 'Plotly' or "Echarts"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param dt source data.table
@@ -11320,14 +9001,8 @@ Plot.ROC <- function(dt = NULL,
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param GroupVar = NULL
-#' @param ZeroLineColor = '#ffff'
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param FillColor 'gray'
-#' @param FillColorReverse character hex
-#' @param ChartColor 'lightsteelblue'
 #' @param TextColor 'darkblue'
-#' @param GridColor 'white'
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param Debug Debugging purposes
 #' @export
 Plot.ConfusionMatrix <- function(dt = NULL,
@@ -11350,19 +9025,11 @@ Plot.ConfusionMatrix <- function(dt = NULL,
                                  ShowLabels = FALSE,
                                  Title.YAxis = NULL,
                                  Title.XAxis = NULL,
-                                 Engine = 'Echarts',
                                  EchartsTheme = "macarons",
                                  TimeLine = TRUE,
                                  X_Scroll = TRUE,
                                  Y_Scroll = TRUE,
-                                 BackGroundColor =  "#6a6969",
-                                 ChartColor =       "#001534",
-                                 FillColor =        "#0066ff",
-                                 FillColorReverse = "#97ff00",
-                                 GridColor =        "white",
                                  TextColor =        "white",
-                                 ZeroLineColor = '#ffff',
-                                 ZeroLineWidth = 1.25,
                                  AggMethod = "count",
                                  GroupVar = NULL,
                                  Debug = FALSE) {
@@ -11405,7 +9072,6 @@ Plot.ConfusionMatrix <- function(dt = NULL,
   data.table::setorderv(dt4, c(XVar,YVar), c(1L,1L))
   p1 <- AutoPlots:::Plot.HeatMap(
     PreAgg = TRUE,
-    Engine = Engine,
     EchartsTheme = EchartsTheme,
     Title = Title,
     dt = dt4,
@@ -11419,11 +9085,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     NumLevels_X = NumLevels_X,
     NumLevels_Y = NumLevels_Y,
     X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    GridColor = GridColor)
+    Y_Scroll = Y_Scroll)
 }
 
 #' @title Plot.Lift
@@ -11452,19 +9114,11 @@ Plot.ConfusionMatrix <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character hex
-#' @param GridColor character hex
 #' @param TextColor character hex
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Debug Debugging purposes
 #'
 #' @export
@@ -11487,19 +9141,11 @@ Plot.Lift <- function(dt = NULL,
                       ShowLabels = FALSE,
                       Title.YAxis = NULL,
                       Title.XAxis = NULL,
-                      Engine = 'Echarts',
                       EchartsTheme = "macarons",
                       TimeLine = TRUE,
                       X_Scroll = TRUE,
                       Y_Scroll = TRUE,
-                      BackGroundColor =  "#6a6969",
-                      ChartColor =       "#001534",
-                      FillColor =        "#0066ff",
-                      FillColorReverse = "#97ff00",
-                      GridColor =        "white",
                       TextColor =        "white",
-                      ZeroLineColor = '#ffff',
-                      ZeroLineWidth = 1.25,
                       Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -11693,18 +9339,11 @@ Plot.Lift <- function(dt = NULL,
       Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = FALSE)
   } else {
 
@@ -11726,18 +9365,11 @@ Plot.Lift <- function(dt = NULL,
       Title = Title,
       Smooth = TRUE,
       ShowSymbol = FALSE,
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = FALSE)
   }
 
@@ -11781,19 +9413,11 @@ Plot.Lift <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor character hex
-#' @param FillColor character hex
-#' @param FillColorReverse character hex
-#' @param GridColor character hex
 #' @param TextColor character hex
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Debug Debugging purposes
 #'
 #' @export
@@ -11816,19 +9440,11 @@ Plot.Gains <- function(dt = NULL,
                        ShowLabels = FALSE,
                        Title.YAxis = NULL,
                        Title.XAxis = NULL,
-                       Engine = 'Echarts',
                        EchartsTheme = "macarons",
                        TimeLine = TRUE,
                        X_Scroll = TRUE,
                        Y_Scroll = TRUE,
-                       BackGroundColor =  "#6a6969",
-                       ChartColor =       "#001534",
-                       FillColor =        "#0066ff",
-                       FillColorReverse = "#97ff00",
-                       GridColor =        "white",
                        TextColor =        "white",
-                       ZeroLineColor = '#ffff',
-                       ZeroLineWidth = 1.25,
                        Debug = FALSE) {
 
   if(Debug) print("here 1")
@@ -12021,18 +9637,11 @@ Plot.Gains <- function(dt = NULL,
       Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = FALSE)
   } else {
 
@@ -12054,18 +9663,11 @@ Plot.Gains <- function(dt = NULL,
       Title = Title,
       Smooth = TRUE,
       ShowSymbol = FALSE,
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = FALSE)
   }
 
@@ -12108,20 +9710,12 @@ Plot.Gains <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor hex character
-#' @param FillColor hex character
-#' @param FillColorReverse hex character
-#' @param GridColor hex character
 #' @param TextColor hex character
-#' @param ZeroLineColor hex character
-#' @param ZeroLineWidth numeric
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
@@ -12149,20 +9743,12 @@ Plot.BinaryMetrics <- function(dt = NULL,
                                ShowLabels = FALSE,
                                Title.YAxis = NULL,
                                Title.XAxis = NULL,
-                               Engine = 'Echarts',
                                EchartsTheme = "macarons",
                                EchartsLabels = FALSE,
                                TimeLine = TRUE,
                                X_Scroll = TRUE,
                                Y_Scroll = FALSE,
-                               BackGroundColor =  "#6a6969",
-                               ChartColor =       "#001534",
-                               FillColor =        "#0066ff",
-                               FillColorReverse = "#97ff00",
-                               GridColor =        "white",
                                TextColor =        "white",
-                               ZeroLineColor = '#ffff',
-                               ZeroLineWidth = 1.25,
                                Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -12217,19 +9803,11 @@ Plot.BinaryMetrics <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = Title,
-    Engine = Engine,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
-    BackGroundColor = BackGroundColor,
-    ChartColor = ChartColor,
-    FillColor = FillColor,
-    FillColorReverse = FillColorReverse,
-    GridColor = GridColor,
     TextColor = TextColor,
     X_Scroll = X_Scroll,
     Y_Scroll = Y_Scroll,
-    ZeroLineColor = GridColor,
-    ZeroLineWidth = 1.25,
     Debug = Debug)
   return(p1)
 }
@@ -12242,7 +9820,6 @@ Plot.BinaryMetrics <- function(dt = NULL,
 #' @author Adrian Antico
 #'
 #' @param dt source data.table
-#' @param Engine "plotly", "echarts4r"
 #' @param EchartsTheme "dark-blue"
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
@@ -12258,11 +9835,6 @@ Plot.BinaryMetrics <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param ChartColor = '#001534'
-#' @param FillColor = "#0066ff"
-#' @param FillColorReverse character hex
-#' @param GridColor = '#ffffff'
 #' @param Debug = FALSE
 #'
 #' @export
@@ -12286,15 +9858,9 @@ Plot.ShapImportance <- function(dt,
                                 ShowLabels = FALSE,
                                 Title.YAxis = NULL,
                                 Title.XAxis = NULL,
-                                Engine = "Plotly",
                                 EchartsTheme = "dark",
                                 X_Scroll = TRUE,
                                 Y_Scroll = TRUE,
-                                BackGroundColor =  "#6a6969",
-                                ChartColor =       "#001534",
-                                FillColor =        "#0066ff",
-                                FillColorReverse = "#97ff00",
-                                GridColor =        "white",
                                 TextColor =        "white",
                                 Debug = FALSE) {
 
@@ -12341,12 +9907,7 @@ Plot.ShapImportance <- function(dt,
       Height = Height,
       Width = Width,
       Title = paste0("Shap Importance: AggMethod = ", AggMethod),
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll)
     return(p1)
@@ -12365,16 +9926,9 @@ Plot.ShapImportance <- function(dt,
       Height = Height,
       Width = Width,
       Title = paste0("Shap Importance: AggMethod = ", AggMethod),
-      Engine = Engine,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      BackGroundColor = BackGroundColor,
-      ChartColor = ChartColor,
-      FillColor = FillColor,
-      GridColor = GridColor,
       TextColor = TextColor,
-      ZeroLineColor = GridColor,
-      ZeroLineWidth = 1.25,
       Debug = Debug)
     return(p1)
   }

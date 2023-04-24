@@ -21,19 +21,11 @@ Plot.Copula(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  Engine = "Plotly",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
-  ZeroLineColor = "#ffff",
-  ZeroLineWidth = 1.25,
   yaxis.fontSize = 14,
   xaxis.fontSize = 14,
   title.fontSize = 22,
@@ -78,8 +70,6 @@ Plot.Copula(
 
 \item{Title.XAxis}{character}
 
-\item{Engine}{= "Plotly",}
-
 \item{EchartsTheme}{= "dark-blue",}
 
 \item{TimeLine}{Logical}
@@ -88,21 +78,7 @@ Plot.Copula(
 
 \item{Y_Scroll}{logical}
 
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{'lightsteelblue'}
-
-\item{FillColor}{'gray'}
-
-\item{FillColorReverse}{character}
-
-\item{GridColor}{'white'}
-
 \item{TextColor}{'darkblue'}
-
-\item{ZeroLineColor}{= '#ffff',}
-
-\item{ZeroLineWidth}{= 2,}
 
 \item{Debug}{Debugging purposes}
 }
@@ -126,8 +102,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()},
-\code{\link{Plot.Violin}()}
+\code{\link{Plot.Step}()}
 }
 \author{
 Adrian Antico

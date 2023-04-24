@@ -28,14 +28,8 @@ Plots.ModelEvaluation(
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  PlotEngineType = "Echarts",
   EchartsTheme = "dark-blue",
   TimeLine = FALSE,
-  BackGroundColor = "#6a6969",
-  ChartColor = "#001534",
-  FillColor = "#0066ff",
-  FillColorReverse = "#97ff00",
-  GridColor = "white",
   TextColor = "white",
   FontSize = 14L,
   NumberBins = 20,
@@ -79,21 +73,9 @@ Plots.ModelEvaluation(
 
 \item{Width}{= NULL,}
 
-\item{PlotEngineType}{"Echarts" or "Plotly"}
-
 \item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
-
-\item{ChartColor}{hex}
-
-\item{FillColor}{hex}
-
-\item{FillColorReverse}{hex}
-
-\item{GridColor}{hex}
 
 \item{TextColor}{hex}
 
