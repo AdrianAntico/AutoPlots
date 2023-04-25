@@ -2591,7 +2591,7 @@ Plot.Density <- function(dt = NULL,
   YVar <- tryCatch({YVar[1L]}, error = function(x) NULL)
 
   # Faceting shrink
-  if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L)) {
+  if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L) && length(FacetLevels) > 0L) {
     dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,GroupVar)]
   } else {
     dt1 <- dt1[, .SD, .SDcols = c(YVar,GroupVar)]
@@ -2640,10 +2640,7 @@ Plot.Density <- function(dt = NULL,
           y_index = 1)
       }
 
-      if(FacetRows == 1L && FacetCols == 1L) {
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      }
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
