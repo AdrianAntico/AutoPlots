@@ -6704,7 +6704,7 @@ Plot.Scatter <- function(dt = NULL,
         colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
 
       if(ShowLabels) {
-        p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, label = list(show = TRUE))
+        p1 <- echarts4r::e_scatter_(e = p1, YVar, label = list(show = TRUE))
       } else {
         p1 <- echarts4r::e_scatter_(e = p1, YVar)
       }
@@ -6885,9 +6885,9 @@ Plot.Scatter3D <- function(dt = NULL,
         height = Height)
 
       if(ShowLabels) {
-        p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[1L], label = list(show = TRUE))
+        p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, GroupVar[1L], label = list(show = TRUE))
       } else {
-        p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[1L])
+        p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, GroupVar[1L])
       }
 
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
