@@ -34,6 +34,9 @@ Plot.Copula(
   title.textShadowBlur = 3,
   title.textShadowOffsetY = 1,
   title.textShadowOffsetX = -1,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
   Debug = FALSE
 )
 }

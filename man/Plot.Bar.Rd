@@ -35,6 +35,9 @@ Plot.Bar(
   title.textShadowOffsetX = -1,
   xaxis.fontSize = 14,
   yaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
   Debug = FALSE
 )
 }

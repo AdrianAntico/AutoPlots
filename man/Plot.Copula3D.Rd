@@ -35,6 +35,10 @@ Plot.Copula3D(
   yaxis.fontSize = 14,
   xaxis.fontSize = 14,
   zaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  zaxis.rotate = 0,
+  ContainLabel = TRUE,
   Debug = FALSE
 )
 }
