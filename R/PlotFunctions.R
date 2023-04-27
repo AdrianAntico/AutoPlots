@@ -10760,6 +10760,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     NumLevels_Y = NumLevels_Y,
     X_Scroll = X_Scroll,
     Y_Scroll = Y_Scroll)
+  return(p1)
 }
 
 #' @title Plot.Lift
