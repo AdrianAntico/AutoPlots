@@ -10706,6 +10706,9 @@ Plot.ConfusionMatrix <- function(dt = NULL,
                                  TextColor =        "white",
                                  AggMethod = "count",
                                  GroupVar = NULL,
+                                 xaxis.rotate = 0,
+                                 yaxis.rotate = 0,
+                                 ContainLabel = TRUE,
                                  Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -10759,7 +10762,10 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     NumLevels_X = NumLevels_X,
     NumLevels_Y = NumLevels_Y,
     X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll)
+    Y_Scroll = Y_Scroll,
+    xaxis.rotate = xaxis.rotate,
+    yaxis.rotate = yaxis.rotate,
+    ContainLabel = ContainLabel)
   return(p1)
 }
 

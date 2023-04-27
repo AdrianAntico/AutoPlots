@@ -32,6 +32,9 @@ Plot.ConfusionMatrix(
   TextColor = "white",
   AggMethod = "count",
   GroupVar = NULL,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
   Debug = FALSE
 )
 }
