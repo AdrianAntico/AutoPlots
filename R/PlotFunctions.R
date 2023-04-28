@@ -4968,6 +4968,7 @@ Plot.River <- function(dt = NULL,
 #' @param YVar Y-Axis variable name
 #' @param XVar X-Axis variable name
 #' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param LabelValues A vector of values. Requires PreAgg to be set to TRUE and you'll need to ensure LabelValues are ordered the same as dt. If NULL and ShowLabels is TRUE, then bar values will be displayed
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
@@ -4992,6 +4993,7 @@ Plot.Bar <- function(dt = NULL,
                      XVar = NULL,
                      YVar = NULL,
                      GroupVar = NULL,
+                     LabelValues = NULL,
                      YVarTrans = "Identity",
                      XVarTrans = "Identity",
                      FacetRows = 1,
@@ -5310,7 +5312,26 @@ Plot.Bar <- function(dt = NULL,
         width = Width,
         height = Height)
       if(ShowLabels) {
-        p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
+        if(length(LabelValues) > 0L && PreAgg) {
+          p1 <- echarts4r::e_charts_(
+            temp,
+            x = XVar,
+            dispose = TRUE,
+            darkMode = TRUE,
+            width = Width,
+            height = Height) |>
+            echarts4r::e_bar_(
+              YVar,
+              bind = LabelValues,
+              label = list(
+                show = TRUE,
+                formatter = "{b}",
+                position = "outside"))
+
+        } else {
+          p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
+        }
+
       } else {
         p1 <- echarts4r::e_bar_(e = p1, YVar)
       }

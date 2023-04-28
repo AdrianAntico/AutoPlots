@@ -10,6 +10,7 @@ Plot.Bar(
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
+  LabelValues = NULL,
   YVarTrans = "Identity",
   XVarTrans = "Identity",
   FacetRows = 1,
@@ -51,6 +52,8 @@ Plot.Bar(
 \item{YVar}{Y-Axis variable name}
 
 \item{GroupVar}{Column name of Group Variable for distinct colored histograms by group levels}
+
+\item{LabelValues}{A vector of values. Requires PreAgg to be set to TRUE and you'll need to ensure LabelValues are ordered the same as dt. If NULL and ShowLabels is TRUE, then bar values will be displayed}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
