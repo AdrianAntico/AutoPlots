@@ -20,7 +20,7 @@ Plot.PartialDependence.HeatMap(
   AggMethod = "mean",
   Height = NULL,
   Width = NULL,
-  Title = "Gains Plot",
+  Title = "Partial Dependence Heatmap",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,

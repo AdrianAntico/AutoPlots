@@ -22,7 +22,7 @@ Plot.PartialDependence.Box(
   AggMethod = "mean",
   Height = NULL,
   Width = NULL,
-  Title = "Gains Plot",
+  Title = "Partial Dependence Box",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,

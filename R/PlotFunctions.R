@@ -5121,25 +5121,14 @@ Plot.Bar <- function(dt = NULL,
       }
 
       # Plot
-      if(length(GroupVar) > 0L) {
-        p1 <- echarts4r::e_charts_(
-          temp |> dplyr::group_by(get(GroupVar[1L])),
-          x = XVar,
-          darkMode = TRUE,
-          emphasis = list(focus = "series"),
-          dispose = TRUE,
-          width = Width,
-          height = Height)
-      } else {
-        p1 <- echarts4r::e_charts_(
-          temp,
-          x = XVar,
-          dispose = TRUE,
-          darkMode = TRUE,
-          emphasis = list(focus = "series"),
-          width = Width,
-          height = Height)
-      }
+      p1 <- echarts4r::e_charts_(
+        temp |> dplyr::group_by(get(GroupVar[1L])),
+        x = XVar,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        dispose = TRUE,
+        width = Width,
+        height = Height)
 
       if(ShowLabels) {
         p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
@@ -5169,8 +5158,12 @@ Plot.Bar <- function(dt = NULL,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
-      if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-
+      if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(
+        e = p1,
+        rows = FacetRows,
+        cols = FacetCols,
+        legend_space = 16,
+        legend_pos = "top")
       if(length(Title.XAxis) == 0L) {
         p1 <- echarts4r::e_axis_(
           e = p1,
@@ -9305,7 +9298,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
                                    FacetLevels = NULL,
                                    Height = NULL,
                                    Width = NULL,
-                                   Title = 'Calibration Plot',
+                                   Title = 'Residual Scatterplot',
                                    ShowLabels = FALSE,
                                    Title.YAxis = NULL,
                                    Title.XAxis = NULL,
@@ -9404,7 +9397,7 @@ Plot.Calibration.Line <- function(dt = NULL,
                                   NumberBins = 21,
                                   Height = NULL,
                                   Width = NULL,
-                                  Title = 'Calibration Plot',
+                                  Title = 'Calibration Line',
                                   ShowLabels = FALSE,
                                   Title.YAxis = NULL,
                                   Title.XAxis = NULL,
@@ -9634,7 +9627,7 @@ Plot.Calibration.Box <- function(dt = NULL,
                                  NumberBins = 21,
                                  Height = NULL,
                                  Width = NULL,
-                                 Title = 'Calibration Plot',
+                                 Title = 'Calibration Box',
                                  ShowLabels = FALSE,
                                  Title.YAxis = NULL,
                                  Title.XAxis = NULL,
@@ -9754,7 +9747,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
                                         AggMethod = "mean",
                                         Height = NULL,
                                         Width = NULL,
-                                        Title = "Gains Plot",
+                                        Title = "Partial Dependence Line",
                                         ShowLabels = FALSE,
                                         Title.YAxis = NULL,
                                         Title.XAxis = NULL,
@@ -10002,7 +9995,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
                                        AggMethod = "mean",
                                        Height = NULL,
                                        Width = NULL,
-                                       Title = "Gains Plot",
+                                       Title = "Partial Dependence Box",
                                        ShowLabels = FALSE,
                                        Title.YAxis = NULL,
                                        Title.XAxis = NULL,
@@ -10115,7 +10108,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            AggMethod = "mean",
                                            Height = NULL,
                                            Width = NULL,
-                                           Title = "Gains Plot",
+                                           Title = "Partial Dependence Heatmap",
                                            ShowLabels = FALSE,
                                            Title.YAxis = NULL,
                                            Title.XAxis = NULL,
@@ -10470,7 +10463,7 @@ Plot.ROC <- function(dt = NULL,
                      AggMethod = 'mean',
                      Height = NULL,
                      Width = NULL,
-                     Title = 'Calibration Plot',
+                     Title = 'ROC Plot',
                      ShowLabels = FALSE,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,

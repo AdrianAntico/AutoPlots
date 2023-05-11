@@ -18,7 +18,7 @@ Plot.Calibration.Line(
   NumberBins = 21,
   Height = NULL,
   Width = NULL,
-  Title = "Calibration Plot",
+  Title = "Calibration Line",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,

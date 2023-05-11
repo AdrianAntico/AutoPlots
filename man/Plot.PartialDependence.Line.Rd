@@ -20,7 +20,7 @@ Plot.PartialDependence.Line(
   AggMethod = "mean",
   Height = NULL,
   Width = NULL,
-  Title = "Gains Plot",
+  Title = "Partial Dependence Line",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,

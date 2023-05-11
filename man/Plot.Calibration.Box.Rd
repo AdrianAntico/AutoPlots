@@ -19,7 +19,7 @@ Plot.Calibration.Box(
   NumberBins = 21,
   Height = NULL,
   Width = NULL,
-  Title = "Calibration Plot",
+  Title = "Calibration Box",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,

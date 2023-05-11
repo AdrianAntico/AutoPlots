@@ -18,7 +18,7 @@ Plot.Residuals.Scatter(
   FacetLevels = NULL,
   Height = NULL,
   Width = NULL,
-  Title = "Calibration Plot",
+  Title = "Residual Scatterplot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,

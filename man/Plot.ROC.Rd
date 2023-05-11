@@ -18,7 +18,7 @@ Plot.ROC(
   AggMethod = "mean",
   Height = NULL,
   Width = NULL,
-  Title = "Calibration Plot",
+  Title = "ROC Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
