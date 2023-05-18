@@ -11,7 +11,7 @@ Description: R package for generating plots in a simple way
 URL: https://github.com/AdrianAntico/AutoPlots
 BugReports: https://github.com/AdrianAntico/AutoPlots/issues
 Depends: R (>= 4.0.0)
-Imports: bit64, data.table, collapse, h2o, lubridate
+Imports: bit64, data.table, collapse, h2o, lubridate, echarts4r, dplyr
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 Contact: Adrian Antico

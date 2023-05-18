@@ -6112,8 +6112,8 @@ Plot.BarPlot3D <- function(dt,
   })
 
   # Convert factor to character
-  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
-    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] == "factor") {
+    dt[, eval(ZVar) := as.character(get(ZVar))]
   }
   if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
     dt[, eval(XVar) := as.character(get(XVar))]
@@ -7489,6 +7489,7 @@ Plot.Copula <- function(dt = NULL,
                         Width = NULL,
                         Title = 'Copula Plot',
                         ShowLabels = FALSE,
+                        AddGLM = FALSE,
                         Title.YAxis = NULL,
                         Title.XAxis = NULL,
                         EchartsTheme = "dark-blue",
@@ -7547,7 +7548,14 @@ Plot.Copula <- function(dt = NULL,
         p1 <- echarts4r::e_scatter_(e = p1, YVar, color = YVar)
       }
 
-      p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
+      # Add GLM
+      if(AddGLM) {
+        p1 <- echarts4r::e_glm(
+          e = p1,
+          smooth = TRUE,
+          formula = get(YVar) ~ get(XVar))
+      }
+
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -7673,7 +7681,15 @@ Plot.Copula <- function(dt = NULL,
           height = Height)
       }
       p1 <- echarts4r::e_scatter_(e = p1, YVar)
-      p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
+
+      # Add GLM
+      if(AddGLM) {
+        p1 <- echarts4r::e_glm(
+          e = p1,
+          smooth = TRUE,
+          formula = get(YVar) ~ get(XVar))
+      }
+
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -8065,6 +8081,7 @@ Plot.Scatter <- function(dt = NULL,
                          Width = NULL,
                          Title = 'Scatter Plot',
                          ShowLabels = FALSE,
+                         AddGLM = FALSE,
                          Title.YAxis = NULL,
                          Title.XAxis = NULL,
                          EchartsTheme = "macarons",
@@ -8130,7 +8147,14 @@ Plot.Scatter <- function(dt = NULL,
         p1 <- echarts4r::e_scatter_(e = p1, YVar)
       }
 
-      p1 <- echarts4r::e_glm(e = p1, smooth = TRUE, formula = get(YVar) ~ get(XVar))
+      # Add GLM
+      if(AddGLM) {
+        p1 <- echarts4r::e_glm(
+          e = p1,
+          smooth = TRUE,
+          formula = get(YVar) ~ get(XVar))
+      }
+
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -8250,6 +8274,14 @@ Plot.Scatter <- function(dt = NULL,
         p1 <- echarts4r::e_scatter_(e = p1, YVar)
       }
 
+      # Add GLM
+      if(AddGLM) {
+        p1 <- echarts4r::e_glm(
+          e = p1,
+          smooth = TRUE,
+          formula = get(YVar) ~ get(XVar))
+      }
+
       p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
       if(FacetRows == 1L && FacetCols == 1L) {
         if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -8348,8 +8380,6 @@ Plot.Scatter <- function(dt = NULL,
       } else {
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
-
-
   }
 
   # Return plot

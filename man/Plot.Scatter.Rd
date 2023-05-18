@@ -19,6 +19,7 @@ Plot.Scatter(
   Width = NULL,
   Title = "Scatter Plot",
   ShowLabels = FALSE,
+  AddGLM = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "macarons",

@@ -19,6 +19,7 @@ Plot.Copula(
   Width = NULL,
   Title = "Copula Plot",
   ShowLabels = FALSE,
+  AddGLM = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "dark-blue",
