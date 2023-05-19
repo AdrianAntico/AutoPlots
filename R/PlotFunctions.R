@@ -75,58 +75,6 @@ bold_ <- function(x) paste0('<b>',x,'</b>')
 #' @noRd
 font_ <- function(family = "Segoe UI Symbol", size = 12, color = 'white') list(family = family, size = size, color = color)
 
-#' @title ChartTheme
-#'
-#' @description This function helps your ggplots look professional with the choice of the two main colors that will dominate the theme
-#'
-#' @author Adrian Antico
-#' @family helper
-#'
-#' @param Size The size of the axis labels and title
-#' @param AngleX The angle of the x axis labels
-#' @param AngleY The angle of the Y axis labels
-#' @param ChartColor "lightsteelblue1",
-#' @param BorderColor "darkblue"
-#' @param SubTitleColor 'blue'
-#' @param TextColor "darkblue"
-#' @param GridColor "white"
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
-#' @param LegendPosition Where to place legend
-#' @param LegendBorderSize 0.50
-#' @param LegendLineType 'solid'
-#' @return An object to pass along to ggplot objects following the "+" sign
-#' @noRd
-ChartTheme <- function(Size = 12,
-                       AngleX = 90,
-                       AngleY = 0,
-                       BackGroundColor = "#6a6969", #"#1b1959", #'#00060b',
-                       ChartColor = '#001534',
-                       GridColor = 'white',
-                       TextColor = 'white',
-                       SubTitleColor = 'white',
-                       BorderColor = 'white',
-                       LegendPosition = 'bottom',
-                       LegendBorderSize = 0.01,
-                       LegendLineType = 'solid') {
-  chart_theme <- ggplot2::theme(
-    plot.background = ggplot2::element_rect(fill = BackGroundColor),
-    panel.background = ggplot2::element_rect(fill = ChartColor, colour = BorderColor, size = 0.25, color = BorderColor),
-    panel.grid.major = ggplot2::element_line(colour = BorderColor, size = 0.01, color = GridColor, linetype = 1),
-    panel.grid.minor = ggplot2::element_line(colour = BorderColor, size = 0.01, color = GridColor, linetype = 1),
-    legend.position = LegendPosition,
-    legend.title = ggplot2::element_text(color = BorderColor, size = Size, face = 'bold'),
-    plot.subtitle = ggplot2::element_text(color = SubTitleColor, size = max(1,floor(Size * 5 / 6)), face = 'bold'),
-    legend.background = ggplot2::element_rect(fill = BackGroundColor, size = LegendBorderSize, linetype = LegendLineType, color = BorderColor),
-    plot.title = ggplot2::element_text(color = TextColor, size = Size, face = 'bold'),
-    axis.title = ggplot2::element_text(color = TextColor, size = Size, face = 'bold'),
-    axis.text.x = ggplot2::element_text(colour = TextColor, face = "bold", angle = AngleX),
-    axis.text.y = ggplot2::element_text(colour = TextColor, face = "bold", angle = AngleY),
-    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = 20, r = 20, b = 20, l = 20)),
-    axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 20, r = 20, b = 20, l = 20)),
-    panel.border = ggplot2::element_rect(colour = BorderColor, fill = NA, size = 1.5))
-  chart_theme
-}
-
 #' @title FakeDataGenerator
 #'
 #' @description Create fake data for examples
