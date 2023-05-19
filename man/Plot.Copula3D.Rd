@@ -86,8 +86,6 @@ Plot.Copula3D(
 \item{TextColor}{'darkblue'}
 
 \item{Debug}{Debugging purposes}
-
-\item{GridColor}{'white'}
 }
 \description{
 Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.

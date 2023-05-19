@@ -2318,7 +2318,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
-#' @param GridColor 'white'
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param Debug Debugging purposes
 #' @export
@@ -2841,9 +2840,6 @@ Plot.Pie <- function(dt = NULL,
 
   if(length(YVar) > 0L) YVar <- YVar[1L]
   if(length(XVar) > 0L) XVar <- XVar[1L]
-
-
-
 
   # Used multiple times
   check1 <- length(XVar) != 0 && length(YVar) != 0
@@ -4797,7 +4793,6 @@ Plot.Step <- function(dt = NULL,
 #' @param ChartColor color
 #' @param FillColor color
 #' @param FillColorReverse character
-#' @param GridColor color
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @export
@@ -7826,7 +7821,6 @@ Plot.Copula <- function(dt = NULL,
 #' @param EchartsTheme = "dark-blue"
 #' @param TimeLine Logical
 #' @param TextColor 'darkblue'
-#' @param GridColor 'white'
 #' @param Debug Debugging purposes
 #' @export
 Plot.Copula3D <- function(dt = NULL,
@@ -7900,7 +7894,7 @@ Plot.Copula3D <- function(dt = NULL,
 
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = GridColor))
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor))
       p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
@@ -8127,6 +8121,17 @@ Plot.Scatter <- function(dt = NULL,
       dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
       dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    }
+  }
+
+  # Transformation
+  if(XVarTrans != "Identity") {
+    if(XVarTrans == "PercRank") {
+      dt1 <- PercRank(data = dt1, ColNames = XVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+    } else if(XVarTrans == "Standardize") {
+      dt1 <- Standardize(data = dt1, ColNames = XVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+    } else {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
     }
   }
 

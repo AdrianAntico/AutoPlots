@@ -77,8 +77,6 @@ Plot.Histogram(
 
 \item{Engine}{"Echarts" or "Plotly"}
 
-\item{GridColor}{'white'}
-
 \item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 }
 \description{
