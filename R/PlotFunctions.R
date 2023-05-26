@@ -2867,43 +2867,43 @@ Plot.Pie <- function(dt = NULL,
       }
     }
 
-      p1 <- echarts4r::e_charts_(
-        temp,
-        x = XVar,
-        dispose = TRUE,
-        darkMode = TRUE,
-        emphasis = list(focus = "series"),
-        width = Width, height = Height)
+    p1 <- echarts4r::e_charts_(
+      temp,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width, height = Height)
 
-      if(ShowLabels) {
-        p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE))
-      } else {
-        p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar)
-      }
+    if(ShowLabels) {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar)
+    }
 
-      if(FacetRows == 1L && FacetCols == 1L) {
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      }
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", backgroundColor = "aliceblue")
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      p1 <- echarts4r::e_brush(e = p1)
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
-          color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows == 1L && FacetCols == 1L) {
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", backgroundColor = "aliceblue")
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
 
     return(p1)
   }
