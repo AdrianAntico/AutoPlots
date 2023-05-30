@@ -8,7 +8,6 @@ Plot.Stock(
   StockDataOutput,
   Type = "candlestick",
   Metric = "Stock Price",
-  PlotEngineType = "Echarts",
   Width = NULL,
   Height = NULL,
   EchartsTheme = "macarons",
@@ -37,8 +36,6 @@ Plot.Stock(
 \item{StockDataOutput}{PolyOut returned from StockData()}
 
 \item{Type}{'candlestick', 'ohlc'}
-
-\item{PlotEngineType}{= "Echarts" or "Plotly"}
 
 \item{Width}{= "1450px"}
 

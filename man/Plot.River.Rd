@@ -88,8 +88,6 @@ Plot.River(
 
 \item{Debug}{Debugging purposes}
 
-\item{Engine}{"Echarts" or "Plotly"}
-
 \item{ZeroLineColor}{color}
 
 \item{ZeroLineWidth}{1}

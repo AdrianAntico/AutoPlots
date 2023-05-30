@@ -1473,6 +1473,34 @@ Plot.StandardPlots <- function(dt = NULL,
 
   # Step Plot
   if(tolower(PlotType) == 'stepplot') {
+
+    print("AutoPlots StepPlot Now")
+    print(head(dt))
+    print(PreAgg)
+    print(AggMethod)
+    print(XVar)
+    print(YVar)
+    print(GroupVar)
+    print(YVarTrans)
+    print(XVarTrans)
+    print(FacetRows)
+    print(FacetCols)
+    print(FacetLevels)
+    print(Width)
+    print(Height)
+    print(Title)
+    print(ShowLabels)
+    print(Title.YAxis)
+    print(Title.XAxis)
+    print(EchartsTheme)
+    print(TimeLine)
+    print(TRUE)
+    print(TRUE)
+    print(TextColor)
+    print(Title.FontSize)
+    print(Debug)
+
+
     p1 <- AutoPlots::Plot.Step(
       dt = dt,
       PreAgg = PreAgg,
@@ -1491,7 +1519,6 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      Engine = PlotEngineType,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
@@ -2261,7 +2288,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param NumberBins = 30
 #' @param Height = NULL,
 #' @param Width = NULL,
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme = EchartsTheme,
 #' @param TimeLine logical
 #' @param X_Scroll logical
@@ -4583,14 +4609,14 @@ Plot.Step <- function(dt = NULL,
 
   } else {
 
-  # Plot
-  data.table::setorderv(x = dt1, cols = XVar, 1L)
-  cxv <- class(dt1[[XVar]])[1L]
-  if(cxv %in% "IDate") {
-    dt1[, eval(XVar) := as.Date(get(XVar))]
-  } else if(cxv %in% "IDateTime") {
-    dt1[, eval(XVar) := as.POSIXct(get(XVar))]
-  }
+    # Plot
+    data.table::setorderv(x = dt1, cols = XVar, 1L)
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
 
     # Build base plot depending on GroupVar availability
     if(Debug) print("Plot.Line no group Echarts")
@@ -4729,7 +4755,6 @@ Plot.Step <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
-#' @param Engine "Echarts" or "Plotly"
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
 #' @param X_Scroll logical
@@ -8875,7 +8900,6 @@ StockData <- function(PolyOut = NULL,
 #'
 #' @param Type 'candlestick', 'ohlc'
 #' @param StockDataOutput PolyOut returned from StockData()
-#' @param PlotEngineType = "Echarts" or "Plotly"
 #' @param Width = "1450px"
 #' @param Height = "600px"
 #' @param EchartsTheme = "macarons"
@@ -8897,7 +8921,6 @@ StockData <- function(PolyOut = NULL,
 Plot.Stock <- function(StockDataOutput,
                        Type = 'candlestick',
                        Metric = "Stock Price",
-                       PlotEngineType = "Echarts",
                        Width = NULL,
                        Height = NULL,
                        EchartsTheme = "macarons",
@@ -8940,90 +8963,62 @@ Plot.Stock <- function(StockDataOutput,
 # xaxis.fontSize = 14
   if(missing(StockDataOutput)) stop('StockDataOutput cannot be missing')
   if(Type == 'CandlestickPlot') Type <- 'candlestick'
-  if(PlotEngineType == "Plotly") {
-    p1 <- plotly::plot_ly(
-      data = StockDataOutput$data,
-      x = ~Date,
-      type = Type,
-      open = ~o,
-      close = ~c,
-      high = ~h,
-      low = ~l,
-      decreasing = list(line = list(color = '#ff0055')),
-      increasing = list(line = list(color = '#66ff00')),
-      width = Width,
-      height = Height)
-    if(Debug) print('Plot.Stock 3')
-    p1 <- plotly::layout(
-      p = p1,
-      font = AutoPlots:::font_(),
-      title = if(length(StockDataOutput$CompanyName) == 0L) list(text = paste0(StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate), font = 'Segoe UI') else list(text = paste0(StockDataOutput$CompanyName, " - ", StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate), font = 'Segoe UI'),
-      plot_bgcolor = '#001534',
-      paper_bgcolor = "#6a6969",
-      yaxis = list(title = AutoPlots:::bold_(StockDataOutput$Metric)),
-      xaxis = list(title = AutoPlots:::bold_('Date')))
-    if(Debug) print('Plot.Stock 3: done')
-    return(p1)
+  # Build base plot depending on GroupVar availability
+  dt <- StockDataOutput$results
+  dt[, Date := as.character(Date)]
+  p1 <- echarts4r::e_charts_(
+    data = dt,
+    x = "Date",
+    dispose = TRUE,
+    darkMode = TRUE,
+    width = Width,
+    height = Height)
+  p1 <- echarts4r::e_candle_(
+    e = p1,
+    high = "h",
+    low = "l",
+    closing = "c",
+    opening = "o",
+    itemStyle = list(
+      #shadowBlur = ShadowBlur,
+      #shadowColor = ShadowColor,
+      #shadowOffsetX = ShadowOffsetX,
+      #shadowOffsetY = ShadowOffsetY,
+      color = Color,
+      color0 = Color0,
+      backgroundColor = "white",
+      borderColor = BorderColor,
+      borderColor0 = BorderColor0,
+      borderColorDoji = BorderColorDoji
+    ),
+    name = StockDataOutput$Symbol)
 
-  } else if(PlotEngineType == "Echarts") {
+  # Finalize Plot Build
+  p1 <- echarts4r::e_legend(e = p1, show = FALSE)
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_tooltip(e = p1 , trigger = "axis")
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-    # Build base plot depending on GroupVar availability
-    dt <- StockDataOutput$results
-    dt[, Date := as.character(Date)]
-    p1 <- echarts4r::e_charts_(
-      data = dt,
-      x = "Date",
-      dispose = TRUE,
-      darkMode = TRUE,
-      width = Width,
-      height = Height)
-    p1 <- echarts4r::e_candle_(
-      e = p1,
-      high = "h",
-      low = "l",
-      closing = "c",
-      opening = "o",
-      itemStyle = list(
-        #shadowBlur = ShadowBlur,
-        #shadowColor = ShadowColor,
-        #shadowOffsetX = ShadowOffsetX,
-        #shadowOffsetY = ShadowOffsetY,
-        color = Color,
-        color0 = Color0,
-        backgroundColor = "white",
-        borderColor = BorderColor,
-        borderColor0 = BorderColor0,
-        borderColorDoji = BorderColorDoji
-      ),
-      name = StockDataOutput$Symbol)
-
-    # Finalize Plot Build
-    p1 <- echarts4r::e_legend(e = p1, show = FALSE)
-    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_tooltip(e = p1 , trigger = "axis")
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = "Date", nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    p1 <- echarts4r::e_title(
-      p1,
-      text = if(length(StockDataOutput$CompanyName) == 0L) paste0(StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate) else paste0(StockDataOutput$CompanyName, " - ", StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate, " :: Measure: ", Metric),
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
-    if(Debug) print("Plot.Line no group Echarts 9")
-    return(p1)
-  }
+  p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = "Date", nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+  p1 <- echarts4r::e_title(
+    p1,
+    text = if(length(StockDataOutput$CompanyName) == 0L) paste0(StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate) else paste0(StockDataOutput$CompanyName, " - ", StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate, " :: Measure: ", Metric),
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  if(Debug) print("Plot.Line no group Echarts 9")
+  return(p1)
 }
 
 # ----

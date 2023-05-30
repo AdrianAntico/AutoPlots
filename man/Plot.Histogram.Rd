@@ -75,8 +75,6 @@ Plot.Histogram(
 
 \item{Debug}{Debugging purposes}
 
-\item{Engine}{"Echarts" or "Plotly"}
-
 \item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 }
 \description{
