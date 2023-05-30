@@ -5764,10 +5764,10 @@ Plot.StackedBar <- function(dt = NULL,
   })
 
   # Convert factor to character
-  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] %in% c("factor","integer","numeric")) {
     dt[, eval(GroupVar) := as.character(get(GroupVar))]
   }
-  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] %in% c("factor","integer","numeric")) {
     dt[, eval(XVar) := as.character(get(XVar))]
   }
   if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
