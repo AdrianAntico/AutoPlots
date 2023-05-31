@@ -61,12 +61,6 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 - Display size sampling (sampled right before plot building, not before data management)
 - Model evaluation plots available by grouping variables (or faceted)
 
-
-### Available Plots
-
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Available_Plots1.PNG" align="center" width="800" />
-
-
 ### BoxPlot  |  Histogram  |  Density
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Distribution.PNG" align="center" width="800" />
