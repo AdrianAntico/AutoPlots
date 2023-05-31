@@ -1473,34 +1473,6 @@ Plot.StandardPlots <- function(dt = NULL,
 
   # Step Plot
   if(tolower(PlotType) == 'stepplot') {
-
-    print("AutoPlots StepPlot Now")
-    print(head(dt))
-    print(PreAgg)
-    print(AggMethod)
-    print(XVar)
-    print(YVar)
-    print(GroupVar)
-    print(YVarTrans)
-    print(XVarTrans)
-    print(FacetRows)
-    print(FacetCols)
-    print(FacetLevels)
-    print(Width)
-    print(Height)
-    print(Title)
-    print(ShowLabels)
-    print(Title.YAxis)
-    print(Title.XAxis)
-    print(EchartsTheme)
-    print(TimeLine)
-    print(TRUE)
-    print(TRUE)
-    print(TextColor)
-    print(Title.FontSize)
-    print(Debug)
-
-
     p1 <- AutoPlots::Plot.Step(
       dt = dt,
       PreAgg = PreAgg,
@@ -1653,7 +1625,7 @@ Plot.StandardPlots <- function(dt = NULL,
     return(p1)
   }
 
-  # Heat Map (Plotly & Echarts)
+  # Heat Map
   if(tolower(PlotType) %in% 'heatmapplot') {
     p1 <- AutoPlots::Plot.HeatMap(
       PreAgg = PreAgg,
@@ -6080,8 +6052,8 @@ Plot.BarPlot3D <- function(dt,
   })
 
   # Convert factor to character
-  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] == "factor") {
-    dt[, eval(ZVar) := as.character(get(ZVar))]
+  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] %in% c("factor","character")) {
+    dt[, eval(ZVar) := as.numeric(get(ZVar))]
   }
   if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
     dt[, eval(XVar) := as.character(get(XVar))]
@@ -6673,8 +6645,8 @@ Plot.HeatMap <- function(dt,
   })
 
   # Convert factor to character
-  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] == "factor") {
-    dt[, eval(ZVar) := as.character(get(ZVar))]
+  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] %in% c("factor","character")) {
+    dt[, eval(ZVar) := as.numeric(get(ZVar))]
   }
   if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
     dt[, eval(XVar) := as.character(get(XVar))]
@@ -7643,7 +7615,7 @@ Plot.Copula <- function(dt = NULL,
           dt1 |> dplyr::group_by(get(GroupVar[1L])),
           x = XVar,
           dispose = TRUE,
-          darkMode = TRUE,
+          #darkMode = TRUE,
           emphasis = list(focus = "series"),
           width = Width,
           height = Height)
@@ -8231,133 +8203,148 @@ Plot.Scatter <- function(dt = NULL,
 
   } else {
 
-    if(length(FacetLevels) > 0L) {
+    print("SCatter 1")
+    if((FacetRows > 1L || FacetCols > 1L) && length(FacetLevels) > 0L) {
       dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
     }
 
+    print("SCatter 2")
+
     if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
+    if(Debug) print('Plot.Scatter  Echarts')
+    p1 <- echarts4r::e_charts_(
+      dt1 |> dplyr::group_by(get(GroupVar[1L])),
+      x = XVar,
+      timeline = TimeLine,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
 
-      if(Debug) print('Plot.Scatter  Echarts')
-      p1 <- echarts4r::e_charts_(
-        dt1 |> dplyr::group_by(get(GroupVar[1L])),
-        x = XVar,
-        timeline = TimeLine,
-        darkMode = TRUE,
-        emphasis = list(focus = "series"),
-        colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
+    print("SCatter 3")
 
-      if(ShowLabels) {
-        p1 <- echarts4r::e_scatter_(e = p1, YVar, label = list(show = TRUE))
-      } else {
-        p1 <- echarts4r::e_scatter_(e = p1, YVar)
-      }
+    if(ShowLabels) {
+      p1 <- echarts4r::e_scatter_(e = p1, YVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_scatter_(e = p1, YVar)
+    }
 
-      # Add GLM
-      if(AddGLM) {
-        p1 <- echarts4r::e_glm(
-          e = p1,
-          smooth = TRUE,
-          formula = get(YVar) ~ get(XVar))
-      }
+    print("SCatter 4")
 
-      p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
-      if(FacetRows == 1L && FacetCols == 1L) {
-        if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      }
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    # Add GLM
+    if(AddGLM) {
+      p1 <- echarts4r::e_glm(
+        e = p1,
+        smooth = TRUE,
+        formula = get(YVar) ~ get(XVar))
+    }
 
-      if(length(Title.XAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "x",
-          name = XVar,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = xaxis.fontSize),
-          axisLabel = list(
-            rotate = xaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      } else {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "x",
-          name = Title.XAxis,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = xaxis.fontSize),
-          axisLabel = list(
-            rotate = xaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      }
+    print("SCatter 5")
 
-      if(length(Title.YAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "y",
-          name = YVar,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = yaxis.fontSize),
-          axisLabel = list(
-            rotate = yaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      } else {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "y",
-          name = Title.YAxis,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = yaxis.fontSize),
-          axisLabel = list(
-            rotate = yaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      }
+    p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
+    if(FacetRows == 1L && FacetCols == 1L) {
+      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    }
 
-      p1 <- echarts4r::e_brush(e = p1)
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
+    print("SCatter 6")
+
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    print("SCatter 7")
+
+    if(length(Title.XAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = XVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
           color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
-      if(FacetRows > 1L || FacetCols > 1L) {
-        p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      } else {
-        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      }
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = Title.XAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
+
+    if(length(Title.YAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = YVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = yaxis.fontSize),
+        axisLabel = list(
+          rotate = yaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = Title.YAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = yaxis.fontSize),
+        axisLabel = list(
+          rotate = yaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
+
+    print("SCatter 8")
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) {
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
   }
 
   # Return plot
