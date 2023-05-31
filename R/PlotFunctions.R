@@ -2105,7 +2105,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
   # ----
 
   # Shap VI ----
-  if(PlotType == 'ShapelyImportance') {
+  if(PlotType == 'ShapleyImportance') {
     p1 <- AutoPlots::Plot.ShapImportance(
       PreAgg = FALSE,
       dt = dt,
@@ -10175,7 +10175,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         ShowLabels = ShowLabels,
         Title.YAxis = "Target - Predicted",
         Title.XAxis = XVar,
-        EchartsTheme = "macarons",
+        EchartsTheme = EchartsTheme,
         TimeLine = TRUE,
         X_Scroll = TRUE,
         Y_Scroll = TRUE,
@@ -10694,13 +10694,12 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     dt4[, `Mean.X` := N / Mean.X]
     ZVar <- "Mean.X"
   } else if(!PreAgg) {
-
-    if(length(unique(dt2[[XVar]])) > 2L) {
-      dt2[, classPredict := data.table::fifelse(get(XVar) > 0.5, 1, 0)]
+    if(length(unique(dt[[XVar]])) > 2L) {
+      dt[, classPredict := data.table::fifelse(get(XVar) > 0.5, 1, 0)]
     }
-    dt4 <- data.table::CJ(unique(dt2[[YVar]]), unique(dt2[["classPredict"]]))
+    dt4 <- data.table::CJ(unique(dt[[YVar]]), unique(dt[["classPredict"]]))
     data.table::setnames(dt4, c("V1","V2"), c(YVar, XVar))
-    dt3 <- dt2[, list(Metric = .N), by = c(YVar, "classPredict")]
+    dt3 <- dt[, list(Metric = .N), by = c(YVar, "classPredict")]
     data.table::setkeyv(x = dt3, cols = c(YVar, "classPredict"))
     data.table::setkeyv(x = dt4, cols = c(YVar, XVar))
     dt4[dt3, Metric := i.Metric]
@@ -11529,6 +11528,7 @@ Plot.ShapImportance <- function(dt,
 
   # Subset columns
   if(!PreAgg) {
+
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
       dt <- data.table::as.data.table(dt)
     })
@@ -11573,6 +11573,9 @@ Plot.ShapImportance <- function(dt,
       Y_Scroll = Y_Scroll)
     return(p1)
   } else {
+
+    print("Right Here Yo")
+
     p1 <- AutoPlots::Plot.VariableImportance(
       dt = dt2,
       AggMethod = 'mean',
