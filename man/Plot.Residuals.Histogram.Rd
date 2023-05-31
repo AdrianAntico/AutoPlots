@@ -22,7 +22,7 @@ Plot.Residuals.Histogram(
   Title = "Residuals Histogram",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
-  Title.XAxis = NULL,
+  Title.XAxis = "Target - Predicted",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
   X_Scroll = TRUE,

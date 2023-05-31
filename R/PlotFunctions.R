@@ -9066,7 +9066,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
                                      Title = 'Residuals Histogram',
                                      ShowLabels = FALSE,
                                      Title.YAxis = NULL,
-                                     Title.XAxis = NULL,
+                                     Title.XAxis = "Target - Predicted",
                                      EchartsTheme = "macarons",
                                      TimeLine = FALSE,
                                      X_Scroll = TRUE,
@@ -9127,96 +9127,77 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   if(Debug) print('Create Plot with only data')
 
   # Format
+  if(Debug) print("Echarts Histogram 1")
+  if(length(GroupVar) > 0L) {
+    p1 <- echarts4r::e_charts_(
+      dt1 |> dplyr::group_by(get(GroupVar)),
+      x = NULL,
+      timeline = TimeLine,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width,
+      height = Height)
+  } else {
+    if(Debug) print("here 1b")
+    p1 <- echarts4r::e_charts_(
+      dt1,
+      x = NULL,
+      darkMode = TRUE,
+      dispose = TRUE,
+      width = Width,
+      height = Height)
+  }
+  p1 <- echarts4r::e_histogram_(e = p1, YVar, breaks = NumberBins, bar_width = "100%")
+  if(FacetRows == 1L && FacetCols == 1L && Y_Scroll) {
+    p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+  }
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-    if(Debug) print("Echarts Histogram 1")
-    if(length(GroupVar) > 0L) {
-      p1 <- echarts4r::e_charts_(
-        dt1 |> dplyr::group_by(get(GroupVar)),
-        x = NULL,
-        timeline = TimeLine,
-        dispose = TRUE,
-        darkMode = TRUE,
-        emphasis = list(focus = "series"),
-        width = Width,
-        height = Height)
-    } else {
-      if(Debug) print("here 1b")
-      p1 <- echarts4r::e_charts_(
-        dt1,
-        x = NULL,
-        darkMode = TRUE,
-        dispose = TRUE,
-        width = Width,
-        height = Height)
-    }
-    p1 <- echarts4r::e_histogram_(e = p1, YVar, breaks = NumberBins, bar_width = "100%")
-    if(FacetRows == 1L && FacetCols == 1L && Y_Scroll) {
-      p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-    }
-    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_axis_(
+    e = p1,
+    serie = NULL,
+    axis = "x",
+    name = YVar, # Target - Predicted: keep this way
+    nameLocation = "middle",
+    nameGap = 45,
+    nameTextStyle = list(
+      color = TextColor,
+      fontStyle = "normal",
+      fontWeight = "bold",
+      fontSize = xaxis.fontSize),
+    axisLabel = list(
+      rotate = xaxis.rotate,
+      grid = list(containLabel = ContainLabel)))
 
-    if(length(Title.XAxis) == 0L) {
-      p1 <- echarts4r::e_axis_(
-        e = p1,
-        serie = NULL,
-        axis = "x",
-        name = XVar,
-        nameLocation = "middle",
-        nameGap = 45,
-        nameTextStyle = list(
-          color = TextColor,
-          fontStyle = "normal",
-          fontWeight = "bold",
-          fontSize = xaxis.fontSize),
-        axisLabel = list(
-          rotate = xaxis.rotate,
-          grid = list(containLabel = ContainLabel)))
-    } else {
-      p1 <- echarts4r::e_axis_(
-        e = p1,
-        serie = NULL,
-        axis = "x",
-        name = Title.XAxis,
-        nameLocation = "middle",
-        nameGap = 45,
-        nameTextStyle = list(
-          color = TextColor,
-          fontStyle = "normal",
-          fontWeight = "bold",
-          fontSize = xaxis.fontSize),
-        axisLabel = list(
-          rotate = xaxis.rotate,
-          grid = list(containLabel = ContainLabel)))
-    }
-
-    p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
-    if(FacetRows > 1L || FacetCols > 1L) {
-      p1 <- echarts4r::e_facet(
-        e = p1,
-        rows = FacetRows,
-        cols = FacetCols,
-        legend_space = 16,
-        legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    }
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  if(FacetRows > 1L || FacetCols > 1L) {
+    p1 <- echarts4r::e_facet(
+      e = p1,
+      rows = FacetRows,
+      cols = FacetCols,
+      legend_space = 16,
+      legend_pos = "top")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  } else {
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  }
 
   return(p1)
 }
@@ -9266,8 +9247,8 @@ Plot.Residuals.Scatter <- function(dt = NULL,
                                    Width = NULL,
                                    Title = 'Residual Scatterplot',
                                    ShowLabels = FALSE,
-                                   Title.YAxis = NULL,
-                                   Title.XAxis = NULL,
+                                   Title.YAxis = "Target - Predicted",
+                                   Title.XAxis = "Predicted",
                                    EchartsTheme = "macarons",
                                    TimeLine = FALSE,
                                    X_Scroll = TRUE,
@@ -9283,7 +9264,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
   if(dt1[, .N] > SampleSize) dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
-  if(length(GroupVar) >0L) GroupVar <- GroupVar[1L]
+  if(length(GroupVar) > 0L) GroupVar <- GroupVar[1L]
   if(length(GroupVar) > 0L) {
     dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * 20 / .N) / 20, by = c(GroupVar[1L])]
   } else {
@@ -9308,6 +9289,9 @@ Plot.Residuals.Scatter <- function(dt = NULL,
     FacetCols = FacetCols,
     FacetLevels = FacetLevels,
     Height = Height,
+    Title.YAxis = YVar,
+    Title.XAxis = paste0(XVar, " every 5th Percentile"),
+    ShowLabels = ShowLabels,
     Width = Width,
     Title = Title,
     EchartsTheme = EchartsTheme,
@@ -9442,6 +9426,9 @@ Plot.Calibration.Line <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
+      Title.YAxis = yvar,
+      Title.XAxis = paste0("Predicted every 5th Percentile"),
+      ShowLabels = ShowLabels,
       Height = Height,
       Width = Width,
       Title = 'Calibration Line Plot',
@@ -9653,6 +9640,9 @@ Plot.Calibration.Box <- function(dt = NULL,
     XVarTrans = XVarTrans,
     FacetRows = FacetRows,
     FacetCols = FacetCols,
+    ShowLabels = ShowLabels,
+    Title.YAxis = "Target - Predicted",
+    Title.XAxis = paste0("Predicted Every 5th Percentile"),
     FacetLevels = NULL,
     Height = Height,
     Width = Width,
@@ -9800,6 +9790,9 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Target & Predicted",
+      Title.XAxis = paste0(XVar, " Every 5th Percentile"),
       Height = Height,
       Width = Width,
       Title = "Partial Dependence",
@@ -9896,6 +9889,9 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Target & Predicted",
+      Title.XAxis = paste0(XVar, " Every 5th Percentile"),
       Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
@@ -10015,6 +10011,9 @@ Plot.PartialDependence.Box <- function(dt = NULL,
     FacetRows = 1,
     FacetCols = 1,
     FacetLevels = NULL,
+    ShowLabels = ShowLabels,
+    Title.YAxis = "Target & Predicted",
+    Title.XAxis = paste0(XVar, " Every 5th Percentile"),
     Height = Height,
     Width = Width,
     Title = "Partial Dependence",
@@ -10111,7 +10110,15 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
     if(Debug) print("Plot.PartialDependence.HeatMap # Define Aggregation function")
     aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
     if(Debug) print("Plot.PartialDependence.HeatMap # if(length(GroupVar) == 0L)")
-    for(i in seq_along(XVar)) dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L))]
+
+    for(i in seq_along(XVar)) {
+      if(class(dt[[XVar]][i]) %in% c("numeric","integer")) {
+        dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L))]
+      } else {
+        dt1[, eval(XVar[i]) := as.character(get(XVar[i]))]
+      }
+    }
+
     dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(eval(XVar))]
     dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
     ZVar <- "Target - Predicted"
@@ -10134,9 +10141,12 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         YVarTrans = YVarTrans,
         XVarTrans = XVarTrans,
         ZVarTrans = ZVarTrans,
+        ShowLabels = ShowLabels,
+        Title.YAxis = YVar,
+        Title.XAxis = XVar,
         Height = Height,
         Width = Width,
-        Title = "Heatmap: Target - Predicted",
+        Title = "Partial Dependence Heatmap: Target - Predicted",
         TextColor = TextColor,
         X_Scroll = X_Scroll,
         Y_Scroll = Y_Scroll,
@@ -10159,12 +10169,12 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         FacetCols = 1,
         FacetLevels = NULL,
         AggMethod = "mean",
-        Height = NULL,
-        Width = NULL,
-        Title = "Bar Plot",
-        ShowLabels = FALSE,
-        Title.YAxis = NULL,
-        Title.XAxis = NULL,
+        Height = Height,
+        Width = Width,
+        Title = "Partial Dependence Bar Plot: Target - Predicted",
+        ShowLabels = ShowLabels,
+        Title.YAxis = "Target - Predicted",
+        Title.XAxis = XVar,
         EchartsTheme = "macarons",
         TimeLine = TRUE,
         X_Scroll = TRUE,
@@ -10180,30 +10190,6 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         yaxis.fontSize = 14,
         Debug = FALSE)
       return(p1)
-
-      # Build
-      if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
-      p1 <- AutoPlots::Plot.HeatMap(
-        dt = dt1,
-        PreAgg = TRUE,
-        AggMethod = "mean",
-        EchartsTheme = EchartsTheme,
-        XVar = XVar,
-        YVar = YVar,
-        ZVar = ZVar,
-        YVarTrans = YVarTrans,
-        XVarTrans = XVarTrans,
-        ZVarTrans = ZVarTrans,
-        Height = Height,
-        Width = Width,
-        Title = "Heatmap: Target - Predicted",
-        TextColor = TextColor,
-        X_Scroll = X_Scroll,
-        Y_Scroll = Y_Scroll,
-        NumberBins = NumberBins,
-        Debug = Debug)
-      return(p1)
-
     }
 
   } else {
@@ -10268,9 +10254,11 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       YVarTrans = YVarTrans,
       XVarTrans = XVarTrans,
       ZVarTrans = ZVarTrans,
+      Title.YAxis = YVar,
+      Title.XAxis = XVar,
       Height = Height,
       Width = Width,
-      Title = "Heatmap: Target - Predicted",
+      Title = "Partial Dependence Heatmap: Target - Predicted",
       TextColor = TextColor,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
@@ -10800,8 +10788,8 @@ Plot.Lift <- function(dt = NULL,
                       Width = NULL,
                       Title = "Confusion Matrix",
                       ShowLabels = FALSE,
-                      Title.YAxis = NULL,
-                      Title.XAxis = NULL,
+                      Title.YAxis = "Lift",
+                      Title.XAxis = "Population",
                       EchartsTheme = "macarons",
                       TimeLine = TRUE,
                       X_Scroll = TRUE,
@@ -10993,6 +10981,9 @@ Plot.Lift <- function(dt = NULL,
       XVarTrans = XVarTrans,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Lift",
+      Title.XAxis = "Population",
       FacetLevels = NULL,
       Height = Height,
       Width = Width,
@@ -11024,6 +11015,9 @@ Plot.Lift <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = Title,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Lift",
+      Title.XAxis = "Population",
       Smooth = TRUE,
       ShowSymbol = FALSE,
       EchartsTheme = EchartsTheme,
@@ -11099,8 +11093,8 @@ Plot.Gains <- function(dt = NULL,
                        Width = NULL,
                        Title = "Gains Plot",
                        ShowLabels = FALSE,
-                       Title.YAxis = NULL,
-                       Title.XAxis = NULL,
+                       Title.YAxis = "Gain",
+                       Title.XAxis = "Population",
                        EchartsTheme = "macarons",
                        TimeLine = TRUE,
                        X_Scroll = TRUE,
@@ -11292,6 +11286,9 @@ Plot.Gains <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = NULL,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Gain",
+      Title.XAxis = "Population",
       Height = Height,
       Width = Width,
       Title = Title,
@@ -11319,6 +11316,9 @@ Plot.Gains <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = NULL,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Gain",
+      Title.XAxis = "Population",
       Height = Height,
       Width = Width,
       Title = Title,
