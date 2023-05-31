@@ -7357,6 +7357,7 @@ Plot.CorrMatrix <- function(dt = NULL,
     p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
     p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
     p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+    echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
