@@ -97,6 +97,10 @@ install.packages("echarts4r")
 ### Installation
 
 ```r
+install.packages(bit64)
+install.packages(data.table)
+install.packages(echarts4r)
+install.packages(dplyr)
 devtools::install_github("AdrianAntico/AutoPlots")
 ```
 
