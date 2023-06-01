@@ -113,17 +113,7 @@ AutoPlots::Plot.Bar(
   XVar = "Factor_1",
   YVar = "Adrian",
   YVarTrans = "Identity",
-  Engine = 'Echarts',
   EchartsTheme = "macarons")
-  
-# Plotly Bar Chart
-AutoPlots::Plot.Bar(
-  dt = data,
-  PreAgg = FALSE,
-  XVar = "Factor_1",
-  YVar = "Adrian",
-  YVarTrans = "Identity",
-  Engine = 'Plotly')
 ```
 
 ### Bigger Data (1M rows)
@@ -139,17 +129,7 @@ AutoPlots::Plot.Bar(
   XVar = "Factor_1",
   YVar = "Adrian",
   YVarTrans = "Identity",
-  Engine = 'Echarts',
   EchartsTheme = "macarons")
-
-# Plotly Bar Chart
-AutoPlots::Plot.Bar(
-  dt = data,
-  PreAgg = FALSE,
-  XVar = "Factor_1",
-  YVar = "Adrian",
-  YVarTrans = "Identity",
-  Engine = 'Plotly')
 ```
 
 ### Even Bigger Data (10M rows)
@@ -165,15 +145,6 @@ AutoPlots::Plot.Bar(
   XVar = "Factor_1",
   YVar = "Adrian",
   YVarTrans = "Identity",
-  Engine = 'Echarts',
   EchartsTheme = "macarons")
   
-# Plotly Bar Chart
-AutoPlots::Plot.Bar(
-  dt = data,
-  PreAgg = FALSE,
-  XVar = "Factor_1",
-  YVar = "Adrian",
-  YVarTrans = "Identity",
-  Engine = 'Plotly')
 ```
