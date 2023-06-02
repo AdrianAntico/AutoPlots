@@ -84,16 +84,6 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 # Getting Started
 
-### Package Dependencies
-```r
-install.packages("bit64")
-install.packages("data.table")
-install.packages("lubridate")
-install.packages("ggplot2")
-install.packages("plotly")
-install.packages("echarts4r")
-```
-
 ### Installation
 
 ```r
