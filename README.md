@@ -104,7 +104,140 @@ install.packages(dplyr)
 devtools::install_github("AdrianAntico/AutoPlots")
 ```
 
-### Basic Usage
+### Histogram
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000000)
+
+# Build Histogram plot
+AutoPlots::Plot.Histogram(
+  dt = data,
+  XVar = NULL,
+  YVar = "Independent_Variable4",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Density
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000000)
+
+# Build Density plot
+AutoPlots::Plot.Density(
+  dt = data,
+  XVar = NULL,
+  YVar = "Independent_Variable4",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Box Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000000)
+
+# Build Box plot
+AutoPlots::Plot.Box(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "Independent_Variable1",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Pie Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000000)
+
+# Build Pie plot
+AutoPlots::Plot.Pie(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "Independent_Variable1",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Area Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+
+# Build Area plot
+AutoPlots::Plot.Area(
+  dt = data,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  XVar = "DateTime",
+  YVar = "Independent_Variable1",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Line Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+
+# Build Line plot
+AutoPlots::Plot.Line(
+  dt = data,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  XVar = "DateTime",
+  YVar = "Independent_Variable1",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Step Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+
+# Build Step plot
+AutoPlots::Plot.Step(
+  dt = data,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  XVar = "DateTime",
+  YVar = "Independent_Variable1",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### River Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+
+# Build River plot
+AutoPlots::Plot.River(
+  dt = data,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  XVar = "DateTime",
+  YVar = c(
+    "Independent_Variable1",
+    "Independent_Variable2",
+    "Independent_Variable3",
+    "Independent_Variable4",
+    "Independent_Variable5"),
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Bar Plots
 
 ```r
 # Create fake data
@@ -120,35 +253,137 @@ AutoPlots::Plot.Bar(
   EchartsTheme = "macarons")
 ```
 
-### Bigger Data (1M rows)
+### Stacked Bar Plots
 
 ```r
 # Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 1000000)
+data <- AutoPlots::FakeDataGenerator(N = 100000)
 
-# Build bar plot
-AutoPlots::Plot.Bar(
+# Echarts Stacked Bar Chart
+AutoPlots::Plot.StackedBar(
   dt = data,
   PreAgg = FALSE,
   XVar = "Factor_1",
   YVar = "Adrian",
+  GroupVar = "Factor_2",
   YVarTrans = "Identity",
   EchartsTheme = "macarons")
 ```
 
-### Even Bigger Data (10M rows)
+### 3D Bar Plots
 
 ```r
 # Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 10000000)
+data <- AutoPlots::FakeDataGenerator(N = 100000)
 
-# Build bar plot
-AutoPlots::Plot.Bar(
+# Echarts 3D Bar Chart
+AutoPlots::Plot.BarPlot3D(
   dt = data,
   PreAgg = FALSE,
   XVar = "Factor_1",
-  YVar = "Adrian",
+  YVar = "Factor_2",
+  ZVar = "Adrian",
   YVarTrans = "Identity",
   EchartsTheme = "macarons")
-  
+```
+
+### Scatter Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts Scatter Plot Chart
+AutoPlots::Plot.Scatter(
+  dt = data,
+  SampleSize = 10000,
+  XVar = "Adrian",
+  YVar = "Independent_Variable8",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### 3D Scatter Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts Scatter Plot Chart
+AutoPlots::Plot.Scatter3D(
+  dt = data,
+  SampleSize = 10000,
+  XVar = "Adrian",
+  YVar = "Independent_Variable8",
+  ZVar = "Independent_Variable6",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Copula Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts Copula Plot Chart
+AutoPlots::Plot.Copula(
+  dt = data,
+  SampleSize = 10000,
+  XVar = "Adrian",
+  YVar = "Independent_Variable8",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### 3D Copula Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts Copula Plot Chart
+AutoPlots::Plot.Copula3D(
+  dt = data,
+  SampleSize = 10000,
+  XVar = "Adrian",
+  YVar = "Independent_Variable9",
+  ZVar = "Independent_Variable6",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### Heatmap Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts Heatmap Plot Chart
+AutoPlots::Plot.HeatMap(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "Factor_2",
+  ZVar = "Independent_Variable6",
+  YVarTrans = "Identity",
+  EchartsTheme = "macarons")
+```
+
+### CorrMatrix Plot
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts CorrMatrix Plot Chart
+AutoPlots::Plot.CorrMatrix(
+  dt = data,
+  CorrVars = c(
+    "Adrian",
+    "Independent_Variable1",
+    "Independent_Variable2",
+    "Independent_Variable3",
+    "Independent_Variable4",
+    "Independent_Variable5"),
+  EchartsTheme = "macarons")
 ```

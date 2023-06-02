@@ -2310,7 +2310,6 @@ Plot.Histogram <- function(dt = NULL,
 
   TimeLine <- FALSE
 
-
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
   if(dt[, .N] > SampleSize) {
@@ -2355,89 +2354,87 @@ Plot.Histogram <- function(dt = NULL,
 
   # Create base plot object
   if(Debug) print('Create Plot with only data')
+  if(Debug) print("Echarts Histogram 1")
+  if(length(GroupVar) > 0L) {
+    p1 <- echarts4r::e_charts_(
+      dt1 |> dplyr::group_by(get(GroupVar)),
+      timeline = TimeLine,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width,
+      height = Height)
+  } else {
+    p1 <- echarts4r::e_charts_(
+      dt1,
+      x = NULL,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width,
+      height = Height)
+  }
 
+  if(ShowLabels) {
+    p1 <- echarts4r::e_histogram_(
+      e = p1,
+      YVar,
+      breaks = NumberBins,
+      bar_width = "100%",
+      label = list(show = TRUE))
+  } else {
+    p1 <- echarts4r::e_histogram_(
+      e = p1,
+      YVar,
+      breaks = NumberBins,
+      bar_width = "100%")
+  }
 
-    if(Debug) print("Echarts Histogram 1")
-    if(length(GroupVar) > 0L) {
-      p1 <- echarts4r::e_charts_(
-        dt1 |> dplyr::group_by(get(GroupVar)),
-        timeline = TimeLine,
-        dispose = TRUE,
-        darkMode = TRUE,
-        emphasis = list(focus = "series"),
-        width = Width,
-        height = Height)
+  if(FacetRows == 1L && FacetCols == 1L) {
+    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+  }
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+  if(length(Title.XAxis) == 0L && length(Title.YAxis) == 0L) {
+    if(length(XVar) > 0L) {
+      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     } else {
-      p1 <- echarts4r::e_charts_(
-        dt1,
-        x = NULL,
-        dispose = TRUE,
-        darkMode = TRUE,
-        emphasis = list(focus = "series"),
-        width = Width,
-        height = Height)
+      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     }
+  } else if(length(Title.XAxis) > 0L) {
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.XAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+  } else {
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.YAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+  }
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_histogram_(
-        e = p1,
-        YVar,
-        breaks = NumberBins,
-        bar_width = "100%",
-        label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_histogram_(
-        e = p1,
-        YVar,
-        breaks = NumberBins,
-        bar_width = "100%")
-    }
-
-    if(FacetRows == 1L && FacetCols == 1L) {
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-    }
-    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-
-    if(length(Title.XAxis) == 0L && length(Title.YAxis) == 0L) {
-      if(length(XVar) > 0L) {
-        p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-      } else {
-        p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-      }
-    } else if(length(Title.XAxis) > 0L) {
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.XAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    } else {
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.YAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    }
-
-    p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
-    if(FacetRows > 1L || FacetCols > 1L) {
-      p1 <- echarts4r::e_facet(
-        e = p1,
-        rows = FacetRows,
-        cols = FacetCols,
-        legend_space = 16,
-        legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    }
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  if(FacetRows > 1L || FacetCols > 1L) {
+    p1 <- echarts4r::e_facet(
+      e = p1,
+      rows = FacetRows,
+      cols = FacetCols,
+      legend_space = 16,
+      legend_pos = "top")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  } else {
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  }
   return(p1)
 }
 
@@ -2749,8 +2746,10 @@ Plot.Density <- function(dt = NULL,
 #' @param X_Scroll logical
 #' @param Y_Scroll logical
 #' @param TextColor 'darkblue'
+#' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param Debug Debugging purposes
+#'
 #' @export
 Plot.Pie <- function(dt = NULL,
                      PreAgg = FALSE,
