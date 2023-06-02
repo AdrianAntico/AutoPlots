@@ -83,6 +83,8 @@ Plot.Pie(
 
 \item{TextColor}{'darkblue'}
 
+\item{title.fontSize}{Defaults to size 22. Numeric. This changes the size of the title.}
+
 \item{Debug}{Debugging purposes}
 
 \item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}

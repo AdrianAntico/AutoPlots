@@ -10090,7 +10090,6 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 
   # YVar check
   yvar_class <- class(dt[[YVar]])[1L]
-  xvar_class <- class(dt[[XVar]][1L])
 
   # Define Aggregation function
   if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
@@ -10111,7 +10110,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
     if(Debug) print("Plot.PartialDependence.HeatMap # if(length(GroupVar) == 0L)")
 
     for(i in seq_along(XVar)) {
-      if(class(dt[[XVar]][i]) %in% c("numeric","integer")) {
+      if(class(dt[[XVar[i]]][1L]) %in% c("numeric","integer")) {
         dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L))]
       } else {
         dt1[, eval(XVar[i]) := as.character(get(XVar[i]))]
@@ -10234,8 +10233,12 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 
     # Subset Cols
     dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
-    if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-      dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+    for(i in seq_along(XVar)) {
+      if(class(dt[[XVar]][i]) %in% c("numeric","integer")) {
+        dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L))]
+      } else {
+        dt1[, eval(XVar[i]) := as.character(get(XVar[i]))]
+      }
     }
 
     dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
@@ -10645,6 +10648,35 @@ Plot.ROC <- function(dt = NULL,
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Debugging
+#' dt <- data.table::fread(file.choose())
+#' XVar <- c("Brand", "Category")
+#' YVar <- "ClassTarget"
+#' ZVar <- "p1"
+#' YVarTrans <- "Identity"
+#' XVarTrans <- "Identity"
+#' ZVarTrans <- "Identity"
+#' FacetRows <- 1
+#' FacetCols <- 1
+#' FacetLevels <- NULL
+#' Height <- NULL
+#' Width <- NULL
+#' Title <- NULL
+#' ShowLabels <- FALSE
+#' Title.YAxis <- NULL
+#' Title.XAxis <- NULL
+#' EchartsTheme <- "macarons"
+#' TimeLine <- FALSE
+#' TextColor <- "white"
+#' AggMethod <- "mean"
+#' Debug <- FALSE
+#'
+#' }
+#'
 #' @export
 Plot.ConfusionMatrix <- function(dt = NULL,
                                  PreAgg = FALSE,
