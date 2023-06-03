@@ -51,7 +51,7 @@ Plot.Step(
 
 \item{XVar}{X-Axis variable name}
 
-\item{YVar}{Y-Axis variable name}
+\item{YVar}{Y-Axis variable name. You can supply multiple YVars}
 
 \item{GroupVar}{One Grouping Variable}
 

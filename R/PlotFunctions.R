@@ -3523,7 +3523,7 @@ Plot.Box <- function(dt = NULL,
 #' @param dt source data.table
 #' @param PreAgg logical
 #' @param AggMethod character
-#' @param YVar Y-Axis variable name
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
 #' @param XVar X-Axis variable name
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
@@ -3609,19 +3609,45 @@ Plot.Line <- function(dt = NULL,
     dt[, eval(GroupVar) := as.character(get(GroupVar))]
   }
 
+  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
+  if(length(YVar) > 1L) {
+    if(length(GroupVar) > 0L) {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      dt1[, GroupVars := paste0(Measures, GroupVar)]
+      dt1[, Measures := NULL]
+      dt1[, eval(GroupVar) := NULL]
+      GroupVar <- "GroupVars"
+      YVar <- "Values"
+    } else {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      GroupVar <- "Measures"
+      YVar <- "Values"
+    }
+  }
+
+  # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+    if(YVar > 1L) {
+      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar)])
+    } else {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+    }
   } else if(length(GroupVar) > 0L) {
-    if(Debug) print("Plot.Line() Ncols > 3L && length(GroupVar) > 0L")
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    if(YVar > 1L) {
+      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    } else {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    }
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
     }
   } else {
-    if(Debug) print("Plot.Line() make copy of data")
-    dt1 <- data.table::copy(dt)
+    if(length(YVar) > 1L) {
+      dt1 <- data.table::copy(dt1)
+    } else {
+      dt1 <- data.table::copy(dt)
+    }
   }
 
   # Minimize data before moving on
@@ -3929,7 +3955,7 @@ Plot.Line <- function(dt = NULL,
 #' @param dt source data.table
 #' @param PreAgg logical
 #' @param AggMethod character
-#' @param YVar Y-Axis variable name
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
 #' @param XVar X-Axis variable name
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
@@ -3995,8 +4021,6 @@ Plot.Area <- function(dt = NULL,
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
-
-
   # Correct args
   if(length(GroupVar) > 0L && length(XVar) == 0L) {
     XVar <- GroupVar
@@ -4012,19 +4036,45 @@ Plot.Area <- function(dt = NULL,
     dt[, eval(GroupVar) := as.character(get(GroupVar))]
   }
 
+  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
+  if(length(YVar) > 1L) {
+    if(length(GroupVar) > 0L) {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      dt1[, GroupVars := paste0(Measures, GroupVar)]
+      dt1[, Measures := NULL]
+      dt1[, eval(GroupVar) := NULL]
+      GroupVar <- "GroupVars"
+      YVar <- "Values"
+    } else {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      GroupVar <- "Measures"
+      YVar <- "Values"
+    }
+  }
+
+  # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+    if(YVar > 1L) {
+      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar)])
+    } else {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+    }
   } else if(length(GroupVar) > 0L) {
-    if(Debug) print("Plot.Line() Ncols > 3L && length(GroupVar) > 0L")
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    if(YVar > 1L) {
+      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    } else {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    }
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
     }
   } else {
-    if(Debug) print("Plot.Line() make copy of data")
-    dt1 <- data.table::copy(dt)
+    if(length(YVar) > 1L) {
+      dt1 <- data.table::copy(dt1)
+    } else {
+      dt1 <- data.table::copy(dt)
+    }
   }
 
   # Minimize data before moving on
@@ -4324,7 +4374,7 @@ Plot.Area <- function(dt = NULL,
 #' @param dt source data.table
 #' @param PreAgg logical
 #' @param AggMethod character
-#' @param YVar Y-Axis variable name
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
 #' @param XVar X-Axis variable name
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
@@ -4400,19 +4450,45 @@ Plot.Step <- function(dt = NULL,
     dt[, eval(GroupVar) := as.character(get(GroupVar))]
   }
 
+  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
+  if(length(YVar) > 1L) {
+    if(length(GroupVar) > 0L) {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      dt1[, GroupVars := paste0(Measures, GroupVar)]
+      dt1[, Measures := NULL]
+      dt1[, eval(GroupVar) := NULL]
+      GroupVar <- "GroupVars"
+      YVar <- "Values"
+    } else {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      GroupVar <- "Measures"
+      YVar <- "Values"
+    }
+  }
+
+  # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    if(Debug) print("Plot.Line() Ncols > 2L && length(GroupVar) == 0L")
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+    if(YVar > 1L) {
+      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar)])
+    } else {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+    }
   } else if(length(GroupVar) > 0L) {
-    if(Debug) print("Plot.Line() Ncols > 3L && length(GroupVar) > 0L")
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    if(YVar > 1L) {
+      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    } else {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
+    }
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
     }
   } else {
-    if(Debug) print("Plot.Line() make copy of data")
-    dt1 <- data.table::copy(dt)
+    if(length(YVar) > 1L) {
+      dt1 <- data.table::copy(dt1)
+    } else {
+      dt1 <- data.table::copy(dt)
+    }
   }
 
   # Minimize data before moving on
@@ -4712,7 +4788,7 @@ Plot.Step <- function(dt = NULL,
 #' @param dt source data.table
 #' @param PreAgg logical
 #' @param AggMethod character
-#' @param YVar Y-Axis variable name
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
 #' @param XVar X-Axis variable name
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
@@ -4773,17 +4849,11 @@ Plot.River <- function(dt = NULL,
                       yaxis.fontSize = 14,
                       Debug = FALSE) {
 
-  if(Debug) print("Plot.River 1")
-
   if(length(GroupVar) == 0L) TimeLine <- FALSE
-
   if(length(GroupVar) == 0L && length(YVar) <= 1L) {
     if(Debug) print("if(length(GroupVar) == 0L && length(YVar) <= 1L) return(NULL)")
     return(NULL)
   }
-
-  if(Debug) print("Plot.River 2")
-
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
