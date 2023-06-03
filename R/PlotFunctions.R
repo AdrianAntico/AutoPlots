@@ -12,7 +12,7 @@
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 # :: Helper Functions ::                                                      ----
@@ -3593,7 +3593,6 @@ Plot.Line <- function(dt = NULL,
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
-
   # Correct args
   if(length(GroupVar) > 0L && length(XVar) == 0L) {
     XVar <- GroupVar
@@ -3694,131 +3693,129 @@ Plot.Line <- function(dt = NULL,
     }
 
     # Plot
-      if(Debug) print("Plot.Line() Build Echarts 1")
+    if(Debug) print("Plot.Line() Build Echarts 1")
 
-      # Build base plot depending on GroupVar availability
-      if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
-      p1 <- echarts4r::e_charts_(
-        data = dt1 |> dplyr::group_by(get(gv)),
-        x = XVar,
-        darkMode = TRUE,
-        emphasis = list(focus = "series"),
-        timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
+    # Build base plot depending on GroupVar availability
+    if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
+    p1 <- echarts4r::e_charts_(
+      data = dt1 |> dplyr::group_by(get(gv)),
+      x = XVar,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
 
-      # Finalize Plot Build
-      if(Debug) print("Plot.Line() Build Echarts 4")
-      if(ShowLabels) {
-        p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
-      } else {
-        p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
-      }
+    # Finalize Plot Build
+    if(Debug) print("Plot.Line() Build Echarts 4")
+    if(ShowLabels) {
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+    }
 
-      if(Debug) print("Plot.Line() Build Echarts 4 1")
-      if(FacetRows == 1L && FacetCols == 1L) {
-        if(Debug) print("Plot.Line() Build Echarts 4 2")
-        if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      }
-      if(Debug) print("Plot.Line() Build Echarts 5")
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      if(Debug) print("Plot.Line() Build Echarts 6")
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-
-      if(length(Title.XAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "x",
-          name = XVar,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = xaxis.fontSize),
-          axisLabel = list(
-            rotate = xaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      } else {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "x",
-          name = Title.XAxis,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = xaxis.fontSize),
-          axisLabel = list(
-            rotate = xaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      }
-
-      if(length(Title.YAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "y",
-          name = YVar,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = yaxis.fontSize),
-          axisLabel = list(
-            rotate = yaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      } else {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "y",
-          name = Title.YAxis,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = yaxis.fontSize),
-          axisLabel = list(
-            rotate = yaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      }
-
-      p1 <- echarts4r::e_brush(e = p1)
-      if(Debug) print("Plot.Line() Build Echarts 6")
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
+    if(Debug) print("Plot.Line() Build Echarts 4 1")
+    if(FacetRows == 1L && FacetCols == 1L) {
+      if(Debug) print("Plot.Line() Build Echarts 4 2")
+      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    }
+    if(Debug) print("Plot.Line() Build Echarts 5")
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    if(Debug) print("Plot.Line() Build Echarts 6")
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    if(length(Title.XAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = XVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
           color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
-      if(Debug) print("Plot.Line() Build Echarts 8")
-      if(length(FacetLevels) > 0L) {
-        if(Debug) print("Plot.Line() Build Echarts 8 2")
-        p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-        if(Debug) print("Plot.Line() Build Echarts 8 3")
-      } else {
-        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      }
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = Title.XAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
 
+    if(length(Title.YAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = YVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = yaxis.fontSize),
+        axisLabel = list(
+          rotate = yaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = Title.YAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = yaxis.fontSize),
+        axisLabel = list(
+          rotate = yaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
+
+    p1 <- echarts4r::e_brush(e = p1)
+    if(Debug) print("Plot.Line() Build Echarts 6")
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(Debug) print("Plot.Line() Build Echarts 8")
+    if(length(FacetLevels) > 0L) {
+      if(Debug) print("Plot.Line() Build Echarts 8 2")
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+      if(Debug) print("Plot.Line() Build Echarts 8 3")
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
 
   } else {
 
