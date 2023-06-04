@@ -3622,30 +3622,18 @@ Plot.Line <- function(dt = NULL,
       GroupVar <- "Measures"
       YVar <- "Values"
     }
+  } else {
+    dt1 <- data.table::copy(dt)
   }
 
   # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
-  Ncols <- ncol(dt)
+  Ncols <- ncol(dt1)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    if(YVar > 1L) {
-      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar)])
-    } else {
-      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
-    }
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar)]
   } else if(length(GroupVar) > 0L) {
-    if(YVar > 1L) {
-      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
-    } else {
-      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
-    }
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])]
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
-    }
-  } else {
-    if(length(YVar) > 1L) {
-      dt1 <- data.table::copy(dt1)
-    } else {
-      dt1 <- data.table::copy(dt)
     }
   }
 
@@ -4047,30 +4035,18 @@ Plot.Area <- function(dt = NULL,
       GroupVar <- "Measures"
       YVar <- "Values"
     }
+  } else {
+    dt1 <- data.table::copy(dt)
   }
 
   # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
-  Ncols <- ncol(dt)
+  Ncols <- ncol(dt1)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    if(YVar > 1L) {
-      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar)])
-    } else {
-      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
-    }
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar)]
   } else if(length(GroupVar) > 0L) {
-    if(YVar > 1L) {
-      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
-    } else {
-      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
-    }
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])]
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
-    }
-  } else {
-    if(length(YVar) > 1L) {
-      dt1 <- data.table::copy(dt1)
-    } else {
-      dt1 <- data.table::copy(dt)
     }
   }
 
@@ -4461,30 +4437,18 @@ Plot.Step <- function(dt = NULL,
       GroupVar <- "Measures"
       YVar <- "Values"
     }
+  } else {
+    dt1 <- data.table::copy(dt)
   }
 
   # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
-  Ncols <- ncol(dt)
+  Ncols <- ncol(dt1)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    if(YVar > 1L) {
-      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar)])
-    } else {
-      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
-    }
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar)]
   } else if(length(GroupVar) > 0L) {
-    if(YVar > 1L) {
-      dt1 <- data.table::copy(dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
-    } else {
-      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])])
-    }
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])]
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
-    }
-  } else {
-    if(length(YVar) > 1L) {
-      dt1 <- data.table::copy(dt1)
-    } else {
-      dt1 <- data.table::copy(dt)
     }
   }
 
