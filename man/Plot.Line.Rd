@@ -10,8 +10,10 @@ Plot.Line(
   PreAgg = TRUE,
   XVar = NULL,
   YVar = NULL,
+  DualYVar = NULL,
   GroupVar = NULL,
   YVarTrans = "Identity",
+  DualYVarTrans = "Identity",
   XVarTrans = "Identity",
   FacetRows = 1,
   FacetCols = 1,
@@ -56,6 +58,8 @@ Plot.Line(
 \item{XVar}{X-Axis variable name}
 
 \item{YVar}{Y-Axis variable name. You can supply multiple YVars}
+
+\item{DualYVar}{Secondary Y-Axis variables. Leave NULL for no secondary axis. Only one variable is allowed and when this is set only one YVar is allowed. An error will be thrown if those conditions are not met}
 
 \item{GroupVar}{One Grouping Variable}
 
@@ -107,6 +111,69 @@ Plot.Line(
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+}
+\examples{
+\dontrun{
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+
+# Build Line plot
+AutoPlots::Plot.Line(
+  dt = data,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  XVar = "DateTime",
+  YVar = "Independent_Variable3",
+  YVarTrans = "LogPlus1",
+  DualYVar = "Independent_Variable6",
+  DualYVarTrans = "LogPlus1",
+  GroupVar = NULL,
+  EchartsTheme = "macarons")
+
+# Step through function
+dt = data
+PreAgg = FALSE
+AggMethod = "mean"
+XVar = "DateTime"
+YVar = "Independent_Variable1"
+YVarTrans = "Identity"
+DualYVar = "Independent_Variable4"
+DualYVarTrans = "Identity"
+XVarTrans = "Identity"
+GroupVar = "Factor_1"
+FacetRows = 1
+FacetCols = 1
+FacetLevels = NULL
+Height = NULL
+Width = NULL
+Title = 'Line Plot'
+ShowLabels = FALSE
+Title.YAxis = NULL
+Title.XAxis = NULL
+EchartsTheme = "macarons"
+X_Scroll = FALSE
+Y_Scroll = FALSE
+TimeLine = TRUE
+Area = FALSE
+Alpha = 0.50
+Smooth = TRUE
+ShowSymbol = FALSE
+TextColor =        "white"
+title.fontSize = 22
+title.fontWeight = "bold"
+title.textShadowColor = '#63aeff'
+title.textShadowBlur = 3
+title.textShadowOffsetY = 1
+title.textShadowOffsetX = -1
+xaxis.fontSize = 14
+yaxis.fontSize = 14
+xaxis.rotate = 0
+yaxis.rotate = 0
+ContainLabel = TRUE
+DarkMode = FALSE
+Debug = FALSE
+}
+
 }
 \seealso{
 Other Standard Plots: 

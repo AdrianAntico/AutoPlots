@@ -10,8 +10,10 @@ Plot.Step(
   PreAgg = TRUE,
   XVar = NULL,
   YVar = NULL,
+  DualYVar = NULL,
   GroupVar = NULL,
   YVarTrans = "Identity",
+  DualYVarTrans = "Identity",
   XVarTrans = "Identity",
   FacetRows = 1,
   FacetCols = 1,
@@ -53,9 +55,13 @@ Plot.Step(
 
 \item{YVar}{Y-Axis variable name. You can supply multiple YVars}
 
+\item{DualYVar}{Secondary Y-Axis variables. Leave NULL for no secondary axis. Only one variable is allowed and when this is set only one YVar is allowed. An error will be thrown if those conditions are not met}
+
 \item{GroupVar}{One Grouping Variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{DualYVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
 \item{XVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 

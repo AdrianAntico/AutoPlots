@@ -12,10 +12,12 @@ Plot.StandardPlots(
   AggMethod = "mean",
   NumberBins = 30,
   YVar = NULL,
+  DualYVar = NULL,
   XVar = NULL,
   ZVar = NULL,
   GroupVar = NULL,
   YVarTrans = NULL,
+  DualYVarTrans = NULL,
   XVarTrans = NULL,
   ZVarTrans = NULL,
   FacetRows = 1,
@@ -51,6 +53,8 @@ Plot.StandardPlots(
 
 \item{YVar}{Y-Axis variable name}
 
+\item{DualYVar}{Secondary Axis for Line, Step, and Area plots}
+
 \item{XVar}{X-Axis variable name}
 
 \item{ZVar}{Z-Axis variable name}
@@ -58,6 +62,8 @@ Plot.StandardPlots(
 \item{GroupVar}{Character variable variable}
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{DualYVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
 \item{XVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 

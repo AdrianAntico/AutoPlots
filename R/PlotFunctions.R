@@ -1231,10 +1231,12 @@ AutoTransformationCreate <- function(data,
 #' @param AggMethod character
 #' @param SampleSize character
 #' @param YVar Y-Axis variable name
+#' @param DualYVar Secondary Axis for Line, Step, and Area plots
 #' @param XVar X-Axis variable name
 #' @param ZVar Z-Axis variable name
 #' @param GroupVar Character variable variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param DualYVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
@@ -1261,10 +1263,12 @@ Plot.StandardPlots <- function(dt = NULL,
                                AggMethod = 'mean',
                                NumberBins = 30,
                                YVar = NULL,
+                               DualYVar = NULL,
                                XVar = NULL,
                                ZVar = NULL,
                                GroupVar = NULL,
                                YVarTrans = NULL,
+                               DualYVarTrans = NULL,
                                XVarTrans = NULL,
                                ZVarTrans = NULL,
                                FacetRows = 1,
@@ -1419,8 +1423,10 @@ Plot.StandardPlots <- function(dt = NULL,
       AggMethod = AggMethod,
       XVar = XVar,
       YVar = YVar,
+      DualYVar = DualYVar,
       GroupVar = GroupVar,
       YVarTrans = YVarTrans,
+      DualYVarTrans = DualYVarTrans,
       XVarTrans = XVarTrans,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
@@ -1449,8 +1455,10 @@ Plot.StandardPlots <- function(dt = NULL,
       AggMethod = AggMethod,
       XVar = XVar,
       YVar = YVar,
+      DualYVar = DualYVar,
       GroupVar = GroupVar,
       YVarTrans = YVarTrans,
+      DualYVarTrans = DualYVarTrans,
       XVarTrans = XVarTrans,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
@@ -1479,8 +1487,10 @@ Plot.StandardPlots <- function(dt = NULL,
       AggMethod = AggMethod,
       XVar = XVar,
       YVar = YVar,
+      DualYVar = DualYVar,
       GroupVar = GroupVar,
       YVarTrans = YVarTrans,
+      DualYVarTrans = DualYVarTrans,
       XVarTrans = XVarTrans,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
@@ -3524,6 +3534,7 @@ Plot.Box <- function(dt = NULL,
 #' @param PreAgg logical
 #' @param AggMethod character
 #' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param DualYVar Secondary Y-Axis variables. Leave NULL for no secondary axis. Only one variable is allowed and when this is set only one YVar is allowed. An error will be thrown if those conditions are not met
 #' @param XVar X-Axis variable name
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
@@ -3549,14 +3560,79 @@ Plot.Box <- function(dt = NULL,
 #' @param TextColor "Not Implemented"
 #' @param DarkMode FALSE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+#'
+#' # Build Line plot
+#' AutoPlots::Plot.Line(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = "mean",
+#'   XVar = "DateTime",
+#'   YVar = "Independent_Variable3",
+#'   YVarTrans = "LogPlus1",
+#'   DualYVar = "Independent_Variable6",
+#'   DualYVarTrans = "LogPlus1",
+#'   GroupVar = NULL,
+#'   EchartsTheme = "macarons")
+#'
+#' # Step through function
+#' dt = data
+#' PreAgg = FALSE
+#' AggMethod = "mean"
+#' XVar = "DateTime"
+#' YVar = "Independent_Variable1"
+#' YVarTrans = "Identity"
+#' DualYVar = "Independent_Variable4"
+#' DualYVarTrans = "Identity"
+#' XVarTrans = "Identity"
+#' GroupVar = "Factor_1"
+#' FacetRows = 1
+#' FacetCols = 1
+#' FacetLevels = NULL
+#' Height = NULL
+#' Width = NULL
+#' Title = 'Line Plot'
+#' ShowLabels = FALSE
+#' Title.YAxis = NULL
+#' Title.XAxis = NULL
+#' EchartsTheme = "macarons"
+#' X_Scroll = FALSE
+#' Y_Scroll = FALSE
+#' TimeLine = TRUE
+#' Area = FALSE
+#' Alpha = 0.50
+#' Smooth = TRUE
+#' ShowSymbol = FALSE
+#' TextColor =        "white"
+#' title.fontSize = 22
+#' title.fontWeight = "bold"
+#' title.textShadowColor = '#63aeff'
+#' title.textShadowBlur = 3
+#' title.textShadowOffsetY = 1
+#' title.textShadowOffsetX = -1
+#' xaxis.fontSize = 14
+#' yaxis.fontSize = 14
+#' xaxis.rotate = 0
+#' yaxis.rotate = 0
+#' ContainLabel = TRUE
+#' DarkMode = FALSE
+#' Debug = FALSE
+#' }
+#'
 #' @export
 Plot.Line <- function(dt = NULL,
                       AggMethod = "mean",
                       PreAgg = TRUE,
                       XVar = NULL,
                       YVar = NULL,
+                      DualYVar = NULL,
                       GroupVar = NULL,
                       YVarTrans = "Identity",
+                      DualYVarTrans = "Identity",
                       XVarTrans = "Identity",
                       FacetRows = 1,
                       FacetCols = 1,
@@ -3608,6 +3684,11 @@ Plot.Line <- function(dt = NULL,
     dt[, eval(GroupVar) := as.character(get(GroupVar))]
   }
 
+  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
+  # Throw an error instead of trimming YVar to only the first value
+  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
+  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
+
   # If User Supplies more than 1 YVar, then structure data to be long instead of wide
   if(length(YVar) > 1L) {
     if(length(GroupVar) > 0L) {
@@ -3626,12 +3707,12 @@ Plot.Line <- function(dt = NULL,
     dt1 <- data.table::copy(dt)
   }
 
-  # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
+  # Subset columns
   Ncols <- ncol(dt1)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar)]
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
   } else if(length(GroupVar) > 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])]
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
     }
@@ -3657,11 +3738,20 @@ Plot.Line <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+      dt1 <- AutoPlots:::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
     } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      dt1 <- AutoPlots:::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    }
+  }
+  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
+    if(DualYVarTrans == "PercRank") {
+      dt1 <- AutoPlots:::PercRank(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+    } else if(DualYVarTrans == "Standardize") {
+      dt1 <- AutoPlots:::Standardize(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+    } else {
+      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
     }
   }
 
@@ -3680,11 +3770,7 @@ Plot.Line <- function(dt = NULL,
       dt1[, eval(XVar) := as.POSIXct(get(XVar))]
     }
 
-    # Plot
-    if(Debug) print("Plot.Line() Build Echarts 1")
-
     # Build base plot depending on GroupVar availability
-    if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
     p1 <- echarts4r::e_charts_(
       data = dt1 |> dplyr::group_by(get(gv)),
       x = XVar,
@@ -3693,7 +3779,6 @@ Plot.Line <- function(dt = NULL,
       timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
 
     # Finalize Plot Build
-    if(Debug) print("Plot.Line() Build Echarts 4")
     if(ShowLabels) {
       p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
     } else {
@@ -3816,116 +3901,123 @@ Plot.Line <- function(dt = NULL,
       dt1[, eval(XVar) := as.POSIXct(get(XVar))]
     }
 
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line no group Echarts")
-      p1 <- echarts4r::e_charts_(
-        data = dt1,
-        x = XVar,
-        dispose = TRUE,
-        darkMode = TRUE,
-        width = Width,
-        height = Height)
+    # Build base plot depending on GroupVar availability
+    if(Debug) print("Plot.Line no group Echarts")
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
 
+    if(ShowLabels) {
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+    }
+
+    # DualYVar
+    if(length(DualYVar) > 0L) {
       if(ShowLabels) {
-        p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+        p1 <- echarts4r::e_line_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
       } else {
-        p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+        p1 <- echarts4r::e_line_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
       }
+    }
 
-      # Finalize Plot Build
-      if(FacetRows == 1L && FacetCols == 1L) {
-        if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      }
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    # Finalize Plot Build
+    if(FacetRows == 1L && FacetCols == 1L) {
+      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-      if(length(Title.XAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "x",
-          name = XVar,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = xaxis.fontSize),
-          axisLabel = list(
-            rotate = xaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      } else {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "x",
-          name = Title.XAxis,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = xaxis.fontSize),
-          axisLabel = list(
-            rotate = xaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      }
-
-      if(length(Title.YAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "y",
-          name = YVar,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = yaxis.fontSize),
-          axisLabel = list(
-            rotate = yaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      } else {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "y",
-          name = Title.YAxis,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = yaxis.fontSize),
-          axisLabel = list(
-            rotate = yaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      }
-
-      p1 <- echarts4r::e_brush(e = p1)
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
+    if(length(Title.XAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = XVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
           color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = Title.XAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
 
+    if(length(Title.YAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = YVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = yaxis.fontSize),
+        axisLabel = list(
+          rotate = yaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = Title.YAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = yaxis.fontSize),
+        axisLabel = list(
+          rotate = yaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
 
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
   }
   return(p1)
 }
@@ -3941,9 +4033,11 @@ Plot.Line <- function(dt = NULL,
 #' @param PreAgg logical
 #' @param AggMethod character
 #' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param DualYVar Secondary Y-Axis variables. Leave NULL for no secondary axis. Only one variable is allowed and when this is set only one YVar is allowed. An error will be thrown if those conditions are not met
 #' @param XVar X-Axis variable name
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param DualYVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
@@ -3970,8 +4064,10 @@ Plot.Area <- function(dt = NULL,
                       PreAgg = TRUE,
                       XVar = NULL,
                       YVar = NULL,
+                      DualYVar = NULL,
                       GroupVar = NULL,
                       YVarTrans = "Identity",
+                      DualYVarTrans = "Identity",
                       XVarTrans = "Identity",
                       FacetRows = 1,
                       FacetCols = 1,
@@ -4021,6 +4117,11 @@ Plot.Area <- function(dt = NULL,
     dt[, eval(GroupVar) := as.character(get(GroupVar))]
   }
 
+  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
+  # Throw an error instead of trimming YVar to only the first value
+  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
+  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
+
   # If User Supplies more than 1 YVar, then structure data to be long instead of wide
   if(length(YVar) > 1L) {
     if(length(GroupVar) > 0L) {
@@ -4039,12 +4140,12 @@ Plot.Area <- function(dt = NULL,
     dt1 <- data.table::copy(dt)
   }
 
-  # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
+  # Subset columns
   Ncols <- ncol(dt1)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar)]
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
   } else if(length(GroupVar) > 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])]
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
     }
@@ -4075,6 +4176,15 @@ Plot.Area <- function(dt = NULL,
       dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
       dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    }
+  }
+  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
+    if(DualYVarTrans == "PercRank") {
+      dt1 <- AutoPlots:::PercRank(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+    } else if(DualYVarTrans == "Standardize") {
+      dt1 <- AutoPlots:::Standardize(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+    } else {
+      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
     }
   }
 
@@ -4224,115 +4334,122 @@ Plot.Area <- function(dt = NULL,
       dt1[, eval(XVar) := as.POSIXct(get(XVar))]
     }
 
-      # Build base plot depending on GroupVar availability
-      if(Debug) print("Plot.Line no group Echarts")
-      p1 <- echarts4r::e_charts_(
-        data = dt1,
-        x = XVar,
-        darkMode = TRUE,
-        dispose = TRUE,
-        width = Width,
-        height = Height)
+    # Build base plot depending on GroupVar availability
+    if(Debug) print("Plot.Line no group Echarts")
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      darkMode = TRUE,
+      dispose = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+    }
+
+    if(length(DualYVar) > 0L) {
       if(ShowLabels) {
-        p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+        p1 <- echarts4r::e_area_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
       } else {
-        p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+        p1 <- echarts4r::e_area_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
       }
+    }
 
-      # Finalize Plot Build
-      if(FacetRows == 1L && FacetCols == 1L) {
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-      }
-      p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-      p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    # Finalize Plot Build
+    if(FacetRows == 1L && FacetCols == 1L) {
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-      if(length(Title.XAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "x",
-          name = XVar,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = xaxis.fontSize),
-          axisLabel = list(
-            rotate = xaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      } else {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "x",
-          name = Title.XAxis,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = xaxis.fontSize),
-          axisLabel = list(
-            rotate = xaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      }
-
-      if(length(Title.YAxis) == 0L) {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "y",
-          name = YVar,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = yaxis.fontSize),
-          axisLabel = list(
-            rotate = yaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      } else {
-        p1 <- echarts4r::e_axis_(
-          e = p1,
-          serie = NULL,
-          axis = "y",
-          name = Title.YAxis,
-          nameLocation = "middle",
-          nameGap = 45,
-          nameTextStyle = list(
-            color = TextColor,
-            fontStyle = "normal",
-            fontWeight = "bold",
-            fontSize = yaxis.fontSize),
-          axisLabel = list(
-            rotate = yaxis.rotate,
-            grid = list(containLabel = ContainLabel)))
-      }
-
-      p1 <- echarts4r::e_brush(e = p1)
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
+    if(length(Title.XAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = XVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
           color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = Title.XAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
 
+    if(length(Title.YAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = YVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = yaxis.fontSize),
+        axisLabel = list(
+          rotate = yaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = Title.YAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = yaxis.fontSize),
+        axisLabel = list(
+          rotate = yaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
 
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
   }
   return(p1)
 }
@@ -4348,9 +4465,11 @@ Plot.Area <- function(dt = NULL,
 #' @param PreAgg logical
 #' @param AggMethod character
 #' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param DualYVar Secondary Y-Axis variables. Leave NULL for no secondary axis. Only one variable is allowed and when this is set only one YVar is allowed. An error will be thrown if those conditions are not met
 #' @param XVar X-Axis variable name
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param DualYVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
@@ -4374,8 +4493,10 @@ Plot.Step <- function(dt = NULL,
                       PreAgg = TRUE,
                       XVar = NULL,
                       YVar = NULL,
+                      DualYVar = NULL,
                       GroupVar = NULL,
                       YVarTrans = "Identity",
+                      DualYVarTrans = "Identity",
                       XVarTrans = "Identity",
                       FacetRows = 1,
                       FacetCols = 1,
@@ -4423,6 +4544,11 @@ Plot.Step <- function(dt = NULL,
     dt[, eval(GroupVar) := as.character(get(GroupVar))]
   }
 
+  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
+  # Throw an error instead of trimming YVar to only the first value
+  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
+  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
+
   # If User Supplies more than 1 YVar, then structure data to be long instead of wide
   if(length(YVar) > 1L) {
     if(length(GroupVar) > 0L) {
@@ -4441,12 +4567,12 @@ Plot.Step <- function(dt = NULL,
     dt1 <- data.table::copy(dt)
   }
 
-  # Subset columns: if YVar > 1 then use dt1 since that's the new data object, otherwise use dt
+  # Subset columns
   Ncols <- ncol(dt1)
   if(Ncols > 2L && length(GroupVar) == 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar)]
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
   } else if(length(GroupVar) > 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, GroupVar[1L])]
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
     if(length(FacetLevels) > 0) {
       dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
     }
@@ -4477,6 +4603,15 @@ Plot.Step <- function(dt = NULL,
       dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
     } else {
       dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    }
+  }
+  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
+    if(DualYVarTrans == "PercRank") {
+      dt1 <- AutoPlots:::PercRank(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+    } else if(DualYVarTrans == "Standardize") {
+      dt1 <- AutoPlots:::Standardize(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+    } else {
+      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
     }
   }
 
@@ -4640,6 +4775,14 @@ Plot.Step <- function(dt = NULL,
       p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, label = list(show = TRUE))
     } else {
       p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol)
+    }
+
+    if(length(DualYVar) > 0L) {
+      if(ShowLabels) {
+        p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
+      } else {
+        p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+      }
     }
 
     # Finalize Plot Build
