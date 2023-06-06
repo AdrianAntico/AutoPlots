@@ -4779,9 +4779,9 @@ Plot.Step <- function(dt = NULL,
 
     if(length(DualYVar) > 0L) {
       if(ShowLabels) {
-        p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
+        p1 <- echarts4r::e_step_(e = p1, serie = DualYVar, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
       } else {
-        p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+        p1 <- echarts4r::e_step_(e = p1, serie = DualYVar, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
       }
     }
 
