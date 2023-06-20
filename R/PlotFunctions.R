@@ -2365,6 +2365,7 @@ Plot.Histogram <- function(dt = NULL,
   # Create base plot object
   if(Debug) print('Create Plot with only data')
   if(Debug) print("Echarts Histogram 1")
+
   if(length(GroupVar) > 0L) {
     p1 <- echarts4r::e_charts_(
       dt1 |> dplyr::group_by(get(GroupVar)),
@@ -2445,6 +2446,7 @@ Plot.Histogram <- function(dt = NULL,
   } else {
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
   }
+
   return(p1)
 }
 
