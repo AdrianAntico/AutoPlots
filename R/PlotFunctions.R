@@ -9702,7 +9702,7 @@ Plot.Calibration.Line <- function(dt = NULL,
       ShowSymbol = FALSE,
       Height = Height,
       Width = Width,
-      Title = "Partial Dependence",
+      Title = "Calibration Line Plot",
       TextColor = TextColor,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
@@ -10606,6 +10606,25 @@ Plot.ROC <- function(dt = NULL,
                      TextColor =        "white",
                      Debug = FALSE) {
 
+  # ROC
+  fastROC <- function(probs, class) {
+    class_sorted <- class[order(probs, decreasing=T)]
+    TPR <- cumsum(class_sorted) / sum(class)
+    FPR <- cumsum(class_sorted == 0) / sum(class == 0)
+    return(list(tpr=TPR, fpr=FPR))
+  }
+
+  # AUC
+  fastAUC <- function(probs, class) {
+    x <- probs
+    y <- class
+    x1 = x[y==1]; n1 = length(x1);
+    x2 = x[y==0]; n2 = length(x2);
+    r = rank(c(x1,x2))
+    auc = (sum(r[1:n1]) - n1*(n1+1)/2) / n1 / n2
+    return(auc)
+  }
+
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
@@ -10670,53 +10689,58 @@ Plot.ROC <- function(dt = NULL,
   # Data Prep1
   if(length(GroupVar) > 0L) {
     vals <- sort(unique(dt2[[GroupVar]]))
-    for(i in seq_along(vals)) { # i = 2
+    for(i in seq_along(vals)) { # i = 1
       temp <- dt2[get(GroupVar) %in% eval(vals[i])]
       if(Debug) print(i)
-      AUC_Metrics <- tryCatch({pROC::roc(
-        response = temp[[YVar]],
-        predictor = temp[[XVar]],
-        na.rm = TRUE,
-        algorithm = 3L,
-        auc = TRUE,
-        ci = TRUE)}, error = function(x) NULL)
+
+      ROC <- fastROC(temp[[XVar]], temp[[YVar]])
+
+      # AUC_Metrics <- tryCatch({pROC::roc(
+      #   response = temp[[YVar]],
+      #   predictor = temp[[XVar]],
+      #   na.rm = TRUE,
+      #   algorithm = 3L,
+      #   auc = TRUE,
+      #   ci = TRUE)}, error = function(x) NULL)
       if(i == 1L && length(AUC_Metrics) > 0L) {
         data <- data.table::data.table(
           GroupLevels = vals[i],
-          Sensitivity = AUC_Metrics$sensitivities,
-          Specificity = AUC_Metrics$specificities)
+          Sensitivity = 1-ROC$fpr, #AUC_Metrics$sensitivities,
+          Specificity = ROC$tpr)# AUC_Metrics$specificities)
       } else if(length(AUC_Metrics) > 0L) {
         data <- data.table::rbindlist(list(
           data,
           data.table::data.table(
             GroupLevels = vals[i],
-            Sensitivity = AUC_Metrics$sensitivities,
-            Specificity = AUC_Metrics$specificities)
+            Sensitivity = 1-ROC$fpr, #AUC_Metrics$sensitivities,
+            Specificity = ROC$tpr)# AUC_Metrics$specificities)
         ))
       }
     }
 
-    # For Title: auc = AUC_Metrics$auc
-    AUC_Metrics <- pROC::roc(
-      response = dt2[[YVar]],
-      predictor = dt2[[XVar]],
-      na.rm = TRUE,
-      algorithm = 3L,
-      auc = TRUE,
-      ci = TRUE)
+    # For Title: auc = AUC
+    AUC <- fastAUC(temp[[XVar]], temp[[YVar]])
+    # AUC_Metrics <- pROC::roc(
+    #   response = dt2[[YVar]],
+    #   predictor = dt2[[XVar]],
+    #   na.rm = TRUE,
+    #   algorithm = 3L,
+    #   auc = TRUE,
+    #   ci = TRUE)
 
   } else {
-    AUC_Metrics <- pROC::roc(
-      response = dt2[[YVar]],
-      predictor = dt2[[XVar]],
-      na.rm = TRUE,
-      algorithm = 3L,
-      auc = TRUE,
-      ci = TRUE)
+    ROC <- fastROC(temp[[XVar]], temp[[YVar]])
+    # AUC_Metrics <- pROC::roc(
+    #   response = dt2[[YVar]],
+    #   predictor = dt2[[XVar]],
+    #   na.rm = TRUE,
+    #   algorithm = 3L,
+    #   auc = TRUE,
+    #   ci = TRUE)
     data <- data.table::data.table(
       GroupLevels = 0L,
-      Sensitivity = AUC_Metrics$sensitivities,
-      Specificity = AUC_Metrics$specificities)
+      Sensitivity = 1-ROC$fpr, #AUC_Metrics$sensitivities,
+      Specificity = ROC$tpr)# AUC_Metrics$specificities)
   }
 
   # Data Prep2
@@ -10727,9 +10751,9 @@ Plot.ROC <- function(dt = NULL,
   XVar <- "1 - Specificity"
   tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
   if(length(GroupVar) > 0L && (FacetRows > 1L && FacetCols > 1L)) {
-    title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC_Metrics$auc, 3), "%\n*Excluding cases of all 1's or 0's")
+    title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC, 3), "%\n*Excluding cases of all 1's or 0's")
   }
-  title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC_Metrics$auc, 3), "%")
+  title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC, 3), "%")
   gv <- if(length(GroupVar) > 0L) "GroupLevels" else NULL
   data.table::setorderv(x = data, cols = c(gv, "Sensitivity"))
 
