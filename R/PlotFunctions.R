@@ -10702,12 +10702,12 @@ Plot.ROC <- function(dt = NULL,
       #   algorithm = 3L,
       #   auc = TRUE,
       #   ci = TRUE)}, error = function(x) NULL)
-      if(i == 1L && length(AUC_Metrics) > 0L) {
+      if(i == 1L && length(ROC) > 0L) {
         data <- data.table::data.table(
           GroupLevels = vals[i],
           Sensitivity = 1-ROC$fpr, #AUC_Metrics$sensitivities,
           Specificity = ROC$tpr)# AUC_Metrics$specificities)
-      } else if(length(AUC_Metrics) > 0L) {
+      } else if(length(ROC) > 0L) {
         data <- data.table::rbindlist(list(
           data,
           data.table::data.table(
