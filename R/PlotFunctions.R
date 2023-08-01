@@ -9265,21 +9265,38 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
+
+  print("here 1")
+  print(head(dt))
+
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
   data.table::set(dt1, j = c(YVar), value = NULL)
   YVar <- "Target - Predicted"
   if(length(GroupVar) > 0L) GroupVar <- GroupVar[1L]
 
+  print("here 2")
+  print(head(dt1))
+
   # Faceting shrink
   if(length(GroupVar) > 0L) {
-    data.table::setorderv(x = dt1, cols = c(GroupVar))
+    # data.table::setorderv(x = dt1, cols = c(GroupVar), 1L)
+    print(head(dt1))
+    dt1 <- dt1[order(get(GroupVar))]
+    print(head(dt1))
   }
+
+  print("here 3.1")
+  print(head(dt1))
+
   if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L)) {
     dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,GroupVar)]
   } else {
     dt1 <- dt1[, .SD, .SDcols = c(YVar,GroupVar)]
   }
+
+  print("here 3")
+  print(head(dt1))
 
   # Data Prep2
   if(Debug) print("Plot.Residuals.Histogram")
@@ -9298,14 +9315,18 @@ Plot.Residuals.Histogram <- function(dt = NULL,
     }
   }
 
+  print("here 4")
+  print(head(dt1))
+
   # Create base plot object
   if(Debug) print('Create Plot with only data')
 
   # Format
   if(Debug) print("Echarts Histogram 1")
   if(length(GroupVar) > 0L) {
+    print("here 4.1")
     p1 <- echarts4r::e_charts_(
-      dt1 |> dplyr::group_by(get(GroupVar)),
+      data = dt1 |> dplyr::group_by(get(GroupVar)),
       x = NULL,
       timeline = TimeLine,
       dispose = TRUE,
@@ -9323,10 +9344,24 @@ Plot.Residuals.Histogram <- function(dt = NULL,
       width = Width,
       height = Height)
   }
+
+  if(Debug) {
+    print("here 5")
+    print(YVar)
+    print(NumberBins)
+    print(Y_Scroll)
+    print(head(dt1))
+  }
+
   p1 <- echarts4r::e_histogram_(e = p1, YVar, breaks = NumberBins, bar_width = "100%")
+  print("here 5.01")
   if(FacetRows == 1L && FacetCols == 1L && Y_Scroll) {
+    print("here 5.1")
     p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
   }
+
+  print("here 6")
+
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
@@ -9373,6 +9408,8 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   } else {
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
   }
+
+  print("here 7")
 
   return(p1)
 }
@@ -9613,6 +9650,30 @@ Plot.Calibration.Line <- function(dt = NULL,
       Y_Scroll = Y_Scroll,
       TextColor = TextColor,
       Debug = Debug)
+
+    # dt = dt1
+    # PreAgg = TRUE
+    # YVar = yvar
+    # XVar = "Percentile"
+    # GroupVar = gv
+    # YVarTrans = YVarTrans
+    # XVarTrans = XVarTrans
+    # FacetRows = FacetRows
+    # FacetCols = FacetCols
+    # FacetLevels = FacetLevels
+    # Title.YAxis = yvar
+    # Title.XAxis = paste0("Predicted every 5th Percentile")
+    # ShowLabels = ShowLabels
+    # Height = Height
+    # Width = Width
+    # Title = 'Calibration Line Plot'
+    # EchartsTheme = EchartsTheme
+    # TimeLine = tl
+    # X_Scroll = X_Scroll
+    # Y_Scroll = Y_Scroll
+    # TextColor = TextColor
+    # Debug = Debug
+
     return(p1)
 
   } else { # multiclass model
@@ -10607,21 +10668,26 @@ Plot.ROC <- function(dt = NULL,
                      Debug = FALSE) {
 
   # ROC
-  fastROC <- function(probs, class) {
-    class_sorted <- class[order(probs, decreasing=T)]
-    TPR <- cumsum(class_sorted) / sum(class)
-    FPR <- cumsum(class_sorted == 0) / sum(class == 0)
-    return(list(tpr=TPR, fpr=FPR))
+  fastROC <- function(preds, target) {
+    class_sorted <- target[order(preds, decreasing = TRUE)]
+    TPR <- cumsum(class_sorted) / sum(target)
+    FPR <- cumsum(class_sorted == 0) / sum(target == 0)
+    return(
+      list(
+        tpr = TPR,
+        fpr = FPR
+      )
+    )
   }
 
   # AUC
-  fastAUC <- function(probs, class) {
-    x <- probs
-    y <- class
-    x1 = x[y==1]; n1 = length(x1);
-    x2 = x[y==0]; n2 = length(x2);
+  fastAUC <- function(preds, target) {
+    x <- preds
+    y <- target
+    x1 = x[y == 1]; n1 = length(x1);
+    x2 = x[y == 0]; n2 = length(x2);
     r = rank(c(x1,x2))
-    auc = (sum(r[1:n1]) - n1*(n1+1)/2) / n1 / n2
+    auc = (sum(r[1L:n1]) - n1 * (n1 + 1L) / 2) / n1 / n2
     return(auc)
   }
 
