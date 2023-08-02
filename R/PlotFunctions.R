@@ -11210,9 +11210,11 @@ Plot.Lift <- function(dt = NULL,
                       Debug = FALSE) {
   print("here 0")
   print(data.table::is.data.table(dt))
-  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-    dt <- data.table::as.data.table(dt)
-  })
+  if(!data.table::is.data.table(dt)) {
+    tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+  }
 
   if(Debug) print("here 1")
 
@@ -11295,11 +11297,12 @@ Plot.Lift <- function(dt = NULL,
   if(Debug) print("here 9")
 
   if(yvar_class %in% c("factor","character") || length(GroupVar) > 0L) {
+    Levels <- sort(as.character(unique(dt2[[GroupVar]])))
     dl <- list()
     if(Debug) print("Start For-Loop")
     if(length(NumberBins) == 0L) NumberBins <- 21
     if(max(NumberBins) > 1L) NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
-    for(i in FacetLevels) {# i = 1
+    for(i in Levels) {# i = 1
       if(Debug) print("iter")
       if(Debug) print(i)
       dt_ <- dt2[get(GroupVar) %in% eval(i)]
@@ -11376,7 +11379,12 @@ Plot.Lift <- function(dt = NULL,
 
   # Build
   if(Debug) print(names(dt6))
-  dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift", GroupVar)]
+  if("Level" %in% names(dt6)) {
+    dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift", "Level")]
+    GroupVar <- "Level"
+  } else {
+    dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift")]
+  }
 
   if(Debug) print("here 12")
 
@@ -11444,12 +11452,8 @@ Plot.Lift <- function(dt = NULL,
   if(Debug) print("here 16")
 
   g <- class(p1)[1L]
-  if(g == "plotly") {
-    p1 <- plotly::layout(p = p1, uniformtext = list(minsize=8, mode='hide', color="white"))
-  } else if(g == "echarts4r") {
-    if(Debug) print("here 17")
-    p1 <- echarts4r::e_labels(e = p1, show = TRUE)
-  }
+  if(Debug) print("here 17")
+  p1 <- echarts4r::e_labels(e = p1, show = TRUE)
 
   # Return
   return(p1)
@@ -11599,11 +11603,12 @@ Plot.Gains <- function(dt = NULL,
   if(Debug) print("here 9")
 
   if(yvar_class %in% c("factor","character") || length(GroupVar) > 0L) {
+    Levels <- sort(as.character(unique(dt2[[GroupVar]])))
     dl <- list()
     if(Debug) print("Start For-Loop")
     if(length(NumberBins) == 0L) NumberBins <- 21
     if(max(NumberBins) > 1L) NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
-    for(i in FacetLevels) {# i = 1
+    for(i in Levels) {# i = 1
       if(Debug) print("iter")
       if(Debug) print(i)
       dt_ <- dt2[get(GroupVar) %in% eval(i)]
@@ -11646,7 +11651,12 @@ Plot.Gains <- function(dt = NULL,
       }
     }
     if(Debug) print(" For Loop Done: rbindlist")
-    dt6 <- data.table::rbindlist(dl)
+    if("Level" %in% names(dt6)) {
+      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift", "Level")]
+      GroupVar <- "Level"
+    } else {
+      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift")]
+    }
 
   } else {
 
@@ -11748,12 +11758,8 @@ Plot.Gains <- function(dt = NULL,
   if(Debug) print("here 16")
 
   g <- class(p1)[1L]
-  if(g == "plotly") {
-    p1 <- plotly::layout(p = p1, uniformtext = list(minsize=8, mode='hide', color="white"))
-  } else if(g == "echarts4r") {
-    if(Debug) print("here 17")
-    p1 <- echarts4r::e_labels(e = p1, show = TRUE)
-  }
+  if(Debug) print("here 17")
+  p1 <- echarts4r::e_labels(e = p1, show = TRUE)
 
   # Return
   return(p1)
