@@ -11451,7 +11451,7 @@ Plot.Lift <- function(dt = NULL,
 
   if(Debug) print("here 16")
 
-  g <- class(p1)[1L]
+
   if(Debug) print("here 17")
   p1 <- echarts4r::e_labels(e = p1, show = TRUE)
 
@@ -11758,7 +11758,7 @@ Plot.Gains <- function(dt = NULL,
 
   if(Debug) print("here 16")
 
-  g <- class(p1)[1L]
+
   if(Debug) print("here 17")
   p1 <- echarts4r::e_labels(e = p1, show = TRUE)
 
