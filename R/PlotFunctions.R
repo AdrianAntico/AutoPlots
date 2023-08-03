@@ -11638,14 +11638,14 @@ Plot.Gains <- function(dt = NULL,
       if(Debug) print(" iter 13")
       dt5[, Population := as.numeric(100 * eval(NumberBins))]
       if(Debug) print(" iter 14")
-      dt5[, Lift := round(Gain / 100 / NumberBins, 2)]
+      dt5[, Gain := round(Gain / 100 / NumberBins, 2)]
       if(Debug) print(" iter 15")
       dt5[, Level := eval(i)]
       if(Debug) print(" iter 16")
       if(data.table::is.data.table(dt5)) {
         if(Debug) print(" iter rbindlist")
         dl[[i]] <- data.table::rbindlist(list(
-          data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Lift = 0, Level = eval(i)),
+          data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Gain = 0, Level = eval(i)),
           dt5
         ))
       }
@@ -11653,10 +11653,10 @@ Plot.Gains <- function(dt = NULL,
     dt6 <- data.table::rbindlist(dl)
     if(Debug) print(" For Loop Done: rbindlist")
     if("Level" %in% names(dt5)) {
-      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift", "Level")]
+      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Gain", "Level")]
       GroupVar <- "Level"
     } else {
-      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift")]
+      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Gain")]
     }
 
   } else {
@@ -11678,10 +11678,10 @@ Plot.Gains <- function(dt = NULL,
     dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
     dt5 <- data.table::as.data.table(t(dt3))
     dt5[, Population := as.numeric(100 * eval(NumberBins))]
-    dt5[, Lift := round(Gain / 100 / NumberBins, 2)]
+    dt5[, Gain := round(Gain / 100 / NumberBins, 2)]
     if(data.table::is.data.table(dt5)) {
       dt6 <- data.table::rbindlist(list(
-        data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Lift = 0),
+        data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Gain = 0),
         dt5
       ))
     }
