@@ -10089,7 +10089,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     if(length(GroupVar) > 0L) {
       if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) > 0L)")
       if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N, 3) / NumberBins, by = c(GroupVar[1L])]
+          dt1[, eval(XVar) := data.table::frank(get(XVar)) * NumberBins / .N / NumberBins, by = c(GroupVar[1L])]
       }
       dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
       dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
@@ -10100,7 +10100,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     } else {
       if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) == 0L)")
       if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N, 3) / NumberBins]
+        dt1[, eval(XVar) := data.table::frank(get(XVar)) * NumberBins / .N / NumberBins]
       }
       dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = eval(XVar)]
       dt1 <- data.table::melt.data.table(data = dt1, id.vars = eval(XVar), measure.vars = c(YVar,ZVar))
@@ -10201,13 +10201,13 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     if(length(GroupVar) > 0L) {
       dt2 <- dt2[, .SD, .SDcols = c("GroupVariables", yvar, XVar)]
       if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N, 3) / NumberBins, by = c(GroupVar[1L])]
+        dt2[, eval(XVar) := data.table::frank(get(XVar)) * NumberBins / .N / NumberBins, by = c(GroupVar[1L])]
       }
       dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar)]
     } else {
       dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
       if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N, 3) / NumberBins]
+        dt2[, eval(XVar) := data.table::frank(get(XVar)) * NumberBins / .N / NumberBins]
       }
       dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
     }
@@ -10331,7 +10331,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
   }
 
   # Add a column that ranks predicted values
-  dt1[, eval(XVar) := as.character(round(data.table::frank(get(XVar)) * (NumberBins) / .N, 3) / NumberBins)]
+  dt1[, eval(XVar) := as.character(round(data.table::frank(get(XVar)) * (NumberBins) / .N / NumberBins, 2))]
   dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
   data.table::setorderv(x = dt1, cols = XVar, 1L)
 
@@ -10364,6 +10364,30 @@ Plot.PartialDependence.Box <- function(dt = NULL,
     X_Scroll = X_Scroll,
     Y_Scroll = Y_Scroll,
     Debug = Debug)
+
+  # dt = dt1
+  # SampleSize = SampleSize
+  # XVar = XVar
+  # YVar = "Target - Predicted"
+  # GroupVar = NULL
+  # YVarTrans = YVarTrans
+  # XVarTrans = XVarTrans
+  # FacetRows = 1
+  # FacetCols = 1
+  # FacetLevels = NULL
+  # ShowLabels = ShowLabels
+  # Title.YAxis = "Target & Predicted"
+  # Title.XAxis = paste0(XVar, " Every 5th Percentile")
+  # Height = Height
+  # Width = Width
+  # Title = "Partial Dependence"
+  # EchartsTheme = EchartsTheme
+  # TimeLine = tl
+  # TextColor = TextColor
+  # X_Scroll = X_Scroll
+  # Y_Scroll = Y_Scroll
+  # Debug = Debug
+
   return(p1)
 }
 
@@ -10453,7 +10477,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 
     for(i in seq_along(XVar)) {
       if(class(dt[[XVar[i]]][1L]) %in% c("numeric","integer")) {
-        dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L, 3))]
+        dt1[, eval(XVar[i]) := as.character(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L)]
       } else {
         dt1[, eval(XVar[i]) := as.character(get(XVar[i]))]
       }
@@ -10578,7 +10602,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
     dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
     for(i in seq_along(XVar)) {
       if(class(dt[[XVar]][i]) %in% c("numeric","integer")) {
-        dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L, 3))]
+        dt1[, eval(XVar[i]) := as.character(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 1L)]
       } else {
         dt1[, eval(XVar[i]) := as.character(get(XVar[i]))]
       }
