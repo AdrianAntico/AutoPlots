@@ -11651,11 +11651,11 @@ Plot.Gains <- function(dt = NULL,
       }
     }
     if(Debug) print(" For Loop Done: rbindlist")
-    if("Level" %in% names(dt6)) {
-      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift", "Level")]
+    if("Level" %in% names(dt5)) {
+      dt5 <- dt5[Population > 0, .SD, .SDcols = c("Population","Lift", "Level")]
       GroupVar <- "Level"
     } else {
-      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift")]
+      dt5 <- dt5[Population > 0, .SD, .SDcols = c("Population","Lift")]
     }
 
   } else {
