@@ -7533,6 +7533,9 @@ Plot.CorrMatrix <- function(dt = NULL,
                             xaxis.fontSize = 14,
                             Debug = FALSE) {
 
+  x <- c(); for(i in CorrVars) if(dt[, sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
+  CorrVars <- x
+
   # Plot
   if(!PreAgg) {
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
