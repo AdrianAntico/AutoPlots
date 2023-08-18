@@ -105,6 +105,7 @@ Other Standard Plots:
 \code{\link{Plot.Line}()},
 \code{\link{Plot.Pie}()},
 \code{\link{Plot.River}()},
+\code{\link{Plot.Rosetype}()},
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
