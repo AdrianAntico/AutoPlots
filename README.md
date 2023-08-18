@@ -12,7 +12,7 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - Histogram Plots
 - Density Plots
 - Box Plots
-- Violin Plots
+- Word Cloud
 - Pie Charts
 - Bar Plots
 - 3D Bar Plots
@@ -27,7 +27,6 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - 3D Copula Plots
 - Correlation Matrix Plots
 - Heatmaps
-- Candlestick Plots
 
 
 ### Model evaluation 
@@ -87,10 +86,12 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 ### Installation
 
 ```r
-install.packages(bit64)
-install.packages(data.table)
-install.packages(echarts4r)
-install.packages(dplyr)
+install.packages("bit64")
+install.packages("data.table")
+install.packages("echarts4r")
+install.packages("dplyr")
+install.packages("quanteda")
+install.packages("quanteda.textstats")
 devtools::install_github("AdrianAntico/AutoPlots")
 ```
 

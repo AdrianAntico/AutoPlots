@@ -1327,6 +1327,36 @@ Plot.StandardPlots <- function(dt = NULL,
     return(p1)
   }
 
+  # Donut Plot
+  if(tolower(PlotType) == 'donutplot') {
+    p1 <- AutoPlots:::Plot.Donut(
+      dt = dt,
+      PreAgg = PreAgg,
+      AggMethod = AggMethod,
+      XVar = if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar,
+      YVar = YVar,
+      GroupVar = NULL,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Width = Width,
+      Height = Height,
+      Title = Title,
+      ShowLabels = ShowLabels,
+      Title.YAxis = Title.YAxis,
+      Title.XAxis = Title.XAxis,
+      EchartsTheme = EchartsTheme,
+      TimeLine = TimeLine,
+      X_Scroll = TRUE,
+      Y_Scroll = TRUE,
+      TextColor = TextColor,
+      title.fontSize = Title.FontSize,
+      Debug = Debug)
+    return(p1)
+  }
+
   # Box Plot
   if(tolower(PlotType) == 'boxplot') {
     p1 <- AutoPlots:::Plot.Box(
@@ -2776,7 +2806,7 @@ Plot.Pie <- function(dt = NULL,
                      AggMethod = 'mean',
                      Height = NULL,
                      Width = NULL,
-                     Title = 'Bar Plot',
+                     Title = 'Pie Chart',
                      ShowLabels = FALSE,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,
@@ -2888,6 +2918,196 @@ Plot.Pie <- function(dt = NULL,
       p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE))
     } else {
       p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar)
+    }
+
+    if(FacetRows == 1L && FacetCols == 1L) {
+      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", backgroundColor = "aliceblue")
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+}
+
+#' @title Plot.Donut
+#'
+#' @description Build a donut plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height = NULL,
+#' @param Width = NULL,
+#' @param Title title
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param X_Scroll logical
+#' @param Y_Scroll logical
+#' @param TextColor 'darkblue'
+#' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
+#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
+#' @param Debug Debugging purposes
+#'
+#' @export
+Plot.Donut <- function(dt = NULL,
+                       PreAgg = FALSE,
+                       XVar = NULL,
+                       YVar = NULL,
+                       GroupVar = NULL,
+                       YVarTrans = "Identity",
+                       XVarTrans = "Identity",
+                       FacetRows = 1,
+                       FacetCols = 1,
+                       FacetLevels = NULL,
+                       AggMethod = 'mean',
+                       Height = NULL,
+                       Width = NULL,
+                       Title = 'Donut Plot',
+                       ShowLabels = FALSE,
+                       Title.YAxis = NULL,
+                       Title.XAxis = NULL,
+                       EchartsTheme = "macarons",
+                       TimeLine = TRUE,
+                       X_Scroll = TRUE,
+                       Y_Scroll = TRUE,
+                       TextColor =        "white",
+                       title.fontSize = 22,
+                       title.fontWeight = "bold", # normal
+                       title.textShadowColor = '#63aeff',
+                       title.textShadowBlur = 3,
+                       title.textShadowOffsetY = 1,
+                       title.textShadowOffsetX = -1,
+                       xaxis.fontSize = 14,
+                       yaxis.fontSize = 14,
+                       Debug = FALSE) {
+
+  if(length(YVar) > 0L) YVar <- YVar[1L]
+  if(length(XVar) > 0L) XVar <- XVar[1L]
+
+  # Used multiple times
+  check1 <- length(XVar) != 0 && length(YVar) != 0
+
+  if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+  }
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+
+  # Create base plot object
+  numvars <- c()
+  byvars <- c()
+  if(check1) {
+    if(Debug) print("BarPlot 2.b")
+    if(!PreAgg) {
+      if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+        numvars <- unique(c(numvars, YVar))
+      } else {
+        byvars <- unique(c(byvars, YVar))
+      }
+      if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+        if(length(numvars) > 0) {
+          x <- length(unique(dt[[XVar]]))
+          y <- length(unique(dt[[YVar]]))
+          if(x > y) {
+            byvars <- unique(c(byvars, YVar))
+            numvars[1L] <- XVar
+          } else {
+            byvars <- unique(c(byvars, XVar))
+          }
+        } else {
+          numvars <- unique(c(numvars, XVar))
+        }
+      } else {
+        byvars <- unique(c(byvars, XVar))
+      }
+      if(!is.null(byvars)) {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+        for(i in byvars) {
+          if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
+            temp[, eval(i) := as.character(get(i))]
+          }
+        }
+      } else {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+      }
+    } else {
+      temp <- data.table::copy(dt)
+      numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+    }
+
+    yvar <- temp[[YVar]]
+    xvar <- temp[[XVar]]
+
+    # Transformation
+    # "PercRank"  "Standardize"
+    # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
+    if(YVarTrans != "Identity") {
+      if(YVarTrans == "PercRank") {
+        temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
+      } else if(YVarTrans == "Standardize") {
+        temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+      } else {
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+      }
+    }
+
+    p1 <- echarts4r::e_charts_(
+      temp,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width, height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE), radius = c("50%", "70%"))
+    } else {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, radius = c("50%", "70%"))
     }
 
     if(FacetRows == 1L && FacetCols == 1L) {
@@ -3550,6 +3770,172 @@ Plot.Box <- function(dt = NULL,
     return(p1)
   }
   return(NULL)
+}
+
+#' @title Plot.Density
+#'
+#' @description Density plots, by groups, with transparent continuous plots
+#'
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param YVar Y-Axis variable name
+#' @param Height = NULL,
+#' @param Width = NULL,
+#' @param Title = "Density Plot"
+#' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TextColor "white",
+#' @param Debug Debugging purposes
+#' @export
+Plot.WordCloud <- function(dt = NULL,
+                           YVar = NULL,
+                           Height = NULL,
+                           Width = NULL,
+                           Title = "Word Cloud",
+                           EchartsTheme = "macarons",
+                           TextColor = "white",
+                           title.fontSize = 22,
+                           title.fontWeight = "bold",
+                           title.textShadowColor = '#63aeff',
+                           title.textShadowBlur = 3,
+                           title.textShadowOffsetY = 1,
+                           title.textShadowOffsetX = -1,
+                           xaxis.fontSize = 14,
+                           yaxis.fontSize = 14,
+                           xaxis.rotate = 0,
+                           yaxis.rotate = 0,
+                           ContainLabel = TRUE,
+                           Debug = FALSE) {
+
+  if(EchartsTheme == 'auritus') {
+    ColorVals <- c("#3e4359", "#c5a805", "#4d267e", "#22904f", "red")
+  } else if(EchartsTheme == 'azul') {
+    ColorVals <- c("#bfcca6", "#b07a9a", "#65deff", "#f73372", "#d08e1f")
+  } else if(EchartsTheme == 'bee-inspired') {
+    ColorVals <- c("#24243b", "#c2ba38", "#deeb25", "#ebc625", "#ffe700")
+  } else if(EchartsTheme == 'blue') {
+    ColorVals <- c("#2e69aa", "#99b8d9", "#3a84d4", "#1b67b9", "#046fe1")
+  } else if(EchartsTheme == 'caravan') {
+    ColorVals <- c("#18536d", "#d44545", "#eba565", "#e1c3a7", "#e1dda7")
+  } else if(EchartsTheme == 'carp') {
+    ColorVals <- c("#ff3300", "#fff0bb", "#679898", "#ff8870", "#4d3935")
+  } else if(EchartsTheme == 'chalk') {
+    ColorVals <- c("#e8c69e", "#54afec", "#d9dc89", "#f1a7d6", "#927294")
+  } else if(EchartsTheme == 'cool') {
+    ColorVals <- c("#20146a", "#591b89", "#911ea6", "#8081ba", "#2a74c4")
+  } else if(EchartsTheme == 'dark-bold') {
+    ColorVals <- c("#922e2e", "#d06363", "#d0a463", "#5c845e", "#63d0b9")
+  } else if(EchartsTheme == 'dark') {
+    ColorVals <- c("#e17d7d", "#c1ba54", "#66d5b0", "#b366d5", "#66a9d5")
+  } else if(EchartsTheme == 'eduardo') {
+    ColorVals <- c("#352a61", "#696284", "#c190ba", "#9e8a9b", "#615b60")
+  } else if(EchartsTheme == 'essos') {
+    ColorVals <- c("#753751", "#cfc995", "#c2b53c", "#d89c41")
+  } else if(EchartsTheme == 'forest') {
+    ColorVals <- c("#101010", "#bdb892", "#6c7955", "#3e6e86", "#37412e")
+  } else if(EchartsTheme == 'fresh-cut') {
+    ColorVals <- c("#74b936", "#76e314", "#cfbcb2", "#26609e", "#11b1cf")
+  } else if(EchartsTheme == 'fruit') {
+    ColorVals <- c("#dc965e", "#955828", "#c2b3a6", "#a16464", "#ae8c74")
+  } else if(EchartsTheme == 'gray') {
+    ColorVals <- c("#333333", "#696969", "#989898", "#bababa", "#e3e3e3")
+  } else if(EchartsTheme == 'green') {
+    ColorVals <- c("#2c5e25", "#387830", "#56a14d", "#7cbe74", "#b5e3af")
+  } else if(EchartsTheme == 'halloween') {
+    ColorVals <- c("#d1d134", "#d1953c", "#cc735d", "#7a5dcc", "#564f6a")
+  } else if(EchartsTheme == 'helianthus') {
+    ColorVals <- c("#6235e1", "#e16235", "#e1c135", "#c46aa5", "#5bcf3e")
+  } else if(EchartsTheme == 'infographic') {
+    ColorVals <- c("#d5cb2b", "#b4e771", "#cc4d3d", "#e78971", "#82b053")
+  } else if(EchartsTheme == 'inspired') {
+    ColorVals <- c("#8e1212", "#0f6310", "#d39f03", "#ff0000", "#265d82")
+  } else if(EchartsTheme == 'jazz') {
+    ColorVals <- c("#5e4832", "#000000", "#265057", "#d5dcdd")
+  } else if(EchartsTheme == 'london') {
+    ColorVals <- c("#881010", "#b8d1d4", "#227e89", "#041137", "#1c86c4")
+  } else if(EchartsTheme == 'macarons') {
+    ColorVals <- c("#6382cf", "#8776b9", "#318c9d", "#6d5739", "#7f7f98")
+  } else if(EchartsTheme == 'macarons2') {
+    ColorVals <- c("#6d6ddb", "#d45315", "#6e9fe4", "#b9bc89", "#d37c7c")
+  } else if(EchartsTheme == 'mint') {
+    ColorVals <- c("#c3ebd6", "#859d90", "#6dbaba", "#6dba9b", "#62d17f")
+  } else if(EchartsTheme == 'purple-passion') {
+    ColorVals <- c("#9385ba", "#779fbe", "#b86aac", "#5d9dc8", "#5f3a89")
+  } else if(EchartsTheme == 'red-velvet') {
+    ColorVals <- c("#6f4c41", "#db8469", "#f13d67", "#5e1d2c", "#ff00a9")
+  } else if(EchartsTheme == 'red') {
+    ColorVals <- c("#b4342a", "#8a4d49", "#c08480", "#df745a", "#cca69d")
+  } else if(EchartsTheme == 'roma') {
+    ColorVals <- c("#a580e9", "#d56426", "#cd1450", "#8bbec0", "#91836b")
+  } else if(EchartsTheme == 'royal') {
+    ColorVals <- c("#a06156", "#756054", "#5fac21", "#34708a", "#692525")
+  } else if(EchartsTheme == 'sakura') {
+    ColorVals <- c("#d75869", "#cb979e", "#b12a3d", "#adabc7", "#d0a79b")
+  } else if(EchartsTheme == 'shine') {
+    ColorVals <- c("#3d5995", "#296537", "#3390f7", "#b81717", "#50868c")
+  } else if(EchartsTheme == 'tech-blue') {
+    ColorVals <- c("#356499", "#4e487e", "#524f4b", "#b9addc", "#1c70d8")
+  } else if(EchartsTheme == 'vintage') {
+    ColorVals <- c("#a47e5f", "#638176", "#a46969", "#5d3a3a", "#4f8090")
+  } else if(EchartsTheme == 'walden') {
+    ColorVals <- c("#3b96c4", "#8babba", "#a5d9a2", "#535d84", "#7f79ad")
+  } else if(EchartsTheme == 'wef') {
+    ColorVals <- c("#5981d5", "#3268d9", "#9d938a", "#1f457c", "#524e48")
+  } else if(EchartsTheme == 'weforum') {
+    ColorVals <- c("#8a1b6f", "#4d2876", "#d5bf24", "#2792aa", "#a27322")
+  } else if(EchartsTheme == 'westeros') {
+    ColorVals <- c("#4b4d66", "#a681b0", "#8acccf", "#41a7cf")
+  } else if(EchartsTheme == 'wonderland') {
+    ColorVals <- c("#629291", "#3ec5c2", "#cf95ad", "#cd7097")
+  }
+
+  # Cap number of records
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
+  # Copy Data
+  dt1 <- data.table::copy(dt)
+
+  # Define Plotting Variable
+  if(length(YVar) == 0L) return(NULL)
+
+  # Data YVar <- "Comment"
+  # dt <- AutoNLP::FakeDataGenerator(N = 1000, AddComment = TRUE)
+  dt1 <- quanteda::tokens(dt[[YVar]], remove_punct = TRUE)
+  dt2 <- quanteda::dfm(dt1)
+  dt3 <- data.table::setDT(quanteda.textstats::textstat_frequency(dt2))
+  dt4 <- dt3[, .SD, .SDcols = c("feature", "frequency")]
+  data.table::setnames(dt4, c("feature", "frequency"),c("term", "freq"))
+
+  # Create base plot object
+  if(Debug) print('Create Plot with only data')
+  dt5 <- echarts4r::e_color_range_(
+    data = dt4,
+    input = "freq",
+    output = "Color",
+    colors = ColorVals)
+  p1 <- echarts4r::e_charts(data = dt5)
+  p1 <- echarts4r::e_cloud_(e = p1, "term", "freq", "Color", shape = "circle", sizeRange = c(20, 42))
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  return(p1)
 }
 
 # ----

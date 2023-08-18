@@ -97,6 +97,7 @@ Other Standard Plots:
 \code{\link{Plot.Copula3D}()},
 \code{\link{Plot.Copula}()},
 \code{\link{Plot.CorrMatrix}()},
+\code{\link{Plot.Donut}()},
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
 \code{\link{Plot.Line}()},
@@ -105,6 +106,7 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()}
+\code{\link{Plot.Step}()},
+\code{\link{Plot.WordCloud}()}
 }
 \concept{Standard Plots}
