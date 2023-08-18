@@ -76,29 +76,60 @@ bold_ <- function(x) paste0('<b>',x,'</b>')
 font_ <- function(family = "Segoe UI Symbol", size = 12, color = 'white') list(family = family, size = size, color = color)
 
 #' @noRd
-ColNameFilter <- function (data, Types = "all") {
-  if (Types == "all")
-    return(names(data))
+ColNameFilter <- function(data, Types = 'all') {
+  if(Types == 'all') return(names(data))
   nam <- c()
-  for (t in Types) {
-    if (tolower(t) == "numeric") {
+  for(t in Types) {
+    if(tolower(t) == 'numeric') {
       nam <- NumericColNames(data)
-    }
-    else if (tolower(t) == "character") {
+    } else if(tolower(t) == 'character') {
       nam <- CharacterColNames(data)
-    }
-    else if (tolower(t) == "factor") {
+    } else if(tolower(t) == 'factor') {
       nam <- FactorColNames(data)
-    }
-    else if (tolower(t) == "logical") {
+    } else if(tolower(t) == 'logical') {
       nam <- LogicalColNames(data)
-    }
-    else if (tolower(t) %chin% c("date", "idate", "idatetime",
-                                 "posixct", "posix")) {
+    } else if(tolower(t) %chin% c("date","idate","idatetime","posixct","posix")) {
       nam <- DateColNames(data)
     }
   }
   return(nam)
+}
+
+#' @noRd
+NumericColNames <- function(data) {
+  x <- as.list(names(data)[which(sapply(data, is.numeric))])
+  if(!identical(x, character(0))) return(x) else return(NULL)
+}
+
+#' @noRd
+CharacterColNames <- function(data) {
+  x <- as.list(names(data)[which(sapply(data, is.character))])
+  if(!identical(x, character(0))) return(x) else return(NULL)
+}
+
+#' @noRd
+FactorColNames <- function(data) {
+  x <- as.list(names(data)[which(sapply(data, is.factor))])
+  if(!identical(x, character(0))) return(x) else return(NULL)
+}
+
+#' @noRd
+LogicalColNames <- function(data) {
+  x <- as.list(names(data)[which(sapply(data, is.logical))])
+  if(!identical(x, character(0))) return(x) else return(NULL)
+}
+
+#' @noRd
+DateColNames <- function(data) {
+  x <- list()
+  counter <- 0L
+  for(i in names(data)) {
+    if(class(data[[i]])[1L] %in% c("IDate","Date","date","POSIXct","POSIX")) {
+      counter <- counter + 1L
+      x[[counter]] <- i
+    }
+  }
+  if(length(x) > 0L) return(x) else return(NULL)
 }
 
 #' @title FakeDataGenerator
