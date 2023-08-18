@@ -10,19 +10,12 @@ Plot.ACF(
   DateVar = NULL,
   TimeUnit = NULL,
   MaxLags = 50,
-  LabelValues = NULL,
   YVarTrans = "Identity",
   AggMethod = "sum",
   Height = NULL,
   Width = NULL,
   Title = "Autocorrelation Plot",
-  ShowLabels = FALSE,
-  Title.YAxis = NULL,
-  Title.XAxis = NULL,
   EchartsTheme = "macarons",
-  TimeLine = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
@@ -47,8 +40,6 @@ Plot.ACF(
 
 \item{TimeUnit}{Select from "hour", "day", "week", "month", "quarter", "year"}
 
-\item{LabelValues}{A vector of values. Requires PreAgg to be set to TRUE and you'll need to ensure LabelValues are ordered the same as dt. If NULL and ShowLabels is TRUE, then bar values will be displayed}
-
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
@@ -59,25 +50,15 @@ Plot.ACF(
 
 \item{Title}{title}
 
-\item{ShowLabels}{logical}
-
-\item{Title.YAxis}{NULL. If NULL, YVar name will be used}
-
-\item{Title.XAxis}{NULL. If NULL, XVar name will be used}
-
 \item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
-
-\item{TimeLine}{logical}
-
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
 
 \item{TextColor}{'darkblue'}
 
 \item{Debug}{Debugging purposes}
 
 \item{PreAgg}{logical}
+
+\item{TimeLine}{logical}
 }
 \description{
 Build an autocorrelation plot by simply passing arguments to a single function

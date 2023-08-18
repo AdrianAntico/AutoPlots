@@ -6625,19 +6625,13 @@ Plot.Bar <- function(dt = NULL,
 #' @param YVar Y-Axis variable name
 #' @param DateVar Date column in data
 #' @param TimeUnit Select from "hour", "day", "week", "month", "quarter", "year"
-#' @param LabelValues A vector of values. Requires PreAgg to be set to TRUE and you'll need to ensure LabelValues are ordered the same as dt. If NULL and ShowLabels is TRUE, then bar values will be displayed
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param Height = NULL,
 #' @param Width = NULL,
 #' @param Title title
-#' @param Title.YAxis NULL. If NULL, YVar name will be used
-#' @param Title.XAxis NULL. If NULL, XVar name will be used
-#' @param ShowLabels logical
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
 #' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #' @export
@@ -6646,19 +6640,12 @@ Plot.ACF <- function(dt = NULL,
                      DateVar = NULL,
                      TimeUnit = NULL,
                      MaxLags = 50,
-                     LabelValues = NULL,
                      YVarTrans = "Identity",
                      AggMethod = 'sum',
                      Height = NULL,
                      Width = NULL,
                      Title = 'Autocorrelation Plot',
-                     ShowLabels = FALSE,
-                     Title.YAxis = NULL,
-                     Title.XAxis = NULL,
                      EchartsTheme = "macarons",
-                     TimeLine = TRUE,
-                     X_Scroll = TRUE,
-                     Y_Scroll = TRUE,
                      TextColor = "white",
                      title.fontSize = 22,
                      title.fontWeight = "bold", # normal
@@ -6688,7 +6675,6 @@ Plot.ACF <- function(dt = NULL,
   if(Debug) print("Plot.ACH 1")
   aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
 
-  # Create base plot object
   if(Debug) print("Plot.ACH 2")
 
   # Transformation
@@ -6702,8 +6688,13 @@ Plot.ACF <- function(dt = NULL,
     }
   }
 
+  if(Debug) print("Plot.ACH 3")
+
   # Aggregate dt1
-  dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(YVar), by = eval(DateVar)]
+  dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(YVar), by = c(DateVar)]
+
+  if(Debug) print("Plot.ACH 3.5")
+
   dt1 <- Rodeo::AutoLagRollStats(
     data = dt1,
     DateColumn = DateVar,
@@ -6716,8 +6707,11 @@ Plot.ACF <- function(dt = NULL,
     SimpleImpute = TRUE,
     Lags = seq_len(MaxLags))
 
+  if(Debug) print("Plot.ACH 4")
+
   # Autocorrelation data creation
   ACF_Data <- data.table::data.table(Lag = 1:50, Cor = 0.0, `Lower 95th` = 0.0, `Upper 95th` = 0.0)
+  if(Debug) print("Plot.ACH 5")
   for(i in seq_len(MaxLags)) {
     lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[paste0("weeks_LAG_",i,"_",YVar)]])
     data.table::set(ACF_Data, i = i, j = "Lag", value = i)
@@ -6725,6 +6719,8 @@ Plot.ACF <- function(dt = NULL,
     data.table::set(ACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
     data.table::set(ACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
   }
+
+  if(Debug) print("Plot.ACH 6")
 
   # Plot
   p1 <- echarts4r::e_charts_(
@@ -6734,11 +6730,20 @@ Plot.ACF <- function(dt = NULL,
     darkMode = TRUE,
     width = Width,
     height = Height)
+
+  if(Debug) print("Plot.ACH 7")
   p1 <- echarts4r::e_bar_(e = p1, "Cor")
+
+  if(Debug) print("Plot.ACH 8")
+
   p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
+
+  if(Debug) print("Plot.ACH 9")
+
   p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
 
   # Extras
+  if(Debug) print("Plot.ACH 10")
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
