@@ -14,6 +14,8 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - Box Plots
 - Word Cloud
 - Pie Charts
+- Donut Plot
+- Rosetype Plot
 - Bar Plots
 - 3D Bar Plots
 - Stacked Bar Plots
@@ -21,6 +23,7 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - Step Plots
 - Area Plots
 - River Plots
+- Autocorrelation Plot
 - Scatter Plots
 - 3D Scatter Plots
 - Copula Plots (scatter plot using a percent rank of variables - spearman scatter)

@@ -92,6 +92,7 @@ Create heat maps with numeric or categorical dt
 }
 \seealso{
 Other Standard Plots: 
+\code{\link{Plot.ACF}()},
 \code{\link{Plot.Area}()},
 \code{\link{Plot.BarPlot3D}()},
 \code{\link{Plot.Bar}()},

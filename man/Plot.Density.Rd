@@ -90,6 +90,7 @@ Density plots, by groups, with transparent continuous plots
 }
 \seealso{
 Other Standard Plots: 
+\code{\link{Plot.ACF}()},
 \code{\link{Plot.Area}()},
 \code{\link{Plot.BarPlot3D}()},
 \code{\link{Plot.Bar}()},

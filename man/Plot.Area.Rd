@@ -110,6 +110,7 @@ This function automatically builds calibration plots and calibration boxplots fo
 }
 \seealso{
 Other Standard Plots: 
+\code{\link{Plot.ACF}()},
 \code{\link{Plot.BarPlot3D}()},
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},

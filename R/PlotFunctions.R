@@ -6612,298 +6612,183 @@ Plot.Bar <- function(dt = NULL,
   return(p1)
 }
 
-# #' @title Plot.Polar
-# #'
-# #' @description Build a polar bar plot by simply passing arguments to a single function
-# #'
-# #' @family Standard Plots
-# #'
-# #' @author Adrian Antico
-# #'
-# #' @param dt source data.table
-# #' @param PreAgg logical
-# #' @param YVar Y-Axis variable name
-# #' @param XVar X-Axis variable name
-# #' @param LabelValues A vector of values. Requires PreAgg to be set to TRUE and you'll need to ensure LabelValues are ordered the same as dt. If NULL and ShowLabels is TRUE, then bar values will be displayed
-# #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
-# #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
-# #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
-# #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
-# #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-# #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-# #' @param Height = NULL,
-# #' @param Width = NULL,
-# #' @param Title title
-# #' @param Title.YAxis NULL. If NULL, YVar name will be used
-# #' @param Title.XAxis NULL. If NULL, XVar name will be used
-# #' @param ShowLabels logical
-# #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-# #' @param TimeLine logical
-# #' @param X_Scroll logical
-# #' @param Y_Scroll logical
-# #' @param TextColor 'darkblue'
-# #' @param Debug Debugging purposes
-# #' @export
-# Plot.Polar <- function(dt = NULL,
-#                        PreAgg = FALSE,
-#                        XVar = NULL,
-#                        YVar = NULL,
-#                        LabelValues = NULL,
-#                        YVarTrans = "Identity",
-#                        XVarTrans = "Identity",
-#                        FacetRows = 1,
-#                        FacetCols = 1,
-#                        FacetLevels = NULL,
-#                        AggMethod = 'mean',
-#                        Height = NULL,
-#                        Width = NULL,
-#                        Title = 'Bar Plot',
-#                        ShowLabels = FALSE,
-#                        Title.YAxis = NULL,
-#                        Title.XAxis = NULL,
-#                        EchartsTheme = "macarons",
-#                        TimeLine = TRUE,
-#                        X_Scroll = TRUE,
-#                        Y_Scroll = TRUE,
-#                        TextColor = "white",
-#                        title.fontSize = 22,
-#                        title.fontWeight = "bold", # normal
-#                        title.textShadowColor = '#63aeff',
-#                        title.textShadowBlur = 3,
-#                        title.textShadowOffsetY = 1,
-#                        title.textShadowOffsetX = -1,
-#                        xaxis.fontSize = 14,
-#                        yaxis.fontSize = 14,
-#                        xaxis.rotate = 0,
-#                        yaxis.rotate = 0,
-#                        ContainLabel = TRUE,
-#                        Debug = FALSE) {
-#
-#   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-#     dt <- data.table::as.data.table(dt)
-#   })
-#
-#   if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
-#     dt[, eval(XVar) := as.character(get(XVar))]
-#   }
-#   if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
-#     dt[, eval(YVar) := as.character(get(YVar))]
-#   }
-#
-#   # Used multiple times
-#   check1 <- length(XVar) != 0 && length(YVar) != 0
-#
-#   # Define Aggregation function
-#   if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
-#   if(!PreAgg) {
-#     aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
-#   }
-#
-#   # Create base plot object
-#   numvars <- c()
-#   byvars <- c()
-#   if(check1) {
-#     if(Debug) print("BarPlot 2.b")
-#     if(!PreAgg) {
-#       if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-#         numvars <- unique(c(numvars, YVar))
-#       } else {
-#         byvars <- unique(c(byvars, YVar))
-#       }
-#       if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-#         if(length(numvars) > 0) {
-#           x <- length(unique(dt[[XVar]]))
-#           y <- length(unique(dt[[YVar]]))
-#           if(x > y) {
-#             byvars <- unique(c(byvars, YVar))
-#             numvars[1L] <- XVar
-#           } else {
-#             byvars <- unique(c(byvars, XVar))
-#           }
-#         } else {
-#           numvars <- unique(c(numvars, XVar))
-#         }
-#       } else {
-#         byvars <- unique(c(byvars, XVar))
-#       }
-#       if(!is.null(byvars)) {
-#         temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
-#         for(i in byvars) {
-#           if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
-#             temp[, eval(i) := as.character(get(i))]
-#           }
-#         }
-#       } else {
-#         temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-#       }
-#     } else {
-#       temp <- data.table::copy(dt)
-#       numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-#       byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
-#     }
-#
-#     # Transformation
-#     if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
-#       YVarTrans <- XVarTrans
-#     }
-#     if(YVarTrans != "Identity") {
-#       if(YVarTrans == "PercRank") {
-#         temp <- PercRank(data = temp, ColNames = numvars, GroupVars = NULL, Granularity = 0.0001, ScoreTable = FALSE)
-#       } else if(YVarTrans == "Standardize") {
-#         temp <- Standardize(data = temp, ColNames = numvars, GroupVars = NULL, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-#       } else {
-#         temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-#       }
-#     }
-#
-#     yvar <- temp[[YVar]]
-#     xvar <- temp[[XVar]]
-#
-#     # Plot
-#     if(XVar == "Importance" && YVar == "Variable") {
-#       XVar <- "Variable"
-#       YVar <- "Importance"
-#     }
-#     p1 <- echarts4r::e_charts_(
-#       temp,
-#       x = XVar,
-#       dispose = TRUE,
-#       darkMode = TRUE,
-#       width = Width,
-#       height = Height)
-#     p1 <- echarts4r::e_polar(e = p1, TRUE)
-#     p1 <- echarts4r::e_angle_axis_(e = p1, XVar)
-#     if(ShowLabels) {
-#       if(length(LabelValues) > 0L && PreAgg) {
-#         p1 <- echarts4r::e_charts_(
-#           temp,
-#           x = XVar,
-#           dispose = TRUE,
-#           darkMode = TRUE,
-#           width = Width,
-#           height = Height) |>
-#           echarts4r::e_bar_(
-#             YVar,
-#             bind = LabelValues,
-#             coord_system = "polar",
-#             label = list(
-#               show = TRUE,
-#               formatter = "{b}",
-#               position = "outside"))
-#
-#       } else {
-#         p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE), coord_system = "polar")
-#       }
-#
-#     } else {
-#       p1 <- echarts4r::e_bar_(e = p1, YVar, coord_system = "polar")
-#     }
-#     if(FacetRows == 1L && FacetCols == 1L) {
-#       if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-#       if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-#     }
-#     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-#     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-#     p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-#     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-#     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-#
-#     if(length(Title.XAxis) == 0L) {
-#       p1 <- echarts4r::e_axis_(
-#         e = p1,
-#         serie = NULL,
-#         axis = "x",
-#         name = XVar,
-#         nameLocation = "middle",
-#         nameGap = 45,
-#         nameTextStyle = list(
-#           color = TextColor,
-#           fontStyle = "normal",
-#           fontWeight = "bold",
-#           fontSize = xaxis.fontSize),
-#         axisLabel = list(
-#           rotate = xaxis.rotate,
-#           grid = list(containLabel = ContainLabel)))
-#     } else {
-#       p1 <- echarts4r::e_axis_(
-#         e = p1,
-#         serie = NULL,
-#         axis = "x",
-#         name = Title.XAxis,
-#         nameLocation = "middle",
-#         nameGap = 45,
-#         nameTextStyle = list(
-#           color = TextColor,
-#           fontStyle = "normal",
-#           fontWeight = "bold",
-#           fontSize = xaxis.fontSize),
-#         axisLabel = list(
-#           rotate = xaxis.rotate,
-#           grid = list(containLabel = ContainLabel)))
-#     }
-#
-#     if(length(Title.YAxis) == 0L) {
-#       p1 <- echarts4r::e_axis_(
-#         e = p1,
-#         serie = NULL,
-#         axis = "y",
-#         name = YVar,
-#         nameLocation = "middle",
-#         nameGap = 45,
-#         nameTextStyle = list(
-#           color = TextColor,
-#           fontStyle = "normal",
-#           fontWeight = "bold",
-#           fontSize = yaxis.fontSize),
-#         axisLabel = list(
-#           rotate = yaxis.rotate,
-#           grid = list(containLabel = ContainLabel)))
-#     } else {
-#       p1 <- echarts4r::e_axis_(
-#         e = p1,
-#         serie = NULL,
-#         axis = "y",
-#         name = Title.YAxis,
-#         nameLocation = "middle",
-#         nameGap = 45,
-#         nameTextStyle = list(
-#           color = TextColor,
-#           fontStyle = "normal",
-#           fontWeight = "bold",
-#           fontSize = yaxis.fontSize),
-#         axisLabel = list(
-#           rotate = yaxis.rotate,
-#           grid = list(containLabel = ContainLabel)))
-#     }
-#
-#     p1 <- echarts4r::e_brush(e = p1)
-#     p1 <- echarts4r::e_title(
-#       p1, Title,
-#       textStyle = list(
-#         color = TextColor,
-#         fontWeight = title.fontWeight,
-#         overflow = "truncate", # "none", "truncate", "break",
-#         ellipsis = '...',
-#         fontSize = title.fontSize,
-#         textShadowColor = title.textShadowColor,
-#         textShadowBlur = title.textShadowBlur,
-#         textShadowOffsetY = title.textShadowOffsetY,
-#         textShadowOffsetX = title.textShadowOffsetX))
-#     if(FacetRows > 1L || FacetCols > 1L) {
-#       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-#       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-#     } else {
-#       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-#     }
-#
-#     return(p1)
-#   }
-#
-#   if(!check1) return(NULL)
-#
-#   # Return plot
-#   return(p1)
-# }
+#' @title Plot.ACF
+#'
+#' @description Build an autocorrelation plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Y-Axis variable name
+#' @param DateVar Date column in data
+#' @param TimeUnit Select from "hour", "day", "week", "month", "quarter", "year"
+#' @param LabelValues A vector of values. Requires PreAgg to be set to TRUE and you'll need to ensure LabelValues are ordered the same as dt. If NULL and ShowLabels is TRUE, then bar values will be displayed
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height = NULL,
+#' @param Width = NULL,
+#' @param Title title
+#' @param Title.YAxis NULL. If NULL, YVar name will be used
+#' @param Title.XAxis NULL. If NULL, XVar name will be used
+#' @param ShowLabels logical
+#' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param X_Scroll logical
+#' @param Y_Scroll logical
+#' @param TextColor 'darkblue'
+#' @param Debug Debugging purposes
+#' @export
+Plot.ACF <- function(dt = NULL,
+                     YVar = NULL,
+                     DateVar = NULL,
+                     TimeUnit = NULL,
+                     MaxLags = 50,
+                     LabelValues = NULL,
+                     YVarTrans = "Identity",
+                     AggMethod = 'sum',
+                     Height = NULL,
+                     Width = NULL,
+                     Title = 'Autocorrelation Plot',
+                     ShowLabels = FALSE,
+                     Title.YAxis = NULL,
+                     Title.XAxis = NULL,
+                     EchartsTheme = "macarons",
+                     TimeLine = TRUE,
+                     X_Scroll = TRUE,
+                     Y_Scroll = TRUE,
+                     TextColor = "white",
+                     title.fontSize = 22,
+                     title.fontWeight = "bold", # normal
+                     title.textShadowColor = '#63aeff',
+                     title.textShadowBlur = 3,
+                     title.textShadowOffsetY = 1,
+                     title.textShadowOffsetX = -1,
+                     xaxis.fontSize = 14,
+                     yaxis.fontSize = 14,
+                     xaxis.rotate = 0,
+                     yaxis.rotate = 0,
+                     ContainLabel = TRUE,
+                     Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  dt1 <- data.table::copy(dt)
+
+  # Convert factor to character
+  if(length(YVar) > 0L && class(dt1[[YVar]])[1L] == "factor") {
+    return(NULL)
+  }
+
+  # Define Aggregation function
+  if(Debug) print("Plot.ACH 1")
+  aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+
+  # Create base plot object
+  if(Debug) print("Plot.ACH 2")
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    if(YVarTrans == "PercRank") {
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+    } else if(YVarTrans == "Standardize") {
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+    } else {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    }
+  }
+
+  # Aggregate dt1
+  dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(YVar), by = eval(DateVar)]
+  dt1 <- Rodeo::AutoLagRollStats(
+    data = dt1,
+    DateColumn = DateVar,
+    Targets = YVar,
+    TimeUnitAgg = TimeUnit,
+    TimeGroups = TimeUnit,
+    TimeUnit = TimeUnit,
+    RollOnLag1 = TRUE,
+    Type = "Lag",
+    SimpleImpute = TRUE,
+    Lags = seq_len(MaxLags))
+
+  # Autocorrelation data creation
+  ACF_Data <- data.table::data.table(Lag = 1:50, Cor = 0.0, `Lower 95th` = 0.0, `Upper 95th` = 0.0)
+  for(i in seq_len(MaxLags)) {
+    lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[paste0("weeks_LAG_",i,"_",YVar)]])
+    data.table::set(ACF_Data, i = i, j = "Lag", value = i)
+    data.table::set(ACF_Data, i = i, j = "Cor", value = lag_test$estimate)
+    data.table::set(ACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
+    data.table::set(ACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
+  }
+
+  # Plot
+  p1 <- echarts4r::e_charts_(
+    ACF_Data,
+    x = "Lag",
+    dispose = TRUE,
+    darkMode = TRUE,
+    width = Width,
+    height = Height)
+  p1 <- echarts4r::e_bar_(e = p1, "Cor")
+  p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
+  p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
+
+  # Extras
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_axis_(
+    e = p1,
+    serie = NULL,
+    axis = "x",
+    name = "Lags",
+    nameLocation = "middle",
+    nameGap = 45,
+    nameTextStyle = list(
+      color = TextColor,
+      fontStyle = "normal",
+      fontWeight = "bold",
+      fontSize = xaxis.fontSize),
+    axisLabel = list(
+      rotate = xaxis.rotate,
+      grid = list(containLabel = ContainLabel)))
+  p1 <- echarts4r::e_axis_(
+    e = p1,
+    serie = NULL,
+    axis = "y",
+    name = "Correlation",
+    nameLocation = "middle",
+    nameGap = 45,
+    nameTextStyle = list(
+      color = TextColor,
+      fontStyle = "normal",
+      fontWeight = "bold",
+      fontSize = yaxis.fontSize),
+    axisLabel = list(
+      rotate = yaxis.rotate,
+      grid = list(containLabel = ContainLabel)))
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  return(p1)
+}
 
 #' @title Plot.StackedBar
 #'

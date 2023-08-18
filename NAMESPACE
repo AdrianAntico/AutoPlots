@@ -3,6 +3,7 @@
 export(BuildBinary)
 export(FakeDataGenerator)
 export(Install)
+export(Plot.ACF)
 export(Plot.Area)
 export(Plot.Bar)
 export(Plot.BarPlot3D)

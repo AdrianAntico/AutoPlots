@@ -82,6 +82,7 @@ Build a histogram plot by simply passing arguments to a single function. It will
 }
 \seealso{
 Other Standard Plots: 
+\code{\link{Plot.ACF}()},
 \code{\link{Plot.Area}()},
 \code{\link{Plot.BarPlot3D}()},
 \code{\link{Plot.Bar}()},

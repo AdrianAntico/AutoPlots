@@ -96,6 +96,7 @@ Build a bar plot by simply passing arguments to a single function
 }
 \seealso{
 Other Standard Plots: 
+\code{\link{Plot.ACF}()},
 \code{\link{Plot.Area}()},
 \code{\link{Plot.BarPlot3D}()},
 \code{\link{Plot.Box}()},

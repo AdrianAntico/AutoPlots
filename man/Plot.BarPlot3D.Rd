@@ -95,6 +95,7 @@ Build a 3D Bar Plot
 }
 \seealso{
 Other Standard Plots: 
+\code{\link{Plot.ACF}()},
 \code{\link{Plot.Area}()},
 \code{\link{Plot.Bar}()},
 \code{\link{Plot.Box}()},
