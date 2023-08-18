@@ -75,6 +75,32 @@ bold_ <- function(x) paste0('<b>',x,'</b>')
 #' @noRd
 font_ <- function(family = "Segoe UI Symbol", size = 12, color = 'white') list(family = family, size = size, color = color)
 
+#' @noRd
+ColNameFilter <- function (data, Types = "all") {
+  if (Types == "all")
+    return(names(data))
+  nam <- c()
+  for (t in Types) {
+    if (tolower(t) == "numeric") {
+      nam <- NumericColNames(data)
+    }
+    else if (tolower(t) == "character") {
+      nam <- CharacterColNames(data)
+    }
+    else if (tolower(t) == "factor") {
+      nam <- FactorColNames(data)
+    }
+    else if (tolower(t) == "logical") {
+      nam <- LogicalColNames(data)
+    }
+    else if (tolower(t) %chin% c("date", "idate", "idatetime",
+                                 "posixct", "posix")) {
+      nam <- DateColNames(data)
+    }
+  }
+  return(nam)
+}
+
 #' @title FakeDataGenerator
 #'
 #' @description Create fake data for examples
@@ -2970,8 +2996,8 @@ Plot.Pie <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
     }
 
     yvar <- temp[[YVar]]
@@ -3160,8 +3186,8 @@ Plot.Donut <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
     }
 
     yvar <- temp[[YVar]]
@@ -3350,8 +3376,8 @@ Plot.Rosetype <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
     }
 
     yvar <- temp[[YVar]]
@@ -5912,8 +5938,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -6081,8 +6107,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -6262,8 +6288,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -6418,8 +6444,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
       }
 
       # Transformation
@@ -6681,8 +6707,8 @@ Plot.Bar <- function(dt = NULL,
 #       }
 #     } else {
 #       temp <- data.table::copy(dt)
-#       numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-#       byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+#       numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+#       byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
 #     }
 #
 #     # Transformation
@@ -6999,8 +7025,8 @@ Plot.StackedBar <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- Rappture:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- Rappture:::ColNameFilter(data = temp, Types = "character")[[1L]]
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
     }
 
     # Transformation
