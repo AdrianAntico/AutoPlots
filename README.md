@@ -24,6 +24,7 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - Area Plots
 - River Plots
 - Autocorrelation Plot
+- Partial Autocorrelation Plot
 - Scatter Plots
 - 3D Scatter Plots
 - Copula Plots (scatter plot using a percent rank of variables - spearman scatter)

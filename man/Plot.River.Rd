@@ -118,6 +118,7 @@ Other Standard Plots:
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
 \code{\link{Plot.Line}()},
+\code{\link{Plot.PACF}()},
 \code{\link{Plot.Pie}()},
 \code{\link{Plot.Rosetype}()},
 \code{\link{Plot.Scatter3D}()},

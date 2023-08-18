@@ -6795,6 +6795,198 @@ Plot.ACF <- function(dt = NULL,
   return(p1)
 }
 
+#' @title Plot.PACF
+#'
+#' @description Build a partial autocorrelation plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Y-Axis variable name
+#' @param DateVar Date column in data
+#' @param TimeUnit Select from "hour", "day", "week", "month", "quarter", "year"
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height = NULL,
+#' @param Width = NULL,
+#' @param Title title
+#' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param TextColor 'darkblue'
+#' @param Debug Debugging purposes
+#' @export
+Plot.PACF <- function(dt = NULL,
+                      YVar = NULL,
+                      DateVar = NULL,
+                      TimeUnit = NULL,
+                      MaxLags = 50,
+                      YVarTrans = "Identity",
+                      AggMethod = 'sum',
+                      Height = NULL,
+                      Width = NULL,
+                      Title = 'Autocorrelation Plot',
+                      EchartsTheme = "macarons",
+                      TextColor = "white",
+                      title.fontSize = 22,
+                      title.fontWeight = "bold", # normal
+                      title.textShadowColor = '#63aeff',
+                      title.textShadowBlur = 3,
+                      title.textShadowOffsetY = 1,
+                      title.textShadowOffsetX = -1,
+                      xaxis.fontSize = 14,
+                      yaxis.fontSize = 14,
+                      xaxis.rotate = 0,
+                      yaxis.rotate = 0,
+                      ContainLabel = TRUE,
+                      Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  dt1 <- data.table::copy(dt)
+
+  # Convert factor to character
+  if(length(YVar) > 0L && class(dt1[[YVar]])[1L] == "factor") {
+    return(NULL)
+  }
+
+  # Define Aggregation function
+  if(Debug) print("Plot.PACH 1")
+  aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+
+  if(Debug) print("Plot.PACH 2")
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    if(YVarTrans == "PercRank") {
+      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
+    } else if(YVarTrans == "Standardize") {
+      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
+    } else {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    }
+  }
+
+  if(Debug) print("Plot.PACH 3")
+
+  # Aggregate dt1
+  dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(YVar), by = c(DateVar)]
+
+  if(Debug) print("Plot.PACH 3.5")
+
+  dt1 <- Rodeo::AutoLagRollStats(
+    data = dt1,
+    DateColumn = DateVar,
+    Targets = YVar,
+    TimeUnitAgg = TimeUnit,
+    TimeGroups = TimeUnit,
+    TimeUnit = TimeUnit,
+    RollOnLag1 = TRUE,
+    Type = "Lag",
+    SimpleImpute = TRUE,
+    Lags = seq_len(MaxLags))
+
+  if(Debug) print("Plot.PACH 4")
+
+  # Autocorrelation data creation
+  PACF_Data <- data.table::data.table(Lag = 1:50, Cor = 0.0, `Lower 95th` = 0.0, `Upper 95th` = 0.0)
+  if(Debug) print("Plot.ACH 5")
+  for(i in seq_len(MaxLags)) {# i = 1L  i = 2L
+    if(i == 1L) {
+      lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[paste0("weeks_LAG_",i,"_",YVar)]])
+      data.table::set(PACF_Data, i = i, j = "Lag", value = i)
+      data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
+      data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
+      data.table::set(PACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
+    } else {
+      x <- as.vector(lm(formula = as.formula(paste0(YVar, " ~ ", paste0("weeks_LAG_",i,"_",YVar))), data = dt1)$residuals)
+      lag_test <- cor.test(x = x, y = dt1[[paste0("weeks_LAG_",i,"_",YVar)]])
+      data.table::set(PACF_Data, i = i, j = "Lag", value = i)
+      data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
+      data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
+      data.table::set(PACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
+    }
+  }
+
+  if(Debug) print("Plot.PACH 6")
+
+  # Plot
+  p1 <- echarts4r::e_charts_(
+    PACF_Data,
+    x = "Lag",
+    dispose = TRUE,
+    darkMode = TRUE,
+    width = Width,
+    height = Height)
+
+  if(Debug) print("Plot.PACH 7")
+  p1 <- echarts4r::e_bar_(e = p1, "Cor")
+
+  if(Debug) print("Plot.PACH 8")
+
+  p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
+
+  if(Debug) print("Plot.PACH 9")
+
+  p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
+
+  # Extras
+  if(Debug) print("Plot.PACH 10")
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_axis_(
+    e = p1,
+    serie = NULL,
+    axis = "x",
+    name = "Lags",
+    nameLocation = "middle",
+    nameGap = 45,
+    nameTextStyle = list(
+      color = TextColor,
+      fontStyle = "normal",
+      fontWeight = "bold",
+      fontSize = xaxis.fontSize),
+    axisLabel = list(
+      rotate = xaxis.rotate,
+      grid = list(containLabel = ContainLabel)))
+  p1 <- echarts4r::e_axis_(
+    e = p1,
+    serie = NULL,
+    axis = "y",
+    name = "Correlation",
+    nameLocation = "middle",
+    nameGap = 45,
+    nameTextStyle = list(
+      color = TextColor,
+      fontStyle = "normal",
+      fontWeight = "bold",
+      fontSize = yaxis.fontSize),
+    axisLabel = list(
+      rotate = yaxis.rotate,
+      grid = list(containLabel = ContainLabel)))
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  return(p1)
+}
+
 #' @title Plot.StackedBar
 #'
 #' @description Build a stacked bar plot vs a grouped bar plot

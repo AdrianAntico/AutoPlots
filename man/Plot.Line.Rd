@@ -189,6 +189,7 @@ Other Standard Plots:
 \code{\link{Plot.Donut}()},
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
+\code{\link{Plot.PACF}()},
 \code{\link{Plot.Pie}()},
 \code{\link{Plot.River}()},
 \code{\link{Plot.Rosetype}()},

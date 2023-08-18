@@ -107,6 +107,7 @@ Other Standard Plots:
 \code{\link{Plot.HeatMap}()},
 \code{\link{Plot.Histogram}()},
 \code{\link{Plot.Line}()},
+\code{\link{Plot.PACF}()},
 \code{\link{Plot.River}()},
 \code{\link{Plot.Rosetype}()},
 \code{\link{Plot.Scatter3D}()},
