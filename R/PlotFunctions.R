@@ -9857,385 +9857,6 @@ Plot.Scatter3D <- function(dt = NULL,
 # ----
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-# > Stocks Plots Functions                                                    ----
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-
-# #' @noRd
-# holidayNYSE <- function(year = getRmetricsOptions("currentYear")) {
-#   # A function implemented by Diethelm Wuertz
-#   # improved speed and handling of time zone by Yohan Chalabi
-#
-#   # Description:
-#   #   Returns 'timeDate' object for full-day NYSE holidays
-#
-#   # Arguments:
-#   #   year - an integer variable or vector for the year(s)
-#   #       ISO-8601 formatted as "CCYY" where easter or
-#   #       easter related feasts should be computed.
-#
-#   # Value:
-#   #   Returns the holiday calendar for the NYSE formatted as
-#   #   'timeDate' object.
-#
-#   # Details:
-#   #   The "New York Stock Exchange" calendar starts from year 1885.
-#   #   The rules are listed at the web site http://www.nyse.com.
-#
-#   # Example:
-#   #   > holiday.NYSE(2004)
-#   #   [1] "America/New_York"
-#   #   [1] [2004-01-01] [2004-01-19] [2004-02-16] [2004-04-09]
-#   #   [5] [2004-05-31] [2004-07-05] [2004-09-06] [2004-11-25]
-#
-#   # FUNCTION:
-#   library(timeDate)
-#   #  Settings:
-#   holidays <- NULL
-#
-#   # Iterate years:
-#   for (y in year ) {
-#     if (y >= 1885)
-#       holidays <- c(holidays, as.character(USNewYearsDay(y)))
-#     if (y >= 1885)
-#       holidays <- c(holidays, as.character(USIndependenceDay(y)))
-#     if (y >= 1885)
-#       holidays <- c(holidays, as.character(USThanksgivingDay(y)))
-#     if (y >= 1885)
-#       holidays <- c(holidays, as.character(USChristmasDay(y)))
-#     if (y >= 1887)
-#       holidays <- c(holidays, as.character(USLaborDay(y)))
-#     if (y != 1898 & y != 1906 & y != 1907)
-#       holidays <- c(holidays, as.character(USGoodFriday(y)))
-#     if (y >= 1909 & y <= 1953)
-#       holidays <- c(holidays, as.character(USColumbusDay(y)))
-#     if (y >= 1998)
-#       holidays <- c(holidays, as.character(USMLKingsBirthday(y)))
-#     if (y >= 1896 & y <= 1953)
-#       holidays <- c(holidays, as.character(USLincolnsBirthday(y)))
-#     if (y <= 1970)
-#       holidays <- c(holidays, as.character(USWashingtonsBirthday(y)))
-#     if (y > 1970)
-#       holidays <- c(holidays, as.character(USPresidentsDay(y)))
-#     if (y == 1918 | y == 1921 | (y >= 1934 & y <= 1953))
-#       holidays <- c(holidays, as.character(USVeteransDay(y)))
-#     if (y <= 1968 | y == 1972 | y == 1976 | y == 1980)
-#       holidays <- c(holidays, as.character(USElectionDay(y)))
-#     if (y <= 1970)
-#       holidays <- c(holidays, as.character(USDecorationMemorialDay(y)))
-#     if (y >= 1971)
-#       holidays <- c(holidays, as.character(USMemorialDay(y)))
-#   }
-#
-#   # Sort and Convert to 'timeDate':
-#   holidays <- sort(holidays)
-#   ans <- timeDate(format(holidays), zone = "NewYork", FinCenter = "NewYork")
-#
-#   # Move Sunday Holidays to Monday:
-#   posix1 <- as.POSIXlt(ans, tz = "GMT")
-#   ans <- ans + as.integer(posix1$wday==0) * 24 * 3600
-#
-#   # After July 3, 1959, move Saturday holidays to Friday
-#   # ... except if at the end of monthly/yearly accounting period
-#   # this is the last business day of a month.
-#   posix2 <- as.POSIXlt(as.POSIXct(ans, tz = "GMT") - 24 * 3600)
-#   y <- posix2$year + 1900
-#   m <- posix2$mon + 1
-#   calendar <- timeCalendar(y = y+(m+1)%/%13,
-#                            m = m+1-(m+1)%/%13*12, d = 1,
-#                            zone = "GMT", FinCenter = "GMT")
-#   lastday <- as.POSIXlt(calendar - 24*3600, tz = "GMT")$mday
-#   lon <- .last.of.nday(year = y, month = m, lastday = lastday, nday = 5)
-#   ExceptOnLastFriday <- timeDate(format(lon), zone = "NewYork",
-#                                  FinCenter = "NewYork")
-#   ans <- ans - as.integer(ans >= timeDate("1959-07-03",
-#                                           zone ="GMT", FinCenter = "GMT") &
-#                             as.POSIXlt(ans, tz = "GMT")$wday == 6  &
-#                             (ans - 24*3600) != ExceptOnLastFriday ) * 24 * 3600
-#
-#   # Remove Remaining Weekend Dates:
-#   posix3 <- as.POSIXlt(ans, tz = "GMT")
-#   ans <- ans[ !(posix3$wday == 0 | posix3$wday == 6)]
-#
-#   # Return Value:
-#   ans
-# }
-#
-# #' @noRd
-# StockSymbols <- function() {
-#   x <- jsonlite::fromJSON("https://api.polygon.io/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=1000&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20")
-#   xx <- data.table::setDT(x$results)
-#   return(xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])])
-# }
-#
-# #' @noRd
-# GetAllTickers <- function() {
-#   x <- jsonlite::fromJSON("https://api.polygon.io/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=1000&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20")
-#   xx <- data.table::setDT(x$results)
-#   counter <- 1000L
-#   while(is.list(x)) {
-#     if(Debug) print(paste0('Working on first ', counter, ' ticker symbols'))
-#     x <- tryCatch({jsonlite::fromJSON(paste0(x$next_url, "&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20"))}, error = function(x) 1)
-#     if(x != 1) {
-#       xx <- data.table::rbindlist(list(xx, data.table::setDT(x$results)), fill = TRUE, use.names = TRUE)
-#       counter <- counter + 1000L
-#       Sys.sleep(12L)
-#     } else {
-#       break
-#     }
-#   }
-#   #xx <- xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])]
-#   AutoQuant::PostGRE_RemoveCreateAppend(
-#     data = xx,
-#     TableName = "ticker_data",
-#     CloseConnection = TRUE,
-#     CreateSchema = NULL,
-#     Host = "localhost",
-#     DBName = "RemixAutoML",
-#     User = "postgres",
-#     Port = 5432,
-#     Password = "Aa1028#@",
-#     Temporary = FALSE,
-#     Connection = NULL,
-#     Append = TRUE)
-#   return(xx)
-# }
-#
-# #' @noRd
-# OptionsSymbols <- function() {
-#   x <- jsonlite::fromJSON('https://api.polygon.io/v3/reference/tickers/types?asset_class=options&locale=us&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20')
-#   xx <- data.table::setDT(x$results)
-#   return(xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])])
-# }
-#
-# #' @noRd
-# CryptoSymbols <- function() {
-#   x <- jsonlite::fromJSON('https://api.polygon.io/v3/reference/tickers/types?asset_class=crypto&locale=us&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20')
-#   xx <- data.table::setDT(x$results)
-#   return(xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])])
-# }
-#
-# #' @noRd
-# Financials <- function() {
-#   x <- jsonlite::fromJSON("https://api.polygon.io/vX/reference/financials?apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20")
-# }
-#
-# #' @title StockData
-# #'
-# #' @description  Create stock data for plotting using Plot.Stock()
-# #'
-# #' @family Stock Plots
-# #' @author Adrian Antico
-# #'
-# #' @param PolyOut NULL. If NULL, data is pulled. If supplied, data is not pulled.
-# #' @param Type 'candlestick', 'ohlc'
-# #' @param Metric Stock Price, Percent Returns (use symbol for percent), Percent Log Returns (use symbol for percent), Index, Quadratic Variation
-# #' @param TimeAgg = 'days', 'weeks', 'months'
-# #' @param Symbol ticker symbol string
-# #' @param CompanyName company name if you have it. ends up in title, that is all
-# #' @param StartDate Supply a start date. E.g. '2022-01-01'
-# #' @param EndDate Supply an end date. E.g. `Sys.Date()`
-# #' @param APIKey Supply your polygon API key
-# #' @param timeElapsed = 60
-# #'
-# #' @export
-# StockData <- function(PolyOut = NULL,
-#                       Symbol = 'TSLA',
-#                       CompanyName = 'Tesla Inc. Common Stock',
-#                       Metric = 'Stock Price',
-#                       TimeAgg = 'days',
-#                       StartDate = '2022-01-01',
-#                       EndDate = Sys.Date(),
-#                       APIKey = NULL,
-#                       timeElapsed = 61,
-#                       Debug = FALSE) {
-#
-#   if(length(APIKey) == 0L) return(NULL)
-#
-#   StartDate <- as.Date(StartDate)
-#   EndDate <- min(Sys.Date()-1, as.Date(EndDate))
-#
-#   # Use data if provided
-#   if(!data.table::is.data.table(PolyOut)) {
-#     if(Debug) print("here 1a")
-#     PolyOut <- jsonlite::fromJSON(paste0("https://api.polygon.io/v2/aggs/ticker/",Symbol,"/range/1/day/",StartDate, "/", EndDate, "?adjusted=true&sort=asc&limit=10000&apiKey=", APIKey))
-#
-#     data <- data.table::as.data.table(PolyOut$results)
-#     data[, Date := as.Date(lubridate::as_datetime((t+10800000)/1000, origin = "1970-01-01"))]
-#     if(Debug) print(head(data))
-#
-#     tryCatch({
-#       if(TimeAgg == 'weeks') {
-#         data[, Date := lubridate::floor_date(Date, unit = 'weeks')]
-#         data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
-#       } else if(TimeAgg == 'months') {
-#         data[, Date := lubridate::floor_date(Date, unit = 'months')]
-#         data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
-#       } else if(TimeAgg == 'quarters') {
-#         data[, Date := lubridate::floor_date(Date, unit = 'quarters')]
-#         data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
-#       } else if(TimeAgg == 'years') {
-#         data[, Date := lubridate::floor_date(Date, unit = 'years')]
-#         data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
-#       }
-#
-#       if(Metric == '% Returns') {
-#         for(i in c('o','c','h','l')) data[, paste0(i) := get(i) / data.table::shift(x = get(i)) - 1]
-#         data <- data[seq_len(.N)[-1L]]
-#       } else if(Metric  == '% Log Returns') {
-#         for(i in c('o','c','h','l')) data[, paste0(i) := log(get(i)) - log(data.table::shift(x = get(i)))]
-#         data <- data[seq_len(.N)[-1L]]
-#       } else if(Metric  == 'Index') {
-#         for(i in c('o','c','h','l')) data[, paste0(i) := get(i) / data.table::first(get(i))]
-#       } else if(Metric  == 'Quadratic Variation') {
-#         for(i in c('o','c','h','l')) data[, temp_temp := data.table::shift(x = get(i), n = 1L, fill = NA, type = 'lag')][, paste0(i) := (get(i) - temp_temp)^2][, temp_temp := NULL]
-#         data <- data[seq_len(.N)[-1L]]
-#       }
-#     }, error = function(x) NULL)
-#
-#   } else {
-#     if(Debug) print("here 1b")
-#     data <- PolyOut
-#     if(Debug) print(head(data))
-#   }
-#
-#   return(list(results = data, PolyOut = PolyOut, CompanyName = CompanyName, Symbol = Symbol, Metric = Metric, StartDate = StartDate, EndDate = EndDate, APIKey = APIKey))
-# }
-
-# #' @title Plot.Stock
-# #'
-# #' @description  Create a candlestick plot for stocks. See https://plotly.com/r/figure-labels/
-# #'
-# #' @family Stock Plots
-# #' @author Adrian Antico
-# #'
-# #' @param Type 'candlestick', 'ohlc'
-# #' @param StockDataOutput PolyOut returned from StockData()
-# #' @param Width = "1450px"
-# #' @param Height = "600px"
-# #' @param EchartsTheme = "macarons"
-# #' @param ShadowBlur = 5. Chart boxes' shadow blur amount. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component
-# #' @param ShadowColor "black"
-# #' @param ShadowOffsetX 0
-# #' @param ShadowOffsetY 0
-# #' @param TextColor = "white"
-# #' @param title.fontSize = 22
-# #' @param title.fontWeight = "bold", # norma
-# #' @param title.textShadowColor = '#63aeff'
-# #' @param title.textShadowBlur = 3
-# #' @param title.textShadowOffsetY = 1
-# #' @param title.textShadowOffsetX = -1
-# #' @param xaxis.fontSize = 14
-# #' @param yaxis.fontSize = 14
-# #'
-# #' @export
-# Plot.Stock <- function(StockDataOutput,
-#                        Type = 'candlestick',
-#                        Metric = "Stock Price",
-#                        Width = NULL,
-#                        Height = NULL,
-#                        EchartsTheme = "macarons",
-#                        TextColor = "white",
-#                        ShadowBlur = 0,
-#                        ShadowColor = "black",
-#                        ShadowOffsetX = 0,
-#                        ShadowOffsetY = 0,
-#                        title.fontSize = 14,
-#                        title.fontWeight = "bold",
-#                        title.textShadowColor = '#63aeff',
-#                        title.textShadowBlur = 3,
-#                        title.textShadowOffsetY = 1,
-#                        title.textShadowOffsetX = -1,
-#                        Color = "green",
-#                        Color0 = "red",
-#                        BorderColor = "transparent",
-#                        BorderColor0 = "transparent",
-#                        BorderColorDoji = "transparent",
-#                        xaxis.fontSize = 14,
-#                        yaxis.fontSize = 14,
-#                        Debug = FALSE) {
-#
-#   # Width = "1450px"
-#   # Height = "600px"
-#   # EchartsTheme = "macarons"
-#   # TextColor = "white"
-#   # ShadowBlur = 5
-#   # title.fontSize = 22
-#   # title.fontWeight = "bold"
-#   # title.textShadowColor = '#63aeff'
-#   # title.textShadowBlur = 3
-#   # title.textShadowOffsetY = 1
-#   # title.textShadowOffsetX = -1
-#   # Color = "green"
-#   # Color0 = "red"
-#   # BorderColor = "transparent"
-#   # BorderColor0 = "transparent"
-#   # BorderColorDoji = "transparent"
-#   # xaxis.fontSize = 14
-#   #if(missing(StockDataOutput)) stop('StockDataOutput cannot be missing')
-#   #if(Type == 'CandlestickPlot') Type <- 'candlestick'
-#   # Build base plot depending on GroupVar availability
-#   dt <- StockDataOutput$results
-#   dt[, Date := as.character(Date)]
-#   p1 <- echarts4r::e_charts_(
-#     data = dt,
-#     x = "Date",
-#     dispose = TRUE,
-#     darkMode = TRUE,
-#     width = Width,
-#     height = Height)
-#   p1 <- echarts4r::e_candle_(
-#     e = p1,
-#     high = "h",
-#     low = "l",
-#     closing = "c",
-#     opening = "o",
-#     itemStyle = list(
-#       #shadowBlur = ShadowBlur,
-#       #shadowColor = ShadowColor,
-#       #shadowOffsetX = ShadowOffsetX,
-#       #shadowOffsetY = ShadowOffsetY,
-#       color = Color,
-#       color0 = Color0,
-#       backgroundColor = "white",
-#       borderColor = BorderColor,
-#       borderColor0 = BorderColor0,
-#       borderColorDoji = BorderColorDoji
-#     ),
-#     name = StockDataOutput$Symbol)
-#
-#   # Finalize Plot Build
-#   p1 <- echarts4r::e_legend(e = p1, show = FALSE)
-#   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-#   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-#   p1 <- echarts4r::e_tooltip(e = p1 , trigger = "axis")
-#   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-#   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-#
-#   p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = "Date", nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-#   p1 <- echarts4r::e_brush(e = p1)
-#   p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-#   p1 <- echarts4r::e_title(
-#     p1,
-#     text = if(length(StockDataOutput$CompanyName) == 0L) paste0(StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate) else paste0(StockDataOutput$CompanyName, " - ", StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate, " :: Measure: ", Metric),
-#     textStyle = list(
-#       color = TextColor,
-#       fontWeight = title.fontWeight,
-#       overflow = "truncate", # "none", "truncate", "break",
-#       ellipsis = '...',
-#       fontSize = title.fontSize,
-#       textShadowColor = title.textShadowColor,
-#       textShadowBlur = title.textShadowBlur,
-#       textShadowOffsetY = title.textShadowOffsetY,
-#       textShadowOffsetX = title.textShadowOffsetX))
-#   if(Debug) print("Plot.Line no group Echarts 9")
-#   return(p1)
-# }
-
-# ----
-
-# ----
-
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 # > Model Evaluation Plots                                                    ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 
@@ -13063,3 +12684,382 @@ Plot.ShapImportance <- function(dt,
 
 # ----
 
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+# > Stocks Plots Functions                                                    ----
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+
+# #' @noRd
+# holidayNYSE <- function(year = getRmetricsOptions("currentYear")) {
+#   # A function implemented by Diethelm Wuertz
+#   # improved speed and handling of time zone by Yohan Chalabi
+#
+#   # Description:
+#   #   Returns 'timeDate' object for full-day NYSE holidays
+#
+#   # Arguments:
+#   #   year - an integer variable or vector for the year(s)
+#   #       ISO-8601 formatted as "CCYY" where easter or
+#   #       easter related feasts should be computed.
+#
+#   # Value:
+#   #   Returns the holiday calendar for the NYSE formatted as
+#   #   'timeDate' object.
+#
+#   # Details:
+#   #   The "New York Stock Exchange" calendar starts from year 1885.
+#   #   The rules are listed at the web site http://www.nyse.com.
+#
+#   # Example:
+#   #   > holiday.NYSE(2004)
+#   #   [1] "America/New_York"
+#   #   [1] [2004-01-01] [2004-01-19] [2004-02-16] [2004-04-09]
+#   #   [5] [2004-05-31] [2004-07-05] [2004-09-06] [2004-11-25]
+#
+#   # FUNCTION:
+#   library(timeDate)
+#   #  Settings:
+#   holidays <- NULL
+#
+#   # Iterate years:
+#   for (y in year ) {
+#     if (y >= 1885)
+#       holidays <- c(holidays, as.character(USNewYearsDay(y)))
+#     if (y >= 1885)
+#       holidays <- c(holidays, as.character(USIndependenceDay(y)))
+#     if (y >= 1885)
+#       holidays <- c(holidays, as.character(USThanksgivingDay(y)))
+#     if (y >= 1885)
+#       holidays <- c(holidays, as.character(USChristmasDay(y)))
+#     if (y >= 1887)
+#       holidays <- c(holidays, as.character(USLaborDay(y)))
+#     if (y != 1898 & y != 1906 & y != 1907)
+#       holidays <- c(holidays, as.character(USGoodFriday(y)))
+#     if (y >= 1909 & y <= 1953)
+#       holidays <- c(holidays, as.character(USColumbusDay(y)))
+#     if (y >= 1998)
+#       holidays <- c(holidays, as.character(USMLKingsBirthday(y)))
+#     if (y >= 1896 & y <= 1953)
+#       holidays <- c(holidays, as.character(USLincolnsBirthday(y)))
+#     if (y <= 1970)
+#       holidays <- c(holidays, as.character(USWashingtonsBirthday(y)))
+#     if (y > 1970)
+#       holidays <- c(holidays, as.character(USPresidentsDay(y)))
+#     if (y == 1918 | y == 1921 | (y >= 1934 & y <= 1953))
+#       holidays <- c(holidays, as.character(USVeteransDay(y)))
+#     if (y <= 1968 | y == 1972 | y == 1976 | y == 1980)
+#       holidays <- c(holidays, as.character(USElectionDay(y)))
+#     if (y <= 1970)
+#       holidays <- c(holidays, as.character(USDecorationMemorialDay(y)))
+#     if (y >= 1971)
+#       holidays <- c(holidays, as.character(USMemorialDay(y)))
+#   }
+#
+#   # Sort and Convert to 'timeDate':
+#   holidays <- sort(holidays)
+#   ans <- timeDate(format(holidays), zone = "NewYork", FinCenter = "NewYork")
+#
+#   # Move Sunday Holidays to Monday:
+#   posix1 <- as.POSIXlt(ans, tz = "GMT")
+#   ans <- ans + as.integer(posix1$wday==0) * 24 * 3600
+#
+#   # After July 3, 1959, move Saturday holidays to Friday
+#   # ... except if at the end of monthly/yearly accounting period
+#   # this is the last business day of a month.
+#   posix2 <- as.POSIXlt(as.POSIXct(ans, tz = "GMT") - 24 * 3600)
+#   y <- posix2$year + 1900
+#   m <- posix2$mon + 1
+#   calendar <- timeCalendar(y = y+(m+1)%/%13,
+#                            m = m+1-(m+1)%/%13*12, d = 1,
+#                            zone = "GMT", FinCenter = "GMT")
+#   lastday <- as.POSIXlt(calendar - 24*3600, tz = "GMT")$mday
+#   lon <- .last.of.nday(year = y, month = m, lastday = lastday, nday = 5)
+#   ExceptOnLastFriday <- timeDate(format(lon), zone = "NewYork",
+#                                  FinCenter = "NewYork")
+#   ans <- ans - as.integer(ans >= timeDate("1959-07-03",
+#                                           zone ="GMT", FinCenter = "GMT") &
+#                             as.POSIXlt(ans, tz = "GMT")$wday == 6  &
+#                             (ans - 24*3600) != ExceptOnLastFriday ) * 24 * 3600
+#
+#   # Remove Remaining Weekend Dates:
+#   posix3 <- as.POSIXlt(ans, tz = "GMT")
+#   ans <- ans[ !(posix3$wday == 0 | posix3$wday == 6)]
+#
+#   # Return Value:
+#   ans
+# }
+#
+# #' @noRd
+# StockSymbols <- function() {
+#   x <- jsonlite::fromJSON("https://api.polygon.io/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=1000&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20")
+#   xx <- data.table::setDT(x$results)
+#   return(xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])])
+# }
+#
+# #' @noRd
+# GetAllTickers <- function() {
+#   x <- jsonlite::fromJSON("https://api.polygon.io/v3/reference/tickers?active=true&sort=ticker&order=asc&limit=1000&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20")
+#   xx <- data.table::setDT(x$results)
+#   counter <- 1000L
+#   while(is.list(x)) {
+#     if(Debug) print(paste0('Working on first ', counter, ' ticker symbols'))
+#     x <- tryCatch({jsonlite::fromJSON(paste0(x$next_url, "&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20"))}, error = function(x) 1)
+#     if(x != 1) {
+#       xx <- data.table::rbindlist(list(xx, data.table::setDT(x$results)), fill = TRUE, use.names = TRUE)
+#       counter <- counter + 1000L
+#       Sys.sleep(12L)
+#     } else {
+#       break
+#     }
+#   }
+#   #xx <- xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])]
+#   AutoQuant::PostGRE_RemoveCreateAppend(
+#     data = xx,
+#     TableName = "ticker_data",
+#     CloseConnection = TRUE,
+#     CreateSchema = NULL,
+#     Host = "localhost",
+#     DBName = "RemixAutoML",
+#     User = "postgres",
+#     Port = 5432,
+#     Password = "Aa1028#@",
+#     Temporary = FALSE,
+#     Connection = NULL,
+#     Append = TRUE)
+#   return(xx)
+# }
+#
+# #' @noRd
+# OptionsSymbols <- function() {
+#   x <- jsonlite::fromJSON('https://api.polygon.io/v3/reference/tickers/types?asset_class=options&locale=us&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20')
+#   xx <- data.table::setDT(x$results)
+#   return(xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])])
+# }
+#
+# #' @noRd
+# CryptoSymbols <- function() {
+#   x <- jsonlite::fromJSON('https://api.polygon.io/v3/reference/tickers/types?asset_class=crypto&locale=us&apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20')
+#   xx <- data.table::setDT(x$results)
+#   return(xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])])
+# }
+#
+# #' @noRd
+# Financials <- function() {
+#   x <- jsonlite::fromJSON("https://api.polygon.io/vX/reference/financials?apiKey=hvyL7ZOsKK_5PNplOmv55tBTRd8rdA20")
+# }
+#
+# #' @title StockData
+# #'
+# #' @description  Create stock data for plotting using Plot.Stock()
+# #'
+# #' @family Stock Plots
+# #' @author Adrian Antico
+# #'
+# #' @param PolyOut NULL. If NULL, data is pulled. If supplied, data is not pulled.
+# #' @param Type 'candlestick', 'ohlc'
+# #' @param Metric Stock Price, Percent Returns (use symbol for percent), Percent Log Returns (use symbol for percent), Index, Quadratic Variation
+# #' @param TimeAgg = 'days', 'weeks', 'months'
+# #' @param Symbol ticker symbol string
+# #' @param CompanyName company name if you have it. ends up in title, that is all
+# #' @param StartDate Supply a start date. E.g. '2022-01-01'
+# #' @param EndDate Supply an end date. E.g. `Sys.Date()`
+# #' @param APIKey Supply your polygon API key
+# #' @param timeElapsed = 60
+# #'
+# #' @export
+# StockData <- function(PolyOut = NULL,
+#                       Symbol = 'TSLA',
+#                       CompanyName = 'Tesla Inc. Common Stock',
+#                       Metric = 'Stock Price',
+#                       TimeAgg = 'days',
+#                       StartDate = '2022-01-01',
+#                       EndDate = Sys.Date(),
+#                       APIKey = NULL,
+#                       timeElapsed = 61,
+#                       Debug = FALSE) {
+#
+#   if(length(APIKey) == 0L) return(NULL)
+#
+#   StartDate <- as.Date(StartDate)
+#   EndDate <- min(Sys.Date()-1, as.Date(EndDate))
+#
+#   # Use data if provided
+#   if(!data.table::is.data.table(PolyOut)) {
+#     if(Debug) print("here 1a")
+#     PolyOut <- jsonlite::fromJSON(paste0("https://api.polygon.io/v2/aggs/ticker/",Symbol,"/range/1/day/",StartDate, "/", EndDate, "?adjusted=true&sort=asc&limit=10000&apiKey=", APIKey))
+#
+#     data <- data.table::as.data.table(PolyOut$results)
+#     data[, Date := as.Date(lubridate::as_datetime((t+10800000)/1000, origin = "1970-01-01"))]
+#     if(Debug) print(head(data))
+#
+#     tryCatch({
+#       if(TimeAgg == 'weeks') {
+#         data[, Date := lubridate::floor_date(Date, unit = 'weeks')]
+#         data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
+#       } else if(TimeAgg == 'months') {
+#         data[, Date := lubridate::floor_date(Date, unit = 'months')]
+#         data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
+#       } else if(TimeAgg == 'quarters') {
+#         data[, Date := lubridate::floor_date(Date, unit = 'quarters')]
+#         data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
+#       } else if(TimeAgg == 'years') {
+#         data[, Date := lubridate::floor_date(Date, unit = 'years')]
+#         data <- data[, lapply(.SD, mean, na.rm = TRUE), .SD = c('v','vw','o','c','h','l','t','n'), by = 'Date']
+#       }
+#
+#       if(Metric == '% Returns') {
+#         for(i in c('o','c','h','l')) data[, paste0(i) := get(i) / data.table::shift(x = get(i)) - 1]
+#         data <- data[seq_len(.N)[-1L]]
+#       } else if(Metric  == '% Log Returns') {
+#         for(i in c('o','c','h','l')) data[, paste0(i) := log(get(i)) - log(data.table::shift(x = get(i)))]
+#         data <- data[seq_len(.N)[-1L]]
+#       } else if(Metric  == 'Index') {
+#         for(i in c('o','c','h','l')) data[, paste0(i) := get(i) / data.table::first(get(i))]
+#       } else if(Metric  == 'Quadratic Variation') {
+#         for(i in c('o','c','h','l')) data[, temp_temp := data.table::shift(x = get(i), n = 1L, fill = NA, type = 'lag')][, paste0(i) := (get(i) - temp_temp)^2][, temp_temp := NULL]
+#         data <- data[seq_len(.N)[-1L]]
+#       }
+#     }, error = function(x) NULL)
+#
+#   } else {
+#     if(Debug) print("here 1b")
+#     data <- PolyOut
+#     if(Debug) print(head(data))
+#   }
+#
+#   return(list(results = data, PolyOut = PolyOut, CompanyName = CompanyName, Symbol = Symbol, Metric = Metric, StartDate = StartDate, EndDate = EndDate, APIKey = APIKey))
+# }
+
+# #' @title Plot.Stock
+# #'
+# #' @description  Create a candlestick plot for stocks. See https://plotly.com/r/figure-labels/
+# #'
+# #' @family Stock Plots
+# #' @author Adrian Antico
+# #'
+# #' @param Type 'candlestick', 'ohlc'
+# #' @param StockDataOutput PolyOut returned from StockData()
+# #' @param Width = "1450px"
+# #' @param Height = "600px"
+# #' @param EchartsTheme = "macarons"
+# #' @param ShadowBlur = 5. Chart boxes' shadow blur amount. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component
+# #' @param ShadowColor "black"
+# #' @param ShadowOffsetX 0
+# #' @param ShadowOffsetY 0
+# #' @param TextColor = "white"
+# #' @param title.fontSize = 22
+# #' @param title.fontWeight = "bold", # norma
+# #' @param title.textShadowColor = '#63aeff'
+# #' @param title.textShadowBlur = 3
+# #' @param title.textShadowOffsetY = 1
+# #' @param title.textShadowOffsetX = -1
+# #' @param xaxis.fontSize = 14
+# #' @param yaxis.fontSize = 14
+# #'
+# #' @export
+# Plot.Stock <- function(StockDataOutput,
+#                        Type = 'candlestick',
+#                        Metric = "Stock Price",
+#                        Width = NULL,
+#                        Height = NULL,
+#                        EchartsTheme = "macarons",
+#                        TextColor = "white",
+#                        ShadowBlur = 0,
+#                        ShadowColor = "black",
+#                        ShadowOffsetX = 0,
+#                        ShadowOffsetY = 0,
+#                        title.fontSize = 14,
+#                        title.fontWeight = "bold",
+#                        title.textShadowColor = '#63aeff',
+#                        title.textShadowBlur = 3,
+#                        title.textShadowOffsetY = 1,
+#                        title.textShadowOffsetX = -1,
+#                        Color = "green",
+#                        Color0 = "red",
+#                        BorderColor = "transparent",
+#                        BorderColor0 = "transparent",
+#                        BorderColorDoji = "transparent",
+#                        xaxis.fontSize = 14,
+#                        yaxis.fontSize = 14,
+#                        Debug = FALSE) {
+#
+#   # Width = "1450px"
+#   # Height = "600px"
+#   # EchartsTheme = "macarons"
+#   # TextColor = "white"
+#   # ShadowBlur = 5
+#   # title.fontSize = 22
+#   # title.fontWeight = "bold"
+#   # title.textShadowColor = '#63aeff'
+#   # title.textShadowBlur = 3
+#   # title.textShadowOffsetY = 1
+#   # title.textShadowOffsetX = -1
+#   # Color = "green"
+#   # Color0 = "red"
+#   # BorderColor = "transparent"
+#   # BorderColor0 = "transparent"
+#   # BorderColorDoji = "transparent"
+#   # xaxis.fontSize = 14
+#   #if(missing(StockDataOutput)) stop('StockDataOutput cannot be missing')
+#   #if(Type == 'CandlestickPlot') Type <- 'candlestick'
+#   # Build base plot depending on GroupVar availability
+#   dt <- StockDataOutput$results
+#   dt[, Date := as.character(Date)]
+#   p1 <- echarts4r::e_charts_(
+#     data = dt,
+#     x = "Date",
+#     dispose = TRUE,
+#     darkMode = TRUE,
+#     width = Width,
+#     height = Height)
+#   p1 <- echarts4r::e_candle_(
+#     e = p1,
+#     high = "h",
+#     low = "l",
+#     closing = "c",
+#     opening = "o",
+#     itemStyle = list(
+#       #shadowBlur = ShadowBlur,
+#       #shadowColor = ShadowColor,
+#       #shadowOffsetX = ShadowOffsetX,
+#       #shadowOffsetY = ShadowOffsetY,
+#       color = Color,
+#       color0 = Color0,
+#       backgroundColor = "white",
+#       borderColor = BorderColor,
+#       borderColor0 = BorderColor0,
+#       borderColorDoji = BorderColorDoji
+#     ),
+#     name = StockDataOutput$Symbol)
+#
+#   # Finalize Plot Build
+#   p1 <- echarts4r::e_legend(e = p1, show = FALSE)
+#   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+#   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+#   p1 <- echarts4r::e_tooltip(e = p1 , trigger = "axis")
+#   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+#   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+#
+#   p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = "Date", nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+#   p1 <- echarts4r::e_brush(e = p1)
+#   p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+#   p1 <- echarts4r::e_title(
+#     p1,
+#     text = if(length(StockDataOutput$CompanyName) == 0L) paste0(StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate) else paste0(StockDataOutput$CompanyName, " - ", StockDataOutput$Symbol, ": ", StockDataOutput$StartDate, " to ", StockDataOutput$EndDate, " :: Measure: ", Metric),
+#     textStyle = list(
+#       color = TextColor,
+#       fontWeight = title.fontWeight,
+#       overflow = "truncate", # "none", "truncate", "break",
+#       ellipsis = '...',
+#       fontSize = title.fontSize,
+#       textShadowColor = title.textShadowColor,
+#       textShadowBlur = title.textShadowBlur,
+#       textShadowOffsetY = title.textShadowOffsetY,
+#       textShadowOffsetX = title.textShadowOffsetX))
+#   if(Debug) print("Plot.Line no group Echarts 9")
+#   return(p1)
+# }
+
+# ----
+
+# ----
