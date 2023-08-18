@@ -9984,7 +9984,6 @@ Plot.Scatter3D <- function(dt = NULL,
 #     }
 #   }
 #   #xx <- xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])]
-#   data.table::fwrite(xx, file = file.path('C:/Users/Bizon/Documents/GitHub/Rappture/inst/shiny-apps/Rappture/ticker_data.csv'))
 #   AutoQuant::PostGRE_RemoveCreateAppend(
 #     data = xx,
 #     TableName = "ticker_data",
