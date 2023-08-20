@@ -2533,91 +2533,114 @@ Plot.Histogram <- function(dt = NULL,
     }
   }
 
-  # Create base plot object
-  if(Debug) print('Create Plot with only data')
-  if(Debug) print("Echarts Histogram 1")
-
-  if(length(GroupVar) > 0L) {
-    p1 <- echarts4r::e_charts_(
-      dt1 |> dplyr::group_by(get(GroupVar)),
-      timeline = TimeLine,
-      dispose = TRUE,
-      darkMode = TRUE,
-      emphasis = list(focus = "series"),
-      width = Width,
-      height = Height)
+  # Create histogram data
+  if(length(GroupVar) == 0L) {
+    Min <- dt1[, min(get(YVar), na.rm = TRUE)]
+    Max <- dt1[, max(get(YVar), na.rm = TRUE)]
+    Range <- Max - Min
+    acc <- ceiling(Range / NumberBins)
+    dt1[, Buckets := round(get(YVar) / acc) * acc]
+    dt1 <- dt1[, .N, by = "Buckets"][order(Buckets)]
   } else {
-    p1 <- echarts4r::e_charts_(
-      dt1,
-      x = NULL,
-      dispose = TRUE,
-      darkMode = TRUE,
-      emphasis = list(focus = "series"),
-      width = Width,
-      height = Height)
-  }
-
-  if(ShowLabels) {
-    p1 <- echarts4r::e_histogram_(
-      e = p1,
-      YVar,
-      breaks = NumberBins,
-      bar_width = "100%",
-      label = list(show = TRUE))
-  } else {
-    p1 <- echarts4r::e_histogram_(
-      e = p1,
-      YVar,
-      breaks = NumberBins,
-      bar_width = "100%")
-  }
-
-  if(FacetRows == 1L && FacetCols == 1L) {
-    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-  }
-  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-  p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-
-  if(length(Title.XAxis) == 0L && length(Title.YAxis) == 0L) {
-    if(length(XVar) > 0L) {
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-    } else {
-      p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = YVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+    levs <- unique(as.character(dt1[[GroupVar]]))
+    gg <- list()
+    for(i in levs) {# i <- levs[1]
+      temp <- dt1[get(GroupVar) == eval(i)]
+      Min <- temp[, min(get(YVar), na.rm = TRUE)]
+      Max <- temp[, max(get(YVar), na.rm = TRUE)]
+      Range <- Max - Min
+      acc <- ceiling(Range / NumberBins)
+      temp[, Buckets := round(get(YVar) / acc) * acc]
+      gg[[i]] <- temp[, .N, by = c("Buckets",GroupVar)][order(Buckets)]
     }
-  } else if(length(Title.XAxis) > 0L) {
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.XAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
-  } else {
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = Title.YAxis, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+    dt1 <- data.table::rbindlist(gg)
   }
 
-  p1 <- echarts4r::e_brush(e = p1)
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate", # "none", "truncate", "break",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
-  if(FacetRows > 1L || FacetCols > 1L) {
-    p1 <- echarts4r::e_facet(
-      e = p1,
-      rows = FacetRows,
-      cols = FacetCols,
-      legend_space = 16,
-      legend_pos = "top")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  # Run Bar Plot for no Group and Stacked Bar for Groups?
+  dt1[, Buckets := as.character(Buckets)]
+  if(length(GroupVar) == 0L) {
+    p1 <- Plot.Bar(
+      dt = dt1,
+      PreAgg = TRUE,
+      XVar = "Buckets",
+      YVar = "N",
+      Height = Height,
+      Width = Width,
+      Title = 'Histogram Plot',
+      Title.YAxis = "Counts",
+      Title.XAxis = YVar,
+      EchartsTheme = EchartsTheme,
+      TimeLine = TimeLine,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      TextColor = TextColor,
+      title.fontSize = title.fontSize,
+      title.fontWeight = title.fontWeight,
+      title.textShadowColor = title.textShadowColor,
+      title.textShadowBlur = title.textShadowBlur,
+      title.textShadowOffsetY = title.textShadowOffsetY,
+      title.textShadowOffsetX = title.textShadowOffsetX,
+      xaxis.fontSize = xaxis.fontSize,
+      yaxis.fontSize = yaxis.fontSize,
+      Debug = Debug)
   } else {
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-  }
+    p1 <- Plot.Bar(
+      dt = dt1,
+      PreAgg = TRUE,
+      XVar = "Buckets",
+      YVar = "N",
+      GroupVar = GroupVar,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Height = Height,
+      Width = Width,
+      Title = 'Histogram Plot',
+      Title.YAxis = "Counts",
+      Title.XAxis = YVar,
+      EchartsTheme = EchartsTheme,
+      TimeLine = TimeLine,
+      X_Scroll = X_Scroll,
+      Y_Scroll = Y_Scroll,
+      TextColor = TextColor,
+      title.fontSize = title.fontSize,
+      title.fontWeight = title.fontWeight,
+      title.textShadowColor = title.textShadowColor,
+      title.textShadowBlur = title.textShadowBlur,
+      title.textShadowOffsetY = title.textShadowOffsetY,
+      title.textShadowOffsetX = title.textShadowOffsetX,
+      xaxis.fontSize = xaxis.fontSize,
+      yaxis.fontSize = yaxis.fontSize,
+      Debug = Debug)
 
+    dt = dt1
+    PreAgg = TRUE
+    XVar = "Buckets"
+    YVar = "N"
+    GroupVar = GroupVar
+    FacetRows = FacetRows
+    FacetCols = FacetCols
+    FacetLevels = FacetLevels
+    Height = Height
+    Width = Width
+    Title = 'Histogram Plot'
+    Title.YAxis = "Counts"
+    Title.XAxis = YVar
+    EchartsTheme = EchartsTheme
+    TimeLine = TimeLine
+    X_Scroll = X_Scroll
+    Y_Scroll = Y_Scroll
+    TextColor = TextColor
+    title.fontSize = title.fontSize
+    title.fontWeight = title.fontWeight
+    title.textShadowColor = title.textShadowColor
+    title.textShadowBlur = title.textShadowBlur
+    title.textShadowOffsetY = title.textShadowOffsetY
+    title.textShadowOffsetX = title.textShadowOffsetX
+    xaxis.fontSize = xaxis.fontSize
+    yaxis.fontSize = yaxis.fontSize
+    Debug = Debug
+  }
   return(p1)
 }
 
@@ -3027,8 +3050,8 @@ Plot.Pie <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
+      numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
     }
 
     yvar <- temp[[YVar]]
@@ -3217,8 +3240,8 @@ Plot.Donut <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
+      numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
     }
 
     yvar <- temp[[YVar]]
@@ -3407,8 +3430,8 @@ Plot.Rosetype <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
+      numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
     }
 
     yvar <- temp[[YVar]]
@@ -5914,7 +5937,6 @@ Plot.Bar <- function(dt = NULL,
   check3 <- length(XVar) != 0 && length(YVar) == 0
 
   # Define Aggregation function
-  if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
   if(!PreAgg) {
     aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
   }
@@ -5969,8 +5991,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
+        numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
       }
 
       # Transformation
@@ -6138,8 +6160,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
+        numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
       }
 
       # Transformation
@@ -6319,8 +6341,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
+        numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
       }
 
       # Transformation
@@ -6475,8 +6497,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
+        numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
       }
 
       # Transformation
@@ -6736,11 +6758,16 @@ Plot.ACF <- function(dt = NULL,
 
   if(Debug) print("Plot.ACH 8")
 
-  p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
+  p1 <- echarts4r::e_band_(
+    "Lower 95th", "Upper 95th",
+    areaStyle = list(list(color = "grey"), list(color = "grey"))
+  )
+
+  #p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
 
   if(Debug) print("Plot.ACH 9")
 
-  p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
+  # p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
 
   # Extras
   if(Debug) print("Plot.ACH 10")
@@ -7138,8 +7165,8 @@ Plot.StackedBar <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- ColNameFilter(data = temp, Types = "character")[[1L]]
+      numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
     }
 
     # Transformation
@@ -10019,7 +10046,13 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   if(Debug) print("here 1")
   if(Debug) print(head(dt))
 
+  # Subset columns
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
+
+  # Shrink display data
+  dt1 <- dt1[order(runif(.N))][seq_len(min(.N, SampleSize))]
+
+  # Prepare data
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
   data.table::set(dt1, j = c(YVar), value = NULL)
   YVar <- "Target - Predicted"
@@ -10030,9 +10063,9 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 
   # Faceting shrink
   if(length(GroupVar) > 0L) {
-    # data.table::setorderv(x = dt1, cols = c(GroupVar), 1L)
+    data.table::setorderv(x = dt1, cols = c(GroupVar), 1L)
     if(Debug) print(head(dt1))
-    #dt1 <- dt1[order(get(GroupVar))]
+    dt1 <- dt1[order(get(GroupVar))]
     if(Debug) print(head(dt1))
   }
 
@@ -10073,95 +10106,38 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 
   dt1 <- dt1[!is.na(get(YVar))]
 
-  # Format
-  if(Debug) print("Echarts Histogram 1")
-  if(length(GroupVar) > 0L) {
-    if(Debug) print("here 4.1")
-    p1 <- echarts4r::e_charts_(
-      data = dt1 |> dplyr::group_by(get(GroupVar)),
-      x = NULL,
-      timeline = TimeLine,
-      dispose = TRUE,
-      darkMode = TRUE,
-      emphasis = list(focus = "series"),
-      width = Width,
-      height = Height)
-  } else {
-    if(Debug) print("here 1b")
-    p1 <- echarts4r::e_charts_(
-      dt1,
-      x = NULL,
-      darkMode = TRUE,
-      dispose = TRUE,
-      width = Width,
-      height = Height)
-  }
-
-  if(Debug) {
-    if(Debug) print("here 5")
-    if(Debug) print(YVar)
-    if(Debug) print(NumberBins)
-    if(Debug) print(Y_Scroll)
-    if(Debug) print(head(dt1))
-  }
-
-  p1 <- echarts4r::e_histogram_(e = p1, YVar, breaks = NumberBins, bar_width = "100%")
-  if(Debug) print("here 5.01")
-  if(FacetRows == 1L && FacetCols == 1L && Y_Scroll) {
-    if(Debug) print("here 5.1")
-    p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
-  }
-
-  if(Debug) print("here 6")
-
-  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-  p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-
-  p1 <- echarts4r::e_axis_(
-    e = p1,
-    serie = NULL,
-    axis = "x",
-    name = YVar, # Target - Predicted: keep this way
-    nameLocation = "middle",
-    nameGap = 45,
-    nameTextStyle = list(
-      color = TextColor,
-      fontStyle = "normal",
-      fontWeight = "bold",
-      fontSize = xaxis.fontSize),
-    axisLabel = list(
-      rotate = xaxis.rotate,
-      grid = list(containLabel = ContainLabel)))
-
-  p1 <- echarts4r::e_brush(e = p1)
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate", # "none", "truncate", "break",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
-  if(FacetRows > 1L || FacetCols > 1L) {
-    p1 <- echarts4r::e_facet(
-      e = p1,
-      rows = FacetRows,
-      cols = FacetCols,
-      legend_space = 16,
-      legend_pos = "top")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-  } else {
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-  }
-
-  if(Debug) print("here 7")
+  p1 <- AutoPlots::Plot.Histogram(
+    dt = dt1,
+    SampleSize = SampleSize,
+    XVar = NULL,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    FacetRows = FacetRows,
+    FacetCols = FacetCols,
+    FacetLevels = FacetLevels,
+    NumberBins = NumberBins,
+    Height = Height,
+    Width = Width,
+    Title = Title,
+    ShowLabels = ShowLabels,
+    Title.YAxis = Title.YAxis,
+    Title.XAxis = Title.XAxis,
+    EchartsTheme = EchartsTheme,
+    TimeLine = TimeLine,
+    X_Scroll = X_Scroll,
+    Y_Scroll = Y_Scroll,
+    TextColor = "white",
+    title.fontSize = title.fontSize,
+    title.fontWeight = title.fontWeight,
+    title.textShadowColor = title.textShadowColor,
+    title.textShadowBlur = title.textShadowBlur,
+    title.textShadowOffsetY = title.textShadowOffsetY,
+    title.textShadowOffsetX = title.textShadowOffsetX,
+    xaxis.fontSize = xaxis.fontSize,
+    yaxis.fontSize = yaxis.fontSize,
+    Debug = Debug)
 
   return(p1)
 }
@@ -10421,7 +10397,7 @@ Plot.Calibration.Line <- function(dt = NULL,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
       Title.YAxis = yvar,
-      Title.XAxis = paste0("Predicted every 5th Percentile"),
+      Title.XAxis = "Predicted",
       ShowLabels = ShowLabels,
       Height = Height,
       Width = Width,
@@ -10570,6 +10546,8 @@ Plot.Calibration.Line <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = "Calibration Line Plot",
+      Title.YAxis = yvar,
+      Title.XAxis = "Predicted",
       TextColor = TextColor,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
@@ -10804,7 +10782,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     if(length(GroupVar) > 0L) {
       if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) > 0L)")
       if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N / NumberBins, 3), by = c(GroupVar[1L])]
+        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
       }
       dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
       dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
@@ -10815,7 +10793,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     } else {
       if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) == 0L)")
       if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N / NumberBins, 3)]
+        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
       }
       dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = eval(XVar)]
       dt1 <- data.table::melt.data.table(data = dt1, id.vars = eval(XVar), measure.vars = c(YVar,ZVar))
@@ -10846,7 +10824,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       FacetLevels = FacetLevels,
       ShowLabels = ShowLabels,
       Title.YAxis = "Target & Predicted",
-      Title.XAxis = paste0(XVar, " Every 5th Percentile"),
+      Title.XAxis = XVar,
       Height = Height,
       Width = Width,
       Title = "Partial Dependence",
@@ -10916,13 +10894,13 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     if(length(GroupVar) > 0L) {
       dt2 <- dt2[, .SD, .SDcols = c("GroupVariables", yvar, XVar)]
       if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N / NumberBins, 3), by = c(GroupVar[1L])]
+        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
       }
       dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar)]
     } else {
       dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
       if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
-        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N / NumberBins, 3)]
+        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
       }
       dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
     }
@@ -10946,7 +10924,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       FacetLevels = FacetLevels,
       ShowLabels = ShowLabels,
       Title.YAxis = "Target & Predicted",
-      Title.XAxis = paste0(XVar, " Every 5th Percentile"),
+      Title.XAxis = XVar,
       Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
@@ -11046,7 +11024,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
   }
 
   # Add a column that ranks predicted values
-  dt1[, eval(XVar) := as.character(round(data.table::frank(get(XVar)) * (NumberBins) / .N / NumberBins, 2))]
+  dt1[, eval(XVar) := as.character(round(data.table::frank(get(XVar)) * (NumberBins) / .N) / NumberBins)]
   dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
   data.table::setorderv(x = dt1, cols = XVar, 1L)
 
