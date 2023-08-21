@@ -11402,7 +11402,7 @@ Plot.VariableImportance <- function(dt = NULL,
     Var <- names(which(unlist(lapply(dt, is.factor))))
     dt[, eval(Var) := as.character(get(Var))]
   }
-  dt1 <- dt1[!is.na(get(YVar))]
+  dt <- dt[!is.na(get(YVar))]
   p1 <- echarts4r::e_charts_(
     dt,
     x = Var,
