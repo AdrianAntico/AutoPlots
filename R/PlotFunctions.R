@@ -11578,31 +11578,23 @@ Plot.ROC <- function(dt = NULL,
     vals <- sort(unique(dt2[[GroupVar]]))
     for(i in seq_along(vals)) { # i = 1
       temp <- dt2[get(GroupVar) %in% eval(vals[i])]
-      if(Debug) print(i)
-
-      if(Debug) print("ROC 2")
-
+      if(Debug) {
+        print(i)
+        print("ROC 2")
+      }
       ROC <- tryCatch({fastROC(temp[[XVar]], temp[[YVar]])}, error = function(x) NULL)
-
-      # AUC_Metrics <- tryCatch({pROC::roc(
-      #   response = temp[[YVar]],
-      #   predictor = temp[[XVar]],
-      #   na.rm = TRUE,
-      #   algorithm = 3L,
-      #   auc = TRUE,
-      #   ci = TRUE)}, error = function(x) NULL)
       if(i == 1L && length(ROC) > 0L) {
         data <- data.table::data.table(
           GroupLevels = vals[i],
-          Sensitivity = 1-ROC$fpr, #AUC_Metrics$sensitivities,
-          Specificity = ROC$tpr)# AUC_Metrics$specificities)
+          Sensitivity = 1-ROC$fpr,
+          Specificity = ROC$tpr)
       } else if(length(ROC) > 0L) {
         data <- data.table::rbindlist(list(
           data,
           data.table::data.table(
             GroupLevels = vals[i],
-            Sensitivity = 1-ROC$fpr, #AUC_Metrics$sensitivities,
-            Specificity = ROC$tpr)# AUC_Metrics$specificities)
+            Sensitivity = 1-ROC$fpr,
+            Specificity = ROC$tpr)
         ))
       }
     }
@@ -11611,30 +11603,15 @@ Plot.ROC <- function(dt = NULL,
 
     # For Title: auc = AUC
     AUC <- tryCatch({fastAUC(temp[[XVar]], temp[[YVar]])}, error = function(x) NULL)
-    # AUC_Metrics <- pROC::roc(
-    #   response = dt2[[YVar]],
-    #   predictor = dt2[[XVar]],
-    #   na.rm = TRUE,
-    #   algorithm = 3L,
-    #   auc = TRUE,
-    #   ci = TRUE)
-
     if(Debug) print("ROC 4")
 
   } else {
     ROC <- tryCatch({fastROC(dt2[[XVar]], dt2[[YVar]])}, error = function(x) NULL)
     AUC <- tryCatch({fastAUC(dt2[[XVar]], dt2[[YVar]])}, error = function(x) NULL)
-    # AUC_Metrics <- pROC::roc(
-    #   response = dt2[[YVar]],
-    #   predictor = dt2[[XVar]],
-    #   na.rm = TRUE,
-    #   algorithm = 3L,
-    #   auc = TRUE,
-    #   ci = TRUE)
     data <- data.table::data.table(
       GroupLevels = 0L,
-      Sensitivity = 1-ROC$fpr, #AUC_Metrics$sensitivities,
-      Specificity = ROC$tpr)# AUC_Metrics$specificities)
+      Sensitivity = 1-ROC$fpr,
+      Specificity = ROC$tpr)
   }
 
   if(Debug) print("ROC 5")
