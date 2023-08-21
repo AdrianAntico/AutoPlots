@@ -6758,16 +6758,16 @@ Plot.ACF <- function(dt = NULL,
 
   if(Debug) print("Plot.ACH 8")
 
-  p1 <- echarts4r::e_band_(
-    "Lower 95th", "Upper 95th",
-    areaStyle = list(list(color = "grey"), list(color = "grey"))
-  )
+  # MAX Band is not working currently so plot looks stupid with this
+  # p1 <- echarts4r::e_band_(
+  #   e = p1,
+  #   min = "Lower 95th", max = "Upper 95th", stack = "confidence-band",
+  #   areaStyle = list(list(color = "#54535387"), list(color = "#54535387"))
+  # )
 
-  #p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
-
-  if(Debug) print("Plot.ACH 9")
-
-  # p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
+  # Alternative bands: just lines but they are correct
+  p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
+  p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
 
   # Extras
   if(Debug) print("Plot.ACH 10")
