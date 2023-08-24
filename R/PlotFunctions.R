@@ -2524,13 +2524,7 @@ Plot.Histogram <- function(dt = NULL,
   # "PercRank"  "Standardize"
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
-    }
+    dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
   }
 
   # Create histogram data
@@ -2752,13 +2746,7 @@ Plot.Density <- function(dt = NULL,
   # "PercRank"  "Standardize"
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
 
   # Create base plot object
@@ -3058,16 +3046,8 @@ Plot.Pie <- function(dt = NULL,
     xvar <- temp[[XVar]]
 
     # Transformation
-    # "PercRank"  "Standardize"
-    # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
     if(YVarTrans != "Identity") {
-      if(YVarTrans == "PercRank") {
-        temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(YVarTrans == "Standardize") {
-        temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-      }
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
     }
 
     p1 <- echarts4r::e_charts_(
@@ -3248,16 +3228,8 @@ Plot.Donut <- function(dt = NULL,
     xvar <- temp[[XVar]]
 
     # Transformation
-    # "PercRank"  "Standardize"
-    # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
     if(YVarTrans != "Identity") {
-      if(YVarTrans == "PercRank") {
-        temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(YVarTrans == "Standardize") {
-        temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-      }
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
     }
 
     p1 <- echarts4r::e_charts_(
@@ -3438,16 +3410,8 @@ Plot.Rosetype <- function(dt = NULL,
     xvar <- temp[[XVar]]
 
     # Transformation
-    # "PercRank"  "Standardize"
-    # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
     if(YVarTrans != "Identity") {
-      if(YVarTrans == "PercRank") {
-        temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(YVarTrans == "Standardize") {
-        temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-      }
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
     }
 
     p1 <- echarts4r::e_charts_(
@@ -3619,13 +3583,7 @@ Plot.Box <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = XVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = XVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
 
   if(Debug) print("Box 8")
@@ -4514,22 +4472,10 @@ Plot.Line <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- AutoPlots:::PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- AutoPlots:::Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
   if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    if(DualYVarTrans == "PercRank") {
-      dt1 <- AutoPlots:::PercRank(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(DualYVarTrans == "Standardize") {
-      dt1 <- AutoPlots:::Standardize(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
-    }
+    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
   }
 
   # Group Variable Case
@@ -4947,22 +4893,10 @@ Plot.Area <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
   if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    if(DualYVarTrans == "PercRank") {
-      dt1 <- AutoPlots:::PercRank(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(DualYVarTrans == "Standardize") {
-      dt1 <- AutoPlots:::Standardize(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
-    }
+    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
   }
 
   # Group Variable Case
@@ -5374,22 +5308,10 @@ Plot.Step <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
   if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    if(DualYVarTrans == "PercRank") {
-      dt1 <- AutoPlots:::PercRank(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(DualYVarTrans == "Standardize") {
-      dt1 <- AutoPlots:::Standardize(data = dt1, ColNames = DualYVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
-    }
+    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
   }
 
   # Group Variable Case
@@ -5781,16 +5703,9 @@ Plot.River <- function(dt = NULL,
   # Transformation
   for(yvart in YVarTrans) {
     if(YVarTrans != "Identity") {
-      if(YVarTrans == "PercRank") {
-        dt1 <- PercRank(data = dt1, ColNames = yvart, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(YVarTrans == "Standardize") {
-        dt1 <- Standardize(data = dt1, ColNames = yvart, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = yvart, Methods = YVarTrans)$Data
-      }
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = yvart, Methods = YVarTrans)$Data
     }
   }
-
 
   if(Debug) print("Plot.River 6b")
 
@@ -6000,13 +5915,7 @@ Plot.Bar <- function(dt = NULL,
         YVarTrans <- XVarTrans
       }
       if(YVarTrans != "Identity") {
-        if(YVarTrans == "PercRank") {
-          temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
-        } else if(YVarTrans == "Standardize") {
-          temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-        } else {
-          temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-        }
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
       }
 
       # Plot
@@ -6168,14 +6077,9 @@ Plot.Bar <- function(dt = NULL,
       if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
         YVarTrans <- XVarTrans
       }
+      for(asdfasdfasdf in 1:10) print(YVarTrans)
       if(YVarTrans != "Identity") {
-        if(YVarTrans == "PercRank") {
-          temp <- PercRank(data = temp, ColNames = numvars, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-        } else if(YVarTrans == "Standardize") {
-          temp <- Standardize(data = temp, ColNames = numvars, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-        } else {
-          temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-        }
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
       }
 
       yvar <- temp[[YVar]]
@@ -6350,13 +6254,7 @@ Plot.Bar <- function(dt = NULL,
         YVarTrans <- XVarTrans
       }
       if(YVarTrans != "Identity") {
-        if(YVarTrans == "PercRank") {
-          temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
-        } else if(YVarTrans == "Standardize") {
-          temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-        } else {
-          temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-        }
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
       }
 
       p1 <- echarts4r::e_charts_(
@@ -6506,13 +6404,7 @@ Plot.Bar <- function(dt = NULL,
         YVarTrans <- XVarTrans
       }
       if(YVarTrans != "Identity") {
-        if(YVarTrans == "PercRank") {
-          temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
-        } else if(YVarTrans == "Standardize") {
-          temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-        } else {
-          temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-        }
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
       }
 
       # Plot
@@ -6701,13 +6593,7 @@ Plot.ACF <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
 
   if(Debug) print("Plot.ACH 3")
@@ -6889,13 +6775,7 @@ Plot.PACF <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
 
   if(Debug) print("Plot.PACH 3")
@@ -7174,13 +7054,7 @@ Plot.StackedBar <- function(dt = NULL,
       YVarTrans <- XVarTrans
     }
     if(YVarTrans != "Identity") {
-      if(YVarTrans == "PercRank") {
-        temp <- PercRank(data = temp, ColNames = numvars, GroupVars = byvars, Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(YVarTrans == "Standardize") {
-        temp <- Standardize(data = temp, ColNames = numvars, GroupVars = byvars, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-      }
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
     }
 
     p1 <- echarts4r::e_charts_(
@@ -7423,13 +7297,7 @@ Plot.BarPlot3D <- function(dt,
 
     # Transformation
     if(ZVarTrans != "Identity") {
-      if(ZVarTrans == "PercRank") {
-        dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(ZVarTrans == "Standardize") {
-        dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-      }
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
     }
 
     # Formatting
@@ -7504,13 +7372,7 @@ Plot.BarPlot3D <- function(dt,
 
     # Transformation
     if(ZVarTrans != "Identity") {
-      if(ZVarTrans == "PercRank") {
-        dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(ZVarTrans == "Standardize") {
-        dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-      }
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
     }
 
     # Create final data for plot
@@ -7642,13 +7504,7 @@ Plot.BarPlot3D <- function(dt,
 
       # Transformation
       if(ZVarTrans != "Identity") {
-        if(ZVarTrans == "PercRank") {
-          dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
-        } else if(ZVarTrans == "Standardize") {
-          dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-        } else {
-          dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-        }
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
       }
 
       # Formatting
@@ -7783,13 +7639,7 @@ Plot.BarPlot3D <- function(dt,
 
     # Transformation
     if(length(ZVarTrans) > 0 && ZVarTrans != "Identity") {
-      if(ZVarTrans == "PercRank") {
-        dt1 <- PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(ZVarTrans == "Standardize") {
-        dt1 <- Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
-      }
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
     }
 
     if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
@@ -8007,13 +7857,7 @@ Plot.HeatMap <- function(dt,
 
     # Transformation
     if(ZVarTrans != "Identity") {
-      if(ZVarTrans == "PercRank") {
-        dt1 <- PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(ZVarTrans == "Standardize") {
-        dt1 <- Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
-      }
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
     }
 
     # Formatting
@@ -8147,13 +7991,7 @@ Plot.HeatMap <- function(dt,
 
       # Transformation
       if(ZVarTrans != "Identity") {
-        if(ZVarTrans == "PercRank") {
-          dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
-        } else if(ZVarTrans == "Standardize") {
-          dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-        } else {
-          dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-        }
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
       }
 
       # Formatting
@@ -8289,13 +8127,7 @@ Plot.HeatMap <- function(dt,
 
       # Transformation
       if(ZVarTrans != "Identity") {
-        if(ZVarTrans == "PercRank") {
-          dt1 <- PercRank(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
-        } else if(ZVarTrans == "Standardize") {
-          dt1 <- Standardize(data = dt1, ColNames = "Measure_Variable", GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-        } else {
-          dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-        }
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
       }
 
       # Formatting
@@ -8469,13 +8301,7 @@ Plot.HeatMap <- function(dt,
 
     # Transformation
     if(ZVarTrans != "Identity") {
-      if(ZVarTrans == "PercRank") {
-        dt1 <- PercRank(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(ZVarTrans == "Standardize") {
-        dt1 <- Standardize(data = dt1, ColNames = ZVar, GroupVars = c(XVar,YVar), Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
-      }
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
     }
 
     # Create final dt1 for plot
@@ -8664,13 +8490,7 @@ Plot.CorrMatrix <- function(dt = NULL,
 
     # Transformation
     if(CorrVarTrans != "Identity") {
-      if(CorrVarTrans == "PercRank") {
-        dt1 <- PercRank(data = dt1, ColNames = CorrVars, GroupVars = NULL, Granularity = 0.0001, ScoreTable = FALSE)
-      } else if(CorrVarTrans == "Standardize") {
-        dt1 <- Standardize(data = dt1, ColNames = CorrVars, GroupVars = NULL, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-      } else {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = CorrVars, Methods = CorrVarTrans)$Data
-      }
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = CorrVars, Methods = CorrVarTrans)$Data
     }
     for(i in seq_along(names(dt1))) {
       yy <- names(dt1)[i]
@@ -9393,24 +9213,12 @@ Plot.Scatter <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
 
   # Transformation
   if(XVarTrans != "Identity") {
-    if(XVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = XVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(XVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = XVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
   }
 
   if(length(GroupVar) == 0L) {
@@ -9768,35 +9576,17 @@ Plot.Scatter3D <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
 
   # Transformation
   if(XVarTrans != "Identity") {
-    if(XVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = XVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = XVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
   }
 
   # Transformation
   if(ZVarTrans != "Identity") {
-    if(ZVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = ZVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = ZVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
-    }
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
   }
 
   if(length(GroupVar) > 0L) {
@@ -10089,13 +9879,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   # "PercRank"  "Standardize"
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
-    if(YVarTrans == "PercRank") {
-      dt1 <- PercRank(data = dt1, ColNames = YVar, GroupVars = GroupVar, Granularity = 0.0001, ScoreTable = FALSE)
-    } else if(YVarTrans == "Standardize") {
-      dt1 <- Standardize(data = dt1, ColNames = YVar, GroupVars = GroupVar, Center = TRUE, Scale = TRUE, ScoreTable = FALSE)
-    } else {
-      dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
-    }
+    dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
   }
 
   if(Debug) print("here 4")
