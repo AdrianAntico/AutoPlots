@@ -1257,7 +1257,7 @@ AutoTransformationCreate <- function(data,
     }
 
     # Apply to data----
-    data[, ColumnNames[colNames] := DataCollection[[tolower(Results[eval(colNames), MethodName])]]]
+    data <- tryCatch({data[, ColumnNames[colNames] := DataCollection[[tolower(Results[eval(colNames), MethodName])]]]}, error = function(x) data)
   }
 
   # Save output----
