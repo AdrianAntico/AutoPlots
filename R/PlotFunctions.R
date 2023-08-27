@@ -1108,7 +1108,7 @@ AutoTransformationCreate <- function(data,
   Methods <- unique(tolower(Methods))
   if(!data.table::is.data.table(data)) data.table::setDT(data)
   if(!any(tolower(Methods) %chin% c("boxcox", "yeojohnson", "asinh", "sqrt", "log", "logplus1", "asin", "logit"))) stop("Methods not supported")
-  if(!"identity" %chin% Methods) Methods <- c(Methods, "identity")
+  # if(!"identity" %chin% Methods) Methods <- c(Methods, "identity")
   if(is.numeric(ColumnNames) || is.integer(ColumnNames)) ColumnNames <- names(data)[ColumnNames]
   for(i in ColumnNames) if(!(any(class(data[[eval(i)]]) %chin% c("numeric", "integer")))) stop("ColumnNames must be for numeric or integer columns")
 
@@ -1175,7 +1175,7 @@ AutoTransformationCreate <- function(data,
     if(any(tolower(FinalMethods) %chin% "logplus1")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_LogPlus1(x)
+      output <- AutoPlots:::Test_LogPlus1(x)
       DataCollection[["logplus1"]] <- output$Data
       data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
       data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = NA)
@@ -1261,7 +1261,7 @@ AutoTransformationCreate <- function(data,
   }
 
   # Save output----
-  if(SaveOutput & !is.null(Path)) data.table::fwrite(Results, file = file.path(normalizePath(Path), paste0(TransID, "_transformation.csv")))
+  if(SaveOutput && !is.null(Path)) data.table::fwrite(Results, file = file.path(normalizePath(Path), paste0(TransID, "_transformation.csv")))
 
   # Return data----
   return(list(Data = data, FinalResults = Results))
