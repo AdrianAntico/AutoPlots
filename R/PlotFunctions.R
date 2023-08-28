@@ -1104,7 +1104,7 @@ AutoTransformationCreate <- function(data,
                                      TransID = "ModelID",
                                      SaveOutput = FALSE) {
 
-  # Check arguments ----
+  # Check arguments
   Methods <- unique(tolower(Methods))
   if(!data.table::is.data.table(data)) data.table::setDT(data)
   if(!any(tolower(Methods) %chin% c("boxcox", "yeojohnson", "asinh", "sqrt", "log", "logplus1", "asin", "logit"))) stop("Methods not supported")
@@ -1112,11 +1112,11 @@ AutoTransformationCreate <- function(data,
   if(is.numeric(ColumnNames) || is.integer(ColumnNames)) ColumnNames <- names(data)[ColumnNames]
   for(i in ColumnNames) if(!(any(class(data[[eval(i)]]) %chin% c("numeric", "integer")))) stop("ColumnNames must be for numeric or integer columns")
 
-  # Loop through ColumnNames ----
+  # Loop through ColumnNames
   # colNames = 1
   for(colNames in seq_along(ColumnNames)) {# colNames = 1L
 
-    # Collection Object----
+    # Collection Object
     if(length(Methods) < 5) {
       EvaluationTable <- data.table::data.table(
         ColumnName = rep("BLABLA", length(ColumnNames) * (length(Methods)+1)),
@@ -1133,23 +1133,23 @@ AutoTransformationCreate <- function(data,
     DataCollection <- list()
     Counter <- 0L
 
-    # Check range of data----
+    # Check range of data
     MinVal <- min(data[[eval(ColumnNames[colNames])]], na.rm = TRUE)
     MaxVal <- max(data[[eval(ColumnNames[colNames])]], na.rm = TRUE)
 
     # Create Final Methods Object
     FinalMethods <- Methods
 
-    # Update Methods----
+    # Update Methods
     if(MinVal <= 0) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("boxcox","log","logit"))]
     if(MinVal < 0) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("logplus1","sqrt","asin"))]
     if(MaxVal > 1) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("asin"))]
     if(MaxVal >= 1) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("logit"))]
 
-    # Store column data as vector----
+    # Store column data as vector
     x <- data[[eval(ColumnNames[colNames])]]
 
-    # YeoJohnson----
+    # YeoJohnson
     if(any(tolower(FinalMethods) %chin% "yeojohnson")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1160,7 +1160,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # Log----
+    # Log
     if(any(tolower(FinalMethods) %chin% "log")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1171,7 +1171,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # LogPlus1----
+    # LogPlus1
     if(any(tolower(FinalMethods) %chin% "logplus1")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1182,7 +1182,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # Sqrt----
+    # Sqrt
     if(any(tolower(FinalMethods) %chin% "sqrt")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1193,7 +1193,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # BoxCox----
+    # BoxCox
     if(any(tolower(FinalMethods) %chin% "boxcox")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1204,7 +1204,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # Asinh----
+    # Asinh
     if(any(tolower(FinalMethods) %chin% "asinh")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1215,7 +1215,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # Asin----
+    # Asin
     if(any(tolower(FinalMethods) %chin% "asin")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1226,7 +1226,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # Logit----
+    # Logit
     if(any(tolower(FinalMethods) %chin% "logit")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1237,7 +1237,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # Identity----
+    # Identity
     if(any(tolower(FinalMethods) %chin% "identity")) {
       Counter <- Counter + 1L
       data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
@@ -1248,7 +1248,7 @@ AutoTransformationCreate <- function(data,
       data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
     }
 
-    # Pick winner----
+    # Pick winner
     EvaluationTable <- EvaluationTable[MethodName != "BLABLA"]
     if(colNames == 1L) {
       Results <- EvaluationTable[order(NormalizedStatistics)][1L]
