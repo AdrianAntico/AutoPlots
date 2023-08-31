@@ -13,6 +13,7 @@ Plot.CorrMatrix(
   FacetLevels = NULL,
   Method = "spearman",
   PreAgg = FALSE,
+  MaxNAPercent = 0.05,
   Height = NULL,
   Width = NULL,
   Title = "Correlation Matrix",
@@ -48,6 +49,8 @@ Plot.CorrMatrix(
 \item{Method}{character}
 
 \item{PreAgg}{logical}
+
+\item{MaxNAPercent}{numeric}
 
 \item{Height}{= NULL,}
 

@@ -8437,6 +8437,7 @@ Plot.HeatMap <- function(dt,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Method character
+#' @param MaxNAPercent numeric
 #' @param Height = NULL,
 #' @param Width = NULL,
 #' @param Title character
@@ -8458,6 +8459,7 @@ Plot.CorrMatrix <- function(dt = NULL,
                             FacetLevels = NULL,
                             Method = 'spearman',
                             PreAgg = FALSE,
+                            MaxNAPercent = 0.05,
                             Height = NULL,
                             Width = NULL,
                             Title = "Correlation Matrix",
@@ -8478,7 +8480,11 @@ Plot.CorrMatrix <- function(dt = NULL,
                             xaxis.fontSize = 14,
                             Debug = FALSE) {
 
+  # Filter out bad vars
   x <- c(); for(i in CorrVars) if(dt[, sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
+  CorrVars <- x
+  NN <- dt[,.N]
+  x <- c(); for(i in CorrVars) if(sum(dt[, is.na(get(i))]) / NN <= MaxNAPercent) x <- c(x, i)
   CorrVars <- x
 
   # Plot
@@ -8509,7 +8515,7 @@ Plot.CorrMatrix <- function(dt = NULL,
   p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
   p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
-  echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
+  p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
   if(FacetRows == 1L && FacetCols == 1L) {
     if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
     if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
@@ -8531,8 +8537,6 @@ Plot.CorrMatrix <- function(dt = NULL,
       textShadowBlur = title.textShadowBlur,
       textShadowOffsetY = title.textShadowOffsetY,
       textShadowOffsetX = title.textShadowOffsetX))
-
-
 
   # Return plot
   return(p1)
