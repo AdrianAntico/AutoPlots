@@ -6804,14 +6804,15 @@ Plot.PACF <- function(dt = NULL,
   PACF_Data <- data.table::data.table(Lag = 1:50, Cor = 0.0, `Lower 95th` = 0.0, `Upper 95th` = 0.0)
   if(Debug) print("Plot.ACH 5")
   for(i in seq_len(MaxLags)) {# i = 1L  i = 2L
+    lagCol <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
     if(i == 1L) {
-      lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[paste0("weeks_LAG_",i,"_",YVar)]])
+      lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[lagCol]])
       data.table::set(PACF_Data, i = i, j = "Lag", value = i)
       data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
       data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
       data.table::set(PACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
     } else {
-      x <- as.vector(lm(formula = as.formula(paste0(YVar, " ~ ", paste0("weeks_LAG_",i,"_",YVar))), data = dt1)$residuals)
+      x <- as.vector(lm(formula = as.formula(paste0(YVar, " ~ ", lagCol)), data = dt1)$residuals)
       lag_test <- cor.test(x = x, y = dt1[[paste0("weeks_LAG_",i,"_",YVar)]])
       data.table::set(PACF_Data, i = i, j = "Lag", value = i)
       data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
