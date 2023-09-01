@@ -6620,8 +6620,9 @@ Plot.ACF <- function(dt = NULL,
   # Autocorrelation data creation
   ACF_Data <- data.table::data.table(Lag = 1:50, Cor = 0.0, `Lower 95th` = 0.0, `Upper 95th` = 0.0)
   if(Debug) print("Plot.ACH 5")
-  for(i in seq_len(MaxLags)) {
-    lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[paste0("weeks_LAG_",i,"_",YVar)]])
+  for(i in seq_len(MaxLags)) {# i = 1
+    lagCol <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
+    lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[lagCol]])
     data.table::set(ACF_Data, i = i, j = "Lag", value = i)
     data.table::set(ACF_Data, i = i, j = "Cor", value = lag_test$estimate)
     data.table::set(ACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
@@ -8508,10 +8509,13 @@ Plot.CorrMatrix <- function(dt = NULL,
     corr_mat <- dt
   }
 
-  if(Debug) print("Plot.CorrMatrix Echarts")
-  if(Debug) print(Width)
-  if(Debug) print(Height)
-  if(Debug) print(corr_mat)
+  if(Debug) {
+    print("Plot.CorrMatrix Echarts")
+    print(Width)
+    print(Height)
+    print(corr_mat)
+  }
+
   p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
   p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
