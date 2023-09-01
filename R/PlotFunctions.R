@@ -6741,7 +6741,7 @@ Plot.PACF <- function(dt = NULL,
                       AggMethod = 'sum',
                       Height = NULL,
                       Width = NULL,
-                      Title = 'Autocorrelation Plot',
+                      Title = 'Partial Autocorrelation Plot',
                       EchartsTheme = "macarons",
                       TextColor = "white",
                       title.fontSize = 22,
@@ -6757,11 +6757,42 @@ Plot.PACF <- function(dt = NULL,
                       ContainLabel = TRUE,
                       Debug = FALSE) {
 
+
+  dt = data.table::fread(file.choose())
+  YVar = "Daily Liters"
+  DateVar = "Date"
+  TimeUnit = "days"
+  MaxLags = 50
+  YVarTrans = "Identity"
+  AggMethod = 'sum'
+  Height = "600px"
+  Width = "300px"
+  Title = 'Partial Autocorrelation Plot'
+  EchartsTheme = "macarons"
+  TextColor = "white"
+  title.fontSize = 22
+  title.fontWeight = "bold"
+  title.textShadowColor = '#63aeff'
+  title.textShadowBlur = 3
+  title.textShadowOffsetY = 1
+  title.textShadowOffsetX = -1
+  xaxis.fontSize = 14
+  yaxis.fontSize = 14
+  xaxis.rotate = 0
+  yaxis.rotate = 0
+  ContainLabel = TRUE
+  Debug = FALSE
+
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
 
   dt1 <- data.table::copy(dt)
+
+  if(grepl(" ", YVar)) {
+    data.table::setnames(x = dt1, old = YVar, new = gsub(pattern = " ", replacement = ".", x = YVar))
+    YVar <- gsub(pattern = " ", replacement = ".", x = YVar)
+  }
 
   # Convert factor to character
   if(length(YVar) > 0L && class(dt1[[YVar]])[1L] == "factor") {
@@ -6802,18 +6833,19 @@ Plot.PACF <- function(dt = NULL,
 
   # Autocorrelation data creation
   PACF_Data <- data.table::data.table(Lag = 1:50, Cor = 0.0, `Lower 95th` = 0.0, `Upper 95th` = 0.0)
+  LagCols <- c()
   if(Debug) print("Plot.ACH 5")
   for(i in seq_len(MaxLags)) {# i = 1L  i = 2L
-    lagCol <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
+    LagCols[i] <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
     if(i == 1L) {
-      lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[lagCol]])
+      lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[LagCols]])
       data.table::set(PACF_Data, i = i, j = "Lag", value = i)
       data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
       data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
       data.table::set(PACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
     } else {
-      x <- as.vector(lm(formula = as.formula(paste0(YVar, " ~ ", lagCol)), data = dt1)$residuals)
-      lag_test <- cor.test(x = x, y = dt1[[paste0("weeks_LAG_",i,"_",YVar)]])
+      x <- as.vector(lm(formula = as.formula(paste0(YVar, " ~ ", paste0(LagCols, collapse = " + "))), data = dt1)$residuals)
+      lag_test <- cor.test(x = x, y = dt1[[LagCols[i]]])
       data.table::set(PACF_Data, i = i, j = "Lag", value = i)
       data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
       data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])

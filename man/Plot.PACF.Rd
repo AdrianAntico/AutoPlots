@@ -14,7 +14,7 @@ Plot.PACF(
   AggMethod = "sum",
   Height = NULL,
   Width = NULL,
-  Title = "Autocorrelation Plot",
+  Title = "Partial Autocorrelation Plot",
   EchartsTheme = "macarons",
   TextColor = "white",
   title.fontSize = 22,
