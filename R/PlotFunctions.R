@@ -2420,6 +2420,150 @@ Plots.ModelEvaluation <- function(dt = NULL,
 # > Distribution Plot Functions                                               ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 
+#' @title Plot.ProbabilityPlot
+#'
+#' @description Build a normal probability plot
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
+#' @param YVar Y-Axis variable name
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param Height = NULL,
+#' @param Width = NULL,
+#' @param Title 'Violin Plot'
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param EchartsTheme = "macaron"
+#' @param TimeLine Logical
+#' @param TextColor 'darkblue'
+#' @param Debug Debugging purposes
+#' @export
+Plot.ProbabilityPlot <- function(dt = NULL,
+                                 SampleSize = 1000L,
+                                 YVar = NULL,
+                                 YVarTrans = "Identity",
+                                 Height = NULL,
+                                 Width = NULL,
+                                 Title = 'Normal Probability Plot',
+                                 ShowLabels = FALSE,
+                                 EchartsTheme = "macarons",
+                                 Y_Scroll = TRUE,
+                                 TextColor =        "white",
+                                 title.fontSize = 22,
+                                 title.fontWeight = "bold",
+                                 title.textShadowColor = '#63aeff',
+                                 title.textShadowBlur = 3,
+                                 title.textShadowOffsetY = 1,
+                                 title.textShadowOffsetX = -1,
+                                 yaxis.fontSize = 14,
+                                 yaxis.rotate = 0,
+                                 ContainLabel = TRUE,
+                                 tooltip.trigger = "axis",
+                                 Debug = FALSE) {
+
+  # dt = data.table::fread(file.choose())
+  # SampleSize = 30000L
+  # XVar = NULL
+  # YVar = "Daily Margin"
+  # GroupVar = NULL
+  # YVarTrans = "Identity"
+  # XVarTrans = "Identity"
+  # FacetRows = 1
+  # FacetCols = 1
+  # FacetLevels = NULL
+  # Height = NULL
+  # Width = NULL
+  # Title = 'Scatter Plot'
+  # ShowLabels = FALSE
+  # AddGLM = FALSE
+  # Title.YAxis = NULL
+  # Title.XAxis = NULL
+  # EchartsTheme = "dark"
+  # TimeLine = FALSE
+  # X_Scroll = TRUE
+  # Y_Scroll = TRUE
+  # TextColor =        "white"
+  # title.fontSize = 22
+  # title.fontWeight = "bold"
+  # title.textShadowColor = '#63aeff'
+  # title.textShadowBlur = 3
+  # title.textShadowOffsetY = 1
+  # title.textShadowOffsetX = -1
+  # yaxis.fontSize = 14
+  # xaxis.fontSize = 14
+  # xaxis.rotate = 0
+  # yaxis.rotate = 0
+  # ContainLabel = TRUE
+  # tooltip.trigger = "axis"
+  # Debug = FALSE
+
+  # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)
+  if(length(SampleSize) == 0L) SampleSize <- 30000L
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(Debug) print("here 1")
+  if(Debug) print(head(dt))
+
+  # Subset columns
+  dt1 <- dt[, .SD, .SDcols = c(YVar)]
+
+  # Transformation
+  # "PercRank"  "Standardize"
+  # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
+  if(YVarTrans != "Identity") {
+    dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
+  }
+
+  # Theoretical Quantiles
+  data.table::setorderv(x = dt1, cols = YVar, 1)
+  dt1[, temp_i := seq_len(.N)]
+  dt1[, `Theoretical Quantiles` := qnorm((temp_i-0.5)/.N)]
+  dt1[, temp_i := NULL]
+
+  # Normal Line
+  meanX <- dt1[, mean(get(YVar), na.rm = TRUE)]
+  sdX <- dt1[, sd(get(YVar), na.rm = TRUE)]
+  dt1[, `Normal Line` := eval(meanX) + sdX * `Theoretical Quantiles`]
+
+  # Actual Quantiles
+  p1 <- AutoPlots::Plot.Scatter(
+    dt = dt1,
+    SampleSize = SampleSize,
+    XVar = "Theoretical Quantiles",
+    YVar = YVar,
+    YVarTrans = "Identity",
+    Height = Height,
+    Width = Width,
+    Title = Title,
+    Title.YAxis = YVar,
+    Title.XAxis = "Theoretical Quantiles",
+    EchartsTheme = EchartsTheme,
+    Y_Scroll = Y_Scroll,
+    TextColor = TextColor,
+    title.fontSize = title.fontSize,
+    title.fontWeight = title.fontWeight,
+    title.textShadowColor = title.textShadowColor,
+    title.textShadowBlur = title.textShadowBlur,
+    title.textShadowOffsetY = title.textShadowOffsetY,
+    title.textShadowOffsetX = title.textShadowOffsetX,
+    yaxis.fontSize = yaxis.fontSize,
+    yaxis.rotate = yaxis.rotate,
+    ContainLabel = ContainLabel,
+    tooltip.trigger = tooltip.trigger,
+    Debug = Debug)
+
+  # Add Normal Line
+  p1 <- echarts4r::e_line_(e = p1, "Normal Line")
+  return(p1)
+}
+
 #' @title Plot.Histogram
 #'
 #' @description Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -4257,6 +4401,157 @@ Plot.WordCloud <- function(dt = NULL,
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 # > Aggreagated Plot Functions                                                ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+
+#' @title Plot.Radar
+#'
+#' @author Adrian Antico
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param AggMethod character
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param GroupVar One Grouping Variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param Height = NULL,
+#' @param Width = NULL,
+#' @param Title "Title"
+#' @param ShowLabels character
+#' @param EchartsTheme Provide an "Echarts" theme
+#' @param ShowSymbol = FALSE
+#' @param BackGroundColor color outside of plot window. Rcolors and hex
+#' @param TextColor "Not Implemented"
+#' @param DarkMode FALSE
+#' @param Debug Debugging purposes
+#'
+#' @export
+Plot.Radar <- function(dt = NULL,
+                       AggMethod = "mean",
+                       PreAgg = TRUE,
+                       YVar = NULL,
+                       GroupVar = NULL,
+                       YVarTrans = "Identity",
+                       Height = NULL,
+                       Width = NULL,
+                       Title = 'Radar Plot',
+                       ShowLabels = FALSE,
+                       EchartsTheme = "macarons",
+                       ShowSymbol = FALSE,
+                       TextColor = "white",
+                       title.fontSize = 22,
+                       title.fontWeight = "bold",
+                       title.textShadowColor = '#63aeff',
+                       title.textShadowBlur = 3,
+                       title.textShadowOffsetY = 1,
+                       title.textShadowOffsetX = -1,
+                       ContainLabel = TRUE,
+                       DarkMode = FALSE,
+                       Debug = FALSE) {
+
+  # print(dt)
+
+  # dt = data.table::fread(file.choose())
+  # AggMethod = "mean"
+  # PreAgg = FALSE
+  # YVar = c("Daily Margin", "Daily Liters")
+  # GroupVar = "Brand"
+  # YVarTrans = "Identity"
+  # Height = "600px"
+  # Width = "300px"
+  # Title = 'Radar Plot'
+  # ShowLabels = FALSE
+  # EchartsTheme = "dark"
+  # ShowSymbol = FALSE
+  # TextColor = "white"
+  # title.fontSize = 22
+  # title.fontWeight = "bold"
+  # title.textShadowColor = '#63aeff'
+  # title.textShadowBlur = 3
+  # title.textShadowOffsetY = 1
+  # title.textShadowOffsetX = -1
+  # ContainLabel = TRUE
+  # DarkMode = FALSE
+  # Debug = FALSE
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
+  dt1 <- data.table::copy(dt)
+
+  # Subset columns
+  dt1 <- dt1[, .SD, .SDcols = c(YVar, GroupVar)]
+
+  # Minimize data before moving on
+  if(!PreAgg) {
+
+    # Define Aggregation function
+    if(Debug) print("Plot.Radar # Define Aggregation function")
+    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+
+    # Aggregate data
+    dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(GroupVar[1L])]
+    data.table::setorderv(x = dt1, cols = c(GroupVar[1L]), 1L)
+  }
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    for(yvar in YVar) {
+      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = yvar, Methods = YVarTrans)$Data
+    }
+  }
+
+  # Build base plot depending on GroupVar availability
+  p1 <- echarts4r::e_charts_(
+    data = dt1,
+    x = GroupVar,
+    darkMode = TRUE,
+    emphasis = list(focus = "series"),
+    dispose = TRUE, width = Width, height = Height)
+
+  # Make sure the variable with the largest value goes first
+  # Otherwise the radar plot will size to a smaller variable and look stupid
+  mv <- c(rep(0, length(YVar)))
+  for(i in seq_along(YVar)) {
+    mv[i] <- dt1[, max(get(YVar[i]), na.rm = TRUE)]
+  }
+  YVarMod <- YVar[which(mv == max(mv, na.rm = TRUE))]
+  YVarMod <- c(YVarMod, YVar[!YVar %in% YVarMod])
+  mv <- max(mv, na.rm = TRUE)
+  for(yvar in YVarMod) {
+    p1 <- echarts4r::e_radar_(e = p1, serie = yvar, max = mv, name = yvar)
+  }
+
+  if(Debug) print("Plot.Radar() Build Echarts 5")
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  if(Debug) print("Plot.Radar() Build Echarts 6")
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", backgroundColor = "aliceblue")
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  if(Debug) print("Plot.Radar() Build Echarts 8")
+  p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  return(p1)
+}
 
 #' @title Plot.Line
 #'
@@ -12544,7 +12839,6 @@ Plot.ShapImportance <- function(dt,
 # ----
 
 # ----
-
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 # > Stocks Plots Functions                                                    ----

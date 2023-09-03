@@ -108,6 +108,8 @@ Other Standard Plots:
 \code{\link{Plot.Line}()},
 \code{\link{Plot.PACF}()},
 \code{\link{Plot.Pie}()},
+\code{\link{Plot.ProbabilityPlot}()},
+\code{\link{Plot.Radar}()},
 \code{\link{Plot.River}()},
 \code{\link{Plot.Rosetype}()},
 \code{\link{Plot.Scatter3D}()},
