@@ -12,6 +12,7 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - Histogram Plots
 - Density Plots
 - Box Plots
+- Probability Plots
 - Word Cloud
 - Pie Charts
 - Donut Plot
@@ -19,6 +20,7 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - Bar Plots
 - 3D Bar Plots
 - Stacked Bar Plots
+- Radar Plots
 - Line Plots
 - Step Plots
 - Area Plots
