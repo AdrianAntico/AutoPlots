@@ -108,6 +108,7 @@ Other Standard Plots:
 \code{\link{Plot.Histogram}()},
 \code{\link{Plot.Line}()},
 \code{\link{Plot.PACF}()},
+\code{\link{Plot.Parallel}()},
 \code{\link{Plot.ProbabilityPlot}()},
 \code{\link{Plot.Radar}()},
 \code{\link{Plot.River}()},

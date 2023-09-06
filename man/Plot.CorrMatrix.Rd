@@ -77,7 +77,7 @@ Plot.CorrMatrix(
 \item{CorrVarsTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 }
 \description{
-Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+Build a correlation matrix plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
 \seealso{
 Other Standard Plots: 
@@ -94,6 +94,7 @@ Other Standard Plots:
 \code{\link{Plot.Histogram}()},
 \code{\link{Plot.Line}()},
 \code{\link{Plot.PACF}()},
+\code{\link{Plot.Parallel}()},
 \code{\link{Plot.Pie}()},
 \code{\link{Plot.ProbabilityPlot}()},
 \code{\link{Plot.Radar}()},

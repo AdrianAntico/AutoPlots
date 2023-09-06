@@ -29,9 +29,10 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 - Partial Autocorrelation Plot
 - Scatter Plots
 - 3D Scatter Plots
-- Copula Plots (scatter plot using a percent rank of variables - spearman scatter)
+- Copula Plots
 - 3D Copula Plots
 - Correlation Matrix Plots
+- Parallel Plots
 - Heatmaps
 
 

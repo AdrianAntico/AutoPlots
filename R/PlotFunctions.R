@@ -8753,7 +8753,7 @@ Plot.HeatMap <- function(dt,
 
 #' @title Plot.CorrMatrix
 #'
-#' @description Build a violin plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#' @description Build a correlation matrix plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 #'
 #' @family Standard Plots
 #'
@@ -8872,6 +8872,217 @@ Plot.CorrMatrix <- function(dt = NULL,
   # Return plot
   return(p1)
 }
+
+#' @title Plot.Parallel
+#'
+#' @description Build a parallel plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param CorrVars vector of variable names
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height = NULL,
+#' @param Width = NULL,
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param X_Scroll logical
+#' @param Y_Scroll logical
+#' @param PreAgg logical
+#' @param TextColor character hex
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#' dt = data.table::fread(file.choose())
+#' SampleSize = 5000
+#' CorrVars = c("Customer","Brand","Category") #names(dt)[!names(dt) %in% "Date"]
+#' CorrVarTrans = "Identity"
+#' FacetRows = 1
+#' FacetCols = 1
+#' FacetLevels = NULL
+#' PreAgg = FALSE
+#' Height = "400px"
+#' Width = "600px"
+#' Title = "Parallel Plot"
+#' ShowLabels = FALSE
+#' Title.YAxis = "bla"
+#' Title.XAxis = "bloke"
+#' EchartsTheme = "macarons"
+#' X_Scroll = TRUE
+#' Y_Scroll = TRUE
+#' TextColor = "white"
+#' title.fontSize = 22
+#' title.fontWeight = "bold"
+#' title.textShadowColor = '#63aeff'
+#' title.textShadowBlur = 3
+#' title.textShadowOffsetY = 1
+#' title.textShadowOffsetX = -1
+#' yaxis.fontSize = 14
+#' xaxis.fontSize = 14
+#' Debug = FALSE
+#'
+#' AutoPlots::Plot.Parallel(
+#'   dt = dt,
+#'   CorrVars = CorrVars,
+#'   FacetRows = FacetRows,
+#'   FacetCols = FacetCols,
+#'   FacetLevels = FacetLevels,
+#'   PreAgg = PreAgg,
+#'   Height = Height,
+#'   Width = Width,
+#'   Title = Title,
+#'   ShowLabels = ShowLabels,
+#'   Title.YAxis = Title.YAxis,
+#'   Title.XAxis = Title.XAxis,
+#'   EchartsTheme = EchartsTheme,
+#'   X_Scroll = X_Scroll,
+#'   Y_Scroll = Y_Scroll,
+#'   TextColor = TextColor,
+#'   title.fontSize = title.fontSize,
+#'   title.fontWeight = title.fontWeight,
+#'   title.textShadowColor = title.textShadowColor,
+#'   title.textShadowBlur = title.textShadowBlur,
+#'   title.textShadowOffsetY = title.textShadowOffsetY,
+#'   title.textShadowOffsetX = title.textShadowOffsetX,
+#'   yaxis.fontSize = yaxis.fontSize,
+#'   xaxis.fontSize = xaxis.fontSize,
+#'   Debug = Debug
+#' )
+#' }
+#'
+#' @export
+Plot.Parallel <- function(dt = NULL,
+                          SampleSize = 50000,
+                          CorrVars = NULL,
+                          FacetRows = 1,
+                          FacetCols = 1,
+                          FacetLevels = NULL,
+                          PreAgg = FALSE,
+                          Height = NULL,
+                          Width = NULL,
+                          Title = "Parallel Plot",
+                          ShowLabels = FALSE,
+                          Title.YAxis = NULL,
+                          Title.XAxis = NULL,
+                          EchartsTheme = "macarons",
+                          X_Scroll = TRUE,
+                          Y_Scroll = TRUE,
+                          TextColor =        "white",
+                          title.fontSize = 22,
+                          title.fontWeight = "bold", # normal
+                          title.textShadowColor = '#63aeff',
+                          title.textShadowBlur = 3,
+                          title.textShadowOffsetY = 1,
+                          title.textShadowOffsetX = -1,
+                          yaxis.fontSize = 14,
+                          xaxis.fontSize = 14,
+                          Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Plot
+  if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
+
+  } else {
+    dt1 <- dt
+  }
+
+  if(length(SampleSize) > 0L) {
+    dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
+  }
+
+  if(Debug) {
+    print("Plot.CorrMatrix Echarts")
+    print(Width)
+    print(Height)
+  }
+
+  # Names modification: because of the parse() I can't have spaces in the colnames
+  old <- c()
+  new <- c()
+  for(i in seq_along(CorrVars)) {
+    if(grepl(pattern = " ", x = CorrVars[i])) {
+      old <- c(old, CorrVars[i])
+      new <- c(new, gsub(pattern = " ", replacement = ".", x = CorrVars[i]))
+    }
+  }
+  if(length(new) > 0L) {
+    CorrVars <- new
+    data.table::setnames(dt1, old = old, new = new)
+  }
+
+  # Build Plot
+  p1 <- echarts4r::e_charts(data = dt1, width = Width, height = Height)
+
+  # Metaprog because issue with function accepting vector of names
+  p1 <- eval(
+    parse(
+      text = c(
+        "echarts4r::e_parallel_(e = p1, ",
+        noquote(
+          c(
+            paste0(CorrVars[seq_len(length(CorrVars)-1L)], collpase = ","),
+            CorrVars[length(CorrVars)])
+        ),
+        ", opts = list(smooth = TRUE))"
+      )
+    )
+  )
+
+  # Warning message:
+  #   Using an external vector in selections was deprecated in tidyselect 1.1.0.
+  # ℹ Please use `all_of()` or `any_of()` instead.
+  # # Was:
+  # data %>% select(v)
+  #
+  # # Now:
+  # data %>% select(all_of(v))
+  #
+  # See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+  # This warning is displayed once every 8 hours.
+  # Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+
+  p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
+  if(FacetRows == 1L && FacetCols == 1L) {
+    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+  }
+  p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+
+  # Return plot
+  return(p1)
+}
+
 
 #' @title Plot.Copula
 #'
