@@ -9001,7 +9001,7 @@ Plot.Parallel <- function(dt = NULL,
     dt1 <- dt
   }
 
-  if(length(SampleSize) > 0L) {
+  if(length(SampleSize) > 0L && dt1[,.N] > SampleSize) {
     dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
   }
 
