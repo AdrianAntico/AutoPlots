@@ -79,10 +79,6 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Bar3D_StackBar_Heatmap.PNG" align="center" width="800" />
 
-### Stock Price  |  % Log Returns  |  Quadratic Variation
-
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Stocks.PNG" align="center" width="800" />
-
 ### ScatterPlot  |  CopulaPlot  |  3D CopulaPlot
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Relationships.PNG" align="center" width="800" />
