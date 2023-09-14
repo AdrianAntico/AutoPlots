@@ -3741,7 +3741,9 @@ Plot.Box <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    for(ggss in YVars) {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = YVarTrans)$Data
+    }
   }
 
   if(Debug) print("Box 8")
