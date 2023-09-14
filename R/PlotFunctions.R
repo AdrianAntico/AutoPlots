@@ -2655,7 +2655,6 @@ Plot.Histogram <- function(dt = NULL,
   }
 
   GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
-  YVar <- tryCatch({YVar[1L]}, error = function(x) NULL)
 
   # Faceting shrink
   if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L)) {
@@ -2664,11 +2663,36 @@ Plot.Histogram <- function(dt = NULL,
     dt1 <- dt1[, .SD, .SDcols = c(YVar,GroupVar)]
   }
 
+  # Multiple YVars
+  if(length(YVar) > 1L) {
+    sqroots <- sqrt(length(YVar))
+    if(FacetCols == 1 && FacetRows == 1L) {
+      FacetCols <- max(ceiling(sqroots), 6)
+      FacetRows <- ceiling(sqroots)
+      if((FacetRows - 1L) * FacetCols == length(YVar)) {
+        FacetRows <- FacetRows - 1L
+      } else if(FacetRows * FacetCols < length(YVar)) {
+        while(FacetRows * FacetCols < length(YVar)) {
+          FacetRows <- FacetRows + 1L
+        }
+      }
+    }
+    XVar <- NULL
+    GroupVar <- NULL
+    dt1[, temp__ := "a"]
+    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "temp__", measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+    dt1[, temp__ := NULL]
+    GroupVar <- "Measures"
+    YVar <- "Values"
+  }
+
   # Transformation
   # "PercRank"  "Standardize"
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
-    dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
+    for(ggss in YVars) {
+      dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = YVarTrans)$Data}, error = function(x) dt1)
+    }
   }
 
   # Create histogram data
@@ -2877,7 +2901,7 @@ Plot.Density <- function(dt = NULL,
   }
 
   GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
-  YVar <- tryCatch({YVar[1L]}, error = function(x) NULL)
+  YVar <- tryCatch({YVar}, error = function(x) NULL)
 
   # Faceting shrink
   if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L) && length(FacetLevels) > 0L) {
@@ -2886,11 +2910,36 @@ Plot.Density <- function(dt = NULL,
     dt1 <- dt1[, .SD, .SDcols = c(YVar,GroupVar)]
   }
 
+  # Multiple YVars
+  if(length(YVar) > 1L) {
+    sqroots <- sqrt(length(YVar))
+    if(FacetCols == 1 && FacetRows == 1L) {
+      FacetCols <- max(ceiling(sqroots), 6)
+      FacetRows <- ceiling(sqroots)
+      if((FacetRows - 1L) * FacetCols == length(YVar)) {
+        FacetRows <- FacetRows - 1L
+      } else if(FacetRows * FacetCols < length(YVar)) {
+        while(FacetRows * FacetCols < length(YVar)) {
+          FacetRows <- FacetRows + 1L
+        }
+      }
+    }
+    XVar <- NULL
+    GroupVar <- NULL
+    dt1[, temp__ := "a"]
+    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "temp__", measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+    dt1[, temp__ := NULL]
+    GroupVar <- "Measures"
+    YVar <- "Values"
+  }
+
   # Transformation
   # "PercRank"  "Standardize"
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    for(ggss in YVars) {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = YVarTrans)$Data
+    }
   }
 
   # Create base plot object
@@ -3048,7 +3097,6 @@ Plot.Density <- function(dt = NULL,
     } else {
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
-
 
     return(p1)
   }
@@ -4244,9 +4292,9 @@ Plot.Box <- function(dt = NULL,
   return(NULL)
 }
 
-#' @title Plot.Density
+#' @title Plot.WordCloud
 #'
-#' @description Density plots, by groups, with transparent continuous plots
+#' @description WordCloud plots
 #'
 #' @family Standard Plots
 #'

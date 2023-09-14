@@ -2,7 +2,7 @@
 % Please edit documentation in R/PlotFunctions.R
 \name{Plot.WordCloud}
 \alias{Plot.WordCloud}
-\title{Plot.Density}
+\title{Plot.WordCloud}
 \usage{
 Plot.WordCloud(
   dt = NULL,
@@ -44,7 +44,7 @@ Plot.WordCloud(
 \item{Debug}{Debugging purposes}
 }
 \description{
-Density plots, by groups, with transparent continuous plots
+WordCloud plots
 }
 \seealso{
 Other Standard Plots: 
