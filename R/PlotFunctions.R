@@ -3648,7 +3648,7 @@ Plot.Box <- function(dt = NULL,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,
                      EchartsTheme = "macarons",
-                     TimeLine = TimeLine,
+                     TimeLine = FALSE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
                      TextColor =        "white",
@@ -3694,6 +3694,9 @@ Plot.Box <- function(dt = NULL,
   if(Debug) print("Plot.BoxPlot 1")
 
   # Cap number of records
+  if(length(YVar) > 0L) {
+    SampleSize <- SampleSize / length(YVar)
+  }
   if(dt[,.N] > SampleSize) {
     dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
   } else {
@@ -3715,6 +3718,17 @@ Plot.Box <- function(dt = NULL,
       YVar <- XVar
       XVar <- NULL
     }
+  }
+
+  # Multiple YVars
+  if(length(YVar) > 1L) {
+    XVar <- NULL
+    GroupVar <- NULL
+    dt1[, temp__ := "a"]
+    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "temp__", measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+    dt1[, temp__ := NULL]
+    XVar <- "Measures"
+    YVar <- "Values"
   }
 
   if(Debug) print("Box 6")

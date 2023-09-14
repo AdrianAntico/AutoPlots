@@ -22,7 +22,7 @@ Plot.Box(
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
-  TimeLine = TimeLine,
+  TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
   TextColor = "white",
