@@ -82,6 +82,9 @@ devtools::install_github("AdrianAntico/Rodeo", upgrade = FALSE, force = TRUE)
 devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
 ```
 
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot.PNG" align="center" width="800" />
+
+
 ![AreaPlot](https://github.com/AdrianAntico/AutoPlots/blob/master/Images/AreaPlot.PNG?raw=true)
 ![AutocorrelationPlot](https://github.com/AdrianAntico/AutoPlots/blob/master/Images/AutocorrelationPlot.PNG?raw=true)
 ![BarPlot](https://github.com/AdrianAntico/AutoPlots/blob/master/Images/BarPlot.PNG?raw=true)
@@ -116,7 +119,6 @@ devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE
 ![zz_ROC](https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_ROC.PNG?raw=true)
 ![zz_ShapleyImportance](https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_ShapleyImportance.PNG?raw=true)
 ![zz_VariableImportance](https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_VariableImportance.PNG?raw=true)
-
 
 
 ### Histogram
