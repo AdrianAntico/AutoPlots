@@ -66,6 +66,12 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 - Display size sampling (sampled right before plot building, not before data management)
 - Model evaluation plots available by grouping variables (or faceted)
 
+<details><summary>Plot Images</summary>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot.PNG" align="center" width="800" />
+
+</details>
+
 
 # Getting Started
 
