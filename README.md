@@ -82,6 +82,49 @@ devtools::install_github("AdrianAntico/Rodeo", upgrade = FALSE, force = TRUE)
 devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
 ```
 
+<details><summary>Plot Images</summary>
+<p>
+
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/AreaPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/AutocorrelationPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/BarPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/BarPlot3D.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/CopulaPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/CopulaPlot3D.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/CorrelogramPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/Density.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/DonutPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/Heatmap.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/Histogram.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/RiverPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/ParallelPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/PartialAutocorrelationPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/PiePlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/ProbabilityPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/RosetypePlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/ScatterPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/ScatterPlot3D.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/StepPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/StackedBarPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/WordCloud.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_CalibrationBox.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_CalibrationLine.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_ConfusionMatrix.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_Gains.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_Lift.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_PartialDependenceBarPlot.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_PartialDependenceLine.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_ResidualHistogram.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_ResidualScatter.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_ROC.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_ShapleyImportance.PNG?raw=true" align="center" width="800" />
+<img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/zz_VariableImportance.PNG?raw=true" align="center" width="800" />
+
+
+</details>
+
+
+
 ### Histogram
 
 ```r
