@@ -85,6 +85,7 @@ devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE
 <details><summary>Plot Images</summary>
 <p>
 
+src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/Images/AreaPlot.PNG" align="right" width="80" />
 <img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/AreaPlot.PNG?raw=true" align="center" width="800" />
 <img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/AutocorrelationPlot.PNG?raw=true" align="center" width="800" />
 <img src="https://github.com/AdrianAntico/AutoPlots/blob/master/Images/BarPlot.PNG?raw=true" align="center" width="800" />
