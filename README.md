@@ -66,9 +66,44 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 - Display size sampling (sampled right before plot building, not before data management)
 - Model evaluation plots available by grouping variables (or faceted)
 
-<details><summary>Plot Images</summary>
 
+### Plot Images
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AutocorrelationPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/BarPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/BarPlot3D.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/BoxPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CopulaPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CopulaPlot3D.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CorrelogramPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Density.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/DonutPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Heatmap.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Histogram.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/LinePlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ParallelPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/PartialAutocorrelationPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/PiePlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ProbabilityPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RiverPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RosetypePlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ScatterPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ScatterPlot3D.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/StackedBarPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/StepPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/WordCloud.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_CalibrationBox.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_CalibrationLine.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ConfusionMatrix.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_Gains.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_Lift.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_PartialDependenceBarPlot.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_PartialDependenceLine.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ResidualHistogram.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ResidualScatter.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ROC.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ShapleyImportance.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_VariableImportance.PNG" align="center" width="800" />
 
 </details>
 
