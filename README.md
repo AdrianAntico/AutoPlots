@@ -66,22 +66,6 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 - Display size sampling (sampled right before plot building, not before data management)
 - Model evaluation plots available by grouping variables (or faceted)
 
-### BoxPlot  |  Histogram  |  Density
-
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Distribution.PNG" align="center" width="800" />
-
-### Area  |  Steam  |  Pie
-
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Area_Steam_Pie.PNG" align="center" width="800" />
-
-### Bar3D  |  Stacked Bar  |  Heatmap
-
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Bar3D_StackBar_Heatmap.PNG" align="center" width="800" />
-
-### ScatterPlot  |  CopulaPlot  |  3D CopulaPlot
-
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Relationships.PNG" align="center" width="800" />
-
 
 # Getting Started
 
