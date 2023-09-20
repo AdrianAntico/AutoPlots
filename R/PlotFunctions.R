@@ -986,7 +986,7 @@ InvApply_Log <- function(x) {
 Test_LogPlus1 <- function(x) {
   stopifnot(is.numeric(x))
   xx <- min(x, na.rm = TRUE)
-  if(xx <= 0) trans_data <- log(x+xx+0.01) else trans_data <- log(x)
+  if(xx <= 0) trans_data <- log(x+abs(xx)+1) else trans_data <- log(x)
   mu <- mean(trans_data, na.rm = TRUE)
   sigma <- sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
@@ -1142,7 +1142,7 @@ AutoTransformationCreate <- function(data,
 
     # Update Methods
     if(MinVal <= 0) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("boxcox","log","logit"))]
-    if(MinVal < 0) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("logplus1","sqrt","asin"))]
+    if(MinVal < 0) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("sqrt","asin"))]
     if(MaxVal > 1) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("asin"))]
     if(MaxVal >= 1) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("logit"))]
 
@@ -6952,7 +6952,9 @@ Plot.ACF <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    print(dt1)
+    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    print(dt1)
   }
 
   if(Debug) print("Plot.ACH 3")
