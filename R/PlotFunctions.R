@@ -1414,7 +1414,7 @@ Plot.StandardPlots <- function(dt = NULL,
     return(p1)
   }
 
-  # Donut Plot
+  # Rosetype Plot
   if(tolower(PlotType) == 'rosetypeplot') {
     p1 <- AutoPlots:::Plot.Rosetype(
       dt = dt,
