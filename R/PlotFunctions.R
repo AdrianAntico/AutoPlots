@@ -2690,7 +2690,7 @@ Plot.Histogram <- function(dt = NULL,
   # "PercRank"  "Standardize"
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
-    for(ggss in YVars) {
+    for(ggss in YVar) {
       dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = YVarTrans)$Data}, error = function(x) dt1)
     }
   }
@@ -2937,7 +2937,7 @@ Plot.Density <- function(dt = NULL,
   # "PercRank"  "Standardize"
   # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
   if(YVarTrans != "Identity") {
-    for(ggss in YVars) {
+    for(ggss in YVar) {
       dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = YVarTrans)$Data
     }
   }
@@ -3789,7 +3789,7 @@ Plot.Box <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    for(ggss in YVars) {
+    for(ggss in YVar) {
       dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = YVarTrans)$Data
     }
   }
