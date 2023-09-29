@@ -6952,9 +6952,7 @@ Plot.ACF <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    print(dt1)
     dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-    print(dt1)
   }
 
   if(Debug) print("Plot.ACH 3")
