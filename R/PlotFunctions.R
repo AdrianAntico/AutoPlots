@@ -6436,7 +6436,7 @@ Plot.Bar <- function(dt = NULL,
       if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
         YVarTrans <- XVarTrans
       }
-      for(asdfasdfasdf in 1:10) print(YVarTrans)
+
       if(YVarTrans != "Identity") {
         temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
       }
