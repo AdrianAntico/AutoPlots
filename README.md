@@ -66,6 +66,20 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 - Display size sampling (sampled right before plot building, not before data management)
 - Model evaluation plots available by grouping variables (or faceted)
 
+# Getting Started
+
+### Installation
+
+```r
+install.packages("bit64")
+install.packages("data.table")
+install.packages("echarts4r")
+install.packages("dplyr")
+install.packages("quanteda")
+install.packages("quanteda.textstats")
+devtools::install_github("AdrianAntico/Rodeo", upgrade = FALSE, force = TRUE)
+devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
+```
 
 ### Plot Images
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot.PNG" align="center" width="800" />
@@ -107,21 +121,6 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 </details>
 
-
-# Getting Started
-
-### Installation
-
-```r
-install.packages("bit64")
-install.packages("data.table")
-install.packages("echarts4r")
-install.packages("dplyr")
-install.packages("quanteda")
-install.packages("quanteda.textstats")
-devtools::install_github("AdrianAntico/Rodeo", upgrade = FALSE, force = TRUE)
-devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
-```
 
 ### Histogram
 
