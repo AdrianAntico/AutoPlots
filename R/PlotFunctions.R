@@ -3229,18 +3229,24 @@ Plot.Pie <- function(dt = NULL,
         temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
       }
     } else {
+      if(Debug) print("BarPlot 2.bb")
       temp <- data.table::copy(dt)
+      if(Debug) print("BarPlot 2.bbb")
       numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
       byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
     }
 
-    yvar <- temp[[YVar]]
-    xvar <- temp[[XVar]]
+    # yvar <- temp[[YVar]]
+    # xvar <- temp[[XVar]]
+
+    if(Debug) print("BarPlot 2.bbbb")
 
     # Transformation
     if(YVarTrans != "Identity") {
-      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+      temp <- AutoPlots:::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
     }
+
+
 
     p1 <- echarts4r::e_charts_(
       temp,
@@ -6393,7 +6399,11 @@ Plot.Bar <- function(dt = NULL,
 
     } else {
 
-      if(Debug) print("BarPlot 2.b")
+      if(Debug) {
+        print("BarPlot 2.b")
+        print(PreAgg)
+      }
+
       if(!PreAgg) {
         if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
           numvars <- unique(c(numvars, YVar))
@@ -6428,27 +6438,37 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
+        if(Debug) print("BarPlot 2.bb")
         numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
         byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
       }
+
+      if(Debug) print("BarPlot 2.bbb")
 
       # Transformation
       if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
         YVarTrans <- XVarTrans
       }
 
+      if(Debug) print("BarPlot 2.bbbb")
+
       if(YVarTrans != "Identity") {
         temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
       }
 
-      yvar <- temp[[YVar]]
-      xvar <- temp[[XVar]]
+      if(Debug) print("BarPlot 2.bbbbb")
+
+      # yvar <- temp[[YVar]]
+      # xvar <- temp[[XVar]]
 
       # Plot
       if(XVar == "Importance" && YVar == "Variable") {
         XVar <- "Variable"
         YVar <- "Importance"
       }
+
+      if(Debug) print("BarPlot 2.bbbbbb")
+
       p1 <- echarts4r::e_charts_(
         temp,
         x = XVar,
@@ -6456,6 +6476,9 @@ Plot.Bar <- function(dt = NULL,
         darkMode = TRUE,
         width = Width,
         height = Height)
+
+      if(Debug) print("BarPlot 2.c")
+
       if(ShowLabels) {
         if(length(LabelValues) > 0L && PreAgg) {
           p1 <- echarts4r::e_charts_(
@@ -6478,18 +6501,22 @@ Plot.Bar <- function(dt = NULL,
         }
 
       } else {
+        if(Debug) print("BarPlot 2.cc")
         p1 <- echarts4r::e_bar_(e = p1, YVar)
       }
       if(FacetRows == 1L && FacetCols == 1L) {
+        if(Debug) print("BarPlot 2.ccc")
         if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
         if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
       }
+      if(Debug) print("BarPlot 2.cccc")
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
       p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
+      if(Debug) print("BarPlot 2.d")
       if(length(Title.XAxis) == 0L) {
         p1 <- echarts4r::e_axis_(
           e = p1,
@@ -6524,6 +6551,7 @@ Plot.Bar <- function(dt = NULL,
             grid = list(containLabel = ContainLabel)))
       }
 
+      if(Debug) print("BarPlot 2.e")
       if(length(Title.YAxis) == 0L) {
         p1 <- echarts4r::e_axis_(
           e = p1,
@@ -6558,6 +6586,7 @@ Plot.Bar <- function(dt = NULL,
             grid = list(containLabel = ContainLabel)))
       }
 
+      if(Debug) print("BarPlot 2.f")
       p1 <- echarts4r::e_brush(e = p1)
       p1 <- echarts4r::e_title(
         p1, Title,
@@ -6571,13 +6600,14 @@ Plot.Bar <- function(dt = NULL,
           textShadowBlur = title.textShadowBlur,
           textShadowOffsetY = title.textShadowOffsetY,
           textShadowOffsetX = title.textShadowOffsetX))
+      if(Debug) print("BarPlot 2.g")
       if(FacetRows > 1L || FacetCols > 1L) {
         p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       } else {
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
-
+      if(Debug) print("BarPlot 2.h")
       return(p1)
     }
 
@@ -11564,16 +11594,22 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 
     for(i in seq_along(XVar)) {
       if(class(dt[[XVar[i]]][1L]) %in% c("numeric","integer")) {
+        if(Debug) print(paste0('here ', XVar[i]))
         dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 3), 1L)]
       } else {
+        if(Debug) print(paste0('there ', XVar[i]))
         dt1[, eval(XVar[i]) := as.character(get(XVar[i]))]
       }
     }
 
+    if(Debug) print("here 2")
     dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(eval(XVar))]
+    if(Debug) print("here 3")
     dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
+    if(Debug) print("here 4")
     ZVar <- "Target - Predicted"
     if(length(XVar) > 1L) {
+      if(Debug) print("here 5.1")
       YVar <- XVar[2L]
       XVar <- XVar[1L]
       data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
@@ -11607,8 +11643,23 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       return(p1)
 
     } else {
+      if(Debug) print("here 5.2")
       data.table::setorderv(x = dt1, cols = XVar,1L)
+      if(Debug) print("here 5.3")
       dt1 <- dt1[!is.na(get(ZVar))]
+      if(Debug) print("here 5.4")
+      # data.table::fwrite(dt1, file = "C:/Users/Bizon/Documents/GitHub/rappwd/dt1.csv")
+      # dt1 <- data.table::fread(file = "C:/Users/Bizon/Documents/GitHub/rappwd/dt1.csv")
+      # EchartsTheme <- "macarons"
+      # ShowLabels <- FALSE
+      # Height = "200px"
+      # Width = "400px"
+      # XVar = "GroupVariable"
+      # ZVar = "Target - Predicted"
+      print(XVar)
+      print(ZVar)
+      dt1 <- dt1[, .SD, .SDcols = c(XVar, ZVar)]
+      print(dt1)
       p1 <- AutoPlots::Plot.Bar(
         dt = dt1,
         PreAgg = TRUE,
@@ -11640,7 +11691,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         title.textShadowOffsetX = -1,
         xaxis.fontSize = 14,
         yaxis.fontSize = 14,
-        Debug = FALSE)
+        Debug = Debug)
       return(p1)
     }
 
