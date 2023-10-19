@@ -11656,10 +11656,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       # Width = "400px"
       # XVar = "GroupVariable"
       # ZVar = "Target - Predicted"
-      print(XVar)
-      print(ZVar)
       dt1 <- dt1[, .SD, .SDcols = c(XVar, ZVar)]
-      print(dt1)
       p1 <- AutoPlots::Plot.Bar(
         dt = dt1,
         PreAgg = TRUE,
