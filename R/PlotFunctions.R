@@ -132,6 +132,32 @@ DateColNames <- function(data) {
   if(length(x) > 0L) return(x) else return(NULL)
 }
 
+#' # text & logical with NULL default
+#' @noRd
+CEP <- function(x) if(any(missing(x))) 'NULL' else if(!exists('x')) 'NULL' else if(is.null(x)) "NULL" else if(identical(x, character(0))) "NULL" else if(identical(x, numeric(0))) "NULL" else if(identical(x, integer(0))) "NULL" else if(identical(x, logical(0))) "NULL" else if(any(x == "")) "NULL" else if(any(is.na(x))) "NULL" else if(any(x == 'None')) "NULL" else if(is.numeric(x)) x else if(length(x) > 1) paste0("c(", noquote(paste0("'", x, "'", collapse = ',')), ")") else paste0("'", x, "'")
+
+#' # number and logical with FALSE / TRUE default
+#' @noRd
+CEPP <- function(x, Default = NULL, Type = 'character') if(missing(x)) 'NULL' else if(!exists('x')) 'NULL' else if(length(x) == 0) 'NULL' else if(any(is.na(x))) 'NULL' else if(all(x == "")) 'NULL' else if(Type == 'numeric') Quantico:::NumNull(x) else if(Type == 'character') Quantico:::CharNull(x)
+
+#' @title ExpandText
+#'
+#' @description This function is for pasting character vector arguments into their respective parameter slots for code printing (and command line vector argument passing)
+#'
+#'
+#' @noRd
+ExpandText <- function(x) {
+  if(length(x) > 0L) {
+    if(is.character(x) || is.factor(x) || lubridate::is.Date(x) || lubridate::is.POSIXct(x)) {
+      return(paste0("c('", paste0(x, collapse = "','"), "')"))
+    } else if(is.numeric(x) || is.logical(x)) {
+      return(paste0("c(", paste0(x, collapse = ","), ")"))
+    }
+  } else {
+    return('NULL')
+  }
+}
+
 #' @title FakeDataGenerator
 #'
 #' @description Create fake data for examples
@@ -1381,7 +1407,34 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Pie(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Donut Plot
@@ -1411,7 +1464,34 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Donut(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Rosetype Plot
@@ -1441,7 +1521,34 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Rosetype(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Box Plot
@@ -1470,7 +1577,34 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Box(", "\n  ",
+      "dt = data1", ",\n  ",
+      "SampleSize = ", Quantico:::CEPP(SampleSize), ",\n  ",
+      "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Histogram Plot
@@ -1500,7 +1634,35 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Histogram(", "\n  ",
+      "dt = data1", ",\n  ",
+      "SampleSize = ", Quantico:::CEPP(SampleSize), ",\n  ",
+      "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "NumberBins = ", AutoPlots:::CEPP(NumberBins), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Density Plot
@@ -1529,7 +1691,34 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Density(", "\n  ",
+      "dt = data1", ",\n  ",
+      "SampleSize = ", Quantico:::CEPP(SampleSize), ",\n  ",
+      "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::CEP(if(length(YVar) > 0L) YVar else XVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Line Plot
@@ -1561,7 +1750,37 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Line(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar),",\n  ",
+      "DualYVar = ", AutoPlots:::ExpandText(DualYVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "DualYVarTrans = ", AutoPlots:::CEP(DualYVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Area Plot
@@ -1593,7 +1812,37 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Area(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar),",\n  ",
+      "DualYVar = ", AutoPlots:::ExpandText(DualYVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "DualYVarTrans = ", AutoPlots:::CEP(DualYVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Step Plot
@@ -1625,7 +1874,37 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Step(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar),",\n  ",
+      "DualYVar = ", AutoPlots:::ExpandText(DualYVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "DualYVarTrans = ", AutoPlots:::CEP(DualYVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # River Plot
@@ -1656,7 +1935,35 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.River(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar),",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Polar Plot
@@ -1685,32 +1992,34 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
 
-    # dt = dt
-    # PreAgg = PreAgg
-    # AggMethod = AggMethod
-    # XVar = XVar
-    # YVar = YVar
-    # YVarTrans = YVarTrans
-    # XVarTrans = XVarTrans
-    # FacetRows = FacetRows
-    # FacetCols = FacetCols
-    # FacetLevels = FacetLevels
-    # Width = "1100px"
-    # Height = "600px"
-    # Title = Title
-    # ShowLabels = ShowLabels
-    # Title.YAxis = Title.YAxis
-    # Title.XAxis = Title.XAxis
-    # EchartsTheme = EchartsTheme
-    # TimeLine = TimeLine
-    # X_Scroll = TRUE
-    # Y_Scroll = TRUE
-    # TextColor = TextColor
-    # title.fontSize = Title.FontSize
-    # Debug = Debug
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Polar(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
+    return(list(Plot = p1, Code = Code))
   }
 
   # Bar Plot
@@ -1740,7 +2049,35 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Bar(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Stacked Bar Plot
@@ -1770,7 +2107,35 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.StackedBar(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # 3D Bar Plot
@@ -1803,7 +2168,39 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.BarPlot3D(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "ZVar = ", AutoPlots:::CEP(ZVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "ZVarTrans = ", AutoPlots:::CEP(ZVarTrans), ",\n  ",
+      "NumberBins = ", AutoPlots:::CEPP(21), ",\n  ",
+      "NumLevels_X = ", AutoPlots:::CEPP(NumLevels_Y), ",\n  ",
+      "NumLevels_Y = ", AutoPlots:::CEPP(NumLevels_X), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Heat Map
@@ -1833,7 +2230,39 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.HeatMap(", "\n  ",
+      "dt = data1", ",\n  ",
+      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "ZVar = ", AutoPlots:::CEP(ZVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "ZVarTrans = ", AutoPlots:::CEP(ZVarTrans), ",\n  ",
+      "NumberBins = ", AutoPlots:::CEPP(21), ",\n  ",
+      "NumLevels_X = ", AutoPlots:::CEPP(NumLevels_Y), ",\n  ",
+      "NumLevels_Y = ", AutoPlots:::CEPP(NumLevels_X), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Correlation Matrix Plot
@@ -1857,7 +2286,29 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.CorrMatrix(", "\n  ",
+      "dt = data1", ",\n  ",
+      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
+      "CorrVars = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "Method = ", AutoPlots:::CEP(spearman), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Scatter Plot
@@ -1887,7 +2338,34 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Scatter(", "\n  ",
+      "dt = data1", ",\n  ",
+      "SampleSize = ", AutoPlots:::CEP(SampleSize), ",\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Copula Plot
@@ -1917,7 +2395,34 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Copula(", "\n  ",
+      "dt = data1", ",\n  ",
+      "SampleSize = ", AutoPlots:::CEP(SampleSize), ",\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Scatter3D Plot
@@ -1946,7 +2451,36 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Scatter3D(", "\n  ",
+      "dt = data1", ",\n  ",
+      "SampleSize = ", AutoPlots:::CEP(SampleSize), ",\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::CEP(YVar), ",\n  ",
+      "ZVar = ", AutoPlots:::CEP(ZVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "ZVarTrans = ", AutoPlots:::CEP(ZVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 
   # Copula Plot
@@ -1975,7 +2509,36 @@ Plot.StandardPlots <- function(dt = NULL,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
-    return(p1)
+
+    Code <- paste0(
+      "\n\n",
+      "p1 <- AutoPlots::Plot.Copula3D(", "\n  ",
+      "dt = data1", ",\n  ",
+      "SampleSize = ", AutoPlots:::CEP(SampleSize), ",\n  ",
+      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
+      "YVar = ", AutoPlots:::CEP(YVar), ",\n  ",
+      "ZVar = ", AutoPlots:::CEP(ZVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
+      "ZVarTrans = ", AutoPlots:::CEP(ZVarTrans), ",\n  ",
+      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
+      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
+      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
+      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
+      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
+      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
+      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
+      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    return(list(Plot = p1, Code = Code))
   }
 }
 
@@ -4822,7 +5385,7 @@ Plot.Line <- function(dt = NULL,
   if(!PreAgg) {
 
     # Define Aggregation function
-    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
+    if(Debug) print("Line # Define Aggregation function")
     aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
 
     # Aggregate data
@@ -4849,7 +5412,10 @@ Plot.Line <- function(dt = NULL,
     # Prepare Data
     if(Debug) print("Plot.Line() Build 1")
     gv <- GroupVar[1L]
-    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+    #print(dt1)
+    #print(gv)
+    #print(XVar)
+    #if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
 
     cxv <- class(dt1[[XVar]])[1L]
     if(cxv %in% "IDate") {
