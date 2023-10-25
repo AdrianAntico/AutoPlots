@@ -138,7 +138,7 @@ CEP <- function(x) if(any(missing(x))) 'NULL' else if(!exists('x')) 'NULL' else 
 
 #' # number and logical with FALSE / TRUE default
 #' @noRd
-CEPP <- function(x, Default = NULL, Type = 'character') if(missing(x)) 'NULL' else if(!exists('x')) 'NULL' else if(length(x) == 0) 'NULL' else if(any(is.na(x))) 'NULL' else if(all(x == "")) 'NULL' else if(Type == 'numeric') Quantico:::NumNull(x) else if(Type == 'character') Quantico:::CharNull(x)
+CEPP <- function(x, Default = NULL, Type = 'character') if(missing(x)) 'NULL' else if(!exists('x')) 'NULL' else if(length(x) == 0) 'NULL' else if(any(is.na(x))) 'NULL' else if(all(x == "")) 'NULL' else if(Type == 'numeric') AutoPlots:::NumNull(x) else if(Type == 'character') AutoPlots:::CharNull(x)
 
 #' @title ExpandText
 #'
@@ -155,6 +155,56 @@ ExpandText <- function(x) {
     }
   } else {
     return('NULL')
+  }
+}
+
+#' @title CharNull
+#'
+#' @param x Value
+#'
+#' @noRd
+CharNull <- function(x, Char = FALSE) {
+
+  if(missing(x)) {
+    print('CharNull: missing x')
+    return(NULL)
+  }
+
+  if(!exists('x')) {
+    print('CharNull: x does not exist')
+    return(NULL)
+  }
+
+  if(length(x) == 0) {
+    print('CharNull: length(x) == 0')
+    return(NULL)
+  }
+
+  if(all(is.na(suppressWarnings(as.character(x))))) {
+
+    return(NULL)
+
+  } else if(any(is.na(suppressWarnings(as.character(x)))) && length(x) > 1) {
+
+    x <- x[!is.na(x)]
+    x <- suppressWarnings(as.character(x))
+    return(x)
+
+  } else if(any(is.na(suppressWarnings(as.character(x)))) && length(x) == 1) {
+
+    return(NULL)
+
+  } else {
+
+    x <- suppressWarnings(as.character(x))
+    return(x)
+
+  }
+
+  if(!Char) {
+    return(NULL)
+  } else {
+    return("NULL")
   }
 }
 
@@ -1469,7 +1519,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Donut(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
@@ -1526,7 +1576,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Rosetype(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
@@ -1582,7 +1632,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Box(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", Quantico:::CEPP(SampleSize), ",\n  ",
+      "SampleSize = ", AutoPlots:::CEPP(SampleSize), ",\n  ",
       "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
       "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
@@ -1639,7 +1689,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Histogram(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", Quantico:::CEPP(SampleSize), ",\n  ",
+      "SampleSize = ", AutoPlots:::CEPP(SampleSize), ",\n  ",
       "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
       "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
@@ -1696,7 +1746,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Density(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", Quantico:::CEPP(SampleSize), ",\n  ",
+      "SampleSize = ", AutoPlots:::CEPP(SampleSize), ",\n  ",
       "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
       "YVar = ", AutoPlots:::CEP(if(length(YVar) > 0L) YVar else XVar), ",\n  ",
       "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
@@ -1755,7 +1805,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Line(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
@@ -1817,7 +1867,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Area(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
@@ -1879,7 +1929,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Step(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
@@ -1940,7 +1990,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.River(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
@@ -1997,7 +2047,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Polar(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
@@ -2054,11 +2104,11 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Bar(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
       "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
       "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
       "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
@@ -2076,6 +2126,8 @@ Plot.StandardPlots <- function(dt = NULL,
       "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+
+    print("AutoP 2")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -2112,11 +2164,11 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.StackedBar(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar = if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
       "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
       "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
       "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
@@ -2173,7 +2225,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.BarPlot3D(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
@@ -2235,7 +2287,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.HeatMap(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", Quantico:::CEP(AggMethod), ",\n  ",
+      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
       "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
       "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
       "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
