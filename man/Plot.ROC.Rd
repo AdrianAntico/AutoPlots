@@ -23,6 +23,7 @@ Plot.ROC(
   Title.YAxis = "True Positive Rate",
   Title.XAxis = "1 - False Positive Rate",
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,

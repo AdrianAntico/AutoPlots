@@ -22,6 +22,7 @@ Plots.ModelEvaluation(
   FacetLevels = NULL,
   NumLevels_Y = 75,
   NumLevels_X = 40,
+  MouseScroll = FALSE,
   Height = NULL,
   Width = NULL,
   Title = NULL,

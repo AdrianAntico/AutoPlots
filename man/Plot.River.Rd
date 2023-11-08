@@ -23,6 +23,7 @@ Plot.River(
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   X_Scroll = FALSE,
   Y_Scroll = FALSE,
   TimeLine = TRUE,

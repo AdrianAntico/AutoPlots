@@ -18,6 +18,7 @@ Plot.Residuals.Scatter(
   FacetLevels = NULL,
   Height = NULL,
   Width = NULL,
+  MouseScroll = TRUE,
   Title = "Residual Scatterplot",
   ShowLabels = FALSE,
   Title.YAxis = "Target - Predicted",

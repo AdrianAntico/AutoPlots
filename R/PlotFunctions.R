@@ -1410,6 +1410,7 @@ Plot.StandardPlots <- function(dt = NULL,
                                Height = NULL,
                                Width = NULL,
                                EchartsTheme = "dark-blue",
+                               MouseScroll = FALSE,
                                TimeLine = FALSE,
                                Title = NULL,
                                ShowLabels = FALSE,
@@ -1617,6 +1618,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -1674,6 +1676,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -1734,6 +1737,7 @@ Plot.StandardPlots <- function(dt = NULL,
       YVar = if(length(YVar) > 0L) YVar else XVar,
       Width = Width,
       Height = Height,
+      MouseScroll = MouseScroll,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
       EchartsTheme = EchartsTheme,
@@ -1790,6 +1794,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -1852,6 +1857,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -1914,6 +1920,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -1979,6 +1986,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
+      MouseScroll = MouseScroll,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
       ShowSymbol = FALSE,
@@ -2090,6 +2098,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Height = Height,
       Title = Title,
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
@@ -2149,6 +2158,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -2211,6 +2221,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       EchartsTheme = EchartsTheme,
+      MouseScroll = MouseScroll,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
       Title = Title,
@@ -2273,6 +2284,7 @@ Plot.StandardPlots <- function(dt = NULL,
       NumberBins = 21,
       NumLevels_X = NumLevels_Y,
       NumLevels_Y = NumLevels_X,
+      MouseScroll = MouseScroll,
       Width = Width,
       Height = Height,
       EchartsTheme = EchartsTheme,
@@ -2329,6 +2341,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       EchartsTheme = EchartsTheme,
+      MouseScroll = MouseScroll,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
       Method = "spearman",
@@ -2380,6 +2393,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -2437,6 +2451,7 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       EchartsTheme = EchartsTheme,
+      MouseScroll = MouseScroll,
       TimeLine = TimeLine,
       X_Scroll = TRUE,
       Y_Scroll = TRUE,
@@ -2535,7 +2550,7 @@ Plot.StandardPlots <- function(dt = NULL,
     return(list(Plot = p1, Code = Code))
   }
 
-  # Copula Plot
+  # Copula3D Plot
   if(tolower(PlotType) %in% c('copulaplot3d','copulaplotd')) {
     p1 <- AutoPlots:::Plot.Copula3D(
       dt = dt,
@@ -2642,6 +2657,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
                                   FacetLevels = NULL,
                                   NumLevels_Y = 75,
                                   NumLevels_X = 40,
+                                  MouseScroll = FALSE,
                                   Height = NULL,
                                   Width = NULL,
                                   Title = NULL,
@@ -2682,6 +2698,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       Height = Height,
       Width = Width,
       NumberBins = NumberBins,
+      MouseScroll = MouseScroll,
       Title = Title,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
@@ -2712,6 +2729,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       Width = Width,
       Title = Title,
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
@@ -2740,6 +2758,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       Height = Height,
       Width = Width,
       AggMethod = AggMethod,
+      MouseScroll = MouseScroll,
       NumberBins = 21,
       Title = Title,
       ShowLabels = ShowLabels,
@@ -2772,6 +2791,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       NumberBins = 21,
       Title = Title,
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
       SampleSize = SampleSize,
@@ -2799,6 +2819,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       Width = Width,
       Title = Title,
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Title.YAxis = "True Positive Rate",
       Title.XAxis = "1 - False Positive Rate",
       EchartsTheme = EchartsTheme,
@@ -2827,6 +2848,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       ZVarTrans = ZVarTrans,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
+      MouseScroll = MouseScroll,
       NumberBins = 20,
       Title = Title,
       ShowLabels = ShowLabels,
@@ -2861,6 +2883,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       NumberBins = 20,
       Title = Title,
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Title.YAxis = "Lift",
       Title.XAxis = "% Positive Classified",
       EchartsTheme = EchartsTheme,
@@ -2941,6 +2964,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
       PreAgg = FALSE,
@@ -2976,6 +3000,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       AggMethod = 'mean',
       NumberBins = 21,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -3009,6 +3034,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
       Width = Width,
       NumberBins = 21,
       Title = Title,
+      MouseScroll = MouseScroll,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
@@ -3225,6 +3251,7 @@ Plot.Histogram <- function(dt = NULL,
                            Title.YAxis = NULL,
                            Title.XAxis = NULL,
                            EchartsTheme = "macarons",
+                           MouseScroll = TRUE,
                            TimeLine = FALSE,
                            X_Scroll = TRUE,
                            Y_Scroll = TRUE,
@@ -3347,6 +3374,7 @@ Plot.Histogram <- function(dt = NULL,
       Title.YAxis = "Counts",
       Title.XAxis = YVar,
       EchartsTheme = EchartsTheme,
+      MouseScroll = MouseScroll,
       TimeLine = TimeLine,
       X_Scroll = X_Scroll,
       Y_Scroll = Y_Scroll,
@@ -3373,6 +3401,7 @@ Plot.Histogram <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = 'Histogram Plot',
+      MouseScroll = MouseScroll,
       Title.YAxis = "Counts",
       Title.XAxis = YVar,
       EchartsTheme = EchartsTheme,
@@ -3389,34 +3418,6 @@ Plot.Histogram <- function(dt = NULL,
       xaxis.fontSize = xaxis.fontSize,
       yaxis.fontSize = yaxis.fontSize,
       Debug = Debug)
-
-    dt = dt1
-    PreAgg = TRUE
-    XVar = "Buckets"
-    YVar = "N"
-    GroupVar = GroupVar
-    FacetRows = FacetRows
-    FacetCols = FacetCols
-    FacetLevels = FacetLevels
-    Height = Height
-    Width = Width
-    Title = 'Histogram Plot'
-    Title.YAxis = "Counts"
-    Title.XAxis = YVar
-    EchartsTheme = EchartsTheme
-    TimeLine = TimeLine
-    X_Scroll = X_Scroll
-    Y_Scroll = Y_Scroll
-    TextColor = TextColor
-    title.fontSize = title.fontSize
-    title.fontWeight = title.fontWeight
-    title.textShadowColor = title.textShadowColor
-    title.textShadowBlur = title.textShadowBlur
-    title.textShadowOffsetY = title.textShadowOffsetY
-    title.textShadowOffsetX = title.textShadowOffsetX
-    xaxis.fontSize = xaxis.fontSize
-    yaxis.fontSize = yaxis.fontSize
-    Debug = Debug
   }
   return(p1)
 }
@@ -3468,6 +3469,7 @@ Plot.Density <- function(dt = NULL,
                          Title.YAxis = NULL,
                          Title.XAxis = NULL,
                          EchartsTheme = "macarons",
+                         MouseScroll = TRUE,
                          TimeLine = FALSE,
                          X_Scroll = TRUE,
                          Y_Scroll = TRUE,
@@ -3587,7 +3589,12 @@ Plot.Density <- function(dt = NULL,
         y_index = 1)
     }
 
-    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    }
+
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
@@ -3650,8 +3657,11 @@ Plot.Density <- function(dt = NULL,
 
     p1 <- echarts4r::e_density_(e = p1, YVar, areaStyle = list(opacity = .4), smooth = TRUE, y_index = 1)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -4317,6 +4327,7 @@ Plot.Box <- function(dt = NULL,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,
                      EchartsTheme = "macarons",
+                     MouseScroll = TRUE,
                      TimeLine = FALSE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
@@ -4452,8 +4463,11 @@ Plot.Box <- function(dt = NULL,
 
     p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
 
     if(Debug) print("Box 13")
@@ -4580,8 +4594,11 @@ Plot.Box <- function(dt = NULL,
 
     p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -4700,8 +4717,11 @@ Plot.Box <- function(dt = NULL,
     }
     p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -4815,8 +4835,11 @@ Plot.Box <- function(dt = NULL,
     }
     p1 <- echarts4r::e_visual_map_(e = p1, XVar, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -5359,6 +5382,7 @@ Plot.Line <- function(dt = NULL,
                       Title.YAxis = NULL,
                       Title.XAxis = NULL,
                       EchartsTheme = "macarons",
+                      MouseScroll = TRUE,
                       X_Scroll = FALSE,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
@@ -5493,9 +5517,11 @@ Plot.Line <- function(dt = NULL,
 
     if(Debug) print("Plot.Line() Build Echarts 4 1")
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(Debug) print("Plot.Line() Build Echarts 4 2")
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     if(Debug) print("Plot.Line() Build Echarts 5")
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -5634,8 +5660,11 @@ Plot.Line <- function(dt = NULL,
 
     # Finalize Plot Build
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -5785,6 +5814,7 @@ Plot.Area <- function(dt = NULL,
                       Title.YAxis = NULL,
                       Title.XAxis = NULL,
                       EchartsTheme = "macarons",
+                      MouseScroll = TRUE,
                       X_Scroll = FALSE,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
@@ -5920,8 +5950,11 @@ Plot.Area <- function(dt = NULL,
       p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
     }
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6054,8 +6087,11 @@ Plot.Area <- function(dt = NULL,
 
     # Finalize Plot Build
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6202,6 +6238,7 @@ Plot.Step <- function(dt = NULL,
                       Title.YAxis = NULL,
                       Title.XAxis = NULL,
                       EchartsTheme = "macarons",
+                      MouseScroll = TRUE,
                       X_Scroll = FALSE,
                       Y_Scroll = FALSE,
                       TimeLine = TRUE,
@@ -6335,8 +6372,11 @@ Plot.Step <- function(dt = NULL,
       p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol)
     }
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6469,8 +6509,11 @@ Plot.Step <- function(dt = NULL,
 
     # Finalize Plot Build
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6620,6 +6663,7 @@ Plot.River <- function(dt = NULL,
                        Title.YAxis = NULL,
                        Title.XAxis = NULL,
                        EchartsTheme = "macarons",
+                       MouseScroll = TRUE,
                        X_Scroll = FALSE,
                        Y_Scroll = FALSE,
                        TimeLine = TRUE,
@@ -6718,8 +6762,11 @@ Plot.River <- function(dt = NULL,
 
   # Finalize Plot Build
   if(FacetRows == 1L && FacetCols == 1L) {
-    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    }
   }
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6795,6 +6842,7 @@ Plot.Bar <- function(dt = NULL,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,
                      EchartsTheme = "macarons",
+                     MouseScroll = TRUE,
                      TimeLine = TRUE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
@@ -6918,8 +6966,11 @@ Plot.Bar <- function(dt = NULL,
       }
 
       if(FacetRows == 1L && FacetCols == 1L) {
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+        if(MouseScroll) {
+          p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+        } else {
+          p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        }
       }
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -7124,8 +7175,11 @@ Plot.Bar <- function(dt = NULL,
       }
       if(FacetRows == 1L && FacetCols == 1L) {
         if(Debug) print("BarPlot 2.ccc")
-        if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+        if(MouseScroll) {
+          p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+        } else {
+          p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        }
       }
       if(Debug) print("BarPlot 2.cccc")
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -7276,8 +7330,11 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_bar_(e = p1, YVar)
       }
       if(FacetRows == 1L && FacetCols == 1L) {
-        if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+        if(MouseScroll) {
+          p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+        } else {
+          p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        }
       }
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -7428,8 +7485,11 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_bar_(e = p1, XVar)
       }
       if(FacetRows == 1L && FacetCols == 1L) {
-        if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-        if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+        if(MouseScroll) {
+          p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+        } else {
+          p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        }
       }
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -7985,6 +8045,7 @@ Plot.StackedBar <- function(dt = NULL,
                             Title.XAxis = NULL,
                             ShowLabels = FALSE,
                             EchartsTheme = "macarons",
+                            MouseScroll = TRUE,
                             TimeLine = TRUE,
                             X_Scroll = TRUE,
                             Y_Scroll = TRUE,
@@ -8119,8 +8180,11 @@ Plot.StackedBar <- function(dt = NULL,
         stack = XVar)
     }
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -8274,6 +8338,7 @@ Plot.BarPlot3D <- function(dt,
                            Title.YAxis = NULL,
                            Title.XAxis = NULL,
                            EchartsTheme = "dark",
+                           MouseScroll = TRUE,
                            X_Scroll = TRUE,
                            Y_Scroll = TRUE,
                            TextColor =        "white",
@@ -8367,8 +8432,11 @@ Plot.BarPlot3D <- function(dt,
     p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
@@ -8434,8 +8502,11 @@ Plot.BarPlot3D <- function(dt,
 
     p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -8573,8 +8644,11 @@ Plot.BarPlot3D <- function(dt,
     }
     p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -8701,8 +8775,11 @@ Plot.BarPlot3D <- function(dt,
     p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     # They do nothing for this plot type
-    # p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))  # They do nothing for this plot type
-    # p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -8844,6 +8921,7 @@ Plot.HeatMap <- function(dt,
                          Title.YAxis = NULL,
                          Title.XAxis = NULL,
                          EchartsTheme = "dark",
+                         MouseScroll = TRUE,
                          X_Scroll = TRUE,
                          Y_Scroll = TRUE,
                          TextColor =        "white",
@@ -8922,6 +9000,12 @@ Plot.HeatMap <- function(dt,
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
     } else {
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
     }
 
     p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
@@ -9060,8 +9144,11 @@ Plot.HeatMap <- function(dt,
 
     p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -9197,8 +9284,11 @@ Plot.HeatMap <- function(dt,
 
     p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -9363,8 +9453,11 @@ Plot.HeatMap <- function(dt,
 
     p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
-    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -9508,6 +9601,7 @@ Plot.CorrMatrix <- function(dt = NULL,
                             Title.YAxis = NULL,
                             Title.XAxis = NULL,
                             EchartsTheme = "macarons",
+                            MouseScroll = TRUE,
                             X_Scroll = TRUE,
                             Y_Scroll = TRUE,
                             TextColor =        "white",
@@ -9560,8 +9654,11 @@ Plot.CorrMatrix <- function(dt = NULL,
   p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
   if(FacetRows == 1L && FacetCols == 1L) {
-    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    }
   }
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -9685,6 +9782,7 @@ Plot.Parallel <- function(dt = NULL,
                           Title.YAxis = NULL,
                           Title.XAxis = NULL,
                           EchartsTheme = "macarons",
+                          MouseScroll = TRUE,
                           X_Scroll = TRUE,
                           Y_Scroll = TRUE,
                           TextColor =        "white",
@@ -9770,8 +9868,11 @@ Plot.Parallel <- function(dt = NULL,
 
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
   if(FacetRows == 1L && FacetCols == 1L) {
-    if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    }
   }
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -9844,6 +9945,7 @@ Plot.Copula <- function(dt = NULL,
                         Title.YAxis = NULL,
                         Title.XAxis = NULL,
                         EchartsTheme = "dark-blue",
+                        MouseScroll = TRUE,
                         TimeLine = FALSE,
                         X_Scroll = TRUE,
                         Y_Scroll = TRUE,
@@ -9909,8 +10011,11 @@ Plot.Copula <- function(dt = NULL,
 
     p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -10043,8 +10148,11 @@ Plot.Copula <- function(dt = NULL,
 
     p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -10435,6 +10543,7 @@ Plot.Scatter <- function(dt = NULL,
                          Title.YAxis = NULL,
                          Title.XAxis = NULL,
                          EchartsTheme = "macarons",
+                         MouseScroll = TRUE,
                          TimeLine = FALSE,
                          X_Scroll = TRUE,
                          Y_Scroll = TRUE,
@@ -10506,8 +10615,11 @@ Plot.Scatter <- function(dt = NULL,
 
     p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -10641,8 +10753,11 @@ Plot.Scatter <- function(dt = NULL,
 
     p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
     if(FacetRows == 1L && FacetCols == 1L) {
-      if(X_Scroll && length(GroupVar) == 0L) p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      if(Y_Scroll) p1 <- echarts4r::e_datazoom(e = p1, y_Index = c(0,1))
+      if(MouseScroll) {
+        p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      }
     }
 
     if(Debug) print("SCatter 6")
@@ -11068,6 +11183,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
                                      Title.YAxis = NULL,
                                      Title.XAxis = "Target - Predicted",
                                      EchartsTheme = "macarons",
+                                     MouseScroll = TRUE,
                                      TimeLine = FALSE,
                                      X_Scroll = TRUE,
                                      Y_Scroll = TRUE,
@@ -11162,6 +11278,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
     NumberBins = NumberBins,
     Height = Height,
     Width = Width,
+    MouseScroll = MouseScroll,
     Title = Title,
     ShowLabels = ShowLabels,
     Title.YAxis = Title.YAxis,
@@ -11227,6 +11344,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
                                    FacetLevels = NULL,
                                    Height = NULL,
                                    Width = NULL,
+                                   MouseScroll = TRUE,
                                    Title = 'Residual Scatterplot',
                                    ShowLabels = FALSE,
                                    Title.YAxis = "Target - Predicted",
@@ -11278,6 +11396,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
     Title.XAxis = paste0(XVar, " every 5th Percentile"),
     ShowLabels = ShowLabels,
     Width = Width,
+    MouseScroll = MouseScroll,
     Title = Title,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
@@ -11338,6 +11457,7 @@ Plot.Calibration.Line <- function(dt = NULL,
                                   Title.XAxis = NULL,
                                   EchartsTheme = "macarons",
                                   TimeLine = FALSE,
+                                  MouseScroll = TRUE,
                                   X_Scroll = TRUE,
                                   Y_Scroll = TRUE,
                                   TextColor = "white",
@@ -11441,6 +11561,7 @@ Plot.Calibration.Line <- function(dt = NULL,
       Title.YAxis = yvar,
       Title.XAxis = "Predicted",
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
       Title = 'Calibration Line Plot',
@@ -11582,6 +11703,7 @@ Plot.Calibration.Line <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
       Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
@@ -11643,6 +11765,7 @@ Plot.Calibration.Box <- function(dt = NULL,
                                  Height = NULL,
                                  Width = NULL,
                                  Title = 'Calibration Box',
+                                 MouseScroll = TRUE,
                                  ShowLabels = FALSE,
                                  Title.YAxis = NULL,
                                  Title.XAxis = NULL,
@@ -11720,6 +11843,7 @@ Plot.Calibration.Box <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = 'Calibration Box Plot',
+    MouseScroll = MouseScroll,
     EchartsTheme = EchartsTheme,
     TimeLine = TimeLine,
     X_Scroll = X_Scroll,
@@ -11781,6 +11905,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
                                         Title.YAxis = NULL,
                                         Title.XAxis = NULL,
                                         EchartsTheme = "macarons",
+                                        MouseScroll = TRUE,
                                         EchartsLabels = FALSE,
                                         TimeLine = TRUE,
                                         X_Scroll = TRUE,
@@ -11865,6 +11990,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Title.YAxis = if(length(GroupVar) > 0L) "Target - Predicted" else "Target & Predicted",
       Title.XAxis = XVar,
       Height = Height,
@@ -11965,6 +12091,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Title.YAxis = if(length(GroupVar) > 0L) "Target - Predicted" else "Target & Predicted",
       Title.XAxis = XVar,
       Area = FALSE,
@@ -12037,6 +12164,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
                                        Title.YAxis = NULL,
                                        Title.XAxis = NULL,
                                        EchartsTheme = "macarons",
+                                       MouseScroll = TRUE,
                                        EchartsLabels = FALSE,
                                        TimeLine = TRUE,
                                        X_Scroll = TRUE,
@@ -12093,36 +12221,13 @@ Plot.PartialDependence.Box <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = "Partial Dependence",
+    MouseScroll = MouseScroll,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
     TextColor = TextColor,
     X_Scroll = X_Scroll,
     Y_Scroll = Y_Scroll,
     Debug = Debug)
-
-  # dt = dt1
-  # SampleSize = SampleSize
-  # XVar = XVar
-  # YVar = "Target - Predicted"
-  # GroupVar = NULL
-  # YVarTrans = YVarTrans
-  # XVarTrans = XVarTrans
-  # FacetRows = 1
-  # FacetCols = 1
-  # FacetLevels = NULL
-  # ShowLabels = ShowLabels
-  # Title.YAxis = "Target & Predicted"
-  # Title.XAxis = paste0(XVar, " Every 5th Percentile")
-  # Height = Height
-  # Width = Width
-  # Title = "Partial Dependence"
-  # EchartsTheme = EchartsTheme
-  # TimeLine = tl
-  # TextColor = TextColor
-  # X_Scroll = X_Scroll
-  # Y_Scroll = Y_Scroll
-  # Debug = Debug
-
   return(p1)
 }
 
@@ -12175,6 +12280,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            Width = NULL,
                                            Title = "Partial Dependence Heatmap",
                                            ShowLabels = FALSE,
+                                           MouseScroll = TRUE,
                                            Title.YAxis = NULL,
                                            Title.XAxis = NULL,
                                            EchartsTheme = "macarons",
@@ -12248,6 +12354,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         XVarTrans = XVarTrans,
         ZVarTrans = ZVarTrans,
         ShowLabels = ShowLabels,
+        MouseScroll = MouseScroll,
         Title.YAxis = YVar,
         Title.XAxis = XVar,
         Height = Height,
@@ -12289,6 +12396,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         AggMethod = "mean",
         Height = Height,
         Width = Width,
+        MouseScroll = MouseScroll,
         Title = "Partial Dependence Bar Plot: Target - Predicted",
         ShowLabels = ShowLabels,
         Title.YAxis = "Target - Predicted",
@@ -12381,6 +12489,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       Title.XAxis = XVar,
       Height = Height,
       Width = Width,
+      MouseScroll = MouseScroll,
       Title = "Partial Dependence Heatmap: Target - Predicted",
       TextColor = TextColor,
       X_Scroll = X_Scroll,
@@ -12541,6 +12650,7 @@ Plot.ROC <- function(dt = NULL,
                      Title.YAxis = "True Positive Rate",
                      Title.XAxis = "1 - False Positive Rate",
                      EchartsTheme = "macarons",
+                     MouseScroll = TRUE,
                      TimeLine = FALSE,
                      X_Scroll = TRUE,
                      Y_Scroll = TRUE,
@@ -12711,6 +12821,7 @@ Plot.ROC <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
       Title = title,
@@ -12735,6 +12846,7 @@ Plot.ROC <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
       Title = title,
@@ -12743,9 +12855,6 @@ Plot.ROC <- function(dt = NULL,
       Y_Scroll = FALSE,
       Debug = Debug)
   }
-
-  # Y == X dashed line
-  if(class(p1)[1L] == "plotly") p1 <- plotly::add_segments(p = p1, x = 0, xend = 1, y = 0, yend = 1, line = list(dash = "dash", color = TextColor),inherit = FALSE, showlegend = FALSE)
 
   # Return
   return(p1)
@@ -12834,6 +12943,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
                                  Title.YAxis = NULL,
                                  Title.XAxis = NULL,
                                  EchartsTheme = "macarons",
+                                 MouseScroll = TRUE,
                                  TimeLine = TRUE,
                                  X_Scroll = TRUE,
                                  Y_Scroll = TRUE,
@@ -12895,6 +13005,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     NumberBins = NumberBins,
     NumLevels_X = NumLevels_X,
     NumLevels_Y = NumLevels_Y,
+    MouseScroll = MouseScroll,
     X_Scroll = X_Scroll,
     Y_Scroll = Y_Scroll,
     xaxis.rotate = xaxis.rotate,
@@ -12957,11 +13068,13 @@ Plot.Lift <- function(dt = NULL,
                       Title.YAxis = "Lift",
                       Title.XAxis = "Population",
                       EchartsTheme = "macarons",
+                      MouseScroll = TRUE,
                       TimeLine = TRUE,
                       X_Scroll = TRUE,
                       Y_Scroll = TRUE,
                       TextColor =        "white",
                       Debug = FALSE) {
+
   if(Debug) print("here 0")
   if(Debug) print(data.table::is.data.table(dt))
   if(!data.table::is.data.table(dt)) {
@@ -13166,6 +13279,7 @@ Plot.Lift <- function(dt = NULL,
       Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
+      MouseScroll = MouseScroll,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
       X_Scroll = X_Scroll,
@@ -13191,6 +13305,7 @@ Plot.Lift <- function(dt = NULL,
       Width = Width,
       Title = Title,
       ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
       Title.YAxis = "Lift",
       Title.XAxis = "Population",
       Smooth = TRUE,
@@ -13267,6 +13382,7 @@ Plot.Gains <- function(dt = NULL,
                        Title.YAxis = "Gain",
                        Title.XAxis = "Population",
                        EchartsTheme = "macarons",
+                       MouseScroll = TRUE,
                        TimeLine = TRUE,
                        X_Scroll = TRUE,
                        Y_Scroll = TRUE,
@@ -13474,6 +13590,7 @@ Plot.Gains <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = Title,
+      MouseScroll = MouseScroll,
       Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
@@ -13504,6 +13621,7 @@ Plot.Gains <- function(dt = NULL,
       Height = Height,
       Width = Width,
       Title = Title,
+      MouseScroll = MouseScroll,
       Smooth = TRUE,
       ShowSymbol = FALSE,
       EchartsTheme = EchartsTheme,
@@ -13579,6 +13697,7 @@ Plot.BinaryMetrics <- function(dt = NULL,
                                Height = NULL,
                                Width = NULL,
                                Title = "Binary Metrics",
+                               MouseScroll = TRUE,
                                ShowLabels = FALSE,
                                Title.YAxis = NULL,
                                Title.XAxis = NULL,
@@ -13639,6 +13758,7 @@ Plot.BinaryMetrics <- function(dt = NULL,
     FacetRows = FacetRows,
     FacetCols = FacetCols,
     FacetLevels = FacetLevels,
+    MouseScroll = MouseScroll,
     Height = Height,
     Width = Width,
     Title = Title,
@@ -13744,6 +13864,7 @@ Plot.ShapImportance <- function(dt,
       NumberBins = 21,
       NumLevels_X = NumLevels_Y,
       NumLevels_Y = NumLevels_X,
+      MouseScroll = FALSE,
       Height = Height,
       Width = Width,
       Title = paste0("Shap Importance: AggMethod = ", AggMethod),

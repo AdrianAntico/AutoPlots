@@ -26,6 +26,7 @@ Plot.StandardPlots(
   Height = NULL,
   Width = NULL,
   EchartsTheme = "dark-blue",
+  MouseScroll = FALSE,
   TimeLine = FALSE,
   Title = NULL,
   ShowLabels = FALSE,

@@ -27,6 +27,7 @@ Plot.BarPlot3D(
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "dark",
+  MouseScroll = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
   TextColor = "white",

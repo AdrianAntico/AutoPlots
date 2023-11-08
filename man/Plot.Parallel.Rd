@@ -19,6 +19,7 @@ Plot.Parallel(
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
   TextColor = "white",

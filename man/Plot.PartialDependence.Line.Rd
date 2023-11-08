@@ -25,6 +25,7 @@ Plot.PartialDependence.Line(
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   EchartsLabels = FALSE,
   TimeLine = TRUE,
   X_Scroll = TRUE,

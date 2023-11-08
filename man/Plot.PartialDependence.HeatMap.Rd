@@ -22,6 +22,7 @@ Plot.PartialDependence.HeatMap(
   Width = NULL,
   Title = "Partial Dependence Heatmap",
   ShowLabels = FALSE,
+  MouseScroll = TRUE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "macarons",

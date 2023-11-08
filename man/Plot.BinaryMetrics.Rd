@@ -26,6 +26,7 @@ Plot.BinaryMetrics(
   Height = NULL,
   Width = NULL,
   Title = "Binary Metrics",
+  MouseScroll = TRUE,
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,

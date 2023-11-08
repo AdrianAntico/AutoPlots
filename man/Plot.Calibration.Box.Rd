@@ -20,6 +20,7 @@ Plot.Calibration.Box(
   Height = NULL,
   Width = NULL,
   Title = "Calibration Box",
+  MouseScroll = TRUE,
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,

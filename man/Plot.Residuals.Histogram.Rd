@@ -24,6 +24,7 @@ Plot.Residuals.Histogram(
   Title.YAxis = NULL,
   Title.XAxis = "Target - Predicted",
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,

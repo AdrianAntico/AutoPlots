@@ -23,6 +23,7 @@ Plot.StackedBar(
   Title.XAxis = NULL,
   ShowLabels = FALSE,
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,

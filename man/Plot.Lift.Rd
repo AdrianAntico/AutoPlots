@@ -25,6 +25,7 @@ Plot.Lift(
   Title.YAxis = "Lift",
   Title.XAxis = "Population",
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,

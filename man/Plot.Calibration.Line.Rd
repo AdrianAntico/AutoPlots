@@ -24,6 +24,7 @@ Plot.Calibration.Line(
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
   TimeLine = FALSE,
+  MouseScroll = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
   TextColor = "white",

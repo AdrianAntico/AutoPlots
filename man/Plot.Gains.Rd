@@ -25,6 +25,7 @@ Plot.Gains(
   Title.YAxis = "Gain",
   Title.XAxis = "Population",
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   TimeLine = TRUE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,

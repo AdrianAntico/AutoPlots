@@ -22,6 +22,7 @@ Plot.Density(
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
+  MouseScroll = TRUE,
   TimeLine = FALSE,
   X_Scroll = TRUE,
   Y_Scroll = TRUE,
