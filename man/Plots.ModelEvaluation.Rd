@@ -70,6 +70,8 @@ Plots.ModelEvaluation(
 
 \item{NumLevels_X}{= 40}
 
+\item{MouseScroll}{logical, zoom via mouse scroll}
+
 \item{Height}{= NULL,}
 
 \item{Width}{= NULL,}

@@ -14,7 +14,6 @@ Plot.ProbabilityPlot(
   Title = "Normal Probability Plot",
   ShowLabels = FALSE,
   EchartsTheme = "macarons",
-  Y_Scroll = TRUE,
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",

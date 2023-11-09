@@ -26,8 +26,6 @@ Plot.Step(
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
   MouseScroll = TRUE,
-  X_Scroll = FALSE,
-  Y_Scroll = FALSE,
   TimeLine = TRUE,
   ShowSymbol = FALSE,
   TextColor = "white",
@@ -86,9 +84,7 @@ Plot.Step(
 
 \item{EchartsTheme}{Provide an "Echarts" theme}
 
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
+\item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{Logical}
 

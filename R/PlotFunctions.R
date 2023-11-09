@@ -1379,6 +1379,7 @@ AutoTransformationCreate <- function(data,
 #' @param Height NULL or valid css unit
 #' @param Width NULL or valid css unit
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TimeLine character
 #' @param Title character
 #' @param ShowLabels character
@@ -1418,7 +1419,7 @@ Plot.StandardPlots <- function(dt = NULL,
                                Title.XAxis = NULL,
                                NumLevels_Y = 75,
                                NumLevels_X = 40,
-                               TextColor =        "white",
+                               TextColor = "white",
                                FontSize = 14,
                                Debug = FALSE) {
 
@@ -1453,8 +1454,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1480,8 +1479,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1510,8 +1507,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1537,8 +1532,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1567,8 +1560,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1594,8 +1585,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1624,8 +1613,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1651,8 +1638,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1680,8 +1665,6 @@ Plot.StandardPlots <- function(dt = NULL,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
       Title.XAxis = Title.XAxis,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       TextColor = TextColor,
@@ -1710,8 +1693,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1738,8 +1719,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Width = Width,
       Height = Height,
       MouseScroll = MouseScroll,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       TextColor = TextColor,
@@ -1767,8 +1746,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1800,8 +1777,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1830,8 +1805,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1863,8 +1836,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1893,8 +1864,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1926,8 +1895,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -1956,8 +1923,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -1987,8 +1952,6 @@ Plot.StandardPlots <- function(dt = NULL,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
       MouseScroll = MouseScroll,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       ShowSymbol = FALSE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
@@ -2016,8 +1979,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2045,8 +2006,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -2072,8 +2031,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2103,8 +2060,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -2131,8 +2086,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2164,8 +2117,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -2192,8 +2143,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2222,8 +2171,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Height = Height,
       EchartsTheme = EchartsTheme,
       MouseScroll = MouseScroll,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
       Title = Title,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
@@ -2258,8 +2205,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2321,8 +2266,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2342,8 +2285,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Height = Height,
       EchartsTheme = EchartsTheme,
       MouseScroll = MouseScroll,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       Method = "spearman",
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
@@ -2368,8 +2309,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2399,8 +2338,6 @@ Plot.StandardPlots <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       title.fontSize = Title.FontSize,
       Debug = Debug)
@@ -2426,8 +2363,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2453,8 +2388,6 @@ Plot.StandardPlots <- function(dt = NULL,
       EchartsTheme = EchartsTheme,
       MouseScroll = MouseScroll,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       Title = Title,
       ShowLabels = ShowLabels,
       Title.YAxis = Title.YAxis,
@@ -2484,8 +2417,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2542,8 +2473,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2600,8 +2529,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
       "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
       "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "X_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
-      "Y_Scroll = ", AutoPlots:::CEPP(TRUE), ",\n  ",
       "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
       "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
 
@@ -2634,6 +2561,7 @@ Plot.StandardPlots <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumLevels_Y = 75
 #' @param NumLevels_X = 40
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param Height = NULL,
 #' @param Width = NULL,
 #' @param TextColor hex
@@ -2666,7 +2594,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
                                   Title.XAxis = NULL,
                                   EchartsTheme = "dark-blue",
                                   TimeLine = FALSE,
-                                  TextColor =        "white",
+                                  TextColor = "white",
                                   FontSize = 14L,
                                   NumberBins = 20,
                                   Debug = FALSE) {
@@ -3006,8 +2934,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       Debug = Debug)
     return(p1)
@@ -3040,8 +2966,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
       Title.XAxis = Title.XAxis,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = TRUE,
-      Y_Scroll = TRUE,
       TextColor = TextColor,
       Debug = Debug)}, error = function(x) NULL)
     return(p1)
@@ -3093,8 +3017,7 @@ Plot.ProbabilityPlot <- function(dt = NULL,
                                  Title = 'Normal Probability Plot',
                                  ShowLabels = FALSE,
                                  EchartsTheme = "macarons",
-                                 Y_Scroll = TRUE,
-                                 TextColor =        "white",
+                                 TextColor = "white",
                                  title.fontSize = 22,
                                  title.fontWeight = "bold",
                                  title.textShadowColor = '#63aeff',
@@ -3106,42 +3029,6 @@ Plot.ProbabilityPlot <- function(dt = NULL,
                                  ContainLabel = TRUE,
                                  tooltip.trigger = "axis",
                                  Debug = FALSE) {
-
-  # dt = data.table::fread(file.choose())
-  # SampleSize = 30000L
-  # XVar = NULL
-  # YVar = "Daily Margin"
-  # GroupVar = NULL
-  # YVarTrans = "Identity"
-  # XVarTrans = "Identity"
-  # FacetRows = 1
-  # FacetCols = 1
-  # FacetLevels = NULL
-  # Height = NULL
-  # Width = NULL
-  # Title = 'Scatter Plot'
-  # ShowLabels = FALSE
-  # AddGLM = FALSE
-  # Title.YAxis = NULL
-  # Title.XAxis = NULL
-  # EchartsTheme = "dark"
-  # TimeLine = FALSE
-  # X_Scroll = TRUE
-  # Y_Scroll = TRUE
-  # TextColor =        "white"
-  # title.fontSize = 22
-  # title.fontWeight = "bold"
-  # title.textShadowColor = '#63aeff'
-  # title.textShadowBlur = 3
-  # title.textShadowOffsetY = 1
-  # title.textShadowOffsetX = -1
-  # yaxis.fontSize = 14
-  # xaxis.fontSize = 14
-  # xaxis.rotate = 0
-  # yaxis.rotate = 0
-  # ContainLabel = TRUE
-  # tooltip.trigger = "axis"
-  # Debug = FALSE
 
   # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)
   if(length(SampleSize) == 0L) SampleSize <- 30000L
@@ -3186,7 +3073,6 @@ Plot.ProbabilityPlot <- function(dt = NULL,
     Title.YAxis = YVar,
     Title.XAxis = "Theoretical Quantiles",
     EchartsTheme = EchartsTheme,
-    Y_Scroll = Y_Scroll,
     TextColor = TextColor,
     title.fontSize = title.fontSize,
     title.fontWeight = title.fontWeight,
@@ -3228,8 +3114,7 @@ Plot.ProbabilityPlot <- function(dt = NULL,
 #' @param Width = NULL,
 #' @param EchartsTheme = EchartsTheme,
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param Debug Debugging purposes
 #' @export
@@ -3253,9 +3138,7 @@ Plot.Histogram <- function(dt = NULL,
                            EchartsTheme = "macarons",
                            MouseScroll = TRUE,
                            TimeLine = FALSE,
-                           X_Scroll = TRUE,
-                           Y_Scroll = TRUE,
-                           TextColor =        "white",
+                           TextColor = "white",
                            title.fontSize = 22,
                            title.fontWeight = "bold", # normal
                            title.textShadowColor = '#63aeff',
@@ -3376,8 +3259,6 @@ Plot.Histogram <- function(dt = NULL,
       EchartsTheme = EchartsTheme,
       MouseScroll = MouseScroll,
       TimeLine = TimeLine,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
       TextColor = TextColor,
       title.fontSize = title.fontSize,
       title.fontWeight = title.fontWeight,
@@ -3406,8 +3287,6 @@ Plot.Histogram <- function(dt = NULL,
       Title.XAxis = YVar,
       EchartsTheme = EchartsTheme,
       TimeLine = TimeLine,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
       TextColor = TextColor,
       title.fontSize = title.fontSize,
       title.fontWeight = title.fontWeight,
@@ -3441,14 +3320,15 @@ Plot.Histogram <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height = NULL,
 #' @param Width = NULL,
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param Title = "Density Plot"
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+
+
 #' @param TextColor "white",
 #' @param Debug Debugging purposes
 #' @export
@@ -3471,9 +3351,7 @@ Plot.Density <- function(dt = NULL,
                          EchartsTheme = "macarons",
                          MouseScroll = TRUE,
                          TimeLine = FALSE,
-                         X_Scroll = TRUE,
-                         Y_Scroll = TRUE,
-                         TextColor =        "white",
+                         TextColor = "white",
                          title.fontSize = 22,
                          title.fontWeight = "bold", # normal
                          title.textShadowColor = '#63aeff',
@@ -3754,8 +3632,7 @@ Plot.Density <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
@@ -3781,9 +3658,7 @@ Plot.Pie <- function(dt = NULL,
                      Title.XAxis = NULL,
                      EchartsTheme = "macarons",
                      TimeLine = TRUE,
-                     X_Scroll = TRUE,
-                     Y_Scroll = TRUE,
-                     TextColor =        "white",
+                     TextColor = "white",
                      title.fontSize = 22,
                      title.fontWeight = "bold", # normal
                      title.textShadowColor = '#63aeff',
@@ -3946,8 +3821,7 @@ Plot.Pie <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
@@ -3973,9 +3847,7 @@ Plot.Donut <- function(dt = NULL,
                        Title.XAxis = NULL,
                        EchartsTheme = "macarons",
                        TimeLine = TRUE,
-                       X_Scroll = TRUE,
-                       Y_Scroll = TRUE,
-                       TextColor =        "white",
+                       TextColor = "white",
                        title.fontSize = 22,
                        title.fontWeight = "bold", # normal
                        title.textShadowColor = '#63aeff',
@@ -4132,8 +4004,7 @@ Plot.Donut <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
@@ -4159,9 +4030,7 @@ Plot.Rosetype <- function(dt = NULL,
                           Title.XAxis = NULL,
                           EchartsTheme = "macarons",
                           TimeLine = TRUE,
-                          X_Scroll = TRUE,
-                          Y_Scroll = TRUE,
-                          TextColor =        "white",
+                          TextColor = "white",
                           title.fontSize = 22,
                           title.fontWeight = "bold", # normal
                           title.textShadowColor = '#63aeff',
@@ -4317,8 +4186,7 @@ Plot.Rosetype <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
 #' @export
@@ -4341,9 +4209,7 @@ Plot.Box <- function(dt = NULL,
                      EchartsTheme = "macarons",
                      MouseScroll = TRUE,
                      TimeLine = FALSE,
-                     X_Scroll = TRUE,
-                     Y_Scroll = TRUE,
-                     TextColor =        "white",
+                     TextColor = "white",
                      title.fontSize = 22,
                      title.fontWeight = "bold", # normal
                      title.textShadowColor = '#63aeff',
@@ -5168,31 +5034,6 @@ Plot.Radar <- function(dt = NULL,
                        DarkMode = FALSE,
                        Debug = FALSE) {
 
-  # print(dt)
-
-  # dt = data.table::fread(file.choose())
-  # AggMethod = "mean"
-  # PreAgg = FALSE
-  # YVar = c("Daily Margin", "Daily Liters")
-  # GroupVar = "Brand"
-  # YVarTrans = "Identity"
-  # Height = "600px"
-  # Width = "300px"
-  # Title = 'Radar Plot'
-  # ShowLabels = FALSE
-  # EchartsTheme = "dark"
-  # ShowSymbol = FALSE
-  # TextColor = "white"
-  # title.fontSize = 22
-  # title.fontWeight = "bold"
-  # title.textShadowColor = '#63aeff'
-  # title.textShadowBlur = 3
-  # title.textShadowOffsetY = 1
-  # title.textShadowOffsetX = -1
-  # ContainLabel = TRUE
-  # DarkMode = FALSE
-  # Debug = FALSE
-
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
@@ -5300,8 +5141,7 @@ Plot.Radar <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param Area logical
 #' @param Alpha 0 to 1 for setting transparency
 #' @param Smooth = TRUE
@@ -5395,14 +5235,12 @@ Plot.Line <- function(dt = NULL,
                       Title.XAxis = NULL,
                       EchartsTheme = "macarons",
                       MouseScroll = TRUE,
-                      X_Scroll = FALSE,
-                      Y_Scroll = FALSE,
                       TimeLine = TRUE,
                       Area = FALSE,
                       Alpha = 0.50,
                       Smooth = TRUE,
                       ShowSymbol = FALSE,
-                      TextColor =        "white",
+                      TextColor = "white",
                       title.fontSize = 22,
                       title.fontWeight = "bold", # normal
                       title.textShadowColor = '#63aeff',
@@ -5797,8 +5635,7 @@ Plot.Line <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param Area logical
 #' @param Alpha 0 to 1 for setting transparency
 #' @param Smooth = TRUE
@@ -5827,13 +5664,11 @@ Plot.Area <- function(dt = NULL,
                       Title.XAxis = NULL,
                       EchartsTheme = "macarons",
                       MouseScroll = TRUE,
-                      X_Scroll = FALSE,
-                      Y_Scroll = FALSE,
                       TimeLine = TRUE,
                       Alpha = 0.50,
                       Smooth = TRUE,
                       ShowSymbol = FALSE,
-                      TextColor =        "white",
+                      TextColor = "white",
                       title.fontSize = 22,
                       title.fontWeight = "bold", # normal
                       title.textShadowColor = '#63aeff',
@@ -6224,8 +6059,7 @@ Plot.Area <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
@@ -6251,11 +6085,9 @@ Plot.Step <- function(dt = NULL,
                       Title.XAxis = NULL,
                       EchartsTheme = "macarons",
                       MouseScroll = TRUE,
-                      X_Scroll = FALSE,
-                      Y_Scroll = FALSE,
                       TimeLine = TRUE,
                       ShowSymbol = FALSE,
-                      TextColor =        "white",
+                      TextColor = "white",
                       title.fontSize = 22,
                       title.fontWeight = "bold", # normal
                       title.textShadowColor = '#63aeff',
@@ -6645,8 +6477,7 @@ Plot.Step <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param TimeLine Logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
 #' @param ZeroLineColor color
 #' @param ZeroLineWidth 1
@@ -6676,11 +6507,9 @@ Plot.River <- function(dt = NULL,
                        Title.XAxis = NULL,
                        EchartsTheme = "macarons",
                        MouseScroll = TRUE,
-                       X_Scroll = FALSE,
-                       Y_Scroll = FALSE,
                        TimeLine = TRUE,
                        ShowSymbol = FALSE,
-                       TextColor =        "white",
+                       TextColor = "white",
                        title.fontSize = 22,
                        title.fontWeight = "bold", # normal
                        title.textShadowColor = '#63aeff',
@@ -6830,8 +6659,7 @@ Plot.River <- function(dt = NULL,
 #' @param ShowLabels logical
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #' @export
@@ -6856,8 +6684,6 @@ Plot.Bar <- function(dt = NULL,
                      EchartsTheme = "macarons",
                      MouseScroll = TRUE,
                      TimeLine = TRUE,
-                     X_Scroll = TRUE,
-                     Y_Scroll = TRUE,
                      TextColor = "white",
                      title.fontSize = 22,
                      title.fontWeight = "bold", # normal
@@ -7835,32 +7661,6 @@ Plot.PACF <- function(dt = NULL,
                       ContainLabel = TRUE,
                       Debug = FALSE) {
 
-
-  # dt = data.table::fread(file.choose())
-  # YVar = "Daily Liters"
-  # DateVar = "Date"
-  # TimeUnit = "days"
-  # MaxLags = 50
-  # YVarTrans = "Identity"
-  # AggMethod = 'sum'
-  # Height = "600px"
-  # Width = "300px"
-  # Title = 'Partial Autocorrelation Plot'
-  # EchartsTheme = "macarons"
-  # TextColor = "white"
-  # title.fontSize = 22
-  # title.fontWeight = "bold"
-  # title.textShadowColor = '#63aeff'
-  # title.textShadowBlur = 3
-  # title.textShadowOffsetY = 1
-  # title.textShadowOffsetX = -1
-  # xaxis.fontSize = 14
-  # yaxis.fontSize = 14
-  # xaxis.rotate = 0
-  # yaxis.rotate = 0
-  # ContainLabel = TRUE
-  # Debug = FALSE
-
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
@@ -8033,8 +7833,7 @@ Plot.PACF <- function(dt = NULL,
 #' @param ShowLabels logical
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #' @export
@@ -8058,9 +7857,7 @@ Plot.StackedBar <- function(dt = NULL,
                             EchartsTheme = "macarons",
                             MouseScroll = TRUE,
                             TimeLine = TRUE,
-                            X_Scroll = TRUE,
-                            Y_Scroll = TRUE,
-                            TextColor =        "white",
+                            TextColor = "white",
                             title.fontSize = 22,
                             title.fontWeight = "bold", # normal
                             title.textShadowColor = '#63aeff',
@@ -8316,6 +8113,7 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height = NULL,
 #' @param Width = NULL,
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param EchartsTheme "dark-blue"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
@@ -8350,9 +8148,7 @@ Plot.BarPlot3D <- function(dt,
                            Title.XAxis = NULL,
                            EchartsTheme = "dark",
                            MouseScroll = TRUE,
-                           X_Scroll = TRUE,
-                           Y_Scroll = TRUE,
-                           TextColor =        "white",
+                           TextColor = "white",
                            title.fontSize = 22,
                            title.fontWeight = "bold", # normal
                            title.textShadowColor = '#63aeff',
@@ -8900,6 +8696,7 @@ Plot.BarPlot3D <- function(dt,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height = NULL,
 #' @param Width = NULL,
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param EchartsTheme "dark-blue"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
@@ -8933,9 +8730,7 @@ Plot.HeatMap <- function(dt,
                          Title.XAxis = NULL,
                          EchartsTheme = "dark",
                          MouseScroll = TRUE,
-                         X_Scroll = TRUE,
-                         Y_Scroll = TRUE,
-                         TextColor =        "white",
+                         TextColor = "white",
                          title.fontSize = 22,
                          title.fontWeight = "bold", # normal
                          title.textShadowColor = '#63aeff',
@@ -9590,8 +9385,7 @@ Plot.HeatMap <- function(dt,
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
@@ -9613,9 +9407,7 @@ Plot.CorrMatrix <- function(dt = NULL,
                             Title.XAxis = NULL,
                             EchartsTheme = "macarons",
                             MouseScroll = TRUE,
-                            X_Scroll = TRUE,
-                            Y_Scroll = TRUE,
-                            TextColor =        "white",
+                            TextColor = "white",
                             title.fontSize = 22,
                             title.fontWeight = "bold", # normal
                             title.textShadowColor = '#63aeff',
@@ -9713,8 +9505,7 @@ Plot.CorrMatrix <- function(dt = NULL,
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
@@ -9763,8 +9554,8 @@ Plot.CorrMatrix <- function(dt = NULL,
 #'   Title.YAxis = Title.YAxis,
 #'   Title.XAxis = Title.XAxis,
 #'   EchartsTheme = EchartsTheme,
-#'   X_Scroll = X_Scroll,
-#'   Y_Scroll = Y_Scroll,
+#'
+#'
 #'   TextColor = TextColor,
 #'   title.fontSize = title.fontSize,
 #'   title.fontWeight = title.fontWeight,
@@ -9794,9 +9585,7 @@ Plot.Parallel <- function(dt = NULL,
                           Title.XAxis = NULL,
                           EchartsTheme = "macarons",
                           MouseScroll = TRUE,
-                          X_Scroll = TRUE,
-                          Y_Scroll = TRUE,
-                          TextColor =        "white",
+                          TextColor = "white",
                           title.fontSize = 22,
                           title.fontWeight = "bold", # normal
                           title.textShadowColor = '#63aeff',
@@ -9933,8 +9722,7 @@ Plot.Parallel <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme = "dark-blue",
 #' @param TimeLine Logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #' @export
@@ -9958,9 +9746,7 @@ Plot.Copula <- function(dt = NULL,
                         EchartsTheme = "dark-blue",
                         MouseScroll = TRUE,
                         TimeLine = FALSE,
-                        X_Scroll = TRUE,
-                        Y_Scroll = TRUE,
-                        TextColor =        "white",
+                        TextColor = "white",
                         yaxis.fontSize = 14,
                         xaxis.fontSize = 14,
                         title.fontSize = 22,
@@ -10318,7 +10104,7 @@ Plot.Copula3D <- function(dt = NULL,
                           Title.XAxis = NULL,
                           EchartsTheme = "dark-blue",
                           TimeLine = FALSE,
-                          TextColor =        "white",
+                          TextColor = "white",
                           title.fontSize = 22,
                           title.fontWeight = "bold", # normal
                           title.textShadowColor = '#63aeff',
@@ -10531,8 +10317,7 @@ Plot.Copula3D <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
 #' @export
@@ -10556,9 +10341,7 @@ Plot.Scatter <- function(dt = NULL,
                          EchartsTheme = "macarons",
                          MouseScroll = TRUE,
                          TimeLine = FALSE,
-                         X_Scroll = TRUE,
-                         Y_Scroll = TRUE,
-                         TextColor =        "white",
+                         TextColor = "white",
                          title.fontSize = 22,
                          title.fontWeight = "bold", # normal
                          title.textShadowColor = '#63aeff',
@@ -10927,7 +10710,7 @@ Plot.Scatter3D <- function(dt = NULL,
                            Title.XAxis = NULL,
                            EchartsTheme = "macarons",
                            TimeLine = FALSE,
-                           TextColor =        "white",
+                           TextColor = "white",
                            title.fontSize = 22,
                            title.fontWeight = "bold", # normal
                            title.textShadowColor = '#63aeff',
@@ -11170,8 +10953,7 @@ Plot.Scatter3D <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor Not Implemented
 #' @param Debug Debugging purposes
 #' @export
@@ -11196,9 +10978,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
                                      EchartsTheme = "macarons",
                                      MouseScroll = TRUE,
                                      TimeLine = FALSE,
-                                     X_Scroll = TRUE,
-                                     Y_Scroll = TRUE,
-                                     TextColor =        "white",
+                                     TextColor = "white",
                                      title.fontSize = 22,
                                      title.fontWeight = "bold", # normal
                                      title.textShadowColor = '#63aeff',
@@ -11296,8 +11076,8 @@ Plot.Residuals.Histogram <- function(dt = NULL,
     Title.XAxis = Title.XAxis,
     EchartsTheme = EchartsTheme,
     TimeLine = TimeLine,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
+
+
     TextColor = "white",
     title.fontSize = title.fontSize,
     title.fontWeight = title.fontWeight,
@@ -11337,8 +11117,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @export
@@ -11362,9 +11141,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
                                    Title.XAxis = "Predicted",
                                    EchartsTheme = "macarons",
                                    TimeLine = FALSE,
-                                   X_Scroll = TRUE,
-                                   Y_Scroll = TRUE,
-                                   TextColor =        "white",
+                                   TextColor = "white",
                                    Debug = FALSE) {
 
   # Data Prep1
@@ -11411,8 +11188,8 @@ Plot.Residuals.Scatter <- function(dt = NULL,
     Title = Title,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
+
+
     TextColor = TextColor,
     tooltip.trigger = "item",
     Debug = Debug)
@@ -11444,8 +11221,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @export
@@ -11469,8 +11245,6 @@ Plot.Calibration.Line <- function(dt = NULL,
                                   EchartsTheme = "macarons",
                                   TimeLine = FALSE,
                                   MouseScroll = TRUE,
-                                  X_Scroll = TRUE,
-                                  Y_Scroll = TRUE,
                                   TextColor = "white",
                                   Debug = FALSE) {
 
@@ -11578,8 +11352,8 @@ Plot.Calibration.Line <- function(dt = NULL,
       Title = 'Calibration Line Plot',
       EchartsTheme = EchartsTheme,
       TimeLine = tl,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       TextColor = TextColor,
       Debug = Debug)
 
@@ -11724,8 +11498,8 @@ Plot.Calibration.Line <- function(dt = NULL,
       Title.YAxis = yvar,
       Title.XAxis = "Predicted",
       TextColor = TextColor,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       Debug = Debug)
     return(p1)
   }
@@ -11756,8 +11530,7 @@ Plot.Calibration.Line <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @export
@@ -11782,9 +11555,7 @@ Plot.Calibration.Box <- function(dt = NULL,
                                  Title.XAxis = NULL,
                                  EchartsTheme = "macarons",
                                  TimeLine = FALSE,
-                                 X_Scroll = TRUE,
-                                 Y_Scroll = TRUE,
-                                 TextColor =        "white",
+                                 TextColor = "white",
                                  Debug = FALSE) {
 
   if(Debug) print("Plot.Calibration.Box 1")
@@ -11857,8 +11628,8 @@ Plot.Calibration.Box <- function(dt = NULL,
     MouseScroll = MouseScroll,
     EchartsTheme = EchartsTheme,
     TimeLine = TimeLine,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
+
+
     TextColor = TextColor,
     Debug = Debug)
   return(p1)
@@ -11888,9 +11659,8 @@ Plot.Calibration.Box <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TimeLine logical
-#' @param X_Scroll = TRUE,
-#' @param Y_Scroll = TRUE,
 #' @param TextColor hex character
 #' @param AggMethod character
 #' @param GroupVar Character variable
@@ -11919,9 +11689,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
                                         MouseScroll = TRUE,
                                         EchartsLabels = FALSE,
                                         TimeLine = TRUE,
-                                        X_Scroll = TRUE,
-                                        Y_Scroll = TRUE,
-                                        TextColor =        "white",
+                                        TextColor = "white",
                                         Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -12008,8 +11776,8 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       Width = Width,
       Title = "Partial Dependence",
       TextColor = TextColor,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       Debug = Debug)
     return(p1)
 
@@ -12112,8 +11880,8 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       Width = Width,
       Title = "Partial Dependence",
       TextColor = TextColor,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       Debug = Debug)
     return(p1)
   }
@@ -12146,8 +11914,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor hex character
 #' @param AggMethod character
 #' @param GroupVar Character variable
@@ -12178,9 +11945,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
                                        MouseScroll = TRUE,
                                        EchartsLabels = FALSE,
                                        TimeLine = TRUE,
-                                       X_Scroll = TRUE,
-                                       Y_Scroll = FALSE,
-                                       TextColor =        "white",
+                                       TextColor = "white",
                                        Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -12236,8 +12001,8 @@ Plot.PartialDependence.Box <- function(dt = NULL,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
     TextColor = TextColor,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
+
+
     Debug = Debug)
   return(p1)
 }
@@ -12267,8 +12032,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
-#' @param X_Scroll = TRUE,
-#' @param Y_Scroll = TRUE,
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor hex character
 #' @param AggMethod character
 #' @param GroupVar Character variable
@@ -12297,9 +12061,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            EchartsTheme = "macarons",
                                            EchartsLabels = FALSE,
                                            TimeLine = TRUE,
-                                           X_Scroll = TRUE,
-                                           Y_Scroll = TRUE,
-                                           TextColor =        "white",
+                                           TextColor = "white",
                                            Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -12372,8 +12134,8 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         Width = Width,
         Title = "Partial Dependence Heatmap: Target - Predicted",
         TextColor = TextColor,
-        X_Scroll = X_Scroll,
-        Y_Scroll = Y_Scroll,
+
+
         NumberBins = NumberBins,
         Debug = Debug)
       return(p1)
@@ -12414,8 +12176,8 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         Title.XAxis = XVar,
         EchartsTheme = EchartsTheme,
         TimeLine = TRUE,
-        X_Scroll = TRUE,
-        Y_Scroll = TRUE,
+
+
         TextColor = "white",
         title.fontSize = 22,
         title.fontWeight = "bold",
@@ -12503,8 +12265,8 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Title = "Partial Dependence Heatmap: Target - Predicted",
       TextColor = TextColor,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       NumberBins = NumberBins,
       Debug = Debug)
     return(p1)
@@ -12534,8 +12296,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #' @export
@@ -12557,9 +12318,7 @@ Plot.VariableImportance <- function(dt = NULL,
                                     Title.XAxis = NULL,
                                     EchartsTheme = "macarons",
                                     TimeLine = TRUE,
-                                    X_Scroll = TRUE,
-                                    Y_Scroll = TRUE,
-                                    TextColor =        "white",
+                                    TextColor = "white",
                                     title.fontSize = 22,
                                     title.fontWeight = "bold", # normal
                                     title.textShadowColor = '#63aeff',
@@ -12637,8 +12396,7 @@ Plot.VariableImportance <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param SampleSize numeric
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
@@ -12663,9 +12421,7 @@ Plot.ROC <- function(dt = NULL,
                      EchartsTheme = "macarons",
                      MouseScroll = TRUE,
                      TimeLine = FALSE,
-                     X_Scroll = TRUE,
-                     Y_Scroll = TRUE,
-                     TextColor =        "white",
+                     TextColor = "white",
                      Debug = FALSE) {
 
   # ROC
@@ -12837,9 +12593,8 @@ Plot.ROC <- function(dt = NULL,
       Width = Width,
       Title = title,
       TextColor = TextColor,
-      X_Scroll = FALSE,
-      Y_Scroll = FALSE,
       Debug = Debug)
+
   } else {
     p1 <- AutoPlots::Plot.Area(
       dt = data,
@@ -12862,8 +12617,6 @@ Plot.ROC <- function(dt = NULL,
       Width = Width,
       Title = title,
       TextColor = TextColor,
-      X_Scroll = FALSE,
-      Y_Scroll = FALSE,
       Debug = Debug)
   }
 
@@ -12895,6 +12648,7 @@ Plot.ROC <- function(dt = NULL,
 #' @param NumLevels_X = NumLevels_Y,
 #' @param NumLevels_Y = NumLevels_X,
 #' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -12956,9 +12710,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
                                  EchartsTheme = "macarons",
                                  MouseScroll = TRUE,
                                  TimeLine = TRUE,
-                                 X_Scroll = TRUE,
-                                 Y_Scroll = TRUE,
-                                 TextColor =        "white",
+                                 TextColor = "white",
                                  AggMethod = "count",
                                  GroupVar = NULL,
                                  xaxis.rotate = 0,
@@ -13017,8 +12769,8 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     NumLevels_X = NumLevels_X,
     NumLevels_Y = NumLevels_Y,
     MouseScroll = MouseScroll,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
+
+
     xaxis.rotate = xaxis.rotate,
     yaxis.rotate = yaxis.rotate,
     ContainLabel = ContainLabel)
@@ -13053,8 +12805,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
 #'
@@ -13081,9 +12832,7 @@ Plot.Lift <- function(dt = NULL,
                       EchartsTheme = "macarons",
                       MouseScroll = TRUE,
                       TimeLine = TRUE,
-                      X_Scroll = TRUE,
-                      Y_Scroll = TRUE,
-                      TextColor =        "white",
+                      TextColor = "white",
                       Debug = FALSE) {
 
   if(Debug) print("here 0")
@@ -13293,8 +13042,8 @@ Plot.Lift <- function(dt = NULL,
       MouseScroll = MouseScroll,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       TextColor = TextColor,
       Debug = FALSE)
   } else {
@@ -13323,8 +13072,8 @@ Plot.Lift <- function(dt = NULL,
       ShowSymbol = FALSE,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       TextColor = TextColor,
       Debug = FALSE)
   }
@@ -13367,8 +13116,7 @@ Plot.Lift <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
 #'
@@ -13395,9 +13143,7 @@ Plot.Gains <- function(dt = NULL,
                        EchartsTheme = "macarons",
                        MouseScroll = TRUE,
                        TimeLine = TRUE,
-                       X_Scroll = TRUE,
-                       Y_Scroll = TRUE,
-                       TextColor =        "white",
+                       TextColor = "white",
                        Debug = FALSE) {
 
   if(Debug) print("here 1")
@@ -13607,8 +13353,8 @@ Plot.Gains <- function(dt = NULL,
       ShowSymbol = FALSE,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       TextColor = TextColor,
       Debug = FALSE)
   } else {
@@ -13637,8 +13383,8 @@ Plot.Gains <- function(dt = NULL,
       ShowSymbol = FALSE,
       EchartsTheme = EchartsTheme,
       TimeLine = FALSE,
-      X_Scroll = X_Scroll,
-      Y_Scroll = Y_Scroll,
+
+
       TextColor = TextColor,
       Debug = FALSE)
   }
@@ -13681,8 +13427,7 @@ Plot.Gains <- function(dt = NULL,
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
-#' @param X_Scroll logical
-#' @param Y_Scroll logical
+#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor hex character
 #' @param AggMethod character
 #' @param GroupVar Character variable
@@ -13715,9 +13460,7 @@ Plot.BinaryMetrics <- function(dt = NULL,
                                EchartsTheme = "macarons",
                                EchartsLabels = FALSE,
                                TimeLine = TRUE,
-                               X_Scroll = TRUE,
-                               Y_Scroll = FALSE,
-                               TextColor =        "white",
+                               TextColor = "white",
                                Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -13776,8 +13519,8 @@ Plot.BinaryMetrics <- function(dt = NULL,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
     TextColor = TextColor,
-    X_Scroll = X_Scroll,
-    Y_Scroll = Y_Scroll,
+
+
     Debug = Debug)
   return(p1)
 }
@@ -13829,9 +13572,7 @@ Plot.ShapImportance <- function(dt,
                                 Title.YAxis = NULL,
                                 Title.XAxis = NULL,
                                 EchartsTheme = "dark",
-                                X_Scroll = TRUE,
-                                Y_Scroll = TRUE,
-                                TextColor =        "white",
+                                TextColor = "white",
                                 Debug = FALSE) {
 
   if(Debug) print("ShapImportance Step 1")
@@ -13880,7 +13621,7 @@ Plot.ShapImportance <- function(dt,
       Width = Width,
       Title = paste0("Shap Importance: AggMethod = ", AggMethod),
       EchartsTheme = EchartsTheme,
-      X_Scroll = X_Scroll,
+
       Y_Scroll = Y_Scroll)
     return(p1)
   } else {

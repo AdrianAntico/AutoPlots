@@ -25,8 +25,6 @@ Plot.Histogram(
   EchartsTheme = "macarons",
   MouseScroll = TRUE,
   TimeLine = FALSE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
@@ -68,11 +66,9 @@ Plot.Histogram(
 
 \item{EchartsTheme}{= EchartsTheme,}
 
+\item{MouseScroll}{logical, zoom via mouse scroll}
+
 \item{TimeLine}{logical}
-
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
 
 \item{Debug}{Debugging purposes}
 

@@ -33,8 +33,6 @@ Plot.BinaryMetrics(
   EchartsTheme = "macarons",
   EchartsLabels = FALSE,
   TimeLine = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = FALSE,
   TextColor = "white",
   Debug = FALSE
 )
@@ -74,6 +72,8 @@ Plot.BinaryMetrics(
 
 \item{Title}{character}
 
+\item{MouseScroll}{logical, zoom via mouse scroll}
+
 \item{ShowLabels}{character}
 
 \item{Title.YAxis}{character}
@@ -85,10 +85,6 @@ Plot.BinaryMetrics(
 \item{EchartsLabels}{character}
 
 \item{TimeLine}{logical}
-
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
 
 \item{TextColor}{hex character}
 

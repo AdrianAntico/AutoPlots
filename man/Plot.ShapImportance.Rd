@@ -26,8 +26,6 @@ Plot.ShapImportance(
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "dark",
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   Debug = FALSE
 )

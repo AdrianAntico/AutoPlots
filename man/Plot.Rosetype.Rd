@@ -24,8 +24,6 @@ Plot.Rosetype(
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
   TimeLine = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
@@ -77,15 +75,13 @@ Plot.Rosetype(
 
 \item{TimeLine}{logical}
 
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
-
 \item{TextColor}{'darkblue'}
 
 \item{title.fontSize}{Defaults to size 22. Numeric. This changes the size of the title.}
 
 \item{Debug}{Debugging purposes}
+
+\item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 }

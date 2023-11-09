@@ -28,8 +28,6 @@ Plot.PartialDependence.HeatMap(
   EchartsTheme = "macarons",
   EchartsLabels = FALSE,
   TimeLine = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   Debug = FALSE
 )
@@ -65,6 +63,8 @@ Plot.PartialDependence.HeatMap(
 
 \item{ShowLabels}{character}
 
+\item{MouseScroll}{logical, zoom via mouse scroll}
+
 \item{Title.YAxis}{character}
 
 \item{Title.XAxis}{character}
@@ -74,10 +74,6 @@ Plot.PartialDependence.HeatMap(
 \item{EchartsLabels}{character}
 
 \item{TimeLine}{logical}
-
-\item{X_Scroll}{= TRUE,}
-
-\item{Y_Scroll}{= TRUE,}
 
 \item{TextColor}{hex character}
 

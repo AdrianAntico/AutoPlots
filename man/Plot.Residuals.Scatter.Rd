@@ -25,8 +25,6 @@ Plot.Residuals.Scatter(
   Title.XAxis = "Predicted",
   EchartsTheme = "macarons",
   TimeLine = FALSE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   Debug = FALSE
 )
@@ -54,6 +52,8 @@ Plot.Residuals.Scatter(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
+\item{MouseScroll}{logical, zoom via mouse scroll}
+
 \item{Title}{character}
 
 \item{ShowLabels}{character}
@@ -65,10 +65,6 @@ Plot.Residuals.Scatter(
 \item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
-
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
 
 \item{TextColor}{"Not Implemented"}
 

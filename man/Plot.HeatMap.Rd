@@ -28,8 +28,6 @@ Plot.HeatMap(
   Title.XAxis = NULL,
   EchartsTheme = "dark",
   MouseScroll = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
@@ -87,6 +85,8 @@ Plot.HeatMap(
 \item{Title.XAxis}{character}
 
 \item{EchartsTheme}{"dark-blue"}
+
+\item{MouseScroll}{logical, zoom via mouse scroll}
 }
 \description{
 Create heat maps with numeric or categorical dt

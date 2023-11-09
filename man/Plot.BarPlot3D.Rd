@@ -28,8 +28,6 @@ Plot.BarPlot3D(
   Title.XAxis = NULL,
   EchartsTheme = "dark",
   MouseScroll = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
@@ -88,6 +86,8 @@ Plot.BarPlot3D(
 \item{Title.XAxis}{character}
 
 \item{EchartsTheme}{"dark-blue"}
+
+\item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{Debug}{Debugging purposes}
 }

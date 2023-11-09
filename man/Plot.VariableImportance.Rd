@@ -23,8 +23,6 @@ Plot.VariableImportance(
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
   TimeLine = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
@@ -70,13 +68,11 @@ Plot.VariableImportance(
 
 \item{TimeLine}{logical}
 
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
-
 \item{TextColor}{'darkblue'}
 
 \item{Debug}{Debugging purposes}
+
+\item{MouseScroll}{logical, zoom via mouse scroll}
 }
 \description{
 Generate variable importance plots

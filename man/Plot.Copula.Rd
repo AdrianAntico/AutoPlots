@@ -25,8 +25,6 @@ Plot.Copula(
   EchartsTheme = "dark-blue",
   MouseScroll = TRUE,
   TimeLine = FALSE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   yaxis.fontSize = 14,
   xaxis.fontSize = 14,
@@ -77,11 +75,9 @@ Plot.Copula(
 
 \item{EchartsTheme}{= "dark-blue",}
 
+\item{MouseScroll}{logical, zoom via mouse scroll}
+
 \item{TimeLine}{Logical}
-
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
 
 \item{TextColor}{'darkblue'}
 

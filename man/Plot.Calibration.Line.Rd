@@ -25,8 +25,6 @@ Plot.Calibration.Line(
   EchartsTheme = "macarons",
   TimeLine = FALSE,
   MouseScroll = TRUE,
-  X_Scroll = TRUE,
-  Y_Scroll = TRUE,
   TextColor = "white",
   Debug = FALSE
 )
@@ -66,9 +64,7 @@ Plot.Calibration.Line(
 
 \item{TimeLine}{logical}
 
-\item{X_Scroll}{logical}
-
-\item{Y_Scroll}{logical}
+\item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TextColor}{"Not Implemented"}
 
