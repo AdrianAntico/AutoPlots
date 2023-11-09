@@ -63,7 +63,29 @@ Plot.Parallel(
 
 \item{TextColor}{character hex}
 
+\item{title.fontSize}{22}
+
+\item{title.fontWeight}{"bold"}
+
+\item{title.textShadowColor}{'#63aeff'}
+
+\item{title.textShadowBlur}{3}
+
+\item{title.textShadowOffsetY}{1}
+
+\item{title.textShadowOffsetX}{-1}
+
+\item{yaxis.fontSize}{14}
+
+\item{xaxis.fontSize}{14}
+
 \item{Debug}{Debugging purposes}
+
+\item{xaxis.rotate}{0}
+
+\item{yaxis.rotate}{0}
+
+\item{ContainLabel}{TRUE}
 }
 \description{
 Build a parallel plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -112,8 +134,8 @@ AutoPlots::Plot.Parallel(
   Title.YAxis = Title.YAxis,
   Title.XAxis = Title.XAxis,
   EchartsTheme = EchartsTheme,
-  X_Scroll = X_Scroll,
-  Y_Scroll = Y_Scroll,
+
+
   TextColor = TextColor,
   title.fontSize = title.fontSize,
   title.fontWeight = title.fontWeight,

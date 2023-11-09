@@ -18,13 +18,13 @@ Plot.Histogram(
   NumberBins = 30,
   Height = NULL,
   Width = NULL,
+  EchartsTheme = "macarons",
   Title = "Histogram",
+  MouseScroll = TRUE,
+  TimeLine = FALSE,
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
-  EchartsTheme = "macarons",
-  MouseScroll = TRUE,
-  TimeLine = FALSE,
   TextColor = "white",
   title.fontSize = 22,
   title.fontWeight = "bold",
@@ -69,6 +69,30 @@ Plot.Histogram(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{logical}
+
+\item{ShowLabels}{FALSE}
+
+\item{Title.YAxis}{NULL}
+
+\item{Title.XAxis}{NULL}
+
+\item{TextColor}{"white"}
+
+\item{title.fontSize}{22}
+
+\item{title.fontWeight}{"bold"}
+
+\item{title.textShadowColor}{'#63aeff'}
+
+\item{title.textShadowBlur}{3}
+
+\item{title.textShadowOffsetY}{1}
+
+\item{title.textShadowOffsetX}{-1}
+
+\item{xaxis.fontSize}{14}
+
+\item{yaxis.fontSize}{14}
 
 \item{Debug}{Debugging purposes}
 

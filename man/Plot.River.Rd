@@ -83,6 +83,22 @@ Plot.River(
 
 \item{TextColor}{"Not Implemented"}
 
+\item{title.fontSize}{22}
+
+\item{title.fontWeight}{"bold"}
+
+\item{title.textShadowColor}{'#63aeff'}
+
+\item{title.textShadowBlur}{3}
+
+\item{title.textShadowOffsetY}{1}
+
+\item{title.textShadowOffsetX}{-1}
+
+\item{xaxis.fontSize}{14}
+
+\item{yaxis.fontSize}{14}
+
 \item{Debug}{Debugging purposes}
 
 \item{ZeroLineColor}{color}
@@ -96,6 +112,12 @@ Plot.River(
 \item{FillColor}{color}
 
 \item{FillColorReverse}{character}
+
+\item{xaxis.rotate}{0}
+
+\item{yaxis.rotate}{0}
+
+\item{ContainLabel}{TRUE}
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification

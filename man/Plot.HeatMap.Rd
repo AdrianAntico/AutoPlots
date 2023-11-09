@@ -87,6 +87,30 @@ Plot.HeatMap(
 \item{EchartsTheme}{"dark-blue"}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
+
+\item{title.fontSize}{22}
+
+\item{title.fontWeight}{"bold"}
+
+\item{title.textShadowColor}{'#63aeff'}
+
+\item{title.textShadowBlur}{3}
+
+\item{title.textShadowOffsetY}{1}
+
+\item{title.textShadowOffsetX}{-1}
+
+\item{yaxis.fontSize}{14}
+
+\item{xaxis.fontSize}{14}
+
+\item{xaxis.rotate}{0}
+
+\item{yaxis.rotate}{0}
+
+\item{ContainLabel}{TRUE}
+
+\item{Debug}{Debugging parameter}
 }
 \description{
 Create heat maps with numeric or categorical dt

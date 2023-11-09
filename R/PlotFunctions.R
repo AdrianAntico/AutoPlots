@@ -2858,7 +2858,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
       dt = dt,
       YVar = NULL,
       GroupVar = GroupVar,
-      YVarTrans = YVarTrans,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
@@ -3001,11 +3000,19 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param Width = NULL,
 #' @param Title 'Violin Plot'
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param EchartsTheme = "macaron"
 #' @param TimeLine Logical
 #' @param TextColor 'darkblue'
+#' @param title.fontSize Default 22
+#' @param title.fontWeight Default "bold"
+#' @param title.textShadowColor Default '#63aeff'
+#' @param title.textShadowBlur Default 3
+#' @param title.textShadowOffsetY Default 1
+#' @param title.textShadowOffsetX Default -1
+#' @param yaxis.fontSize Default 14
+#' @param yaxis.rotate Default 0
+#' @param ContainLabel Default TRUE
+#' @param tooltip.trigger Default "axis"
 #' @param Debug Debugging purposes
 #' @export
 Plot.ProbabilityPlot <- function(dt = NULL,
@@ -3116,6 +3123,18 @@ Plot.ProbabilityPlot <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
+#' @param ShowLabels FALSE
+#' @param Title.YAxis NULL
+#' @param Title.XAxis NULL
+#' @param TextColor "white"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
 #' @export
 Plot.Histogram <- function(dt = NULL,
@@ -3131,16 +3150,16 @@ Plot.Histogram <- function(dt = NULL,
                            NumberBins = 30,
                            Height = NULL,
                            Width = NULL,
+                           EchartsTheme = "macarons",
                            Title = "Histogram",
+                           MouseScroll = TRUE,
+                           TimeLine = FALSE,
                            ShowLabels = FALSE,
                            Title.YAxis = NULL,
                            Title.XAxis = NULL,
-                           EchartsTheme = "macarons",
-                           MouseScroll = TRUE,
-                           TimeLine = FALSE,
                            TextColor = "white",
                            title.fontSize = 22,
-                           title.fontWeight = "bold", # normal
+                           title.fontWeight = "bold",
                            title.textShadowColor = '#63aeff',
                            title.textShadowBlur = 3,
                            title.textShadowOffsetY = 1,
@@ -3309,7 +3328,6 @@ Plot.Histogram <- function(dt = NULL,
 #'
 #' @param dt source data.table
 #' @param SampleSize = 100000L
-#' @param GroupVar From App
 #' @param YVar Y-Axis variable name
 #' @param XVar X-Axis variable name
 #' @param GroupVar Character variable
@@ -3327,9 +3345,18 @@ Plot.Histogram <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-
-
-#' @param TextColor "white",
+#' @param TextColor "white"
+#' @param title.fontSize  22
+#' @param title.fontWeight  "bold"
+#' @param title.textShadowColor  '#63aeff'
+#' @param title.textShadowBlur  3
+#' @param title.textShadowOffsetY  1
+#' @param title.textShadowOffsetX  -1
+#' @param xaxis.fontSize  14
+#' @param yaxis.fontSize  14
+#' @param xaxis.rotate  0
+#' @param yaxis.rotate  0
+#' @param ContainLabel  TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Density <- function(dt = NULL,
@@ -3344,16 +3371,16 @@ Plot.Density <- function(dt = NULL,
                          FacetLevels = NULL,
                          Height = NULL,
                          Width = NULL,
+                         MouseScroll = TRUE,
                          Title = "Density Plot",
                          ShowLabels = FALSE,
                          Title.YAxis = NULL,
                          Title.XAxis = NULL,
                          EchartsTheme = "macarons",
-                         MouseScroll = TRUE,
                          TimeLine = FALSE,
                          TextColor = "white",
                          title.fontSize = 22,
-                         title.fontWeight = "bold", # normal
+                         title.fontWeight = "bold",
                          title.textShadowColor = '#63aeff',
                          title.textShadowBlur = 3,
                          title.textShadowOffsetY = 1,
@@ -3364,8 +3391,6 @@ Plot.Density <- function(dt = NULL,
                          yaxis.rotate = 0,
                          ContainLabel = TRUE,
                          Debug = FALSE) {
-
-  TimeLine <- FALSE
 
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
@@ -3632,10 +3657,17 @@ Plot.Density <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
 #' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
 #'
 #' @export
@@ -3660,7 +3692,7 @@ Plot.Pie <- function(dt = NULL,
                      TimeLine = TRUE,
                      TextColor = "white",
                      title.fontSize = 22,
-                     title.fontWeight = "bold", # normal
+                     title.fontWeight = "bold",
                      title.textShadowColor = '#63aeff',
                      title.textShadowBlur = 3,
                      title.textShadowOffsetY = 1,
@@ -3821,10 +3853,15 @@ Plot.Pie <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
 #'
 #' @export
@@ -3849,7 +3886,7 @@ Plot.Donut <- function(dt = NULL,
                        TimeLine = TRUE,
                        TextColor = "white",
                        title.fontSize = 22,
-                       title.fontWeight = "bold", # normal
+                       title.fontWeight = "bold",
                        title.textShadowColor = '#63aeff',
                        title.textShadowBlur = 3,
                        title.textShadowOffsetY = 1,
@@ -4004,10 +4041,15 @@ Plot.Donut <- function(dt = NULL,
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
 #'
 #' @export
@@ -4032,7 +4074,7 @@ Plot.Rosetype <- function(dt = NULL,
                           TimeLine = TRUE,
                           TextColor = "white",
                           title.fontSize = 22,
-                          title.fontWeight = "bold", # normal
+                          title.fontWeight = "bold",
                           title.textShadowColor = '#63aeff',
                           title.textShadowBlur = 3,
                           title.textShadowOffsetY = 1,
@@ -4188,6 +4230,17 @@ Plot.Rosetype <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Box <- function(dt = NULL,
@@ -4211,7 +4264,7 @@ Plot.Box <- function(dt = NULL,
                      TimeLine = FALSE,
                      TextColor = "white",
                      title.fontSize = 22,
-                     title.fontWeight = "bold", # normal
+                     title.fontWeight = "bold",
                      title.textShadowColor = '#63aeff',
                      title.textShadowBlur = 3,
                      title.textShadowOffsetY = 1,
@@ -4827,6 +4880,17 @@ Plot.Box <- function(dt = NULL,
 #' @param Title = "Density Plot"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TextColor "white",
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.WordCloud <- function(dt = NULL,
@@ -5007,6 +5071,13 @@ Plot.WordCloud <- function(dt = NULL,
 #' @param ShowSymbol = FALSE
 #' @param BackGroundColor color outside of plot window. Rcolors and hex
 #' @param TextColor "Not Implemented"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param ContainLabel TRUE
 #' @param DarkMode FALSE
 #' @param Debug Debugging purposes
 #'
@@ -5148,6 +5219,17 @@ Plot.Radar <- function(dt = NULL,
 #' @param ShowSymbol = FALSE
 #' @param BackGroundColor color outside of plot window. Rcolors and hex
 #' @param TextColor "Not Implemented"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param DarkMode FALSE
 #' @param Debug Debugging purposes
 #'
@@ -5242,7 +5324,7 @@ Plot.Line <- function(dt = NULL,
                       ShowSymbol = FALSE,
                       TextColor = "white",
                       title.fontSize = 22,
-                      title.fontWeight = "bold", # normal
+                      title.fontWeight = "bold",
                       title.textShadowColor = '#63aeff',
                       title.textShadowBlur = 3,
                       title.textShadowOffsetY = 1,
@@ -5641,6 +5723,17 @@ Plot.Line <- function(dt = NULL,
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Area <- function(dt = NULL,
@@ -5670,7 +5763,7 @@ Plot.Area <- function(dt = NULL,
                       ShowSymbol = FALSE,
                       TextColor = "white",
                       title.fontSize = 22,
-                      title.fontWeight = "bold", # normal
+                      title.fontWeight = "bold",
                       title.textShadowColor = '#63aeff',
                       title.textShadowBlur = 3,
                       title.textShadowOffsetY = 1,
@@ -6062,6 +6155,17 @@ Plot.Area <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Step <- function(dt = NULL,
@@ -6089,7 +6193,7 @@ Plot.Step <- function(dt = NULL,
                       ShowSymbol = FALSE,
                       TextColor = "white",
                       title.fontSize = 22,
-                      title.fontWeight = "bold", # normal
+                      title.fontWeight = "bold",
                       title.textShadowColor = '#63aeff',
                       title.textShadowBlur = 3,
                       title.textShadowOffsetY = 1,
@@ -6486,6 +6590,17 @@ Plot.Step <- function(dt = NULL,
 #' @param FillColor color
 #' @param FillColorReverse character
 #' @param TextColor "Not Implemented"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.River <- function(dt = NULL,
@@ -6511,7 +6626,7 @@ Plot.River <- function(dt = NULL,
                        ShowSymbol = FALSE,
                        TextColor = "white",
                        title.fontSize = 22,
-                       title.fontWeight = "bold", # normal
+                       title.fontWeight = "bold",
                        title.textShadowColor = '#63aeff',
                        title.textShadowBlur = 3,
                        title.textShadowOffsetY = 1,
@@ -6661,6 +6776,17 @@ Plot.River <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Bar <- function(dt = NULL,
@@ -6686,7 +6812,7 @@ Plot.Bar <- function(dt = NULL,
                      TimeLine = TRUE,
                      TextColor = "white",
                      title.fontSize = 22,
-                     title.fontWeight = "bold", # normal
+                     title.fontWeight = "bold",
                      title.textShadowColor = '#63aeff',
                      title.textShadowBlur = 3,
                      title.textShadowOffsetY = 1,
@@ -7451,6 +7577,17 @@ Plot.Bar <- function(dt = NULL,
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.ACF <- function(dt = NULL,
@@ -7466,7 +7603,7 @@ Plot.ACF <- function(dt = NULL,
                      EchartsTheme = "macarons",
                      TextColor = "white",
                      title.fontSize = 22,
-                     title.fontWeight = "bold", # normal
+                     title.fontWeight = "bold",
                      title.textShadowColor = '#63aeff',
                      title.textShadowBlur = 3,
                      title.textShadowOffsetY = 1,
@@ -7634,6 +7771,17 @@ Plot.ACF <- function(dt = NULL,
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.PACF <- function(dt = NULL,
@@ -7649,7 +7797,7 @@ Plot.PACF <- function(dt = NULL,
                       EchartsTheme = "macarons",
                       TextColor = "white",
                       title.fontSize = 22,
-                      title.fontWeight = "bold", # normal
+                      title.fontWeight = "bold",
                       title.textShadowColor = '#63aeff',
                       title.textShadowBlur = 3,
                       title.textShadowOffsetY = 1,
@@ -7835,6 +7983,17 @@ Plot.PACF <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.StackedBar <- function(dt = NULL,
@@ -7859,7 +8018,7 @@ Plot.StackedBar <- function(dt = NULL,
                             TimeLine = TRUE,
                             TextColor = "white",
                             title.fontSize = 22,
-                            title.fontWeight = "bold", # normal
+                            title.fontWeight = "bold",
                             title.textShadowColor = '#63aeff',
                             title.textShadowBlur = 3,
                             title.textShadowOffsetY = 1,
@@ -8123,6 +8282,17 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.BarPlot3D <- function(dt,
@@ -8150,7 +8320,7 @@ Plot.BarPlot3D <- function(dt,
                            MouseScroll = TRUE,
                            TextColor = "white",
                            title.fontSize = 22,
-                           title.fontWeight = "bold", # normal
+                           title.fontWeight = "bold",
                            title.textShadowColor = '#63aeff',
                            title.textShadowBlur = 3,
                            title.textShadowOffsetY = 1,
@@ -8706,6 +8876,18 @@ Plot.BarPlot3D <- function(dt,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
+#' @param Debug Debugging parameter
 #' @export
 Plot.HeatMap <- function(dt,
                          PreAgg = FALSE,
@@ -8732,7 +8914,7 @@ Plot.HeatMap <- function(dt,
                          MouseScroll = TRUE,
                          TextColor = "white",
                          title.fontSize = 22,
-                         title.fontWeight = "bold", # normal
+                         title.fontWeight = "bold",
                          title.textShadowColor = '#63aeff',
                          title.textShadowBlur = 3,
                          title.textShadowOffsetY = 1,
@@ -9388,6 +9570,17 @@ Plot.HeatMap <- function(dt,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
 #' @param TextColor character hex
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.CorrMatrix <- function(dt = NULL,
@@ -9409,7 +9602,7 @@ Plot.CorrMatrix <- function(dt = NULL,
                             MouseScroll = TRUE,
                             TextColor = "white",
                             title.fontSize = 22,
-                            title.fontWeight = "bold", # normal
+                            title.fontWeight = "bold",
                             title.textShadowColor = '#63aeff',
                             title.textShadowBlur = 3,
                             title.textShadowOffsetY = 1,
@@ -9508,6 +9701,17 @@ Plot.CorrMatrix <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
 #' @param TextColor character hex
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -9587,7 +9791,7 @@ Plot.Parallel <- function(dt = NULL,
                           MouseScroll = TRUE,
                           TextColor = "white",
                           title.fontSize = 22,
-                          title.fontWeight = "bold", # normal
+                          title.fontWeight = "bold",
                           title.textShadowColor = '#63aeff',
                           title.textShadowBlur = 3,
                           title.textShadowOffsetY = 1,
@@ -9724,6 +9928,17 @@ Plot.Parallel <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Copula <- function(dt = NULL,
@@ -9750,7 +9965,7 @@ Plot.Copula <- function(dt = NULL,
                         yaxis.fontSize = 14,
                         xaxis.fontSize = 14,
                         title.fontSize = 22,
-                        title.fontWeight = "bold", # normal
+                        title.fontWeight = "bold",
                         title.textShadowColor = '#63aeff',
                         title.textShadowBlur = 3,
                         title.textShadowOffsetY = 1,
@@ -10082,6 +10297,17 @@ Plot.Copula <- function(dt = NULL,
 #' @param EchartsTheme = "dark-blue"
 #' @param TimeLine Logical
 #' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Copula3D <- function(dt = NULL,
@@ -10106,7 +10332,7 @@ Plot.Copula3D <- function(dt = NULL,
                           TimeLine = FALSE,
                           TextColor = "white",
                           title.fontSize = 22,
-                          title.fontWeight = "bold", # normal
+                          title.fontWeight = "bold",
                           title.textShadowColor = '#63aeff',
                           title.textShadowBlur = 3,
                           title.textShadowOffsetY = 1,
@@ -10319,6 +10545,17 @@ Plot.Copula3D <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Scatter <- function(dt = NULL,
@@ -10343,7 +10580,7 @@ Plot.Scatter <- function(dt = NULL,
                          TimeLine = FALSE,
                          TextColor = "white",
                          title.fontSize = 22,
-                         title.fontWeight = "bold", # normal
+                         title.fontWeight = "bold",
                          title.textShadowColor = '#63aeff',
                          title.textShadowBlur = 3,
                          title.textShadowOffsetY = 1,
@@ -10688,6 +10925,17 @@ Plot.Scatter <- function(dt = NULL,
 #' @param EchartsTheme = "macaron"
 #' @param TimeLine Logical
 #' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Scatter3D <- function(dt = NULL,
@@ -10712,7 +10960,7 @@ Plot.Scatter3D <- function(dt = NULL,
                            TimeLine = FALSE,
                            TextColor = "white",
                            title.fontSize = 22,
-                           title.fontWeight = "bold", # normal
+                           title.fontWeight = "bold",
                            title.textShadowColor = '#63aeff',
                            title.textShadowBlur = 3,
                            title.textShadowOffsetY = 1,
@@ -10955,6 +11203,17 @@ Plot.Scatter3D <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor Not Implemented
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @export
 Plot.Residuals.Histogram <- function(dt = NULL,
@@ -10980,7 +11239,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
                                      TimeLine = FALSE,
                                      TextColor = "white",
                                      title.fontSize = 22,
-                                     title.fontWeight = "bold", # normal
+                                     title.fontWeight = "bold",
                                      title.textShadowColor = '#63aeff',
                                      title.textShadowBlur = 3,
                                      title.textShadowOffsetY = 1,
@@ -11188,8 +11447,6 @@ Plot.Residuals.Scatter <- function(dt = NULL,
     Title = Title,
     EchartsTheme = EchartsTheme,
     TimeLine = tl,
-
-
     TextColor = TextColor,
     tooltip.trigger = "item",
     Debug = Debug)
@@ -12298,6 +12555,14 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
 #' @export
 Plot.VariableImportance <- function(dt = NULL,
@@ -12320,7 +12585,7 @@ Plot.VariableImportance <- function(dt = NULL,
                                     TimeLine = TRUE,
                                     TextColor = "white",
                                     title.fontSize = 22,
-                                    title.fontWeight = "bold", # normal
+                                    title.fontWeight = "bold",
                                     title.textShadowColor = '#63aeff',
                                     title.textShadowBlur = 3,
                                     title.textShadowOffsetY = 1,
@@ -13533,10 +13798,9 @@ Plot.BinaryMetrics <- function(dt = NULL,
 #' @author Adrian Antico
 #'
 #' @param dt source data.table
+#' @param YVar Names of shap columns
+#' @param GroupVar Name of by variable
 #' @param EchartsTheme "dark-blue"
-#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
-#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
-#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
@@ -13556,9 +13820,6 @@ Plot.ShapImportance <- function(dt,
                                 AggMethod = 'meanabs',
                                 YVar = NULL,
                                 GroupVar = NULL,
-                                YVarTrans = "Identity",
-                                XVarTrans = "Identity",
-                                ZVarTrans = "Identity",
                                 FacetRows = 1,
                                 FacetCols = 1,
                                 FacetLevels = NULL,
@@ -13621,9 +13882,10 @@ Plot.ShapImportance <- function(dt,
       Width = Width,
       Title = paste0("Shap Importance: AggMethod = ", AggMethod),
       EchartsTheme = EchartsTheme,
-
       Y_Scroll = Y_Scroll)
+
     return(p1)
+
   } else {
 
     if(Debug) print("Right Here Yo")
@@ -13634,8 +13896,8 @@ Plot.ShapImportance <- function(dt,
       XVar = "Variable",
       YVar = "Importance",
       GroupVar = NULL,
-      YVarTrans = YVarTrans,
-      XVarTrans = XVarTrans,
+      YVarTrans = "Identity",
+      XVarTrans = "Identity",
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,

@@ -77,11 +77,23 @@ Plot.Pie(
 
 \item{TextColor}{'darkblue'}
 
-\item{title.fontSize}{Defaults to size 22. Numeric. This changes the size of the title.}
+\item{title.fontSize}{22}
+
+\item{title.fontWeight}{"bold"}
+
+\item{title.textShadowColor}{'#63aeff'}
+
+\item{title.textShadowBlur}{3}
+
+\item{title.textShadowOffsetY}{1}
+
+\item{title.textShadowOffsetX}{-1}
+
+\item{xaxis.fontSize}{14}
+
+\item{yaxis.fontSize}{14}
 
 \item{Debug}{Debugging purposes}
-
-\item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
 }

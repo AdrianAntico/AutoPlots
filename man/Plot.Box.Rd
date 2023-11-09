@@ -80,6 +80,28 @@ Plot.Box(
 
 \item{TextColor}{character hex}
 
+\item{title.fontSize}{22}
+
+\item{title.fontWeight}{"bold"}
+
+\item{title.textShadowColor}{'#63aeff'}
+
+\item{title.textShadowBlur}{3}
+
+\item{title.textShadowOffsetY}{1}
+
+\item{title.textShadowOffsetX}{-1}
+
+\item{xaxis.fontSize}{14}
+
+\item{yaxis.fontSize}{14}
+
+\item{xaxis.rotate}{0}
+
+\item{yaxis.rotate}{0}
+
+\item{ContainLabel}{TRUE}
+
 \item{Debug}{Debugging purposes}
 }
 \description{

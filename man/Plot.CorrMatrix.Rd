@@ -69,9 +69,31 @@ Plot.CorrMatrix(
 
 \item{TextColor}{character hex}
 
+\item{title.fontSize}{22}
+
+\item{title.fontWeight}{"bold"}
+
+\item{title.textShadowColor}{'#63aeff'}
+
+\item{title.textShadowBlur}{3}
+
+\item{title.textShadowOffsetY}{1}
+
+\item{title.textShadowOffsetX}{-1}
+
+\item{yaxis.fontSize}{14}
+
+\item{xaxis.fontSize}{14}
+
 \item{Debug}{Debugging purposes}
 
 \item{CorrVarsTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{xaxis.rotate}{0}
+
+\item{yaxis.rotate}{0}
+
+\item{ContainLabel}{TRUE}
 }
 \description{
 Build a correlation matrix plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.

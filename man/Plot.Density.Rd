@@ -17,12 +17,12 @@ Plot.Density(
   FacetLevels = NULL,
   Height = NULL,
   Width = NULL,
+  MouseScroll = TRUE,
   Title = "Density Plot",
   ShowLabels = FALSE,
   Title.YAxis = NULL,
   Title.XAxis = NULL,
   EchartsTheme = "macarons",
-  MouseScroll = TRUE,
   TimeLine = FALSE,
   TextColor = "white",
   title.fontSize = 22,
@@ -64,6 +64,8 @@ Plot.Density(
 
 \item{Width}{= NULL,}
 
+\item{MouseScroll}{logical, zoom via mouse scroll}
+
 \item{Title}{= "Density Plot"}
 
 \item{ShowLabels}{character}
@@ -74,11 +76,31 @@ Plot.Density(
 
 \item{EchartsTheme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
-\item{MouseScroll}{logical, zoom via mouse scroll}
-
 \item{TimeLine}{logical}
 
-\item{TextColor}{"white",}
+\item{TextColor}{"white"}
+
+\item{title.fontSize}{22}
+
+\item{title.fontWeight}{"bold"}
+
+\item{title.textShadowColor}{'#63aeff'}
+
+\item{title.textShadowBlur}{3}
+
+\item{title.textShadowOffsetY}{1}
+
+\item{title.textShadowOffsetX}{-1}
+
+\item{xaxis.fontSize}{14}
+
+\item{yaxis.fontSize}{14}
+
+\item{xaxis.rotate}{0}
+
+\item{yaxis.rotate}{0}
+
+\item{ContainLabel}{TRUE}
 
 \item{Debug}{Debugging purposes}
 }

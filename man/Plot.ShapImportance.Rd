@@ -10,9 +10,6 @@ Plot.ShapImportance(
   AggMethod = "meanabs",
   YVar = NULL,
   GroupVar = NULL,
-  YVarTrans = "Identity",
-  XVarTrans = "Identity",
-  ZVarTrans = "Identity",
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
@@ -35,11 +32,9 @@ Plot.ShapImportance(
 
 \item{AggMethod}{"mean", "median", "sum", "sd", "skewness","kurtosis", "coeffvar", "meanabs", "medianabs", "sumabs", "sdabs", "skewnessabs", "kurtosisabs", "CoeffVarabs"}
 
-\item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+\item{YVar}{Names of shap columns}
 
-\item{XVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
-
-\item{ZVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+\item{GroupVar}{Name of by variable}
 
 \item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
 

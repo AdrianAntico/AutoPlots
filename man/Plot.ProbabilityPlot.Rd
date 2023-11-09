@@ -49,11 +49,27 @@ Plot.ProbabilityPlot(
 
 \item{TextColor}{'darkblue'}
 
+\item{title.fontSize}{Default 22}
+
+\item{title.fontWeight}{Default "bold"}
+
+\item{title.textShadowColor}{Default '#63aeff'}
+
+\item{title.textShadowBlur}{Default 3}
+
+\item{title.textShadowOffsetY}{Default 1}
+
+\item{title.textShadowOffsetX}{Default -1}
+
+\item{yaxis.fontSize}{Default 14}
+
+\item{yaxis.rotate}{Default 0}
+
+\item{ContainLabel}{Default TRUE}
+
+\item{tooltip.trigger}{Default "axis"}
+
 \item{Debug}{Debugging purposes}
-
-\item{Title.YAxis}{character}
-
-\item{Title.XAxis}{character}
 
 \item{TimeLine}{Logical}
 }
