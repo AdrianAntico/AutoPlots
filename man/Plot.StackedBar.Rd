@@ -110,6 +110,50 @@ Plot.StackedBar(
 \description{
 Build a stacked bar plot vs a grouped bar plot
 }
+\examples{
+\dontrun{
+
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts Stacked Bar Chart
+AutoPlots::Plot.StackedBar(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Adrian",
+  GroupVar = "Factor_2",
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  AggMethod = 'mean',
+  Height = NULL,
+  Width = NULL,
+  Title = "Stacked Bar",
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  ShowLabels = FALSE,
+  EchartsTheme = "macarons",
+  MouseScroll = TRUE,
+  TimeLine = TRUE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

@@ -92,61 +92,41 @@ Build a parallel plot by simply passing arguments to a single function. It will 
 }
 \examples{
 \dontrun{
-dt = data.table::fread(file.choose())
-SampleSize = 5000
-CorrVars = c("Customer","Brand","Category") #names(dt)[!names(dt) \%in\% "Date"]
-CorrVarTrans = "Identity"
-FacetRows = 1
-FacetCols = 1
-FacetLevels = NULL
-PreAgg = FALSE
-Height = "400px"
-Width = "600px"
-Title = "Parallel Plot"
-ShowLabels = FALSE
-Title.YAxis = "bla"
-Title.XAxis = "bloke"
-EchartsTheme = "macarons"
-X_Scroll = TRUE
-Y_Scroll = TRUE
-TextColor = "white"
-title.fontSize = 22
-title.fontWeight = "bold"
-title.textShadowColor = '#63aeff'
-title.textShadowBlur = 3
-title.textShadowOffsetY = 1
-title.textShadowOffsetX = -1
-yaxis.fontSize = 14
-xaxis.fontSize = 14
-Debug = FALSE
 
+# Create data
+dt = AutoPlots::FakeDataGenerator(N = 100000)
+
+# Create plot
 AutoPlots::Plot.Parallel(
   dt = dt,
-  CorrVars = CorrVars,
-  FacetRows = FacetRows,
-  FacetCols = FacetCols,
-  FacetLevels = FacetLevels,
-  PreAgg = PreAgg,
-  Height = Height,
-  Width = Width,
-  Title = Title,
-  ShowLabels = ShowLabels,
-  Title.YAxis = Title.YAxis,
-  Title.XAxis = Title.XAxis,
-  EchartsTheme = EchartsTheme,
-
-
-  TextColor = TextColor,
-  title.fontSize = title.fontSize,
-  title.fontWeight = title.fontWeight,
-  title.textShadowColor = title.textShadowColor,
-  title.textShadowBlur = title.textShadowBlur,
-  title.textShadowOffsetY = title.textShadowOffsetY,
-  title.textShadowOffsetX = title.textShadowOffsetX,
-  yaxis.fontSize = yaxis.fontSize,
-  xaxis.fontSize = xaxis.fontSize,
-  Debug = Debug
-)
+  SampleSize = 1000,
+  CorrVars = c("Independent_Variable3",
+               "Independent_Variable4",
+               "Independent_Variable5",
+               "Independent_Variable6",
+               "Independent_Variable7"),
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  PreAgg = FALSE,
+  Height = NULL,
+  Width = NULL,
+  Title = "Parallel Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  EchartsTheme = "macarons",
+  MouseScroll = TRUE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
+  Debug = FALSE)
 }
 
 }

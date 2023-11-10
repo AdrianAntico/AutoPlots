@@ -112,6 +112,53 @@ Plot.Copula3D(
 \description{
 Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
+\examples{
+\dontrun{
+
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
+
+# Echarts Copula Plot Chart
+AutoPlots::Plot.Copula3D(
+  dt = data,
+  SampleSize = 10000,
+  XVar = "Adrian",
+  YVar = "Independent_Variable9",
+  ZVar = "Independent_Variable6",
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  ZVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  GroupVar = NULL,
+  Height = NULL,
+  Width = NULL,
+  Title = 'Copula 3D',
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  EchartsTheme = "macarons",
+  TimeLine = FALSE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
+  zaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  zaxis.rotate = 0,
+  ContainLabel = TRUE,
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

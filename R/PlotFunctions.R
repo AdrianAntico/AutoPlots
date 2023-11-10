@@ -5367,6 +5367,9 @@ Plot.WordCloud <- function(dt = NULL,
 #' @param DarkMode FALSE
 #' @param Debug Debugging purposes
 #'
+#' @examples
+#' \dontrun{
+#'
 #' # Create Data
 #' dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
 #'
@@ -7124,6 +7127,50 @@ Plot.River <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts Bar Chart
+#' AutoPlots::Plot.Bar(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   XVar = "Factor_1",
+#'   YVar = "Adrian",
+#'   GroupVar = NULL,
+#'   LabelValues = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Bar Plot',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = "Adrian",
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   MouseScroll = TRUE,
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Bar <- function(dt = NULL,
                      PreAgg = FALSE,
@@ -8331,6 +8378,50 @@ Plot.PACF <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts Stacked Bar Chart
+#' AutoPlots::Plot.StackedBar(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   XVar = "Factor_1",
+#'   YVar = "Adrian",
+#'   GroupVar = "Factor_2",
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Stacked Bar",
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   ShowLabels = FALSE,
+#'   EchartsTheme = "macarons",
+#'   MouseScroll = TRUE,
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.StackedBar <- function(dt = NULL,
                             PreAgg = FALSE,
@@ -8630,6 +8721,54 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts 3D Bar Chart
+#' AutoPlots::Plot.BarPlot3D(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = 'mean',
+#'   XVar = "Factor_1",
+#'   YVar = "Factor_2",
+#'   ZVar = "Adrian",
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   ZVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   NumberBins = 21,
+#'   NumLevels_Y = 33,
+#'   NumLevels_X = 33,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "3D Bar Plot",
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   MouseScroll = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   zaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.BarPlot3D <- function(dt,
                            PreAgg = FALSE,
@@ -9224,6 +9363,51 @@ Plot.BarPlot3D <- function(dt,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging parameter
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts Heatmap Plot Chart
+#' AutoPlots::Plot.HeatMap(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   XVar = "Factor_1",
+#'   YVar = "Factor_2",
+#'   ZVar = "Independent_Variable6",
+#'   XVarTrans = "Identity",
+#'   ZVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   NumberBins = 21,
+#'   NumLevels_Y = 33,
+#'   NumLevels_X = 33,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Heatmap",
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   MouseScroll = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.HeatMap <- function(dt,
                          PreAgg = FALSE,
@@ -9918,6 +10102,50 @@ Plot.HeatMap <- function(dt,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts CorrMatrix Plot Chart
+#' AutoPlots::Plot.CorrMatrix(
+#'   dt = data,
+#'   CorrVars = c(
+#'     "Adrian",
+#'     "Independent_Variable1",
+#'     "Independent_Variable2",
+#'     "Independent_Variable3",
+#'     "Independent_Variable4",
+#'     "Independent_Variable5"),
+#'   CorrVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Method = 'pearson',
+#'   PreAgg = FALSE,
+#'   MaxNAPercent = 0.05,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Correlation Matrix",
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   MouseScroll = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.CorrMatrix <- function(dt = NULL,
                             CorrVars = NULL,
@@ -10052,61 +10280,41 @@ Plot.CorrMatrix <- function(dt = NULL,
 #'
 #' @examples
 #' \dontrun{
-#' dt = data.table::fread(file.choose())
-#' SampleSize = 5000
-#' CorrVars = c("Customer","Brand","Category") #names(dt)[!names(dt) %in% "Date"]
-#' CorrVarTrans = "Identity"
-#' FacetRows = 1
-#' FacetCols = 1
-#' FacetLevels = NULL
-#' PreAgg = FALSE
-#' Height = "400px"
-#' Width = "600px"
-#' Title = "Parallel Plot"
-#' ShowLabels = FALSE
-#' Title.YAxis = "bla"
-#' Title.XAxis = "bloke"
-#' EchartsTheme = "macarons"
-#' X_Scroll = TRUE
-#' Y_Scroll = TRUE
-#' TextColor = "white"
-#' title.fontSize = 22
-#' title.fontWeight = "bold"
-#' title.textShadowColor = '#63aeff'
-#' title.textShadowBlur = 3
-#' title.textShadowOffsetY = 1
-#' title.textShadowOffsetX = -1
-#' yaxis.fontSize = 14
-#' xaxis.fontSize = 14
-#' Debug = FALSE
 #'
+#' # Create data
+#' dt = AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Create plot
 #' AutoPlots::Plot.Parallel(
 #'   dt = dt,
-#'   CorrVars = CorrVars,
-#'   FacetRows = FacetRows,
-#'   FacetCols = FacetCols,
-#'   FacetLevels = FacetLevels,
-#'   PreAgg = PreAgg,
-#'   Height = Height,
-#'   Width = Width,
-#'   Title = Title,
-#'   ShowLabels = ShowLabels,
-#'   Title.YAxis = Title.YAxis,
-#'   Title.XAxis = Title.XAxis,
-#'   EchartsTheme = EchartsTheme,
-#'
-#'
-#'   TextColor = TextColor,
-#'   title.fontSize = title.fontSize,
-#'   title.fontWeight = title.fontWeight,
-#'   title.textShadowColor = title.textShadowColor,
-#'   title.textShadowBlur = title.textShadowBlur,
-#'   title.textShadowOffsetY = title.textShadowOffsetY,
-#'   title.textShadowOffsetX = title.textShadowOffsetX,
-#'   yaxis.fontSize = yaxis.fontSize,
-#'   xaxis.fontSize = xaxis.fontSize,
-#'   Debug = Debug
-#' )
+#'   SampleSize = 1000,
+#'   CorrVars = c("Independent_Variable3",
+#'                "Independent_Variable4",
+#'                "Independent_Variable5",
+#'                "Independent_Variable6",
+#'                "Independent_Variable7"),
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   PreAgg = FALSE,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Parallel Plot",
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   MouseScroll = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   Debug = FALSE)
 #' }
 #'
 #' @export
@@ -10276,6 +10484,50 @@ Plot.Parallel <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts Copula Plot Chart
+#' AutoPlots::Plot.Copula(
+#'   dt = data,
+#'   SampleSize = 10000,
+#'   XVar = "Independent_Variable8",
+#'   YVar = "Adrian",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Copula Plot',
+#'   ShowLabels = FALSE,
+#'   AddGLM = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   MouseScroll = TRUE,
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Copula <- function(dt = NULL,
                         SampleSize = 30000L,
@@ -10294,7 +10546,7 @@ Plot.Copula <- function(dt = NULL,
                         AddGLM = FALSE,
                         Title.YAxis = NULL,
                         Title.XAxis = NULL,
-                        EchartsTheme = "dark-blue",
+                        EchartsTheme = "macarons",
                         MouseScroll = TRUE,
                         TimeLine = FALSE,
                         TextColor = "white",
@@ -10645,6 +10897,53 @@ Plot.Copula <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
+#'
+#' # Echarts Copula Plot Chart
+#' AutoPlots::Plot.Copula3D(
+#'   dt = data,
+#'   SampleSize = 10000,
+#'   XVar = "Adrian",
+#'   YVar = "Independent_Variable9",
+#'   ZVar = "Independent_Variable6",
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   ZVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   GroupVar = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Copula 3D',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   zaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   zaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Copula3D <- function(dt = NULL,
                           SampleSize = 100000,
@@ -10893,6 +11192,52 @@ Plot.Copula3D <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data[, Independent_Variable8 := Independent_Variable8 * runif(.N)]
+#'
+#' # Echarts Scatter Plot Chart
+#' AutoPlots::Plot.Scatter(
+#'   dt = data,
+#'   SampleSize = 10000,
+#'   XVar = "Independent_Variable10",
+#'   YVar = "Independent_Variable8",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Scatter Plot',
+#'   ShowLabels = FALSE,
+#'   AddGLM = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "blue",
+#'   MouseScroll = TRUE,
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   tooltip.trigger = "axis",
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Scatter <- function(dt = NULL,
                          SampleSize = 30000L,
@@ -11273,6 +11618,54 @@ Plot.Scatter <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
+#'
+#' # Echarts Copula Plot Chart
+#' AutoPlots::Plot.Scatter3D(
+#'   dt = data,
+#'   SampleSize = 10000,
+#'   XVar = "Adrian",
+#'   YVar = "Independent_Variable9",
+#'   ZVar = "Independent_Variable6",
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   ZVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   GroupVar = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Copula 3D',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   zaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   zaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Scatter3D <- function(dt = NULL,
                            SampleSize = 100000,

@@ -79,6 +79,39 @@ Plot.Radar(
 \description{
 Plot.Radar
 }
+\examples{
+\dontrun{
+
+# Create Data
+dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
+
+# Create plot
+AutoPlots::Plot.Radar(
+  dt = dt,
+  AggMethod = "mean",
+  PreAgg = FALSE,
+  YVar = "Y",
+  GroupVar = "GV",
+  YVarTrans = "Identity",
+  Height = NULL,
+  Width = NULL,
+  Title = 'Radar Plot',
+  ShowLabels = FALSE,
+  EchartsTheme = "macarons",
+  ShowSymbol = FALSE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  ContainLabel = TRUE,
+  DarkMode = FALSE,
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

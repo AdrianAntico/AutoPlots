@@ -109,6 +109,52 @@ Plot.Scatter(
 \description{
 Build a copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
+\examples{
+\dontrun{
+
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+data[, Independent_Variable8 := Independent_Variable8 * runif(.N)]
+
+# Echarts Scatter Plot Chart
+AutoPlots::Plot.Scatter(
+  dt = data,
+  SampleSize = 10000,
+  XVar = "Independent_Variable10",
+  YVar = "Independent_Variable8",
+  GroupVar = NULL,
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  Height = NULL,
+  Width = NULL,
+  Title = 'Scatter Plot',
+  ShowLabels = FALSE,
+  AddGLM = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  EchartsTheme = "blue",
+  MouseScroll = TRUE,
+  TimeLine = FALSE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
+  tooltip.trigger = "axis",
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

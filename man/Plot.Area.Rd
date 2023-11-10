@@ -127,6 +127,26 @@ Plot.Area(
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
 }
+\examples{
+\dontrun{
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+
+# Build plot
+AutoPlots::Plot.Area(
+  dt = data,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  XVar = "DateTime",
+  YVar = "Independent_Variable3",
+  YVarTrans = "Identity",
+  DualYVar = "Independent_Variable6",
+  DualYVarTrans = "Identity",
+  GroupVar = NULL,
+  EchartsTheme = "macarons")
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

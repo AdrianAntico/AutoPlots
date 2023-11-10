@@ -116,6 +116,54 @@ Plot.BarPlot3D(
 \description{
 Build a 3D Bar Plot
 }
+\examples{
+\dontrun{
+
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts 3D Bar Chart
+AutoPlots::Plot.BarPlot3D(
+  dt = data,
+  PreAgg = FALSE,
+  AggMethod = 'mean',
+  XVar = "Factor_1",
+  YVar = "Factor_2",
+  ZVar = "Adrian",
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  ZVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  NumberBins = 21,
+  NumLevels_Y = 33,
+  NumLevels_X = 33,
+  Height = NULL,
+  Width = NULL,
+  Title = "3D Bar Plot",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  EchartsTheme = "macarons",
+  MouseScroll = TRUE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
+  zaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

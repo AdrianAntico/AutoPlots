@@ -68,6 +68,36 @@ Plot.WordCloud(
 \description{
 WordCloud plots
 }
+\examples{
+\dontrun{
+
+# Create fake data
+dt <- AutoPlots::FakeDataGenerator(AddComment = TRUE)
+
+# Create plot
+AutoPlots::Plot.WordCloud(
+  dt = dt,
+  YVar = "Comment",
+  Height = NULL,
+  Width = NULL,
+  Title = "Word Cloud",
+  EchartsTheme = "macarons",
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  xaxis.fontSize = 14,
+  yaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

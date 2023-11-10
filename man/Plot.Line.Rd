@@ -148,49 +148,6 @@ AutoPlots::Plot.Line(
   DualYVarTrans = "LogPlus1",
   GroupVar = NULL,
   EchartsTheme = "macarons")
-
-# Step through function
-dt = data
-PreAgg = FALSE
-AggMethod = "mean"
-XVar = "DateTime"
-YVar = "Independent_Variable1"
-YVarTrans = "Identity"
-DualYVar = "Independent_Variable4"
-DualYVarTrans = "Identity"
-XVarTrans = "Identity"
-GroupVar = "Factor_1"
-FacetRows = 1
-FacetCols = 1
-FacetLevels = NULL
-Height = NULL
-Width = NULL
-Title = 'Line Plot'
-ShowLabels = FALSE
-Title.YAxis = NULL
-Title.XAxis = NULL
-EchartsTheme = "macarons"
-X_Scroll = FALSE
-Y_Scroll = FALSE
-TimeLine = TRUE
-Area = FALSE
-Alpha = 0.50
-Smooth = TRUE
-ShowSymbol = FALSE
-TextColor =        "white"
-title.fontSize = 22
-title.fontWeight = "bold"
-title.textShadowColor = '#63aeff'
-title.textShadowBlur = 3
-title.textShadowOffsetY = 1
-title.textShadowOffsetX = -1
-xaxis.fontSize = 14
-yaxis.fontSize = 14
-xaxis.rotate = 0
-yaxis.rotate = 0
-ContainLabel = TRUE
-DarkMode = FALSE
-Debug = FALSE
 }
 
 }

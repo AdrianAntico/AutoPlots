@@ -122,6 +122,29 @@ Plot.River(
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
 }
+\examples{
+\dontrun{
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+
+# Build plot
+AutoPlots::Plot.River(
+  dt = data,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  XVar = "DateTime",
+  YVar = c(
+    "Independent_Variable1",
+    "Independent_Variable2",
+    "Independent_Variable3",
+    "Independent_Variable4",
+    "Independent_Variable5"),
+  YVarTrans = "Identity",
+  TextColor = "black",
+  EchartsTheme = "macarons")
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

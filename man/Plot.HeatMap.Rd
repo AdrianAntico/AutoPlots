@@ -115,6 +115,51 @@ Plot.HeatMap(
 \description{
 Create heat maps with numeric or categorical dt
 }
+\examples{
+\dontrun{
+
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts Heatmap Plot Chart
+AutoPlots::Plot.HeatMap(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Factor_2",
+  ZVar = "Independent_Variable6",
+  XVarTrans = "Identity",
+  ZVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  NumberBins = 21,
+  NumLevels_Y = 33,
+  NumLevels_X = 33,
+  Height = NULL,
+  Width = NULL,
+  Title = "Heatmap",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  EchartsTheme = "macarons",
+  MouseScroll = TRUE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

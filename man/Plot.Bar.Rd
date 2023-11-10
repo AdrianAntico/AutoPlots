@@ -113,6 +113,50 @@ Plot.Bar(
 \description{
 Build a bar plot by simply passing arguments to a single function
 }
+\examples{
+\dontrun{
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts Bar Chart
+AutoPlots::Plot.Bar(
+  dt = data,
+  PreAgg = FALSE,
+  XVar = "Factor_1",
+  YVar = "Adrian",
+  GroupVar = NULL,
+  LabelValues = NULL,
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  AggMethod = 'mean',
+  Height = NULL,
+  Width = NULL,
+  Title = 'Bar Plot',
+  ShowLabels = FALSE,
+  Title.YAxis = "Adrian",
+  Title.XAxis = NULL,
+  EchartsTheme = "macarons",
+  MouseScroll = TRUE,
+  TimeLine = TRUE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  xaxis.fontSize = 14,
+  yaxis.fontSize = 14,
+  xaxis.rotate = 0,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

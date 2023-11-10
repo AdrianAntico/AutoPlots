@@ -98,6 +98,50 @@ Plot.CorrMatrix(
 \description{
 Build a correlation matrix plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
+\examples{
+\dontrun{
+
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+
+# Echarts CorrMatrix Plot Chart
+AutoPlots::Plot.CorrMatrix(
+  dt = data,
+  CorrVars = c(
+    "Adrian",
+    "Independent_Variable1",
+    "Independent_Variable2",
+    "Independent_Variable3",
+    "Independent_Variable4",
+    "Independent_Variable5"),
+  CorrVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  Method = 'pearson',
+  PreAgg = FALSE,
+  MaxNAPercent = 0.05,
+  Height = NULL,
+  Width = NULL,
+  Title = "Correlation Matrix",
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  EchartsTheme = "macarons",
+  MouseScroll = TRUE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  xaxis.fontSize = 14,
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},
