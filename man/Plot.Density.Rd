@@ -107,6 +107,46 @@ Plot.Density(
 \description{
 Density plots, by groups, with transparent continuous plots
 }
+\examples{
+\dontrun{
+
+# Create fake data
+dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+
+# Create plot
+AutoPlots::Plot.Density(
+ dt = dt,
+ SampleSize = 30000L,
+ XVar = NULL,
+ YVar = "Y",
+ GroupVar = NULL,
+ YVarTrans = "Identity",
+ XVarTrans = "Identity",
+ FacetRows = 1,
+ FacetCols = 1,
+ FacetLevels = NULL,
+ Height = NULL,
+ Width = NULL,
+ EchartsTheme = "macarons",
+ Title = "Histogram",
+ MouseScroll = TRUE,
+ TimeLine = FALSE,
+ ShowLabels = FALSE,
+ Title.YAxis = NULL,
+ Title.XAxis = NULL,
+ TextColor = "white",
+ title.fontSize = 22,
+ title.fontWeight = "bold",
+ title.textShadowColor = '#63aeff',
+ title.textShadowBlur = 3,
+ title.textShadowOffsetY = 1,
+ title.textShadowOffsetX = -1,
+ xaxis.fontSize = 14,
+ yaxis.fontSize = 14,
+ Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

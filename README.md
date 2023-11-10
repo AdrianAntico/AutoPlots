@@ -405,3 +405,30 @@ AutoPlots::Plot.CorrMatrix(
     "Independent_Variable5"),
   EchartsTheme = "macarons")
 ```
+
+### Probability Plot
+```r
+dt <- data.table::data.table(Y = pnorm(q = runif(10000)))
+AutoPlots::Plot.ProbabilityPlot(
+  dt = dt,
+  SampleSize = 1000L,
+  YVar = "Y",
+  YVarTrans = "Identity",
+  Height = NULL,
+  Width = NULL,
+  Title = 'Normal Probability Plot',
+  ShowLabels = FALSE,
+  EchartsTheme = "blue",
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
+  tooltip.trigger = "axis",
+  Debug = FALSE)
+```

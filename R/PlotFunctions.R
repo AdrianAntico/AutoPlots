@@ -3014,6 +3014,38 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param ContainLabel Default TRUE
 #' @param tooltip.trigger Default "axis"
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#'
+#' # Create plot
+#' AutoPlots::Plot.ProbabilityPlot(
+#'   dt = dt,
+#'   SampleSize = 1000L,
+#'   YVar = "Y",
+#'   YVarTrans = "Identity",
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Normal Probability Plot',
+#'   ShowLabels = FALSE,
+#'   EchartsTheme = "blue",
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   tooltip.trigger = "axis",
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.ProbabilityPlot <- function(dt = NULL,
                                  SampleSize = 1000L,
@@ -3136,6 +3168,47 @@ Plot.ProbabilityPlot <- function(dt = NULL,
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#'
+#' # Create plot
+#' AutoPlots::Plot.Histogram(
+#'   dt = dt,
+#'   SampleSize = 30000L,
+#'   XVar = NULL,
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   NumberBins = 30,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   EchartsTheme = "macarons",
+#'   Title = "Histogram",
+#'   MouseScroll = TRUE,
+#'   TimeLine = FALSE,
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   TextColor = "white",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Histogram <- function(dt = NULL,
                            SampleSize = 30000L,
@@ -3244,9 +3317,16 @@ Plot.Histogram <- function(dt = NULL,
     Min <- dt1[, min(get(YVar), na.rm = TRUE)]
     Max <- dt1[, max(get(YVar), na.rm = TRUE)]
     Range <- Max - Min
-    acc <- ceiling(Range / NumberBins)
-    dt1[, Buckets := round(get(YVar) / acc) * acc]
-    dt1 <- dt1[, .N, by = "Buckets"][order(Buckets)]
+    if(Range < NumberBins) {
+      acc <- round(Range / NumberBins, 2)
+      dt1[, Buckets := round(get(YVar) / acc) * acc]
+      dt1 <- dt1[, .N, by = "Buckets"][order(Buckets)]
+    } else {
+      acc <- ceiling(Range / NumberBins)
+      dt1[, Buckets := round(get(YVar) / acc) * acc]
+      dt1 <- dt1[, .N, by = "Buckets"][order(Buckets)]
+    }
+
   } else {
     levs <- unique(as.character(dt1[[GroupVar]]))
     gg <- list()
@@ -3255,7 +3335,11 @@ Plot.Histogram <- function(dt = NULL,
       Min <- temp[, min(get(YVar), na.rm = TRUE)]
       Max <- temp[, max(get(YVar), na.rm = TRUE)]
       Range <- Max - Min
-      acc <- ceiling(Range / NumberBins)
+      if(Range < NumberBins) {
+        acc <- round(Range / NumberBins, 2)
+      } else {
+        acc <- ceiling(Range / NumberBins)
+      }
       temp[, Buckets := round(get(YVar) / acc) * acc]
       gg[[i]] <- temp[, .N, by = c("Buckets",GroupVar)][order(Buckets)]
     }
@@ -3358,6 +3442,46 @@ Plot.Histogram <- function(dt = NULL,
 #' @param yaxis.rotate  0
 #' @param ContainLabel  TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#'# Create fake data
+#'dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#'
+#'# Create plot
+#'AutoPlots::Plot.Density(
+#'  dt = dt,
+#'  SampleSize = 30000L,
+#'  XVar = NULL,
+#'  YVar = "Y",
+#'  GroupVar = NULL,
+#'  YVarTrans = "Identity",
+#'  XVarTrans = "Identity",
+#'  FacetRows = 1,
+#'  FacetCols = 1,
+#'  FacetLevels = NULL,
+#'  Height = NULL,
+#'  Width = NULL,
+#'  EchartsTheme = "macarons",
+#'  Title = "Histogram",
+#'  MouseScroll = TRUE,
+#'  TimeLine = FALSE,
+#'  ShowLabels = FALSE,
+#'  Title.YAxis = NULL,
+#'  Title.XAxis = NULL,
+#'  TextColor = "white",
+#'  title.fontSize = 22,
+#'  title.fontWeight = "bold",
+#'  title.textShadowColor = '#63aeff',
+#'  title.textShadowBlur = 3,
+#'  title.textShadowOffsetY = 1,
+#'  title.textShadowOffsetX = -1,
+#'  xaxis.fontSize = 14,
+#'  yaxis.fontSize = 14,
+#'  Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Density <- function(dt = NULL,
                          SampleSize = 100000L,
@@ -3670,6 +3794,44 @@ Plot.Density <- function(dt = NULL,
 #' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
 #'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#'
+#' # Create plot
+#' AutoPlots::Plot.Pie(
+#'   dt = dt,
+#'   PreAgg = FALSE,
+#'   XVar = "GV",
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Pie Chart',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   Debug = FALSE)
+#' }
 #' @export
 Plot.Pie <- function(dt = NULL,
                      PreAgg = FALSE,
@@ -3778,8 +3940,6 @@ Plot.Pie <- function(dt = NULL,
       temp <- AutoPlots:::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
     }
 
-
-
     p1 <- echarts4r::e_charts_(
       temp,
       x = XVar,
@@ -3792,14 +3952,6 @@ Plot.Pie <- function(dt = NULL,
       p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE))
     } else {
       p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar)
-    }
-
-    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
-      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
-    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
-      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
-    } else {
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -3863,6 +4015,45 @@ Plot.Pie <- function(dt = NULL,
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#'
+#' # Create plot
+#' AutoPlots::Plot.Donut(
+#'   dt = dt,
+#'   PreAgg = FALSE,
+#'   XVar = "GV",
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Pie Chart',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   Debug = FALSE)
+#' }
 #'
 #' @export
 Plot.Donut <- function(dt = NULL,
@@ -3982,14 +4173,6 @@ Plot.Donut <- function(dt = NULL,
       p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, radius = c("50%", "70%"))
     }
 
-    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
-      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
-    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
-      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
-    } else {
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    }
-
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", backgroundColor = "aliceblue")
@@ -4051,6 +4234,45 @@ Plot.Donut <- function(dt = NULL,
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#'
+#' # Create plot
+#' AutoPlots::Plot.Rosetype(
+#'   dt = dt,
+#'   PreAgg = FALSE,
+#'   XVar = "GV",
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Pie Chart',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   Debug = FALSE)
+#' }
 #'
 #' @export
 Plot.Rosetype <- function(dt = NULL,
@@ -4170,14 +4392,6 @@ Plot.Rosetype <- function(dt = NULL,
       p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, roseType = "radius")
     }
 
-    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
-      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
-    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
-      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
-    } else {
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    }
-
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_tooltip(e = p1, trigger = "item", backgroundColor = "aliceblue")
@@ -4242,6 +4456,48 @@ Plot.Rosetype <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#'
+#' AutoPlots::Plot.Box(
+#'   dt = dt,
+#'   SampleSize = 100000L,
+#'   XVar = "GV",
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Box Plot',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   EchartsTheme = "macarons",
+#'   MouseScroll = TRUE,
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Box <- function(dt = NULL,
                      SampleSize = 100000L,
@@ -4892,6 +5148,36 @@ Plot.Box <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Create fake data
+#' dt <- AutoPlots::FakeDataGenerator(AddComment = TRUE)
+#'
+#' # Create plot
+#' AutoPlots::Plot.WordCloud(
+#'   dt = dt,
+#'   YVar = "Comment",
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Word Cloud",
+#'   EchartsTheme = "macarons",
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.WordCloud <- function(dt = NULL,
                            YVar = NULL,
@@ -5081,6 +5367,35 @@ Plot.WordCloud <- function(dt = NULL,
 #' @param DarkMode FALSE
 #' @param Debug Debugging purposes
 #'
+#' # Create Data
+#' dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
+#'
+#' # Create plot
+#' AutoPlots::Plot.Radar(
+#'   dt = dt,
+#'   AggMethod = "mean",
+#'   PreAgg = FALSE,
+#'   YVar = "Y",
+#'   GroupVar = "GV",
+#'   YVarTrans = "Identity",
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Radar Plot',
+#'   ShowLabels = FALSE,
+#'   EchartsTheme = "macarons",
+#'   ShowSymbol = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   ContainLabel = TRUE,
+#'   DarkMode = FALSE,
+#'   Debug = FALSE)
+#' }
+#'
 #' @export
 Plot.Radar <- function(dt = NULL,
                        AggMethod = "mean",
@@ -5129,7 +5444,6 @@ Plot.Radar <- function(dt = NULL,
 
     # Aggregate data
     dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(GroupVar[1L])]
-    data.table::setorderv(x = dt1, cols = c(GroupVar[1L]), 1L)
   }
 
   # Transformation
@@ -5139,6 +5453,17 @@ Plot.Radar <- function(dt = NULL,
     }
   }
 
+  # Make sure the variable with the largest value goes first
+  # Otherwise the radar plot will size to a smaller variable and look stupid
+  mv <- c(rep(0, length(YVar)))
+  for(i in seq_along(YVar)) {
+    mv[i] <- dt1[, max(get(YVar[i]), na.rm = TRUE)]
+  }
+
+  YVarMod <- YVar[which(mv == max(mv, na.rm = TRUE))]
+  YVarMod <- c(YVarMod, YVar[!YVar %in% YVarMod])
+  mv <- max(mv, na.rm = TRUE)
+
   # Build base plot depending on GroupVar availability
   p1 <- echarts4r::e_charts_(
     data = dt1,
@@ -5147,15 +5472,6 @@ Plot.Radar <- function(dt = NULL,
     emphasis = list(focus = "series"),
     dispose = TRUE, width = Width, height = Height)
 
-  # Make sure the variable with the largest value goes first
-  # Otherwise the radar plot will size to a smaller variable and look stupid
-  mv <- c(rep(0, length(YVar)))
-  for(i in seq_along(YVar)) {
-    mv[i] <- dt1[, max(get(YVar[i]), na.rm = TRUE)]
-  }
-  YVarMod <- YVar[which(mv == max(mv, na.rm = TRUE))]
-  YVarMod <- c(YVarMod, YVar[!YVar %in% YVarMod])
-  mv <- max(mv, na.rm = TRUE)
   for(yvar in YVarMod) {
     p1 <- echarts4r::e_radar_(e = p1, serie = yvar, max = mv, name = yvar)
   }
@@ -5250,49 +5566,6 @@ Plot.Radar <- function(dt = NULL,
 #'   DualYVarTrans = "LogPlus1",
 #'   GroupVar = NULL,
 #'   EchartsTheme = "macarons")
-#'
-#' # Step through function
-#' dt = data
-#' PreAgg = FALSE
-#' AggMethod = "mean"
-#' XVar = "DateTime"
-#' YVar = "Independent_Variable1"
-#' YVarTrans = "Identity"
-#' DualYVar = "Independent_Variable4"
-#' DualYVarTrans = "Identity"
-#' XVarTrans = "Identity"
-#' GroupVar = "Factor_1"
-#' FacetRows = 1
-#' FacetCols = 1
-#' FacetLevels = NULL
-#' Height = NULL
-#' Width = NULL
-#' Title = 'Line Plot'
-#' ShowLabels = FALSE
-#' Title.YAxis = NULL
-#' Title.XAxis = NULL
-#' EchartsTheme = "macarons"
-#' X_Scroll = FALSE
-#' Y_Scroll = FALSE
-#' TimeLine = TRUE
-#' Area = FALSE
-#' Alpha = 0.50
-#' Smooth = TRUE
-#' ShowSymbol = FALSE
-#' TextColor =        "white"
-#' title.fontSize = 22
-#' title.fontWeight = "bold"
-#' title.textShadowColor = '#63aeff'
-#' title.textShadowBlur = 3
-#' title.textShadowOffsetY = 1
-#' title.textShadowOffsetX = -1
-#' xaxis.fontSize = 14
-#' yaxis.fontSize = 14
-#' xaxis.rotate = 0
-#' yaxis.rotate = 0
-#' ContainLabel = TRUE
-#' DarkMode = FALSE
-#' Debug = FALSE
 #' }
 #'
 #' @export
@@ -5735,6 +6008,26 @@ Plot.Line <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+#'
+#' # Build plot
+#' AutoPlots::Plot.Area(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = "mean",
+#'   XVar = "DateTime",
+#'   YVar = "Independent_Variable3",
+#'   YVarTrans = "Identity",
+#'   DualYVar = "Independent_Variable6",
+#'   DualYVarTrans = "Identity",
+#'   GroupVar = NULL,
+#'   EchartsTheme = "macarons")
+#' }
+#'
 #' @export
 Plot.Area <- function(dt = NULL,
                       AggMethod = "mean",
@@ -6167,6 +6460,26 @@ Plot.Area <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+#'
+#' # Build plot
+#' AutoPlots::Plot.Step(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = "mean",
+#'   XVar = "DateTime",
+#'   YVar = "Independent_Variable3",
+#'   YVarTrans = "Identity",
+#'   DualYVar = "Independent_Variable6",
+#'   DualYVarTrans = "Identity",
+#'   GroupVar = NULL,
+#'   EchartsTheme = "macarons")
+#' }
+#'
 #' @export
 Plot.Step <- function(dt = NULL,
                       AggMethod = "mean",
@@ -6602,6 +6915,29 @@ Plot.Step <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#'
+#' @examples
+#' \dontrun{
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+#'
+#' # Build plot
+#' AutoPlots::Plot.River(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = "mean",
+#'   XVar = "DateTime",
+#'   YVar = c(
+#'     "Independent_Variable1",
+#'     "Independent_Variable2",
+#'     "Independent_Variable3",
+#'     "Independent_Variable4",
+#'     "Independent_Variable5"),
+#'   YVarTrans = "Identity",
+#'   TextColor = "black",
+#'   EchartsTheme = "macarons")
+#' }
+#'
 #' @export
 Plot.River <- function(dt = NULL,
                        AggMethod = "mean",

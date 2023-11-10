@@ -76,6 +76,38 @@ Plot.ProbabilityPlot(
 \description{
 Build a normal probability plot
 }
+\examples{
+\dontrun{
+
+# Create fake data
+dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+
+# Create plot
+AutoPlots::Plot.ProbabilityPlot(
+  dt = dt,
+  SampleSize = 1000L,
+  YVar = "Y",
+  YVarTrans = "Identity",
+  Height = NULL,
+  Width = NULL,
+  Title = 'Normal Probability Plot',
+  ShowLabels = FALSE,
+  EchartsTheme = "blue",
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  yaxis.fontSize = 14,
+  yaxis.rotate = 0,
+  ContainLabel = TRUE,
+  tooltip.trigger = "axis",
+  Debug = FALSE)
+}
+
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},

@@ -100,6 +100,45 @@ Plot.Pie(
 \description{
 Build a pie chart by simply passing arguments to a single function
 }
+\examples{
+\dontrun{
+
+# Create fake data
+dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+
+# Create plot
+AutoPlots::Plot.Pie(
+  dt = dt,
+  PreAgg = FALSE,
+  XVar = "GV",
+  YVar = "Y",
+  GroupVar = NULL,
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  FacetRows = 1,
+  FacetCols = 1,
+  FacetLevels = NULL,
+  AggMethod = 'mean',
+  Height = NULL,
+  Width = NULL,
+  Title = 'Pie Chart',
+  ShowLabels = FALSE,
+  Title.YAxis = NULL,
+  Title.XAxis = NULL,
+  EchartsTheme = "macarons",
+  TimeLine = TRUE,
+  TextColor = "black",
+  title.fontSize = 22,
+  title.fontWeight = "bold",
+  title.textShadowColor = '#63aeff',
+  title.textShadowBlur = 3,
+  title.textShadowOffsetY = 1,
+  title.textShadowOffsetX = -1,
+  xaxis.fontSize = 14,
+  yaxis.fontSize = 14,
+  Debug = FALSE)
+}
+}
 \seealso{
 Other Standard Plots: 
 \code{\link{Plot.ACF}()},
