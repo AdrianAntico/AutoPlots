@@ -1,8 +1,6 @@
 ![Version:1.0.0](https://img.shields.io/static/v1?label=Version&message=1.0.0&color=blue&?style=plastic)
-
-<!-- badges: start -->
 [![R-CMD-check](https://github.com/AdrianAntico/AutoPlots/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AdrianAntico/AutoPlots/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
+
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Logo2.PNG" align="center" width="800" />
 
