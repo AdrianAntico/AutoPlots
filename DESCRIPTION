@@ -13,7 +13,7 @@ License: AGPL (>= 3)
 URL: https://github.com/AdrianAntico/AutoPlots
 BugReports: https://github.com/AdrianAntico/AutoPlots/issues
 Depends: 
-    R (>= 4.0.0)
+    R (>= 4.1.0)
 Imports: 
     combinat,
     data.table,
