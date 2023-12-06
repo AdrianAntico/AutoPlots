@@ -72,9 +72,9 @@ Plot.Area(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{"Title"}
 
@@ -124,6 +124,9 @@ Plot.Area(
 
 \item{Area}{logical}
 }
+\value{
+plot
+}
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
 }
@@ -145,7 +148,6 @@ AutoPlots::Plot.Area(
   GroupVar = NULL,
   EchartsTheme = "macarons")
 }
-
 }
 \seealso{
 Other Standard Plots: 

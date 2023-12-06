@@ -47,6 +47,8 @@ Plot.BarPlot3D(
 \arguments{
 \item{dt}{source data.table}
 
+\item{PreAgg}{logical. Is your data pre aggregated}
+
 \item{AggMethod}{'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'}
 
 \item{XVar}{X-Axis variable name}
@@ -73,9 +75,9 @@ Plot.BarPlot3D(
 
 \item{NumLevels_X}{= 20}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{"Heatmap"}
 
@@ -88,6 +90,8 @@ Plot.BarPlot3D(
 \item{EchartsTheme}{"dark-blue"}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
+
+\item{TextColor}{character}
 
 \item{title.fontSize}{22}
 
@@ -105,6 +109,8 @@ Plot.BarPlot3D(
 
 \item{xaxis.fontSize}{14}
 
+\item{zaxis.fontSize}{14}
+
 \item{xaxis.rotate}{0}
 
 \item{yaxis.rotate}{0}
@@ -112,6 +118,9 @@ Plot.BarPlot3D(
 \item{ContainLabel}{TRUE}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Build a 3D Bar Plot
@@ -162,7 +171,6 @@ AutoPlots::Plot.BarPlot3D(
   ContainLabel = TRUE,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

@@ -52,6 +52,10 @@ Plot.Calibration.Line(
 
 \item{NumberBins}{numeric}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{Title}{character}
 
 \item{ShowLabels}{character}
@@ -69,8 +73,9 @@ Plot.Calibration.Line(
 \item{TextColor}{"Not Implemented"}
 
 \item{Debug}{Debugging purposes}
-
-\item{SampleSize}{numeric}
+}
+\value{
+plot
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification

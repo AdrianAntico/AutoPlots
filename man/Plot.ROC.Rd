@@ -52,6 +52,10 @@ Plot.ROC(
 
 \item{AggMethod}{character}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{Title}{character}
 
 \item{ShowLabels}{character}
@@ -69,8 +73,9 @@ Plot.ROC(
 \item{TextColor}{character hex}
 
 \item{Debug}{Debugging purposes}
-
-\item{NumberBins}{numeric}
+}
+\value{
+plot
 }
 \description{
 ROC Plot

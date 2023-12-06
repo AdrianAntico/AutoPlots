@@ -40,13 +40,15 @@ Plot.PACF(
 
 \item{TimeUnit}{Select from "hour", "day", "week", "month", "quarter", "year"}
 
+\item{MaxLags}{Max value for lags to test}
+
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{title}
 
@@ -77,10 +79,9 @@ Plot.PACF(
 \item{ContainLabel}{TRUE}
 
 \item{Debug}{Debugging purposes}
-
-\item{PreAgg}{logical}
-
-\item{TimeLine}{logical}
+}
+\value{
+plot
 }
 \description{
 Build a partial autocorrelation plot by simply passing arguments to a single function

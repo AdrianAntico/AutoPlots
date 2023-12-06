@@ -31,9 +31,9 @@ Plot.WordCloud(
 
 \item{YVar}{Y-Axis variable name}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{= "Density Plot"}
 
@@ -65,6 +65,9 @@ Plot.WordCloud(
 
 \item{Debug}{Debugging purposes}
 }
+\value{
+plot
+}
 \description{
 WordCloud plots
 }
@@ -72,7 +75,7 @@ WordCloud plots
 \dontrun{
 
 # Create fake data
-dt <- AutoPlots::FakeDataGenerator(AddComment = TRUE)
+dt <- FakeDataGenerator(AddComment = TRUE)
 
 # Create plot
 AutoPlots::Plot.WordCloud(
@@ -96,7 +99,6 @@ AutoPlots::Plot.WordCloud(
   ContainLabel = TRUE,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

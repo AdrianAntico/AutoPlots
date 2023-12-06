@@ -61,9 +61,9 @@ Plot.River(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{"Title"}
 
@@ -100,24 +100,9 @@ Plot.River(
 \item{yaxis.fontSize}{14}
 
 \item{Debug}{Debugging purposes}
-
-\item{ZeroLineColor}{color}
-
-\item{ZeroLineWidth}{1}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex}
-
-\item{ChartColor}{color}
-
-\item{FillColor}{color}
-
-\item{FillColorReverse}{character}
-
-\item{xaxis.rotate}{0}
-
-\item{yaxis.rotate}{0}
-
-\item{ContainLabel}{TRUE}
+}
+\value{
+plot
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
@@ -143,7 +128,6 @@ AutoPlots::Plot.River(
   TextColor = "black",
   EchartsTheme = "macarons")
 }
-
 }
 \seealso{
 Other Standard Plots: 

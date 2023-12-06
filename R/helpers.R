@@ -23,16 +23,16 @@
 #' @family Utilities
 #'
 #' @param Root NULL will setwd to project root as defined in function
-#'
-#' @export
+#' @return nothing
+#' @noRd
 BuildBinary <- function(Root = NULL) {
   x <- getwd()
   if(!is.null(Root)) {
     setwd(Root)
-    devtools::install(pkg = "AutoQuant", dependencies = FALSE)
+    devtools::install(pkg = "AutoPlots", dependencies = FALSE)
   } else {
     setwd("C:/Users/Bizon/Documents/GitHub")
-    devtools::build(pkg = "AutoQuant")
+    devtools::build(pkg = "AutoPlots")
   }
   setwd(x)
 }
@@ -46,8 +46,8 @@ BuildBinary <- function(Root = NULL) {
 #' @family Utilities
 #'
 #' @param Root NULL will setwd to project root as defined in function
-#'
-#' @export
+#' @return nothing
+#' @noRd
 Install <- function(Root = NULL) {
   x <- getwd()
   if(!is.null(Root)) {
@@ -68,7 +68,10 @@ Install <- function(Root = NULL) {
 #'
 #' @family Utilities
 #'
-#' @export
+#' @param BuildVignette logical
+#' @param Root character
+#' @return nothing
+#' @noRd
 UpdateDocs <- function(BuildVignette = FALSE, Root = NULL) {
   x <- getwd()
   if(!is.null(Root)) {

@@ -60,9 +60,9 @@ Plot.Density(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
@@ -103,6 +103,9 @@ Plot.Density(
 \item{ContainLabel}{TRUE}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Density plots, by groups, with transparent continuous plots
@@ -145,7 +148,6 @@ AutoPlots::Plot.Density(
  yaxis.fontSize = 14,
  Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

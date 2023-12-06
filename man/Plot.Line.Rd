@@ -64,6 +64,8 @@ Plot.Line(
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
+\item{DualYVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
 \item{XVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
 \item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
@@ -72,9 +74,9 @@ Plot.Line(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{Height}{= NULL,}
+\item{Height}{NULL}
 
-\item{Width}{= NULL,}
+\item{Width}{NULL}
 
 \item{Title}{"Title"}
 
@@ -125,8 +127,9 @@ Plot.Line(
 \item{DarkMode}{FALSE}
 
 \item{Debug}{Debugging purposes}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex}
+}
+\value{
+plot
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
@@ -149,7 +152,6 @@ AutoPlots::Plot.Line(
   GroupVar = NULL,
   EchartsTheme = "macarons")
 }
-
 }
 \seealso{
 Other Standard Plots: 

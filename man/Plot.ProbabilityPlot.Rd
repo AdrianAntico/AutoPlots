@@ -37,15 +37,15 @@ Plot.ProbabilityPlot(
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{'Violin Plot'}
 
 \item{ShowLabels}{character}
 
-\item{EchartsTheme}{= "macaron"}
+\item{EchartsTheme}{"macaron"}
 
 \item{TextColor}{'darkblue'}
 
@@ -70,8 +70,9 @@ Plot.ProbabilityPlot(
 \item{tooltip.trigger}{Default "axis"}
 
 \item{Debug}{Debugging purposes}
-
-\item{TimeLine}{Logical}
+}
+\value{
+plot
 }
 \description{
 Build a normal probability plot
@@ -106,7 +107,6 @@ AutoPlots::Plot.ProbabilityPlot(
   tooltip.trigger = "axis",
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

@@ -35,6 +35,8 @@ Plot.Parallel(
 \arguments{
 \item{dt}{source data.table}
 
+\item{SampleSize}{Sample size}
+
 \item{CorrVars}{vector of variable names}
 
 \item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
@@ -45,9 +47,9 @@ Plot.Parallel(
 
 \item{PreAgg}{logical}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{character}
 
@@ -80,12 +82,9 @@ Plot.Parallel(
 \item{xaxis.fontSize}{14}
 
 \item{Debug}{Debugging purposes}
-
-\item{xaxis.rotate}{0}
-
-\item{yaxis.rotate}{0}
-
-\item{ContainLabel}{TRUE}
+}
+\value{
+plot
 }
 \description{
 Build a parallel plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -128,7 +127,6 @@ AutoPlots::Plot.Parallel(
   xaxis.fontSize = 14,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

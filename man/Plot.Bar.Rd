@@ -66,9 +66,9 @@ Plot.Bar(
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{title}
 
@@ -109,6 +109,9 @@ Plot.Bar(
 \item{ContainLabel}{TRUE}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Build a bar plot by simply passing arguments to a single function
@@ -155,7 +158,6 @@ AutoPlots::Plot.Bar(
   ContainLabel = TRUE,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

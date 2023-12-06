@@ -7,1345 +7,12 @@
 # License, or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# but WITHOUT ANY WAfppRRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-# :: Helper Functions ::                                                      ----
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
-
-#' @noRd
-SummaryFunction <- function(AggMethod) {
-  if(AggMethod == "count") {
-    aggFunc <- function(x) .N
-  } else if(AggMethod == "mean") {
-    aggFunc <- function(x) mean(x, na.rm = TRUE)
-  } else if(AggMethod == "log(mean(x))") {
-    aggFunc <- function(x) log(mean(x, na.rm = TRUE))
-  } else if(AggMethod == "mean(abs(x))") {
-    aggFunc <- function(x) mean(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "sum") {
-    aggFunc <- function(x) sum(x, na.rm = TRUE)
-  } else if(AggMethod == "log(sum(x))") {
-    aggFunc <- function(x) log(sum(x, na.rm = TRUE))
-  } else if(AggMethod == "sum(abs(x))") {
-    aggFunc <- function(x) sum(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "median") {
-    aggFunc <- function(x) median(x, na.rm = TRUE)
-  } else if(AggMethod == "log(median(x))") {
-    aggFunc <- function(x) log(median(x, na.rm = TRUE))
-  } else if(AggMethod == "median(abs(x))") {
-    aggFunc <- function(x) median(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "sd") {
-    aggFunc <- function(x) sd(x, na.rm = TRUE)
-  } else if(AggMethod == "log(sd(x))") {
-    aggFunc <- function(x) log(sd(x, na.rm = TRUE))
-  } else if(AggMethod == "sd(abs(x))") {
-    aggFunc <- function(x) sd(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "skewness") {
-    aggFunc <- function(x) e1071::skewness(x, na.rm = TRUE)
-  } else if(AggMethod == "skewness(abs(x))") {
-    aggFunc <- function(x) e1071::skewness(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "kurtosis") {
-    aggFunc <- function(x) e1071::kurtosis(x, na.rm = TRUE)
-  } else if(AggMethod == "kurtosis(abs(x))") {
-    aggFunc <- function(x) e1071::kurtosis(abs(x), na.rm = TRUE)
-  } else if(AggMethod == "CoeffVar") {
-    aggFunc <- function(x) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
-  } else if(AggMethod == "CoeffVar(abs(x))") {
-    aggFunc <- function(x) sd(abs(x), na.rm = TRUE) / mean(abs(x), na.rm = TRUE)
-  }
-  return(aggFunc)
-}
-
-#' @noRd
-ColTypes <- function(data) {
-  CT <- c()
-  for(Col in names(data)) CT <- c(CT, class(data[[Col]])[1L])
-  CT
-}
-
-#' @noRd
-bold_ <- function(x) paste0('<b>',x,'</b>')
-
-#' @noRd
-font_ <- function(family = "Segoe UI Symbol", size = 12, color = 'white') list(family = family, size = size, color = color)
-
-#' @noRd
-ColNameFilter <- function(data, Types = 'all') {
-  if(Types == 'all') return(names(data))
-  nam <- c()
-  for(t in Types) {
-    if(tolower(t) == 'numeric') {
-      nam <- NumericColNames(data)
-    } else if(tolower(t) == 'character') {
-      nam <- CharacterColNames(data)
-    } else if(tolower(t) == 'factor') {
-      nam <- FactorColNames(data)
-    } else if(tolower(t) == 'logical') {
-      nam <- LogicalColNames(data)
-    } else if(tolower(t) %chin% c("date","idate","idatetime","posixct","posix")) {
-      nam <- DateColNames(data)
-    }
-  }
-  return(nam)
-}
-
-#' @noRd
-NumericColNames <- function(data) {
-  x <- as.list(names(data)[which(sapply(data, is.numeric))])
-  if(!identical(x, character(0))) return(x) else return(NULL)
-}
-
-#' @noRd
-CharacterColNames <- function(data) {
-  x <- as.list(names(data)[which(sapply(data, is.character))])
-  if(!identical(x, character(0))) return(x) else return(NULL)
-}
-
-#' @noRd
-FactorColNames <- function(data) {
-  x <- as.list(names(data)[which(sapply(data, is.factor))])
-  if(!identical(x, character(0))) return(x) else return(NULL)
-}
-
-#' @noRd
-LogicalColNames <- function(data) {
-  x <- as.list(names(data)[which(sapply(data, is.logical))])
-  if(!identical(x, character(0))) return(x) else return(NULL)
-}
-
-#' @noRd
-DateColNames <- function(data) {
-  x <- list()
-  counter <- 0L
-  for(i in names(data)) {
-    if(class(data[[i]])[1L] %in% c("IDate","Date","date","POSIXct","POSIX")) {
-      counter <- counter + 1L
-      x[[counter]] <- i
-    }
-  }
-  if(length(x) > 0L) return(x) else return(NULL)
-}
-
-#' # text & logical with NULL default
-#' @noRd
-CEP <- function(x) if(any(missing(x))) 'NULL' else if(!exists('x')) 'NULL' else if(is.null(x)) "NULL" else if(identical(x, character(0))) "NULL" else if(identical(x, numeric(0))) "NULL" else if(identical(x, integer(0))) "NULL" else if(identical(x, logical(0))) "NULL" else if(any(x == "")) "NULL" else if(any(is.na(x))) "NULL" else if(any(x == 'None')) "NULL" else if(is.numeric(x)) x else if(length(x) > 1) paste0("c(", noquote(paste0("'", x, "'", collapse = ',')), ")") else paste0("'", x, "'")
-
-#' # number and logical with FALSE / TRUE default
-#' @noRd
-CEPP <- function(x, Default = NULL, Type = 'character') if(missing(x)) 'NULL' else if(!exists('x')) 'NULL' else if(length(x) == 0) 'NULL' else if(any(is.na(x))) 'NULL' else if(all(x == "")) 'NULL' else if(Type == 'numeric') AutoPlots:::NumNull(x) else if(Type == 'character') AutoPlots:::CharNull(x)
-
-#' @title ExpandText
-#'
-#' @description This function is for pasting character vector arguments into their respective parameter slots for code printing (and command line vector argument passing)
-#'
-#'
-#' @noRd
-ExpandText <- function(x) {
-  if(length(x) > 0L) {
-    if(is.character(x) || is.factor(x) || lubridate::is.Date(x) || lubridate::is.POSIXct(x)) {
-      return(paste0("c('", paste0(x, collapse = "','"), "')"))
-    } else if(is.numeric(x) || is.logical(x)) {
-      return(paste0("c(", paste0(x, collapse = ","), ")"))
-    }
-  } else {
-    return('NULL')
-  }
-}
-
-#' @title CharNull
-#'
-#' @param x Value
-#'
-#' @noRd
-CharNull <- function(x, Char = FALSE) {
-
-  if(missing(x)) {
-    print('CharNull: missing x')
-    return(NULL)
-  }
-
-  if(!exists('x')) {
-    print('CharNull: x does not exist')
-    return(NULL)
-  }
-
-  if(length(x) == 0) {
-    print('CharNull: length(x) == 0')
-    return(NULL)
-  }
-
-  if(all(is.na(suppressWarnings(as.character(x))))) {
-
-    return(NULL)
-
-  } else if(any(is.na(suppressWarnings(as.character(x)))) && length(x) > 1) {
-
-    x <- x[!is.na(x)]
-    x <- suppressWarnings(as.character(x))
-    return(x)
-
-  } else if(any(is.na(suppressWarnings(as.character(x)))) && length(x) == 1) {
-
-    return(NULL)
-
-  } else {
-
-    x <- suppressWarnings(as.character(x))
-    return(x)
-
-  }
-
-  if(!Char) {
-    return(NULL)
-  } else {
-    return("NULL")
-  }
-}
-
-#' @title FakeDataGenerator
-#'
-#' @description Create fake data for examples
-#'
-#' @author Adrian Antico
-#' @family Data Wrangling
-#'
-#' @param Correlation Set the correlation value for simulated data
-#' @param N Number of records
-#' @param ID Number of IDcols to include
-#' @param ZIP Zero Inflation Model target variable creation. Select from 0 to 5 to create that number of distinctly distributed data, stratifed from small to large
-#' @param FactorCount Number of factor type columns to create
-#' @param AddDate Set to TRUE to include a date column
-#' @param AddComment Set to TRUE to add a comment column
-#' @param TimeSeries For testing AutoBanditSarima
-#' @param TimeSeriesTimeAgg Choose from "1min", "5min", "10min", "15min", "30min", "hour", "day", "week", "month", "quarter", "year",
-#' @param ChainLadderData Set to TRUE to return Chain Ladder Data for using AutoMLChainLadderTrainer
-#' @param Classification Set to TRUE to build classification data
-#' @param MultiClass Set to TRUE to build MultiClass data
-#' @export
-FakeDataGenerator <- function(Correlation = 0.70,
-                              N = 1000L,
-                              ID = 5L,
-                              FactorCount = 2L,
-                              AddDate = TRUE,
-                              AddComment = FALSE,
-                              AddWeightsColumn = FALSE,
-                              ZIP = 5L,
-                              TimeSeries = FALSE,
-                              TimeSeriesTimeAgg = "day",
-                              ChainLadderData = FALSE,
-                              Classification = FALSE,
-                              MultiClass = FALSE) {
-
-  # Error checking
-  if(sum(TimeSeries, Classification, MultiClass) > 1) stop("Only one of the following can be set to TRUE: TimeSeries, Classifcation, and MultiClass")
-
-  # TimeSeries
-  if(TimeSeries) {
-
-    # Error msg
-    if(is.null(TimeSeriesTimeAgg)) stop("TimeSeriesAgg cannot be NULL when using TimeSeries = TRUE")
-
-    # Pull in data
-    data <- data.table::as.data.table(as.numeric(fpp::cafe))
-
-    # Change names to common names for other calls in this function
-    data.table::setnames(data, "V1", "Weekly_Sales")
-
-    # Pick a starting date
-    data.table::set(data, j = "Date", value = "1982-01-01")
-    data.table::setcolorder(data, c(2L, 1L))
-    data[, Date := as.Date(Date)]
-
-    # "1min"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("1min","1mins","minutes","min","mins","01min","01mins")) {
-      data[, xx := 1:.N][, Date := Date + lubridate::minutes(1 * 1:.N)][, xx := NULL]
-    }
-
-    # "5min"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("5min","5mins","5minutes","min5","mins5","05min")) {
-      data[, Date := Date + lubridate::minutes(5 * 1:.N)]
-    }
-
-    # "10min"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("10min","10mins","10minutes","min10","mins10")) {
-      data[, Date := Date + lubridate::minutes(10 * 1:.N)]
-    }
-
-    # "15min"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("15min","15mins","15minutes","min15","mins15")) {
-      data[, Date := Date + lubridate::minutes(15 * 1:.N)]
-    }
-
-    # "30min"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("30min","30mins","30minutes","min30","mins30")) {
-      data[, Date := Date + lubridate::minutes(30 * 1:.N)]
-    }
-
-    # "hour"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("hour","hours","hr","hrs","our","ours")) {
-      data[, Date := Date + lubridate::hours(1:.N)]
-    }
-
-    # "day"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("day","days","daily","dy","das")) {
-      data[, Date := Date + lubridate::days(1:.N)]
-    }
-
-    # "week"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("week","weeks","wk","wks")) {
-      data[, Date := Date + lubridate::weeks(1:.N)]
-    }
-
-    # "month"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("month","months","mth","mths")) {
-      data[, Date := Date %m+% months(1:.N)]
-    }
-
-    # "quarter"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("quarter","quarters"," qtr","qtrs","qarter")) {
-      data[, Date := Date %m+% months(3 * 1:.N)]
-    }
-
-    # "year"
-    if(tolower(TimeSeriesTimeAgg) %chin% c("year","years","yr","yrs","yts")) {
-      data[, Date := Date + lubridate::years(1:.N)]
-    }
-
-    # Return data
-    return(data)
-  }
-
-  # Create ChainLadderData
-  if(ChainLadderData) {
-
-    # Overwrite N
-    N <- 1000
-
-    # Define constants
-    MaxCohortDays <- 15L
-
-    # Start date
-    CalendarDateData <- data.table::data.table(CalendarDateColumn = rep(as.Date("2018-01-01"), N), key = "CalendarDateColumn")
-
-    # Increment date column so it is sequential
-    CalendarDateData[, temp := seq_len(N)]
-    CalendarDateData[, CalendarDateColumn := CalendarDateColumn + lubridate::days(temp) - 1L]
-    CohortDate_temp <- data.table::copy(CalendarDateData)
-    data.table::setnames(x = CohortDate_temp, old = c("CalendarDateColumn"), new = c("CohortDate_temp"))
-
-    # Cross join the two data sets
-    ChainLadderData <- data.table::setkeyv(data.table::CJ(
-      CalendarDateColumn = CalendarDateData$CalendarDateColumn,
-      CohortDateColumn = CohortDate_temp$CohortDate_temp,
-      sorted = TRUE,
-      unique = TRUE),
-      cols = c("CalendarDateColumn", "CohortDateColumn"))
-
-    # Remove starter data sets and N
-    rm(CalendarDateData, CohortDate_temp, N)
-
-    # Remove impossible dates
-    ChainLadderData <- ChainLadderData[CohortDateColumn >= CalendarDateColumn]
-
-    # Add CohortPeriods
-    ChainLadderData[, CohortDays := as.numeric(difftime(CohortDateColumn, CalendarDateColumn, tz = "MST", units = "day"))]
-
-    # Limit the number of CohortTime
-    ChainLadderData <- ChainLadderData[CohortDays < MaxCohortDays]
-
-    # Add measure columns placeholder values
-    ChainLadderData[, ":=" (Leads = 0, Appointments = 0, Rates = 0)]
-
-    # Sort decending both date columns
-    data.table::setorderv(x = ChainLadderData, cols = c("CalendarDateColumn","CohortDateColumn"), order = c(-1L, 1L))
-
-    # Add columns for BaselineMeasure and ConversionMeasure
-    UniqueCalendarDates <- unique(ChainLadderData$CalendarDateColumn)
-    NN <- length(UniqueCalendarDates)
-    LoopSeq <- c(1:15)
-    LoopSeq <- cumsum(LoopSeq)
-    LoopSeq <- c(1, LoopSeq)
-    LoopSeq <- c(LoopSeq, seq(135, 15*993, 15))
-    for(cal in seq(NN)) {
-
-      # Generate first element of decay data
-      DecayCurveData <- dgeom(x = 0, prob = runif(n = 1L, min = 0.45, max = 0.55), log = FALSE)
-
-      # Fill in remain elements in vector
-      if(cal > 1L) {
-        zz <- seq_len(min(15L, cal))
-        for(i in zz[1:min(cal-1L,15)]) {
-          DecayCurveData <- c(DecayCurveData, c(dgeom(x = i, prob = runif(n = 1L, min = 0.45, max = 0.55), log = FALSE)))
-        }
-      }
-
-      # Fill ChainLadderData
-      data.table::set(ChainLadderData, i = (LoopSeq[cal]+1L):LoopSeq[cal + 1L], j = "Rates", value = DecayCurveData[seq_len(min(15L, cal))])
-    }
-
-    # Fill in Leads and Conversions----
-    x <- unique(ChainLadderData[, .SD, .SDcols = c("CalendarDateColumn","Leads")])
-    x[, Leads := runif(n = x[, .N], min = 100, max = 500)]
-    ChainLadderData <- merge(ChainLadderData[, .SD, .SDcols = c("CalendarDateColumn","CohortDateColumn","CohortDays","Appointments","Rates")], x, by = "CalendarDateColumn", all = FALSE)
-    ChainLadderData[, Appointments := Leads * Rates]
-    ChainLadderData[, Sales := Appointments * Rates * (runif(.N))]
-    ChainLadderData[, Rates := NULL]
-    data.table::setcolorder(ChainLadderData, c(1,2,3,5,4))
-    return(ChainLadderData)
-  }
-
-  # Modify----
-  if(MultiClass && FactorCount == 0L) {
-    FactorCount <- 1L
-    temp <- 1L
-  }
-
-  # Create data----
-  Correl <- Correlation
-  data <- data.table::data.table(Adrian = runif(N))
-  data[, x1 := qnorm(Adrian)]
-  data[, x2 := runif(N)]
-  data[, Independent_Variable1 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))]
-  data[, Independent_Variable2 := log(pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))]
-  data[, Independent_Variable3 := exp(pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))]
-  data[, Independent_Variable4 := exp(exp(pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2))))]
-  data[, Independent_Variable5 := sqrt(pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))]
-  data[, Independent_Variable6 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^0.10]
-  data[, Independent_Variable7 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^0.25]
-  data[, Independent_Variable8 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^0.75]
-  data[, Independent_Variable9 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^2]
-  data[, Independent_Variable10 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^4]
-  if(ID > 0L) for(i in seq_len(ID)) data[, paste0("IDcol_", i) := runif(N)]
-  data[, ":=" (x2 = NULL)]
-
-  # FactorCount----
-  for(i in seq_len(FactorCount)) {
-    RandomValues <- sort(c(runif(n = 4L, min = 0.01, max = 0.99)))
-    RandomLetters <- sort(c(sample(x = LETTERS, size = 5L, replace = FALSE)))
-    data[, paste0("Factor_", i) := as.factor(
-      data.table::fifelse(Independent_Variable1 < RandomValues[1L], RandomLetters[1L],
-                          data.table::fifelse(Independent_Variable1 < RandomValues[2L], RandomLetters[2L],
-                                              data.table::fifelse(Independent_Variable1 < RandomValues[3L],  RandomLetters[3L],
-                                                                  data.table::fifelse(Independent_Variable1 < RandomValues[4L],  RandomLetters[4L], RandomLetters[5L])))))]
-  }
-
-  # Add date----
-  if(AddDate) {
-    if(FactorCount == 0) {
-      data <- data[, DateTime := as.Date(Sys.time())]
-      data[, temp := seq_len(.N)][, DateTime := DateTime - temp][, temp := NULL]
-      data <- data[order(DateTime)]
-    } else {
-      data <- data[, DateTime := as.Date(Sys.time())]
-      CatFeatures <- sort(c(as.numeric(which(sapply(data, is.factor))), as.numeric(which(sapply(data, is.character)))))
-      data[, temp := seq_len(.N), by = c(names(data)[c(CatFeatures)])][, DateTime := DateTime - temp][, temp := NULL]
-      data.table::setorderv(x = data, cols = c("DateTime", c(names(data)[c(CatFeatures)])), order = rep(1, length(c(names(data)[c(CatFeatures)]))+1))
-    }
-  }
-
-  # Zero Inflation Setup
-  if(!Classification && !MultiClass) {
-    if(ZIP == 1L) {
-      data[, Adrian := data.table::fifelse(Adrian < 0.5, 0, Independent_Variable8)][, Independent_Variable8 := NULL]
-    } else if(ZIP == 2L) {
-      data[, Adrian := data.table::fifelse(Adrian < 0.33, 0, data.table::fifelse(Adrian < 0.66, log(Adrian * 10), log(Adrian*20)))]
-    } else if(ZIP == 3L) {
-      data[, Adrian := data.table::fifelse(Adrian < 0.25, 0, data.table::fifelse(Adrian < 0.50, log(Adrian * 10), data.table::fifelse(Adrian < 0.75, log(Adrian * 50), log(Adrian * 150))))]
-    } else if(ZIP == 4L) {
-      data[, Adrian := data.table::fifelse(Adrian < 0.20, 0, data.table::fifelse(Adrian < 0.40, log(Adrian * 10), data.table::fifelse(Adrian < 0.60, log(Adrian * 50), data.table::fifelse(Adrian < 0.80, log(Adrian * 150), log(Adrian * 250)))))]
-    } else if(ZIP == 5L) {
-      data[, Adrian := data.table::fifelse(Adrian < 1/6, 0, data.table::fifelse(Adrian < 2/6, log(Adrian * 10), data.table::fifelse(Adrian < 3/6, log(Adrian * 50), data.table::fifelse(Adrian < 4/6, log(Adrian * 250), data.table::fifelse(Adrian < 5/6, log(Adrian * 500), log(Adrian * 1000))))))]
-    }
-  }
-
-  # Classification
-  if(Classification) data[, Adrian := data.table::fifelse(jitter(x = Adrian, factor = 100) > 0.63, 1, 0)]
-
-  # Remove----
-  data[, ":=" (x1 = NULL)]
-
-  # MultiClass
-  if(MultiClass) {
-    data[, Adrian := NULL]
-    data.table::setnames(data, "Factor_1", "Adrian")
-  }
-
-  # Comment data
-  if(AddComment) {
-    a <- c('Hello', 'Hi', 'Howdy')
-    b <- c('really like', 'absolutely adore', 'sucks ass')
-    c <- c('noload', 'download', 'upload')
-    N1 <- 1/length(a)
-    N2 <- 1/length(b)
-    N3 <- 1/length(c)
-    N11 <- 1/N1
-    N22 <- 1/N2
-    N33 <- 1/N3
-    RandomText <- function(N1,N11,N2,N22,N3,N33,a,b,c) {
-      paste(sample(x = a, size = 1, replace = TRUE, prob = rep(N1, N11)),
-            sample(x = b, size = 1, replace = TRUE, prob = rep(N2, N22)),
-            sample(x = c, size = 1, replace = TRUE, prob = rep(N3, N33)))
-    }
-    data[, Comment := "a"]
-    for(i in seq_len(data[, .N])) {
-      data.table::set(data, i = i, j = "Comment", value = RandomText(N1,N11,N2,N22,N3,N33,a,b,c))
-    }
-  }
-
-  # Add weights column
-  if(AddWeightsColumn) {
-    data[, Weights := runif(.N)]
-  }
-
-  # Return data
-  return(data)
-}
-
-#' @title Standardize
-#'
-#' @description Generate standardized values for multiple variables, by groups if provided, and with a selected granularity
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#'
-#' @param data Source data.table
-#' @param ColNames Character vector of column names
-#' @param GroupVars Character vector of column names to have percent ranks by the group levels
-#' @param Center TRUE
-#' @param Scale TRUE
-#' @param ScoreTable FALSE. Set to TRUE to return a data.table that can be used to apply or backtransform via StandardizeScoring
-#'
-#' @examples
-#' \dontrun{
-#' data <- data.table::fread(file.choose())
-#' x <- Standardize(data = data, ColNames = c('Weekly_Sales', 'XREG3'), GroupVars = c('Region','Store','Dept'), Center = TRUE, Scale = TRUE, ScoreTable = TRUE)
-#' }
-#'
-#' @noRd
-Standardize <- function(data, ColNames, GroupVars = NULL, Center = TRUE, Scale = TRUE, ScoreTable = FALSE) {
-
-  # Standardize
-  if(length(GroupVars) == 0L) {
-    data[, paste0(ColNames, '_Standardize') := lapply(.SD, FUN = function(x) (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)), .SDcols = c(ColNames)]
-  } else {
-    data[, paste0(ColNames, '_Standardize') := lapply(.SD, FUN = function(x) (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)), .SDcols = c(ColNames), by = c(eval(GroupVars))]
-  }
-
-  # ScoreTable creation
-  if(ScoreTable) {
-    x <- data[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ColNames), by = c(GroupVars)]
-    data.table::setnames(x = x, old = ColNames, new = paste0(ColNames, "_mean"))
-    y <- data[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ColNames), by = c(GroupVars)]
-    data.table::setnames(x = y, old = ColNames, new = paste0(ColNames, "_sd"))
-    xy <- cbind(x,y[, (GroupVars) := NULL])
-  }
-
-  # Return
-  if(!ScoreTable) {
-    return(data)
-  } else {
-    return(list(
-      data = data,
-      ScoreTable = xy
-    ))
-  }
-}
-
-#' @title StandardizeScoring
-#'
-#' @description Generate standardized values for multiple variables, by groups if provided, and with a selected granularity
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#'
-#' @param data Source data.table
-#' @param Apply 'apply' or 'backtransform'
-#' @param ColNames Character vector of column names
-#' @param GroupVars Character vector of column names to have percent ranks by the group levels
-#' @param Center TRUE
-#' @param Scale TRUE
-#'
-#' @examples
-#' \dontrun{
-#' x <- Standardize(data = data, ColNames = c('Weekly_Sales', 'XREG1'), GroupVars = c('Region','Store','Dept'), Center = TRUE, Scale = TRUE)
-#' }
-#'
-#' @noRd
-StandardizeScoring <- function(data, ScoreTable, Apply = 'apply', GroupVars = NULL) {
-
-  # Facts
-  nam <- names(ScoreTable)[which(!names(ScoreTable) %in% GroupVars)]
-
-  # Apply will apply standardization to new data
-  # Backtransform will undo standardization
-  if(Apply == 'apply') {
-    data.table::setkeyv(x = data, cols = GroupVars)
-    data.table::setkeyv(x = ScoreTable, cols = GroupVars)
-    data[ScoreTable, paste0(nam) := mget(paste0('i.', nam))]
-    nams <- nam[seq_len(length(nam) / 2)]
-    ColNames <- gsub(pattern = "_mean", replacement = "", x = nams)
-    for(i in ColNames) data[, paste0(i, "_Standardize") := (get(i) - get(paste0(i, "_mean"))) / get(paste0(i, "_sd"))]
-    data.table::set(data, j = c(nam), value = NULL)
-  } else {
-    data.table::setkeyv(x = data, cols = GroupVars)
-    data.table::setkeyv(x = ScoreTable, cols = GroupVars)
-    data[ScoreTable, paste0(nam) := mget(paste0('i.', nam))]
-    nams <- nam[seq_len(length(nam) / 2)]
-    ColNames <- gsub(pattern = "_mean", replacement = "", x = nams)
-    for(i in ColNames) data[, eval(i) := get(paste0(i, "_Standardize")) * get(paste0(i, "_sd")) + get(paste0(i, "_mean"))]
-    data.table::set(data, j = c(nam), value = NULL)
-  }
-
-  # Return
-  return(data)
-}
-
-#' @title PercRank
-#'
-#' @description Generate percent ranks for multiple variables, by groups if provided, and with a selected granularity
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#'
-#' @param data Source data.table
-#' @param ColNames Character vector of column names
-#' @param GroupVars Character vector of column names to have percent ranks by the group levels
-#' @param Granularity Provide a value such that data.table::frank(Variable) * (1 / Granularity) / .N * Granularity. Default is 0.001
-#' @param ScoreTable = FALSE. Set to TRUE to get the reference values for applying to new data. Pass to scoring version of this function
-#'
-#' @examples
-#' \dontrun{
-#' data <- data.table::fread(file.choose())
-#' x <- PercRank(data, ColNames = c('Weekly_Sales', 'XREG1'), GroupVars = c('Region','Store','Dept'), Granularity = 0.001, ScoreTable = TRUE)
-#' }
-#'
-#' @noRd
-PercRank <- function(data, ColNames, GroupVars = NULL, Granularity = 0.001, ScoreTable = FALSE) {
-  if(length(GroupVars) == 0L) {
-    data[, paste0(ColNames, '_PercRank') := lapply(.SD, FUN = function(x) data.table::frank(x) * (1 / Granularity) / .N * Granularity), .SDcols = c(ColNames)]
-  } else {
-    data[, paste0(ColNames, '_PercRank') := lapply(.SD, FUN = function(x) data.table::frank(x) * (1 / Granularity) / .N * Granularity), .SDcols = c(ColNames), by = c(eval(GroupVars))]
-  }
-  if(!ScoreTable) {
-    return(data)
-  } else {
-    return(list(
-      data = data,
-      ScoreTable = unique(data[, .SD, .SDcols = c(ColNames, paste0(ColNames, '_PercRank'))])
-    ))
-  }
-}
-
-#' Test YeoJohnson Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @param eps erorr tolerance
-#' @param ... Arguments to pass along
-#' @return YeoJohnson results
-Test_YeoJohnson <- function(x,
-                            eps = 0.001,
-                            ...) {
-  stopifnot(is.numeric(x))
-  lambda <- Estimate_YeoJohnson_Lambda(x, eps = eps, ...)
-  trans_data <- x
-  na_idx <- is.na(x)
-  trans_data[!na_idx] <- Apply_YeoJohnson(x[!na_idx], lambda, eps)
-  mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
-  trans_data_standardized <- (trans_data - mu) / sigma
-  ptest <- nortest::pearson.test(trans_data_standardized)
-  val <- list(Name = "YeoJohnson", Data = trans_data, Lambda = lambda, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Estimate YeoJohnson Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @param lower the lower bound for search
-#' @param upper the upper bound for search
-#' @param eps erorr tolerance
-#' @return YeoJohnson results
-Estimate_YeoJohnson_Lambda <- function(x,
-                                       lower = -5,
-                                       upper = 5,
-                                       eps = 0.001) {
-
-  n <- length(x)
-  ccID <- !is.na(x)
-  x <- x[ccID]
-
-  # See references, Yeo & Johnson Biometrika (2000)
-  yj_loglik <- function(lambda) {
-    x_t <- Apply_YeoJohnson(x, lambda, eps)
-    x_t_bar <- mean(x_t)
-    x_t_var <- var(x_t) * (n - 1) / n
-    constant <- sum(sign(x) * log(abs(x) + 1))
-    - 0.5 * n * log(x_t_var) + (lambda - 1) * constant
-  }
-
-  results <- optimize(
-    yj_loglik,
-    lower = lower,
-    upper = upper,
-    maximum = TRUE,
-    tol = .0001)
-  return(results$maximum)
-}
-
-#' Apply YeoJohnson Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @param lambda optimal lambda
-#' @param eps erorr tolerance
-#' @return YeoJohnson results
-Apply_YeoJohnson <- function(x,
-                             lambda,
-                             eps = 0.001) {
-  pos_idx <- x >= 0
-  neg_idx <- x < 0
-
-  # Transform negative values
-  if(any(pos_idx)) {
-    if(abs(lambda) < eps) {
-      x[pos_idx] <- log(x[pos_idx] + 1)
-    } else {
-      x[pos_idx] <- ((x[pos_idx] + 1) ^ lambda - 1) / lambda
-    }
-  }
-
-  # Transform nonnegative values
-  if(any(neg_idx)) {
-    if(abs(lambda - 2) < eps) {
-      x[neg_idx] <- -log(-x[neg_idx] + 1)
-    } else {
-      x[neg_idx] <- -((-x[neg_idx] + 1) ^ (2 - lambda) - 1) / (2 - lambda)
-    }
-  }
-  return(x)
-}
-
-#' Inverse YeoJohnson Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @param lambda optimal lambda
-#' @param eps erorr tolerance
-#' @return YeoJohnson results
-InvApply_YeoJohnson <- function(x,
-                                lambda,
-                                eps = 0.001) {
-  val <- x
-  neg_idx <- x < 0
-  if(any(!neg_idx)) {
-    if(abs(lambda) < eps) {
-      val[!neg_idx] <- exp(x[!neg_idx]) - 1
-    } else {
-      val[!neg_idx] <- (x[!neg_idx] * lambda + 1) ^ (1 / lambda) - 1
-    }
-  }
-  if(any(neg_idx)) {
-    if(abs(lambda - 2) < eps) {
-      val[neg_idx] <- -expm1(-x[neg_idx])
-    } else {
-      val[neg_idx] <- 1 - (-(2 - lambda) * x[neg_idx] + 1) ^ (1 / (2 - lambda))
-    }
-  }
-  return(val)
-}
-
-#' Test BoxCox Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @param ... Arguments to pass along
-#' @return BoxCox results
-Test_BoxCox <- function(x, ...) {
-  stopifnot(is.numeric(x))
-  lambda <- Estimate_BoxCox_Lambda(x, ...)
-  trans_data <- Apply_BoxCox(x, lambda)
-  mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
-  trans_data_standardized <- (trans_data - mu) / sigma
-  ptest <- nortest::pearson.test(trans_data_standardized)
-  val <- list(Name = "BoxCox", Data = trans_data, Lambda = lambda, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Estimate BoxCox Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @param lower the lower bound for search
-#' @param upper the upper bound for search
-#' @param eps erorr tolerance
-#' @return BoxCox results
-Estimate_BoxCox_Lambda <- function(x,
-                                   lower = -1,
-                                   upper = 2,
-                                   eps = 0.001) {
-  n <- length(x)
-  ccID <- !is.na(x)
-  x <- x[ccID]
-  if (any(x <= 0)) stop("x must be positive")
-  log_x <- log(x)
-  xbar <- exp(mean(log_x))
-  fit <- lm(x ~ 1, data = data.frame(x = x))
-  xqr <- fit$qr
-  boxcox_loglik <- function(lambda) {
-    if (abs(lambda) > eps)
-      xt <- (x ^ lambda - 1) / lambda
-    else
-      xt <- log_x * (1 + (lambda * log_x) / 2 *
-                       (1 + (lambda * log_x) / 3 *
-                          (1 + (lambda * log_x) / 4)))
-    - n / 2 * log(sum(qr.resid(xqr, xt / xbar ^ (lambda - 1)) ^ 2))
-  }
-
-  results <- optimize(
-    boxcox_loglik,
-    lower = lower,
-    upper = upper,
-    maximum = TRUE,
-    tol = .0001)
-  return(results$maximum)
-}
-
-#' Apply BoxCox Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @param lambda optimal lambda
-#' @param eps erorr tolerance
-#' @return BoxCox results
-Apply_BoxCox <- function(x,
-                         lambda,
-                         eps = 0.001) {
-  if(lambda < 0) x[x < 0] <- NA
-  if(abs(lambda) < eps) {
-    val <- log(x)
-  } else {
-    val <- (sign(x) * abs(x) ^ lambda - 1) / lambda
-  }
-  return(val)
-}
-
-#' Inverse BoxCox Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @param lambda optimal lambda
-#' @param eps erorr tolerance
-#' @return BoxCox results
-InvApply_BoxCox <- function(x,
-                            lambda,
-                            eps = 0.001) {
-  if(lambda < 0) x[x > -1 / lambda] <- NA
-  if(abs(lambda) < eps) {
-    val <- exp(x)
-  } else {
-    x <- x * lambda + 1
-    val <- sign(x) * abs(x) ^ (1 / lambda)
-  }
-  return(val)
-}
-
-#' Test Asinh Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Asinh results
-Test_Asinh <- function(x) {
-  stopifnot(is.numeric(x))
-  trans_data <- asinh(x)
-  mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
-  trans_data_standardized <- (trans_data - mu) / sigma
-  ptest <- nortest::pearson.test(trans_data_standardized)
-  val <- list(Name = "Asinh", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Inverse Asinh Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Asinh results
-Apply_Asinh <- function(x) {
-  return(asinh(x))
-}
-
-#' Inverse Asinh Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Asinh results
-InvApply_Asinh <- function(x) {
-  return(sinh(x))
-}
-
-#' Test Asin Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Asin results
-Test_Asin <- function(x) {
-  stopifnot(is.numeric(x))
-  trans_data <- asin(sqrt(x))
-  mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
-  trans_data_standardized <- (trans_data - mu) / sigma
-  ptest <- nortest::pearson.test(trans_data_standardized)
-  val <- list(Name = "Asin", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Inverse Asin Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Asin results
-Apply_Asin <- function(x) {
-  return(asin(sqrt(x)))
-}
-
-#' Inverse Asin Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Asin results
-InvApply_Asin <- function(x) {
-  return(sin(x) ^ 2)
-}
-
-#' Test Logit Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Logit results
-Test_Logit <- function(x) {
-  stopifnot(is.numeric(x))
-  trans_data <- log(x / (1 - x))
-  mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
-  trans_data_standardized <- (trans_data - mu) / sigma
-  ptest <- nortest::pearson.test(trans_data_standardized)
-  val <- list(Name = "Logit", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Apply Logit Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Logit results
-Apply_Logit <- function(x) {
-  return(log(x / (1 - x)))
-}
-
-#' Inverse Logit Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Logit results
-InvApply_Logit <- function(x) {
-  return(1 / (1 + exp(-x)))
-}
-
-#' Test Identity Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Identity results
-Test_Identity <- function(x) {
-  stopifnot(is.numeric(x))
-  x.t <- x
-  mu <- mean(x.t, na.rm = TRUE)
-  sigma <- sd(x.t, na.rm = TRUE)
-  x.t <- (x.t - mu) / sigma
-  ptest <- nortest::pearson.test(x.t)
-  val <- list(Name = "Identity", Data = x, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Test Log Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Log results
-Test_Log <- function(x) {
-  stopifnot(is.numeric(x))
-  trans_data <- log(x)
-  mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
-  trans_data_standardized <- (trans_data - mu) / sigma
-  ptest <- nortest::pearson.test(trans_data_standardized)
-  val <- list(Name = "Log", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Apply Log Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Log results
-Apply_Log <- function(x) {
-  return(log(x))
-}
-
-#' Inverse Log Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Log results
-InvApply_Log <- function(x) {
-  return(exp(x))
-}
-
-#' Test LogPlus1 Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return LogPlus1 results
-Test_LogPlus1 <- function(x) {
-  stopifnot(is.numeric(x))
-  xx <- min(x, na.rm = TRUE)
-  if(xx <= 0) trans_data <- log(x+abs(xx)+1) else trans_data <- log(x)
-  mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
-  trans_data_standardized <- (trans_data - mu) / sigma
-  ptest <- nortest::pearson.test(trans_data_standardized)
-  val <- list(Name = "LogPlus1", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Apply LogPlus1 Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Log results
-Apply_LogPlus1 <- function(x) {
-  return(log(x+1))
-}
-
-#' Inverse LogPlus1 Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Log results
-InvApply_LogPlus1 <- function(x) {
-  return(exp(x)-1)
-}
-
-#' Test Sqrt Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Sqrt results
-Test_Sqrt <- function(x) {
-  stopifnot(is.numeric(x))
-  trans_data <- sqrt(x)
-  mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
-  trans_data_standardized <- (trans_data - mu) / sigma
-  ptest <- nortest::pearson.test(trans_data_standardized)
-  val <- list(Name = "Sqrt", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
-  return(val)
-}
-
-#' Apply Sqrt Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Log results
-Apply_Sqrt <- function(x) {
-  return(sqrt(x))
-}
-
-#' Inverse Sqrt Transformation
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @noRd
-#' @param x The data in numerical vector form
-#' @return Log results
-InvApply_Sqrt <- function(x) {
-  return(x^2)
-}
-
-#' @title AutoTransformationCreate
-#'
-#' @description AutoTransformationCreate is a function for automatically identifying the optimal transformations for numeric features and transforming them once identified. This function will loop through your selected transformation options (YeoJohnson, BoxCox, Asinh, Asin, and Logit) and find the one that produces data that is the closest to normally distributed data. It then makes the transformation and collects the metadata information for use in the AutoTransformationScore() function, either by returning the objects (always) or saving them to file (optional).
-#'
-#' @author Adrian Antico
-#' @family Feature Engineering
-#' @param data This is your source data
-#' @param ColumnNames List your columns names in a vector, for example, c("Target", "IV1")
-#' @param Methods Choose from "YeoJohnson", "BoxCox", "Asinh", "Log", "LogPlus1", "Asin", "Logit", and "Identity". Note, LogPlus1 runs
-#' @param Path Set to the directly where you want to save all of your modeling files
-#' @param TransID Set to a character value that corresponds with your modeling project
-#' @param SaveOutput Set to TRUE to save necessary file to run AutoTransformationScore()
-#' @return data with transformed columns and the transformation object for back-transforming later
-#' @examples
-#' \dontrun{
-#' # Create Fake Data
-#' data <- AutoQuant::FakeDataGenerator(
-#'   Correlation = 0.85,
-#'   N = 25000,
-#'   ID = 2L,
-#'   ZIP = 0,
-#'   FactorCount = 2L,
-#'   AddDate = FALSE,
-#'   Classification = FALSE,
-#'   MultiClass = FALSE)
-#'
-#' # Columns to transform
-#' Cols <- names(data)[1L:11L]
-#' print(Cols)
-#'
-#' # Run function
-#' data <- AutoQuant::AutoTransformationCreate(
-#'   data,
-#'   ColumnNames = Cols,
-#'   Methods = c("YeoJohnson", "BoxCox", "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "Identity"),
-#'   Path = getwd(),
-#'   TransID = "Trans",
-#'   SaveOutput = TRUE)
-#' }
-#' @noRd
-AutoTransformationCreate <- function(data,
-                                     ColumnNames = NULL,
-                                     Methods = c("BoxCox","YeoJohnson","Asinh","Log","LogPlus1","Sqrt","Asin","Logit","Identity"),
-                                     Path = NULL,
-                                     TransID = "ModelID",
-                                     SaveOutput = FALSE) {
-
-  # Check arguments
-  Methods <- unique(tolower(Methods))
-  if(!data.table::is.data.table(data)) data.table::setDT(data)
-  if(!any(tolower(Methods) %chin% c("boxcox", "yeojohnson", "asinh", "sqrt", "log", "logplus1", "asin", "logit"))) stop("Methods not supported")
-  # if(!"identity" %chin% Methods) Methods <- c(Methods, "identity")
-  if(is.numeric(ColumnNames) || is.integer(ColumnNames)) ColumnNames <- names(data)[ColumnNames]
-  for(i in ColumnNames) if(!(any(class(data[[eval(i)]]) %chin% c("numeric", "integer")))) stop("ColumnNames must be for numeric or integer columns")
-
-  # Loop through ColumnNames
-  # colNames = 1
-  for(colNames in seq_along(ColumnNames)) {# colNames = 1L
-
-    # Collection Object
-    if(length(Methods) < 5) {
-      EvaluationTable <- data.table::data.table(
-        ColumnName = rep("BLABLA", length(ColumnNames) * (length(Methods)+1)),
-        MethodName = rep("BLABLA", length(ColumnNames) * (length(Methods)+1)),
-        Lambda = rep(1.0, length(ColumnNames) * (length(Methods)+1)),
-        NormalizedStatistics = rep(1.0, length(ColumnNames) * (length(Methods)+1)))
-    } else {
-      EvaluationTable <- data.table::data.table(
-        ColumnName = rep("BLABLA", length(ColumnNames) * (length(Methods) + 1)),
-        MethodName = rep("BLABLA", length(ColumnNames) * (length(Methods) + 1)),
-        Lambda = rep(1.0, length(ColumnNames) * (length(Methods) + 1)),
-        NormalizedStatistics = rep(1.0, length(ColumnNames) * (length(Methods) + 1)))
-    }
-    DataCollection <- list()
-    Counter <- 0L
-
-    # Check range of data
-    MinVal <- min(data[[eval(ColumnNames[colNames])]], na.rm = TRUE)
-    MaxVal <- max(data[[eval(ColumnNames[colNames])]], na.rm = TRUE)
-
-    # Create Final Methods Object
-    FinalMethods <- Methods
-
-    # Update Methods
-    if(MinVal <= 0) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("boxcox","log","logit"))]
-    if(MinVal < 0) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("sqrt","asin"))]
-    if(MaxVal > 1) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("asin"))]
-    if(MaxVal >= 1) FinalMethods <- FinalMethods[!(tolower(FinalMethods) %chin% c("logit"))]
-
-    # Store column data as vector
-    x <- data[[eval(ColumnNames[colNames])]]
-
-    # YeoJohnson
-    if(any(tolower(FinalMethods) %chin% "yeojohnson")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_YeoJohnson(x)
-      DataCollection[["yeojohnson"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = output$Lambda)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # Log
-    if(any(tolower(FinalMethods) %chin% "log")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_Log(x)
-      DataCollection[["log"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = NA)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # LogPlus1
-    if(any(tolower(FinalMethods) %chin% "logplus1")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- AutoPlots:::Test_LogPlus1(x)
-      DataCollection[["logplus1"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = NA)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # Sqrt
-    if(any(tolower(FinalMethods) %chin% "sqrt")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_Sqrt(x)
-      DataCollection[["sqrt"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = NA)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # BoxCox
-    if(any(tolower(FinalMethods) %chin% "boxcox")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_BoxCox(x)
-      DataCollection[["boxcox"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = output$Lambda)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # Asinh
-    if(any(tolower(FinalMethods) %chin% "asinh")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_Asinh(x)
-      DataCollection[["asinh"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = output$Lambda)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # Asin
-    if(any(tolower(FinalMethods) %chin% "asin")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_Asin(x)
-      DataCollection[["asin"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = output$Lambda)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # Logit
-    if(any(tolower(FinalMethods) %chin% "logit")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_Logit(x)
-      DataCollection[["logit"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = output$Lambda)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # Identity
-    if(any(tolower(FinalMethods) %chin% "identity")) {
-      Counter <- Counter + 1L
-      data.table::set(EvaluationTable, i = Counter, j = "ColumnName", value = eval(ColumnNames[colNames]))
-      output <- Test_Identity(x)
-      DataCollection[["identity"]] <- output$Data
-      data.table::set(EvaluationTable, i = Counter, j = "MethodName", value = output$Name)
-      data.table::set(EvaluationTable, i = Counter, j = "Lambda", value = output$Lambda)
-      data.table::set(EvaluationTable, i = Counter, j = "NormalizedStatistics", value = output$Normalized_Statistic)
-    }
-
-    # Pick winner
-    EvaluationTable <- EvaluationTable[MethodName != "BLABLA"]
-    if(colNames == 1L) {
-      Results <- EvaluationTable[order(NormalizedStatistics)][1L]
-    } else {
-      Results <- data.table::rbindlist(list(Results, EvaluationTable[order(NormalizedStatistics)][1L]))
-    }
-
-    # Apply to data----
-    data <- tryCatch({data[, ColumnNames[colNames] := DataCollection[[tolower(Results[eval(colNames), MethodName])]]]}, error = function(x) data)
-  }
-
-  # Save output----
-  if(SaveOutput && !is.null(Path)) data.table::fwrite(Results, file = file.path(normalizePath(Path), paste0(TransID, "_transformation.csv")))
-
-  # Return data----
-  return(list(Data = data, FinalResults = Results))
-}
-
-# ----
-
-# ----
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 # > Automated Plot Functions                                                  ----
@@ -1376,6 +43,8 @@ AutoTransformationCreate <- function(data,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumberBins For histograms
+#' @param NumLevels_Y Numeric
+#' @param NumLevels_X Numeric
 #' @param Height NULL or valid css unit
 #' @param Width NULL or valid css unit
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
@@ -1388,7 +57,7 @@ AutoTransformationCreate <- function(data,
 #' @param TextColor character
 #' @param FontSize numeric
 #' @param Debug Debugging purposes
-#'
+#' @return plot
 #' @export
 Plot.StandardPlots <- function(dt = NULL,
                                PreAgg = FALSE,
@@ -1434,7 +103,7 @@ Plot.StandardPlots <- function(dt = NULL,
 
   # Pie Plot
   if(tolower(PlotType) == 'pieplot') {
-    p1 <- AutoPlots:::Plot.Pie(
+    p1 <- Plot.Pie(
       dt = dt,
       PreAgg = PreAgg,
       AggMethod = AggMethod,
@@ -1462,32 +131,32 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Pie(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Donut Plot
   if(tolower(PlotType) == 'donutplot') {
-    p1 <- AutoPlots:::Plot.Donut(
+    p1 <- Plot.Donut(
       dt = dt,
       PreAgg = PreAgg,
       AggMethod = AggMethod,
@@ -1515,32 +184,32 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Donut(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Rosetype Plot
   if(tolower(PlotType) == 'rosetypeplot') {
-    p1 <- AutoPlots:::Plot.Rosetype(
+    p1 <- Plot.Rosetype(
       dt = dt,
       PreAgg = PreAgg,
       AggMethod = AggMethod,
@@ -1568,32 +237,32 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Rosetype(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", ExpandText(if(length(XVar) == 0 && length(GroupVar) > 0L) GroupVar[1L] else XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Box Plot
   if(tolower(PlotType) == 'boxplot') {
-    p1 <- AutoPlots:::Plot.Box(
+    p1 <- Plot.Box(
       dt = dt,
       SampleSize = SampleSize,
       XVar = XVar,
@@ -1621,32 +290,32 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Box(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", AutoPlots:::CEPP(SampleSize), ",\n  ",
-      "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "SampleSize = ", CEPP(SampleSize), ",\n  ",
+      "XVar = ", ExpandText(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Histogram Plot
   if(tolower(PlotType) == 'histogramplot') {
-    p1 <- AutoPlots:::Plot.Histogram(
+    p1 <- Plot.Histogram(
       dt = dt,
       SampleSize = SampleSize,
       XVar = XVar,
@@ -1675,33 +344,33 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Histogram(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", AutoPlots:::CEPP(SampleSize), ",\n  ",
-      "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "NumberBins = ", AutoPlots:::CEPP(NumberBins), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "SampleSize = ", CEPP(SampleSize), ",\n  ",
+      "XVar = ", ExpandText(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "NumberBins = ", CEPP(NumberBins), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Density Plot
   if(tolower(PlotType) == 'densityplot') {
-    p1 <- AutoPlots:::Plot.Density(
+    p1 <- Plot.Density(
       dt = dt,
       SampleSize = SampleSize,
       GroupVar=GroupVar,
@@ -1729,25 +398,25 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Density(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", AutoPlots:::CEPP(SampleSize), ",\n  ",
-      "XVar = ", AutoPlots:::ExpandText(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::CEP(if(length(YVar) > 0L) YVar else XVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "SampleSize = ", CEPP(SampleSize), ",\n  ",
+      "XVar = ", ExpandText(XVar), ",\n  ",
+      "YVar = ", CEP(if(length(YVar) > 0L) YVar else XVar), ",\n  ",
+      "GroupVar = ", CEP(GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -1785,28 +454,28 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Line(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar),",\n  ",
-      "DualYVar = ", AutoPlots:::ExpandText(DualYVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "DualYVarTrans = ", AutoPlots:::CEP(DualYVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(GroupVar),",\n  ",
+      "DualYVar = ", ExpandText(DualYVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "DualYVarTrans = ", CEP(DualYVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -1844,28 +513,28 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Area(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar),",\n  ",
-      "DualYVar = ", AutoPlots:::ExpandText(DualYVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "DualYVarTrans = ", AutoPlots:::CEP(DualYVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(GroupVar),",\n  ",
+      "DualYVar = ", ExpandText(DualYVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "DualYVarTrans = ", CEP(DualYVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -1903,28 +572,28 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Step(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar),",\n  ",
-      "DualYVar = ", AutoPlots:::ExpandText(DualYVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "DualYVarTrans = ", AutoPlots:::CEP(DualYVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(GroupVar),",\n  ",
+      "DualYVar = ", ExpandText(DualYVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "DualYVarTrans = ", CEP(DualYVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -1961,33 +630,33 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.River(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(GroupVar),",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(GroupVar),",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Polar Plot
   if(tolower(PlotType) == 'polarplot') {
-    p1 <- AutoPlots:::Plot.Polar(
+    p1 <- Plot.Polar(
       dt = dt,
       PreAgg = PreAgg,
       AggMethod = AggMethod,
@@ -2014,32 +683,32 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Polar(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Bar Plot
   if(tolower(PlotType) == 'barplot') {
-    p1 <- AutoPlots:::Plot.Bar(
+    p1 <- Plot.Bar(
       dt = dt,
       PreAgg = PreAgg,
       AggMethod = AggMethod,
@@ -2068,26 +737,26 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Bar(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     print("AutoP 2")
 
@@ -2096,7 +765,7 @@ Plot.StandardPlots <- function(dt = NULL,
 
   # Stacked Bar Plot
   if(tolower(PlotType) == 'stackedbarplot') {
-    p1 <- AutoPlots:::Plot.StackedBar(
+    p1 <- Plot.StackedBar(
       dt = dt,
       PreAgg = PreAgg,
       AggMethod = AggMethod,
@@ -2125,26 +794,26 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.StackedBar(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -2183,30 +852,30 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.BarPlot3D(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "ZVar = ", AutoPlots:::CEP(ZVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "ZVarTrans = ", AutoPlots:::CEP(ZVarTrans), ",\n  ",
-      "NumberBins = ", AutoPlots:::CEPP(21), ",\n  ",
-      "NumLevels_X = ", AutoPlots:::CEPP(NumLevels_Y), ",\n  ",
-      "NumLevels_Y = ", AutoPlots:::CEPP(NumLevels_X), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "ZVar = ", CEP(ZVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "ZVarTrans = ", CEP(ZVarTrans), ",\n  ",
+      "NumberBins = ", CEPP(21), ",\n  ",
+      "NumLevels_X = ", CEPP(NumLevels_Y), ",\n  ",
+      "NumLevels_Y = ", CEPP(NumLevels_X), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -2244,37 +913,37 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.HeatMap(", "\n  ",
       "dt = data1", ",\n  ",
-      "AggMethod = ", AutoPlots:::CEP(AggMethod), ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "ZVar = ", AutoPlots:::CEP(ZVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "ZVarTrans = ", AutoPlots:::CEP(ZVarTrans), ",\n  ",
-      "NumberBins = ", AutoPlots:::CEPP(21), ",\n  ",
-      "NumLevels_X = ", AutoPlots:::CEPP(NumLevels_Y), ",\n  ",
-      "NumLevels_Y = ", AutoPlots:::CEPP(NumLevels_X), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "AggMethod = ", CEP(AggMethod), ",\n  ",
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "ZVar = ", CEP(ZVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "ZVarTrans = ", CEP(ZVarTrans), ",\n  ",
+      "NumberBins = ", CEPP(21), ",\n  ",
+      "NumLevels_X = ", CEPP(NumLevels_Y), ",\n  ",
+      "NumLevels_Y = ", CEPP(NumLevels_X), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Correlation Matrix Plot
   if(tolower(PlotType) == 'correlogramplot') {
-    p1 <- AutoPlots:::Plot.CorrMatrix(
+    p1 <- Plot.CorrMatrix(
       dt = dt,
       PreAgg = PreAgg,
       CorrVars = YVar,
@@ -2297,20 +966,20 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.CorrMatrix(", "\n  ",
       "dt = data1", ",\n  ",
-      "PreAgg = ", AutoPlots:::CEPP(PreAgg), "\n  ",
-      "CorrVars = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "Method = ", AutoPlots:::CEP(spearman), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "PreAgg = ", CEPP(PreAgg), "\n  ",
+      "CorrVars = ", ExpandText(YVar), ",\n  ",
+      "Method = ", CEP(spearman), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -2318,7 +987,7 @@ Plot.StandardPlots <- function(dt = NULL,
   # Scatter Plot
   if(tolower(PlotType) %in% 'scatterplot') {
     if(SampleSize > 30000) SampleSize <- 30000
-    p1 <- AutoPlots:::Plot.Scatter(
+    p1 <- Plot.Scatter(
       dt = dt,
       SampleSize = SampleSize,
       XVar = XVar,
@@ -2346,25 +1015,25 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Scatter(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", AutoPlots:::CEP(SampleSize), ",\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "SampleSize = ", CEP(SampleSize), ",\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -2372,7 +1041,7 @@ Plot.StandardPlots <- function(dt = NULL,
   # Copula Plot
   if(tolower(PlotType) %in% 'copulaplot') {
     if(SampleSize > 30000) SampleSize <- 30000
-    p1 <- AutoPlots:::Plot.Copula(
+    p1 <- Plot.Copula(
       dt = dt,
       SampleSize = SampleSize,
       XVar = XVar,
@@ -2400,32 +1069,32 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Copula(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", AutoPlots:::CEP(SampleSize), ",\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::ExpandText(YVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "SampleSize = ", CEP(SampleSize), ",\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", ExpandText(YVar), ",\n  ",
+      "GroupVar = ", CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Scatter3D Plot
   if(tolower(PlotType) %in% c('scatterplot3d','scatterplotd')) {
-    p1 <- AutoPlots:::Plot.Scatter3D(
+    p1 <- Plot.Scatter3D(
       dt = dt,
       SampleSize = SampleSize,
       XVar = XVar,
@@ -2454,34 +1123,34 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Scatter3D(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", AutoPlots:::CEP(SampleSize), ",\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::CEP(YVar), ",\n  ",
-      "ZVar = ", AutoPlots:::CEP(ZVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "ZVarTrans = ", AutoPlots:::CEP(ZVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "SampleSize = ", CEP(SampleSize), ",\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", CEP(YVar), ",\n  ",
+      "ZVar = ", CEP(ZVar), ",\n  ",
+      "GroupVar = ", CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "ZVarTrans = ", CEP(ZVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
 
   # Copula3D Plot
   if(tolower(PlotType) %in% c('copulaplot3d','copulaplotd')) {
-    p1 <- AutoPlots:::Plot.Copula3D(
+    p1 <- Plot.Copula3D(
       dt = dt,
       SampleSize = SampleSize,
       XVar = XVar,
@@ -2510,27 +1179,27 @@ Plot.StandardPlots <- function(dt = NULL,
       "\n\n",
       "p1 <- AutoPlots::Plot.Copula3D(", "\n  ",
       "dt = data1", ",\n  ",
-      "SampleSize = ", AutoPlots:::CEP(SampleSize), ",\n  ",
-      "XVar = ", AutoPlots:::CEP(XVar), ",\n  ",
-      "YVar = ", AutoPlots:::CEP(YVar), ",\n  ",
-      "ZVar = ", AutoPlots:::CEP(ZVar), ",\n  ",
-      "GroupVar = ", AutoPlots:::CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
-      "YVarTrans = ", AutoPlots:::CEP(YVarTrans), ",\n  ",
-      "XVarTrans = ", AutoPlots:::CEP(XVarTrans), ",\n  ",
-      "ZVarTrans = ", AutoPlots:::CEP(ZVarTrans), ",\n  ",
-      "FacetRows = ", AutoPlots:::CEPP(FacetRows), ",\n  ",
-      "FacetCols = ", AutoPlots:::CEPP(FacetCols), ",\n  ",
-      "FacetLevels = ", AutoPlots:::ExpandText(FacetLevels), ",\n  ",
-      "Width = ", AutoPlots:::CEP(Width), ",\n  ",
-      "Height = ", AutoPlots:::CEP(Height), ",\n  ",
-      "Title = ", AutoPlots:::CEP(Title), ",\n  ",
-      "ShowLabels = ", AutoPlots:::CEPP(ShowLabels), ",\n  ",
-      "Title.YAxis = ", AutoPlots:::CEP(Title.YAxis), ",\n  ",
-      "Title.XAxis = ", AutoPlots:::CEP(Title.XAxis), ",\n  ",
-      "EchartsTheme = ", AutoPlots:::CEP(EchartsTheme), ",\n  ",
-      "TimeLine = ", AutoPlots:::CEPP(TimeLine), ",\n  ",
-      "TextColor = ", AutoPlots:::CEP(TextColor), ",\n  ",
-      "title.fontSize = ", AutoPlots:::CEPP(Title.FontSize), ")\n")
+      "SampleSize = ", CEP(SampleSize), ",\n  ",
+      "XVar = ", CEP(XVar), ",\n  ",
+      "YVar = ", CEP(YVar), ",\n  ",
+      "ZVar = ", CEP(ZVar), ",\n  ",
+      "GroupVar = ", CEP(if(all(XVar == GroupVar)) NULL else GroupVar), ",\n  ",
+      "YVarTrans = ", CEP(YVarTrans), ",\n  ",
+      "XVarTrans = ", CEP(XVarTrans), ",\n  ",
+      "ZVarTrans = ", CEP(ZVarTrans), ",\n  ",
+      "FacetRows = ", CEPP(FacetRows), ",\n  ",
+      "FacetCols = ", CEPP(FacetCols), ",\n  ",
+      "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
+      "Width = ", CEP(Width), ",\n  ",
+      "Height = ", CEP(Height), ",\n  ",
+      "Title = ", CEP(Title), ",\n  ",
+      "ShowLabels = ", CEPP(ShowLabels), ",\n  ",
+      "Title.YAxis = ", CEP(Title.YAxis), ",\n  ",
+      "Title.XAxis = ", CEP(Title.XAxis), ",\n  ",
+      "EchartsTheme = ", CEP(EchartsTheme), ",\n  ",
+      "TimeLine = ", CEPP(TimeLine), ",\n  ",
+      "TextColor = ", CEP(TextColor), ",\n  ",
+      "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
     return(list(Plot = p1, Code = Code))
   }
@@ -2562,11 +1231,18 @@ Plot.StandardPlots <- function(dt = NULL,
 #' @param NumLevels_Y = 75
 #' @param NumLevels_X = 40
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param TargetLevel character
+#' @param Title character
+#' @param ShowLabels logical
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param FontSize numeric
 #' @param TextColor hex
 #' @param NumberBins numeric
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plots.ModelEvaluation <- function(dt = NULL,
                                   AggMethod = "mean",
@@ -2996,12 +1672,11 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
 #' @param YVar Y-Axis variable name
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title 'Violin Plot'
 #' @param ShowLabels character
-#' @param EchartsTheme = "macaron"
-#' @param TimeLine Logical
+#' @param EchartsTheme "macaron"
 #' @param TextColor 'darkblue'
 #' @param title.fontSize Default 22
 #' @param title.fontWeight Default "bold"
@@ -3045,7 +1720,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #'   tooltip.trigger = "axis",
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.ProbabilityPlot <- function(dt = NULL,
                                  SampleSize = 1000L,
@@ -3149,12 +1824,12 @@ Plot.ProbabilityPlot <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumberBins = 30
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param EchartsTheme = EchartsTheme,
 #' @param TimeLine logical
+#' @param Title character
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param ShowLabels FALSE
 #' @param Title.YAxis NULL
 #' @param Title.XAxis NULL
@@ -3208,7 +1883,7 @@ Plot.ProbabilityPlot <- function(dt = NULL,
 #'   yaxis.fontSize = 14,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Histogram <- function(dt = NULL,
                            SampleSize = 30000L,
@@ -3420,8 +2095,8 @@ Plot.Histogram <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Title = "Density Plot"
 #' @param ShowLabels character
@@ -3481,7 +2156,7 @@ Plot.Histogram <- function(dt = NULL,
 #'  yaxis.fontSize = 14,
 #'  Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Density <- function(dt = NULL,
                          SampleSize = 100000L,
@@ -3773,8 +2448,8 @@ Plot.Density <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -3783,7 +2458,6 @@ Plot.Density <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
 #' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
-#' @param BackGroundColor color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character
 #' @param title.fontSize 22
 #' @param title.fontWeight "bold"
 #' @param title.textShadowColor '#63aeff'
@@ -3832,6 +2506,7 @@ Plot.Density <- function(dt = NULL,
 #'   yaxis.fontSize = 14,
 #'   Debug = FALSE)
 #' }
+#' @return plot
 #' @export
 Plot.Pie <- function(dt = NULL,
                      PreAgg = FALSE,
@@ -3873,7 +2548,7 @@ Plot.Pie <- function(dt = NULL,
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
       dt <- data.table::as.data.table(dt)
     })
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
   }
 
   # Convert factor to character
@@ -3926,8 +2601,8 @@ Plot.Pie <- function(dt = NULL,
       if(Debug) print("BarPlot 2.bb")
       temp <- data.table::copy(dt)
       if(Debug) print("BarPlot 2.bbb")
-      numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
     }
 
     # yvar <- temp[[YVar]]
@@ -3937,7 +2612,7 @@ Plot.Pie <- function(dt = NULL,
 
     # Transformation
     if(YVarTrans != "Identity") {
-      temp <- AutoPlots:::AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
     }
 
     p1 <- echarts4r::e_charts_(
@@ -3997,8 +2672,8 @@ Plot.Pie <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -4054,7 +2729,7 @@ Plot.Pie <- function(dt = NULL,
 #'   yaxis.fontSize = 14,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Donut <- function(dt = NULL,
                        PreAgg = FALSE,
@@ -4096,7 +2771,7 @@ Plot.Donut <- function(dt = NULL,
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
       dt <- data.table::as.data.table(dt)
     })
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
   }
 
   # Convert factor to character
@@ -4147,8 +2822,8 @@ Plot.Donut <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
     }
 
     yvar <- temp[[YVar]]
@@ -4216,8 +2891,8 @@ Plot.Donut <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -4273,7 +2948,7 @@ Plot.Donut <- function(dt = NULL,
 #'   yaxis.fontSize = 14,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Rosetype <- function(dt = NULL,
                           PreAgg = FALSE,
@@ -4315,7 +2990,7 @@ Plot.Rosetype <- function(dt = NULL,
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
       dt <- data.table::as.data.table(dt)
     })
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
   }
 
   # Convert factor to character
@@ -4366,8 +3041,8 @@ Plot.Rosetype <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
     }
 
     yvar <- temp[[YVar]]
@@ -4434,8 +3109,8 @@ Plot.Rosetype <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -4497,7 +3172,7 @@ Plot.Rosetype <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Box <- function(dt = NULL,
                      SampleSize = 100000L,
@@ -5131,8 +3806,8 @@ Plot.Box <- function(dt = NULL,
 #'
 #' @param dt source data.table
 #' @param YVar Y-Axis variable name
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title = "Density Plot"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TextColor "white",
@@ -5153,7 +3828,7 @@ Plot.Box <- function(dt = NULL,
 #' \dontrun{
 #'
 #' # Create fake data
-#' dt <- AutoPlots::FakeDataGenerator(AddComment = TRUE)
+#' dt <- FakeDataGenerator(AddComment = TRUE)
 #'
 #' # Create plot
 #' AutoPlots::Plot.WordCloud(
@@ -5177,7 +3852,7 @@ Plot.Box <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.WordCloud <- function(dt = NULL,
                            YVar = NULL,
@@ -5349,13 +4024,12 @@ Plot.WordCloud <- function(dt = NULL,
 #' @param YVar Y-Axis variable name. You can supply multiple YVars
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title "Title"
 #' @param ShowLabels character
 #' @param EchartsTheme Provide an "Echarts" theme
 #' @param ShowSymbol = FALSE
-#' @param BackGroundColor color outside of plot window. Rcolors and hex
 #' @param TextColor "Not Implemented"
 #' @param title.fontSize 22
 #' @param title.fontWeight "bold"
@@ -5398,7 +4072,7 @@ Plot.WordCloud <- function(dt = NULL,
 #'   DarkMode = FALSE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Radar <- function(dt = NULL,
                        AggMethod = "mean",
@@ -5443,7 +4117,7 @@ Plot.Radar <- function(dt = NULL,
 
     # Define Aggregation function
     if(Debug) print("Plot.Radar # Define Aggregation function")
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
 
     # Aggregate data
     dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(GroupVar[1L])]
@@ -5452,7 +4126,7 @@ Plot.Radar <- function(dt = NULL,
   # Transformation
   if(YVarTrans != "Identity") {
     for(yvar in YVar) {
-      dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = yvar, Methods = YVarTrans)$Data
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = yvar, Methods = YVarTrans)$Data
     }
   }
 
@@ -5520,11 +4194,12 @@ Plot.Radar <- function(dt = NULL,
 #' @param GroupVar One Grouping Variable
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param DualYVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height NULL
+#' @param Width NULL
 #' @param Title "Title"
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -5536,7 +4211,6 @@ Plot.Radar <- function(dt = NULL,
 #' @param Alpha 0 to 1 for setting transparency
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
-#' @param BackGroundColor color outside of plot window. Rcolors and hex
 #' @param TextColor "Not Implemented"
 #' @param title.fontSize 22
 #' @param title.fontWeight "bold"
@@ -5570,7 +4244,7 @@ Plot.Radar <- function(dt = NULL,
 #'   GroupVar = NULL,
 #'   EchartsTheme = "macarons")
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Line <- function(dt = NULL,
                       AggMethod = "mean",
@@ -5670,7 +4344,7 @@ Plot.Line <- function(dt = NULL,
 
     # Define Aggregation function
     if(Debug) print("Line # Define Aggregation function")
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
 
     # Aggregate data
     if(length(GroupVar) > 0L) {
@@ -5684,10 +4358,10 @@ Plot.Line <- function(dt = NULL,
 
   # Transformation
   if(YVarTrans != "Identity") {
-    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
   if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
   }
 
   # Group Variable Case
@@ -5985,8 +4659,8 @@ Plot.Line <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title "Title"
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -6030,7 +4704,7 @@ Plot.Line <- function(dt = NULL,
 #'   GroupVar = NULL,
 #'   EchartsTheme = "macarons")
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Area <- function(dt = NULL,
                       AggMethod = "mean",
@@ -6128,7 +4802,7 @@ Plot.Area <- function(dt = NULL,
 
     # Define Aggregation function
     if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
 
     # Aggregate data
     if(length(GroupVar) > 0L) {
@@ -6145,7 +4819,7 @@ Plot.Area <- function(dt = NULL,
     dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
   if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
   }
 
   # Group Variable Case
@@ -6440,8 +5114,8 @@ Plot.Area <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title "Title"
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -6482,7 +5156,7 @@ Plot.Area <- function(dt = NULL,
 #'   GroupVar = NULL,
 #'   EchartsTheme = "macarons")
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Step <- function(dt = NULL,
                       AggMethod = "mean",
@@ -6578,7 +5252,7 @@ Plot.Step <- function(dt = NULL,
 
     # Define Aggregation function
     if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
 
     # Aggregate data
     if(length(GroupVar) > 0L) {
@@ -6595,7 +5269,7 @@ Plot.Step <- function(dt = NULL,
     dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
   if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
   }
 
   # Group Variable Case
@@ -6889,8 +5563,8 @@ Plot.Step <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title "Title"
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -6899,12 +5573,6 @@ Plot.Step <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
-#' @param ZeroLineColor color
-#' @param ZeroLineWidth 1
-#' @param BackGroundColor color outside of plot window. Rcolors and hex
-#' @param ChartColor color
-#' @param FillColor color
-#' @param FillColorReverse character
 #' @param TextColor "Not Implemented"
 #' @param title.fontSize 22
 #' @param title.fontWeight "bold"
@@ -6914,9 +5582,6 @@ Plot.Step <- function(dt = NULL,
 #' @param title.textShadowOffsetX -1
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
-#' @param xaxis.rotate 0
-#' @param yaxis.rotate 0
-#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -6940,7 +5605,7 @@ Plot.Step <- function(dt = NULL,
 #'   TextColor = "black",
 #'   EchartsTheme = "macarons")
 #' }
-#'
+#' @return plot
 #' @export
 Plot.River <- function(dt = NULL,
                        AggMethod = "mean",
@@ -7010,7 +5675,7 @@ Plot.River <- function(dt = NULL,
 
     # Define Aggregation function
     if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
 
     # Aggregate data
     if(length(GroupVar) > 0L) {
@@ -7105,8 +5770,8 @@ Plot.River <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title title
 #' @param Title.YAxis NULL. If NULL, YVar name will be used
 #' @param Title.XAxis NULL. If NULL, XVar name will be used
@@ -7170,7 +5835,7 @@ Plot.River <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Bar <- function(dt = NULL,
                      PreAgg = FALSE,
@@ -7231,7 +5896,7 @@ Plot.Bar <- function(dt = NULL,
 
   # Define Aggregation function
   if(!PreAgg) {
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
   }
 
   # Create base plot object
@@ -7284,8 +5949,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
       }
 
       # Transformation
@@ -7455,8 +6120,8 @@ Plot.Bar <- function(dt = NULL,
       } else {
         temp <- data.table::copy(dt)
         if(Debug) print("BarPlot 2.bb")
-        numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
       }
 
       if(Debug) print("BarPlot 2.bbb")
@@ -7652,8 +6317,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
       }
 
       # Transformation
@@ -7805,8 +6470,8 @@ Plot.Bar <- function(dt = NULL,
         }
       } else {
         temp <- data.table::copy(dt)
-        numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
       }
 
       # Transformation
@@ -7948,17 +6613,16 @@ Plot.Bar <- function(dt = NULL,
 #' @author Adrian Antico
 #'
 #' @param dt source data.table
-#' @param PreAgg logical
 #' @param YVar Y-Axis variable name
 #' @param DateVar Date column in data
 #' @param TimeUnit Select from "hour", "day", "week", "month", "quarter", "year"
+#' @param MaxLags Max lag values to test
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title title
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param TimeLine logical
 #' @param TextColor 'darkblue'
 #' @param title.fontSize 22
 #' @param title.fontWeight "bold"
@@ -7972,6 +6636,7 @@ Plot.Bar <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.ACF <- function(dt = NULL,
                      YVar = NULL,
@@ -8011,13 +6676,13 @@ Plot.ACF <- function(dt = NULL,
 
   # Define Aggregation function
   if(Debug) print("Plot.ACH 1")
-  aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+  aggFunc <- SummaryFunction(AggMethod)
 
   if(Debug) print("Plot.ACH 2")
 
   # Transformation
   if(YVarTrans != "Identity") {
-    dt1 <- AutoPlots:::AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
   }
 
   if(Debug) print("Plot.ACH 3")
@@ -8027,7 +6692,7 @@ Plot.ACF <- function(dt = NULL,
 
   if(Debug) print("Plot.ACH 3.5")
 
-  dt1 <- Rodeo::AutoLagRollStats(
+  dt1 <- AutoLagRollStats(
     data = dt1,
     DateColumn = DateVar,
     Targets = YVar,
@@ -8142,17 +6807,16 @@ Plot.ACF <- function(dt = NULL,
 #' @author Adrian Antico
 #'
 #' @param dt source data.table
-#' @param PreAgg logical
 #' @param YVar Y-Axis variable name
 #' @param DateVar Date column in data
+#' @param MaxLags Max value for lags to test
 #' @param TimeUnit Select from "hour", "day", "week", "month", "quarter", "year"
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title title
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param TimeLine logical
 #' @param TextColor 'darkblue'
 #' @param title.fontSize 22
 #' @param title.fontWeight "bold"
@@ -8166,6 +6830,7 @@ Plot.ACF <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.PACF <- function(dt = NULL,
                       YVar = NULL,
@@ -8210,7 +6875,7 @@ Plot.PACF <- function(dt = NULL,
 
   # Define Aggregation function
   if(Debug) print("Plot.PACH 1")
-  aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+  aggFunc <- SummaryFunction(AggMethod)
 
   if(Debug) print("Plot.PACH 2")
 
@@ -8226,7 +6891,7 @@ Plot.PACF <- function(dt = NULL,
 
   if(Debug) print("Plot.PACH 3.5")
 
-  dt1 <- Rodeo::AutoLagRollStats(
+  dt1 <- AutoLagRollStats(
     data = dt1,
     DateColumn = DateVar,
     Targets = YVar,
@@ -8421,7 +7086,7 @@ Plot.PACF <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.StackedBar <- function(dt = NULL,
                             PreAgg = FALSE,
@@ -8489,7 +7154,7 @@ Plot.StackedBar <- function(dt = NULL,
   check1 <- length(XVar) != 0 && length(YVar) != 0 && length(GroupVar) > 0L
 
   if(!PreAgg) {
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
   }
 
   # Create base plot object
@@ -8541,8 +7206,8 @@ Plot.StackedBar <- function(dt = NULL,
       }
     } else {
       temp <- data.table::copy(dt)
-      numvars <- AutoPlots:::ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- unlist(AutoPlots:::ColNameFilter(data = temp, Types = "character"))
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
     }
 
     # Transformation
@@ -8688,6 +7353,7 @@ Plot.StackedBar <- function(dt = NULL,
 #' @author Adrian Antico
 #'
 #' @param dt source data.table
+#' @param PreAgg logical. Is your data pre aggregated
 #' @param YVar Y-Axis variable name
 #' @param XVar X-Axis variable name
 #' @param ZVar Z-Axis variable name
@@ -8697,8 +7363,8 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param EchartsTheme "dark-blue"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
@@ -8707,6 +7373,7 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param NumLevels_X = 20
 #' @param Title "Heatmap"
 #' @param ShowLabels character
+#' @param TextColor character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param title.fontSize 22
@@ -8717,6 +7384,7 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param title.textShadowOffsetX -1
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
+#' @param zaxis.fontSize 14
 #' @param xaxis.rotate 0
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
@@ -8768,7 +7436,7 @@ Plot.StackedBar <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.BarPlot3D <- function(dt,
                            PreAgg = FALSE,
@@ -8839,7 +7507,7 @@ Plot.BarPlot3D <- function(dt,
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
   if(!PreAgg) {
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
   }
 
   # XVar == numeric or integer && YVar == numeric or integer
@@ -9339,14 +8007,16 @@ Plot.BarPlot3D <- function(dt,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param EchartsTheme "dark-blue"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
 #' @param NumLevels_Y = 20
-#' @param NumLevels_X = 20
+#' @param NumLevels_X = 20.
+#' @param PreAgg logical
+#' @param TextColor color
 #' @param Title "Heatmap"
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -9407,7 +8077,7 @@ Plot.BarPlot3D <- function(dt,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.HeatMap <- function(dt,
                          PreAgg = FALSE,
@@ -10074,14 +8744,14 @@ Plot.HeatMap <- function(dt,
 #'
 #' @param dt source data.table
 #' @param CorrVars vector of variable names
-#' @param CorrVarsTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param CorrVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Method character
 #' @param MaxNAPercent numeric
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -10098,9 +8768,6 @@ Plot.HeatMap <- function(dt,
 #' @param title.textShadowOffsetX -1
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
-#' @param xaxis.rotate 0
-#' @param yaxis.rotate 0
-#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -10145,7 +8812,7 @@ Plot.HeatMap <- function(dt,
 #'   xaxis.fontSize = 14,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.CorrMatrix <- function(dt = NULL,
                             CorrVars = NULL,
@@ -10251,12 +8918,13 @@ Plot.CorrMatrix <- function(dt = NULL,
 #' @author Adrian Antico
 #'
 #' @param dt source data.table
+#' @param SampleSize Sample size
 #' @param CorrVars vector of variable names
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -10273,9 +8941,6 @@ Plot.CorrMatrix <- function(dt = NULL,
 #' @param title.textShadowOffsetX -1
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
-#' @param xaxis.rotate 0
-#' @param yaxis.rotate 0
-#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -10316,7 +8981,7 @@ Plot.CorrMatrix <- function(dt = NULL,
 #'   xaxis.fontSize = 14,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Parallel <- function(dt = NULL,
                           SampleSize = 50000,
@@ -10462,12 +9127,13 @@ Plot.Parallel <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title 'Copula Plot'
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
+#' @param AddGLM logical
 #' @param EchartsTheme = "dark-blue",
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -10527,7 +9193,7 @@ Plot.Parallel <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Copula <- function(dt = NULL,
                         SampleSize = 30000L,
@@ -10876,8 +9542,8 @@ Plot.Copula <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title 'Copula3D Plot'
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -10893,8 +9559,10 @@ Plot.Copula <- function(dt = NULL,
 #' @param title.textShadowOffsetX -1
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
+#' @param zaxis.fontSize 14
 #' @param xaxis.rotate 0
 #' @param yaxis.rotate 0
+#' @param zaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #'
@@ -10943,7 +9611,7 @@ Plot.Copula <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Copula3D <- function(dt = NULL,
                           SampleSize = 100000,
@@ -11170,9 +9838,11 @@ Plot.Copula3D <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
+#' @param AddGLM logical
+#' @param tooltip.trigger "axis"
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
@@ -11237,7 +9907,7 @@ Plot.Copula3D <- function(dt = NULL,
 #'   tooltip.trigger = "axis",
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Scatter <- function(dt = NULL,
                          SampleSize = 30000L,
@@ -11597,8 +10267,8 @@ Plot.Scatter <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param Height = NULL,
-#' @param Width = NULL,
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title 'Violin Plot'
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -11614,11 +10284,12 @@ Plot.Scatter <- function(dt = NULL,
 #' @param title.textShadowOffsetX -1
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
+#' @param zaxis.fontSize 14
 #' @param xaxis.rotate 0
+#' @param zaxis.rotate 0
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
-#'
 #'
 #' @examples
 #' \dontrun{
@@ -11665,7 +10336,7 @@ Plot.Scatter <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #' }
-#'
+#' @return plot
 #' @export
 Plot.Scatter3D <- function(dt = NULL,
                            SampleSize = 100000,
@@ -11922,9 +10593,9 @@ Plot.Scatter3D <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumberBins numeric
-#' @param ZeroLineColor character hex
-#' @param ZeroLineWidth numeric
 #' @param Title character
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
@@ -11944,6 +10615,7 @@ Plot.Scatter3D <- function(dt = NULL,
 #' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.Residuals.Histogram <- function(dt = NULL,
                                      AggMethod = 'mean',
@@ -12098,7 +10770,8 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param NumberBins numeric
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -12108,6 +10781,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.Residuals.Scatter <- function(dt = NULL,
                                    AggMethod = 'mean',
@@ -12191,7 +10865,6 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 #'
 #' @param dt source data.table
 #' @param AggMethod character
-#' @param SampleSize numeric
 #' @param XVar X-Axis variable name
 #' @param YVar Y-Axis variable name
 #' @param GroupVar Character variable
@@ -12201,6 +10874,8 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumberBins numeric
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -12210,6 +10885,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.Calibration.Line <- function(dt = NULL,
                                   AggMethod = 'mean',
@@ -12251,7 +10927,7 @@ Plot.Calibration.Line <- function(dt = NULL,
   if(Debug) print("here 3.1")
   if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
   if(Debug) print("here 3.2")
-  aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+  aggFunc <- SummaryFunction(AggMethod)
 
   if(Debug) print("here 4")
 
@@ -12388,7 +11064,7 @@ Plot.Calibration.Line <- function(dt = NULL,
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     if(Debug) print("here 8")
@@ -12509,6 +11185,8 @@ Plot.Calibration.Line <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param NumberBins numeric
 #' @param Title character
 #' @param ShowLabels character
@@ -12519,6 +11197,7 @@ Plot.Calibration.Line <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.Calibration.Box <- function(dt = NULL,
                                  SampleSize = 100000L,
@@ -12591,10 +11270,10 @@ Plot.Calibration.Box <- function(dt = NULL,
   if(Debug) print("Plot.Calibration.Box 8")
 
   # Plot
-  if(Debug) print(paste0("TimeLine for AutoPlots:::Plot.Box=", TimeLine))
+  if(Debug) print(paste0("TimeLine for Plot.Box=", TimeLine))
   dt1 <- dt1[!is.na(`Target - Predicted`)]
   if(Debug) print("Plot.Calibration.Box 9")
-  p1 <- AutoPlots:::Plot.Box(
+  p1 <- Plot.Box(
     dt = dt1,
     SampleSize = SampleSize,
     XVar = "Percentile",
@@ -12643,6 +11322,8 @@ Plot.Calibration.Box <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -12651,6 +11332,7 @@ Plot.Calibration.Box <- function(dt = NULL,
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.PartialDependence.Line <- function(dt = NULL,
                                         XVar = NULL,
@@ -12688,7 +11370,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
 
   # Define Aggregation function
   if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
-  aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+  aggFunc <- SummaryFunction(AggMethod)
 
   # Regression and Classification else MultiClass
   if(yvar_class %in% c("numeric","integer")) {
@@ -12779,7 +11461,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     # Melt Predict Cols
@@ -12866,8 +11548,6 @@ Plot.PartialDependence.Line <- function(dt = NULL,
       Width = Width,
       Title = "Partial Dependence",
       TextColor = TextColor,
-
-
       Debug = Debug)
     return(p1)
   }
@@ -12897,6 +11577,8 @@ Plot.PartialDependence.Line <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
@@ -12905,6 +11587,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.PartialDependence.Box <- function(dt = NULL,
                                        PreAgg = FALSE,
@@ -13011,6 +11694,8 @@ Plot.PartialDependence.Box <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumberBins numeric
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -13023,6 +11708,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.PartialDependence.HeatMap <- function(dt = NULL,
                                            XVar = NULL,
@@ -13059,7 +11745,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 
   # Define Aggregation function
   if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
-  aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+  aggFunc <- SummaryFunction(AggMethod)
 
   # Regression and Classification else MultiClass
   if(yvar_class %in% c("numeric","integer")) {
@@ -13072,7 +11758,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
 
     if(Debug) print("Plot.PartialDependence.HeatMap # Define Aggregation function")
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
     if(Debug) print("Plot.PartialDependence.HeatMap # if(length(GroupVar) == 0L)")
 
     for(i in seq_along(XVar)) {
@@ -13188,7 +11874,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     # Melt Predict Cols
@@ -13276,13 +11962,14 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param title.fontSize 22
 #' @param title.fontWeight "bold"
@@ -13293,6 +11980,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' @param xaxis.fontSize 14
 #' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.VariableImportance <- function(dt = NULL,
                                     XVar = NULL,
@@ -13383,7 +12071,8 @@ Plot.VariableImportance <- function(dt = NULL,
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
-#' @param NumberBins numeric
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -13394,6 +12083,7 @@ Plot.VariableImportance <- function(dt = NULL,
 #' @param SampleSize numeric
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.ROC <- function(dt = NULL,
                      SampleSize = 100000,
@@ -13456,7 +12146,7 @@ Plot.ROC <- function(dt = NULL,
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     # Melt Predict Cols
@@ -13643,10 +12333,15 @@ Plot.ROC <- function(dt = NULL,
 #' @param NumLevels_Y = NumLevels_X,
 #' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
 #' @param MouseScroll logical, zoom via mouse scroll
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
+#' @param xaxis.rotate numeric
+#' @param yaxis.rotate numeric
+#' @param ContainLabel logical
 #' @param GroupVar = NULL
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param TextColor 'darkblue'
@@ -13679,7 +12374,7 @@ Plot.ROC <- function(dt = NULL,
 #' Debug <- FALSE
 #'
 #' }
-#'
+#' @return plot
 #' @export
 Plot.ConfusionMatrix <- function(dt = NULL,
                                  PreAgg = FALSE,
@@ -13748,7 +12443,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
   # Corr Matrix for the automatic ordering
   data.table::setorderv(dt4, c(XVar,YVar), c(1L,1L))
   dt4 <- dt4[!is.na(get(ZVar))]
-  p1 <- AutoPlots:::Plot.HeatMap(
+  p1 <- Plot.HeatMap(
     PreAgg = TRUE,
     EchartsTheme = EchartsTheme,
     Title = Title,
@@ -13763,8 +12458,6 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     NumLevels_X = NumLevels_X,
     NumLevels_Y = NumLevels_Y,
     MouseScroll = MouseScroll,
-
-
     xaxis.rotate = xaxis.rotate,
     yaxis.rotate = yaxis.rotate,
     ContainLabel = ContainLabel)
@@ -13793,6 +12486,8 @@ Plot.ConfusionMatrix <- function(dt = NULL,
 #' @param NumberBins numeric
 #' @param PreAgg logical
 #' @param NumberBins numeric
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -13802,7 +12497,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
-#'
+#' @return plot
 #' @export
 Plot.Lift <- function(dt = NULL,
                       PreAgg = FALSE,
@@ -13853,7 +12548,7 @@ Plot.Lift <- function(dt = NULL,
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     if(Debug) print("here 4")
@@ -14104,6 +12799,8 @@ Plot.Lift <- function(dt = NULL,
 #' @param NumberBins numeric
 #' @param PreAgg logical
 #' @param NumberBins numeric
+#' @param Height NULL
+#' @param Width NULL
 #' @param Title character
 #' @param ShowLabels character
 #' @param Title.YAxis character
@@ -14113,7 +12810,7 @@ Plot.Lift <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param Debug Debugging purposes
-#'
+#' @return plot
 #' @export
 Plot.Gains <- function(dt = NULL,
                        PreAgg = FALSE,
@@ -14159,7 +12856,7 @@ Plot.Gains <- function(dt = NULL,
 
     # Dummify Target
     nam <- data.table::copy(names(dt1))
-    dt1 <- Rodeo::DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
     nam <- setdiff(names(dt1), nam)
 
     if(Debug) print("here 4")
@@ -14408,6 +13105,9 @@ Plot.Gains <- function(dt = NULL,
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param CostMatrixWeights vector length 4. FP, FP, FN, TP
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
@@ -14426,6 +13126,7 @@ Plot.Gains <- function(dt = NULL,
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
+#' @return plot
 #' @export
 Plot.BinaryMetrics <- function(dt = NULL,
                                PreAgg = FALSE,
@@ -14480,7 +13181,7 @@ Plot.BinaryMetrics <- function(dt = NULL,
 
   # Build Plot
   tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
-  dt2 <- AutoQuant:::BinaryMetrics(
+  dt2 <- BinaryMetrics(
     ValidationData. = dt1,
     TargetColumnName. = "BinaryTarget",
     CostMatrixWeights. = CostMatrixWeights,
@@ -14527,6 +13228,7 @@ Plot.BinaryMetrics <- function(dt = NULL,
 #' @author Adrian Antico
 #'
 #' @param dt source data.table
+#' @param PreAgg logical
 #' @param YVar Names of shap columns
 #' @param GroupVar Name of by variable
 #' @param EchartsTheme "dark-blue"
@@ -14537,12 +13239,15 @@ Plot.BinaryMetrics <- function(dt = NULL,
 #' @param NumberBins = 21
 #' @param NumLevels_Y = 20
 #' @param NumLevels_X = 20
+#' @param TextColor character
+#' @param Height "400px"
+#' @param Width "200px"
 #' @param Title "Heatmap"
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param Debug = FALSE
-#'
+#' @return plot
 #' @export
 Plot.ShapImportance <- function(dt,
                                 PreAgg = FALSE,
@@ -14581,7 +13286,7 @@ Plot.ShapImportance <- function(dt,
     # Define Aggregation function
     if(Debug) print("Plot.ShapImportance # Define Aggregation function")
     if(Debug) print(AggMethod)
-    aggFunc <- AutoPlots:::SummaryFunction(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
 
     if(length(GroupVar) > 0L) {
       dt1 <- dt1[, lapply(.SD, FUN = noquote(aggFunc)), by = c(GroupVar)]
@@ -14773,7 +13478,7 @@ Plot.ShapImportance <- function(dt,
 #     }
 #   }
 #   #xx <- xx[, .SD, .SDcols = c(names(xx)[c(1,2,5,6,12)])]
-#   AutoQuant::PostGRE_RemoveCreateAppend(
+#   PostGRE_RemoveCreateAppend(
 #     data = xx,
 #     TableName = "ticker_data",
 #     CloseConnection = TRUE,

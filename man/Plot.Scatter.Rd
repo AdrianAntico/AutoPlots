@@ -62,13 +62,15 @@ Plot.Scatter(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{character}
 
 \item{ShowLabels}{character}
+
+\item{AddGLM}{logical}
 
 \item{Title.YAxis}{character}
 
@@ -104,7 +106,12 @@ Plot.Scatter(
 
 \item{ContainLabel}{TRUE}
 
+\item{tooltip.trigger}{"axis"}
+
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Build a copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -153,7 +160,6 @@ AutoPlots::Plot.Scatter(
   tooltip.trigger = "axis",
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

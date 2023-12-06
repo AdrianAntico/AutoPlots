@@ -39,6 +39,8 @@ Plot.CorrMatrix(
 
 \item{CorrVars}{vector of variable names}
 
+\item{CorrVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
 \item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
 
 \item{FacetCols}{Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns}
@@ -51,9 +53,9 @@ Plot.CorrMatrix(
 
 \item{MaxNAPercent}{numeric}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{character}
 
@@ -86,14 +88,9 @@ Plot.CorrMatrix(
 \item{xaxis.fontSize}{14}
 
 \item{Debug}{Debugging purposes}
-
-\item{CorrVarsTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
-
-\item{xaxis.rotate}{0}
-
-\item{yaxis.rotate}{0}
-
-\item{ContainLabel}{TRUE}
+}
+\value{
+plot
 }
 \description{
 Build a correlation matrix plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -140,7 +137,6 @@ AutoPlots::Plot.CorrMatrix(
   xaxis.fontSize = 14,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

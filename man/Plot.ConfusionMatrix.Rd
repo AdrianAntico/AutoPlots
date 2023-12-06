@@ -66,6 +66,10 @@ Plot.ConfusionMatrix(
 
 \item{NumLevels_Y}{= NumLevels_X,}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{Title}{title}
 
 \item{ShowLabels}{character}
@@ -86,7 +90,16 @@ Plot.ConfusionMatrix(
 
 \item{GroupVar}{= NULL}
 
+\item{xaxis.rotate}{numeric}
+
+\item{yaxis.rotate}{numeric}
+
+\item{ContainLabel}{logical}
+
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Generate variable importance plots
@@ -118,7 +131,6 @@ AggMethod <- "mean"
 Debug <- FALSE
 
 }
-
 }
 \seealso{
 Other Model Evaluation: 

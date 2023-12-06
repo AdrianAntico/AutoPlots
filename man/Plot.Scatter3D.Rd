@@ -67,9 +67,9 @@ Plot.Scatter3D(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{'Violin Plot'}
 
@@ -101,13 +101,20 @@ Plot.Scatter3D(
 
 \item{xaxis.fontSize}{14}
 
+\item{zaxis.fontSize}{14}
+
 \item{xaxis.rotate}{0}
 
 \item{yaxis.rotate}{0}
 
+\item{zaxis.rotate}{0}
+
 \item{ContainLabel}{TRUE}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -157,7 +164,6 @@ AutoPlots::Plot.Scatter3D(
   ContainLabel = TRUE,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

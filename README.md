@@ -1,5 +1,8 @@
 ![Version:1.0.0](https://img.shields.io/static/v1?label=Version&message=1.0.0&color=blue&?style=plastic)
-[![PRsWelcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=default)](http://makeapullrequest.com)
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/AdrianAntico/AutoPlots/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AdrianAntico/AutoPlots/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Logo2.PNG" align="center" width="800" />
 
@@ -39,7 +42,7 @@ This package is intended to reduce or eliminate that behavior (hence the "Auto" 
 ### Model evaluation 
 These plot types are most useful for those looking to evaluate the performance of regression, binary classification, and multiclass models. Designing plots for multiclass models are rather challenging but I've abstracted all that work away so the user only has to pass their categorical target variable along with their categorical predicted value, and the plots will display all the levels appropriately without requiring the user to do the data manipulation ahead of time. Same goes for regression and classification, which are easier, but still requires time and energy.
 
-Additionaly, all model evaluation plots supports grouping variables for by-analysis of models, even for multiclass models! 
+Additionally, all model evaluation plots supports grouping variables for by-analysis of models, even for multiclass models! 
 - Calibration Plots
 - Calibration Scatter Plots
 - Partital Dependence Plots
@@ -68,56 +71,48 @@ Another giant bonus is that the user can either pre-aggregate their data and pas
 
 # Getting Started
 
-### Installation
+### Installation from CRAN
+```r
+install.packages("AutoPlots")
+```
+
+### Installation from GitHub
 
 ```r
-install.packages("bit64")
+install.packages("combinat")
 install.packages("data.table")
-install.packages("echarts4r")
+install.packages("devtools")
 install.packages("dplyr")
+install.packages("e1071")
+install.packages("echarts4r")
+install.packages("lubridate")
+install.packages("nortest")
 install.packages("quanteda")
 install.packages("quanteda.textstats")
-devtools::install_github("AdrianAntico/Rodeo", upgrade = FALSE, force = TRUE)
+install.packages("scales")
+install.packages("stats")
+install.packages("utils")
 devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
 ```
 
-### Plot Images
+### Sample of Plot Images
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AutocorrelationPlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/BarPlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/BarPlot3D.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/BoxPlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CopulaPlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CopulaPlot3D.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CorrelogramPlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Density.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/DonutPlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Heatmap.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Histogram.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/LinePlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ParallelPlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/PartialAutocorrelationPlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/PiePlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ProbabilityPlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RiverPlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RosetypePlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ScatterPlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ScatterPlot3D.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/StackedBarPlot.PNG" align="center" width="800" />
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/StepPlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/WordCloud.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_CalibrationBox.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_CalibrationLine.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ConfusionMatrix.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_Gains.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_Lift.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_PartialDependenceBarPlot.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_PartialDependenceLine.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ResidualHistogram.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ResidualScatter.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ROC.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_ShapleyImportance.PNG" align="center" width="800" />
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/zz_VariableImportance.PNG" align="center" width="800" />
+
 
 </details>
 

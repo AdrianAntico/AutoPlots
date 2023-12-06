@@ -94,11 +94,18 @@ Plot.StandardPlots(
 
 \item{Title.XAxis}{character}
 
+\item{NumLevels_Y}{Numeric}
+
+\item{NumLevels_X}{Numeric}
+
 \item{TextColor}{character}
 
 \item{FontSize}{numeric}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Helper for standard plots

@@ -68,7 +68,13 @@ Plot.BinaryMetrics(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
+\item{CostMatrixWeights}{vector length 4. FP, FP, FN, TP}
+
 \item{NumberBins}{numeric}
+
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
 
 \item{Title}{character}
 
@@ -89,6 +95,9 @@ Plot.BinaryMetrics(
 \item{TextColor}{hex character}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Line plot of evaluation metrics across thresholds

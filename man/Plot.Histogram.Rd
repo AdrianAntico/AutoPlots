@@ -60,11 +60,13 @@ Plot.Histogram(
 
 \item{NumberBins}{= 30}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{EchartsTheme}{= EchartsTheme,}
+
+\item{Title}{character}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
@@ -95,8 +97,9 @@ Plot.Histogram(
 \item{yaxis.fontSize}{14}
 
 \item{Debug}{Debugging purposes}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
+}
+\value{
+plot
 }
 \description{
 Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
@@ -140,7 +143,6 @@ AutoPlots::Plot.Histogram(
   yaxis.fontSize = 14,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

@@ -59,6 +59,10 @@ Plot.PartialDependence.Line(
 
 \item{AggMethod}{character}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{Title}{character}
 
 \item{ShowLabels}{character}
@@ -78,6 +82,9 @@ Plot.PartialDependence.Line(
 \item{TextColor}{hex character}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 This function automatically builds partial dependence calibration plots

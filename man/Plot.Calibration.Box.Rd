@@ -55,6 +55,10 @@ Plot.Calibration.Box(
 
 \item{NumberBins}{numeric}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{Title}{character}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
@@ -72,6 +76,9 @@ Plot.Calibration.Box(
 \item{TextColor}{"Not Implemented"}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification

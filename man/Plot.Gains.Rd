@@ -58,6 +58,10 @@ Plot.Gains(
 
 \item{NumberBins}{numeric}
 
+\item{Height}{NULL}
+
+\item{Width}{NULL}
+
 \item{Title}{character}
 
 \item{ShowLabels}{character}
@@ -75,6 +79,9 @@ Plot.Gains(
 \item{TextColor}{character hex}
 
 \item{Debug}{Debugging purposes}
+}
+\value{
+plot
 }
 \description{
 Create a cumulative gains chart

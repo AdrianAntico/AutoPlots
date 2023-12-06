@@ -107,6 +107,9 @@ Plot.StackedBar(
 
 \item{Debug}{Debugging purposes}
 }
+\value{
+plot
+}
 \description{
 Build a stacked bar plot vs a grouped bar plot
 }
@@ -152,7 +155,6 @@ AutoPlots::Plot.StackedBar(
   ContainLabel = TRUE,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

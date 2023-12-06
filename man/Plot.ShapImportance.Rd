@@ -30,6 +30,8 @@ Plot.ShapImportance(
 \arguments{
 \item{dt}{source data.table}
 
+\item{PreAgg}{logical}
+
 \item{AggMethod}{"mean", "median", "sum", "sd", "skewness","kurtosis", "coeffvar", "meanabs", "medianabs", "sumabs", "sdabs", "skewnessabs", "kurtosisabs", "CoeffVarabs"}
 
 \item{YVar}{Names of shap columns}
@@ -48,6 +50,10 @@ Plot.ShapImportance(
 
 \item{NumLevels_Y}{= 20}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{Title}{"Heatmap"}
 
 \item{ShowLabels}{character}
@@ -58,7 +64,12 @@ Plot.ShapImportance(
 
 \item{EchartsTheme}{"dark-blue"}
 
+\item{TextColor}{character}
+
 \item{Debug}{= FALSE}
+}
+\value{
+plot
 }
 \description{
 Plot.ShapImportance variable importance

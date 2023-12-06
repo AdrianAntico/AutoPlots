@@ -52,6 +52,10 @@ Plot.Residuals.Scatter(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{Title}{character}
@@ -69,8 +73,9 @@ Plot.Residuals.Scatter(
 \item{TextColor}{"Not Implemented"}
 
 \item{Debug}{Debugging purposes}
-
-\item{NumberBins}{numeric}
+}
+\value{
+plot
 }
 \description{
 Residuals_2 Plot

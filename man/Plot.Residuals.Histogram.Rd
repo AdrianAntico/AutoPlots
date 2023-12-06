@@ -66,6 +66,10 @@ Plot.Residuals.Histogram(
 
 \item{NumberBins}{numeric}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{Title}{character}
 
 \item{ShowLabels}{character}
@@ -105,10 +109,9 @@ Plot.Residuals.Histogram(
 \item{ContainLabel}{TRUE}
 
 \item{Debug}{Debugging purposes}
-
-\item{ZeroLineColor}{character hex}
-
-\item{ZeroLineWidth}{numeric}
+}
+\value{
+plot
 }
 \description{
 Residuals Plot

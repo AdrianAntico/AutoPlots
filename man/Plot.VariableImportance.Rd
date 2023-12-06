@@ -56,6 +56,10 @@ Plot.VariableImportance(
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
+\item{Height}{"400px"}
+
+\item{Width}{"200px"}
+
 \item{Title}{title}
 
 \item{ShowLabels}{character}
@@ -87,8 +91,9 @@ Plot.VariableImportance(
 \item{yaxis.fontSize}{14}
 
 \item{Debug}{Debugging purposes}
-
-\item{MouseScroll}{logical, zoom via mouse scroll}
+}
+\value{
+plot
 }
 \description{
 Generate variable importance plots

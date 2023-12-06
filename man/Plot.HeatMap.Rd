@@ -46,6 +46,8 @@ Plot.HeatMap(
 \arguments{
 \item{dt}{source data.table}
 
+\item{PreAgg}{logical}
+
 \item{AggMethod}{'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'}
 
 \item{XVar}{X-Axis variable name}
@@ -70,11 +72,11 @@ Plot.HeatMap(
 
 \item{NumLevels_Y}{= 20}
 
-\item{NumLevels_X}{= 20}
+\item{NumLevels_X}{= 20.}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{"Heatmap"}
 
@@ -87,6 +89,8 @@ Plot.HeatMap(
 \item{EchartsTheme}{"dark-blue"}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
+
+\item{TextColor}{color}
 
 \item{title.fontSize}{22}
 
@@ -111,6 +115,9 @@ Plot.HeatMap(
 \item{ContainLabel}{TRUE}
 
 \item{Debug}{Debugging parameter}
+}
+\value{
+plot
 }
 \description{
 Create heat maps with numeric or categorical dt
@@ -158,7 +165,6 @@ AutoPlots::Plot.HeatMap(
   ContainLabel = TRUE,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

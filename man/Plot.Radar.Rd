@@ -42,9 +42,9 @@ Plot.Radar(
 
 \item{YVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{"Title"}
 
@@ -73,8 +73,9 @@ Plot.Radar(
 \item{DarkMode}{FALSE}
 
 \item{Debug}{Debugging purposes}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex}
+}
+\value{
+plot
 }
 \description{
 Plot.Radar
@@ -110,7 +111,6 @@ AutoPlots::Plot.Radar(
   DarkMode = FALSE,
   Debug = FALSE)
 }
-
 }
 \seealso{
 Other Standard Plots: 

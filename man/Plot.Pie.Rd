@@ -59,9 +59,9 @@ Plot.Pie(
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
-\item{Height}{= NULL,}
+\item{Height}{"400px"}
 
-\item{Width}{= NULL,}
+\item{Width}{"200px"}
 
 \item{Title}{title}
 
@@ -94,8 +94,9 @@ Plot.Pie(
 \item{yaxis.fontSize}{14}
 
 \item{Debug}{Debugging purposes}
-
-\item{BackGroundColor}{color outside of plot window. Rcolors and hex outside of plot window. Rcolors and hex character}
+}
+\value{
+plot
 }
 \description{
 Build a pie chart by simply passing arguments to a single function
