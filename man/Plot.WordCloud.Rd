@@ -72,8 +72,6 @@ plot
 WordCloud plots
 }
 \examples{
-\dontrun{
-
 # Create fake data
 dt <- FakeDataGenerator(AddComment = TRUE)
 
@@ -98,7 +96,7 @@ AutoPlots::Plot.WordCloud(
   yaxis.rotate = 0,
   ContainLabel = TRUE,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

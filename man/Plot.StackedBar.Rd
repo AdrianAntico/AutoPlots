@@ -114,8 +114,6 @@ plot
 Build a stacked bar plot vs a grouped bar plot
 }
 \examples{
-\dontrun{
-
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 100000)
 
@@ -154,7 +152,7 @@ AutoPlots::Plot.StackedBar(
   yaxis.rotate = 0,
   ContainLabel = TRUE,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

@@ -1,14 +1,12 @@
 Package: AutoPlots
-Title: Simple Functions for Creating Echarts Visualizations
+Title: Creating Echarts Visualizations as Easy as Possible
 Version: 1.0.0
-Date: 2023-11-06
+Date: 2023-11-07
 Authors@R: 
     person("Adrian", "Antico", , "adrianantico@gmail.com", role = c("aut", "cre", "cph"))
 Author: Adrian Antico [aut, cre, cph]
 Maintainer: Adrian Antico <adrianantico@gmail.com>
-Description: R package for generating Echarts visualization with a single
-    function call. The functions are designed to be as similar as possible
-    to each other, using common naming conventions.
+Description: Create Echarts visualization in a single function call without the need for data preprossessing. The data.table package is utilized to perform the data wrangling necessary to prepare your data for the plot types you wish to build, along with allowing fast processing for big data. There are two broad classes of plots available: standard plots and machine learning evaluation plots. There are lots of parameters available in each plot type function for customizing the plots (such as faceting) and data wrangling (such as variable transformations and aggregation). More information can be found in the README on the GitHub repo.
 License: AGPL (>= 3)
 URL: https://github.com/AdrianAntico/AutoPlots
 BugReports: https://github.com/AdrianAntico/AutoPlots/issues
@@ -33,5 +31,5 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 NeedsCompilation: no
-Packaged: 2023-11-06 14:00:00 UTC
+Packaged: 2023-11-07 14:00:00 UTC
 RoxygenNote: 7.2.3

@@ -126,8 +126,6 @@ plot
 Build a 3D Bar Plot
 }
 \examples{
-\dontrun{
-
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 100000)
 
@@ -170,7 +168,7 @@ AutoPlots::Plot.BarPlot3D(
   yaxis.rotate = 0,
   ContainLabel = TRUE,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

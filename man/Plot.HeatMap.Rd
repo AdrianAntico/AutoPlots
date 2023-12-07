@@ -123,8 +123,6 @@ plot
 Create heat maps with numeric or categorical dt
 }
 \examples{
-\dontrun{
-
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 100000)
 
@@ -164,7 +162,7 @@ AutoPlots::Plot.HeatMap(
   yaxis.rotate = 0,
   ContainLabel = TRUE,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

@@ -104,34 +104,6 @@ plot
 \description{
 Generate variable importance plots
 }
-\examples{
-\dontrun{
-
-# Debugging
-dt <- data.table::fread(file.choose())
-XVar <- c("Brand", "Category")
-YVar <- "ClassTarget"
-ZVar <- "p1"
-YVarTrans <- "Identity"
-XVarTrans <- "Identity"
-ZVarTrans <- "Identity"
-FacetRows <- 1
-FacetCols <- 1
-FacetLevels <- NULL
-Height <- NULL
-Width <- NULL
-Title <- NULL
-ShowLabels <- FALSE
-Title.YAxis <- NULL
-Title.XAxis <- NULL
-EchartsTheme <- "macarons"
-TimeLine <- FALSE
-TextColor <- "white"
-AggMethod <- "mean"
-Debug <- FALSE
-
-}
-}
 \seealso{
 Other Model Evaluation: 
 \code{\link{Plot.BinaryMetrics}()},

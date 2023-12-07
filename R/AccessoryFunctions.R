@@ -166,17 +166,14 @@ ExpandText <- function(x) {
 CharNull <- function(x, Char = FALSE) {
 
   if(missing(x)) {
-    print('CharNull: missing x')
     return(NULL)
   }
 
   if(!exists('x')) {
-    print('CharNull: x does not exist')
     return(NULL)
   }
 
   if(length(x) == 0) {
-    print('CharNull: length(x) == 0')
     return(NULL)
   }
 
@@ -401,9 +398,9 @@ FakeDataGenerator <- function(Correlation = 0.70,
 
   # Comment data
   if(AddComment) {
-    a <- c('Hello', 'Hi', 'Howdy')
-    b <- c('really like', 'absolutely adore', 'sucks ass')
-    c <- c('noload', 'download', 'upload')
+    a <- c('Hello', 'Hi', 'Howdy', 'House', 'Someone', 'Watching', 'You')
+    b <- c('really like', 'absolutely adore', 'mediocre', 'great', 'stochastic')
+    c <- c('noload', 'download', 'upload', 'Burn Notice', 'The Office')
     N1 <- 1/length(a)
     N2 <- 1/length(b)
     N3 <- 1/length(c)

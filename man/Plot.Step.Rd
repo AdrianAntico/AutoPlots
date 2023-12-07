@@ -123,7 +123,6 @@ plot
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
 }
 \examples{
-\dontrun{
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 1000)
 
@@ -139,7 +138,7 @@ AutoPlots::Plot.Step(
   DualYVarTrans = "Identity",
   GroupVar = NULL,
   EchartsTheme = "macarons")
-}
+
 }
 \seealso{
 Other Standard Plots: 

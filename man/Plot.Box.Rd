@@ -111,8 +111,6 @@ plot
 Build a box plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
 \examples{
-\dontrun{
-
 # Create fake data
 dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 
@@ -149,7 +147,7 @@ AutoPlots::Plot.Box(
   yaxis.rotate = 0,
   ContainLabel = TRUE,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

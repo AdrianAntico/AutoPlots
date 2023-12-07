@@ -105,8 +105,6 @@ plot
 Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
 \examples{
-\dontrun{
-
 # Create fake data
 dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
 
@@ -142,7 +140,6 @@ AutoPlots::Plot.Histogram(
   xaxis.fontSize = 14,
   yaxis.fontSize = 14,
   Debug = FALSE)
-}
 }
 \seealso{
 Other Standard Plots: 

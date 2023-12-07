@@ -27,6 +27,7 @@
 #' @noRd
 BuildBinary <- function(Root = NULL) {
   x <- getwd()
+  on.exit(expr = setwd(x))
   if(!is.null(Root)) {
     setwd(Root)
     devtools::install(pkg = "AutoPlots", dependencies = FALSE)
@@ -34,7 +35,6 @@ BuildBinary <- function(Root = NULL) {
     setwd("C:/Users/Bizon/Documents/GitHub")
     devtools::build(pkg = "AutoPlots")
   }
-  setwd(x)
 }
 
 #' @title Install
@@ -50,6 +50,7 @@ BuildBinary <- function(Root = NULL) {
 #' @noRd
 Install <- function(Root = NULL) {
   x <- getwd()
+  on.exit(expr = setwd(x))
   if(!is.null(Root)) {
     setwd(Root)
     devtools::install(pkg = "AutoPlots", dependencies = FALSE)
@@ -57,7 +58,6 @@ Install <- function(Root = NULL) {
     setwd("C:/Users/Bizon/Documents/GitHub")
     devtools::install(pkg = "AutoPlots", dependencies = FALSE)
   }
-  setwd(x)
 }
 
 #' @title UpdateDocs
@@ -74,6 +74,7 @@ Install <- function(Root = NULL) {
 #' @noRd
 UpdateDocs <- function(BuildVignette = FALSE, Root = NULL) {
   x <- getwd()
+  on.exit(expr = setwd(x))
   if(!is.null(Root)) {
     setwd(Root)
     devtools::document()
@@ -83,5 +84,4 @@ UpdateDocs <- function(BuildVignette = FALSE, Root = NULL) {
     devtools::document()
     if(BuildVignette) devtools::build_manual()
   }
-  setwd(x)
 }

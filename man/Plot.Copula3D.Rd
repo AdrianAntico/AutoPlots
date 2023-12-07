@@ -120,8 +120,6 @@ plot
 Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
 \examples{
-\dontrun{
-
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 100000)
 data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
@@ -163,7 +161,7 @@ AutoPlots::Plot.Copula3D(
   zaxis.rotate = 0,
   ContainLabel = TRUE,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

@@ -96,8 +96,6 @@ plot
 Build a correlation matrix plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
 }
 \examples{
-\dontrun{
-
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 100000)
 
@@ -136,7 +134,7 @@ AutoPlots::Plot.CorrMatrix(
   yaxis.fontSize = 14,
   xaxis.fontSize = 14,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

@@ -102,8 +102,6 @@ plot
 Build a pie chart by simply passing arguments to a single function
 }
 \examples{
-\dontrun{
-
 # Create fake data
 dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 
@@ -138,7 +136,7 @@ AutoPlots::Plot.Pie(
   xaxis.fontSize = 14,
   yaxis.fontSize = 14,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

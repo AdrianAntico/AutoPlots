@@ -117,7 +117,6 @@ plot
 Build a bar plot by simply passing arguments to a single function
 }
 \examples{
-\dontrun{
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 100000)
 
@@ -157,7 +156,7 @@ AutoPlots::Plot.Bar(
   yaxis.rotate = 0,
   ContainLabel = TRUE,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

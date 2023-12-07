@@ -78,8 +78,6 @@ plot
 Build a normal probability plot
 }
 \examples{
-\dontrun{
-
 # Create fake data
 dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
 
@@ -106,7 +104,7 @@ AutoPlots::Plot.ProbabilityPlot(
   ContainLabel = TRUE,
   tooltip.trigger = "axis",
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

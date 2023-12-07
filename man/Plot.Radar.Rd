@@ -81,8 +81,6 @@ plot
 Plot.Radar
 }
 \examples{
-\dontrun{
-
 # Create Data
 dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
 
@@ -110,7 +108,7 @@ AutoPlots::Plot.Radar(
   ContainLabel = TRUE,
   DarkMode = FALSE,
   Debug = FALSE)
-}
+
 }
 \seealso{
 Other Standard Plots: 

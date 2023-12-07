@@ -758,8 +758,6 @@ Plot.StandardPlots <- function(dt = NULL,
       "TextColor = ", CEP(TextColor), ",\n  ",
       "title.fontSize = ", CEPP(Title.FontSize), ")\n")
 
-    print("AutoP 2")
-
     return(list(Plot = p1, Code = Code))
   }
 
@@ -1691,8 +1689,6 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
 #'
@@ -1719,7 +1715,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   tooltip.trigger = "axis",
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.ProbabilityPlot <- function(dt = NULL,
@@ -1845,8 +1841,6 @@ Plot.ProbabilityPlot <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
 #'
@@ -1882,7 +1876,6 @@ Plot.ProbabilityPlot <- function(dt = NULL,
 #'   xaxis.fontSize = 14,
 #'   yaxis.fontSize = 14,
 #'   Debug = FALSE)
-#' }
 #' @return plot
 #' @export
 Plot.Histogram <- function(dt = NULL,
@@ -2119,43 +2112,41 @@ Plot.Histogram <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
 #'
-#'# Create fake data
-#'dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#' # Create plot
+#' AutoPlots::Plot.Density(
+#'   dt = dt,
+#'   SampleSize = 30000L,
+#'   XVar = NULL,
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   EchartsTheme = "macarons",
+#'   Title = "Histogram",
+#'   MouseScroll = TRUE,
+#'   TimeLine = FALSE,
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   TextColor = "white",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   Debug = FALSE)
 #'
-#'# Create plot
-#'AutoPlots::Plot.Density(
-#'  dt = dt,
-#'  SampleSize = 30000L,
-#'  XVar = NULL,
-#'  YVar = "Y",
-#'  GroupVar = NULL,
-#'  YVarTrans = "Identity",
-#'  XVarTrans = "Identity",
-#'  FacetRows = 1,
-#'  FacetCols = 1,
-#'  FacetLevels = NULL,
-#'  Height = NULL,
-#'  Width = NULL,
-#'  EchartsTheme = "macarons",
-#'  Title = "Histogram",
-#'  MouseScroll = TRUE,
-#'  TimeLine = FALSE,
-#'  ShowLabels = FALSE,
-#'  Title.YAxis = NULL,
-#'  Title.XAxis = NULL,
-#'  TextColor = "white",
-#'  title.fontSize = 22,
-#'  title.fontWeight = "bold",
-#'  title.textShadowColor = '#63aeff',
-#'  title.textShadowBlur = 3,
-#'  title.textShadowOffsetY = 1,
-#'  title.textShadowOffsetX = -1,
-#'  xaxis.fontSize = 14,
-#'  yaxis.fontSize = 14,
-#'  Debug = FALSE)
-#' }
 #' @return plot
 #' @export
 Plot.Density <- function(dt = NULL,
@@ -2469,8 +2460,6 @@ Plot.Density <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 #'
@@ -2505,7 +2494,7 @@ Plot.Density <- function(dt = NULL,
 #'   xaxis.fontSize = 14,
 #'   yaxis.fontSize = 14,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Pie <- function(dt = NULL,
@@ -2692,7 +2681,6 @@ Plot.Pie <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
 #'
 #' # Create fake data
 #' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
@@ -2728,7 +2716,7 @@ Plot.Pie <- function(dt = NULL,
 #'   xaxis.fontSize = 14,
 #'   yaxis.fontSize = 14,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Donut <- function(dt = NULL,
@@ -2911,8 +2899,6 @@ Plot.Donut <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 #'
@@ -2947,7 +2933,7 @@ Plot.Donut <- function(dt = NULL,
 #'   xaxis.fontSize = 14,
 #'   yaxis.fontSize = 14,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Rosetype <- function(dt = NULL,
@@ -3133,8 +3119,6 @@ Plot.Rosetype <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 #'
@@ -3171,7 +3155,7 @@ Plot.Rosetype <- function(dt = NULL,
 #'   yaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Box <- function(dt = NULL,
@@ -3825,8 +3809,6 @@ Plot.Box <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' dt <- FakeDataGenerator(AddComment = TRUE)
 #'
@@ -3851,7 +3833,7 @@ Plot.Box <- function(dt = NULL,
 #'   yaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.WordCloud <- function(dt = NULL,
@@ -4042,8 +4024,6 @@ Plot.WordCloud <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create Data
 #' dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
 #'
@@ -4071,7 +4051,7 @@ Plot.WordCloud <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   DarkMode = FALSE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Radar <- function(dt = NULL,
@@ -4227,7 +4207,6 @@ Plot.Radar <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 1000)
 #'
@@ -4243,7 +4222,7 @@ Plot.Radar <- function(dt = NULL,
 #'   DualYVarTrans = "LogPlus1",
 #'   GroupVar = NULL,
 #'   EchartsTheme = "macarons")
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Line <- function(dt = NULL,
@@ -4687,7 +4666,6 @@ Plot.Line <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 1000)
 #'
@@ -4703,7 +4681,7 @@ Plot.Line <- function(dt = NULL,
 #'   DualYVarTrans = "Identity",
 #'   GroupVar = NULL,
 #'   EchartsTheme = "macarons")
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Area <- function(dt = NULL,
@@ -5139,7 +5117,6 @@ Plot.Area <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 1000)
 #'
@@ -5155,7 +5132,7 @@ Plot.Area <- function(dt = NULL,
 #'   DualYVarTrans = "Identity",
 #'   GroupVar = NULL,
 #'   EchartsTheme = "macarons")
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Step <- function(dt = NULL,
@@ -5585,7 +5562,6 @@ Plot.Step <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 1000)
 #'
@@ -5604,7 +5580,7 @@ Plot.Step <- function(dt = NULL,
 #'   YVarTrans = "Identity",
 #'   TextColor = "black",
 #'   EchartsTheme = "macarons")
-#' }
+#'
 #' @return plot
 #' @export
 Plot.River <- function(dt = NULL,
@@ -5794,7 +5770,6 @@ Plot.River <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #'
@@ -5834,7 +5809,7 @@ Plot.River <- function(dt = NULL,
 #'   yaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Bar <- function(dt = NULL,
@@ -7045,8 +7020,6 @@ Plot.PACF <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #'
@@ -7085,7 +7058,7 @@ Plot.PACF <- function(dt = NULL,
 #'   yaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.StackedBar <- function(dt = NULL,
@@ -7391,8 +7364,6 @@ Plot.StackedBar <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #'
@@ -7435,7 +7406,7 @@ Plot.StackedBar <- function(dt = NULL,
 #'   yaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.BarPlot3D <- function(dt,
@@ -8035,8 +8006,6 @@ Plot.BarPlot3D <- function(dt,
 #' @param Debug Debugging parameter
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #'
@@ -8076,7 +8045,7 @@ Plot.BarPlot3D <- function(dt,
 #'   yaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.HeatMap <- function(dt,
@@ -8771,8 +8740,6 @@ Plot.HeatMap <- function(dt,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #'
@@ -8811,7 +8778,7 @@ Plot.HeatMap <- function(dt,
 #'   yaxis.fontSize = 14,
 #'   xaxis.fontSize = 14,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.CorrMatrix <- function(dt = NULL,
@@ -8944,8 +8911,6 @@ Plot.CorrMatrix <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create data
 #' dt = AutoPlots::FakeDataGenerator(N = 100000)
 #'
@@ -8980,7 +8945,7 @@ Plot.CorrMatrix <- function(dt = NULL,
 #'   yaxis.fontSize = 14,
 #'   xaxis.fontSize = 14,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Parallel <- function(dt = NULL,
@@ -9152,8 +9117,6 @@ Plot.Parallel <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #'
@@ -9192,7 +9155,7 @@ Plot.Parallel <- function(dt = NULL,
 #'   yaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Copula <- function(dt = NULL,
@@ -9567,8 +9530,6 @@ Plot.Copula <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #' data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
@@ -9610,7 +9571,7 @@ Plot.Copula <- function(dt = NULL,
 #'   zaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Copula3D <- function(dt = NULL,
@@ -9864,8 +9825,6 @@ Plot.Copula3D <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #' data[, Independent_Variable8 := Independent_Variable8 * runif(.N)]
@@ -9906,7 +9865,7 @@ Plot.Copula3D <- function(dt = NULL,
 #'   ContainLabel = TRUE,
 #'   tooltip.trigger = "axis",
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Scatter <- function(dt = NULL,
@@ -10292,8 +10251,6 @@ Plot.Scatter <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' \dontrun{
-#'
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #' data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
@@ -10335,7 +10292,7 @@ Plot.Scatter <- function(dt = NULL,
 #'   zaxis.rotate = 0,
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
-#' }
+#'
 #' @return plot
 #' @export
 Plot.Scatter3D <- function(dt = NULL,
@@ -12347,33 +12304,6 @@ Plot.ROC <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #'
-#' @examples
-#' \dontrun{
-#'
-#' # Debugging
-#' dt <- data.table::fread(file.choose())
-#' XVar <- c("Brand", "Category")
-#' YVar <- "ClassTarget"
-#' ZVar <- "p1"
-#' YVarTrans <- "Identity"
-#' XVarTrans <- "Identity"
-#' ZVarTrans <- "Identity"
-#' FacetRows <- 1
-#' FacetCols <- 1
-#' FacetLevels <- NULL
-#' Height <- NULL
-#' Width <- NULL
-#' Title <- NULL
-#' ShowLabels <- FALSE
-#' Title.YAxis <- NULL
-#' Title.XAxis <- NULL
-#' EchartsTheme <- "macarons"
-#' TimeLine <- FALSE
-#' TextColor <- "white"
-#' AggMethod <- "mean"
-#' Debug <- FALSE
-#'
-#' }
 #' @return plot
 #' @export
 Plot.ConfusionMatrix <- function(dt = NULL,
