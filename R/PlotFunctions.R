@@ -4352,7 +4352,7 @@ Plot.Line <- function(dt = NULL,
     #print(dt1)
     #print(gv)
     #print(XVar)
-    #if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
 
     cxv <- class(dt1[[XVar]])[1L]
     if(cxv %in% "IDate") {
