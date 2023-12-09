@@ -966,7 +966,7 @@ Plot.StandardPlots <- function(dt = NULL,
       "dt = data1", ",\n  ",
       "PreAgg = ", CEPP(PreAgg), "\n  ",
       "CorrVars = ", ExpandText(YVar), ",\n  ",
-      "Method = ", CEP(spearman), ",\n  ",
+      "Method = ", CEP("spearman"), ",\n  ",
       "FacetRows = ", CEPP(FacetRows), ",\n  ",
       "FacetCols = ", CEPP(FacetCols), ",\n  ",
       "FacetLevels = ", ExpandText(FacetLevels), ",\n  ",
@@ -8854,6 +8854,7 @@ Plot.CorrMatrix <- function(dt = NULL,
   } else {
     p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
   }
+
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
