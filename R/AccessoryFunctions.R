@@ -441,12 +441,6 @@ FakeDataGenerator <- function(Correlation = 0.70,
 #' @param Scale TRUE
 #' @param ScoreTable FALSE. Set to TRUE to return a data.table that can be used to apply or backtransform via StandardizeScoring
 #'
-#' @examples
-#' \dontrun{
-#' data <- data.table::fread(file.choose())
-#' x <- Standardize(data = data, ColNames = c('Weekly_Sales', 'XREG3'), GroupVars = c('Region','Store','Dept'), Center = TRUE, Scale = TRUE, ScoreTable = TRUE)
-#' }
-#'
 #' @noRd
 Standardize <- function(data, ColNames, GroupVars = NULL, Center = TRUE, Scale = TRUE, ScoreTable = FALSE) {
 
@@ -491,11 +485,6 @@ Standardize <- function(data, ColNames, GroupVars = NULL, Center = TRUE, Scale =
 #' @param Center TRUE
 #' @param Scale TRUE
 #'
-#' @examples
-#' \dontrun{
-#' x <- Standardize(data = data, ColNames = c('Weekly_Sales', 'XREG1'), GroupVars = c('Region','Store','Dept'), Center = TRUE, Scale = TRUE)
-#' }
-#'
 #' @noRd
 StandardizeScoring <- function(data, ScoreTable, Apply = 'apply', GroupVars = NULL) {
 
@@ -538,12 +527,6 @@ StandardizeScoring <- function(data, ScoreTable, Apply = 'apply', GroupVars = NU
 #' @param GroupVars Character vector of column names to have percent ranks by the group levels
 #' @param Granularity Provide a value such that data.table::frank(Variable) * (1 / Granularity) / .N * Granularity. Default is 0.001
 #' @param ScoreTable = FALSE. Set to TRUE to get the reference values for applying to new data. Pass to scoring version of this function
-#'
-#' @examples
-#' \dontrun{
-#' data <- data.table::fread(file.choose())
-#' x <- PercRank(data, ColNames = c('Weekly_Sales', 'XREG1'), GroupVars = c('Region','Store','Dept'), Granularity = 0.001, ScoreTable = TRUE)
-#' }
 #'
 #' @noRd
 PercRank <- function(data, ColNames, GroupVars = NULL, Granularity = 0.001, ScoreTable = FALSE) {
@@ -1066,32 +1049,6 @@ InvApply_Sqrt <- function(x) {
 #' @param TransID Set to a character value that corresponds with your modeling project
 #' @param SaveOutput Set to TRUE to save necessary file to run AutoTransformationScore()
 #' @return data with transformed columns and the transformation object for back-transforming later
-#' @examples
-#' \dontrun{
-#' # Create Fake Data
-#' data <- FakeDataGenerator(
-#'   Correlation = 0.85,
-#'   N = 25000,
-#'   ID = 2L,
-#'   ZIP = 0,
-#'   FactorCount = 2L,
-#'   AddDate = FALSE,
-#'   Classification = FALSE,
-#'   MultiClass = FALSE)
-#'
-#' # Columns to transform
-#' Cols <- names(data)[1L:11L]
-#' print(Cols)
-#'
-#' # Run function
-#' data <- AutoTransformationCreate(
-#'   data,
-#'   ColumnNames = Cols,
-#'   Methods = c("YeoJohnson", "BoxCox", "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "Identity"),
-#'   Path = getwd(),
-#'   TransID = "Trans",
-#'   SaveOutput = TRUE)
-#' }
 #' @noRd
 AutoTransformationCreate <- function(data,
                                      ColumnNames = NULL,
@@ -1382,15 +1339,6 @@ ClassificationMetrics <- function(TestData,
 #' @param CostMatrix c(1,0,0,1) c(TP utility, FN utility, FP utility, TN utility)
 #' @param ClassLabels c(1,0),
 #' @param ValidationData. Test data
-#' @examples
-#' \dontrun{
-#' RemixClassificationMetrics <- function(
-    #'   TargetVariable = "Adrian",
-#'   Thresholds = seq(0.01,0.99,0.01),
-#'   CostMatrix = c(1,0,0,1),
-#'   ClassLabels = c(1,0),
-#'   ValidationData. = ValidationData)
-#' }
 #' @noRd
 RemixClassificationMetrics <- function(TargetVariable = NULL,
                                        Thresholds = seq(0.01,0.99,0.01),
@@ -1482,76 +1430,8 @@ BinaryMetrics <- function(ClassWeights. = ClassWeights,
 #' @param ClustScore This is for scoring AutoKMeans. It converts the added dummy column names to conform with H2O dummy variable naming convention
 #' @param ReturnFactorLevels If you want a named list of all the factor levels returned, set this to TRUE. Doing so will cause the function to return a list with the source data.table and the list of factor variables' levels
 #' @param GroupVar Ignore this
-#' @examples
-#' \dontrun{
-#  # Create fake data with 10 categorical columns
-#' data <- FakeDataGenerator(
-#'   Correlation = 0.85,
-#'   N = 25000,
-#'   ID = 2L,
-#'   ZIP = 0,
-#'   FactorCount = 10L,
-#'   AddDate = FALSE,
-#'   Classification = FALSE,
-#'   MultiClass = FALSE)
-#'
-#' # Create dummy variables
-#' data <- DummifyDT(
-#'   data = data,
-#'   cols = c("Factor_1",
-#'            "Factor_2",
-#'            "Factor_3",
-#'            "Factor_4",
-#'            "Factor_5",
-#'            "Factor_6",
-#'            "Factor_8",
-#'            "Factor_9",
-#'            "Factor_10"),
-#'   TopN = c(rep(3,9)),
-#'   KeepFactorCols = TRUE,
-#'   OneHot = FALSE,
-#'   SaveFactorLevels = TRUE,
-#'   SavePath = getwd(),
-#'   ImportFactorLevels = FALSE,
-#'   FactorLevelsList = NULL,
-#'   ClustScore = FALSE,
-#'   ReturnFactorLevels = FALSE)
-#'
-#' # Create Fake Data for Scoring Replication
-#' data <- FakeDataGenerator(
-#'   Correlation = 0.85,
-#'   N = 25000,
-#'   ID = 2L,
-#'   ZIP = 0,
-#'   FactorCount = 10L,
-#'   AddDate = FALSE,
-#'   Classification = FALSE,
-#'   MultiClass = FALSE)
-#'
-#' # Scoring Version
-#' data <- DummifyDT(
-#'   data = data,
-#'   cols = c("Factor_1",
-#'            "Factor_2",
-#'            "Factor_3",
-#'            "Factor_4",
-#'            "Factor_5",
-#'            "Factor_6",
-#'            "Factor_8",
-#'            "Factor_9",
-#'            "Factor_10"),
-#'   TopN = c(rep(3,9)),
-#'   KeepFactorCols = TRUE,
-#'   OneHot = FALSE,
-#'   SaveFactorLevels = TRUE,
-#'   SavePath = getwd(),
-#'   ImportFactorLevels = TRUE,
-#'   FactorLevelsList = NULL,
-#'   ClustScore = FALSE,
-#'   ReturnFactorLevels = FALSE)
-#' }
 #' @return Either a data table with new dummy variables columns and optionally removes base columns (if ReturnFactorLevels is FALSE), otherwise a list with the data.table and a list of the factor levels.
-#' @export
+#' @noRd
 DummifyDT <- function(data,
                       cols,
                       TopN               = NULL,
@@ -1704,7 +1584,7 @@ DummifyDT <- function(data,
 #' @param ShortName Default TRUE. If FALSE, Group Variable names will be added to the rolling stat and lag names. If you plan on have multiple versions of lags and rollings stats by different group variables then set this to FALSE.
 #' @param Debug Set to TRUE to get a print of which steps are running
 #' @return data.table of original data plus created lags, rolling stats, and time between event lags and rolling stats
-#' @export
+#' @noRd
 AutoLagRollStats <- function(data,
                              Targets              = NULL,
                              HierarchyGroups      = NULL,
@@ -2099,7 +1979,7 @@ AutoLagRollStats <- function(data,
 #' @param ShortName Default TRUE. If FALSE, Group Variable names will be added to the rolling stat and lag names. If you plan on have multiple versions of lags and rollings stats by different group variables then set this to FALSE.
 #' @param SimpleImpute Set to TRUE for factor level imputation of "0" and numeric imputation of -1
 #' @return data.table of original data plus created lags, rolling stats, and time between event lags and rolling stats
-#' @export
+#' @noRd
 DT_GDL_Feature_Engineering <- function(data,
                                        lags            = 1,
                                        periods         = 0,
