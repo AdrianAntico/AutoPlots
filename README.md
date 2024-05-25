@@ -43,8 +43,8 @@ These plot types are most useful for those looking to evaluate the performance o
 Additionally, all model evaluation plots supports grouping variables for by-analysis of models, even for multiclass models! 
 - Calibration Plots
 - Calibration Scatter Plots
-- Partital Dependence Plots
-- Partital Dependence Heatmaps
+- Partial Dependence Plots
+- Partial Dependence Heatmaps
 - Variable Importance Plots
 - Shapely Importance Plots
 - ROC Plots
