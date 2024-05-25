@@ -7,7 +7,7 @@
 # License, or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WAfppRRANTY; without even the implied warranty of
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
@@ -2553,7 +2553,6 @@ Plot.Pie <- function(dt = NULL,
   numvars <- c()
   byvars <- c()
   if(check1) {
-    if(Debug) print("BarPlot 2.b")
     if(!PreAgg) {
       if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
         numvars <- unique(c(numvars, YVar))
@@ -2587,17 +2586,10 @@ Plot.Pie <- function(dt = NULL,
         temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
       }
     } else {
-      if(Debug) print("BarPlot 2.bb")
       temp <- data.table::copy(dt)
-      if(Debug) print("BarPlot 2.bbb")
       numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
       byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
     }
-
-    # yvar <- temp[[YVar]]
-    # xvar <- temp[[XVar]]
-
-    if(Debug) print("BarPlot 2.bbbb")
 
     # Transformation
     if(YVarTrans != "Identity") {
