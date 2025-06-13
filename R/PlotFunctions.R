@@ -2286,6 +2286,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -2355,6 +2356,7 @@ Plot.Density <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -3306,6 +3308,7 @@ Plot.Box <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
     if(Debug) print("Box 13")
@@ -3437,6 +3440,7 @@ Plot.Box <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -3560,6 +3564,7 @@ Plot.Box <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -3678,6 +3683,7 @@ Plot.Box <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -4375,6 +4381,7 @@ Plot.Line <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     if(Debug) print("Plot.Line() Build Echarts 5")
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -4518,6 +4525,7 @@ Plot.Line <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -4835,6 +4843,7 @@ Plot.Area <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -4972,6 +4981,7 @@ Plot.Area <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -5284,6 +5294,7 @@ Plot.Step <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -5421,6 +5432,7 @@ Plot.Step <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -5695,6 +5707,7 @@ Plot.River <- function(dt = NULL,
     p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
   } else {
     p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
   }
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -5950,6 +5963,7 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
       } else {
         p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
       }
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6158,6 +6172,7 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
       } else {
         p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
       }
       if(Debug) print("BarPlot 2.cccc")
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -6313,6 +6328,7 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
       } else {
         p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
       }
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -6468,6 +6484,7 @@ Plot.Bar <- function(dt = NULL,
         p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
       } else {
         p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
       }
       p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
       p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -7209,6 +7226,7 @@ Plot.StackedBar <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -7520,6 +7538,7 @@ Plot.BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
@@ -7590,6 +7609,7 @@ Plot.BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -7731,6 +7751,7 @@ Plot.BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
@@ -7862,6 +7883,7 @@ Plot.BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
@@ -8145,6 +8167,7 @@ Plot.HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
     p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
@@ -8288,6 +8311,7 @@ Plot.HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -8427,6 +8451,7 @@ Plot.HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
@@ -8596,6 +8621,7 @@ Plot.HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
@@ -8845,6 +8871,7 @@ Plot.CorrMatrix <- function(dt = NULL,
     p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
   } else {
     p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
   }
 
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -9044,6 +9071,7 @@ Plot.Parallel <- function(dt = NULL,
     p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
   } else {
     p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
   }
   p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -9238,6 +9266,7 @@ Plot.Copula <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -9375,6 +9404,7 @@ Plot.Copula <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar)
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
@@ -9954,6 +9984,7 @@ Plot.Scatter <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = EchartsTheme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
@@ -10092,6 +10123,7 @@ Plot.Scatter <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
     } else {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
     if(Debug) print("SCatter 6")
