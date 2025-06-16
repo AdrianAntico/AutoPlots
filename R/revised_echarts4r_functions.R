@@ -285,7 +285,7 @@ e_y_axis_full <- function(
 e_tooltip_full <- function(
     e,
     tooltip.show = TRUE,
-    tooltip.trigger = "cross",
+    tooltip.trigger = "axis",
     tooltip.backgroundColor = NULL,
     tooltip.borderColor = NULL,
     tooltip.borderWidth = NULL,
@@ -349,15 +349,16 @@ e_tooltip_full <- function(
     textStyle = if (length(ts)) ts
   ))
 
+  standard <- list()
+  standard[["e"]] <- e
+  standard[["show"]] <- tooltip.show
+  standard[["trigger"]] <- tooltip.trigger
+  standard[["backgroundColor"]] <- tooltip.backgroundColor
+  standard[["borderWidth"]] <- tooltip.borderColor
+  standard[["padding"]] <- tooltip.padding
+
   do.call(echarts4r::e_tooltip, c(
-    list(
-      e,
-      show = tooltip.show,
-      trigger = tooltip.trigger,
-      backgroundColor = tooltip.backgroundColor,
-      borderWidth = tooltip.borderColor,
-      padding = tooltip.padding
-    ),
+    standard,
     opts
   ))
 }
