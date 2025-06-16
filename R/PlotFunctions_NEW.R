@@ -1,0 +1,17232 @@
+# AutoPlots is a package for quickly creating high quality visualizations under a common and easy api.
+# Copyright (C) <year>  <name of author>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+# > Distribution Plot Functions                                               ----
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+
+#' @title Density
+#'
+#' @description Density plots, by groups, with transparent continuous plots
+#'
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param SampleSize = 100000L
+#' @param XVar X-Axis variable name
+#' @param GroupVar Character variable
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param ShowLabels character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param TextColor "white"
+#' @param ContainLabel  TRUE
+#' @param Title = "Density Plot"
+#' @param title.fontSize  22
+#' @param title.fontWeight  "bold"
+#' @param title.textShadowColor  '#63aeff'
+#' @param title.textShadowBlur  3
+#' @param title.textShadowOffsetY  1
+#' @param title.textShadowOffsetX  -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#'
+#' # Create plot
+#' AutoPlots::Density(
+#'   dt = dt,
+#'   SampleSize = 30000L,
+#'   XVar = NULL,
+#'   GroupVar = NULL,
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TimeLine = FALSE,
+#'   Opacity = 0.80,
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   TextColor = "white",
+#'   Title = "Density",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xAxis.title = "This is the X-Axis Label",
+#'   xAxis.nameLocation = 'center',
+#'   xAxis.axisTick.customValues = NULL,
+#'   xAxis.nameTextStyle.color = "black",
+#'   xAxis.nameTextStyle.padding = 15,
+#'   xAxis.nameTextStyle.align = "center",
+#'   xAxis.nameTextStyle.fontStyle = 'italic',
+#'   xAxis.nameTextStyle.fontWeight = 'bolder',
+#'   xAxis.nameTextStyle.fontSize = 20,
+#'   xAxis.nameTextStyle.fontFamily = "Verdana",
+#'   xAxis.min = NULL,
+#'   xAxis.max = NULL,
+#'   xAxis.splitNumber = NULL,
+#'   xAxis.axisLabel.rotate = 25,
+#'   xAxis.axisLabel.margin = 30,
+#'   xAxis.axisLabel.color = "red",
+#'   xAxis.axisLabel.fontStyle = 'italic',
+#'   xAxis.axisLabel.fontWeight = 'bolder',
+#'   xAxis.axisLabel.fontFamily = "Verdana",
+#'   xAxis.axisLabel.fontSize = 14,
+#'   xAxis.axisLabel.align = 'right', # 'left' or 'center'
+#'   xAxis.axisLabel.verticalAlign = 'bottom',
+#'   xAxis.axisLabel.backgroundColor = "red",
+#'   xAxis.axisLabel.borderColor = "blue",
+#'   xAxis.axisLabel.borderWidth = 10,
+#'   xAxis.axisLabel.borderType = NULL,
+#'   xAxis.axisLabel.borderRadius = NULL,
+#'   xAxis.axisLabel.padding = NULL,
+#'   xAxis.axisLabel.shadowColor = NULL,
+#'   xAxis.axisLabel.shadowBlur = NULL,
+#'   xAxis.axisLabel.shadowOffsetX = NULL,
+#'   xAxis.axisLabel.shadowOffsetY = NULL,
+#'   xAxis.axisLabel.textBorderColor = NULL,
+#'   xAxis.axisLabel.textBorderWidth = NULL,
+#'   xAxis.axisLabel.textBorderType = NULL,
+#'   xAxis.axisLabel.textShadowColor = NULL,
+#'   xAxis.axisLabel.textShadowBlur = NULL,
+#'   xAxis.axisLabel.textShadowOffsetX = NULL,
+#'   xAxis.axisLabel.textShadowOffsetY = NULL,
+#'   xAxis.axisLabel.overflow = NULL,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Density <- function(dt = NULL,
+                    SampleSize = 100000L,
+                    XVar = NULL,
+                    GroupVar = NULL,
+                    XVarTrans = "Identity",
+                    FacetRows = 1,
+                    FacetCols = 1,
+                    FacetLevels = NULL,
+                    Height = NULL,
+                    Width = NULL,
+                    MouseScroll = FALSE,
+                    ShowLabels = FALSE,
+                    Opacity = 0.4,
+                    Title.YAxis = NULL,
+                    Theme = "dark",
+                    TimeLine = FALSE,
+                    ContainLabel = TRUE,
+                    TextColor = "white",
+                    Title = "Density Plot",
+                    title.fontSize = 22,
+                    title.fontWeight = "bold",
+                    title.textShadowColor = '#63aeff',
+                    title.textShadowBlur = 3,
+                    title.textShadowOffsetY = 1,
+                    title.textShadowOffsetX = -1,
+                    xAxis.title = NULL,
+                    xAxis.min = NULL,
+                    xAxis.max = NULL,
+                    xAxis.position = "bottom",
+                    xAxis.nameLocation = 'center',
+                    xAxis.axisTick.customValues = NULL,
+                    xAxis.nameTextStyle.color = NULL,
+                    xAxis.nameTextStyle.padding = 25,
+                    xAxis.nameTextStyle.align = NULL,
+                    xAxis.nameTextStyle.fontStyle = NULL,
+                    xAxis.nameTextStyle.fontWeight = NULL,
+                    xAxis.nameTextStyle.fontSize = NULL,
+                    xAxis.nameTextStyle.fontFamily = NULL,
+                    xAxis.splitNumber = NULL,
+                    xAxis.axisLabel.rotate = NULL,
+                    xAxis.axisLabel.margin = NULL,
+                    xAxis.axisLabel.color = NULL,
+                    xAxis.axisLabel.fontStyle = NULL,
+                    xAxis.axisLabel.fontWeight = NULL,
+                    xAxis.axisLabel.fontFamily = NULL,
+                    xAxis.axisLabel.fontSize = 14,
+                    xAxis.axisLabel.align = NULL,
+                    xAxis.axisLabel.verticalAlign = NULL,
+                    xAxis.axisLabel.backgroundColor = NULL,
+                    xAxis.axisLabel.borderColor = NULL,
+                    xAxis.axisLabel.borderWidth = NULL,
+                    xAxis.axisLabel.borderType = NULL,
+                    xAxis.axisLabel.borderRadius = NULL,
+                    xAxis.axisLabel.padding = NULL,
+                    xAxis.axisLabel.shadowColor = NULL,
+                    xAxis.axisLabel.shadowBlur = NULL,
+                    xAxis.axisLabel.shadowOffsetX = NULL,
+                    xAxis.axisLabel.shadowOffsetY = NULL,
+                    xAxis.axisLabel.textBorderColor = NULL,
+                    xAxis.axisLabel.textBorderWidth = NULL,
+                    xAxis.axisLabel.textBorderType = NULL,
+                    xAxis.axisLabel.textShadowColor = NULL,
+                    xAxis.axisLabel.textShadowBlur = NULL,
+                    xAxis.axisLabel.textShadowOffsetX = NULL,
+                    xAxis.axisLabel.textShadowOffsetY = NULL,
+                    xAxis.axisLabel.overflow = NULL,
+                    yAxis.title = NULL,
+                    yAxis.min = NULL,
+                    yAxis.max = NULL,
+                    yAxis.position = "center",
+                    yAxis.nameLocation = 'center',
+                    yAxis.axisTick.customValues = NULL,
+                    yAxis.nameTextStyle.color = NULL,
+                    yAxis.nameTextStyle.padding = 25,
+                    yAxis.nameTextStyle.align = NULL,
+                    yAxis.nameTextStyle.fontStyle = NULL,
+                    yAxis.nameTextStyle.fontWeight = NULL,
+                    yAxis.nameTextStyle.fontSize = NULL,
+                    yAxis.nameTextStyle.fontFamily = NULL,
+                    yAxis.splitNumber = NULL,
+                    yAxis.axisLabel.rotate = NULL,
+                    yAxis.axisLabel.margin = NULL,
+                    yAxis.axisLabel.color = NULL,
+                    yAxis.axisLabel.fontStyle = NULL,
+                    yAxis.axisLabel.fontWeight = NULL,
+                    yAxis.axisLabel.fontFamily = NULL,
+                    yAxis.axisLabel.fontSize = 14,
+                    yAxis.axisLabel.align = NULL,
+                    yAxis.axisLabel.verticalAlign = NULL,
+                    yAxis.axisLabel.backgroundColor = NULL,
+                    yAxis.axisLabel.borderColor = NULL,
+                    yAxis.axisLabel.borderWidth = NULL,
+                    yAxis.axisLabel.borderType = NULL,
+                    yAxis.axisLabel.borderRadius = NULL,
+                    yAxis.axisLabel.padding = NULL,
+                    yAxis.axisLabel.shadowColor = NULL,
+                    yAxis.axisLabel.shadowBlur = NULL,
+                    yAxis.axisLabel.shadowOffsetX = NULL,
+                    yAxis.axisLabel.shadowOffsetY = NULL,
+                    yAxis.axisLabel.textBorderColor = NULL,
+                    yAxis.axisLabel.textBorderWidth = NULL,
+                    yAxis.axisLabel.textBorderType = NULL,
+                    yAxis.axisLabel.textShadowColor = NULL,
+                    yAxis.axisLabel.textShadowBlur = NULL,
+                    yAxis.axisLabel.textShadowOffsetX = NULL,
+                    yAxis.axisLabel.textShadowOffsetY = NULL,
+                    yAxis.axisLabel.overflow = NULL,
+                    tooltip.show = TRUE,
+                    tooltip.trigger = "cross",
+                    tooltip.backgroundColor = NULL,
+                    tooltip.borderColor = NULL,
+                    tooltip.borderWidth = NULL,
+                    tooltip.padding = NULL,
+                    tooltip.axisPointer.type = "cross",
+                    tooltip.axisPointer.lineStyle.color = NULL,
+                    tooltip.axisPointer.shadowStyle.color = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                    tooltip.axisPointer.shadowStyle.opacity = NULL,
+                    tooltip.textStyle.color = NULL,
+                    tooltip.textStyle.fontStyle = NULL,
+                    tooltip.textStyle.fontWeight = NULL,
+                    tooltip.textStyle.fontFamily = NULL,
+                    tooltip.textStyle.lineHeight = NULL,
+                    tooltip.textStyle.width = NULL,
+                    tooltip.textStyle.height = NULL,
+                    tooltip.textStyle.textBorderColor = NULL,
+                    tooltip.textStyle.textBorderWidth = NULL,
+                    tooltip.textStyle.textBorderType = NULL,
+                    tooltip.textStyle.textShadowColor = NULL,
+                    tooltip.textStyle.textShadowBlur = NULL,
+                    tooltip.textStyle.textShadowOffsetX = NULL,
+                    tooltip.textStyle.textShadowOffsetY = NULL,
+                    Debug = FALSE) {
+
+  # Cap number of records
+  if(length(SampleSize) == 0L) SampleSize <- 30000
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  if(dt[, .N] > SampleSize) {
+    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+  GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
+
+  # Faceting shrink
+  if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L) && length(FacetLevels) > 0L) {
+    dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(XVar,GroupVar)]
+  } else {
+    dt1 <- dt1[, .SD, .SDcols = c(XVar,GroupVar)]
+  }
+
+  # Multiple YVars
+  if(length(XVar) > 1L) {
+    sqroots <- sqrt(length(XVar))
+    if(FacetCols == 1 && FacetRows == 1L) {
+      FacetCols <- max(ceiling(sqroots), 6)
+      FacetRows <- ceiling(sqroots)
+      if((FacetRows - 1L) * FacetCols == length(XVar)) {
+        FacetRows <- FacetRows - 1L
+      } else if(FacetRows * FacetCols < length(XVar)) {
+        while(FacetRows * FacetCols < length(XVar)) {
+          FacetRows <- FacetRows + 1L
+        }
+      }
+    }
+    XVar <- NULL
+    GroupVar <- NULL
+    dt1[, temp__ := "a"]
+    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "temp__", measure.vars = XVar, variable.name = "Measures", value.name = "Values")
+    dt1[, temp__ := NULL]
+    GroupVar <- "Measures"
+  }
+
+  # Transformation
+  if(XVarTrans != "Identity") {
+    for(ggss in XVar) {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = XVarTrans)$Data
+    }
+  }
+
+  # Create base plot object
+  if(Debug) print('Create Plot with only data')
+
+  if(length(GroupVar) == 0L) {
+
+    p1 <- echarts4r::e_charts_(
+      dt1,
+      x = NULL,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    p1 <- echarts4r::e_density_(
+      e = p1,
+      XVar,
+      areaStyle = list(opacity = Opacity),
+      smooth = TRUE,
+      y_index = 1,
+      label = list(show = ShowLabels))
+
+    if(!MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE, decal = list(show = TRUE))
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+
+  } else {
+
+    data.table::setorderv(x = dt1, cols = GroupVar[1L], 1)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        timeline = TimeLine,
+        dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width,
+        height = Height,
+        label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        timeline = TimeLine,
+        dispose = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width,
+        height = Height)
+    }
+
+    p1 <- echarts4r::e_density_(e = p1, XVar, areaStyle = list(opacity = Opacity), smooth = TRUE, y_index = 1)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) {
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
+
+    return(p1)
+  }
+}
+
+
+#' @title ProbabilityPlot
+#'
+#' @description Build a normal probability plot
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
+#' @param YVar Y-Axis variable name
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title 'Violin Plot'
+#' @param ShowLabels character
+#' @param Theme "macaron"
+#' @param TextColor 'darkblue'
+#' @param title.fontSize Default 22
+#' @param title.fontWeight Default "bold"
+#' @param title.textShadowColor Default '#63aeff'
+#' @param title.textShadowBlur Default 3
+#' @param title.textShadowOffsetY Default 1
+#' @param title.textShadowOffsetX Default -1
+#' @param yaxis.fontSize Default 14
+#' @param yaxis.rotate Default 0
+#' @param ContainLabel Default TRUE
+#' @param tooltip.trigger Default "axis"
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#'
+#' # Create plot
+#' AutoPlots::ProbabilityPlot(
+#'   dt = dt,
+#'   SampleSize = 1000L,
+#'   YVar = "Y",
+#'   YVarTrans = "Identity",
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Normal Probability Plot',
+#'   ShowLabels = FALSE,
+#'   Theme = "blue",
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   tooltip.trigger = "axis",
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+ProbabilityPlot <- function(dt = NULL,
+                            SampleSize = 1000L,
+                            YVar = NULL,
+                            YVarTrans = "Identity",
+                            Height = NULL,
+                            Width = NULL,
+                            Title = 'Normal Probability Plot',
+                            ShowLabels = FALSE,
+                            Theme = "dark",
+                            TextColor = "white",
+                            title.fontSize = 22,
+                            title.fontWeight = "bold",
+                            title.textShadowColor = '#63aeff',
+                            title.textShadowBlur = 3,
+                            title.textShadowOffsetY = 1,
+                            title.textShadowOffsetX = -1,
+                            yaxis.fontSize = 14,
+                            yaxis.rotate = 0,
+                            ContainLabel = TRUE,
+                            tooltip.trigger = "axis",
+                            Debug = FALSE) {
+
+  # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)
+  if(length(SampleSize) == 0L) SampleSize <- 30000L
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(Debug) print("here 1")
+  if(Debug) print(head(dt))
+
+  # Subset columns
+  dt1 <- dt[, .SD, .SDcols = c(YVar)]
+
+  # Transformation
+  # "PercRank"  "Standardize"
+  # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
+  if(YVarTrans != "Identity") {
+    dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
+  }
+
+  # Theoretical Quantiles
+  data.table::setorderv(x = dt1, cols = YVar, 1)
+  dt1[, temp_i := seq_len(.N)]
+  dt1[, `Theoretical Quantiles` := qnorm((temp_i-0.5)/.N)]
+  dt1[, temp_i := NULL]
+
+  # Normal Line
+  meanX <- dt1[, mean(get(YVar), na.rm = TRUE)]
+  sdX <- dt1[, sd(get(YVar), na.rm = TRUE)]
+  dt1[, `Normal Line` := eval(meanX) + sdX * `Theoretical Quantiles`]
+
+  # Actual Quantiles
+  p1 <- AutoPlots::Plot.Scatter(
+    dt = dt1,
+    SampleSize = SampleSize,
+    XVar = "Theoretical Quantiles",
+    YVar = YVar,
+    YVarTrans = "Identity",
+    Height = Height,
+    Width = Width,
+    Title = Title,
+    Title.YAxis = YVar,
+    Title.XAxis = "Theoretical Quantiles",
+    Theme = Theme,
+    TextColor = TextColor,
+    title.fontSize = title.fontSize,
+    title.fontWeight = title.fontWeight,
+    title.textShadowColor = title.textShadowColor,
+    title.textShadowBlur = title.textShadowBlur,
+    title.textShadowOffsetY = title.textShadowOffsetY,
+    title.textShadowOffsetX = title.textShadowOffsetX,
+    yaxis.fontSize = yaxis.fontSize,
+    yaxis.rotate = yaxis.rotate,
+    ContainLabel = ContainLabel,
+    tooltip.trigger = tooltip.trigger,
+    Debug = Debug)
+
+  # Add Normal Line
+  p1 <- echarts4r::e_line_(e = p1, "Normal Line")
+  return(p1)
+}
+
+#' @title Histogram
+#'
+#' @description Build a histogram plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
+#' @param XVar X-Axis variable name
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param NumberBins = 30
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Theme = Theme,
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param ShowLabels FALSE
+#' @param TextColor "white"
+#' @param Title character
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#'
+#' # Create plot
+#' AutoPlots::Histogram(
+#'   dt = dt,
+#'   SampleSize = 30000L,
+#'   XVar = NULL,
+#'   GroupVar = NULL,
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   NumberBins = 30,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TimeLine = FALSE,
+#'   ShowLabels = FALSE,
+#'   TextColor = "white",
+#'   Title = "Histogram",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   Debug = FALSE)
+#' @return plot
+#' @export
+Histogram <- function(dt = NULL,
+                      SampleSize = 30000L,
+                      XVar = NULL,
+                      GroupVar = NULL,
+                      XVarTrans = "Identity",
+                      FacetRows = 1,
+                      FacetCols = 1,
+                      FacetLevels = NULL,
+                      NumberBins = 30,
+                      Height = NULL,
+                      Width = NULL,
+                      Theme = "dark",
+                      Title = "Histogram",
+                      MouseScroll = FALSE,
+                      TimeLine = FALSE,
+                      ShowLabels = FALSE,
+                      TextColor = "white",
+                      title.fontSize = 22,
+                      title.fontWeight = "bold",
+                      title.textShadowColor = '#63aeff',
+                      title.textShadowBlur = 3,
+                      title.textShadowOffsetY = 1,
+                      title.textShadowOffsetX = -1,
+                      xAxis.title = NULL,
+                      xAxis.min = NULL,
+                      xAxis.max = NULL,
+                      xAxis.position = "bottom",
+                      xAxis.nameLocation = 'center',
+                      xAxis.axisTick.customValues = NULL,
+                      xAxis.nameTextStyle.color = NULL,
+                      xAxis.nameTextStyle.padding = 25,
+                      xAxis.nameTextStyle.align = NULL,
+                      xAxis.nameTextStyle.fontStyle = NULL,
+                      xAxis.nameTextStyle.fontWeight = NULL,
+                      xAxis.nameTextStyle.fontSize = NULL,
+                      xAxis.nameTextStyle.fontFamily = NULL,
+                      xAxis.splitNumber = NULL,
+                      xAxis.axisLabel.rotate = NULL,
+                      xAxis.axisLabel.margin = NULL,
+                      xAxis.axisLabel.color = NULL,
+                      xAxis.axisLabel.fontStyle = NULL,
+                      xAxis.axisLabel.fontWeight = NULL,
+                      xAxis.axisLabel.fontFamily = NULL,
+                      xAxis.axisLabel.fontSize = 14,
+                      xAxis.axisLabel.align = NULL,
+                      xAxis.axisLabel.verticalAlign = NULL,
+                      xAxis.axisLabel.backgroundColor = NULL,
+                      xAxis.axisLabel.borderColor = NULL,
+                      xAxis.axisLabel.borderWidth = NULL,
+                      xAxis.axisLabel.borderType = NULL,
+                      xAxis.axisLabel.borderRadius = NULL,
+                      xAxis.axisLabel.padding = NULL,
+                      xAxis.axisLabel.shadowColor = NULL,
+                      xAxis.axisLabel.shadowBlur = NULL,
+                      xAxis.axisLabel.shadowOffsetX = NULL,
+                      xAxis.axisLabel.shadowOffsetY = NULL,
+                      xAxis.axisLabel.textBorderColor = NULL,
+                      xAxis.axisLabel.textBorderWidth = NULL,
+                      xAxis.axisLabel.textBorderType = NULL,
+                      xAxis.axisLabel.textShadowColor = NULL,
+                      xAxis.axisLabel.textShadowBlur = NULL,
+                      xAxis.axisLabel.textShadowOffsetX = NULL,
+                      xAxis.axisLabel.textShadowOffsetY = NULL,
+                      xAxis.axisLabel.overflow = NULL,
+                      yAxis.title = NULL,
+                      yAxis.min = NULL,
+                      yAxis.max = NULL,
+                      yAxis.position = "center",
+                      yAxis.nameLocation = 'center',
+                      yAxis.axisTick.customValues = NULL,
+                      yAxis.nameTextStyle.color = NULL,
+                      yAxis.nameTextStyle.padding = 25,
+                      yAxis.nameTextStyle.align = NULL,
+                      yAxis.nameTextStyle.fontStyle = NULL,
+                      yAxis.nameTextStyle.fontWeight = NULL,
+                      yAxis.nameTextStyle.fontSize = NULL,
+                      yAxis.nameTextStyle.fontFamily = NULL,
+                      yAxis.splitNumber = NULL,
+                      yAxis.axisLabel.rotate = NULL,
+                      yAxis.axisLabel.margin = NULL,
+                      yAxis.axisLabel.color = NULL,
+                      yAxis.axisLabel.fontStyle = NULL,
+                      yAxis.axisLabel.fontWeight = NULL,
+                      yAxis.axisLabel.fontFamily = NULL,
+                      yAxis.axisLabel.fontSize = 14,
+                      yAxis.axisLabel.align = NULL,
+                      yAxis.axisLabel.verticalAlign = NULL,
+                      yAxis.axisLabel.backgroundColor = NULL,
+                      yAxis.axisLabel.borderColor = NULL,
+                      yAxis.axisLabel.borderWidth = NULL,
+                      yAxis.axisLabel.borderType = NULL,
+                      yAxis.axisLabel.borderRadius = NULL,
+                      yAxis.axisLabel.padding = NULL,
+                      yAxis.axisLabel.shadowColor = NULL,
+                      yAxis.axisLabel.shadowBlur = NULL,
+                      yAxis.axisLabel.shadowOffsetX = NULL,
+                      yAxis.axisLabel.shadowOffsetY = NULL,
+                      yAxis.axisLabel.textBorderColor = NULL,
+                      yAxis.axisLabel.textBorderWidth = NULL,
+                      yAxis.axisLabel.textBorderType = NULL,
+                      yAxis.axisLabel.textShadowColor = NULL,
+                      yAxis.axisLabel.textShadowBlur = NULL,
+                      yAxis.axisLabel.textShadowOffsetX = NULL,
+                      yAxis.axisLabel.textShadowOffsetY = NULL,
+                      yAxis.axisLabel.overflow = NULL,
+                      Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  TimeLine <- FALSE
+
+  # Cap number of records
+  if(length(SampleSize) == 0L) SampleSize <- 30000
+  if(dt[, .N] > SampleSize) {
+    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Define Plotting Variable
+  if(length(XVar) == 0) return(NULL)
+  GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
+
+  # Faceting shrink
+  if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L)) {
+    dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(XVar,GroupVar)]
+  } else {
+    dt1 <- dt1[, .SD, .SDcols = c(XVar,GroupVar)]
+  }
+
+  # Multiple YVars
+  if(length(XVar) > 1L) {
+    sqroots <- sqrt(length(XVar))
+    if(FacetCols == 1 && FacetRows == 1L) {
+      FacetCols <- max(ceiling(sqroots), 6)
+      FacetRows <- ceiling(sqroots)
+      if((FacetRows - 1L) * FacetCols == length(XVar)) {
+        FacetRows <- FacetRows - 1L
+      } else if(FacetRows * FacetCols < length(XVar)) {
+        while(FacetRows * FacetCols < length(XVar)) {
+          FacetRows <- FacetRows + 1L
+        }
+      }
+    }
+    XVar <- NULL
+    GroupVar <- NULL
+    dt1[, temp__ := "a"]
+    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "temp__", measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+    dt1[, temp__ := NULL]
+    GroupVar <- "Measures"
+    XVar <- "Values"
+  }
+
+  # Transformation
+  if(XVarTrans != "Identity") {
+    for(ggss in XVar) {
+      dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = XVarTrans)$Data}, error = function(x) dt1)
+    }
+  }
+
+  # Create histogram data
+  if(length(GroupVar) == 0L) {
+    Min <- dt1[, min(get(XVar), na.rm = TRUE)]
+    Max <- dt1[, max(get(XVar), na.rm = TRUE)]
+    Range <- Max - Min
+    if(Range < NumberBins) {
+      acc <- round(Range / NumberBins, 2)
+      dt1[, Buckets := round(get(XVar) / acc) * acc]
+      dt1 <- dt1[, .N, by = "Buckets"][order(Buckets)]
+    } else {
+      acc <- ceiling(Range / NumberBins)
+      dt1[, Buckets := round(get(XVar) / acc) * acc]
+      dt1 <- dt1[, .N, by = "Buckets"][order(Buckets)]
+    }
+
+  } else {
+    levs <- unique(as.character(dt1[[GroupVar]]))
+    gg <- list()
+    for(i in levs) {# i <- levs[1]
+      temp <- dt1[get(GroupVar) == eval(i)]
+      Min <- temp[, min(get(XVar), na.rm = TRUE)]
+      Max <- temp[, max(get(XVar), na.rm = TRUE)]
+      Range <- Max - Min
+      if(Range < NumberBins) {
+        acc <- round(Range / NumberBins, 2)
+      } else {
+        acc <- ceiling(Range / NumberBins)
+      }
+      temp[, Buckets := round(get(XVar) / acc) * acc]
+      gg[[i]] <- temp[, .N, by = c("Buckets",GroupVar)][order(Buckets)]
+    }
+    dt1 <- data.table::rbindlist(gg)
+  }
+
+  # Run Bar Plot for no Group and Stacked Bar for Groups?
+  dt1[, Buckets := as.character(Buckets)]
+  if(length(GroupVar) == 0L) {
+    p1 <- Plot.Bar(
+      dt = dt1,
+      PreAgg = TRUE,
+      XVar = "Buckets",
+      YVar = "N",
+      Height = Height,
+      Width = Width,
+      Title = 'Histogram Plot',
+      Theme = Theme,
+      MouseScroll = MouseScroll,
+      TimeLine = TimeLine,
+      TextColor = TextColor,
+      title.fontSize = title.fontSize,
+      title.fontWeight = title.fontWeight,
+      title.textShadowColor = title.textShadowColor,
+      title.textShadowBlur = title.textShadowBlur,
+      title.textShadowOffsetY = title.textShadowOffsetY,
+      title.textShadowOffsetX = title.textShadowOffsetX,
+      xAxis.title = xAxis.title,
+      xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max,
+      xAxis.position = xAxis.position,
+      xAxis.nameLocation = xAxis.nameLocation,
+      xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding,
+      xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle,
+      xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize,
+      xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily,
+      xAxis.splitNumber = xAxis.splitNumber,
+      xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin,
+      xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle,
+      xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily,
+      xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align,
+      xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor,
+      xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth,
+      xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius,
+      xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor,
+      xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX,
+      xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor,
+      xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType,
+      xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur,
+      xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY,
+      xAxis.axisLabel.overflow = xAxis.axisLabel.overflow,
+      yAxis.title = yAxis.title,
+      yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max,
+      yAxis.position = yAxis.position,
+      yAxis.nameLocation = yAxis.nameLocation,
+      yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding,
+      yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle,
+      yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize,
+      yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily,
+      yAxis.splitNumber = yAxis.splitNumber,
+      yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin,
+      yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle,
+      yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily,
+      yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align,
+      yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor,
+      yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth,
+      yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius,
+      yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor,
+      yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX,
+      yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor,
+      yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType,
+      yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur,
+      yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY,
+      yAxis.axisLabel.overflow = yAxis.axisLabel.overflow,
+      Debug = Debug)
+
+  } else {
+
+    p1 <- Plot.Bar(
+      dt = dt1,
+      PreAgg = TRUE,
+      XVar = "Buckets",
+      YVar = "N",
+      GroupVar = GroupVar,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Height = Height,
+      Width = Width,
+      Title = 'Histogram Plot',
+      MouseScroll = MouseScroll,
+      Theme = Theme,
+      TimeLine = TimeLine,
+      TextColor = TextColor,
+      title.fontSize = title.fontSize,
+      title.fontWeight = title.fontWeight,
+      title.textShadowColor = title.textShadowColor,
+      title.textShadowBlur = title.textShadowBlur,
+      title.textShadowOffsetY = title.textShadowOffsetY,
+      title.textShadowOffsetX = title.textShadowOffsetX,
+      xAxis.title = xAxis.title,
+      xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max,
+      xAxis.position = xAxis.position,
+      xAxis.nameLocation = xAxis.nameLocation,
+      xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding,
+      xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle,
+      xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize,
+      xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily,
+      xAxis.splitNumber = xAxis.splitNumber,
+      xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin,
+      xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle,
+      xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily,
+      xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align,
+      xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor,
+      xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth,
+      xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius,
+      xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor,
+      xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX,
+      xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor,
+      xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType,
+      xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur,
+      xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY,
+      xAxis.axisLabel.overflow = xAxis.axisLabel.overflow,
+      yAxis.title = yAxis.title,
+      yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max,
+      yAxis.position = yAxis.position,
+      yAxis.nameLocation = yAxis.nameLocation,
+      yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding,
+      yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle,
+      yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize,
+      yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily,
+      yAxis.splitNumber = yAxis.splitNumber,
+      yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin,
+      yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle,
+      yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily,
+      yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align,
+      yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor,
+      yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth,
+      yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius,
+      yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor,
+      yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX,
+      yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor,
+      yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType,
+      yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur,
+      yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY,
+      yAxis.axisLabel.overflow = yAxis.axisLabel.overflow,
+      Debug = Debug)
+  }
+  return(p1)
+}
+
+
+#' @title Pie
+#'
+#' @description Build a pie chart by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title title
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param TextColor 'darkblue'
+#' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#'
+#' # Create plot
+#' AutoPlots::Pie(
+#'   dt = dt,
+#'   PreAgg = FALSE,
+#'   XVar = "GV",
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Pie Chart',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Pie <- function(dt = NULL,
+                PreAgg = FALSE,
+                XVar = NULL,
+                YVar = NULL,
+                GroupVar = NULL,
+                YVarTrans = "Identity",
+                XVarTrans = "Identity",
+                FacetRows = 1,
+                FacetCols = 1,
+                FacetLevels = NULL,
+                AggMethod = 'mean',
+                Height = NULL,
+                Width = NULL,
+                Title = 'Pie Chart',
+                ShowLabels = FALSE,
+                Title.YAxis = NULL,
+                Title.XAxis = NULL,
+                Theme = "dark",
+                TimeLine = TRUE,
+                TextColor = "white",
+                title.fontSize = 22,
+                title.fontWeight = "bold",
+                title.textShadowColor = '#63aeff',
+                title.textShadowBlur = 3,
+                title.textShadowOffsetY = 1,
+                title.textShadowOffsetX = -1,
+                tooltip.show = TRUE,
+                tooltip.trigger = "item",
+                tooltip.backgroundColor = NULL,
+                tooltip.borderColor = NULL,
+                tooltip.borderWidth = NULL,
+                tooltip.padding = NULL,
+                tooltip.axisPointer.type = "cross",
+                tooltip.axisPointer.lineStyle.color = NULL,
+                tooltip.axisPointer.shadowStyle.color = NULL,
+                tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                tooltip.axisPointer.shadowStyle.opacity = NULL,
+                tooltip.textStyle.color = NULL,
+                tooltip.textStyle.fontStyle = NULL,
+                tooltip.textStyle.fontWeight = NULL,
+                tooltip.textStyle.fontFamily = NULL,
+                tooltip.textStyle.lineHeight = NULL,
+                tooltip.textStyle.width = NULL,
+                tooltip.textStyle.height = NULL,
+                tooltip.textStyle.textBorderColor = NULL,
+                tooltip.textStyle.textBorderWidth = NULL,
+                tooltip.textStyle.textBorderType = NULL,
+                tooltip.textStyle.textShadowColor = NULL,
+                tooltip.textStyle.textShadowBlur = NULL,
+                tooltip.textStyle.textShadowOffsetX = NULL,
+                tooltip.textStyle.textShadowOffsetY = NULL,
+                Debug = FALSE) {
+
+  if(length(YVar) > 0L) YVar <- YVar[1L]
+  if(length(XVar) > 0L) XVar <- XVar[1L]
+
+  # Used multiple times
+  check1 <- length(XVar) != 0 && length(YVar) != 0
+
+  if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+    aggFunc <- SummaryFunction(AggMethod)
+  }
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+
+  # Create base plot object
+  numvars <- c()
+  byvars <- c()
+  if(check1) {
+    if(!PreAgg) {
+      if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+        numvars <- unique(c(numvars, YVar))
+      } else {
+        byvars <- unique(c(byvars, YVar))
+      }
+      if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+        if(length(numvars) > 0) {
+          x <- length(unique(dt[[XVar]]))
+          y <- length(unique(dt[[YVar]]))
+          if(x > y) {
+            byvars <- unique(c(byvars, YVar))
+            numvars[1L] <- XVar
+          } else {
+            byvars <- unique(c(byvars, XVar))
+          }
+        } else {
+          numvars <- unique(c(numvars, XVar))
+        }
+      } else {
+        byvars <- unique(c(byvars, XVar))
+      }
+      if(!is.null(byvars)) {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+        for(i in byvars) {
+          if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
+            temp[, eval(i) := as.character(get(i))]
+          }
+        }
+      } else {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+      }
+    } else {
+      temp <- data.table::copy(dt)
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+    }
+
+    # Transformation
+    if(YVarTrans != "Identity") {
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+    }
+
+    p1 <- echarts4r::e_charts_(
+      temp,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width, height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar)
+    }
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+}
+
+#' @title Donut
+#'
+#' @description Build a donut plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title title
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param TextColor 'darkblue'
+#' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#'
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#'
+#' # Create plot
+#' AutoPlots::Donut(
+#'   dt = dt,
+#'   PreAgg = FALSE,
+#'   XVar = "GV",
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Pie Chart',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Donut <- function(dt = NULL,
+                  PreAgg = FALSE,
+                  XVar = NULL,
+                  YVar = NULL,
+                  GroupVar = NULL,
+                  YVarTrans = "Identity",
+                  XVarTrans = "Identity",
+                  FacetRows = 1,
+                  FacetCols = 1,
+                  FacetLevels = NULL,
+                  AggMethod = 'mean',
+                  Height = NULL,
+                  Width = NULL,
+                  Title = 'Donut Plot',
+                  ShowLabels = FALSE,
+                  Title.YAxis = NULL,
+                  Title.XAxis = NULL,
+                  Theme = "dark",
+                  TimeLine = TRUE,
+                  TextColor = "white",
+                  title.fontSize = 22,
+                  title.fontWeight = "bold",
+                  title.textShadowColor = '#63aeff',
+                  title.textShadowBlur = 3,
+                  title.textShadowOffsetY = 1,
+                  title.textShadowOffsetX = -1,
+                  xtooltip.show = TRUE,
+                  tooltip.trigger = "item",
+                  tooltip.backgroundColor = NULL,
+                  tooltip.borderColor = NULL,
+                  tooltip.borderWidth = NULL,
+                  tooltip.padding = NULL,
+                  tooltip.axisPointer.type = "cross",
+                  tooltip.axisPointer.lineStyle.color = NULL,
+                  tooltip.axisPointer.shadowStyle.color = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                  tooltip.axisPointer.shadowStyle.opacity = NULL,
+                  tooltip.textStyle.color = NULL,
+                  tooltip.textStyle.fontStyle = NULL,
+                  tooltip.textStyle.fontWeight = NULL,
+                  tooltip.textStyle.fontFamily = NULL,
+                  tooltip.textStyle.lineHeight = NULL,
+                  tooltip.textStyle.width = NULL,
+                  tooltip.textStyle.height = NULL,
+                  tooltip.textStyle.textBorderColor = NULL,
+                  tooltip.textStyle.textBorderWidth = NULL,
+                  tooltip.textStyle.textBorderType = NULL,
+                  tooltip.textStyle.textShadowColor = NULL,
+                  tooltip.textStyle.textShadowBlur = NULL,
+                  tooltip.textStyle.textShadowOffsetX = NULL,
+                  tooltip.textStyle.textShadowOffsetY = NULL,
+                  Debug = FALSE) {
+
+  if(length(YVar) > 0L) YVar <- YVar[1L]
+  if(length(XVar) > 0L) XVar <- XVar[1L]
+
+  # Used multiple times
+  check1 <- length(XVar) != 0 && length(YVar) != 0
+
+  if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+    aggFunc <- SummaryFunction(AggMethod)
+  }
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+
+  # Create base plot object
+  numvars <- c()
+  byvars <- c()
+  if(check1) {
+    if(Debug) print("BarPlot 2.b")
+    if(!PreAgg) {
+      if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+        numvars <- unique(c(numvars, YVar))
+      } else {
+        byvars <- unique(c(byvars, YVar))
+      }
+      if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+        if(length(numvars) > 0) {
+          x <- length(unique(dt[[XVar]]))
+          y <- length(unique(dt[[YVar]]))
+          if(x > y) {
+            byvars <- unique(c(byvars, YVar))
+            numvars[1L] <- XVar
+          } else {
+            byvars <- unique(c(byvars, XVar))
+          }
+        } else {
+          numvars <- unique(c(numvars, XVar))
+        }
+      } else {
+        byvars <- unique(c(byvars, XVar))
+      }
+      if(!is.null(byvars)) {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+        for(i in byvars) {
+          if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
+            temp[, eval(i) := as.character(get(i))]
+          }
+        }
+      } else {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+      }
+    } else {
+      temp <- data.table::copy(dt)
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+    }
+
+    yvar <- temp[[YVar]]
+    xvar <- temp[[XVar]]
+
+    # Transformation
+    if(YVarTrans != "Identity") {
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+    }
+
+    p1 <- echarts4r::e_charts_(
+      temp,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width, height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE), radius = c("50%", "70%"))
+    } else {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, radius = c("50%", "70%"))
+    }
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+}
+
+
+#' @title Rosetype
+#'
+#' @description Build a donut plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title title
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param TextColor 'darkblue'
+#' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#'
+#' # Create plot
+#' AutoPlots::Rosetype(
+#'   dt = dt,
+#'   PreAgg = FALSE,
+#'   XVar = "GV",
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Pie Chart',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Rosetype <- function(dt = NULL,
+                     PreAgg = FALSE,
+                     XVar = NULL,
+                     YVar = NULL,
+                     GroupVar = NULL,
+                     YVarTrans = "Identity",
+                     XVarTrans = "Identity",
+                     FacetRows = 1,
+                     FacetCols = 1,
+                     FacetLevels = NULL,
+                     AggMethod = 'mean',
+                     Height = NULL,
+                     Width = NULL,
+                     Title = 'Donut Plot',
+                     ShowLabels = FALSE,
+                     Title.YAxis = NULL,
+                     Title.XAxis = NULL,
+                     Theme = "dark",
+                     TimeLine = TRUE,
+                     TextColor = "white",
+                     title.fontSize = 22,
+                     title.fontWeight = "bold",
+                     title.textShadowColor = '#63aeff',
+                     title.textShadowBlur = 3,
+                     title.textShadowOffsetY = 1,
+                     title.textShadowOffsetX = -1,
+                     tooltip.show = TRUE,
+                     tooltip.trigger = "cross",
+                     tooltip.backgroundColor = NULL,
+                     tooltip.borderColor = NULL,
+                     tooltip.borderWidth = NULL,
+                     tooltip.padding = NULL,
+                     tooltip.axisPointer.type = "cross",
+                     tooltip.axisPointer.lineStyle.color = NULL,
+                     tooltip.axisPointer.shadowStyle.color = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                     tooltip.axisPointer.shadowStyle.opacity = NULL,
+                     tooltip.textStyle.color = NULL,
+                     tooltip.textStyle.fontStyle = NULL,
+                     tooltip.textStyle.fontWeight = NULL,
+                     tooltip.textStyle.fontFamily = NULL,
+                     tooltip.textStyle.lineHeight = NULL,
+                     tooltip.textStyle.width = NULL,
+                     tooltip.textStyle.height = NULL,
+                     tooltip.textStyle.textBorderColor = NULL,
+                     tooltip.textStyle.textBorderWidth = NULL,
+                     tooltip.textStyle.textBorderType = NULL,
+                     tooltip.textStyle.textShadowColor = NULL,
+                     tooltip.textStyle.textShadowBlur = NULL,
+                     tooltip.textStyle.textShadowOffsetX = NULL,
+                     tooltip.textStyle.textShadowOffsetY = NULL,
+                     Debug = FALSE) {
+
+  if(length(YVar) > 0L) YVar <- YVar[1L]
+  if(length(XVar) > 0L) XVar <- XVar[1L]
+
+  # Used multiple times
+  check1 <- length(XVar) != 0 && length(YVar) != 0
+
+  if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+    aggFunc <- SummaryFunction(AggMethod)
+  }
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+
+  # Create base plot object
+  numvars <- c()
+  byvars <- c()
+  if(check1) {
+    if(Debug) print("BarPlot 2.b")
+    if(!PreAgg) {
+      if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+        numvars <- unique(c(numvars, YVar))
+      } else {
+        byvars <- unique(c(byvars, YVar))
+      }
+      if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+        if(length(numvars) > 0) {
+          x <- length(unique(dt[[XVar]]))
+          y <- length(unique(dt[[YVar]]))
+          if(x > y) {
+            byvars <- unique(c(byvars, YVar))
+            numvars[1L] <- XVar
+          } else {
+            byvars <- unique(c(byvars, XVar))
+          }
+        } else {
+          numvars <- unique(c(numvars, XVar))
+        }
+      } else {
+        byvars <- unique(c(byvars, XVar))
+      }
+      if(!is.null(byvars)) {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+        for(i in byvars) {
+          if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
+            temp[, eval(i) := as.character(get(i))]
+          }
+        }
+      } else {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+      }
+    } else {
+      temp <- data.table::copy(dt)
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+    }
+
+    yvar <- temp[[YVar]]
+    xvar <- temp[[XVar]]
+
+    # Transformation
+    if(YVarTrans != "Identity") {
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+    }
+
+    p1 <- echarts4r::e_charts_(
+      temp,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width, height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE), roseType = "radius")
+    } else {
+      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, roseType = "radius")
+    }
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+}
+
+
+#' @title Box
+#'
+#' @description Build a box plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param SampleSize numeric
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine Logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor character hex
+#' @param ContainLabel TRUE
+#' @param Title character
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#'
+#' AutoPlots::Box(
+#'   dt = dt,
+#'   SampleSize = 100000L,
+#'   XVar = "GV",
+#'   YVar = "Y",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Box Plot',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Box <- function(dt = NULL,
+                SampleSize = 100000L,
+                XVar = NULL,
+                YVar = NULL,
+                GroupVar = NULL,
+                YVarTrans = "Identity",
+                XVarTrans = "Identity",
+                FacetRows = 1,
+                FacetCols = 1,
+                FacetLevels = NULL,
+                Height = NULL,
+                Width = NULL,
+                ShowLabels = FALSE,
+                Theme = "dark",
+                MouseScroll = FALSE,
+                TimeLine = FALSE,
+                TextColor = "white",
+                ContainLabel = TRUE,
+                Title = 'Box Plot',
+                title.fontSize = 22,
+                title.fontWeight = "bold",
+                title.textShadowColor = '#63aeff',
+                title.textShadowBlur = 3,
+                title.textShadowOffsetY = 1,
+                title.textShadowOffsetX = -1,
+                xAxis.title = NULL,
+                xAxis.min = NULL,
+                xAxis.max = NULL,
+                xAxis.position = "bottom",
+                xAxis.nameLocation = 'center',
+                xAxis.axisTick.customValues = NULL,
+                xAxis.nameTextStyle.color = NULL,
+                xAxis.nameTextStyle.padding = 25,
+                xAxis.nameTextStyle.align = NULL,
+                xAxis.nameTextStyle.fontStyle = NULL,
+                xAxis.nameTextStyle.fontWeight = NULL,
+                xAxis.nameTextStyle.fontSize = NULL,
+                xAxis.nameTextStyle.fontFamily = NULL,
+                xAxis.splitNumber = NULL,
+                xAxis.axisLabel.rotate = NULL,
+                xAxis.axisLabel.margin = NULL,
+                xAxis.axisLabel.color = NULL,
+                xAxis.axisLabel.fontStyle = NULL,
+                xAxis.axisLabel.fontWeight = NULL,
+                xAxis.axisLabel.fontFamily = NULL,
+                xAxis.axisLabel.fontSize = 14,
+                xAxis.axisLabel.align = NULL,
+                xAxis.axisLabel.verticalAlign = NULL,
+                xAxis.axisLabel.backgroundColor = NULL,
+                xAxis.axisLabel.borderColor = NULL,
+                xAxis.axisLabel.borderWidth = NULL,
+                xAxis.axisLabel.borderType = NULL,
+                xAxis.axisLabel.borderRadius = NULL,
+                xAxis.axisLabel.padding = NULL,
+                xAxis.axisLabel.shadowColor = NULL,
+                xAxis.axisLabel.shadowBlur = NULL,
+                xAxis.axisLabel.shadowOffsetX = NULL,
+                xAxis.axisLabel.shadowOffsetY = NULL,
+                xAxis.axisLabel.textBorderColor = NULL,
+                xAxis.axisLabel.textBorderWidth = NULL,
+                xAxis.axisLabel.textBorderType = NULL,
+                xAxis.axisLabel.textShadowColor = NULL,
+                xAxis.axisLabel.textShadowBlur = NULL,
+                xAxis.axisLabel.textShadowOffsetX = NULL,
+                xAxis.axisLabel.textShadowOffsetY = NULL,
+                xAxis.axisLabel.overflow = NULL,
+                yAxis.title = NULL,
+                yAxis.min = NULL,
+                yAxis.max = NULL,
+                yAxis.position = "center",
+                yAxis.nameLocation = 'center',
+                yAxis.axisTick.customValues = NULL,
+                yAxis.nameTextStyle.color = NULL,
+                yAxis.nameTextStyle.padding = 25,
+                yAxis.nameTextStyle.align = NULL,
+                yAxis.nameTextStyle.fontStyle = NULL,
+                yAxis.nameTextStyle.fontWeight = NULL,
+                yAxis.nameTextStyle.fontSize = NULL,
+                yAxis.nameTextStyle.fontFamily = NULL,
+                yAxis.splitNumber = NULL,
+                yAxis.axisLabel.rotate = NULL,
+                yAxis.axisLabel.margin = NULL,
+                yAxis.axisLabel.color = NULL,
+                yAxis.axisLabel.fontStyle = NULL,
+                yAxis.axisLabel.fontWeight = NULL,
+                yAxis.axisLabel.fontFamily = NULL,
+                yAxis.axisLabel.fontSize = 14,
+                yAxis.axisLabel.align = NULL,
+                yAxis.axisLabel.verticalAlign = NULL,
+                yAxis.axisLabel.backgroundColor = NULL,
+                yAxis.axisLabel.borderColor = NULL,
+                yAxis.axisLabel.borderWidth = NULL,
+                yAxis.axisLabel.borderType = NULL,
+                yAxis.axisLabel.borderRadius = NULL,
+                yAxis.axisLabel.padding = NULL,
+                yAxis.axisLabel.shadowColor = NULL,
+                yAxis.axisLabel.shadowBlur = NULL,
+                yAxis.axisLabel.shadowOffsetX = NULL,
+                yAxis.axisLabel.shadowOffsetY = NULL,
+                yAxis.axisLabel.textBorderColor = NULL,
+                yAxis.axisLabel.textBorderWidth = NULL,
+                yAxis.axisLabel.textBorderType = NULL,
+                yAxis.axisLabel.textShadowColor = NULL,
+                yAxis.axisLabel.textShadowBlur = NULL,
+                yAxis.axisLabel.textShadowOffsetX = NULL,
+                yAxis.axisLabel.textShadowOffsetY = NULL,
+                yAxis.axisLabel.overflow = NULL,
+                tooltip.show = TRUE,
+                tooltip.trigger = "cross",
+                tooltip.backgroundColor = NULL,
+                tooltip.borderColor = NULL,
+                tooltip.borderWidth = NULL,
+                tooltip.padding = NULL,
+                tooltip.axisPointer.type = "cross",
+                tooltip.axisPointer.lineStyle.color = NULL,
+                tooltip.axisPointer.shadowStyle.color = NULL,
+                tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                tooltip.axisPointer.shadowStyle.opacity = NULL,
+                tooltip.textStyle.color = NULL,
+                tooltip.textStyle.fontStyle = NULL,
+                tooltip.textStyle.fontWeight = NULL,
+                tooltip.textStyle.fontFamily = NULL,
+                tooltip.textStyle.lineHeight = NULL,
+                tooltip.textStyle.width = NULL,
+                tooltip.textStyle.height = NULL,
+                tooltip.textStyle.textBorderColor = NULL,
+                tooltip.textStyle.textBorderWidth = NULL,
+                tooltip.textStyle.textBorderType = NULL,
+                tooltip.textStyle.textShadowColor = NULL,
+                tooltip.textStyle.textShadowBlur = NULL,
+                tooltip.textStyle.textShadowOffsetX = NULL,
+                tooltip.textStyle.textShadowOffsetY = NULL,
+                Debug = FALSE) {
+
+  if(Debug) print("Box 1")
+
+  # Turn off Faceting until I can figure out how to supply it
+  FacetRows <- 1L
+  FacetCols <- 1L
+
+  # Ensure data.table
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(Debug) print("Box 2")
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  if(Debug) print("Box 3")
+
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+
+  if(Debug) print("Box 4")
+
+  if(Debug) print("Plot.BoxPlot 1")
+
+  # Cap number of records
+  if(length(YVar) > 0L) {
+    SampleSize <- SampleSize / length(YVar)
+  }
+  if(dt[,.N] > SampleSize) {
+    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  if(Debug) print("Box 5")
+
+  if(length(YVar) > 0L && length(XVar) == 0L && length(GroupVar) > 0L) {
+    XVar <- GroupVar; GroupVar <- NULL
+    CoordFlip <- FALSE
+  } else if(length(XVar) > 0L && length(YVar) == 0L && length(GroupVar) > 0L) {
+    YVar <- XVar; XVar <- GroupVar; GroupVar <- NULL
+    CoordFlip <- TRUE
+  } else {
+    CoordFlip <- FALSE
+    if(length(XVar) > 0L && class(dt1[[XVar]])[1L] %in% c("numeric","integer")) {
+      YVarTrans <- XVarTrans
+      YVar <- XVar
+      XVar <- NULL
+    }
+  }
+
+  # Multiple YVars
+  if(length(YVar) > 1L) {
+    XVar <- NULL
+    GroupVar <- NULL
+    dt1[, temp__ := "a"]
+    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "temp__", measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+    dt1[, temp__ := NULL]
+    XVar <- "Measures"
+    YVar <- "Values"
+  }
+
+  if(Debug) print("Box 6")
+
+  if(length(GroupVar) > 0L && FacetRows > 1L && FacetCols > 1L) {
+    dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
+  }
+
+  if(Debug) print("Box 7")
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    for(ggss in YVar) {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ggss, Methods = YVarTrans)$Data
+    }
+  }
+
+  if(Debug) print("Box 8")
+
+  # Build Plot Based on Available Variables
+  # Create logic checks to determine each case distinctly
+  if(Debug) print("Plot.BoxPlot 2")
+  X_and_Y_and_GroupVars <- length(XVar) > 0L && length(YVar) > 0L && length(GroupVar) > 0L
+  X_and_Y <- length(XVar) > 0L && length(YVar) > 0L
+
+  if(Debug) print("Box 9")
+
+  # X,Y,GroupVar
+  if(X_and_Y_and_GroupVars) {
+
+    if(Debug) print("Box 10")
+
+    if(Debug) print("Plot.Box Echarts")
+    p1 <- echarts4r::e_charts_(
+      data = dt1 |> dplyr::group_by(get(GroupVar[1L])),
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width,
+      height = Height)
+
+    if(Debug) print("Box 11")
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_boxplot_(e = p1, YVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_boxplot_(e = p1, YVar)
+    }
+
+    if(Debug) print("Box 12")
+
+    p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+
+    if(Debug) print("Box 13")
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    if(Debug) print("Box 14")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    if(Debug) print("Box 16")
+
+    if(CoordFlip) p1 <- echarts4r::e_flip_coords(e = p1)
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+    return(p1)
+  }
+
+  # X,Y
+  if(X_and_Y) {
+
+    if(Debug) print("Box 10.a")
+
+    if(Debug) print("Plot.Box X_and_Y")
+    if(Debug) print("Plot.Box Echarts")
+    p1 <- echarts4r::e_charts_(
+      dt1 |> dplyr::group_by(get(XVar)),
+      x = YVar,
+      darkMode = TRUE,
+      dispose = TRUE,
+      color = GroupVar,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_boxplot_(e = p1, YVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_boxplot_(e = p1, YVar)
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    if(CoordFlip) p1 <- echarts4r::e_flip_coords(e = p1)
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+
+
+
+    # Return
+    return(p1)
+  }
+
+  # Y Only
+  if(length(YVar) > 0L) {
+
+    if(Debug) print("Box 10.b")
+
+    if(Debug) print("Plot.Box Y Only")
+
+    if(Debug) print("Plot.Box Echarts")
+    p1 <- echarts4r::e_charts_(
+      dt1,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+    if(ShowLabels) {
+      p1 <- echarts4r::e_boxplot_(e = p1, YVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_boxplot_(e = p1, YVar)
+    }
+    p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    if(length(Title.XAxis) == 0L) {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = XVar,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    } else {
+      p1 <- echarts4r::e_axis_(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = Title.XAxis,
+        nameLocation = "middle",
+        nameGap = 45,
+        nameTextStyle = list(
+          color = TextColor,
+          fontStyle = "normal",
+          fontWeight = "bold",
+          fontSize = xaxis.fontSize),
+        axisLabel = list(
+          rotate = xaxis.rotate,
+          grid = list(containLabel = ContainLabel)))
+    }
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+
+  # X Only
+  if(length(XVar) > 0L) {
+
+    if(Debug) print("Box 10.c")
+
+    if(Debug) print("Plot.Box X Only")
+
+    if(Debug) print("Plot.Box Echarts")
+    p1 <- echarts4r::e_charts_(
+      dt1,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+    if(ShowLabels) {
+      p1 <- echarts4r::e_boxplot_(e = p1, XVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_boxplot_(e = p1, XVar)
+    }
+    p1 <- echarts4r::e_visual_map_(e = p1, XVar, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+
+    # Return
+    return(p1)
+  }
+  return(NULL)
+}
+
+#' @title WordCloud
+#'
+#' @description WordCloud plots
+#'
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param YVar Y-Axis variable name
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title = "Density Plot"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TextColor "white",
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param ContainLabel TRUE
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' dt <- FakeDataGenerator(AddComment = TRUE)
+#'
+#' # Create plot
+#' AutoPlots::WordCloud(
+#'   dt = dt,
+#'   YVar = "Comment",
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Word Cloud",
+#'   Theme = "dark",
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+WordCloud <- function(dt = NULL,
+                      YVar = NULL,
+                      Height = NULL,
+                      Width = NULL,
+                      Title = "Word Cloud",
+                      Theme = "dark",
+                      TextColor = "white",
+                      title.fontSize = 22,
+                      title.fontWeight = "bold",
+                      title.textShadowColor = '#63aeff',
+                      title.textShadowBlur = 3,
+                      title.textShadowOffsetY = 1,
+                      title.textShadowOffsetX = -1,
+                      xaxis.fontSize = 14,
+                      yaxis.fontSize = 14,
+                      xaxis.rotate = 0,
+                      yaxis.rotate = 0,
+                      ContainLabel = TRUE,
+                      Debug = FALSE) {
+
+  if(Theme == 'auritus') {
+    ColorVals <- c("#3e4359", "#c5a805", "#4d267e", "#22904f", "red")
+  } else if(Theme == 'azul') {
+    ColorVals <- c("#bfcca6", "#b07a9a", "#65deff", "#f73372", "#d08e1f")
+  } else if(Theme == 'bee-inspired') {
+    ColorVals <- c("#24243b", "#c2ba38", "#deeb25", "#ebc625", "#ffe700")
+  } else if(Theme == 'blue') {
+    ColorVals <- c("#2e69aa", "#99b8d9", "#3a84d4", "#1b67b9", "#046fe1")
+  } else if(Theme == 'caravan') {
+    ColorVals <- c("#18536d", "#d44545", "#eba565", "#e1c3a7", "#e1dda7")
+  } else if(Theme == 'carp') {
+    ColorVals <- c("#ff3300", "#fff0bb", "#679898", "#ff8870", "#4d3935")
+  } else if(Theme == 'chalk') {
+    ColorVals <- c("#e8c69e", "#54afec", "#d9dc89", "#f1a7d6", "#927294")
+  } else if(Theme == 'cool') {
+    ColorVals <- c("#20146a", "#591b89", "#911ea6", "#8081ba", "#2a74c4")
+  } else if(Theme == 'dark-bold') {
+    ColorVals <- c("#922e2e", "#d06363", "#d0a463", "#5c845e", "#63d0b9")
+  } else if(Theme == 'dark') {
+    ColorVals <- c("#e17d7d", "#c1ba54", "#66d5b0", "#b366d5", "#66a9d5")
+  } else if(Theme == 'eduardo') {
+    ColorVals <- c("#352a61", "#696284", "#c190ba", "#9e8a9b", "#615b60")
+  } else if(Theme == 'essos') {
+    ColorVals <- c("#753751", "#cfc995", "#c2b53c", "#d89c41")
+  } else if(Theme == 'forest') {
+    ColorVals <- c("#101010", "#bdb892", "#6c7955", "#3e6e86", "#37412e")
+  } else if(Theme == 'fresh-cut') {
+    ColorVals <- c("#74b936", "#76e314", "#cfbcb2", "#26609e", "#11b1cf")
+  } else if(Theme == 'fruit') {
+    ColorVals <- c("#dc965e", "#955828", "#c2b3a6", "#a16464", "#ae8c74")
+  } else if(Theme == 'gray') {
+    ColorVals <- c("#333333", "#696969", "#989898", "#bababa", "#e3e3e3")
+  } else if(Theme == 'green') {
+    ColorVals <- c("#2c5e25", "#387830", "#56a14d", "#7cbe74", "#b5e3af")
+  } else if(Theme == 'halloween') {
+    ColorVals <- c("#d1d134", "#d1953c", "#cc735d", "#7a5dcc", "#564f6a")
+  } else if(Theme == 'helianthus') {
+    ColorVals <- c("#6235e1", "#e16235", "#e1c135", "#c46aa5", "#5bcf3e")
+  } else if(Theme == 'infographic') {
+    ColorVals <- c("#d5cb2b", "#b4e771", "#cc4d3d", "#e78971", "#82b053")
+  } else if(Theme == 'inspired') {
+    ColorVals <- c("#8e1212", "#0f6310", "#d39f03", "#ff0000", "#265d82")
+  } else if(Theme == 'jazz') {
+    ColorVals <- c("#5e4832", "#000000", "#265057", "#d5dcdd")
+  } else if(Theme == 'london') {
+    ColorVals <- c("#881010", "#b8d1d4", "#227e89", "#041137", "#1c86c4")
+  } else if(Theme == 'macarons') {
+    ColorVals <- c("#6382cf", "#8776b9", "#318c9d", "#6d5739", "#7f7f98")
+  } else if(Theme == 'macarons2') {
+    ColorVals <- c("#6d6ddb", "#d45315", "#6e9fe4", "#b9bc89", "#d37c7c")
+  } else if(Theme == 'mint') {
+    ColorVals <- c("#c3ebd6", "#859d90", "#6dbaba", "#6dba9b", "#62d17f")
+  } else if(Theme == 'purple-passion') {
+    ColorVals <- c("#9385ba", "#779fbe", "#b86aac", "#5d9dc8", "#5f3a89")
+  } else if(Theme == 'red-velvet') {
+    ColorVals <- c("#6f4c41", "#db8469", "#f13d67", "#5e1d2c", "#ff00a9")
+  } else if(Theme == 'red') {
+    ColorVals <- c("#b4342a", "#8a4d49", "#c08480", "#df745a", "#cca69d")
+  } else if(Theme == 'roma') {
+    ColorVals <- c("#a580e9", "#d56426", "#cd1450", "#8bbec0", "#91836b")
+  } else if(Theme == 'royal') {
+    ColorVals <- c("#a06156", "#756054", "#5fac21", "#34708a", "#692525")
+  } else if(Theme == 'sakura') {
+    ColorVals <- c("#d75869", "#cb979e", "#b12a3d", "#adabc7", "#d0a79b")
+  } else if(Theme == 'shine') {
+    ColorVals <- c("#3d5995", "#296537", "#3390f7", "#b81717", "#50868c")
+  } else if(Theme == 'tech-blue') {
+    ColorVals <- c("#356499", "#4e487e", "#524f4b", "#b9addc", "#1c70d8")
+  } else if(Theme == 'vintage') {
+    ColorVals <- c("#a47e5f", "#638176", "#a46969", "#5d3a3a", "#4f8090")
+  } else if(Theme == 'walden') {
+    ColorVals <- c("#3b96c4", "#8babba", "#a5d9a2", "#535d84", "#7f79ad")
+  } else if(Theme == 'wef') {
+    ColorVals <- c("#5981d5", "#3268d9", "#9d938a", "#1f457c", "#524e48")
+  } else if(Theme == 'weforum') {
+    ColorVals <- c("#8a1b6f", "#4d2876", "#d5bf24", "#2792aa", "#a27322")
+  } else if(Theme == 'westeros') {
+    ColorVals <- c("#4b4d66", "#a681b0", "#8acccf", "#41a7cf")
+  } else if(Theme == 'wonderland') {
+    ColorVals <- c("#629291", "#3ec5c2", "#cf95ad", "#cd7097")
+  }
+
+  # Cap number of records
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
+  # Copy Data
+  dt1 <- data.table::copy(dt)
+
+  # Define Plotting Variable
+  if(length(YVar) == 0L) return(NULL)
+
+  # Data YVar <- "Comment"
+  # dt <- AutoNLP::FakeDataGenerator(N = 1000, AddComment = TRUE)
+  dt1 <- quanteda::tokens(dt[[YVar]], remove_punct = TRUE)
+  dt2 <- quanteda::dfm(dt1)
+  dt3 <- data.table::setDT(quanteda.textstats::textstat_frequency(dt2))
+  dt4 <- dt3[, .SD, .SDcols = c("feature", "frequency")]
+  data.table::setnames(dt4, c("feature", "frequency"),c("term", "freq"))
+
+  # Create base plot object
+  if(Debug) print('Create Plot with only data')
+  dt5 <- echarts4r::e_color_range_(
+    data = dt4,
+    input = "freq",
+    output = "Color",
+    colors = ColorVals)
+  p1 <- echarts4r::e_charts(data = dt5)
+  p1 <- echarts4r::e_cloud_(e = p1, "term", "freq", "Color", shape = "circle", sizeRange = c(20, 42))
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+  return(p1)
+}
+
+# ----
+
+# ----
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+# > Aggreagated Plot Functions                                                ----
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+
+#' @title Radar
+#'
+#' @author Adrian Antico
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param AggMethod character
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param GroupVar One Grouping Variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title "Title"
+#' @param ShowLabels character
+#' @param Theme Provide an "Echarts" theme
+#' @param ShowSymbol = FALSE
+#' @param TextColor "Not Implemented"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param ContainLabel TRUE
+#' @param DarkMode FALSE
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create Data
+#' dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
+#'
+#' # Create plot
+#' AutoPlots::Radar(
+#'   dt = dt,
+#'   AggMethod = "mean",
+#'   PreAgg = FALSE,
+#'   YVar = "Y",
+#'   GroupVar = "GV",
+#'   YVarTrans = "Identity",
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Radar Plot',
+#'   ShowLabels = FALSE,
+#'   Theme = "dark",
+#'   ShowSymbol = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   ContainLabel = TRUE,
+#'   DarkMode = FALSE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Radar <- function(dt = NULL,
+                  AggMethod = "mean",
+                  PreAgg = TRUE,
+                  YVar = NULL,
+                  GroupVar = NULL,
+                  YVarTrans = "Identity",
+                  Height = NULL,
+                  Width = NULL,
+                  Title = 'Radar Plot',
+                  ShowLabels = FALSE,
+                  Theme = "dark",
+                  ShowSymbol = FALSE,
+                  TextColor = "white",
+                  ContainLabel = TRUE,
+                  DarkMode = FALSE,
+                  title.fontSize = 22,
+                  title.fontWeight = "bold",
+                  title.textShadowColor = '#63aeff',
+                  title.textShadowBlur = 3,
+                  title.textShadowOffsetY = 1,
+                  title.textShadowOffsetX = -1,
+                  tooltip.show = TRUE,
+                  tooltip.trigger = "cross",
+                  tooltip.backgroundColor = NULL,
+                  tooltip.borderColor = NULL,
+                  tooltip.borderWidth = NULL,
+                  tooltip.padding = NULL,
+                  tooltip.axisPointer.type = "cross",
+                  tooltip.axisPointer.lineStyle.color = NULL,
+                  tooltip.axisPointer.shadowStyle.color = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                  tooltip.axisPointer.shadowStyle.opacity = NULL,
+                  tooltip.textStyle.color = NULL,
+                  tooltip.textStyle.fontStyle = NULL,
+                  tooltip.textStyle.fontWeight = NULL,
+                  tooltip.textStyle.fontFamily = NULL,
+                  tooltip.textStyle.lineHeight = NULL,
+                  tooltip.textStyle.width = NULL,
+                  tooltip.textStyle.height = NULL,
+                  tooltip.textStyle.textBorderColor = NULL,
+                  tooltip.textStyle.textBorderWidth = NULL,
+                  tooltip.textStyle.textBorderType = NULL,
+                  tooltip.textStyle.textShadowColor = NULL,
+                  tooltip.textStyle.textShadowBlur = NULL,
+                  tooltip.textStyle.textShadowOffsetX = NULL,
+                  tooltip.textStyle.textShadowOffsetY = NULL,
+                  Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
+  dt1 <- data.table::copy(dt)
+
+  # Subset columns
+  dt1 <- dt1[, .SD, .SDcols = c(YVar, GroupVar)]
+
+  # Minimize data before moving on
+  if(!PreAgg) {
+
+    # Define Aggregation function
+    if(Debug) print("Plot.Radar # Define Aggregation function")
+    aggFunc <- SummaryFunction(AggMethod)
+
+    # Aggregate data
+    dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(GroupVar[1L])]
+  }
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    for(yvar in YVar) {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = yvar, Methods = YVarTrans)$Data
+    }
+  }
+
+  # Make sure the variable with the largest value goes first
+  # Otherwise the radar plot will size to a smaller variable and look stupid
+  mv <- c(rep(0, length(YVar)))
+  for(i in seq_along(YVar)) {
+    mv[i] <- dt1[, max(get(YVar[i]), na.rm = TRUE)]
+  }
+
+  YVarMod <- YVar[which(mv == max(mv, na.rm = TRUE))]
+  YVarMod <- c(YVarMod, YVar[!YVar %in% YVarMod])
+  mv <- max(mv, na.rm = TRUE)
+
+  # Build base plot depending on GroupVar availability
+  p1 <- echarts4r::e_charts_(
+    data = dt1,
+    x = GroupVar,
+    darkMode = TRUE,
+    emphasis = list(focus = "series"),
+    dispose = TRUE, width = Width, height = Height)
+
+  for(yvar in YVarMod) {
+    p1 <- echarts4r::e_radar_(e = p1, serie = yvar, max = mv, name = yvar)
+  }
+
+  if(Debug) print("Plot.Radar() Build Echarts 5")
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+  if(Debug) print("Plot.Radar() Build Echarts 6")
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  if(Debug) print("Plot.Radar() Build Echarts 8")
+  p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  return(p1)
+}
+
+#' @title Line
+#'
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#'
+#' @author Adrian Antico
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param AggMethod character
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param DualYVar Secondary Y-Axis variables. Leave NULL for no secondary axis. Only one variable is allowed and when this is set only one YVar is allowed. An error will be thrown if those conditions are not met
+#' @param XVar X-Axis variable name
+#' @param GroupVar One Grouping Variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param DualYVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height NULL
+#' @param Width NULL
+#' @param ShowLabels character
+#' @param Theme Provide an "Echarts" theme
+#' @param TimeLine Logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param Smooth = TRUE
+#' @param ShowSymbol = FALSE
+#' @param TextColor "Not Implemented"
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param ContainLabel TRUE
+#' @param DarkMode FALSE
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+#'
+#' # Build Line plot
+#' AutoPlots::Line(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = "mean",
+#'   XVar = "DateTime",
+#'   YVar = "Independent_Variable3",
+#'   YVarTrans = "LogPlus1",
+#'   DualYVar = "Independent_Variable6",
+#'   DualYVarTrans = "LogPlus1",
+#'   GroupVar = NULL,
+#'   Theme = "macarons")
+#'
+#' @return plot
+#' @export
+Line <- function(dt = NULL,
+                 AggMethod = "mean",
+                 PreAgg = TRUE,
+                 XVar = NULL,
+                 YVar = NULL,
+                 DualYVar = NULL,
+                 GroupVar = NULL,
+                 YVarTrans = "Identity",
+                 DualYVarTrans = "Identity",
+                 XVarTrans = "Identity",
+                 FacetRows = 1,
+                 FacetCols = 1,
+                 FacetLevels = NULL,
+                 Height = NULL,
+                 Width = NULL,
+                 ShowLabels = FALSE,
+                 Theme = "dark",
+                 MouseScroll = FALSE,
+                 TimeLine = FALSE,
+                 Smooth = TRUE,
+                 ShowSymbol = FALSE,
+                 TextColor = "white",
+                 ContainLabel = TRUE,
+                 DarkMode = FALSE,
+                 Title = "Line Plot",
+                 title.fontSize = 22,
+                 title.fontWeight = "bold",
+                 title.textShadowColor = '#63aeff',
+                 title.textShadowBlur = 3,
+                 title.textShadowOffsetY = 1,
+                 title.textShadowOffsetX = -1,
+                 xAxis.title = NULL,
+                 xAxis.min = NULL,
+                 xAxis.max = NULL,
+                 xAxis.position = "bottom",
+                 xAxis.nameLocation = 'center',
+                 xAxis.axisTick.customValues = NULL,
+                 xAxis.nameTextStyle.color = NULL,
+                 xAxis.nameTextStyle.padding = 25,
+                 xAxis.nameTextStyle.align = NULL,
+                 xAxis.nameTextStyle.fontStyle = NULL,
+                 xAxis.nameTextStyle.fontWeight = NULL,
+                 xAxis.nameTextStyle.fontSize = NULL,
+                 xAxis.nameTextStyle.fontFamily = NULL,
+                 xAxis.splitNumber = NULL,
+                 xAxis.axisLabel.rotate = NULL,
+                 xAxis.axisLabel.margin = NULL,
+                 xAxis.axisLabel.color = NULL,
+                 xAxis.axisLabel.fontStyle = NULL,
+                 xAxis.axisLabel.fontWeight = NULL,
+                 xAxis.axisLabel.fontFamily = NULL,
+                 xAxis.axisLabel.fontSize = 14,
+                 xAxis.axisLabel.align = NULL,
+                 xAxis.axisLabel.verticalAlign = NULL,
+                 xAxis.axisLabel.backgroundColor = NULL,
+                 xAxis.axisLabel.borderColor = NULL,
+                 xAxis.axisLabel.borderWidth = NULL,
+                 xAxis.axisLabel.borderType = NULL,
+                 xAxis.axisLabel.borderRadius = NULL,
+                 xAxis.axisLabel.padding = NULL,
+                 xAxis.axisLabel.shadowColor = NULL,
+                 xAxis.axisLabel.shadowBlur = NULL,
+                 xAxis.axisLabel.shadowOffsetX = NULL,
+                 xAxis.axisLabel.shadowOffsetY = NULL,
+                 xAxis.axisLabel.textBorderColor = NULL,
+                 xAxis.axisLabel.textBorderWidth = NULL,
+                 xAxis.axisLabel.textBorderType = NULL,
+                 xAxis.axisLabel.textShadowColor = NULL,
+                 xAxis.axisLabel.textShadowBlur = NULL,
+                 xAxis.axisLabel.textShadowOffsetX = NULL,
+                 xAxis.axisLabel.textShadowOffsetY = NULL,
+                 xAxis.axisLabel.overflow = NULL,
+                 yAxis.title = NULL,
+                 yAxis.min = NULL,
+                 yAxis.max = NULL,
+                 yAxis.position = "center",
+                 yAxis.nameLocation = 'center',
+                 yAxis.axisTick.customValues = NULL,
+                 yAxis.nameTextStyle.color = NULL,
+                 yAxis.nameTextStyle.padding = 25,
+                 yAxis.nameTextStyle.align = NULL,
+                 yAxis.nameTextStyle.fontStyle = NULL,
+                 yAxis.nameTextStyle.fontWeight = NULL,
+                 yAxis.nameTextStyle.fontSize = NULL,
+                 yAxis.nameTextStyle.fontFamily = NULL,
+                 yAxis.splitNumber = NULL,
+                 yAxis.axisLabel.rotate = NULL,
+                 yAxis.axisLabel.margin = NULL,
+                 yAxis.axisLabel.color = NULL,
+                 yAxis.axisLabel.fontStyle = NULL,
+                 yAxis.axisLabel.fontWeight = NULL,
+                 yAxis.axisLabel.fontFamily = NULL,
+                 yAxis.axisLabel.fontSize = 14,
+                 yAxis.axisLabel.align = NULL,
+                 yAxis.axisLabel.verticalAlign = NULL,
+                 yAxis.axisLabel.backgroundColor = NULL,
+                 yAxis.axisLabel.borderColor = NULL,
+                 yAxis.axisLabel.borderWidth = NULL,
+                 yAxis.axisLabel.borderType = NULL,
+                 yAxis.axisLabel.borderRadius = NULL,
+                 yAxis.axisLabel.padding = NULL,
+                 yAxis.axisLabel.shadowColor = NULL,
+                 yAxis.axisLabel.shadowBlur = NULL,
+                 yAxis.axisLabel.shadowOffsetX = NULL,
+                 yAxis.axisLabel.shadowOffsetY = NULL,
+                 yAxis.axisLabel.textBorderColor = NULL,
+                 yAxis.axisLabel.textBorderWidth = NULL,
+                 yAxis.axisLabel.textBorderType = NULL,
+                 yAxis.axisLabel.textShadowColor = NULL,
+                 yAxis.axisLabel.textShadowBlur = NULL,
+                 yAxis.axisLabel.textShadowOffsetX = NULL,
+                 yAxis.axisLabel.textShadowOffsetY = NULL,
+                 yAxis.axisLabel.overflow = NULL,
+                 tooltip.show = TRUE,
+                 tooltip.trigger = "cross",
+                 tooltip.backgroundColor = NULL,
+                 tooltip.borderColor = NULL,
+                 tooltip.borderWidth = NULL,
+                 tooltip.padding = NULL,
+                 tooltip.axisPointer.type = "cross",
+                 tooltip.axisPointer.lineStyle.color = NULL,
+                 tooltip.axisPointer.shadowStyle.color = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                 tooltip.axisPointer.shadowStyle.opacity = NULL,
+                 tooltip.textStyle.color = NULL,
+                 tooltip.textStyle.fontStyle = NULL,
+                 tooltip.textStyle.fontWeight = NULL,
+                 tooltip.textStyle.fontFamily = NULL,
+                 tooltip.textStyle.lineHeight = NULL,
+                 tooltip.textStyle.width = NULL,
+                 tooltip.textStyle.height = NULL,
+                 tooltip.textStyle.textBorderColor = NULL,
+                 tooltip.textStyle.textBorderWidth = NULL,
+                 tooltip.textStyle.textBorderType = NULL,
+                 tooltip.textStyle.textShadowColor = NULL,
+                 tooltip.textStyle.textShadowBlur = NULL,
+                 tooltip.textStyle.textShadowOffsetX = NULL,
+                 tooltip.textStyle.textShadowOffsetY = NULL,
+                 Debug = FALSE) {
+
+  if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+
+  # Correct args
+  if(length(GroupVar) > 0L && length(XVar) == 0L) {
+    XVar <- GroupVar
+    GroupVar <- NULL
+  }
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
+  # Throw an error instead of trimming YVar to only the first value
+  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
+  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
+
+  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
+  if(length(YVar) > 1L) {
+    if(length(GroupVar) > 0L) {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      dt1[, GroupVars := paste0(Measures, GroupVar)]
+      dt1[, Measures := NULL]
+      dt1[, eval(GroupVar) := NULL]
+      GroupVar <- "GroupVars"
+      YVar <- "Values"
+    } else {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      GroupVar <- "Measures"
+      YVar <- "Values"
+    }
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Subset columns
+  Ncols <- ncol(dt1)
+  if(Ncols > 2L && length(GroupVar) == 0L) {
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
+  } else if(length(GroupVar) > 0L) {
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
+    if(length(FacetLevels) > 0) {
+      dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
+    }
+  }
+
+  # Minimize data before moving on
+  if(!PreAgg) {
+
+    # Define Aggregation function
+    if(Debug) print("Line # Define Aggregation function")
+    aggFunc <- SummaryFunction(AggMethod)
+
+    # Aggregate data
+    if(length(GroupVar) > 0L) {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
+      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+    } else {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
+      data.table::setorderv(x = dt1, cols = XVar, 1L)
+    }
+  }
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+  }
+  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
+  }
+
+  # Group Variable Case
+  if(length(GroupVar) > 0L) {
+
+    # Prepare Data
+    if(Debug) print("Plot.Line() Build 1")
+    gv <- GroupVar[1L]
+    #print(dt1)
+    #print(gv)
+    #print(XVar)
+    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
+
+    # Build base plot depending on GroupVar availability
+    p1 <- echarts4r::e_charts_(
+      data = dt1 |> dplyr::group_by(get(gv)),
+      x = XVar,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      timeline = TimeLine, dispose = TRUE, width = Width, height = Height)
+
+    # Finalize Plot Build
+    if(ShowLabels) {
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+    }
+
+    if(Debug) print("Plot.Line() Build Echarts 4 1")
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    if(Debug) print("Plot.Line() Build Echarts 5")
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    if(Debug) print("Plot.Line() Build Echarts 6")
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    if(Debug) print("Plot.Line() Build Echarts 6")
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(Debug) print("Plot.Line() Build Echarts 8")
+    if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
+      if(Debug) print("Plot.Line() Build Echarts 8 2")
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+      if(Debug) print("Plot.Line() Build Echarts 8 3")
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
+
+  } else {
+
+    # Plot
+    data.table::setorderv(x = dt1, cols = XVar, 1L)
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
+
+    # Build base plot depending on GroupVar availability
+    if(Debug) print("Plot.Line no group Echarts")
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+    }
+
+    # DualYVar
+    if(length(DualYVar) > 0L) {
+      if(ShowLabels) {
+        p1 <- echarts4r::e_line_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
+      } else {
+        p1 <- echarts4r::e_line_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+      }
+    }
+
+    # Finalize Plot Build
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+  }
+  return(p1)
+}
+
+#' @title Area
+#'
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#'
+#' @author Adrian Antico
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param AggMethod character
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param DualYVar Secondary Y-Axis variables. Leave NULL for no secondary axis. Only one variable is allowed and when this is set only one YVar is allowed. An error will be thrown if those conditions are not met
+#' @param XVar X-Axis variable name
+#' @param GroupVar One Grouping Variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param DualYVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title "Title"
+#' @param ShowLabels character
+#' @param Theme Provide an "Echarts" theme
+#' @param TimeLine Logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param Area logical
+#' @param Alpha 0 to 1 for setting transparency
+#' @param Smooth = TRUE
+#' @param ShowSymbol = FALSE
+#' @param TextColor "Not Implemented"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param ContainLabel TRUE
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+#'
+#' # Build plot
+#' AutoPlots::Area(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = "mean",
+#'   XVar = "DateTime",
+#'   YVar = "Independent_Variable3",
+#'   YVarTrans = "Identity",
+#'   DualYVar = "Independent_Variable6",
+#'   DualYVarTrans = "Identity",
+#'   GroupVar = NULL,
+#'   Theme = "macarons")
+#'
+#' @return plot
+#' @export
+Area <- function(dt = NULL,
+                 AggMethod = "mean",
+                 PreAgg = TRUE,
+                 XVar = NULL,
+                 YVar = NULL,
+                 DualYVar = NULL,
+                 GroupVar = NULL,
+                 YVarTrans = "Identity",
+                 DualYVarTrans = "Identity",
+                 XVarTrans = "Identity",
+                 FacetRows = 1,
+                 FacetCols = 1,
+                 FacetLevels = NULL,
+                 Height = NULL,
+                 Width = NULL,
+                 ShowLabels = FALSE,
+                 Theme = "dark",
+                 MouseScroll = FALSE,
+                 TimeLine = TRUE,
+                 Alpha = 0.50,
+                 Smooth = TRUE,
+                 ShowSymbol = FALSE,
+                 TextColor = "white",
+                 ContainLabel = TRUE,
+                 Title = "Area Plot",
+                 title.fontSize = 22,
+                 title.fontWeight = "bold",
+                 title.textShadowColor = '#63aeff',
+                 title.textShadowBlur = 3,
+                 title.textShadowOffsetY = 1,
+                 title.textShadowOffsetX = -1,
+                 xAxis.title = NULL,
+                 xAxis.min = NULL,
+                 xAxis.max = NULL,
+                 xAxis.position = "bottom",
+                 xAxis.nameLocation = 'center',
+                 xAxis.axisTick.customValues = NULL,
+                 xAxis.nameTextStyle.color = NULL,
+                 xAxis.nameTextStyle.padding = 25,
+                 xAxis.nameTextStyle.align = NULL,
+                 xAxis.nameTextStyle.fontStyle = NULL,
+                 xAxis.nameTextStyle.fontWeight = NULL,
+                 xAxis.nameTextStyle.fontSize = NULL,
+                 xAxis.nameTextStyle.fontFamily = NULL,
+                 xAxis.splitNumber = NULL,
+                 xAxis.axisLabel.rotate = NULL,
+                 xAxis.axisLabel.margin = NULL,
+                 xAxis.axisLabel.color = NULL,
+                 xAxis.axisLabel.fontStyle = NULL,
+                 xAxis.axisLabel.fontWeight = NULL,
+                 xAxis.axisLabel.fontFamily = NULL,
+                 xAxis.axisLabel.fontSize = 14,
+                 xAxis.axisLabel.align = NULL,
+                 xAxis.axisLabel.verticalAlign = NULL,
+                 xAxis.axisLabel.backgroundColor = NULL,
+                 xAxis.axisLabel.borderColor = NULL,
+                 xAxis.axisLabel.borderWidth = NULL,
+                 xAxis.axisLabel.borderType = NULL,
+                 xAxis.axisLabel.borderRadius = NULL,
+                 xAxis.axisLabel.padding = NULL,
+                 xAxis.axisLabel.shadowColor = NULL,
+                 xAxis.axisLabel.shadowBlur = NULL,
+                 xAxis.axisLabel.shadowOffsetX = NULL,
+                 xAxis.axisLabel.shadowOffsetY = NULL,
+                 xAxis.axisLabel.textBorderColor = NULL,
+                 xAxis.axisLabel.textBorderWidth = NULL,
+                 xAxis.axisLabel.textBorderType = NULL,
+                 xAxis.axisLabel.textShadowColor = NULL,
+                 xAxis.axisLabel.textShadowBlur = NULL,
+                 xAxis.axisLabel.textShadowOffsetX = NULL,
+                 xAxis.axisLabel.textShadowOffsetY = NULL,
+                 xAxis.axisLabel.overflow = NULL,
+                 yAxis.title = NULL,
+                 yAxis.min = NULL,
+                 yAxis.max = NULL,
+                 yAxis.position = "center",
+                 yAxis.nameLocation = 'center',
+                 yAxis.axisTick.customValues = NULL,
+                 yAxis.nameTextStyle.color = NULL,
+                 yAxis.nameTextStyle.padding = 25,
+                 yAxis.nameTextStyle.align = NULL,
+                 yAxis.nameTextStyle.fontStyle = NULL,
+                 yAxis.nameTextStyle.fontWeight = NULL,
+                 yAxis.nameTextStyle.fontSize = NULL,
+                 yAxis.nameTextStyle.fontFamily = NULL,
+                 yAxis.splitNumber = NULL,
+                 yAxis.axisLabel.rotate = NULL,
+                 yAxis.axisLabel.margin = NULL,
+                 yAxis.axisLabel.color = NULL,
+                 yAxis.axisLabel.fontStyle = NULL,
+                 yAxis.axisLabel.fontWeight = NULL,
+                 yAxis.axisLabel.fontFamily = NULL,
+                 yAxis.axisLabel.fontSize = 14,
+                 yAxis.axisLabel.align = NULL,
+                 yAxis.axisLabel.verticalAlign = NULL,
+                 yAxis.axisLabel.backgroundColor = NULL,
+                 yAxis.axisLabel.borderColor = NULL,
+                 yAxis.axisLabel.borderWidth = NULL,
+                 yAxis.axisLabel.borderType = NULL,
+                 yAxis.axisLabel.borderRadius = NULL,
+                 yAxis.axisLabel.padding = NULL,
+                 yAxis.axisLabel.shadowColor = NULL,
+                 yAxis.axisLabel.shadowBlur = NULL,
+                 yAxis.axisLabel.shadowOffsetX = NULL,
+                 yAxis.axisLabel.shadowOffsetY = NULL,
+                 yAxis.axisLabel.textBorderColor = NULL,
+                 yAxis.axisLabel.textBorderWidth = NULL,
+                 yAxis.axisLabel.textBorderType = NULL,
+                 yAxis.axisLabel.textShadowColor = NULL,
+                 yAxis.axisLabel.textShadowBlur = NULL,
+                 yAxis.axisLabel.textShadowOffsetX = NULL,
+                 yAxis.axisLabel.textShadowOffsetY = NULL,
+                 yAxis.axisLabel.overflow = NULL,
+                 tooltip.show = TRUE,
+                 tooltip.trigger = "cross",
+                 tooltip.backgroundColor = NULL,
+                 tooltip.borderColor = NULL,
+                 tooltip.borderWidth = NULL,
+                 tooltip.padding = NULL,
+                 tooltip.axisPointer.type = "cross",
+                 tooltip.axisPointer.lineStyle.color = NULL,
+                 tooltip.axisPointer.shadowStyle.color = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                 tooltip.axisPointer.shadowStyle.opacity = NULL,
+                 tooltip.textStyle.color = NULL,
+                 tooltip.textStyle.fontStyle = NULL,
+                 tooltip.textStyle.fontWeight = NULL,
+                 tooltip.textStyle.fontFamily = NULL,
+                 tooltip.textStyle.lineHeight = NULL,
+                 tooltip.textStyle.width = NULL,
+                 tooltip.textStyle.height = NULL,
+                 tooltip.textStyle.textBorderColor = NULL,
+                 tooltip.textStyle.textBorderWidth = NULL,
+                 tooltip.textStyle.textBorderType = NULL,
+                 tooltip.textStyle.textShadowColor = NULL,
+                 tooltip.textStyle.textShadowBlur = NULL,
+                 tooltip.textStyle.textShadowOffsetX = NULL,
+                 tooltip.textStyle.textShadowOffsetY = NULL,
+                 Debug = FALSE) {
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+  if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
+
+  # Correct args
+  if(length(GroupVar) > 0L && length(XVar) == 0L) {
+    XVar <- GroupVar
+    GroupVar <- NULL
+  }
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
+  # Throw an error instead of trimming YVar to only the first value
+  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
+  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
+
+  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
+  if(length(YVar) > 1L) {
+    if(length(GroupVar) > 0L) {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      dt1[, GroupVars := paste0(Measures, GroupVar)]
+      dt1[, Measures := NULL]
+      dt1[, eval(GroupVar) := NULL]
+      GroupVar <- "GroupVars"
+      YVar <- "Values"
+    } else {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      GroupVar <- "Measures"
+      YVar <- "Values"
+    }
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Subset columns
+  Ncols <- ncol(dt1)
+  if(Ncols > 2L && length(GroupVar) == 0L) {
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
+  } else if(length(GroupVar) > 0L) {
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
+    if(length(FacetLevels) > 0) {
+      dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
+    }
+  }
+
+  # Minimize data before moving on
+  if(!PreAgg) {
+
+    # Define Aggregation function
+    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
+    aggFunc <- SummaryFunction(AggMethod)
+
+    # Aggregate data
+    if(length(GroupVar) > 0L) {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
+      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+    } else {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
+      data.table::setorderv(x = dt1, cols = XVar, 1L)
+    }
+  }
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+  }
+  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
+  }
+
+  # Group Variable Case
+  if(length(GroupVar) > 0L) {
+
+    # Prepare Data
+    if(Debug) print("Plot.Line() Build 1")
+    gv <- GroupVar[1L]
+    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
+
+    # Plot
+    if(Debug) print("Plot.Line() Build Echarts 1")
+
+    # Build base plot depending on GroupVar availability
+    if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
+    p1 <- echarts4r::e_charts_(
+      data = dt1 |> dplyr::group_by(get(gv)),
+      x = XVar,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      timeline = TimeLine,
+      dispose = TRUE,
+      width = Width,
+      height = Height)
+
+    # Finalize Plot Build
+    if(Debug) print("Plot.Line() Build Echarts 4")
+    if(ShowLabels) {
+      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+    }
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
+
+  } else {
+
+    # Plot
+    data.table::setorderv(x = dt1, cols = XVar, 1L)
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
+
+    # Build base plot depending on GroupVar availability
+    if(Debug) print("Plot.Line no group Echarts")
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      darkMode = TRUE,
+      dispose = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+    }
+
+    if(length(DualYVar) > 0L) {
+      if(ShowLabels) {
+        p1 <- echarts4r::e_area_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
+      } else {
+        p1 <- echarts4r::e_area_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+      }
+    }
+
+    # Finalize Plot Build
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+  }
+  return(p1)
+}
+
+#' @title Step
+#'
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#'
+#' @author Adrian Antico
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param AggMethod character
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param DualYVar Secondary Y-Axis variables. Leave NULL for no secondary axis. Only one variable is allowed and when this is set only one YVar is allowed. An error will be thrown if those conditions are not met
+#' @param XVar X-Axis variable name
+#' @param GroupVar One Grouping Variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param DualYVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param Theme Provide an "Echarts" theme
+#' @param TimeLine Logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param ShowSymbol = FALSE
+#' @param TextColor "Not Implemented"
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+#'
+#' # Build plot
+#' AutoPlots::Step(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = "mean",
+#'   XVar = "DateTime",
+#'   YVar = "Independent_Variable3",
+#'   YVarTrans = "Identity",
+#'   DualYVar = "Independent_Variable6",
+#'   DualYVarTrans = "Identity",
+#'   GroupVar = NULL,
+#'   Theme = "macarons")
+#'
+#' @return plot
+#' @export
+Step <- function(dt = NULL,
+                 AggMethod = "mean",
+                 PreAgg = TRUE,
+                 XVar = NULL,
+                 YVar = NULL,
+                 DualYVar = NULL,
+                 GroupVar = NULL,
+                 YVarTrans = "Identity",
+                 DualYVarTrans = "Identity",
+                 XVarTrans = "Identity",
+                 FacetRows = 1,
+                 FacetCols = 1,
+                 FacetLevels = NULL,
+                 Height = NULL,
+                 Width = NULL,
+                 ShowLabels = FALSE,
+                 Theme = "dark",
+                 MouseScroll = FALSE,
+                 TimeLine = TRUE,
+                 ShowSymbol = FALSE,
+                 TextColor = "white",
+                 ContainLabel = TRUE,
+                 Title = "Step Plot",
+                 title.fontSize = 22,
+                 title.fontWeight = "bold",
+                 title.textShadowColor = '#63aeff',
+                 title.textShadowBlur = 3,
+                 title.textShadowOffsetY = 1,
+                 title.textShadowOffsetX = -1,
+                 xAxis.title = NULL,
+                 xAxis.min = NULL,
+                 xAxis.max = NULL,
+                 xAxis.position = "bottom",
+                 xAxis.nameLocation = 'center',
+                 xAxis.axisTick.customValues = NULL,
+                 xAxis.nameTextStyle.color = NULL,
+                 xAxis.nameTextStyle.padding = 25,
+                 xAxis.nameTextStyle.align = NULL,
+                 xAxis.nameTextStyle.fontStyle = NULL,
+                 xAxis.nameTextStyle.fontWeight = NULL,
+                 xAxis.nameTextStyle.fontSize = NULL,
+                 xAxis.nameTextStyle.fontFamily = NULL,
+                 xAxis.splitNumber = NULL,
+                 xAxis.axisLabel.rotate = NULL,
+                 xAxis.axisLabel.margin = NULL,
+                 xAxis.axisLabel.color = NULL,
+                 xAxis.axisLabel.fontStyle = NULL,
+                 xAxis.axisLabel.fontWeight = NULL,
+                 xAxis.axisLabel.fontFamily = NULL,
+                 xAxis.axisLabel.fontSize = 14,
+                 xAxis.axisLabel.align = NULL,
+                 xAxis.axisLabel.verticalAlign = NULL,
+                 xAxis.axisLabel.backgroundColor = NULL,
+                 xAxis.axisLabel.borderColor = NULL,
+                 xAxis.axisLabel.borderWidth = NULL,
+                 xAxis.axisLabel.borderType = NULL,
+                 xAxis.axisLabel.borderRadius = NULL,
+                 xAxis.axisLabel.padding = NULL,
+                 xAxis.axisLabel.shadowColor = NULL,
+                 xAxis.axisLabel.shadowBlur = NULL,
+                 xAxis.axisLabel.shadowOffsetX = NULL,
+                 xAxis.axisLabel.shadowOffsetY = NULL,
+                 xAxis.axisLabel.textBorderColor = NULL,
+                 xAxis.axisLabel.textBorderWidth = NULL,
+                 xAxis.axisLabel.textBorderType = NULL,
+                 xAxis.axisLabel.textShadowColor = NULL,
+                 xAxis.axisLabel.textShadowBlur = NULL,
+                 xAxis.axisLabel.textShadowOffsetX = NULL,
+                 xAxis.axisLabel.textShadowOffsetY = NULL,
+                 xAxis.axisLabel.overflow = NULL,
+                 yAxis.title = NULL,
+                 yAxis.min = NULL,
+                 yAxis.max = NULL,
+                 yAxis.position = "center",
+                 yAxis.nameLocation = 'center',
+                 yAxis.axisTick.customValues = NULL,
+                 yAxis.nameTextStyle.color = NULL,
+                 yAxis.nameTextStyle.padding = 25,
+                 yAxis.nameTextStyle.align = NULL,
+                 yAxis.nameTextStyle.fontStyle = NULL,
+                 yAxis.nameTextStyle.fontWeight = NULL,
+                 yAxis.nameTextStyle.fontSize = NULL,
+                 yAxis.nameTextStyle.fontFamily = NULL,
+                 yAxis.splitNumber = NULL,
+                 yAxis.axisLabel.rotate = NULL,
+                 yAxis.axisLabel.margin = NULL,
+                 yAxis.axisLabel.color = NULL,
+                 yAxis.axisLabel.fontStyle = NULL,
+                 yAxis.axisLabel.fontWeight = NULL,
+                 yAxis.axisLabel.fontFamily = NULL,
+                 yAxis.axisLabel.fontSize = 14,
+                 yAxis.axisLabel.align = NULL,
+                 yAxis.axisLabel.verticalAlign = NULL,
+                 yAxis.axisLabel.backgroundColor = NULL,
+                 yAxis.axisLabel.borderColor = NULL,
+                 yAxis.axisLabel.borderWidth = NULL,
+                 yAxis.axisLabel.borderType = NULL,
+                 yAxis.axisLabel.borderRadius = NULL,
+                 yAxis.axisLabel.padding = NULL,
+                 yAxis.axisLabel.shadowColor = NULL,
+                 yAxis.axisLabel.shadowBlur = NULL,
+                 yAxis.axisLabel.shadowOffsetX = NULL,
+                 yAxis.axisLabel.shadowOffsetY = NULL,
+                 yAxis.axisLabel.textBorderColor = NULL,
+                 yAxis.axisLabel.textBorderWidth = NULL,
+                 yAxis.axisLabel.textBorderType = NULL,
+                 yAxis.axisLabel.textShadowColor = NULL,
+                 yAxis.axisLabel.textShadowBlur = NULL,
+                 yAxis.axisLabel.textShadowOffsetX = NULL,
+                 yAxis.axisLabel.textShadowOffsetY = NULL,
+                 yAxis.axisLabel.overflow = NULL,
+                 tooltip.show = TRUE,
+                 tooltip.trigger = "cross",
+                 tooltip.backgroundColor = NULL,
+                 tooltip.borderColor = NULL,
+                 tooltip.borderWidth = NULL,
+                 tooltip.padding = NULL,
+                 tooltip.axisPointer.type = "cross",
+                 tooltip.axisPointer.lineStyle.color = NULL,
+                 tooltip.axisPointer.shadowStyle.color = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                 tooltip.axisPointer.shadowStyle.opacity = NULL,
+                 tooltip.textStyle.color = NULL,
+                 tooltip.textStyle.fontStyle = NULL,
+                 tooltip.textStyle.fontWeight = NULL,
+                 tooltip.textStyle.fontFamily = NULL,
+                 tooltip.textStyle.lineHeight = NULL,
+                 tooltip.textStyle.width = NULL,
+                 tooltip.textStyle.height = NULL,
+                 tooltip.textStyle.textBorderColor = NULL,
+                 tooltip.textStyle.textBorderWidth = NULL,
+                 tooltip.textStyle.textBorderType = NULL,
+                 tooltip.textStyle.textShadowColor = NULL,
+                 tooltip.textStyle.textShadowBlur = NULL,
+                 tooltip.textStyle.textShadowOffsetX = NULL,
+                 tooltip.textStyle.textShadowOffsetY = NULL,
+                 Debug = FALSE) {
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+  if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
+
+  # Correct args
+  if(length(GroupVar) > 0L && length(XVar) == 0L) {
+    XVar <- GroupVar
+    GroupVar <- NULL
+  }
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+
+  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
+  # Throw an error instead of trimming YVar to only the first value
+  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
+  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
+
+  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
+  if(length(YVar) > 1L) {
+    if(length(GroupVar) > 0L) {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      dt1[, GroupVars := paste0(Measures, GroupVar)]
+      dt1[, Measures := NULL]
+      dt1[, eval(GroupVar) := NULL]
+      GroupVar <- "GroupVars"
+      YVar <- "Values"
+    } else {
+      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+      GroupVar <- "Measures"
+      YVar <- "Values"
+    }
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Subset columns
+  Ncols <- ncol(dt1)
+  if(Ncols > 2L && length(GroupVar) == 0L) {
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
+  } else if(length(GroupVar) > 0L) {
+    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
+    if(length(FacetLevels) > 0) {
+      dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
+    }
+  }
+
+  # Minimize data before moving on
+  if(!PreAgg) {
+
+    # Define Aggregation function
+    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
+    aggFunc <- SummaryFunction(AggMethod)
+
+    # Aggregate data
+    if(length(GroupVar) > 0L) {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
+      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+    } else {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
+      data.table::setorderv(x = dt1, cols = XVar, 1L)
+    }
+  }
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+  }
+  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
+  }
+
+  # Group Variable Case
+  if(length(GroupVar) > 0L) {
+
+    # Prepare Data
+    if(Debug) print("Plot.Line() Build 1")
+    gv <- GroupVar[1L]
+    if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
+
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
+
+    # Plot
+    if(Debug) print("Plot.Line() Build Echarts 1")
+
+    # Build base plot depending on GroupVar availability
+    if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
+    p1 <- echarts4r::e_charts_(
+      data = dt1 |> dplyr::group_by(get(gv)),
+      x = XVar,
+      timeline = TimeLine,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      dispose = TRUE,
+      width = Width,
+      height = Height)
+
+    # Finalize Plot Build
+    if(Debug) print("Plot.Line() Build Echarts 4")
+    if(ShowLabels) {
+      p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol)
+    }
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
+
+  } else {
+
+    # Plot
+    data.table::setorderv(x = dt1, cols = XVar, 1L)
+    cxv <- class(dt1[[XVar]])[1L]
+    if(cxv %in% "IDate") {
+      dt1[, eval(XVar) := as.Date(get(XVar))]
+    } else if(cxv %in% "IDateTime") {
+      dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+    }
+
+    # Build base plot depending on GroupVar availability
+    if(Debug) print("Plot.Line no group Echarts")
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol)
+    }
+
+    if(length(DualYVar) > 0L) {
+      if(ShowLabels) {
+        p1 <- echarts4r::e_step_(e = p1, serie = DualYVar, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
+      } else {
+        p1 <- echarts4r::e_step_(e = p1, serie = DualYVar, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+      }
+    }
+
+    # Finalize Plot Build
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+  }
+  return(p1)
+}
+
+#' @title River
+#'
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#'
+#' @author Adrian Antico
+#' @family Standard Plots
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param AggMethod character
+#' @param YVar Y-Axis variable name. You can supply multiple YVars
+#' @param XVar X-Axis variable name
+#' @param GroupVar One Grouping Variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param Theme Provide an "Echarts" theme
+#' @param TimeLine Logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param ShowSymbol = FALSE
+#' @param TextColor "Not Implemented"
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+#'
+#' # Build plot
+#' AutoPlots::River(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = "mean",
+#'   XVar = "DateTime",
+#'   YVar = c(
+#'     "Independent_Variable1",
+#'     "Independent_Variable2",
+#'     "Independent_Variable3",
+#'     "Independent_Variable4",
+#'     "Independent_Variable5"),
+#'   YVarTrans = "Identity",
+#'   TextColor = "black",
+#'   Theme = "macarons")
+#'
+#' @return plot
+#' @export
+River <- function(dt = NULL,
+                  AggMethod = "mean",
+                  PreAgg = TRUE,
+                  XVar = NULL,
+                  YVar = NULL,
+                  GroupVar = NULL,
+                  YVarTrans = "Identity",
+                  XVarTrans = "Identity",
+                  FacetRows = 1,
+                  FacetCols = 1,
+                  FacetLevels = NULL,
+                  Height = NULL,
+                  Width = NULL,
+                  ShowLabels = FALSE,
+                  Theme = "dark",
+                  MouseScroll = FALSE,
+                  TimeLine = TRUE,
+                  ShowSymbol = FALSE,
+                  TextColor = "white",
+                  Title = "River Plot",
+                  title.fontSize = 22,
+                  title.fontWeight = "bold",
+                  title.textShadowColor = '#63aeff',
+                  title.textShadowBlur = 3,
+                  title.textShadowOffsetY = 1,
+                  title.textShadowOffsetX = -1,
+                  xAxis.title = NULL,
+                  xAxis.min = NULL,
+                  xAxis.max = NULL,
+                  xAxis.position = "bottom",
+                  xAxis.nameLocation = 'center',
+                  xAxis.axisTick.customValues = NULL,
+                  xAxis.nameTextStyle.color = NULL,
+                  xAxis.nameTextStyle.padding = 25,
+                  xAxis.nameTextStyle.align = NULL,
+                  xAxis.nameTextStyle.fontStyle = NULL,
+                  xAxis.nameTextStyle.fontWeight = NULL,
+                  xAxis.nameTextStyle.fontSize = NULL,
+                  xAxis.nameTextStyle.fontFamily = NULL,
+                  xAxis.splitNumber = NULL,
+                  xAxis.axisLabel.rotate = NULL,
+                  xAxis.axisLabel.margin = NULL,
+                  xAxis.axisLabel.color = NULL,
+                  xAxis.axisLabel.fontStyle = NULL,
+                  xAxis.axisLabel.fontWeight = NULL,
+                  xAxis.axisLabel.fontFamily = NULL,
+                  xAxis.axisLabel.fontSize = 14,
+                  xAxis.axisLabel.align = NULL,
+                  xAxis.axisLabel.verticalAlign = NULL,
+                  xAxis.axisLabel.backgroundColor = NULL,
+                  xAxis.axisLabel.borderColor = NULL,
+                  xAxis.axisLabel.borderWidth = NULL,
+                  xAxis.axisLabel.borderType = NULL,
+                  xAxis.axisLabel.borderRadius = NULL,
+                  xAxis.axisLabel.padding = NULL,
+                  xAxis.axisLabel.shadowColor = NULL,
+                  xAxis.axisLabel.shadowBlur = NULL,
+                  xAxis.axisLabel.shadowOffsetX = NULL,
+                  xAxis.axisLabel.shadowOffsetY = NULL,
+                  xAxis.axisLabel.textBorderColor = NULL,
+                  xAxis.axisLabel.textBorderWidth = NULL,
+                  xAxis.axisLabel.textBorderType = NULL,
+                  xAxis.axisLabel.textShadowColor = NULL,
+                  xAxis.axisLabel.textShadowBlur = NULL,
+                  xAxis.axisLabel.textShadowOffsetX = NULL,
+                  xAxis.axisLabel.textShadowOffsetY = NULL,
+                  xAxis.axisLabel.overflow = NULL,
+                  yAxis.title = NULL,
+                  yAxis.min = NULL,
+                  yAxis.max = NULL,
+                  yAxis.position = "center",
+                  yAxis.nameLocation = 'center',
+                  yAxis.axisTick.customValues = NULL,
+                  yAxis.nameTextStyle.color = NULL,
+                  yAxis.nameTextStyle.padding = 25,
+                  yAxis.nameTextStyle.align = NULL,
+                  yAxis.nameTextStyle.fontStyle = NULL,
+                  yAxis.nameTextStyle.fontWeight = NULL,
+                  yAxis.nameTextStyle.fontSize = NULL,
+                  yAxis.nameTextStyle.fontFamily = NULL,
+                  yAxis.splitNumber = NULL,
+                  yAxis.axisLabel.rotate = NULL,
+                  yAxis.axisLabel.margin = NULL,
+                  yAxis.axisLabel.color = NULL,
+                  yAxis.axisLabel.fontStyle = NULL,
+                  yAxis.axisLabel.fontWeight = NULL,
+                  yAxis.axisLabel.fontFamily = NULL,
+                  yAxis.axisLabel.fontSize = 14,
+                  yAxis.axisLabel.align = NULL,
+                  yAxis.axisLabel.verticalAlign = NULL,
+                  yAxis.axisLabel.backgroundColor = NULL,
+                  yAxis.axisLabel.borderColor = NULL,
+                  yAxis.axisLabel.borderWidth = NULL,
+                  yAxis.axisLabel.borderType = NULL,
+                  yAxis.axisLabel.borderRadius = NULL,
+                  yAxis.axisLabel.padding = NULL,
+                  yAxis.axisLabel.shadowColor = NULL,
+                  yAxis.axisLabel.shadowBlur = NULL,
+                  yAxis.axisLabel.shadowOffsetX = NULL,
+                  yAxis.axisLabel.shadowOffsetY = NULL,
+                  yAxis.axisLabel.textBorderColor = NULL,
+                  yAxis.axisLabel.textBorderWidth = NULL,
+                  yAxis.axisLabel.textBorderType = NULL,
+                  yAxis.axisLabel.textShadowColor = NULL,
+                  yAxis.axisLabel.textShadowBlur = NULL,
+                  yAxis.axisLabel.textShadowOffsetX = NULL,
+                  yAxis.axisLabel.textShadowOffsetY = NULL,
+                  yAxis.axisLabel.overflow = NULL,
+                  tooltip.show = TRUE,
+                  tooltip.trigger = "cross",
+                  tooltip.backgroundColor = NULL,
+                  tooltip.borderColor = NULL,
+                  tooltip.borderWidth = NULL,
+                  tooltip.padding = NULL,
+                  tooltip.axisPointer.type = "cross",
+                  tooltip.axisPointer.lineStyle.color = NULL,
+                  tooltip.axisPointer.shadowStyle.color = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                  tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                  tooltip.axisPointer.shadowStyle.opacity = NULL,
+                  tooltip.textStyle.color = NULL,
+                  tooltip.textStyle.fontStyle = NULL,
+                  tooltip.textStyle.fontWeight = NULL,
+                  tooltip.textStyle.fontFamily = NULL,
+                  tooltip.textStyle.lineHeight = NULL,
+                  tooltip.textStyle.width = NULL,
+                  tooltip.textStyle.height = NULL,
+                  tooltip.textStyle.textBorderColor = NULL,
+                  tooltip.textStyle.textBorderWidth = NULL,
+                  tooltip.textStyle.textBorderType = NULL,
+                  tooltip.textStyle.textShadowColor = NULL,
+                  tooltip.textStyle.textShadowBlur = NULL,
+                  tooltip.textStyle.textShadowOffsetX = NULL,
+                  tooltip.textStyle.textShadowOffsetY = NULL,
+                  Debug = FALSE) {
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+  if(length(GroupVar) == 0L && length(YVar) <= 1L) {
+    if(Debug) print("if(length(GroupVar) == 0L && length(YVar) <= 1L) return(NULL)")
+    return(NULL)
+  }
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+  Ncols <- ncol(dt)
+  if(length(FacetLevels) > 0L) {
+    dt1 <- data.table::copy(dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar, XVar, GroupVar)])
+  } else {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar)])
+  }
+
+  if(Debug) print("Plot.River 3")
+
+  # Minimize data before moving on
+  if(!PreAgg) {
+
+    if(Debug) print("Plot.River 4")
+
+    # DCast -> redefine YVar -> Proceed as normal
+    if(length(YVar) == 1L && length(GroupVar) > 0L) {
+      dt1 <- data.table::dcast.data.table(
+        data = dt1,
+        formula = get(XVar) ~ get(GroupVar[1L]),
+        fun.aggregate = sum,
+        value.var = eval(YVar))
+      data.table::setnames(x = dt1, "XVar", c(XVar))
+      YVar <- names(dt1)[-1L]
+      GroupVar <- NULL
+    }
+
+    # Define Aggregation function
+    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
+    aggFunc <- SummaryFunction(AggMethod)
+
+    # Aggregate data
+    if(length(GroupVar) > 0L) {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
+      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), rep(1L, length(c(GroupVar[1L], XVar))))
+    } else {
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
+      data.table::setorderv(x = dt1, cols = XVar, 1L)
+    }
+  }
+
+  # Transformation
+  for(yvart in YVarTrans) {
+    if(YVarTrans != "Identity") {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = yvart, Methods = YVarTrans)$Data
+    }
+  }
+
+  if(Debug) print("Plot.River 6b")
+
+  # Plot
+  data.table::setorderv(x = dt1, cols = XVar, 1L)
+  cxv <- class(dt1[[XVar]])[1L]
+  if(cxv %in% "IDate") {
+    dt1[, eval(XVar) := as.Date(get(XVar))]
+  } else if(cxv %in% "IDateTime") {
+    dt1[, eval(XVar) := as.POSIXct(get(XVar))]
+  }
+
+  if(Debug) print("Plot.River 7b")
+
+  # Build base plot depending on GroupVar availability
+  if(Debug) print("Plot.Line no group Echarts")
+  p1 <- echarts4r::e_charts_(
+    data = dt1,
+    x = XVar,
+    dispose = TRUE,
+    darkMode = TRUE,
+    width = Width,
+    height = Height)
+  for(i in YVar) p1 <- echarts4r::e_river_(e = p1, serie = i)
+
+  if(Debug) print("Plot.River 8b")
+
+  # Finalize Plot Build
+  if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+    p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+  } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+    p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+  } else {
+    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+  }
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  p1 <- echarts4r::e_brush(e = p1)
+
+  p1 <- e_x_axis_full(
+    e = p1,
+    serie = NULL,
+    axis = "x",
+    name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+    xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+    xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+    xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+    xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+    xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+    xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+    xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+    xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+    xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+    xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+    xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+    xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+    xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+    xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+    xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+    xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+    xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+    xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+  p1 <- e_y_axis_full(
+    e = p1,
+    serie = NULL,
+    axis = "y",
+    name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+    yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+    yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+    yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+    yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+    yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+    yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+    yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+    yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+    yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+    yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+    yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+    yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+    yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+    yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+    yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+    yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+    yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+    yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  return(p1)
+}
+
+#' @title Bar
+#'
+#' @description Build a bar plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param LabelValues A vector of values. Requires PreAgg to be set to TRUE and you'll need to ensure LabelValues are ordered the same as dt. If NULL and ShowLabels is TRUE, then bar values will be displayed
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels logical
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor 'darkblue'
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts Bar Chart
+#' AutoPlots::Bar(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   XVar = "Factor_1",
+#'   YVar = "Adrian",
+#'   GroupVar = NULL,
+#'   LabelValues = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Bar Plot',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = "Adrian",
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.fontSize = 14,
+#'   yaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Bar <- function(dt = NULL,
+                PreAgg = FALSE,
+                XVar = NULL,
+                YVar = NULL,
+                GroupVar = NULL,
+                LabelValues = NULL,
+                YVarTrans = "Identity",
+                XVarTrans = "Identity",
+                FacetRows = 1,
+                FacetCols = 1,
+                FacetLevels = NULL,
+                AggMethod = 'mean',
+                Height = NULL,
+                Width = NULL,
+                ShowLabels = FALSE,
+                Theme = "dark",
+                MouseScroll = FALSE,
+                TimeLine = TRUE,
+                TextColor = "white",
+                ContainLabel = TRUE,
+                Title = "Bar Plot",
+                title.fontSize = 22,
+                title.fontWeight = "bold",
+                title.textShadowColor = '#63aeff',
+                title.textShadowBlur = 3,
+                title.textShadowOffsetY = 1,
+                title.textShadowOffsetX = -1,
+                xAxis.title = NULL,
+                xAxis.min = NULL,
+                xAxis.max = NULL,
+                xAxis.position = "bottom",
+                xAxis.nameLocation = 'center',
+                xAxis.axisTick.customValues = NULL,
+                xAxis.nameTextStyle.color = NULL,
+                xAxis.nameTextStyle.padding = 25,
+                xAxis.nameTextStyle.align = NULL,
+                xAxis.nameTextStyle.fontStyle = NULL,
+                xAxis.nameTextStyle.fontWeight = NULL,
+                xAxis.nameTextStyle.fontSize = NULL,
+                xAxis.nameTextStyle.fontFamily = NULL,
+                xAxis.splitNumber = NULL,
+                xAxis.axisLabel.rotate = NULL,
+                xAxis.axisLabel.margin = NULL,
+                xAxis.axisLabel.color = NULL,
+                xAxis.axisLabel.fontStyle = NULL,
+                xAxis.axisLabel.fontWeight = NULL,
+                xAxis.axisLabel.fontFamily = NULL,
+                xAxis.axisLabel.fontSize = 14,
+                xAxis.axisLabel.align = NULL,
+                xAxis.axisLabel.verticalAlign = NULL,
+                xAxis.axisLabel.backgroundColor = NULL,
+                xAxis.axisLabel.borderColor = NULL,
+                xAxis.axisLabel.borderWidth = NULL,
+                xAxis.axisLabel.borderType = NULL,
+                xAxis.axisLabel.borderRadius = NULL,
+                xAxis.axisLabel.padding = NULL,
+                xAxis.axisLabel.shadowColor = NULL,
+                xAxis.axisLabel.shadowBlur = NULL,
+                xAxis.axisLabel.shadowOffsetX = NULL,
+                xAxis.axisLabel.shadowOffsetY = NULL,
+                xAxis.axisLabel.textBorderColor = NULL,
+                xAxis.axisLabel.textBorderWidth = NULL,
+                xAxis.axisLabel.textBorderType = NULL,
+                xAxis.axisLabel.textShadowColor = NULL,
+                xAxis.axisLabel.textShadowBlur = NULL,
+                xAxis.axisLabel.textShadowOffsetX = NULL,
+                xAxis.axisLabel.textShadowOffsetY = NULL,
+                xAxis.axisLabel.overflow = NULL,
+                yAxis.title = NULL,
+                yAxis.min = NULL,
+                yAxis.max = NULL,
+                yAxis.position = "center",
+                yAxis.nameLocation = 'center',
+                yAxis.axisTick.customValues = NULL,
+                yAxis.nameTextStyle.color = NULL,
+                yAxis.nameTextStyle.padding = 25,
+                yAxis.nameTextStyle.align = NULL,
+                yAxis.nameTextStyle.fontStyle = NULL,
+                yAxis.nameTextStyle.fontWeight = NULL,
+                yAxis.nameTextStyle.fontSize = NULL,
+                yAxis.nameTextStyle.fontFamily = NULL,
+                yAxis.splitNumber = NULL,
+                yAxis.axisLabel.rotate = NULL,
+                yAxis.axisLabel.margin = NULL,
+                yAxis.axisLabel.color = NULL,
+                yAxis.axisLabel.fontStyle = NULL,
+                yAxis.axisLabel.fontWeight = NULL,
+                yAxis.axisLabel.fontFamily = NULL,
+                yAxis.axisLabel.fontSize = 14,
+                yAxis.axisLabel.align = NULL,
+                yAxis.axisLabel.verticalAlign = NULL,
+                yAxis.axisLabel.backgroundColor = NULL,
+                yAxis.axisLabel.borderColor = NULL,
+                yAxis.axisLabel.borderWidth = NULL,
+                yAxis.axisLabel.borderType = NULL,
+                yAxis.axisLabel.borderRadius = NULL,
+                yAxis.axisLabel.padding = NULL,
+                yAxis.axisLabel.shadowColor = NULL,
+                yAxis.axisLabel.shadowBlur = NULL,
+                yAxis.axisLabel.shadowOffsetX = NULL,
+                yAxis.axisLabel.shadowOffsetY = NULL,
+                yAxis.axisLabel.textBorderColor = NULL,
+                yAxis.axisLabel.textBorderWidth = NULL,
+                yAxis.axisLabel.textBorderType = NULL,
+                yAxis.axisLabel.textShadowColor = NULL,
+                yAxis.axisLabel.textShadowBlur = NULL,
+                yAxis.axisLabel.textShadowOffsetX = NULL,
+                yAxis.axisLabel.textShadowOffsetY = NULL,
+                yAxis.axisLabel.overflow = NULL,
+                tooltip.show = TRUE,
+                tooltip.trigger = "cross",
+                tooltip.backgroundColor = NULL,
+                tooltip.borderColor = NULL,
+                tooltip.borderWidth = NULL,
+                tooltip.padding = NULL,
+                tooltip.axisPointer.type = "cross",
+                tooltip.axisPointer.lineStyle.color = NULL,
+                tooltip.axisPointer.shadowStyle.color = NULL,
+                tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                tooltip.axisPointer.shadowStyle.opacity = NULL,
+                tooltip.textStyle.color = NULL,
+                tooltip.textStyle.fontStyle = NULL,
+                tooltip.textStyle.fontWeight = NULL,
+                tooltip.textStyle.fontFamily = NULL,
+                tooltip.textStyle.lineHeight = NULL,
+                tooltip.textStyle.width = NULL,
+                tooltip.textStyle.height = NULL,
+                tooltip.textStyle.textBorderColor = NULL,
+                tooltip.textStyle.textBorderWidth = NULL,
+                tooltip.textStyle.textBorderType = NULL,
+                tooltip.textStyle.textShadowColor = NULL,
+                tooltip.textStyle.textShadowBlur = NULL,
+                tooltip.textStyle.textShadowOffsetX = NULL,
+                tooltip.textStyle.textShadowOffsetY = NULL,
+                Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
+  # Used multiple times
+  check1 <- length(XVar) != 0 && length(YVar) != 0
+  check2 <- length(XVar) == 0 && length(YVar) != 0
+  check3 <- length(XVar) != 0 && length(YVar) == 0
+
+  # Define Aggregation function
+  if(!PreAgg) {
+    aggFunc <- SummaryFunction(AggMethod)
+  }
+
+  # Create base plot object
+  numvars <- c()
+  byvars <- c()
+  if(check1) {
+    if(length(GroupVar) != 0L) {
+      if(!PreAgg) {
+
+        if(length(FacetLevels) > 0L) {
+          dt <- dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
+        }
+
+        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, YVar))
+        } else {
+          byvars <- unique(c(byvars, YVar))
+        }
+        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          if(length(numvars) > 0) {
+            x <- length(unique(dt[[XVar]]))
+            y <- length(unique(dt[[YVar]]))
+            if(x > y) {
+              byvars <- unique(c(byvars, YVar))
+              numvars[1L] <- XVar
+            } else {
+              byvars <- unique(c(byvars, XVar))
+            }
+          } else {
+            numvars <- unique(c(numvars, XVar))
+          }
+        } else {
+          byvars <- unique(c(byvars, XVar))
+        }
+        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          dt[, eval(GroupVar) := as.character(get(GroupVar))]
+          byvars <- unique(c(byvars, GroupVar))
+        } else {
+          byvars <- unique(c(byvars, GroupVar))
+        }
+        if(!is.null(byvars)) {
+          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+          for(i in byvars) {
+            if(class(temp[[i]]) %in% c('numeric','integer')) {
+              temp[, eval(i) := as.character(get(i))]
+            }
+          }
+        } else {
+          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+        }
+      } else {
+        temp <- data.table::copy(dt)
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+      }
+
+      # Transformation
+      if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
+        YVarTrans <- XVarTrans
+      }
+      if(YVarTrans != "Identity") {
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+      }
+
+      # Plot
+      p1 <- echarts4r::e_charts_(
+        temp |> dplyr::group_by(get(GroupVar[1L])),
+        x = XVar,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        dispose = TRUE,
+        width = Width,
+        height = Height)
+
+      if(ShowLabels) {
+        p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
+      } else {
+        p1 <- echarts4r::e_bar_(e = p1, YVar)
+      }
+
+      if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+      } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      }
+      p1 <- echarts4r::e_theme(e = p1, name = Theme)
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- e_tooltip_full(
+        e = p1,
+        tooltip.show = tooltip.show,
+        tooltip.trigger = tooltip.trigger,
+        tooltip.backgroundColor = tooltip.backgroundColor,
+        tooltip.borderColor = tooltip.borderColor,
+        tooltip.borderWidth = tooltip.borderWidth,
+        tooltip.padding = tooltip.padding,
+        tooltip.axisPointer.type = tooltip.axisPointer.type,
+        tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+        tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+        tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+        tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+        tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+        tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+        tooltip.textStyle.color = tooltip.textStyle.color,
+        tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+        tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+        tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+        tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+        tooltip.textStyle.width = tooltip.textStyle.width,
+        tooltip.textStyle.height = tooltip.textStyle.height,
+        tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+        tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+        tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+        tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+        tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+        tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+        tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+      p1 <- echarts4r::e_brush(e = p1)
+      p1 <- echarts4r::e_title(
+        p1, Title,
+        textStyle = list(
+          color = TextColor,
+          fontWeight = title.fontWeight,
+          overflow = "truncate", # "none", "truncate", "break",
+          ellipsis = '...',
+          fontSize = title.fontSize,
+          textShadowColor = title.textShadowColor,
+          textShadowBlur = title.textShadowBlur,
+          textShadowOffsetY = title.textShadowOffsetY,
+          textShadowOffsetX = title.textShadowOffsetX))
+      if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(
+        e = p1,
+        rows = FacetRows,
+        cols = FacetCols,
+        legend_space = 16,
+        legend_pos = "top")
+
+      p1 <- e_x_axis_full(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+        xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+        xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+        xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+        xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+        xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+        xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+        xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+        xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+        xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+        xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+        xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+        xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+        xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+        xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+        xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+        xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+        xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+        xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+      p1 <- e_y_axis_full(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+        yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+        yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+        yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+        yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+        yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+        yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+        yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+        yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+        yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+        yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+        yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+        yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+        yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+        yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+        yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+        yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+        yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+        yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+      return(p1)
+
+    } else {
+
+      if(Debug) {
+        print("BarPlot 2.b")
+        print(PreAgg)
+      }
+
+      if(!PreAgg) {
+        if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+          numvars <- unique(c(numvars, YVar))
+        } else {
+          byvars <- unique(c(byvars, YVar))
+        }
+        if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+          if(length(numvars) > 0) {
+            x <- length(unique(dt[[XVar]]))
+            y <- length(unique(dt[[YVar]]))
+            if(x > y) {
+              byvars <- unique(c(byvars, YVar))
+              numvars[1L] <- XVar
+            } else {
+              byvars <- unique(c(byvars, XVar))
+            }
+          } else {
+            numvars <- unique(c(numvars, XVar))
+          }
+        } else {
+          byvars <- unique(c(byvars, XVar))
+        }
+        if(!is.null(byvars)) {
+          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+          for(i in byvars) {
+            if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
+              temp[, eval(i) := as.character(get(i))]
+            }
+          }
+        } else {
+          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+        }
+      } else {
+        temp <- data.table::copy(dt)
+        if(Debug) print("BarPlot 2.bb")
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+      }
+
+      if(Debug) print("BarPlot 2.bbb")
+
+      # Transformation
+      if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
+        YVarTrans <- XVarTrans
+      }
+
+      if(Debug) print("BarPlot 2.bbbb")
+
+      if(YVarTrans != "Identity") {
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+      }
+
+      if(Debug) print("BarPlot 2.bbbbb")
+
+      # yvar <- temp[[YVar]]
+      # xvar <- temp[[XVar]]
+
+      # Plot
+      if(XVar == "Importance" && YVar == "Variable") {
+        XVar <- "Variable"
+        YVar <- "Importance"
+      }
+
+      if(Debug) print("BarPlot 2.bbbbbb")
+
+      p1 <- echarts4r::e_charts_(
+        temp,
+        x = XVar,
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
+
+      if(Debug) print("BarPlot 2.c")
+
+      if(ShowLabels) {
+        if(length(LabelValues) > 0L && PreAgg) {
+          p1 <- echarts4r::e_charts_(
+            temp,
+            x = XVar,
+            dispose = TRUE,
+            darkMode = TRUE,
+            width = Width,
+            height = Height) |>
+            echarts4r::e_bar_(
+              YVar,
+              bind = LabelValues,
+              label = list(
+                show = TRUE,
+                formatter = "{b}",
+                position = "outside"))
+
+        } else {
+          p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
+        }
+
+      } else {
+        if(Debug) print("BarPlot 2.cc")
+        p1 <- echarts4r::e_bar_(e = p1, YVar)
+      }
+      if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+      } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      }
+      if(Debug) print("BarPlot 2.cccc")
+      p1 <- echarts4r::e_theme(e = p1, name = Theme)
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- e_tooltip_full(
+        e = p1,
+        tooltip.show = tooltip.show,
+        tooltip.trigger = tooltip.trigger,
+        tooltip.backgroundColor = tooltip.backgroundColor,
+        tooltip.borderColor = tooltip.borderColor,
+        tooltip.borderWidth = tooltip.borderWidth,
+        tooltip.padding = tooltip.padding,
+        tooltip.axisPointer.type = tooltip.axisPointer.type,
+        tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+        tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+        tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+        tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+        tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+        tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+        tooltip.textStyle.color = tooltip.textStyle.color,
+        tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+        tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+        tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+        tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+        tooltip.textStyle.width = tooltip.textStyle.width,
+        tooltip.textStyle.height = tooltip.textStyle.height,
+        tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+        tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+        tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+        tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+        tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+        tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+        tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+      if(Debug) print("BarPlot 2.d")
+      p1 <- e_x_axis_full(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+        xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+        xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+        xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+        xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+        xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+        xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+        xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+        xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+        xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+        xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+        xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+        xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+        xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+        xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+        xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+        xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+        xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+        xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+      p1 <- e_y_axis_full(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+        yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+        yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+        yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+        yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+        yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+        yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+        yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+        yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+        yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+        yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+        yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+        yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+        yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+        yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+        yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+        yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+        yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+        yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+      if(Debug) print("BarPlot 2.f")
+      p1 <- echarts4r::e_brush(e = p1)
+      p1 <- echarts4r::e_title(
+        p1, Title,
+        textStyle = list(
+          color = TextColor,
+          fontWeight = title.fontWeight,
+          overflow = "truncate", # "none", "truncate", "break",
+          ellipsis = '...',
+          fontSize = title.fontSize,
+          textShadowColor = title.textShadowColor,
+          textShadowBlur = title.textShadowBlur,
+          textShadowOffsetY = title.textShadowOffsetY,
+          textShadowOffsetX = title.textShadowOffsetX))
+      if(Debug) print("BarPlot 2.g")
+      if(FacetRows > 1L || FacetCols > 1L) {
+        p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+      } else {
+        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+      }
+      if(Debug) print("BarPlot 2.h")
+      return(p1)
+    }
+
+  }
+
+  if(check2) {
+
+    if(length(GroupVar) != 0) {
+      if(!PreAgg) {
+        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, YVar))
+        } else {
+          byvars <- unique(c(byvars, YVar))
+        }
+        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, GroupVar))
+        } else {
+          byvars <- unique(c(byvars, GroupVar))
+        }
+        if(!is.null(byvars)) {
+          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+        } else {
+          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+        }
+      } else {
+        temp <- data.table::copy(dt)
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+      }
+
+      # Transformation
+      if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
+        YVarTrans <- XVarTrans
+      }
+      if(YVarTrans != "Identity") {
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+      }
+
+      p1 <- echarts4r::e_charts_(
+        temp, x = GroupVar[1L],
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
+      if(ShowLabels) {
+        p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
+      } else {
+        p1 <- echarts4r::e_bar_(e = p1, YVar)
+      }
+      if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+      } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      }
+      p1 <- echarts4r::e_theme(e = p1, name = Theme)
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- e_tooltip_full(
+        e = p1,
+        tooltip.show = tooltip.show,
+        tooltip.trigger = tooltip.trigger,
+        tooltip.backgroundColor = tooltip.backgroundColor,
+        tooltip.borderColor = tooltip.borderColor,
+        tooltip.borderWidth = tooltip.borderWidth,
+        tooltip.padding = tooltip.padding,
+        tooltip.axisPointer.type = tooltip.axisPointer.type,
+        tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+        tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+        tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+        tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+        tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+        tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+        tooltip.textStyle.color = tooltip.textStyle.color,
+        tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+        tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+        tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+        tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+        tooltip.textStyle.width = tooltip.textStyle.width,
+        tooltip.textStyle.height = tooltip.textStyle.height,
+        tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+        tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+        tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+        tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+        tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+        tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+        tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+      p1 <- e_x_axis_full(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+        xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+        xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+        xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+        xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+        xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+        xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+        xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+        xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+        xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+        xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+        xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+        xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+        xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+        xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+        xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+        xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+        xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+        xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+      p1 <- e_y_axis_full(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+        yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+        yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+        yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+        yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+        yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+        yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+        yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+        yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+        yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+        yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+        yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+        yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+        yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+        yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+        yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+        yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+        yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+        yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+      p1 <- echarts4r::e_brush(e = p1)
+      p1 <- echarts4r::e_title(
+        p1, Title,
+        textStyle = list(
+          color = TextColor,
+          fontWeight = title.fontWeight,
+          overflow = "truncate", # "none", "truncate", "break",
+          ellipsis = '...',
+          fontSize = title.fontSize,
+          textShadowColor = title.textShadowColor,
+          textShadowBlur = title.textShadowBlur,
+          textShadowOffsetY = title.textShadowOffsetY,
+          textShadowOffsetX = title.textShadowOffsetX))
+      if(FacetRows > 1L || FacetCols > 1L) {
+        p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+      } else {
+        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+      }
+
+      return(p1)
+    } else {
+      return(NULL)
+    }
+
+  }
+
+  if(check3) {
+
+    if(length(GroupVar) != 0) {
+      if(!PreAgg) {
+        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, XVar))
+        } else {
+          byvars <- unique(c(byvars, XVar))
+        }
+        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+          numvars <- unique(c(numvars, GroupVar))
+        } else {
+          byvars <- unique(c(byvars, GroupVar))
+        }
+        if(!is.null(byvars)) {
+          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+        } else {
+          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+        }
+      } else {
+        temp <- data.table::copy(dt)
+        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+      }
+
+      # Transformation
+      if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
+        YVarTrans <- XVarTrans
+      }
+      if(YVarTrans != "Identity") {
+        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+      }
+
+      # Plot
+      p1 <- echarts4r::e_charts_(
+        temp,
+        x = GroupVar[1L],
+        dispose = TRUE,
+        darkMode = TRUE,
+        width = Width,
+        height = Height)
+      if(ShowLabels) {
+        p1 <- echarts4r::e_bar_(e = p1, XVar, label = list(show = TRUE))
+      } else {
+        p1 <- echarts4r::e_bar_(e = p1, XVar)
+      }
+      if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+      } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+      } else {
+        p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+        p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+      }
+      p1 <- echarts4r::e_theme(e = p1, name = Theme)
+      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+      p1 <- e_tooltip_full(
+        e = p1,
+        tooltip.show = tooltip.show,
+        tooltip.trigger = tooltip.trigger,
+        tooltip.backgroundColor = tooltip.backgroundColor,
+        tooltip.borderColor = tooltip.borderColor,
+        tooltip.borderWidth = tooltip.borderWidth,
+        tooltip.padding = tooltip.padding,
+        tooltip.axisPointer.type = tooltip.axisPointer.type,
+        tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+        tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+        tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+        tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+        tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+        tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+        tooltip.textStyle.color = tooltip.textStyle.color,
+        tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+        tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+        tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+        tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+        tooltip.textStyle.width = tooltip.textStyle.width,
+        tooltip.textStyle.height = tooltip.textStyle.height,
+        tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+        tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+        tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+        tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+        tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+        tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+        tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+      p1 <- e_x_axis_full(
+        e = p1,
+        serie = NULL,
+        axis = "x",
+        name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+        xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+        xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+        xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+        xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+        xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+        xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+        xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+        xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+        xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+        xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+        xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+        xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+        xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+        xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+        xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+        xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+        xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+        xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+      p1 <- e_y_axis_full(
+        e = p1,
+        serie = NULL,
+        axis = "y",
+        name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+        yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+        yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+        yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+        yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+        yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+        yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+        yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+        yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+        yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+        yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+        yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+        yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+        yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+        yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+        yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+        yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+        yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+        yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+      p1 <- echarts4r::e_brush(e = p1)
+      p1 <- echarts4r::e_title(
+        p1, Title,
+        textStyle = list(
+          color = TextColor,
+          fontWeight = title.fontWeight,
+          overflow = "truncate", # "none", "truncate", "break",
+          ellipsis = '...',
+          fontSize = title.fontSize,
+          textShadowColor = title.textShadowColor,
+          textShadowBlur = title.textShadowBlur,
+          textShadowOffsetY = title.textShadowOffsetY,
+          textShadowOffsetX = title.textShadowOffsetX))
+      if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+
+      return(p1)
+    } else {
+      return(NULL)
+    }
+  }
+
+  if(!check1 && !check2 && !check3) return(NULL)
+
+  # Return plot
+  return(p1)
+}
+
+#' @title ACF
+#'
+#' @description Build an autocorrelation plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param YVar Y-Axis variable name
+#' @param DateVar Date column in data
+#' @param TimeUnit Select from "hour", "day", "week", "month", "quarter", "year"
+#' @param MaxLags Max lag values to test
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TextColor 'darkblue'
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+ACF <- function(dt = NULL,
+                YVar = NULL,
+                DateVar = NULL,
+                TimeUnit = NULL,
+                MaxLags = 50,
+                YVarTrans = "Identity",
+                AggMethod = 'sum',
+                Height = NULL,
+                Width = NULL,
+                Theme = "dark",
+                TextColor = "white",
+                ContainLabel = TRUE,
+                Title = "Autocorrelation Plot",
+                title.fontSize = 22,
+                title.fontWeight = "bold",
+                title.textShadowColor = '#63aeff',
+                title.textShadowBlur = 3,
+                title.textShadowOffsetY = 1,
+                title.textShadowOffsetX = -1,
+                xAxis.title = NULL,
+                xAxis.min = NULL,
+                xAxis.max = NULL,
+                xAxis.position = "bottom",
+                xAxis.nameLocation = 'center',
+                xAxis.axisTick.customValues = NULL,
+                xAxis.nameTextStyle.color = NULL,
+                xAxis.nameTextStyle.padding = 25,
+                xAxis.nameTextStyle.align = NULL,
+                xAxis.nameTextStyle.fontStyle = NULL,
+                xAxis.nameTextStyle.fontWeight = NULL,
+                xAxis.nameTextStyle.fontSize = NULL,
+                xAxis.nameTextStyle.fontFamily = NULL,
+                xAxis.splitNumber = NULL,
+                xAxis.axisLabel.rotate = NULL,
+                xAxis.axisLabel.margin = NULL,
+                xAxis.axisLabel.color = NULL,
+                xAxis.axisLabel.fontStyle = NULL,
+                xAxis.axisLabel.fontWeight = NULL,
+                xAxis.axisLabel.fontFamily = NULL,
+                xAxis.axisLabel.fontSize = 14,
+                xAxis.axisLabel.align = NULL,
+                xAxis.axisLabel.verticalAlign = NULL,
+                xAxis.axisLabel.backgroundColor = NULL,
+                xAxis.axisLabel.borderColor = NULL,
+                xAxis.axisLabel.borderWidth = NULL,
+                xAxis.axisLabel.borderType = NULL,
+                xAxis.axisLabel.borderRadius = NULL,
+                xAxis.axisLabel.padding = NULL,
+                xAxis.axisLabel.shadowColor = NULL,
+                xAxis.axisLabel.shadowBlur = NULL,
+                xAxis.axisLabel.shadowOffsetX = NULL,
+                xAxis.axisLabel.shadowOffsetY = NULL,
+                xAxis.axisLabel.textBorderColor = NULL,
+                xAxis.axisLabel.textBorderWidth = NULL,
+                xAxis.axisLabel.textBorderType = NULL,
+                xAxis.axisLabel.textShadowColor = NULL,
+                xAxis.axisLabel.textShadowBlur = NULL,
+                xAxis.axisLabel.textShadowOffsetX = NULL,
+                xAxis.axisLabel.textShadowOffsetY = NULL,
+                xAxis.axisLabel.overflow = NULL,
+                yAxis.title = NULL,
+                yAxis.min = NULL,
+                yAxis.max = NULL,
+                yAxis.position = "center",
+                yAxis.nameLocation = 'center',
+                yAxis.axisTick.customValues = NULL,
+                yAxis.nameTextStyle.color = NULL,
+                yAxis.nameTextStyle.padding = 25,
+                yAxis.nameTextStyle.align = NULL,
+                yAxis.nameTextStyle.fontStyle = NULL,
+                yAxis.nameTextStyle.fontWeight = NULL,
+                yAxis.nameTextStyle.fontSize = NULL,
+                yAxis.nameTextStyle.fontFamily = NULL,
+                yAxis.splitNumber = NULL,
+                yAxis.axisLabel.rotate = NULL,
+                yAxis.axisLabel.margin = NULL,
+                yAxis.axisLabel.color = NULL,
+                yAxis.axisLabel.fontStyle = NULL,
+                yAxis.axisLabel.fontWeight = NULL,
+                yAxis.axisLabel.fontFamily = NULL,
+                yAxis.axisLabel.fontSize = 14,
+                yAxis.axisLabel.align = NULL,
+                yAxis.axisLabel.verticalAlign = NULL,
+                yAxis.axisLabel.backgroundColor = NULL,
+                yAxis.axisLabel.borderColor = NULL,
+                yAxis.axisLabel.borderWidth = NULL,
+                yAxis.axisLabel.borderType = NULL,
+                yAxis.axisLabel.borderRadius = NULL,
+                yAxis.axisLabel.padding = NULL,
+                yAxis.axisLabel.shadowColor = NULL,
+                yAxis.axisLabel.shadowBlur = NULL,
+                yAxis.axisLabel.shadowOffsetX = NULL,
+                yAxis.axisLabel.shadowOffsetY = NULL,
+                yAxis.axisLabel.textBorderColor = NULL,
+                yAxis.axisLabel.textBorderWidth = NULL,
+                yAxis.axisLabel.textBorderType = NULL,
+                yAxis.axisLabel.textShadowColor = NULL,
+                yAxis.axisLabel.textShadowBlur = NULL,
+                yAxis.axisLabel.textShadowOffsetX = NULL,
+                yAxis.axisLabel.textShadowOffsetY = NULL,
+                yAxis.axisLabel.overflow = NULL,
+                tooltip.show = TRUE,
+                tooltip.trigger = "cross",
+                tooltip.backgroundColor = NULL,
+                tooltip.borderColor = NULL,
+                tooltip.borderWidth = NULL,
+                tooltip.padding = NULL,
+                tooltip.axisPointer.type = "cross",
+                tooltip.axisPointer.lineStyle.color = NULL,
+                tooltip.axisPointer.shadowStyle.color = NULL,
+                tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                tooltip.axisPointer.shadowStyle.opacity = NULL,
+                tooltip.textStyle.color = NULL,
+                tooltip.textStyle.fontStyle = NULL,
+                tooltip.textStyle.fontWeight = NULL,
+                tooltip.textStyle.fontFamily = NULL,
+                tooltip.textStyle.lineHeight = NULL,
+                tooltip.textStyle.width = NULL,
+                tooltip.textStyle.height = NULL,
+                tooltip.textStyle.textBorderColor = NULL,
+                tooltip.textStyle.textBorderWidth = NULL,
+                tooltip.textStyle.textBorderType = NULL,
+                tooltip.textStyle.textShadowColor = NULL,
+                tooltip.textStyle.textShadowBlur = NULL,
+                tooltip.textStyle.textShadowOffsetX = NULL,
+                tooltip.textStyle.textShadowOffsetY = NULL,
+                Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  dt1 <- data.table::copy(dt)
+
+  # Convert factor to character
+  if(length(YVar) > 0L && class(dt1[[YVar]])[1L] == "factor") {
+    return(NULL)
+  }
+
+  # Define Aggregation function
+  if(Debug) print("Plot.ACH 1")
+  aggFunc <- SummaryFunction(AggMethod)
+
+  if(Debug) print("Plot.ACH 2")
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+  }
+
+  if(Debug) print("Plot.ACH 3")
+
+  # Aggregate dt1
+  dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(YVar), by = c(DateVar)]
+
+  if(Debug) print("Plot.ACH 3.5")
+
+  dt1 <- AutoLagRollStats(
+    data = dt1,
+    DateColumn = DateVar,
+    Targets = YVar,
+    TimeUnitAgg = TimeUnit,
+    TimeGroups = TimeUnit,
+    TimeUnit = TimeUnit,
+    RollOnLag1 = TRUE,
+    Type = "Lag",
+    SimpleImpute = TRUE,
+    Lags = seq_len(MaxLags))
+
+  if(Debug) print("Plot.ACH 4")
+
+  # Autocorrelation data creation
+  ACF_Data <- data.table::data.table(Lag = 1:50, Cor = 0.0, `Lower 95th` = 0.0, `Upper 95th` = 0.0)
+  if(Debug) print("Plot.ACH 5")
+  for(i in seq_len(MaxLags)) {# i = 1
+    lagCol <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
+    lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[lagCol]])
+    data.table::set(ACF_Data, i = i, j = "Lag", value = i)
+    data.table::set(ACF_Data, i = i, j = "Cor", value = lag_test$estimate)
+    data.table::set(ACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
+    data.table::set(ACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
+  }
+
+  if(Debug) print("Plot.ACH 6")
+
+  # Plot
+  p1 <- echarts4r::e_charts_(
+    ACF_Data,
+    x = "Lag",
+    dispose = TRUE,
+    darkMode = TRUE,
+    width = Width,
+    height = Height)
+
+  if(Debug) print("Plot.ACH 7")
+  p1 <- echarts4r::e_bar_(e = p1, "Cor")
+
+  if(Debug) print("Plot.ACH 8")
+
+  # MAX Band is not working currently so plot looks stupid with this
+  # p1 <- echarts4r::e_band_(
+  #   e = p1,
+  #   min = "Lower 95th", max = "Upper 95th", stack = "confidence-band",
+  #   areaStyle = list(list(color = "#54535387"), list(color = "#54535387"))
+  # )
+
+  # Alternative bands: just lines but they are correct
+  p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
+  p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
+
+  # Extras
+  if(Debug) print("Plot.ACH 10")
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- e_x_axis_full(
+    e = p1,
+    serie = NULL,
+    axis = "x",
+    name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+    xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+    xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+    xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+    xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+    xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+    xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+    xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+    xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+    xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+    xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+    xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+    xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+    xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+    xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+    xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+    xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+    xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+    xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+  p1 <- e_y_axis_full(
+    e = p1,
+    serie = NULL,
+    axis = "y",
+    name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+    yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+    yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+    yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+    yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+    yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+    yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+    yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+    yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+    yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+    yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+    yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+    yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+    yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+    yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+    yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+    yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+    yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+    yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  return(p1)
+}
+
+#' @title PACF
+#'
+#' @description Build a partial autocorrelation plot by simply passing arguments to a single function
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param YVar Y-Axis variable name
+#' @param DateVar Date column in data
+#' @param MaxLags Max value for lags to test
+#' @param TimeUnit Select from "hour", "day", "week", "month", "quarter", "year"
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TextColor 'darkblue'
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+PACF <- function(dt = NULL,
+                 YVar = NULL,
+                 DateVar = NULL,
+                 TimeUnit = NULL,
+                 MaxLags = 50,
+                 YVarTrans = "Identity",
+                 AggMethod = 'sum',
+                 Height = NULL,
+                 Width = NULL,
+                 Theme = "dark",
+                 TextColor = "white",
+                 ContainLabel = TRUE,
+                 Title = "Partial Autocorrelation Plot",
+                 title.fontSize = 22,
+                 title.fontWeight = "bold",
+                 title.textShadowColor = '#63aeff',
+                 title.textShadowBlur = 3,
+                 title.textShadowOffsetY = 1,
+                 title.textShadowOffsetX = -1,
+                 xAxis.title = NULL,
+                 xAxis.min = NULL,
+                 xAxis.max = NULL,
+                 xAxis.position = "bottom",
+                 xAxis.nameLocation = 'center',
+                 xAxis.axisTick.customValues = NULL,
+                 xAxis.nameTextStyle.color = NULL,
+                 xAxis.nameTextStyle.padding = 25,
+                 xAxis.nameTextStyle.align = NULL,
+                 xAxis.nameTextStyle.fontStyle = NULL,
+                 xAxis.nameTextStyle.fontWeight = NULL,
+                 xAxis.nameTextStyle.fontSize = NULL,
+                 xAxis.nameTextStyle.fontFamily = NULL,
+                 xAxis.splitNumber = NULL,
+                 xAxis.axisLabel.rotate = NULL,
+                 xAxis.axisLabel.margin = NULL,
+                 xAxis.axisLabel.color = NULL,
+                 xAxis.axisLabel.fontStyle = NULL,
+                 xAxis.axisLabel.fontWeight = NULL,
+                 xAxis.axisLabel.fontFamily = NULL,
+                 xAxis.axisLabel.fontSize = 14,
+                 xAxis.axisLabel.align = NULL,
+                 xAxis.axisLabel.verticalAlign = NULL,
+                 xAxis.axisLabel.backgroundColor = NULL,
+                 xAxis.axisLabel.borderColor = NULL,
+                 xAxis.axisLabel.borderWidth = NULL,
+                 xAxis.axisLabel.borderType = NULL,
+                 xAxis.axisLabel.borderRadius = NULL,
+                 xAxis.axisLabel.padding = NULL,
+                 xAxis.axisLabel.shadowColor = NULL,
+                 xAxis.axisLabel.shadowBlur = NULL,
+                 xAxis.axisLabel.shadowOffsetX = NULL,
+                 xAxis.axisLabel.shadowOffsetY = NULL,
+                 xAxis.axisLabel.textBorderColor = NULL,
+                 xAxis.axisLabel.textBorderWidth = NULL,
+                 xAxis.axisLabel.textBorderType = NULL,
+                 xAxis.axisLabel.textShadowColor = NULL,
+                 xAxis.axisLabel.textShadowBlur = NULL,
+                 xAxis.axisLabel.textShadowOffsetX = NULL,
+                 xAxis.axisLabel.textShadowOffsetY = NULL,
+                 xAxis.axisLabel.overflow = NULL,
+                 yAxis.title = NULL,
+                 yAxis.min = NULL,
+                 yAxis.max = NULL,
+                 yAxis.position = "center",
+                 yAxis.nameLocation = 'center',
+                 yAxis.axisTick.customValues = NULL,
+                 yAxis.nameTextStyle.color = NULL,
+                 yAxis.nameTextStyle.padding = 25,
+                 yAxis.nameTextStyle.align = NULL,
+                 yAxis.nameTextStyle.fontStyle = NULL,
+                 yAxis.nameTextStyle.fontWeight = NULL,
+                 yAxis.nameTextStyle.fontSize = NULL,
+                 yAxis.nameTextStyle.fontFamily = NULL,
+                 yAxis.splitNumber = NULL,
+                 yAxis.axisLabel.rotate = NULL,
+                 yAxis.axisLabel.margin = NULL,
+                 yAxis.axisLabel.color = NULL,
+                 yAxis.axisLabel.fontStyle = NULL,
+                 yAxis.axisLabel.fontWeight = NULL,
+                 yAxis.axisLabel.fontFamily = NULL,
+                 yAxis.axisLabel.fontSize = 14,
+                 yAxis.axisLabel.align = NULL,
+                 yAxis.axisLabel.verticalAlign = NULL,
+                 yAxis.axisLabel.backgroundColor = NULL,
+                 yAxis.axisLabel.borderColor = NULL,
+                 yAxis.axisLabel.borderWidth = NULL,
+                 yAxis.axisLabel.borderType = NULL,
+                 yAxis.axisLabel.borderRadius = NULL,
+                 yAxis.axisLabel.padding = NULL,
+                 yAxis.axisLabel.shadowColor = NULL,
+                 yAxis.axisLabel.shadowBlur = NULL,
+                 yAxis.axisLabel.shadowOffsetX = NULL,
+                 yAxis.axisLabel.shadowOffsetY = NULL,
+                 yAxis.axisLabel.textBorderColor = NULL,
+                 yAxis.axisLabel.textBorderWidth = NULL,
+                 yAxis.axisLabel.textBorderType = NULL,
+                 yAxis.axisLabel.textShadowColor = NULL,
+                 yAxis.axisLabel.textShadowBlur = NULL,
+                 yAxis.axisLabel.textShadowOffsetX = NULL,
+                 yAxis.axisLabel.textShadowOffsetY = NULL,
+                 yAxis.axisLabel.overflow = NULL,
+                 tooltip.show = TRUE,
+                 tooltip.trigger = "cross",
+                 tooltip.backgroundColor = NULL,
+                 tooltip.borderColor = NULL,
+                 tooltip.borderWidth = NULL,
+                 tooltip.padding = NULL,
+                 tooltip.axisPointer.type = "cross",
+                 tooltip.axisPointer.lineStyle.color = NULL,
+                 tooltip.axisPointer.shadowStyle.color = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                 tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                 tooltip.axisPointer.shadowStyle.opacity = NULL,
+                 tooltip.textStyle.color = NULL,
+                 tooltip.textStyle.fontStyle = NULL,
+                 tooltip.textStyle.fontWeight = NULL,
+                 tooltip.textStyle.fontFamily = NULL,
+                 tooltip.textStyle.lineHeight = NULL,
+                 tooltip.textStyle.width = NULL,
+                 tooltip.textStyle.height = NULL,
+                 tooltip.textStyle.textBorderColor = NULL,
+                 tooltip.textStyle.textBorderWidth = NULL,
+                 tooltip.textStyle.textBorderType = NULL,
+                 tooltip.textStyle.textShadowColor = NULL,
+                 tooltip.textStyle.textShadowBlur = NULL,
+                 tooltip.textStyle.textShadowOffsetX = NULL,
+                 tooltip.textStyle.textShadowOffsetY = NULL,
+                 Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  dt1 <- data.table::copy(dt)
+
+  if(grepl(" ", YVar)) {
+    data.table::setnames(x = dt1, old = YVar, new = gsub(pattern = " ", replacement = ".", x = YVar))
+    YVar <- gsub(pattern = " ", replacement = ".", x = YVar)
+  }
+
+  # Convert factor to character
+  if(length(YVar) > 0L && class(dt1[[YVar]])[1L] == "factor") {
+    return(NULL)
+  }
+
+  # Define Aggregation function
+  if(Debug) print("Plot.PACH 1")
+  aggFunc <- SummaryFunction(AggMethod)
+
+  if(Debug) print("Plot.PACH 2")
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+  }
+
+  if(Debug) print("Plot.PACH 3")
+
+  # Aggregate dt1
+  dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(YVar), by = c(DateVar)]
+
+  if(Debug) print("Plot.PACH 3.5")
+
+  dt1 <- AutoLagRollStats(
+    data = dt1,
+    DateColumn = DateVar,
+    Targets = YVar,
+    TimeUnitAgg = TimeUnit,
+    TimeGroups = TimeUnit,
+    TimeUnit = TimeUnit,
+    RollOnLag1 = TRUE,
+    Type = "Lag",
+    SimpleImpute = TRUE,
+    Lags = seq_len(MaxLags))
+
+  if(Debug) print("Plot.PACH 4")
+
+  # Autocorrelation data creation
+  PACF_Data <- data.table::data.table(Lag = 1:50, Cor = 0.0, `Lower 95th` = 0.0, `Upper 95th` = 0.0)
+  LagCols <- c()
+  if(Debug) print("Plot.ACH 5")
+  for(i in seq_len(MaxLags)) {# i = 1L  i = 2L
+    LagCols[i] <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
+    if(i == 1L) {
+      lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[LagCols]])
+      data.table::set(PACF_Data, i = i, j = "Lag", value = i)
+      data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
+      data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
+      data.table::set(PACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
+    } else {
+      x <- as.vector(lm(formula = as.formula(paste0(YVar, " ~ ", paste0(LagCols, collapse = " + "))), data = dt1)$residuals)
+      lag_test <- cor.test(x = x, y = dt1[[LagCols[i]]])
+      data.table::set(PACF_Data, i = i, j = "Lag", value = i)
+      data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
+      data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
+      data.table::set(PACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
+    }
+  }
+
+  if(Debug) print("Plot.PACH 6")
+
+  # Plot
+  p1 <- echarts4r::e_charts_(
+    PACF_Data,
+    x = "Lag",
+    dispose = TRUE,
+    darkMode = TRUE,
+    width = Width,
+    height = Height)
+
+  if(Debug) print("Plot.PACH 7")
+  p1 <- echarts4r::e_bar_(e = p1, "Cor")
+
+  if(Debug) print("Plot.PACH 8")
+
+  p1 <- echarts4r::e_line_(e = p1, "Lower 95th", smooth = TRUE)
+
+  if(Debug) print("Plot.PACH 9")
+
+  p1 <- echarts4r::e_line_(e = p1, "Upper 95th", smooth = TRUE)
+
+  # Extras
+  if(Debug) print("Plot.PACH 10")
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- e_x_axis_full(
+    e = p1,
+    serie = NULL,
+    axis = "x",
+    name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+    xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+    xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+    xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+    xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+    xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+    xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+    xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+    xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+    xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+    xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+    xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+    xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+    xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+    xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+    xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+    xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+    xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+    xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+  p1 <- e_y_axis_full(
+    e = p1,
+    serie = NULL,
+    axis = "y",
+    name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+    yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+    yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+    yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+    yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+    yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+    yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+    yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+    yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+    yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+    yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+    yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+    yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+    yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+    yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+    yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+    yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+    yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+    yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  return(p1)
+}
+
+#' @title StackedBar
+#'
+#' @description Build a stacked bar plot vs a grouped bar plot
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param Height NULL
+#' @param Width NULL
+#' @param ShowLabels logical
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor 'darkblue'
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts Stacked Bar Chart
+#' AutoPlots::StackedBar(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   XVar = "Factor_1",
+#'   YVar = "Adrian",
+#'   GroupVar = "Factor_2",
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   AggMethod = 'mean',
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Stacked Bar",
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   ShowLabels = FALSE,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TimeLine = TRUE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+StackedBar <- function(dt = NULL,
+                       PreAgg = FALSE,
+                       XVar = NULL,
+                       YVar = NULL,
+                       GroupVar = NULL,
+                       YVarTrans = "Identity",
+                       XVarTrans = "Identity",
+                       FacetRows = 1,
+                       FacetCols = 1,
+                       FacetLevels = NULL,
+                       AggMethod = 'mean',
+                       Height = NULL,
+                       Width = NULL,
+                       ShowLabels = FALSE,
+                       Theme = "dark",
+                       MouseScroll = FALSE,
+                       TimeLine = TRUE,
+                       TextColor = "white",
+                       ContainLabel = TRUE,
+                       Title = "Stacked Bar Plot",
+                       title.fontSize = 22,
+                       title.fontWeight = "bold",
+                       title.textShadowColor = '#63aeff',
+                       title.textShadowBlur = 3,
+                       title.textShadowOffsetY = 1,
+                       title.textShadowOffsetX = -1,
+                       xAxis.title = NULL,
+                       xAxis.min = NULL,
+                       xAxis.max = NULL,
+                       xAxis.position = "bottom",
+                       xAxis.nameLocation = 'center',
+                       xAxis.axisTick.customValues = NULL,
+                       xAxis.nameTextStyle.color = NULL,
+                       xAxis.nameTextStyle.padding = 25,
+                       xAxis.nameTextStyle.align = NULL,
+                       xAxis.nameTextStyle.fontStyle = NULL,
+                       xAxis.nameTextStyle.fontWeight = NULL,
+                       xAxis.nameTextStyle.fontSize = NULL,
+                       xAxis.nameTextStyle.fontFamily = NULL,
+                       xAxis.splitNumber = NULL,
+                       xAxis.axisLabel.rotate = NULL,
+                       xAxis.axisLabel.margin = NULL,
+                       xAxis.axisLabel.color = NULL,
+                       xAxis.axisLabel.fontStyle = NULL,
+                       xAxis.axisLabel.fontWeight = NULL,
+                       xAxis.axisLabel.fontFamily = NULL,
+                       xAxis.axisLabel.fontSize = 14,
+                       xAxis.axisLabel.align = NULL,
+                       xAxis.axisLabel.verticalAlign = NULL,
+                       xAxis.axisLabel.backgroundColor = NULL,
+                       xAxis.axisLabel.borderColor = NULL,
+                       xAxis.axisLabel.borderWidth = NULL,
+                       xAxis.axisLabel.borderType = NULL,
+                       xAxis.axisLabel.borderRadius = NULL,
+                       xAxis.axisLabel.padding = NULL,
+                       xAxis.axisLabel.shadowColor = NULL,
+                       xAxis.axisLabel.shadowBlur = NULL,
+                       xAxis.axisLabel.shadowOffsetX = NULL,
+                       xAxis.axisLabel.shadowOffsetY = NULL,
+                       xAxis.axisLabel.textBorderColor = NULL,
+                       xAxis.axisLabel.textBorderWidth = NULL,
+                       xAxis.axisLabel.textBorderType = NULL,
+                       xAxis.axisLabel.textShadowColor = NULL,
+                       xAxis.axisLabel.textShadowBlur = NULL,
+                       xAxis.axisLabel.textShadowOffsetX = NULL,
+                       xAxis.axisLabel.textShadowOffsetY = NULL,
+                       xAxis.axisLabel.overflow = NULL,
+                       yAxis.title = NULL,
+                       yAxis.min = NULL,
+                       yAxis.max = NULL,
+                       yAxis.position = "center",
+                       yAxis.nameLocation = 'center',
+                       yAxis.axisTick.customValues = NULL,
+                       yAxis.nameTextStyle.color = NULL,
+                       yAxis.nameTextStyle.padding = 25,
+                       yAxis.nameTextStyle.align = NULL,
+                       yAxis.nameTextStyle.fontStyle = NULL,
+                       yAxis.nameTextStyle.fontWeight = NULL,
+                       yAxis.nameTextStyle.fontSize = NULL,
+                       yAxis.nameTextStyle.fontFamily = NULL,
+                       yAxis.splitNumber = NULL,
+                       yAxis.axisLabel.rotate = NULL,
+                       yAxis.axisLabel.margin = NULL,
+                       yAxis.axisLabel.color = NULL,
+                       yAxis.axisLabel.fontStyle = NULL,
+                       yAxis.axisLabel.fontWeight = NULL,
+                       yAxis.axisLabel.fontFamily = NULL,
+                       yAxis.axisLabel.fontSize = 14,
+                       yAxis.axisLabel.align = NULL,
+                       yAxis.axisLabel.verticalAlign = NULL,
+                       yAxis.axisLabel.backgroundColor = NULL,
+                       yAxis.axisLabel.borderColor = NULL,
+                       yAxis.axisLabel.borderWidth = NULL,
+                       yAxis.axisLabel.borderType = NULL,
+                       yAxis.axisLabel.borderRadius = NULL,
+                       yAxis.axisLabel.padding = NULL,
+                       yAxis.axisLabel.shadowColor = NULL,
+                       yAxis.axisLabel.shadowBlur = NULL,
+                       yAxis.axisLabel.shadowOffsetX = NULL,
+                       yAxis.axisLabel.shadowOffsetY = NULL,
+                       yAxis.axisLabel.textBorderColor = NULL,
+                       yAxis.axisLabel.textBorderWidth = NULL,
+                       yAxis.axisLabel.textBorderType = NULL,
+                       yAxis.axisLabel.textShadowColor = NULL,
+                       yAxis.axisLabel.textShadowBlur = NULL,
+                       yAxis.axisLabel.textShadowOffsetX = NULL,
+                       yAxis.axisLabel.textShadowOffsetY = NULL,
+                       yAxis.axisLabel.overflow = NULL,
+                       tooltip.show = TRUE,
+                       tooltip.trigger = "cross",
+                       tooltip.backgroundColor = NULL,
+                       tooltip.borderColor = NULL,
+                       tooltip.borderWidth = NULL,
+                       tooltip.padding = NULL,
+                       tooltip.axisPointer.type = "cross",
+                       tooltip.axisPointer.lineStyle.color = NULL,
+                       tooltip.axisPointer.shadowStyle.color = NULL,
+                       tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                       tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                       tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                       tooltip.axisPointer.shadowStyle.opacity = NULL,
+                       tooltip.textStyle.color = NULL,
+                       tooltip.textStyle.fontStyle = NULL,
+                       tooltip.textStyle.fontWeight = NULL,
+                       tooltip.textStyle.fontFamily = NULL,
+                       tooltip.textStyle.lineHeight = NULL,
+                       tooltip.textStyle.width = NULL,
+                       tooltip.textStyle.height = NULL,
+                       tooltip.textStyle.textBorderColor = NULL,
+                       tooltip.textStyle.textBorderWidth = NULL,
+                       tooltip.textStyle.textBorderType = NULL,
+                       tooltip.textStyle.textShadowColor = NULL,
+                       tooltip.textStyle.textShadowBlur = NULL,
+                       tooltip.textStyle.textShadowOffsetX = NULL,
+                       tooltip.textStyle.textShadowOffsetY = NULL,
+                       Debug = FALSE) {
+
+  if(length(XVar) == 0L) return(NULL)
+  if(length(YVar) == 0L) return(NULL)
+  if(length(GroupVar) == 0L) return(NULL)
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] %in% c("factor","integer","numeric")) {
+    dt[, eval(GroupVar) := as.character(get(GroupVar))]
+  }
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] %in% c("factor","integer","numeric")) {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
+  if(class(dt[[YVar]])[1L] %in% c("character","factor") && class(dt[[XVar]])[1L] %in% c("numeric","integer")) {
+    l <- YVar
+    YVar <- XVar
+    XVar <- l
+    rm(l)
+  }
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+
+  # Used multiple times
+  check1 <- length(XVar) != 0 && length(YVar) != 0 && length(GroupVar) > 0L
+
+  if(!PreAgg) {
+    aggFunc <- SummaryFunction(AggMethod)
+  }
+
+  # Create base plot object
+  numvars <- c()
+  byvars <- c()
+  if(check1) {
+    if(!PreAgg) {
+
+      if(length(FacetLevels) > 0L) {
+        dt <- dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
+      }
+
+      if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+        numvars <- unique(c(numvars, YVar))
+      } else {
+        byvars <- unique(c(byvars, YVar))
+      }
+      if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+        if(length(numvars) > 0) {
+          x <- length(unique(dt[[XVar]]))
+          y <- length(unique(dt[[YVar]]))
+          if(x > y) {
+            byvars <- unique(c(byvars, YVar))
+            numvars[1L] <- XVar
+          } else {
+            byvars <- unique(c(byvars, XVar))
+          }
+        } else {
+          numvars <- unique(c(numvars, XVar))
+        }
+      } else {
+        byvars <- unique(c(byvars, XVar))
+      }
+      if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
+        dt[, eval(GroupVar) := as.character(get(GroupVar))]
+        byvars <- unique(c(byvars, GroupVar))
+      } else {
+        byvars <- unique(c(byvars, GroupVar))
+      }
+      if(!is.null(byvars)) {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), by = c(byvars)]
+        for(i in byvars) {
+          if(class(temp[[i]]) %in% c('numeric','integer')) {
+            temp[, eval(i) := as.character(get(i))]
+          }
+        }
+      } else {
+        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+      }
+    } else {
+      temp <- data.table::copy(dt)
+      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+    }
+
+    # Transformation
+    if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
+      YVarTrans <- XVarTrans
+    }
+    if(YVarTrans != "Identity") {
+      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+    }
+
+    p1 <- echarts4r::e_charts_(
+      data = temp |> dplyr::group_by(get(GroupVar[1L])),
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width,
+      height = Height)
+    if(ShowLabels) {
+      p1 <- echarts4r::e_bar_(
+        e = p1,
+        YVar,
+        stack = XVar,
+        label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_bar_(
+        e = p1,
+        YVar,
+        stack = XVar)
+    }
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) {
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
+    return(p1)
+
+  } else {
+    if(Debug) print("XVar, YVar, and GroupVar need to have length > 0")
+  }
+}
+
+#' @title BarPlot3D
+#'
+#' @description Build a 3D Bar Plot
+#'
+#' @family Standard Plots
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical. Is your data pre aggregated
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param ZVar Z-Axis variable name
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param Theme "dark-blue"
+#' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
+#' @param NumberBins = 21
+#' @param NumLevels_Y = 20
+#' @param NumLevels_X = 20
+#' @param ShowLabels character
+#' @param TextColor character
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts 3D Bar Chart
+#' AutoPlots::BarPlot3D(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   AggMethod = 'mean',
+#'   XVar = "Factor_1",
+#'   YVar = "Factor_2",
+#'   ZVar = "Adrian",
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   ZVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   NumberBins = 21,
+#'   NumLevels_Y = 33,
+#'   NumLevels_X = 33,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "3D Bar Plot",
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   zaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+BarPlot3D <- function(dt,
+                      PreAgg = FALSE,
+                      AggMethod = 'mean',
+                      XVar = NULL,
+                      YVar = NULL,
+                      ZVar = NULL,
+                      YVarTrans = "Identity",
+                      XVarTrans = "Identity",
+                      ZVarTrans = "Identity",
+                      FacetRows = 1,
+                      FacetCols = 1,
+                      FacetLevels = NULL,
+                      NumberBins = 21,
+                      NumLevels_Y = 33,
+                      NumLevels_X = 33,
+                      Height = NULL,
+                      Width = NULL,
+                      ShowLabels = FALSE,
+                      Theme = "dark",
+                      MouseScroll = FALSE,
+                      TextColor = "white",
+                      ContainLabel = TRUE,
+                      Title = "3D Bar Plot",
+                      title.fontSize = 22,
+                      title.fontWeight = "bold",
+                      title.textShadowColor = '#63aeff',
+                      title.textShadowBlur = 3,
+                      title.textShadowOffsetY = 1,
+                      title.textShadowOffsetX = -1,
+                      xAxis.title = NULL,
+                      xAxis.min = NULL,
+                      xAxis.max = NULL,
+                      xAxis.position = "bottom",
+                      xAxis.nameLocation = 'center',
+                      xAxis.axisTick.customValues = NULL,
+                      xAxis.nameTextStyle.color = NULL,
+                      xAxis.nameTextStyle.padding = 25,
+                      xAxis.nameTextStyle.align = NULL,
+                      xAxis.nameTextStyle.fontStyle = NULL,
+                      xAxis.nameTextStyle.fontWeight = NULL,
+                      xAxis.nameTextStyle.fontSize = NULL,
+                      xAxis.nameTextStyle.fontFamily = NULL,
+                      xAxis.splitNumber = NULL,
+                      xAxis.axisLabel.rotate = NULL,
+                      xAxis.axisLabel.margin = NULL,
+                      xAxis.axisLabel.color = NULL,
+                      xAxis.axisLabel.fontStyle = NULL,
+                      xAxis.axisLabel.fontWeight = NULL,
+                      xAxis.axisLabel.fontFamily = NULL,
+                      xAxis.axisLabel.fontSize = 14,
+                      xAxis.axisLabel.align = NULL,
+                      xAxis.axisLabel.verticalAlign = NULL,
+                      xAxis.axisLabel.backgroundColor = NULL,
+                      xAxis.axisLabel.borderColor = NULL,
+                      xAxis.axisLabel.borderWidth = NULL,
+                      xAxis.axisLabel.borderType = NULL,
+                      xAxis.axisLabel.borderRadius = NULL,
+                      xAxis.axisLabel.padding = NULL,
+                      xAxis.axisLabel.shadowColor = NULL,
+                      xAxis.axisLabel.shadowBlur = NULL,
+                      xAxis.axisLabel.shadowOffsetX = NULL,
+                      xAxis.axisLabel.shadowOffsetY = NULL,
+                      xAxis.axisLabel.textBorderColor = NULL,
+                      xAxis.axisLabel.textBorderWidth = NULL,
+                      xAxis.axisLabel.textBorderType = NULL,
+                      xAxis.axisLabel.textShadowColor = NULL,
+                      xAxis.axisLabel.textShadowBlur = NULL,
+                      xAxis.axisLabel.textShadowOffsetX = NULL,
+                      xAxis.axisLabel.textShadowOffsetY = NULL,
+                      xAxis.axisLabel.overflow = NULL,
+                      yAxis.title = NULL,
+                      yAxis.min = NULL,
+                      yAxis.max = NULL,
+                      yAxis.position = "center",
+                      yAxis.nameLocation = 'center',
+                      yAxis.axisTick.customValues = NULL,
+                      yAxis.nameTextStyle.color = NULL,
+                      yAxis.nameTextStyle.padding = 25,
+                      yAxis.nameTextStyle.align = NULL,
+                      yAxis.nameTextStyle.fontStyle = NULL,
+                      yAxis.nameTextStyle.fontWeight = NULL,
+                      yAxis.nameTextStyle.fontSize = NULL,
+                      yAxis.nameTextStyle.fontFamily = NULL,
+                      yAxis.splitNumber = NULL,
+                      yAxis.axisLabel.rotate = NULL,
+                      yAxis.axisLabel.margin = NULL,
+                      yAxis.axisLabel.color = NULL,
+                      yAxis.axisLabel.fontStyle = NULL,
+                      yAxis.axisLabel.fontWeight = NULL,
+                      yAxis.axisLabel.fontFamily = NULL,
+                      yAxis.axisLabel.fontSize = 14,
+                      yAxis.axisLabel.align = NULL,
+                      yAxis.axisLabel.verticalAlign = NULL,
+                      yAxis.axisLabel.backgroundColor = NULL,
+                      yAxis.axisLabel.borderColor = NULL,
+                      yAxis.axisLabel.borderWidth = NULL,
+                      yAxis.axisLabel.borderType = NULL,
+                      yAxis.axisLabel.borderRadius = NULL,
+                      yAxis.axisLabel.padding = NULL,
+                      yAxis.axisLabel.shadowColor = NULL,
+                      yAxis.axisLabel.shadowBlur = NULL,
+                      yAxis.axisLabel.shadowOffsetX = NULL,
+                      yAxis.axisLabel.shadowOffsetY = NULL,
+                      yAxis.axisLabel.textBorderColor = NULL,
+                      yAxis.axisLabel.textBorderWidth = NULL,
+                      yAxis.axisLabel.textBorderType = NULL,
+                      yAxis.axisLabel.textShadowColor = NULL,
+                      yAxis.axisLabel.textShadowBlur = NULL,
+                      yAxis.axisLabel.textShadowOffsetX = NULL,
+                      yAxis.axisLabel.textShadowOffsetY = NULL,
+                      yAxis.axisLabel.overflow = NULL,
+                      tooltip.show = TRUE,
+                      tooltip.trigger = "cross",
+                      tooltip.backgroundColor = NULL,
+                      tooltip.borderColor = NULL,
+                      tooltip.borderWidth = NULL,
+                      tooltip.padding = NULL,
+                      tooltip.axisPointer.type = "cross",
+                      tooltip.axisPointer.lineStyle.color = NULL,
+                      tooltip.axisPointer.shadowStyle.color = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                      tooltip.axisPointer.shadowStyle.opacity = NULL,
+                      tooltip.textStyle.color = NULL,
+                      tooltip.textStyle.fontStyle = NULL,
+                      tooltip.textStyle.fontWeight = NULL,
+                      tooltip.textStyle.fontFamily = NULL,
+                      tooltip.textStyle.lineHeight = NULL,
+                      tooltip.textStyle.width = NULL,
+                      tooltip.textStyle.height = NULL,
+                      tooltip.textStyle.textBorderColor = NULL,
+                      tooltip.textStyle.textBorderWidth = NULL,
+                      tooltip.textStyle.textBorderType = NULL,
+                      tooltip.textStyle.textShadowColor = NULL,
+                      tooltip.textStyle.textShadowBlur = NULL,
+                      tooltip.textStyle.textShadowOffsetX = NULL,
+                      tooltip.textStyle.textShadowOffsetY = NULL,
+                      Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] %in% c("factor","character")) {
+    dt[, eval(ZVar) := as.numeric(get(ZVar))]
+  }
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
+  # Subset cols
+  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
+  x_check <- class(dt1[[XVar]])[1L] %in% c('numeric','integer')
+  y_check <- class(dt1[[YVar]])[1L] %in% c('numeric','integer')
+  x_y_num <- x_check && y_check
+  x_num <- x_check && !y_check
+  x_char <- !x_check && y_check
+  all_char <- !x_check && !y_check
+
+
+  Z.HoverFormat <- "%{zaxis.title.text}: %{y:,.2f}<br>"
+
+  TimeLine <- FALSE
+  if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
+
+  if(!PreAgg) {
+    aggFunc <- SummaryFunction(AggMethod)
+  }
+
+  # XVar == numeric or integer && YVar == numeric or integer
+  if(x_y_num) {
+
+    # rank XVar and YVar
+    if(!PreAgg) {
+      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
+      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
+      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
+    }
+
+    # Transformation
+    if(ZVarTrans != "Identity") {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+    }
+
+    # Formatting
+    vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+    o <- order(vals, decreasing = FALSE)
+    cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+
+    # Create final data for plot
+    g <- "Measure_Variable"
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+
+
+    return(p1)
+  }
+
+  # XVar == character && YVar == numeric or integer
+  if(x_char) {
+
+    # rank YVar
+    data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+    if(!PreAgg) {
+      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
+      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
+      temp <- temp[seq_len(min(NumLevels_X, temp[, .N]))][[1L]]
+      dt1 <- dt1[get(YVar) %in% eval(temp)]
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
+    }
+
+    # Formatting
+    vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+    o <- order(vals, decreasing = FALSE)
+    cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+
+    # Transformation
+    if(ZVarTrans != "Identity") {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+    }
+
+    # Create final data for plot
+    g <- "Measure_Variable"
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+
+
+    return(p1)
+  }
+
+  # XVar == numeric or integer && YVar == character
+  if(x_num) {
+
+    # rank XVar
+    if(!PreAgg) {
+      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
+      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+
+      # Top YVar Levels
+      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
+      temp <- temp[seq_len(min(NumLevels_Y, temp[, .N]))][[1L]]
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
+
+
+      # Transformation
+      if(ZVarTrans != "Identity") {
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+      }
+
+      # Formatting
+      dt1 <- dt1[get(YVar) %in% eval(temp)]
+      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+      o <- order(vals, decreasing = FALSE)
+      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    }
+
+    # Create final dt1 for plot
+    g <- "Measure_Variable"
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+
+    return(p1)
+  }
+
+  # XVar == character or integer && YVar == character
+  if(all_char) {
+
+    # Starter pack
+    if(!PreAgg) {
+      temp1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+      temp1 <- temp1[seq_len(min(NumLevels_Y, temp1[, .N]))][[1L]]
+      temp2 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+      temp2 <- temp2[seq_len(min(NumLevels_X, temp2[, .N]))][[1L]]
+      dt1 <- dt1[get(YVar) %in% eval(temp1) & get(XVar) %in% eval(temp2), lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
+    }
+
+    # Transformation
+    if(length(ZVarTrans) > 0 && ZVarTrans != "Identity") {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
+    }
+
+    if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, ZVar, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, ZVar, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    # They do nothing for this plot type
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+    return(p1)
+  }
+}
+
+#' @title HeatMap
+#'
+#' @description Create heat maps with numeric or categorical dt
+#'
+#' @family Standard Plots
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param ZVar Z-Axis variable name
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param Theme "dark-blue"
+#' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
+#' @param NumberBins = 21
+#' @param NumLevels_Y = 20
+#' @param NumLevels_X = 20.
+#' @param PreAgg logical
+#' @param TextColor color
+#' @param ShowLabels character
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging parameter
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts Heatmap Plot Chart
+#' AutoPlots::HeatMap(
+#'   dt = data,
+#'   PreAgg = FALSE,
+#'   XVar = "Factor_1",
+#'   YVar = "Factor_2",
+#'   ZVar = "Independent_Variable6",
+#'   XVarTrans = "Identity",
+#'   ZVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   NumberBins = 21,
+#'   NumLevels_Y = 33,
+#'   NumLevels_X = 33,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Heatmap",
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+HeatMap <- function(dt,
+                    PreAgg = FALSE,
+                    AggMethod = 'mean',
+                    XVar = NULL,
+                    YVar = NULL,
+                    ZVar = NULL,
+                    YVarTrans = "Identity",
+                    XVarTrans = "Identity",
+                    ZVarTrans = "Identity",
+                    FacetRows = 1,
+                    FacetCols = 1,
+                    FacetLevels = NULL,
+                    NumberBins = 21,
+                    NumLevels_Y = 33,
+                    NumLevels_X = 33,
+                    Height = NULL,
+                    Width = NULL,
+                    ShowLabels = FALSE,
+                    Theme = "dark",
+                    MouseScroll = FALSE,
+                    TextColor = "white",
+                    ContainLabel = TRUE,
+                    Title = "Heatmap",
+                    title.fontSize = 22,
+                    title.fontWeight = "bold",
+                    title.textShadowColor = '#63aeff',
+                    title.textShadowBlur = 3,
+                    title.textShadowOffsetY = 1,
+                    title.textShadowOffsetX = -1,
+                    xAxis.title = NULL,
+                    xAxis.min = NULL,
+                    xAxis.max = NULL,
+                    xAxis.position = "bottom",
+                    xAxis.nameLocation = 'center',
+                    xAxis.axisTick.customValues = NULL,
+                    xAxis.nameTextStyle.color = NULL,
+                    xAxis.nameTextStyle.padding = 25,
+                    xAxis.nameTextStyle.align = NULL,
+                    xAxis.nameTextStyle.fontStyle = NULL,
+                    xAxis.nameTextStyle.fontWeight = NULL,
+                    xAxis.nameTextStyle.fontSize = NULL,
+                    xAxis.nameTextStyle.fontFamily = NULL,
+                    xAxis.splitNumber = NULL,
+                    xAxis.axisLabel.rotate = NULL,
+                    xAxis.axisLabel.margin = NULL,
+                    xAxis.axisLabel.color = NULL,
+                    xAxis.axisLabel.fontStyle = NULL,
+                    xAxis.axisLabel.fontWeight = NULL,
+                    xAxis.axisLabel.fontFamily = NULL,
+                    xAxis.axisLabel.fontSize = 14,
+                    xAxis.axisLabel.align = NULL,
+                    xAxis.axisLabel.verticalAlign = NULL,
+                    xAxis.axisLabel.backgroundColor = NULL,
+                    xAxis.axisLabel.borderColor = NULL,
+                    xAxis.axisLabel.borderWidth = NULL,
+                    xAxis.axisLabel.borderType = NULL,
+                    xAxis.axisLabel.borderRadius = NULL,
+                    xAxis.axisLabel.padding = NULL,
+                    xAxis.axisLabel.shadowColor = NULL,
+                    xAxis.axisLabel.shadowBlur = NULL,
+                    xAxis.axisLabel.shadowOffsetX = NULL,
+                    xAxis.axisLabel.shadowOffsetY = NULL,
+                    xAxis.axisLabel.textBorderColor = NULL,
+                    xAxis.axisLabel.textBorderWidth = NULL,
+                    xAxis.axisLabel.textBorderType = NULL,
+                    xAxis.axisLabel.textShadowColor = NULL,
+                    xAxis.axisLabel.textShadowBlur = NULL,
+                    xAxis.axisLabel.textShadowOffsetX = NULL,
+                    xAxis.axisLabel.textShadowOffsetY = NULL,
+                    xAxis.axisLabel.overflow = NULL,
+                    yAxis.title = NULL,
+                    yAxis.min = NULL,
+                    yAxis.max = NULL,
+                    yAxis.position = "center",
+                    yAxis.nameLocation = 'center',
+                    yAxis.axisTick.customValues = NULL,
+                    yAxis.nameTextStyle.color = NULL,
+                    yAxis.nameTextStyle.padding = 25,
+                    yAxis.nameTextStyle.align = NULL,
+                    yAxis.nameTextStyle.fontStyle = NULL,
+                    yAxis.nameTextStyle.fontWeight = NULL,
+                    yAxis.nameTextStyle.fontSize = NULL,
+                    yAxis.nameTextStyle.fontFamily = NULL,
+                    yAxis.splitNumber = NULL,
+                    yAxis.axisLabel.rotate = NULL,
+                    yAxis.axisLabel.margin = NULL,
+                    yAxis.axisLabel.color = NULL,
+                    yAxis.axisLabel.fontStyle = NULL,
+                    yAxis.axisLabel.fontWeight = NULL,
+                    yAxis.axisLabel.fontFamily = NULL,
+                    yAxis.axisLabel.fontSize = 14,
+                    yAxis.axisLabel.align = NULL,
+                    yAxis.axisLabel.verticalAlign = NULL,
+                    yAxis.axisLabel.backgroundColor = NULL,
+                    yAxis.axisLabel.borderColor = NULL,
+                    yAxis.axisLabel.borderWidth = NULL,
+                    yAxis.axisLabel.borderType = NULL,
+                    yAxis.axisLabel.borderRadius = NULL,
+                    yAxis.axisLabel.padding = NULL,
+                    yAxis.axisLabel.shadowColor = NULL,
+                    yAxis.axisLabel.shadowBlur = NULL,
+                    yAxis.axisLabel.shadowOffsetX = NULL,
+                    yAxis.axisLabel.shadowOffsetY = NULL,
+                    yAxis.axisLabel.textBorderColor = NULL,
+                    yAxis.axisLabel.textBorderWidth = NULL,
+                    yAxis.axisLabel.textBorderType = NULL,
+                    yAxis.axisLabel.textShadowColor = NULL,
+                    yAxis.axisLabel.textShadowBlur = NULL,
+                    yAxis.axisLabel.textShadowOffsetX = NULL,
+                    yAxis.axisLabel.textShadowOffsetY = NULL,
+                    yAxis.axisLabel.overflow = NULL,
+                    tooltip.show = TRUE,
+                    tooltip.trigger = "cross",
+                    tooltip.backgroundColor = NULL,
+                    tooltip.borderColor = NULL,
+                    tooltip.borderWidth = NULL,
+                    tooltip.padding = NULL,
+                    tooltip.axisPointer.type = "cross",
+                    tooltip.axisPointer.lineStyle.color = NULL,
+                    tooltip.axisPointer.shadowStyle.color = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                    tooltip.axisPointer.shadowStyle.opacity = NULL,
+                    tooltip.textStyle.color = NULL,
+                    tooltip.textStyle.fontStyle = NULL,
+                    tooltip.textStyle.fontWeight = NULL,
+                    tooltip.textStyle.fontFamily = NULL,
+                    tooltip.textStyle.lineHeight = NULL,
+                    tooltip.textStyle.width = NULL,
+                    tooltip.textStyle.height = NULL,
+                    tooltip.textStyle.textBorderColor = NULL,
+                    tooltip.textStyle.textBorderWidth = NULL,
+                    tooltip.textStyle.textBorderType = NULL,
+                    tooltip.textStyle.textShadowColor = NULL,
+                    tooltip.textStyle.textShadowBlur = NULL,
+                    tooltip.textStyle.textShadowOffsetX = NULL,
+                    tooltip.textStyle.textShadowOffsetY = NULL,
+                    Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Convert factor to character
+  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] %in% c("factor","character")) {
+    dt[, eval(ZVar) := as.numeric(get(ZVar))]
+  }
+  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
+    dt[, eval(XVar) := as.character(get(XVar))]
+  }
+  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
+    dt[, eval(YVar) := as.character(get(YVar))]
+  }
+
+  # Subset cols
+  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
+  x_check <- class(dt1[[XVar]])[1L] %in% c('numeric','integer')
+  y_check <- class(dt1[[YVar]])[1L] %in% c('numeric','integer')
+  x_y_num <- x_check && y_check
+  x_num <- x_check && !y_check
+  x_char <- !x_check && y_check
+  all_char <- !x_check && !y_check
+
+
+  Z.HoverFormat <- "%{zaxis.title.text}: %{y:,.2f}<br>"
+
+  # XVar == numeric or integer && YVar == numeric or integer
+  if(x_y_num) {
+
+    # rank XVar and YVar
+    if(!PreAgg) {
+      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
+      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
+    }
+
+    # Transformation
+    if(ZVarTrans != "Identity") {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
+    }
+
+    # Formatting
+    vals <- unique(scales::rescale(c(dt1[[ZVar]])))
+    o <- order(vals, decreasing = FALSE)
+    cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    data.table::setnames(dt1, ZVar, "Measure_Variable")
+    data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
+
+    # Create final data for plot
+    g <- "Measure_Variable"
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)#, dispose = TRUE)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+
+  # XVar == character && YVar == numeric or integer
+  if(x_char) {
+
+    # rank YVar
+    if(!PreAgg) {
+      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
+      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+
+      # Top XVar Levels
+      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(XVar)][order(-Measure_Variable)]
+      temp <- temp[seq_len(min(NumLevels_X, temp[, .N]))][[1L]]
+      dt1 <- dt1[get(XVar) %in% eval(temp)]
+
+      # Transformation
+      if(ZVarTrans != "Identity") {
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+      }
+
+      # Formatting
+      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+      o <- order(vals, decreasing = FALSE)
+      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    }
+
+    # Create final data for plot
+    g <- "Measure_Variable"
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      darkMode = TRUE,
+      dispose = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+
+  # XVar == numeric or integer && YVar == character
+  if(x_num) {
+
+    # rank XVar
+    if(!PreAgg) {
+      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
+      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
+
+      # Top YVar Levels
+      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
+      temp <- temp[seq_len(min(NumLevels_Y, temp[, .N]))][[1L]]
+
+      # Transformation
+      if(ZVarTrans != "Identity") {
+        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
+      }
+
+      # Formatting
+      dt1 <- dt1[get(YVar) %in% eval(temp)]
+      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+      o <- order(vals, decreasing = FALSE)
+      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    }
+
+    # Create final dt1 for plot
+    g <- "Measure_Variable"
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+
+  # XVar == character or integer && YVar == character
+  if(all_char) {
+
+    # Starter pack
+    if(!PreAgg) {
+      if(Debug) print("Echarts PreAgg 1")
+      if(AggMethod == 'mean') {
+        temp_y <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_yy <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_xx <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_yy) & get(XVar) %in% eval(temp_xx)]
+        dt1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'median') {
+        temp_y <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'sum') {
+        temp_y <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'sd') {
+        temp_y <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'coeffvar') {
+        temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      } else if(AggMethod == 'count') {
+        temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
+        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
+        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
+        dt1 <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+      }
+    }
+
+    # Transformation
+    if(ZVarTrans != "Identity") {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
+    }
+
+    # Create final dt1 for plot
+    if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    if(MouseScroll) {
+      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+    return(p1)
+  }
+}
+
+# ----
+
+# ----
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+# > Relationships Plot Functions                                              ----
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+
+#' @title CorrMatrix
+#'
+#' @description Build a correlation matrix plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param CorrVars vector of variable names
+#' @param CorrVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Method character
+#' @param MaxNAPercent numeric
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param PreAgg logical
+#' @param TextColor character hex
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts CorrMatrix Plot Chart
+#' AutoPlots::Plot.CorrMatrix(
+#'   dt = data,
+#'   CorrVars = c(
+#'     "Adrian",
+#'     "Independent_Variable1",
+#'     "Independent_Variable2",
+#'     "Independent_Variable3",
+#'     "Independent_Variable4",
+#'     "Independent_Variable5"),
+#'   CorrVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Method = 'pearson',
+#'   PreAgg = FALSE,
+#'   MaxNAPercent = 0.05,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Correlation Matrix",
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+CorrMatrix <- function(dt = NULL,
+                       CorrVars = NULL,
+                       CorrVarTrans = "Identity",
+                       FacetRows = 1,
+                       FacetCols = 1,
+                       FacetLevels = NULL,
+                       Method = 'spearman',
+                       PreAgg = FALSE,
+                       MaxNAPercent = 0.05,
+                       Height = NULL,
+                       Width = NULL,
+                       ShowLabels = FALSE,
+                       Theme = "dark",
+                       MouseScroll = FALSE,
+                       TextColor = "white",
+                       Title = "Correlogram",
+                       title.fontSize = 22,
+                       title.fontWeight = "bold",
+                       title.textShadowColor = '#63aeff',
+                       title.textShadowBlur = 3,
+                       title.textShadowOffsetY = 1,
+                       title.textShadowOffsetX = -1,
+                       xAxis.title = NULL,
+                       xAxis.min = NULL,
+                       xAxis.max = NULL,
+                       xAxis.position = "bottom",
+                       xAxis.nameLocation = 'center',
+                       xAxis.axisTick.customValues = NULL,
+                       xAxis.nameTextStyle.color = NULL,
+                       xAxis.nameTextStyle.padding = 25,
+                       xAxis.nameTextStyle.align = NULL,
+                       xAxis.nameTextStyle.fontStyle = NULL,
+                       xAxis.nameTextStyle.fontWeight = NULL,
+                       xAxis.nameTextStyle.fontSize = NULL,
+                       xAxis.nameTextStyle.fontFamily = NULL,
+                       xAxis.splitNumber = NULL,
+                       xAxis.axisLabel.rotate = NULL,
+                       xAxis.axisLabel.margin = NULL,
+                       xAxis.axisLabel.color = NULL,
+                       xAxis.axisLabel.fontStyle = NULL,
+                       xAxis.axisLabel.fontWeight = NULL,
+                       xAxis.axisLabel.fontFamily = NULL,
+                       xAxis.axisLabel.fontSize = 14,
+                       xAxis.axisLabel.align = NULL,
+                       xAxis.axisLabel.verticalAlign = NULL,
+                       xAxis.axisLabel.backgroundColor = NULL,
+                       xAxis.axisLabel.borderColor = NULL,
+                       xAxis.axisLabel.borderWidth = NULL,
+                       xAxis.axisLabel.borderType = NULL,
+                       xAxis.axisLabel.borderRadius = NULL,
+                       xAxis.axisLabel.padding = NULL,
+                       xAxis.axisLabel.shadowColor = NULL,
+                       xAxis.axisLabel.shadowBlur = NULL,
+                       xAxis.axisLabel.shadowOffsetX = NULL,
+                       xAxis.axisLabel.shadowOffsetY = NULL,
+                       xAxis.axisLabel.textBorderColor = NULL,
+                       xAxis.axisLabel.textBorderWidth = NULL,
+                       xAxis.axisLabel.textBorderType = NULL,
+                       xAxis.axisLabel.textShadowColor = NULL,
+                       xAxis.axisLabel.textShadowBlur = NULL,
+                       xAxis.axisLabel.textShadowOffsetX = NULL,
+                       xAxis.axisLabel.textShadowOffsetY = NULL,
+                       xAxis.axisLabel.overflow = NULL,
+                       yAxis.title = NULL,
+                       yAxis.min = NULL,
+                       yAxis.max = NULL,
+                       yAxis.position = "center",
+                       yAxis.nameLocation = 'center',
+                       yAxis.axisTick.customValues = NULL,
+                       yAxis.nameTextStyle.color = NULL,
+                       yAxis.nameTextStyle.padding = 25,
+                       yAxis.nameTextStyle.align = NULL,
+                       yAxis.nameTextStyle.fontStyle = NULL,
+                       yAxis.nameTextStyle.fontWeight = NULL,
+                       yAxis.nameTextStyle.fontSize = NULL,
+                       yAxis.nameTextStyle.fontFamily = NULL,
+                       yAxis.splitNumber = NULL,
+                       yAxis.axisLabel.rotate = NULL,
+                       yAxis.axisLabel.margin = NULL,
+                       yAxis.axisLabel.color = NULL,
+                       yAxis.axisLabel.fontStyle = NULL,
+                       yAxis.axisLabel.fontWeight = NULL,
+                       yAxis.axisLabel.fontFamily = NULL,
+                       yAxis.axisLabel.fontSize = 14,
+                       yAxis.axisLabel.align = NULL,
+                       yAxis.axisLabel.verticalAlign = NULL,
+                       yAxis.axisLabel.backgroundColor = NULL,
+                       yAxis.axisLabel.borderColor = NULL,
+                       yAxis.axisLabel.borderWidth = NULL,
+                       yAxis.axisLabel.borderType = NULL,
+                       yAxis.axisLabel.borderRadius = NULL,
+                       yAxis.axisLabel.padding = NULL,
+                       yAxis.axisLabel.shadowColor = NULL,
+                       yAxis.axisLabel.shadowBlur = NULL,
+                       yAxis.axisLabel.shadowOffsetX = NULL,
+                       yAxis.axisLabel.shadowOffsetY = NULL,
+                       yAxis.axisLabel.textBorderColor = NULL,
+                       yAxis.axisLabel.textBorderWidth = NULL,
+                       yAxis.axisLabel.textBorderType = NULL,
+                       yAxis.axisLabel.textShadowColor = NULL,
+                       yAxis.axisLabel.textShadowBlur = NULL,
+                       yAxis.axisLabel.textShadowOffsetX = NULL,
+                       yAxis.axisLabel.textShadowOffsetY = NULL,
+                       yAxis.axisLabel.overflow = NULL,
+                       tooltip.show = TRUE,
+                       tooltip.trigger = "cross",
+                       tooltip.backgroundColor = NULL,
+                       tooltip.borderColor = NULL,
+                       tooltip.borderWidth = NULL,
+                       tooltip.padding = NULL,
+                       tooltip.axisPointer.type = "cross",
+                       tooltip.axisPointer.lineStyle.color = NULL,
+                       tooltip.axisPointer.shadowStyle.color = NULL,
+                       tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                       tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                       tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                       tooltip.axisPointer.shadowStyle.opacity = NULL,
+                       tooltip.textStyle.color = NULL,
+                       tooltip.textStyle.fontStyle = NULL,
+                       tooltip.textStyle.fontWeight = NULL,
+                       tooltip.textStyle.fontFamily = NULL,
+                       tooltip.textStyle.lineHeight = NULL,
+                       tooltip.textStyle.width = NULL,
+                       tooltip.textStyle.height = NULL,
+                       tooltip.textStyle.textBorderColor = NULL,
+                       tooltip.textStyle.textBorderWidth = NULL,
+                       tooltip.textStyle.textBorderType = NULL,
+                       tooltip.textStyle.textShadowColor = NULL,
+                       tooltip.textStyle.textShadowBlur = NULL,
+                       tooltip.textStyle.textShadowOffsetX = NULL,
+                       tooltip.textStyle.textShadowOffsetY = NULL,
+                       Debug = FALSE) {
+
+  # Filter out bad vars
+  x <- c(); for(i in CorrVars) if(dt[, sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
+  CorrVars <- x
+  NN <- dt[,.N]
+  x <- c(); for(i in CorrVars) if(sum(dt[, is.na(get(i))]) / NN <= MaxNAPercent) x <- c(x, i)
+  CorrVars <- x
+
+  # Plot
+  if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
+
+    # Transformation
+    if(CorrVarTrans != "Identity") {
+      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = CorrVars, Methods = CorrVarTrans)$Data
+    }
+    for(i in seq_along(names(dt1))) {
+      yy <- names(dt1)[i]
+      zz <- nchar(yy)
+      data.table::setnames(dt1, yy, substr(x = yy, start = max(0L, zz - 40L), stop = nchar(yy)))
+    }
+    corr_mat <- cor(method = tolower(Method), x = dt1)
+  } else {
+    corr_mat <- dt
+  }
+
+  if(Debug) {
+    print("Plot.CorrMatrix Echarts")
+    print(Width)
+    print(Height)
+    print(corr_mat)
+  }
+
+  p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
+  p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+  if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+    p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+  } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+    p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+  } else {
+    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+  }
+
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+
+  # Return plot
+  return(p1)
+}
+
+#' @title Parallel
+#'
+#' @description Build a parallel plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param SampleSize Sample size
+#' @param CorrVars vector of variable names
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param PreAgg logical
+#' @param TextColor character hex
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create data
+#' dt = AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Create plot
+#' AutoPlots::Parallel(
+#'   dt = dt,
+#'   SampleSize = 1000,
+#'   CorrVars = c("Independent_Variable3",
+#'                "Independent_Variable4",
+#'                "Independent_Variable5",
+#'                "Independent_Variable6",
+#'                "Independent_Variable7"),
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   PreAgg = FALSE,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = "Parallel Plot",
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Parallel <- function(dt = NULL,
+                     SampleSize = 50000,
+                     CorrVars = NULL,
+                     FacetRows = 1,
+                     FacetCols = 1,
+                     FacetLevels = NULL,
+                     PreAgg = FALSE,
+                     Height = NULL,
+                     Width = NULL,
+                     ShowLabels = FALSE,
+                     Theme = "dark",
+                     MouseScroll = FALSE,
+                     TextColor = "white",
+                     Title = "Parallel Plot",
+                     title.fontSize = 22,
+                     title.fontWeight = "bold",
+                     title.textShadowColor = '#63aeff',
+                     title.textShadowBlur = 3,
+                     title.textShadowOffsetY = 1,
+                     title.textShadowOffsetX = -1,
+                     xAxis.title = NULL,
+                     xAxis.min = NULL,
+                     xAxis.max = NULL,
+                     xAxis.position = "bottom",
+                     xAxis.nameLocation = 'center',
+                     xAxis.axisTick.customValues = NULL,
+                     xAxis.nameTextStyle.color = NULL,
+                     xAxis.nameTextStyle.padding = 25,
+                     xAxis.nameTextStyle.align = NULL,
+                     xAxis.nameTextStyle.fontStyle = NULL,
+                     xAxis.nameTextStyle.fontWeight = NULL,
+                     xAxis.nameTextStyle.fontSize = NULL,
+                     xAxis.nameTextStyle.fontFamily = NULL,
+                     xAxis.splitNumber = NULL,
+                     xAxis.axisLabel.rotate = NULL,
+                     xAxis.axisLabel.margin = NULL,
+                     xAxis.axisLabel.color = NULL,
+                     xAxis.axisLabel.fontStyle = NULL,
+                     xAxis.axisLabel.fontWeight = NULL,
+                     xAxis.axisLabel.fontFamily = NULL,
+                     xAxis.axisLabel.fontSize = 14,
+                     xAxis.axisLabel.align = NULL,
+                     xAxis.axisLabel.verticalAlign = NULL,
+                     xAxis.axisLabel.backgroundColor = NULL,
+                     xAxis.axisLabel.borderColor = NULL,
+                     xAxis.axisLabel.borderWidth = NULL,
+                     xAxis.axisLabel.borderType = NULL,
+                     xAxis.axisLabel.borderRadius = NULL,
+                     xAxis.axisLabel.padding = NULL,
+                     xAxis.axisLabel.shadowColor = NULL,
+                     xAxis.axisLabel.shadowBlur = NULL,
+                     xAxis.axisLabel.shadowOffsetX = NULL,
+                     xAxis.axisLabel.shadowOffsetY = NULL,
+                     xAxis.axisLabel.textBorderColor = NULL,
+                     xAxis.axisLabel.textBorderWidth = NULL,
+                     xAxis.axisLabel.textBorderType = NULL,
+                     xAxis.axisLabel.textShadowColor = NULL,
+                     xAxis.axisLabel.textShadowBlur = NULL,
+                     xAxis.axisLabel.textShadowOffsetX = NULL,
+                     xAxis.axisLabel.textShadowOffsetY = NULL,
+                     xAxis.axisLabel.overflow = NULL,
+                     yAxis.title = NULL,
+                     yAxis.min = NULL,
+                     yAxis.max = NULL,
+                     yAxis.position = "center",
+                     yAxis.nameLocation = 'center',
+                     yAxis.axisTick.customValues = NULL,
+                     yAxis.nameTextStyle.color = NULL,
+                     yAxis.nameTextStyle.padding = 25,
+                     yAxis.nameTextStyle.align = NULL,
+                     yAxis.nameTextStyle.fontStyle = NULL,
+                     yAxis.nameTextStyle.fontWeight = NULL,
+                     yAxis.nameTextStyle.fontSize = NULL,
+                     yAxis.nameTextStyle.fontFamily = NULL,
+                     yAxis.splitNumber = NULL,
+                     yAxis.axisLabel.rotate = NULL,
+                     yAxis.axisLabel.margin = NULL,
+                     yAxis.axisLabel.color = NULL,
+                     yAxis.axisLabel.fontStyle = NULL,
+                     yAxis.axisLabel.fontWeight = NULL,
+                     yAxis.axisLabel.fontFamily = NULL,
+                     yAxis.axisLabel.fontSize = 14,
+                     yAxis.axisLabel.align = NULL,
+                     yAxis.axisLabel.verticalAlign = NULL,
+                     yAxis.axisLabel.backgroundColor = NULL,
+                     yAxis.axisLabel.borderColor = NULL,
+                     yAxis.axisLabel.borderWidth = NULL,
+                     yAxis.axisLabel.borderType = NULL,
+                     yAxis.axisLabel.borderRadius = NULL,
+                     yAxis.axisLabel.padding = NULL,
+                     yAxis.axisLabel.shadowColor = NULL,
+                     yAxis.axisLabel.shadowBlur = NULL,
+                     yAxis.axisLabel.shadowOffsetX = NULL,
+                     yAxis.axisLabel.shadowOffsetY = NULL,
+                     yAxis.axisLabel.textBorderColor = NULL,
+                     yAxis.axisLabel.textBorderWidth = NULL,
+                     yAxis.axisLabel.textBorderType = NULL,
+                     yAxis.axisLabel.textShadowColor = NULL,
+                     yAxis.axisLabel.textShadowBlur = NULL,
+                     yAxis.axisLabel.textShadowOffsetX = NULL,
+                     yAxis.axisLabel.textShadowOffsetY = NULL,
+                     yAxis.axisLabel.overflow = NULL,
+                     tooltip.show = TRUE,
+                     tooltip.trigger = "cross",
+                     tooltip.backgroundColor = NULL,
+                     tooltip.borderColor = NULL,
+                     tooltip.borderWidth = NULL,
+                     tooltip.padding = NULL,
+                     tooltip.axisPointer.type = "cross",
+                     tooltip.axisPointer.lineStyle.color = NULL,
+                     tooltip.axisPointer.shadowStyle.color = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                     tooltip.axisPointer.shadowStyle.opacity = NULL,
+                     tooltip.textStyle.color = NULL,
+                     tooltip.textStyle.fontStyle = NULL,
+                     tooltip.textStyle.fontWeight = NULL,
+                     tooltip.textStyle.fontFamily = NULL,
+                     tooltip.textStyle.lineHeight = NULL,
+                     tooltip.textStyle.width = NULL,
+                     tooltip.textStyle.height = NULL,
+                     tooltip.textStyle.textBorderColor = NULL,
+                     tooltip.textStyle.textBorderWidth = NULL,
+                     tooltip.textStyle.textBorderType = NULL,
+                     tooltip.textStyle.textShadowColor = NULL,
+                     tooltip.textStyle.textShadowBlur = NULL,
+                     tooltip.textStyle.textShadowOffsetX = NULL,
+                     tooltip.textStyle.textShadowOffsetY = NULL,
+                     Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Plot
+  if(!PreAgg) {
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
+
+  } else {
+    dt1 <- dt
+  }
+
+  if(length(SampleSize) > 0L && dt1[,.N] > SampleSize) {
+    dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
+  }
+
+  if(Debug) {
+    print("Plot.CorrMatrix Echarts")
+    print(Width)
+    print(Height)
+  }
+
+  # Names modification: because of the parse() I can't have spaces in the colnames
+  old <- c()
+  new <- c()
+  for(i in seq_along(CorrVars)) {
+    if(grepl(pattern = " ", x = CorrVars[i])) {
+      old <- c(old, CorrVars[i])
+      new <- c(new, gsub(pattern = " ", replacement = ".", x = CorrVars[i]))
+    }
+  }
+  if(length(new) > 0L) {
+    CorrVars <- new
+    data.table::setnames(dt1, old = old, new = new)
+  }
+
+  # Build Plot
+  p1 <- echarts4r::e_charts(data = dt1, width = Width, height = Height)
+
+  # Metaprog because issue with function accepting vector of names
+  p1 <- eval(
+    parse(
+      text = c(
+        "echarts4r::e_parallel_(e = p1, ",
+        noquote(
+          c(
+            paste0(CorrVars[seq_len(length(CorrVars)-1L)], collpase = ","),
+            CorrVars[length(CorrVars)])
+        ),
+        ", opts = list(smooth = TRUE))"
+      )
+    )
+  )
+
+  # Warning message:
+  #   Using an external vector in selections was deprecated in tidyselect 1.1.0.
+  # ℹ Please use `all_of()` or `any_of()` instead.
+  # # Was:
+  # data %>% select(v)
+  #
+  # # Now:
+  # data %>% select(all_of(v))
+  #
+  # See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+  # This warning is displayed once every 8 hours.
+  # Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+  if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+    p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+  } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+    p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+  } else {
+    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+  }
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+
+  # Return plot
+  return(p1)
+}
+
+
+#' @title Copula
+#'
+#' @description Build a copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#' @param dt source data.table
+#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Requires an XVar and YVar already be defined
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param AddGLM logical
+#' @param Theme = "dark-blue",
+#' @param TimeLine Logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor 'darkblue'
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#'
+#' # Echarts Copula Plot Chart
+#' AutoPlots::Copula(
+#'   dt = data,
+#'   SampleSize = 10000,
+#'   XVar = "Independent_Variable8",
+#'   YVar = "Adrian",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Copula Plot',
+#'   ShowLabels = FALSE,
+#'   AddGLM = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   MouseScroll = FALSE,
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Copula <- function(dt = NULL,
+                   SampleSize = 30000L,
+                   XVar = NULL,
+                   YVar = NULL,
+                   GroupVar = NULL,
+                   YVarTrans = "Identity",
+                   XVarTrans = "Identity",
+                   FacetRows = 1,
+                   FacetCols = 1,
+                   FacetLevels = NULL,
+                   Height = NULL,
+                   Width = NULL,
+                   ShowLabels = FALSE,
+                   AddGLM = FALSE,
+                   Theme = "dark",
+                   MouseScroll = FALSE,
+                   TimeLine = FALSE,
+                   TextColor = "white",
+                   ContainLabel = TRUE,
+                   Title = "Copula Plot",
+                   title.fontSize = 22,
+                   title.fontWeight = "bold",
+                   title.textShadowColor = '#63aeff',
+                   title.textShadowBlur = 3,
+                   title.textShadowOffsetY = 1,
+                   title.textShadowOffsetX = -1,
+                   xAxis.title = NULL,
+                   xAxis.min = NULL,
+                   xAxis.max = NULL,
+                   xAxis.position = "bottom",
+                   xAxis.nameLocation = 'center',
+                   xAxis.axisTick.customValues = NULL,
+                   xAxis.nameTextStyle.color = NULL,
+                   xAxis.nameTextStyle.padding = 25,
+                   xAxis.nameTextStyle.align = NULL,
+                   xAxis.nameTextStyle.fontStyle = NULL,
+                   xAxis.nameTextStyle.fontWeight = NULL,
+                   xAxis.nameTextStyle.fontSize = NULL,
+                   xAxis.nameTextStyle.fontFamily = NULL,
+                   xAxis.splitNumber = NULL,
+                   xAxis.axisLabel.rotate = NULL,
+                   xAxis.axisLabel.margin = NULL,
+                   xAxis.axisLabel.color = NULL,
+                   xAxis.axisLabel.fontStyle = NULL,
+                   xAxis.axisLabel.fontWeight = NULL,
+                   xAxis.axisLabel.fontFamily = NULL,
+                   xAxis.axisLabel.fontSize = 14,
+                   xAxis.axisLabel.align = NULL,
+                   xAxis.axisLabel.verticalAlign = NULL,
+                   xAxis.axisLabel.backgroundColor = NULL,
+                   xAxis.axisLabel.borderColor = NULL,
+                   xAxis.axisLabel.borderWidth = NULL,
+                   xAxis.axisLabel.borderType = NULL,
+                   xAxis.axisLabel.borderRadius = NULL,
+                   xAxis.axisLabel.padding = NULL,
+                   xAxis.axisLabel.shadowColor = NULL,
+                   xAxis.axisLabel.shadowBlur = NULL,
+                   xAxis.axisLabel.shadowOffsetX = NULL,
+                   xAxis.axisLabel.shadowOffsetY = NULL,
+                   xAxis.axisLabel.textBorderColor = NULL,
+                   xAxis.axisLabel.textBorderWidth = NULL,
+                   xAxis.axisLabel.textBorderType = NULL,
+                   xAxis.axisLabel.textShadowColor = NULL,
+                   xAxis.axisLabel.textShadowBlur = NULL,
+                   xAxis.axisLabel.textShadowOffsetX = NULL,
+                   xAxis.axisLabel.textShadowOffsetY = NULL,
+                   xAxis.axisLabel.overflow = NULL,
+                   yAxis.title = NULL,
+                   yAxis.min = NULL,
+                   yAxis.max = NULL,
+                   yAxis.position = "center",
+                   yAxis.nameLocation = 'center',
+                   yAxis.axisTick.customValues = NULL,
+                   yAxis.nameTextStyle.color = NULL,
+                   yAxis.nameTextStyle.padding = 25,
+                   yAxis.nameTextStyle.align = NULL,
+                   yAxis.nameTextStyle.fontStyle = NULL,
+                   yAxis.nameTextStyle.fontWeight = NULL,
+                   yAxis.nameTextStyle.fontSize = NULL,
+                   yAxis.nameTextStyle.fontFamily = NULL,
+                   yAxis.splitNumber = NULL,
+                   yAxis.axisLabel.rotate = NULL,
+                   yAxis.axisLabel.margin = NULL,
+                   yAxis.axisLabel.color = NULL,
+                   yAxis.axisLabel.fontStyle = NULL,
+                   yAxis.axisLabel.fontWeight = NULL,
+                   yAxis.axisLabel.fontFamily = NULL,
+                   yAxis.axisLabel.fontSize = 14,
+                   yAxis.axisLabel.align = NULL,
+                   yAxis.axisLabel.verticalAlign = NULL,
+                   yAxis.axisLabel.backgroundColor = NULL,
+                   yAxis.axisLabel.borderColor = NULL,
+                   yAxis.axisLabel.borderWidth = NULL,
+                   yAxis.axisLabel.borderType = NULL,
+                   yAxis.axisLabel.borderRadius = NULL,
+                   yAxis.axisLabel.padding = NULL,
+                   yAxis.axisLabel.shadowColor = NULL,
+                   yAxis.axisLabel.shadowBlur = NULL,
+                   yAxis.axisLabel.shadowOffsetX = NULL,
+                   yAxis.axisLabel.shadowOffsetY = NULL,
+                   yAxis.axisLabel.textBorderColor = NULL,
+                   yAxis.axisLabel.textBorderWidth = NULL,
+                   yAxis.axisLabel.textBorderType = NULL,
+                   yAxis.axisLabel.textShadowColor = NULL,
+                   yAxis.axisLabel.textShadowBlur = NULL,
+                   yAxis.axisLabel.textShadowOffsetX = NULL,
+                   yAxis.axisLabel.textShadowOffsetY = NULL,
+                   yAxis.axisLabel.overflow = NULL,
+                   tooltip.show = TRUE,
+                   tooltip.trigger = "cross",
+                   tooltip.backgroundColor = NULL,
+                   tooltip.borderColor = NULL,
+                   tooltip.borderWidth = NULL,
+                   tooltip.padding = NULL,
+                   tooltip.axisPointer.type = "cross",
+                   tooltip.axisPointer.lineStyle.color = NULL,
+                   tooltip.axisPointer.shadowStyle.color = NULL,
+                   tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                   tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                   tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                   tooltip.axisPointer.shadowStyle.opacity = NULL,
+                   tooltip.textStyle.color = NULL,
+                   tooltip.textStyle.fontStyle = NULL,
+                   tooltip.textStyle.fontWeight = NULL,
+                   tooltip.textStyle.fontFamily = NULL,
+                   tooltip.textStyle.lineHeight = NULL,
+                   tooltip.textStyle.width = NULL,
+                   tooltip.textStyle.height = NULL,
+                   tooltip.textStyle.textBorderColor = NULL,
+                   tooltip.textStyle.textBorderWidth = NULL,
+                   tooltip.textStyle.textBorderType = NULL,
+                   tooltip.textStyle.textShadowColor = NULL,
+                   tooltip.textStyle.textShadowBlur = NULL,
+                   tooltip.textStyle.textShadowOffsetX = NULL,
+                   tooltip.textStyle.textShadowOffsetY = NULL,
+                   Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+
+  if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
+
+  # Cap number of records
+  if(Debug) print('Plot.Copula # Cap number of records')
+  if(dt[,.N] > SampleSize) {
+    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+  dt1[, eval(YVar) := data.table::frank(get(YVar)) * (1 / 0.001) / .N * 0.001]
+  dt1[, eval(XVar) := data.table::frank(get(XVar)) * (1 / 0.001) / .N * 0.001]
+
+  if(length(GroupVar) == 0L) {
+    if(Debug) print('Plot.Copula length(GroupVar) == 0L')
+
+    if(Debug) print('Plot.Copula Echarts')
+    dt1[, size_vals := seq_len(.N)/1000]
+    sv <- "size_vals"
+    p1 <- echarts4r::e_charts_(
+      dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_scatter_(e = p1, YVar, color = YVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_scatter_(e = p1, YVar, color = YVar)
+    }
+
+    # Add GLM
+    if(AddGLM) {
+      p1 <- echarts4r::e_glm(
+        e = p1,
+        smooth = TRUE,
+        formula = get(YVar) ~ get(XVar))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+
+  } else {
+
+    if(length(FacetLevels) > 0L) {
+      dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
+    }
+
+    if(Debug) print('Plot.Copula length(GroupVar) > 0L')
+    if(Debug) print('Plot.Copula Echarts')
+    if(TimeLine) {
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        x = XVar,
+        colorBy = GroupVar[1L],
+        timeline = TRUE,
+        darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        dispose = TRUE,
+        width = Width,
+        height = Height)
+    } else {
+      p1 <- echarts4r::e_charts_(
+        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        x = XVar,
+        dispose = TRUE,
+        #darkMode = TRUE,
+        emphasis = list(focus = "series"),
+        width = Width,
+        height = Height)
+    }
+    p1 <- echarts4r::e_scatter_(e = p1, YVar)
+
+    # Add GLM
+    if(AddGLM) {
+      p1 <- echarts4r::e_glm(
+        e = p1,
+        smooth = TRUE,
+        formula = get(YVar) ~ get(XVar))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar)
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) {
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
+
+
+  }
+
+  # Return plot
+  return(p1)
+}
+
+#' @title Copula3D
+#'
+#' @description Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param ZVar Z-Axis variable name
+#' @param GroupVar Requires an XVar and YVar already be defined
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param Theme = "dark-blue"
+#' @param TimeLine Logical
+#' @param TextColor 'darkblue'
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
+#'
+#' # Echarts Copula Plot Chart
+#' AutoPlots::Copula3D(
+#'   dt = data,
+#'   SampleSize = 10000,
+#'   XVar = "Adrian",
+#'   YVar = "Independent_Variable9",
+#'   ZVar = "Independent_Variable6",
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   ZVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   GroupVar = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Copula 3D',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   zaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   zaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Copula3D <- function(dt = NULL,
+                     SampleSize = 100000,
+                     XVar = NULL,
+                     YVar = NULL,
+                     ZVar = NULL,
+                     YVarTrans = "Identity",
+                     XVarTrans = "Identity",
+                     ZVarTrans = "Identity",
+                     FacetRows = 1,
+                     FacetCols = 1,
+                     FacetLevels = NULL,
+                     GroupVar = NULL,
+                     Height = NULL,
+                     Width = NULL,
+                     ShowLabels = FALSE,
+                     Theme = "dark-blue",
+                     TimeLine = FALSE,
+                     TextColor = "white",
+                     ContainLabel = TRUE,
+                     Title = "3D Copula Plot",
+                     title.fontSize = 22,
+                     title.fontWeight = "bold",
+                     title.textShadowColor = '#63aeff',
+                     title.textShadowBlur = 3,
+                     title.textShadowOffsetY = 1,
+                     title.textShadowOffsetX = -1,
+                     xAxis.title = NULL,
+                     xAxis.min = NULL,
+                     xAxis.max = NULL,
+                     xAxis.position = "bottom",
+                     xAxis.nameLocation = 'center',
+                     xAxis.axisTick.customValues = NULL,
+                     xAxis.nameTextStyle.color = NULL,
+                     xAxis.nameTextStyle.padding = 25,
+                     xAxis.nameTextStyle.align = NULL,
+                     xAxis.nameTextStyle.fontStyle = NULL,
+                     xAxis.nameTextStyle.fontWeight = NULL,
+                     xAxis.nameTextStyle.fontSize = NULL,
+                     xAxis.nameTextStyle.fontFamily = NULL,
+                     xAxis.splitNumber = NULL,
+                     xAxis.axisLabel.rotate = NULL,
+                     xAxis.axisLabel.margin = NULL,
+                     xAxis.axisLabel.color = NULL,
+                     xAxis.axisLabel.fontStyle = NULL,
+                     xAxis.axisLabel.fontWeight = NULL,
+                     xAxis.axisLabel.fontFamily = NULL,
+                     xAxis.axisLabel.fontSize = 14,
+                     xAxis.axisLabel.align = NULL,
+                     xAxis.axisLabel.verticalAlign = NULL,
+                     xAxis.axisLabel.backgroundColor = NULL,
+                     xAxis.axisLabel.borderColor = NULL,
+                     xAxis.axisLabel.borderWidth = NULL,
+                     xAxis.axisLabel.borderType = NULL,
+                     xAxis.axisLabel.borderRadius = NULL,
+                     xAxis.axisLabel.padding = NULL,
+                     xAxis.axisLabel.shadowColor = NULL,
+                     xAxis.axisLabel.shadowBlur = NULL,
+                     xAxis.axisLabel.shadowOffsetX = NULL,
+                     xAxis.axisLabel.shadowOffsetY = NULL,
+                     xAxis.axisLabel.textBorderColor = NULL,
+                     xAxis.axisLabel.textBorderWidth = NULL,
+                     xAxis.axisLabel.textBorderType = NULL,
+                     xAxis.axisLabel.textShadowColor = NULL,
+                     xAxis.axisLabel.textShadowBlur = NULL,
+                     xAxis.axisLabel.textShadowOffsetX = NULL,
+                     xAxis.axisLabel.textShadowOffsetY = NULL,
+                     xAxis.axisLabel.overflow = NULL,
+                     yAxis.title = NULL,
+                     yAxis.min = NULL,
+                     yAxis.max = NULL,
+                     yAxis.position = "center",
+                     yAxis.nameLocation = 'center',
+                     yAxis.axisTick.customValues = NULL,
+                     yAxis.nameTextStyle.color = NULL,
+                     yAxis.nameTextStyle.padding = 25,
+                     yAxis.nameTextStyle.align = NULL,
+                     yAxis.nameTextStyle.fontStyle = NULL,
+                     yAxis.nameTextStyle.fontWeight = NULL,
+                     yAxis.nameTextStyle.fontSize = NULL,
+                     yAxis.nameTextStyle.fontFamily = NULL,
+                     yAxis.splitNumber = NULL,
+                     yAxis.axisLabel.rotate = NULL,
+                     yAxis.axisLabel.margin = NULL,
+                     yAxis.axisLabel.color = NULL,
+                     yAxis.axisLabel.fontStyle = NULL,
+                     yAxis.axisLabel.fontWeight = NULL,
+                     yAxis.axisLabel.fontFamily = NULL,
+                     yAxis.axisLabel.fontSize = 14,
+                     yAxis.axisLabel.align = NULL,
+                     yAxis.axisLabel.verticalAlign = NULL,
+                     yAxis.axisLabel.backgroundColor = NULL,
+                     yAxis.axisLabel.borderColor = NULL,
+                     yAxis.axisLabel.borderWidth = NULL,
+                     yAxis.axisLabel.borderType = NULL,
+                     yAxis.axisLabel.borderRadius = NULL,
+                     yAxis.axisLabel.padding = NULL,
+                     yAxis.axisLabel.shadowColor = NULL,
+                     yAxis.axisLabel.shadowBlur = NULL,
+                     yAxis.axisLabel.shadowOffsetX = NULL,
+                     yAxis.axisLabel.shadowOffsetY = NULL,
+                     yAxis.axisLabel.textBorderColor = NULL,
+                     yAxis.axisLabel.textBorderWidth = NULL,
+                     yAxis.axisLabel.textBorderType = NULL,
+                     yAxis.axisLabel.textShadowColor = NULL,
+                     yAxis.axisLabel.textShadowBlur = NULL,
+                     yAxis.axisLabel.textShadowOffsetX = NULL,
+                     yAxis.axisLabel.textShadowOffsetY = NULL,
+                     yAxis.axisLabel.overflow = NULL,
+                     tooltip.show = TRUE,
+                     tooltip.trigger = "cross",
+                     tooltip.backgroundColor = NULL,
+                     tooltip.borderColor = NULL,
+                     tooltip.borderWidth = NULL,
+                     tooltip.padding = NULL,
+                     tooltip.axisPointer.type = "cross",
+                     tooltip.axisPointer.lineStyle.color = NULL,
+                     tooltip.axisPointer.shadowStyle.color = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                     tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                     tooltip.axisPointer.shadowStyle.opacity = NULL,
+                     tooltip.textStyle.color = NULL,
+                     tooltip.textStyle.fontStyle = NULL,
+                     tooltip.textStyle.fontWeight = NULL,
+                     tooltip.textStyle.fontFamily = NULL,
+                     tooltip.textStyle.lineHeight = NULL,
+                     tooltip.textStyle.width = NULL,
+                     tooltip.textStyle.height = NULL,
+                     tooltip.textStyle.textBorderColor = NULL,
+                     tooltip.textStyle.textBorderWidth = NULL,
+                     tooltip.textStyle.textBorderType = NULL,
+                     tooltip.textStyle.textShadowColor = NULL,
+                     tooltip.textStyle.textShadowBlur = NULL,
+                     tooltip.textStyle.textShadowOffsetX = NULL,
+                     tooltip.textStyle.textShadowOffsetY = NULL,
+                     Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+
+  # Cap number of records
+  if(Debug) print('Plot.Copula3D # Cap number of records')
+  N <- dt[,.N]
+  if(SampleSize > 50000L) SampleSize <- 50000L
+  if(N > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
+  dt1 <- data.table::copy(dt)
+  dt1[, eval(YVar) := data.table::frank(get(YVar)) * (1 / 0.001) / .N * 0.001]
+  dt1[, eval(XVar) := data.table::frank(get(XVar)) * (1 / 0.001) / .N * 0.001]
+  dt1[, eval(ZVar) := data.table::frank(get(ZVar)) * (1 / 0.001) / .N * 0.001]
+  if(length(GroupVar) > 0L) {
+    if(Debug) print('Plot.Copula3D length(GroupVar) > 0L')
+
+    if(Debug) print('Plot.Copula3D Echarts')
+    p1 <- echarts4r::e_charts_(
+      dt1 |> dplyr::group_by(get(GroupVar[1L])),
+      x = XVar,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      timeline = TimeLine,
+      colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[[1L]], label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[[1L]])
+    }
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor))
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+
+
+  } else {
+
+    if(Debug) print('Plot.Copula3D length(GroupVar) == 0L')
+    if(Debug) print('Plot.Copula3D Echarts')
+    p1 <- echarts4r::e_charts_(
+      dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar)
+    }
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+  }
+
+  # Return plot
+  return(p1)
+}
+
+#' @title Scatter
+#'
+#' @description Build a copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param SampleSize numeric
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param AddGLM logical
+#' @param tooltip.trigger "axis"
+#' @param ShowLabels character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor character hex
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data[, Independent_Variable8 := Independent_Variable8 * runif(.N)]
+#'
+#' # Echarts Scatter Plot Chart
+#' AutoPlots::Scatter(
+#'   dt = data,
+#'   SampleSize = 10000,
+#'   XVar = "Independent_Variable10",
+#'   YVar = "Independent_Variable8",
+#'   GroupVar = NULL,
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Scatter Plot',
+#'   ShowLabels = FALSE,
+#'   AddGLM = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "blue",
+#'   MouseScroll = FALSE,
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   tooltip.trigger = "axis",
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Scatter <- function(dt = NULL,
+                    SampleSize = 30000L,
+                    XVar = NULL,
+                    YVar = NULL,
+                    GroupVar = NULL,
+                    YVarTrans = "Identity",
+                    XVarTrans = "Identity",
+                    FacetRows = 1,
+                    FacetCols = 1,
+                    FacetLevels = NULL,
+                    Height = NULL,
+                    Width = NULL,
+                    ShowLabels = FALSE,
+                    AddGLM = FALSE,
+                    Theme = "dark",
+                    MouseScroll = FALSE,
+                    TimeLine = FALSE,
+                    TextColor = "white",
+                    ContainLabel = TRUE,
+                    tooltip.trigger = "axis",
+                    Title = "3D Copula Plot",
+                    title.fontSize = 22,
+                    title.fontWeight = "bold",
+                    title.textShadowColor = '#63aeff',
+                    title.textShadowBlur = 3,
+                    title.textShadowOffsetY = 1,
+                    title.textShadowOffsetX = -1,
+                    xAxis.title = NULL,
+                    xAxis.min = NULL,
+                    xAxis.max = NULL,
+                    xAxis.position = "bottom",
+                    xAxis.nameLocation = 'center',
+                    xAxis.axisTick.customValues = NULL,
+                    xAxis.nameTextStyle.color = NULL,
+                    xAxis.nameTextStyle.padding = 25,
+                    xAxis.nameTextStyle.align = NULL,
+                    xAxis.nameTextStyle.fontStyle = NULL,
+                    xAxis.nameTextStyle.fontWeight = NULL,
+                    xAxis.nameTextStyle.fontSize = NULL,
+                    xAxis.nameTextStyle.fontFamily = NULL,
+                    xAxis.splitNumber = NULL,
+                    xAxis.axisLabel.rotate = NULL,
+                    xAxis.axisLabel.margin = NULL,
+                    xAxis.axisLabel.color = NULL,
+                    xAxis.axisLabel.fontStyle = NULL,
+                    xAxis.axisLabel.fontWeight = NULL,
+                    xAxis.axisLabel.fontFamily = NULL,
+                    xAxis.axisLabel.fontSize = 14,
+                    xAxis.axisLabel.align = NULL,
+                    xAxis.axisLabel.verticalAlign = NULL,
+                    xAxis.axisLabel.backgroundColor = NULL,
+                    xAxis.axisLabel.borderColor = NULL,
+                    xAxis.axisLabel.borderWidth = NULL,
+                    xAxis.axisLabel.borderType = NULL,
+                    xAxis.axisLabel.borderRadius = NULL,
+                    xAxis.axisLabel.padding = NULL,
+                    xAxis.axisLabel.shadowColor = NULL,
+                    xAxis.axisLabel.shadowBlur = NULL,
+                    xAxis.axisLabel.shadowOffsetX = NULL,
+                    xAxis.axisLabel.shadowOffsetY = NULL,
+                    xAxis.axisLabel.textBorderColor = NULL,
+                    xAxis.axisLabel.textBorderWidth = NULL,
+                    xAxis.axisLabel.textBorderType = NULL,
+                    xAxis.axisLabel.textShadowColor = NULL,
+                    xAxis.axisLabel.textShadowBlur = NULL,
+                    xAxis.axisLabel.textShadowOffsetX = NULL,
+                    xAxis.axisLabel.textShadowOffsetY = NULL,
+                    xAxis.axisLabel.overflow = NULL,
+                    yAxis.title = NULL,
+                    yAxis.min = NULL,
+                    yAxis.max = NULL,
+                    yAxis.position = "center",
+                    yAxis.nameLocation = 'center',
+                    yAxis.axisTick.customValues = NULL,
+                    yAxis.nameTextStyle.color = NULL,
+                    yAxis.nameTextStyle.padding = 25,
+                    yAxis.nameTextStyle.align = NULL,
+                    yAxis.nameTextStyle.fontStyle = NULL,
+                    yAxis.nameTextStyle.fontWeight = NULL,
+                    yAxis.nameTextStyle.fontSize = NULL,
+                    yAxis.nameTextStyle.fontFamily = NULL,
+                    yAxis.splitNumber = NULL,
+                    yAxis.axisLabel.rotate = NULL,
+                    yAxis.axisLabel.margin = NULL,
+                    yAxis.axisLabel.color = NULL,
+                    yAxis.axisLabel.fontStyle = NULL,
+                    yAxis.axisLabel.fontWeight = NULL,
+                    yAxis.axisLabel.fontFamily = NULL,
+                    yAxis.axisLabel.fontSize = 14,
+                    yAxis.axisLabel.align = NULL,
+                    yAxis.axisLabel.verticalAlign = NULL,
+                    yAxis.axisLabel.backgroundColor = NULL,
+                    yAxis.axisLabel.borderColor = NULL,
+                    yAxis.axisLabel.borderWidth = NULL,
+                    yAxis.axisLabel.borderType = NULL,
+                    yAxis.axisLabel.borderRadius = NULL,
+                    yAxis.axisLabel.padding = NULL,
+                    yAxis.axisLabel.shadowColor = NULL,
+                    yAxis.axisLabel.shadowBlur = NULL,
+                    yAxis.axisLabel.shadowOffsetX = NULL,
+                    yAxis.axisLabel.shadowOffsetY = NULL,
+                    yAxis.axisLabel.textBorderColor = NULL,
+                    yAxis.axisLabel.textBorderWidth = NULL,
+                    yAxis.axisLabel.textBorderType = NULL,
+                    yAxis.axisLabel.textShadowColor = NULL,
+                    yAxis.axisLabel.textShadowBlur = NULL,
+                    yAxis.axisLabel.textShadowOffsetX = NULL,
+                    yAxis.axisLabel.textShadowOffsetY = NULL,
+                    yAxis.axisLabel.overflow = NULL,
+                    tooltip.show = TRUE,
+                    tooltip.trigger = "cross",
+                    tooltip.backgroundColor = NULL,
+                    tooltip.borderColor = NULL,
+                    tooltip.borderWidth = NULL,
+                    tooltip.padding = NULL,
+                    tooltip.axisPointer.type = "cross",
+                    tooltip.axisPointer.lineStyle.color = NULL,
+                    tooltip.axisPointer.shadowStyle.color = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                    tooltip.axisPointer.shadowStyle.opacity = NULL,
+                    tooltip.textStyle.color = NULL,
+                    tooltip.textStyle.fontStyle = NULL,
+                    tooltip.textStyle.fontWeight = NULL,
+                    tooltip.textStyle.fontFamily = NULL,
+                    tooltip.textStyle.lineHeight = NULL,
+                    tooltip.textStyle.width = NULL,
+                    tooltip.textStyle.height = NULL,
+                    tooltip.textStyle.textBorderColor = NULL,
+                    tooltip.textStyle.textBorderWidth = NULL,
+                    tooltip.textStyle.textBorderType = NULL,
+                    tooltip.textStyle.textShadowColor = NULL,
+                    tooltip.textStyle.textShadowBlur = NULL,
+                    tooltip.textStyle.textShadowOffsetX = NULL,
+                    tooltip.textStyle.textShadowOffsetY = NULL,
+                    Debug = FALSE) {
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+
+  if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
+
+  # Cap number of records
+  if(Debug) print('Plot.Scatter # Cap number of records')
+  if(length(SampleSize) == 0L) SampleSize <- 30000L
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+  if(dt[,.N] > SampleSize) {
+    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+  }
+
+  # Transformation
+  if(XVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
+  }
+
+  if(length(GroupVar) == 0L) {
+    if(Debug) print('Plot.Scatter  length(GroupVar) == 0L')
+    if(Debug) print('Plot.Scatter  Echarts')
+    p1 <- echarts4r::e_charts_(
+      dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_scatter_(e = p1, YVar)
+    }
+
+    # Add GLM
+    if(AddGLM) {
+      p1 <- echarts4r::e_glm(
+        e = p1,
+        smooth = TRUE,
+        formula = get(YVar) ~ get(XVar))
+    }
+
+    p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+  } else {
+
+    if(Debug) print("SCatter 1")
+    if((FacetRows > 1L || FacetCols > 1L) && length(FacetLevels) > 0L) {
+      dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
+    }
+
+    if(Debug) print("SCatter 2")
+
+    if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
+    if(Debug) print('Plot.Scatter  Echarts')
+    p1 <- echarts4r::e_charts_(
+      dt1 |> dplyr::group_by(get(GroupVar[1L])),
+      x = XVar,
+      timeline = TimeLine,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      colorBy = GroupVar[1L], dispose = TRUE, width = Width, height = Height)
+
+    if(Debug) print("SCatter 3")
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_scatter_(e = p1, YVar, label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_scatter_(e = p1, YVar)
+    }
+
+    if(Debug) print("SCatter 4")
+
+    # Add GLM
+    if(AddGLM) {
+      p1 <- echarts4r::e_glm(
+        e = p1,
+        smooth = TRUE,
+        formula = get(YVar) ~ get(XVar))
+    }
+
+    if(Debug) print("SCatter 5")
+
+    p1 <- echarts4r::e_visual_map_(e = p1, scale = echarts4r::e_scale, show = FALSE)
+    if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
+    } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
+      p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
+    } else {
+      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
+      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
+    }
+
+    if(Debug) print("SCatter 6")
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    if(Debug) print("SCatter 7")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    if(Debug) print("SCatter 8")
+
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) {
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
+  }
+
+  # Return plot
+  return(p1)
+}
+
+#' @title Scatter3D
+#'
+#' @description Build a 3D-copula plot by simply passing arguments to a single function. It will sample your data using SampleSize number of rows. Sampled data is randomized.
+#'
+#' @family Standard Plots
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param SampleSize An integer for the number of rows to use. Sampled data is randomized. If NULL then ignored
+#' @param YVar Y-Axis variable name
+#' @param XVar X-Axis variable name
+#' @param ZVar Z-Axis variable name
+#' @param GroupVar Requires an XVar and YVar already be defined
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param Theme = "macaron"
+#' @param TimeLine Logical
+#' @param TextColor 'darkblue'
+#' @param ContainLabel TRUE
+#' @param Title "Title"
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param Debug Debugging purposes
+#'
+#' @examples
+#' # Create fake data
+#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
+#'
+#' # Echarts Copula Plot Chart
+#' AutoPlots::Scatter3D(
+#'   dt = data,
+#'   SampleSize = 10000,
+#'   XVar = "Adrian",
+#'   YVar = "Independent_Variable9",
+#'   ZVar = "Independent_Variable6",
+#'   YVarTrans = "Identity",
+#'   XVarTrans = "Identity",
+#'   ZVarTrans = "Identity",
+#'   FacetRows = 1,
+#'   FacetCols = 1,
+#'   FacetLevels = NULL,
+#'   GroupVar = NULL,
+#'   Height = NULL,
+#'   Width = NULL,
+#'   Title = 'Copula 3D',
+#'   ShowLabels = FALSE,
+#'   Title.YAxis = NULL,
+#'   Title.XAxis = NULL,
+#'   Theme = "dark",
+#'   TimeLine = FALSE,
+#'   TextColor = "black",
+#'   title.fontSize = 22,
+#'   title.fontWeight = "bold",
+#'   title.textShadowColor = '#63aeff',
+#'   title.textShadowBlur = 3,
+#'   title.textShadowOffsetY = 1,
+#'   title.textShadowOffsetX = -1,
+#'   yaxis.fontSize = 14,
+#'   xaxis.fontSize = 14,
+#'   zaxis.fontSize = 14,
+#'   xaxis.rotate = 0,
+#'   yaxis.rotate = 0,
+#'   zaxis.rotate = 0,
+#'   ContainLabel = TRUE,
+#'   Debug = FALSE)
+#'
+#' @return plot
+#' @export
+Scatter3D <- function(dt = NULL,
+                      SampleSize = 100000,
+                      XVar = NULL,
+                      YVar = NULL,
+                      ZVar = NULL,
+                      GroupVar = NULL,
+                      YVarTrans = "Identity",
+                      XVarTrans = "Identity",
+                      ZVarTrans = "Identity",
+                      FacetRows = 1,
+                      FacetCols = 1,
+                      FacetLevels = NULL,
+                      Height = NULL,
+                      Width = NULL,
+                      ShowLabels = FALSE,
+                      Theme = "dark",
+                      TimeLine = FALSE,
+                      TextColor = "white",
+                      ContainLabel = TRUE,
+                      Title = "3D Scatter Plot",
+                      title.fontSize = 22,
+                      title.fontWeight = "bold",
+                      title.textShadowColor = '#63aeff',
+                      title.textShadowBlur = 3,
+                      title.textShadowOffsetY = 1,
+                      title.textShadowOffsetX = -1,
+                      xAxis.title = NULL,
+                      xAxis.min = NULL,
+                      xAxis.max = NULL,
+                      xAxis.position = "bottom",
+                      xAxis.nameLocation = 'center',
+                      xAxis.axisTick.customValues = NULL,
+                      xAxis.nameTextStyle.color = NULL,
+                      xAxis.nameTextStyle.padding = 25,
+                      xAxis.nameTextStyle.align = NULL,
+                      xAxis.nameTextStyle.fontStyle = NULL,
+                      xAxis.nameTextStyle.fontWeight = NULL,
+                      xAxis.nameTextStyle.fontSize = NULL,
+                      xAxis.nameTextStyle.fontFamily = NULL,
+                      xAxis.splitNumber = NULL,
+                      xAxis.axisLabel.rotate = NULL,
+                      xAxis.axisLabel.margin = NULL,
+                      xAxis.axisLabel.color = NULL,
+                      xAxis.axisLabel.fontStyle = NULL,
+                      xAxis.axisLabel.fontWeight = NULL,
+                      xAxis.axisLabel.fontFamily = NULL,
+                      xAxis.axisLabel.fontSize = 14,
+                      xAxis.axisLabel.align = NULL,
+                      xAxis.axisLabel.verticalAlign = NULL,
+                      xAxis.axisLabel.backgroundColor = NULL,
+                      xAxis.axisLabel.borderColor = NULL,
+                      xAxis.axisLabel.borderWidth = NULL,
+                      xAxis.axisLabel.borderType = NULL,
+                      xAxis.axisLabel.borderRadius = NULL,
+                      xAxis.axisLabel.padding = NULL,
+                      xAxis.axisLabel.shadowColor = NULL,
+                      xAxis.axisLabel.shadowBlur = NULL,
+                      xAxis.axisLabel.shadowOffsetX = NULL,
+                      xAxis.axisLabel.shadowOffsetY = NULL,
+                      xAxis.axisLabel.textBorderColor = NULL,
+                      xAxis.axisLabel.textBorderWidth = NULL,
+                      xAxis.axisLabel.textBorderType = NULL,
+                      xAxis.axisLabel.textShadowColor = NULL,
+                      xAxis.axisLabel.textShadowBlur = NULL,
+                      xAxis.axisLabel.textShadowOffsetX = NULL,
+                      xAxis.axisLabel.textShadowOffsetY = NULL,
+                      xAxis.axisLabel.overflow = NULL,
+                      yAxis.title = NULL,
+                      yAxis.min = NULL,
+                      yAxis.max = NULL,
+                      yAxis.position = "center",
+                      yAxis.nameLocation = 'center',
+                      yAxis.axisTick.customValues = NULL,
+                      yAxis.nameTextStyle.color = NULL,
+                      yAxis.nameTextStyle.padding = 25,
+                      yAxis.nameTextStyle.align = NULL,
+                      yAxis.nameTextStyle.fontStyle = NULL,
+                      yAxis.nameTextStyle.fontWeight = NULL,
+                      yAxis.nameTextStyle.fontSize = NULL,
+                      yAxis.nameTextStyle.fontFamily = NULL,
+                      yAxis.splitNumber = NULL,
+                      yAxis.axisLabel.rotate = NULL,
+                      yAxis.axisLabel.margin = NULL,
+                      yAxis.axisLabel.color = NULL,
+                      yAxis.axisLabel.fontStyle = NULL,
+                      yAxis.axisLabel.fontWeight = NULL,
+                      yAxis.axisLabel.fontFamily = NULL,
+                      yAxis.axisLabel.fontSize = 14,
+                      yAxis.axisLabel.align = NULL,
+                      yAxis.axisLabel.verticalAlign = NULL,
+                      yAxis.axisLabel.backgroundColor = NULL,
+                      yAxis.axisLabel.borderColor = NULL,
+                      yAxis.axisLabel.borderWidth = NULL,
+                      yAxis.axisLabel.borderType = NULL,
+                      yAxis.axisLabel.borderRadius = NULL,
+                      yAxis.axisLabel.padding = NULL,
+                      yAxis.axisLabel.shadowColor = NULL,
+                      yAxis.axisLabel.shadowBlur = NULL,
+                      yAxis.axisLabel.shadowOffsetX = NULL,
+                      yAxis.axisLabel.shadowOffsetY = NULL,
+                      yAxis.axisLabel.textBorderColor = NULL,
+                      yAxis.axisLabel.textBorderWidth = NULL,
+                      yAxis.axisLabel.textBorderType = NULL,
+                      yAxis.axisLabel.textShadowColor = NULL,
+                      yAxis.axisLabel.textShadowBlur = NULL,
+                      yAxis.axisLabel.textShadowOffsetX = NULL,
+                      yAxis.axisLabel.textShadowOffsetY = NULL,
+                      yAxis.axisLabel.overflow = NULL,
+                      tooltip.show = TRUE,
+                      tooltip.trigger = "cross",
+                      tooltip.backgroundColor = NULL,
+                      tooltip.borderColor = NULL,
+                      tooltip.borderWidth = NULL,
+                      tooltip.padding = NULL,
+                      tooltip.axisPointer.type = "cross",
+                      tooltip.axisPointer.lineStyle.color = NULL,
+                      tooltip.axisPointer.shadowStyle.color = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                      tooltip.axisPointer.shadowStyle.opacity = NULL,
+                      tooltip.textStyle.color = NULL,
+                      tooltip.textStyle.fontStyle = NULL,
+                      tooltip.textStyle.fontWeight = NULL,
+                      tooltip.textStyle.fontFamily = NULL,
+                      tooltip.textStyle.lineHeight = NULL,
+                      tooltip.textStyle.width = NULL,
+                      tooltip.textStyle.height = NULL,
+                      tooltip.textStyle.textBorderColor = NULL,
+                      tooltip.textStyle.textBorderWidth = NULL,
+                      tooltip.textStyle.textBorderType = NULL,
+                      tooltip.textStyle.textShadowColor = NULL,
+                      tooltip.textStyle.textShadowBlur = NULL,
+                      tooltip.textStyle.textShadowOffsetX = NULL,
+                      tooltip.textStyle.textShadowOffsetY = NULL,
+                      Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(length(GroupVar) == 0L) TimeLine <- FALSE
+
+  # Cap number of records
+  if(Debug) print('Plot.Scatter3D # Cap number of records')
+  if(length(SampleSize) == 0L) SampleSize <- 30000L
+  if(dt[,.N] > SampleSize) {
+    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # Transformation
+  if(YVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
+  }
+
+  # Transformation
+  if(XVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = XVar, Methods = XVarTrans)$Data
+  }
+
+  # Transformation
+  if(ZVarTrans != "Identity") {
+    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
+  }
+
+  if(length(GroupVar) > 0L) {
+    if(Debug) print('Plot.Scatter3D length(GroupVar) > 0L')
+    if(Debug) print('Plot.Scatter3D  Echarts')
+    p1 <- echarts4r::e_charts_(
+      dt1 |> dplyr::group_by(get(GroupVar[1L])),
+      x = XVar,
+      timeline = FALSE,
+      colorBy = GroupVar[1L],
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, GroupVar[1L], label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, GroupVar[1L])
+    }
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+    if(FacetRows > 1L || FacetCols > 1L) {
+      p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    } else {
+      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+    }
+
+  } else {
+
+    if(Debug) print('Plot.Scatter3D length(GroupVar) == 0L')
+    if(Debug) print('Plot.Scatter3D  Echarts')
+    p1 <- echarts4r::e_charts_(
+      dt1 |> dplyr::group_by(GroupVar[[1L]]),
+      x = XVar,
+      timeline = FALSE,
+      dispose = TRUE,
+      darkMode = TRUE,
+      emphasis = list(focus = "series"),
+      width = Width,
+      height = Height)
+
+    if(ShowLabels) {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[[1L]], label = list(show = TRUE))
+    } else {
+      p1 <- echarts4r::e_scatter_3d_(e = p1, YVar, ZVar, ZVar, GroupVar[[1L]])
+    }
+
+    p1 <- echarts4r::e_theme(e = p1, name = Theme)
+    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+    p1 <- e_tooltip_full(
+      e = p1,
+      tooltip.show = tooltip.show,
+      tooltip.trigger = tooltip.trigger,
+      tooltip.backgroundColor = tooltip.backgroundColor,
+      tooltip.borderColor = tooltip.borderColor,
+      tooltip.borderWidth = tooltip.borderWidth,
+      tooltip.padding = tooltip.padding,
+      tooltip.axisPointer.type = tooltip.axisPointer.type,
+      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+      tooltip.textStyle.color = tooltip.textStyle.color,
+      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+      tooltip.textStyle.width = tooltip.textStyle.width,
+      tooltip.textStyle.height = tooltip.textStyle.height,
+      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      name = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+    p1 <- e_y_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "y",
+      name = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
+    p1 <- echarts4r::e_brush(e = p1)
+    p1 <- echarts4r::e_title(
+      p1, Title,
+      textStyle = list(
+        color = TextColor,
+        fontWeight = title.fontWeight,
+        overflow = "truncate", # "none", "truncate", "break",
+        ellipsis = '...',
+        fontSize = title.fontSize,
+        textShadowColor = title.textShadowColor,
+        textShadowBlur = title.textShadowBlur,
+        textShadowOffsetY = title.textShadowOffsetY,
+        textShadowOffsetX = title.textShadowOffsetX))
+
+  }
+
+  # Return plot
+  return(p1)
+}
+
+# ----
+
+# ----
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+# > Model Evaluation Plots                                                    ----
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
+
+#' @title Plot.Residuals.Histogram
+#'
+#' @description Residuals Plot
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param AggMethod character
+#' @param SampleSize numeric
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param NumberBins numeric
+#' @param Title character
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor Not Implemented
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param xaxis.rotate 0
+#' @param yaxis.rotate 0
+#' @param ContainLabel TRUE
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.Residuals.Histogram <- function(dt = NULL,
+                                     AggMethod = 'mean',
+                                     SampleSize = 100000,
+                                     XVar = NULL,
+                                     YVar = NULL,
+                                     GroupVar = NULL,
+                                     YVarTrans = "Identity",
+                                     XVarTrans = "Identity",
+                                     FacetRows = 1,
+                                     FacetCols = 1,
+                                     FacetLevels = NULL,
+                                     NumberBins = 20,
+                                     Height = NULL,
+                                     Width = NULL,
+                                     Title = 'Residuals Histogram',
+                                     ShowLabels = FALSE,
+                                     Title.YAxis = NULL,
+                                     Title.XAxis = "Target - Predicted",
+                                     Theme = "dark",
+                                     MouseScroll = FALSE,
+                                     TimeLine = FALSE,
+                                     TextColor = "white",
+                                     title.fontSize = 22,
+                                     title.fontWeight = "bold",
+                                     title.textShadowColor = '#63aeff',
+                                     title.textShadowBlur = 3,
+                                     title.textShadowOffsetY = 1,
+                                     title.textShadowOffsetX = -1,
+                                     xaxis.fontSize = 14,
+                                     yaxis.fontSize = 14,
+                                     xaxis.rotate = 0,
+                                     yaxis.rotate = 0,
+                                     ContainLabel = TRUE,
+                                     Debug = FALSE) {
+
+  # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)
+  if(length(SampleSize) == 0L) SampleSize <- 30000L
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(Debug) print("here 1")
+  if(Debug) print(head(dt))
+
+  # Subset columns
+  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
+
+  # Shrink display data
+  dt1 <- dt1[order(runif(.N))][seq_len(min(.N, SampleSize))]
+
+  # Prepare data
+  dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
+  data.table::set(dt1, j = c(YVar), value = NULL)
+  YVar <- "Target - Predicted"
+  if(length(GroupVar) > 0L) GroupVar <- GroupVar[1L]
+
+  if(Debug) print("here 2")
+  if(Debug) print(head(dt1))
+
+  # Faceting shrink
+  if(length(GroupVar) > 0L) {
+    data.table::setorderv(x = dt1, cols = c(GroupVar), 1L)
+    if(Debug) print(head(dt1))
+    dt1 <- dt1[order(get(GroupVar))]
+    if(Debug) print(head(dt1))
+  }
+
+  if(Debug) print("here 3.1")
+  if(Debug) print(head(dt1))
+
+  if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L)) {
+    dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,GroupVar)]
+  } else {
+    dt1 <- dt1[, .SD, .SDcols = c(YVar,GroupVar)]
+  }
+
+  if(Debug) print("here 3")
+  if(Debug) print(head(dt1))
+
+  # Data Prep2
+  if(Debug) print("Plot.Residuals.Histogram")
+  tl <- if(length(GroupVar) == 0L || length(FacetLevels) > 0) FALSE else TimeLine
+
+  # Transformation
+  # "PercRank"  "Standardize"
+  # "Asinh"  "Log"  "LogPlus1"  "Sqrt"  "Asin"  "Logit"  "BoxCox"  "YeoJohnson"
+  if(YVarTrans != "Identity") {
+    dt1 <- tryCatch({AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data}, error = function(x) dt1)
+  }
+
+  if(Debug) print("here 4")
+  if(Debug) print(head(dt1))
+
+  # Create base plot object
+  if(Debug) print('Create Plot with only data')
+
+  dt1 <- dt1[!is.na(get(YVar))]
+
+  p1 <- AutoPlots::Plot.Histogram(
+    dt = dt1,
+    SampleSize = SampleSize,
+    XVar = NULL,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    FacetRows = FacetRows,
+    FacetCols = FacetCols,
+    FacetLevels = FacetLevels,
+    NumberBins = NumberBins,
+    Height = Height,
+    Width = Width,
+    MouseScroll = MouseScroll,
+    Title = Title,
+    ShowLabels = ShowLabels,
+    Title.YAxis = Title.YAxis,
+    Title.XAxis = Title.XAxis,
+    Theme = Theme,
+    TimeLine = TimeLine,
+    TextColor = "white",
+    title.fontSize = title.fontSize,
+    title.fontWeight = title.fontWeight,
+    title.textShadowColor = title.textShadowColor,
+    title.textShadowBlur = title.textShadowBlur,
+    title.textShadowOffsetY = title.textShadowOffsetY,
+    title.textShadowOffsetX = title.textShadowOffsetX,
+    xaxis.fontSize = xaxis.fontSize,
+    yaxis.fontSize = yaxis.fontSize,
+    Debug = Debug)
+
+  return(p1)
+}
+
+#' @title Plot.Residuals.Scatter
+#'
+#' @description Residuals_2 Plot
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param AggMethod character
+#' @param SampleSize numeric
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor "Not Implemented"
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.Residuals.Scatter <- function(dt = NULL,
+                                   AggMethod = 'mean',
+                                   SampleSize = 100000,
+                                   XVar = NULL,
+                                   YVar = NULL,
+                                   GroupVar = NULL,
+                                   YVarTrans = "Identity",
+                                   XVarTrans = "Identity",
+                                   FacetRows = 1,
+                                   FacetCols = 1,
+                                   FacetLevels = NULL,
+                                   Height = NULL,
+                                   Width = NULL,
+                                   MouseScroll = FALSE,
+                                   Title = 'Residual Scatterplot',
+                                   ShowLabels = FALSE,
+                                   Title.YAxis = "Target - Predicted",
+                                   Title.XAxis = "Predicted",
+                                   Theme = "dark",
+                                   TimeLine = FALSE,
+                                   TextColor = "white",
+                                   Debug = FALSE) {
+
+  # Data Prep1
+  if(length(SampleSize) == 0L) SampleSize <- 30000L
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
+  if(dt1[, .N] > SampleSize) dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
+  dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
+  if(length(GroupVar) > 0L) GroupVar <- GroupVar[1L]
+  if(length(GroupVar) > 0L) {
+    dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * 20 / .N) / 20, by = c(GroupVar[1L])]
+  } else {
+    dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * 20 / .N) / 20]
+  }
+  YVar <- "Target - Predicted"
+
+  # Data Prep2
+  tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
+  data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar))
+
+  dt1 <- dt1[!is.na(get(YVar))]
+  dt1 <- dt1[!is.na(get(XVar))]
+
+  # Build Plot
+  p1 <- AutoPlots::Plot.Scatter(
+    dt = dt1,
+    SampleSize = SampleSize,
+    YVar = "Target - Predicted",
+    XVar = XVar,
+    GroupVar = GroupVar[1L],
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    FacetRows = FacetRows,
+    FacetCols = FacetCols,
+    FacetLevels = FacetLevels,
+    Height = Height,
+    Title.YAxis = YVar,
+    Title.XAxis = paste0(XVar, " every 5th Percentile"),
+    ShowLabels = ShowLabels,
+    Width = Width,
+    MouseScroll = MouseScroll,
+    Title = Title,
+    Theme = Theme,
+    TimeLine = tl,
+    TextColor = TextColor,
+    tooltip.trigger = "item",
+    Debug = Debug)
+  return(p1)
+}
+
+#' @title Plot.Calibration.Line
+#'
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param AggMethod character
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param NumberBins numeric
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor "Not Implemented"
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.Calibration.Line <- function(dt = NULL,
+                                  AggMethod = 'mean',
+                                  XVar = NULL,
+                                  YVar = NULL,
+                                  GroupVar = NULL,
+                                  YVarTrans = "Identity",
+                                  XVarTrans = "Identity",
+                                  FacetRows = 1,
+                                  FacetCols = 1,
+                                  FacetLevels = NULL,
+                                  NumberBins = 21,
+                                  Height = NULL,
+                                  Width = NULL,
+                                  Title = 'Calibration Line',
+                                  ShowLabels = FALSE,
+                                  Title.YAxis = NULL,
+                                  Title.XAxis = NULL,
+                                  Theme = "dark",
+                                  TimeLine = FALSE,
+                                  MouseScroll = FALSE,
+                                  TextColor = "white",
+                                  Debug = FALSE) {
+
+  if(Debug) print("here 1")
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  if(Debug) print("here 2")
+
+  # YVar check
+  y_class <- class(dt[[YVar]])[1L]
+
+  if(Debug) print("here 3")
+
+  # Define Aggregation function
+  if(Debug) print("here 3.1")
+  if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
+  if(Debug) print("here 3.2")
+  aggFunc <- SummaryFunction(AggMethod)
+
+  if(Debug) print("here 4")
+
+  # Regression and Classification else MultiClass
+  if(!y_class %in% c("character","factor")) {
+
+    if(Debug) print("here 5")
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.Calibration.Line # Minimize data before moving on")
+    Ncols <- ncol(dt)
+    if(Ncols > 2L && length(GroupVar) == 0L) {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+    } else if(Ncols > 3L && length(GroupVar) > 0L) {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[[1L]])])
+    } else {
+      dt1 <- data.table::copy(dt)
+    }
+
+    if(Debug) print("here 6")
+
+    # If actual is in factor form, convert to numeric
+    if(Debug) print("Plot.Calibration.Line # If actual is in factor form, convert to numeric")
+    if(!is.numeric(dt1[[YVar]])) {
+      data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
+    }
+
+    if(Debug) print("here 7")
+
+    # Add a column that ranks predicted values
+    if(length(GroupVar) > 0L) {
+
+      if(Debug) print("here 8a")
+
+      if(Debug) print("Plot.Calibration.Line # if(length(GroupVar) > 0L)")
+
+      if(length(FacetLevels) > 0L) {
+        dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
+      }
+
+      dt1[, Percentile := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c("Percentile",GroupVar[1L])]
+      dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
+      data.table::setorderv(x = dt1, cols = c("Percentile",GroupVar[1L]), c(1L,1L))
+    } else {
+
+      if(Debug) print("here 8b")
+
+      if(Debug) print("Plot.Calibration.Line # if(length(GroupVar) == 0L)")
+      dt1[, rank := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = "rank"]
+      dt1 <- data.table::melt.data.table(data = dt1, id.vars = "rank", measure.vars = c(YVar,XVar))
+      data.table::setnames(dt1, names(dt1), c("Percentile", "Variable", YVar))
+      data.table::setorderv(x = dt1, cols = c("Percentile","Variable"), c(1L,1L))
+    }
+
+    # Build Plot
+    if(Debug) print("Plot.Calibration.Line # AutoPlots::Plot.Line()")
+    yvar <- if(length(GroupVar) > 0L) "Target - Predicted" else YVar
+    gv <- if(length(GroupVar) == 0L) "Variable" else GroupVar
+    tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
+    # dt1 <- dt1[!is.na(get(yvar))]
+
+    if(Debug) print(dt1)
+    if(Debug) print("here 9")
+
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt1,
+      PreAgg = TRUE,
+      YVar = yvar,
+      XVar = "Percentile",
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Title.YAxis = yvar,
+      Title.XAxis = "Predicted",
+      ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
+      Height = Height,
+      Width = Width,
+      Title = 'Calibration Line Plot',
+      Theme = Theme,
+      TimeLine = tl,
+      TextColor = TextColor,
+      Debug = Debug)
+
+    return(p1)
+
+  } else { # multiclass model
+
+    if(Debug) print("here 5")
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
+    GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
+
+    if(Debug) print("here 6")
+
+    # Shrink data
+    if(Debug) print(dt)
+    if(Debug) print(YVar)
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(GroupVar, XVar, YVar, yvar_levels)])
+
+    if(Debug) print("here 7")
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    if(Debug) print("here 8")
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = if(length(GroupVar) == 0L) dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% XVar])] else dt1,
+      id.vars = c(GroupVar),
+      measure.vars = names(dt1)[!names(dt1) %in% c(GroupVar, YVar, XVar, nam)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    if(Debug) print("here 9")
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = c(GroupVar,XVar),
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    if(Debug) print("here 10")
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    if(Debug) print("here 11")
+
+    # Add New Target
+    yvar <- "Target - Predicted"
+    dt2[, eval(yvar) := get(YVar) - get(XVar)]
+
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L || FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      }
+    } else if(length(GroupVar) == 0L && (FacetRows > 1L || FacetCols > 1L)) {
+      FacetLevels <- yvar_levels[seq_len(min(length(yvar_levels), FacetRows * FacetCols))]
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+    }
+
+    if(Debug) print("here 12")
+
+    # Subset Cols
+    if(length(GroupVar) > 0L) {
+      dt2 <- dt2[, .SD, .SDcols = c("GroupVariables", yvar, XVar)]
+      dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+      dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar)]
+    } else {
+      dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
+      dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+      dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
+    }
+
+    if(Debug) print("here 13")
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    dt2 <- dt2[!is.na(get(yvar))]
+
+    if(Debug) print("here 14")
+
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt2,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Theme = Theme,
+      TimeLine = FALSE,
+      XVar = XVar,
+      YVar = yvar,
+      GroupVar = if(length(GroupVar) > 0L) "GroupVariables" else "Level",
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
+      Area = FALSE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Height = Height,
+      Width = Width,
+      Title = "Calibration Line Plot",
+      Title.YAxis = yvar,
+      Title.XAxis = "Predicted",
+      TextColor = TextColor,
+      Debug = Debug)
+    return(p1)
+  }
+}
+
+#' @title Plot.Calibration.Box
+#'
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param SampleSize numeric
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param AggMethod character
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param NumberBins numeric
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor "Not Implemented"
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.Calibration.Box <- function(dt = NULL,
+                                 SampleSize = 100000L,
+                                 AggMethod = 'mean',
+                                 XVar = NULL,
+                                 YVar = NULL,
+                                 GroupVar = NULL,
+                                 YVarTrans = "Identity",
+                                 XVarTrans = "Identity",
+                                 FacetRows = 1,
+                                 FacetCols = 1,
+                                 FacetLevels = NULL,
+                                 NumberBins = 21,
+                                 Height = NULL,
+                                 Width = NULL,
+                                 Title = 'Calibration Box',
+                                 MouseScroll = FALSE,
+                                 ShowLabels = FALSE,
+                                 Title.YAxis = NULL,
+                                 Title.XAxis = NULL,
+                                 Theme = "dark",
+                                 TimeLine = FALSE,
+                                 TextColor = "white",
+                                 Debug = FALSE) {
+
+  if(Debug) print("Plot.Calibration.Box 1")
+
+  # Minimize data before moving on
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+  if(Debug) print("Plot.Calibration.Box 2")
+  if(dt[, .N] > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
+  if(Debug) print("Plot.Calibration.Box 3")
+  Ncols <- ncol(dt)
+  if(Ncols > 2L && length(GroupVar) == 0L) {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar)])
+  } else if(Ncols > 3L && length(GroupVar) > 0L) {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar[[1L]])])
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+  if(Debug) print("Plot.Calibration.Box 4")
+
+  # If actual is in factor form, convert to numeric
+  if(!is.numeric(dt1[[YVar]])) {
+    data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
+  }
+  if(Debug) print("Plot.Calibration.Box 5")
+
+  # Add a column that ranks predicted values
+  if(Debug) print(paste0("NumberBins = ", NumberBins))
+  if(length(GroupVar) > 0L) {
+    dt1[, rank := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+  } else {
+    dt1[, rank := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+  }
+  if(Debug) print("Plot.Calibration.Box 6")
+  dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
+  data.table::setnames(dt1, "rank", "Percentile")
+  if(length(GroupVar) > 0L) {
+    data.table::setorderv(x = dt1, cols = c("Percentile", GroupVar[1L]), c(1L,1L))
+  } else {
+    data.table::setorderv(x = dt1, cols = "Percentile", 1L)
+  }
+  if(Debug) print("Plot.Calibration.Box 7")
+
+  dt1 <- dt1[, .SD, .SDcols = c("Target - Predicted","Percentile")]
+  if(!is.character(dt1[["Percentile"]])) dt1[, Percentile := as.character(Percentile)]
+  if(Debug) print("Plot.Calibration.Box 8")
+
+  # Plot
+  if(Debug) print(paste0("TimeLine for Plot.Box=", TimeLine))
+  dt1 <- dt1[!is.na(`Target - Predicted`)]
+  if(Debug) print("Plot.Calibration.Box 9")
+  p1 <- Plot.Box(
+    dt = dt1,
+    SampleSize = SampleSize,
+    XVar = "Percentile",
+    YVar = "Target - Predicted",
+    GroupVar = GroupVar,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    FacetRows = FacetRows,
+    FacetCols = FacetCols,
+    ShowLabels = ShowLabels,
+    Title.YAxis = "Target - Predicted",
+    Title.XAxis = paste0("Predicted Every 5th Percentile"),
+    FacetLevels = NULL,
+    Height = Height,
+    Width = Width,
+    Title = 'Calibration Box Plot',
+    MouseScroll = MouseScroll,
+    Theme = Theme,
+    TimeLine = TimeLine,
+    TextColor = TextColor,
+    Debug = Debug)
+  return(p1)
+}
+
+#' @title Plot.PartialDependence.Line
+#'
+#' @description This function automatically builds partial dependence calibration plots
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param ZVar character
+#' @param NumberBins numeric
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param EchartsLabels character
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TimeLine logical
+#' @param TextColor hex character
+#' @param AggMethod character
+#' @param GroupVar Character variable
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.PartialDependence.Line <- function(dt = NULL,
+                                        XVar = NULL,
+                                        YVar = NULL,
+                                        ZVar = NULL,
+                                        YVarTrans = "Identity",
+                                        XVarTrans = "Identity",
+                                        ZVarTrans = "Identity",
+                                        FacetRows = 1,
+                                        FacetCols = 1,
+                                        FacetLevels = NULL,
+                                        GroupVar = NULL,
+                                        NumberBins = 20,
+                                        AggMethod = "mean",
+                                        Height = NULL,
+                                        Width = NULL,
+                                        Title = "Partial Dependence Line",
+                                        ShowLabels = FALSE,
+                                        Title.YAxis = NULL,
+                                        Title.XAxis = NULL,
+                                        Theme = "dark",
+                                        MouseScroll = FALSE,
+                                        EchartsLabels = FALSE,
+                                        TimeLine = TRUE,
+                                        TextColor = "white",
+                                        Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  xvar_class <- class(dt[[XVar]][1L])
+
+  # Define Aggregation function
+  if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
+  aggFunc <- SummaryFunction(AggMethod)
+
+  # Regression and Classification else MultiClass
+  if(yvar_class %in% c("numeric","integer")) {
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
+    Ncols <- ncol(dt)
+    if(Ncols > 2L && length(GroupVar) == 0L) {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
+    } else if(Ncols > 3L && length(GroupVar) > 0L) {
+      dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar, GroupVar[1L])])
+    } else {
+      dt1 <- data.table::copy(dt)
+    }
+
+    # If actual is in factor form, convert to numeric
+    if(Debug) print("Plot.PartialDependence.Line # If actual is in factor form, convert to numeric")
+    if(!is.numeric(dt1[[YVar]])) {
+      data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
+    }
+
+    # Data Mgt
+    if(length(GroupVar) > 0L) {
+      if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) > 0L)")
+      if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+      }
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
+      dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
+      data.table::setorderv(x = dt1, cols = c(XVar,GroupVar[1L]), c(1L,1L))
+      yvar <- "Target - Predicted"
+      gv <- GroupVar
+      tl <- TimeLine
+    } else {
+      if(Debug) print("Plot.PartialDependence.Line # if(length(GroupVar) == 0L)")
+      if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+        dt1[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+      }
+      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = eval(XVar)]
+      dt1 <- data.table::melt.data.table(data = dt1, id.vars = eval(XVar), measure.vars = c(YVar,ZVar))
+      data.table::setnames(dt1, names(dt1), c(XVar, "Variable", YVar))
+      data.table::setorderv(x = dt1, cols = c(XVar,"Variable"), c(1L,1L))
+      yvar <- YVar
+      gv <- "Variable"
+      tl <- FALSE
+    }
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    dt1 <- dt1[!is.na(get(yvar))]
+    p1 <- AutoPlots::Plot.Line(
+      Area = FALSE,
+      dt = dt1,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Theme = Theme,
+      TimeLine = tl,
+      XVar = XVar,
+      YVar = yvar,
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
+      Title.YAxis = if(length(GroupVar) > 0L) "Target - Predicted" else "Target & Predicted",
+      Title.XAxis = XVar,
+      Height = Height,
+      Width = Width,
+      Title = "Partial Dependence",
+      TextColor = TextColor,
+      Debug = Debug)
+    return(p1)
+
+  } else { # multiclass model
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
+    GroupVar <- tryCatch({GroupVar[1L]}, error = function(x) NULL)
+
+    # Shrink data
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(GroupVar, XVar, YVar, yvar_levels)])
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = c(GroupVar, XVar),
+      measure.vars = names(dt1)[!names(dt1) %in% c(GroupVar, XVar, YVar, nam)],
+      variable.name = "Level",
+      value.name = ZVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = c(GroupVar, XVar),
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      }
+    } else if(length(GroupVar) == 0L && (FacetRows > 1L || FacetCols > 1L)) {
+      FacetLevels <- yvar_levels[seq_len(min(length(yvar_levels), FacetRows * FacetCols))]
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+    }
+
+    # Add New Target
+    yvar <- "Target - Predicted"
+    dt2[, eval(yvar) := get(YVar) - get(ZVar)]
+
+    # Subset Cols
+    if(length(GroupVar) > 0L) {
+      dt2 <- dt2[, .SD, .SDcols = c("GroupVariables", yvar, XVar)]
+      if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins, by = c(GroupVar[1L])]
+      }
+      dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar)]
+    } else {
+      dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
+      if(!xvar_class %in%  c("factor","character","Date","IDate","POSIXct","IDateTime")) {
+        dt2[, eval(XVar) := round(data.table::frank(get(XVar)) * NumberBins / .N) / NumberBins]
+      }
+      dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
+    }
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    dt2 <- dt2[!is.na(get(yvar))]
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt2,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Theme = Theme,
+      TimeLine = FALSE,
+      XVar = XVar,
+      YVar = yvar,
+      GroupVar = if(length(GroupVar) > 0L) "GroupVariables" else "Level",
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
+      Title.YAxis = if(length(GroupVar) > 0L) "Target - Predicted" else "Target & Predicted",
+      Title.XAxis = XVar,
+      Area = FALSE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Height = Height,
+      Width = Width,
+      Title = "Partial Dependence",
+      TextColor = TextColor,
+      Debug = Debug)
+    return(p1)
+  }
+}
+
+#' @title Plot.PartialDependence.Box
+#'
+#' @description This function automatically builds partial dependence calibration plots
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param SampleSize numeric
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param ZVar character
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param NumberBins numeric
+#' @param PreAgg logical
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param EchartsLabels character
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor hex character
+#' @param AggMethod character
+#' @param GroupVar Character variable
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.PartialDependence.Box <- function(dt = NULL,
+                                       PreAgg = FALSE,
+                                       SampleSize = 100000L,
+                                       XVar = NULL,
+                                       YVar = NULL,
+                                       ZVar = NULL,
+                                       GroupVar = NULL,
+                                       YVarTrans = "Identity",
+                                       XVarTrans = "Identity",
+                                       ZVarTrans = "Identity",
+                                       FacetRows = 1,
+                                       FacetCols = 1,
+                                       FacetLevels = NULL,
+                                       NumberBins = 20,
+                                       AggMethod = "mean",
+                                       Height = NULL,
+                                       Width = NULL,
+                                       Title = "Partial Dependence Box",
+                                       ShowLabels = FALSE,
+                                       Title.YAxis = NULL,
+                                       Title.XAxis = NULL,
+                                       Theme = "dark",
+                                       MouseScroll = FALSE,
+                                       EchartsLabels = FALSE,
+                                       TimeLine = TRUE,
+                                       TextColor = "white",
+                                       Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  GroupVar <- NULL
+
+  # Minimize data before moving on
+  if(Debug) print("Plot.PartialDependence.Box # Minimize data before moving on")
+  Ncols <- ncol(dt)
+  if(Ncols > 3L) {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # If actual is in factor form, convert to numeric
+  if(Debug) print("Plot.PartialDependence.Box # If actual is in factor form, convert to numeric")
+  if(!is.numeric(dt1[[YVar]])) {
+    data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
+  }
+
+  # Add a column that ranks predicted values
+  dt1[, eval(XVar) := as.character(round(data.table::frank(get(XVar)) * (NumberBins) / .N) / NumberBins)]
+  dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
+  data.table::setorderv(x = dt1, cols = XVar, 1L)
+
+  # Build Plot
+  tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
+
+  # Build
+  if(Debug) print("Plot.PartialDependence.Box --> AutoPlots::Plot.Box()")
+  dt1 <- dt1[!is.na(`Target - Predicted`)]
+  p1 <- AutoPlots::Plot.Box(
+    dt = dt1,
+    SampleSize = SampleSize,
+    XVar = XVar,
+    YVar = "Target - Predicted",
+    GroupVar = NULL,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    FacetRows = 1,
+    FacetCols = 1,
+    FacetLevels = NULL,
+    ShowLabels = ShowLabels,
+    Title.YAxis = "Target & Predicted",
+    Title.XAxis = paste0(XVar, " Every 5th Percentile"),
+    Height = Height,
+    Width = Width,
+    Title = "Partial Dependence",
+    MouseScroll = MouseScroll,
+    Theme = Theme,
+    TimeLine = tl,
+    TextColor = TextColor,
+    Debug = Debug)
+  return(p1)
+}
+
+#' @title Plot.PartialDependence.HeatMap
+#'
+#' @description This function automatically builds partial dependence calibration plots
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param ZVar character
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param NumberBins numeric
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param EchartsLabels character
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor hex character
+#' @param AggMethod character
+#' @param GroupVar Character variable
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.PartialDependence.HeatMap <- function(dt = NULL,
+                                           XVar = NULL,
+                                           YVar = NULL,
+                                           ZVar = NULL,
+                                           GroupVar = NULL,
+                                           YVarTrans = "Identity",
+                                           XVarTrans = "Identity",
+                                           ZVarTrans = "Identity",
+                                           FacetRows = 1,
+                                           FacetCols = 1,
+                                           FacetLevels = NULL,
+                                           NumberBins = 21,
+                                           AggMethod = "mean",
+                                           Height = NULL,
+                                           Width = NULL,
+                                           Title = "Partial Dependence Heatmap",
+                                           ShowLabels = FALSE,
+                                           MouseScroll = FALSE,
+                                           Title.YAxis = NULL,
+                                           Title.XAxis = NULL,
+                                           Theme = "dark",
+                                           EchartsLabels = FALSE,
+                                           TimeLine = TRUE,
+                                           TextColor = "white",
+                                           Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+
+  # Define Aggregation function
+  if(Debug) print("Plot.PartialDependence.Line # Define Aggregation function")
+  aggFunc <- SummaryFunction(AggMethod)
+
+  # Regression and Classification else MultiClass
+  if(yvar_class %in% c("numeric","integer")) {
+
+    GroupVar <- NULL
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.HeatMap # Minimize data before moving on")
+    Ncols <- ncol(dt)
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
+
+    if(Debug) print("Plot.PartialDependence.HeatMap # Define Aggregation function")
+    aggFunc <- SummaryFunction(AggMethod)
+    if(Debug) print("Plot.PartialDependence.HeatMap # if(length(GroupVar) == 0L)")
+
+    for(i in seq_along(XVar)) {
+      if(class(dt[[XVar[i]]][1L]) %in% c("numeric","integer")) {
+        if(Debug) print(paste0('here ', XVar[i]))
+        dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 3), 1L)]
+      } else {
+        if(Debug) print(paste0('there ', XVar[i]))
+        dt1[, eval(XVar[i]) := as.character(get(XVar[i]))]
+      }
+    }
+
+    if(Debug) print("here 2")
+    dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(eval(XVar))]
+    if(Debug) print("here 3")
+    dt1[, `Target - Predicted` := get(YVar) - get(ZVar)]
+    if(Debug) print("here 4")
+    ZVar <- "Target - Predicted"
+    if(length(XVar) > 1L) {
+      if(Debug) print("here 5.1")
+      YVar <- XVar[2L]
+      XVar <- XVar[1L]
+      data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
+      for(i in c(XVar,YVar)) dt1[, eval(i) := get(i)]
+
+      # Build
+      if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
+      dt1 <- dt1[!is.na(get(YVar))]
+      p1 <- AutoPlots::Plot.HeatMap(
+        dt = dt1,
+        PreAgg = TRUE,
+        AggMethod = "mean",
+        Theme = Theme,
+        XVar = XVar,
+        YVar = YVar,
+        ZVar = ZVar,
+        YVarTrans = YVarTrans,
+        XVarTrans = XVarTrans,
+        ZVarTrans = ZVarTrans,
+        ShowLabels = ShowLabels,
+        MouseScroll = MouseScroll,
+        Title.YAxis = YVar,
+        Title.XAxis = XVar,
+        Height = Height,
+        Width = Width,
+        Title = "Partial Dependence Heatmap: Target - Predicted",
+        TextColor = TextColor,
+        NumberBins = NumberBins,
+        Debug = Debug)
+      return(p1)
+
+    } else {
+      if(Debug) print("here 5.2")
+      data.table::setorderv(x = dt1, cols = XVar,1L)
+      if(Debug) print("here 5.3")
+      dt1 <- dt1[!is.na(get(ZVar))]
+      if(Debug) print("here 5.4")
+      dt1 <- dt1[, .SD, .SDcols = c(XVar, ZVar)]
+      p1 <- AutoPlots::Plot.Bar(
+        dt = dt1,
+        PreAgg = TRUE,
+        XVar = XVar,
+        YVar = ZVar,
+        GroupVar = NULL,
+        YVarTrans = "Identity",
+        XVarTrans = "Identity",
+        FacetRows = 1,
+        FacetCols = 1,
+        FacetLevels = NULL,
+        AggMethod = "mean",
+        Height = Height,
+        Width = Width,
+        MouseScroll = MouseScroll,
+        Title = "Partial Dependence Bar Plot: Target - Predicted",
+        ShowLabels = ShowLabels,
+        Title.YAxis = "Target - Predicted",
+        Title.XAxis = XVar,
+        Theme = Theme,
+        TimeLine = TRUE,
+        TextColor = "white",
+        title.fontSize = 22,
+        title.fontWeight = "bold",
+        title.textShadowColor = "#63aeff",
+        title.textShadowBlur = 3,
+        title.textShadowOffsetY = 1,
+        title.textShadowOffsetX = -1,
+        xaxis.fontSize = 14,
+        yaxis.fontSize = 14,
+        Debug = Debug)
+      return(p1)
+    }
+
+  } else {
+
+    # Minimize data before moving on
+    if(Debug) print("Plot.PartialDependence.Line # Minimize data before moving on")
+
+    # Shrink data
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels)])
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = XVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(XVar, YVar, nam)],
+      variable.name = "Level",
+      value.name = ZVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = XVar,
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    # Add New Target
+    yvar <- "Target - Predicted"
+    dt2[, eval(yvar) := get(YVar) - get(ZVar)]
+
+    # Subset Cols
+    dt2 <- dt2[, .SD, .SDcols = c(yvar, XVar, "Level")]
+    for(i in seq_along(XVar)) {
+      if(class(dt[[XVar]][i]) %in% c("numeric","integer")) {
+        dt1[, eval(XVar[i]) := as.character(round(data.table::frank(get(XVar[i])) * NumberBins / .N / NumberBins, 3), 1L)]
+      } else {
+        dt1[, eval(XVar[i]) := as.character(get(XVar[i]))]
+      }
+    }
+
+    dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
+
+    # Build
+    if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
+    dt2 <- dt2[!is.na(get(yvar))]
+    p1 <- AutoPlots::Plot.HeatMap(
+      dt = dt2,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      Theme = Theme,
+      XVar = XVar,
+      YVar = "Level",
+      ZVar = yvar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      ZVarTrans = ZVarTrans,
+      Title.YAxis = YVar,
+      Title.XAxis = XVar,
+      Height = Height,
+      Width = Width,
+      MouseScroll = MouseScroll,
+      Title = "Partial Dependence Heatmap: Target - Predicted",
+      TextColor = TextColor,
+      NumberBins = NumberBins,
+      Debug = Debug)
+    return(p1)
+  }
+}
+
+#' @title Plot.VariableImportance
+#'
+#' @description Generate variable importance plots
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param XVar Column name of X-Axis variable. If NULL then ignored
+#' @param YVar Column name of Y-Axis variable. If NULL then ignored
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title title
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param TextColor 'darkblue'
+#' @param title.fontSize 22
+#' @param title.fontWeight "bold"
+#' @param title.textShadowColor '#63aeff'
+#' @param title.textShadowBlur 3
+#' @param title.textShadowOffsetY 1
+#' @param title.textShadowOffsetX -1
+#' @param xaxis.fontSize 14
+#' @param yaxis.fontSize 14
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.VariableImportance <- function(dt = NULL,
+                                    XVar = NULL,
+                                    YVar = NULL,
+                                    GroupVar = NULL,
+                                    YVarTrans = "Identity",
+                                    XVarTrans = "Identity",
+                                    FacetRows = 1,
+                                    FacetCols = 1,
+                                    FacetLevels = NULL,
+                                    AggMethod = 'mean',
+                                    Height = NULL,
+                                    Width = NULL,
+                                    Title = 'Variable Importance Plot',
+                                    ShowLabels = FALSE,
+                                    Title.YAxis = NULL,
+                                    Title.XAxis = NULL,
+                                    Theme = "dark",
+                                    TimeLine = TRUE,
+                                    TextColor = "white",
+                                    title.fontSize = 22,
+                                    title.fontWeight = "bold",
+                                    title.textShadowColor = '#63aeff',
+                                    title.textShadowBlur = 3,
+                                    title.textShadowOffsetY = 1,
+                                    title.textShadowOffsetX = -1,
+                                    xaxis.fontSize = 14,
+                                    yaxis.fontSize = 14,
+                                    Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Plot
+  dt <- dt[order(Importance)]
+  Var <- names(which(unlist(lapply(dt, is.character))))
+  Var2 <- names(which(unlist(lapply(dt, is.numeric))))[1L]
+  if(length(Var) == 0L) {
+    Var <- names(which(unlist(lapply(dt, is.factor))))
+    dt[, eval(Var) := as.character(get(Var))]
+  }
+  dt <- dt[!is.na(get(YVar))]
+  p1 <- echarts4r::e_charts_(
+    dt,
+    x = Var,
+    dispose = TRUE,
+    darkMode = TRUE,
+    width = Width,
+    height = Height)
+  p1 <- echarts4r::e_bar_(e = p1, Var2)
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_brush(e = p1)
+  p1 <- echarts4r::e_title(
+    p1, Title,
+    textStyle = list(
+      color = TextColor,
+      fontWeight = title.fontWeight,
+      overflow = "truncate", # "none", "truncate", "break",
+      ellipsis = '...',
+      fontSize = title.fontSize,
+      textShadowColor = title.textShadowColor,
+      textShadowBlur = title.textShadowBlur,
+      textShadowOffsetY = title.textShadowOffsetY,
+      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- echarts4r::e_flip_coords(e = p1)
+  return(p1)
+}
+
+#' @title Plot.ROC
+#'
+#' @description ROC Plot
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param AggMethod character
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param SampleSize numeric
+#' @param TextColor character hex
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.ROC <- function(dt = NULL,
+                     SampleSize = 100000,
+                     XVar = NULL,
+                     YVar = NULL,
+                     GroupVar = NULL,
+                     YVarTrans = "Identity",
+                     XVarTrans = "Identity",
+                     FacetRows = 1,
+                     FacetCols = 1,
+                     FacetLevels = NULL,
+                     AggMethod = 'mean',
+                     Height = NULL,
+                     Width = NULL,
+                     Title = 'ROC Plot',
+                     ShowLabels = FALSE,
+                     Title.YAxis = "True Positive Rate",
+                     Title.XAxis = "1 - False Positive Rate",
+                     Theme = "dark",
+                     MouseScroll = FALSE,
+                     TimeLine = FALSE,
+                     TextColor = "white",
+                     Debug = FALSE) {
+
+  # ROC
+  fastROC <- function(preds, target) {
+    class_sorted <- target[order(preds, decreasing = TRUE)]
+    TPR <- cumsum(class_sorted) / sum(target)
+    FPR <- cumsum(class_sorted == 0) / sum(target == 0)
+    return(
+      list(
+        tpr = TPR,
+        fpr = FPR
+      )
+    )
+  }
+
+  # AUC
+  fastAUC <- function(preds, target) {
+    x <- preds
+    y <- target
+    x1 = x[y == 1]; n1 = length(x1);
+    x2 = x[y == 0]; n2 = length(x2);
+    r = rank(c(x1,x2))
+    auc = (sum(r[1:n1]) - n1 * (n1 + 1) / 2) / n1 / n2
+    return(auc)
+  }
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  if(yvar_class %in% c("factor","character")) {
+
+    # Shrink data
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(nam,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(nam,XVar,GroupVar)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(yvar_levels,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      }
+    } else if(length(GroupVar) == 0L && (FacetRows > 1L || FacetCols > 1L)) {
+      FacetLevels <- yvar_levels[seq_len(min(length(yvar_levels), FacetRows * FacetCols))]
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      GroupVar <- "Level"
+    } else {
+      GroupVar <- "Level"
+    }
+
+  } else {
+    dt2 <- data.table::copy(dt)
+  }
+
+  # Data Prep1
+  if(Debug) print("ROC 1")
+  if(length(GroupVar) > 0L) {
+    vals <- sort(unique(dt2[[GroupVar]]))
+    for(i in seq_along(vals)) { # i = 1
+      temp <- dt2[get(GroupVar) %in% eval(vals[i])]
+      if(Debug) {
+        print(i)
+        print("ROC 2")
+      }
+      ROC <- tryCatch({fastROC(temp[[XVar]], temp[[YVar]])}, error = function(x) NULL)
+      if(i == 1L && length(ROC) > 0L) {
+        data <- data.table::data.table(
+          GroupLevels = vals[i],
+          Sensitivity = 1-ROC$fpr,
+          Specificity = ROC$tpr)
+      } else if(length(ROC) > 0L) {
+        data <- data.table::rbindlist(list(
+          data,
+          data.table::data.table(
+            GroupLevels = vals[i],
+            Sensitivity = 1-ROC$fpr,
+            Specificity = ROC$tpr)
+        ))
+      }
+    }
+
+    if(Debug) print("ROC 3")
+
+    # For Title: auc = AUC
+    AUC <- tryCatch({fastAUC(temp[[XVar]], temp[[YVar]])}, error = function(x) NULL)
+    if(Debug) print("ROC 4")
+
+  } else {
+    ROC <- tryCatch({fastROC(dt2[[XVar]], dt2[[YVar]])}, error = function(x) NULL)
+    AUC <- tryCatch({fastAUC(dt2[[XVar]], dt2[[YVar]])}, error = function(x) NULL)
+    data <- data.table::data.table(
+      GroupLevels = 0L,
+      Sensitivity = 1-ROC$fpr,
+      Specificity = ROC$tpr)
+  }
+
+  if(Debug) print("ROC 5")
+
+  # Data Prep2
+  if(Debug) print("Plot.Calibration.Line # AutoPlots::Plot.Line()")
+  data[, `1 - Specificity` := 1 - Specificity]
+  data.table::set(data, j = "Specificity", value = NULL)
+  YVar <- "Sensitivity"
+  XVar <- "1 - Specificity"
+  tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
+  if(length(GroupVar) > 0L && (FacetRows > 1L && FacetCols > 1L)) {
+    title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC, 3), "%\n*Excluding cases of all 1's or 0's")
+  }
+  title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC, 3), "%")
+  gv <- if(length(GroupVar) > 0L) "GroupLevels" else NULL
+  data.table::setorderv(x = data, cols = c(gv, "Sensitivity"))
+
+  if(Debug) print("ROC 6")
+
+  # Build Plot (Line or Area)
+  if(length(GroupVar) > 0L && FacetRows == 1L && FacetCols == 1L) {
+    p1 <- AutoPlots::Plot.Line(
+      dt = data,
+      PreAgg = TRUE,
+      Smooth = TRUE,
+      Area = FALSE,
+      ShowSymbol = FALSE,
+      Alpha = 0.50,
+      Theme = Theme,
+      TimeLine = tl,
+      YVar = YVar,
+      XVar = XVar,
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
+      Height = Height,
+      Width = Width,
+      Title = title,
+      TextColor = TextColor,
+      Debug = Debug)
+
+  } else {
+    p1 <- AutoPlots::Plot.Area(
+      dt = data,
+      PreAgg = TRUE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Alpha = 0.50,
+      Theme = Theme,
+      TimeLine = tl,
+      YVar = YVar,
+      XVar = XVar,
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
+      Height = Height,
+      Width = Width,
+      Title = title,
+      TextColor = TextColor,
+      Debug = Debug)
+  }
+
+  # Return
+  return(p1)
+}
+
+#' @title Plot.ConfusionMatrix
+#'
+#' @description Generate variable importance plots
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param dt source data.table
+#' @param PreAgg FALSE
+#' @param XVar Column name of X-Axis variable. If NULL then ignored
+#' @param YVar Column name of Y-Axis variable. If NULL then ignored
+#' @param ZVar = "N"
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param NumberBins = 21,
+#' @param NumLevels_X = NumLevels_Y,
+#' @param NumLevels_Y = NumLevels_X,
+#' @param GroupVar Column name of Group Variable for distinct colored histograms by group levels
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title title
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param xaxis.rotate numeric
+#' @param yaxis.rotate numeric
+#' @param ContainLabel logical
+#' @param GroupVar = NULL
+#' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
+#' @param TextColor 'darkblue'
+#' @param Debug Debugging purposes
+#'
+#' @return plot
+#' @export
+Plot.ConfusionMatrix <- function(dt = NULL,
+                                 PreAgg = FALSE,
+                                 XVar = NULL,
+                                 YVar = NULL,
+                                 ZVar = "N",
+                                 YVarTrans = "Identity",
+                                 XVarTrans = "Identity",
+                                 ZVarTrans = "Identity",
+                                 FacetRows = 1,
+                                 FacetCols = 1,
+                                 FacetLevels = NULL,
+                                 NumberBins = 21,
+                                 NumLevels_X = 50,
+                                 NumLevels_Y = 50,
+                                 Height = NULL,
+                                 Width = NULL,
+                                 Title = "Confusion Matrix",
+                                 ShowLabels = FALSE,
+                                 Title.YAxis = NULL,
+                                 Title.XAxis = NULL,
+                                 Theme = "dark",
+                                 MouseScroll = FALSE,
+                                 TimeLine = TRUE,
+                                 TextColor = "white",
+                                 AggMethod = "count",
+                                 GroupVar = NULL,
+                                 xaxis.rotate = 0,
+                                 yaxis.rotate = 0,
+                                 ContainLabel = TRUE,
+                                 Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+
+  if(yvar_class %in% c("factor","character")) {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, GroupVar)])
+    dt1[, paste0(XVar,"_") := .N, by = XVar]
+    dt1[, paste0(YVar,"_") := .N, by = YVar]
+    dt4 <- dt1[, list(N = .N, Mean.X = mean(get(paste0(XVar,"_")), na.rm = TRUE)), by = c(YVar,XVar)]
+    dt4[, `Mean.X` := N / Mean.X]
+    ZVar <- "Mean.X"
+  } else if(!PreAgg) {
+    if(length(unique(dt[[XVar]])) > 2L) {
+      dt[, classPredict := data.table::fifelse(get(XVar) > 0.5, 1, 0)]
+    }
+    dt4 <- data.table::CJ(unique(dt[[YVar]]), unique(dt[["classPredict"]]))
+    data.table::setnames(dt4, c("V1","V2"), c(YVar, XVar))
+    dt3 <- dt[, list(Metric = .N), by = c(YVar, "classPredict")]
+    data.table::setkeyv(x = dt3, cols = c(YVar, "classPredict"))
+    data.table::setkeyv(x = dt4, cols = c(YVar, XVar))
+    dt4[dt3, Metric := i.Metric]
+    data.table::set(dt4, i = which(is.na(dt4[["Metric"]])), j = "Metric", value = 0)
+    if(Debug) print("Confusion Matrix Plot.Heatmap")
+    dt4[, `Proportion in Target` := sum(Metric), by = eval(YVar)]
+    dt4[, `Proportion in Target` := data.table::fifelse(`Proportion in Target` > 0, Metric / `Proportion in Target`, 0)]
+    ZVar = "Proportion in Target"
+  } else {
+    dt4 <- data.table::copy(dt)
+  }
+
+  # Corr Matrix for the automatic ordering
+  data.table::setorderv(dt4, c(XVar,YVar), c(1L,1L))
+  dt4 <- dt4[!is.na(get(ZVar))]
+  p1 <- Plot.HeatMap(
+    PreAgg = TRUE,
+    Theme = Theme,
+    Title = Title,
+    dt = dt4,
+    YVar = YVar,
+    XVar = XVar,
+    ZVar = ZVar,
+    Height = Height,
+    Width = Width,
+    AggMethod = if(!PreAgg) "centroidial" else AggMethod,
+    NumberBins = NumberBins,
+    NumLevels_X = NumLevels_X,
+    NumLevels_Y = NumLevels_Y,
+    MouseScroll = MouseScroll,
+    xaxis.rotate = xaxis.rotate,
+    yaxis.rotate = yaxis.rotate,
+    ContainLabel = ContainLabel)
+  return(p1)
+}
+
+#' @title Plot.Lift
+#'
+#' @description Create a cumulative gains chart
+#'
+#' @family Model Evaluation
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param ZVar character
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param NumberBins numeric
+#' @param PreAgg logical
+#' @param NumberBins numeric
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor character hex
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.Lift <- function(dt = NULL,
+                      PreAgg = FALSE,
+                      XVar = NULL,
+                      YVar = NULL,
+                      ZVar = "N",
+                      GroupVar = NULL,
+                      YVarTrans = "Identity",
+                      XVarTrans = "Identity",
+                      ZVarTrans = "Identity",
+                      FacetRows = 1,
+                      FacetCols = 1,
+                      FacetLevels = NULL,
+                      NumberBins = 20,
+                      Height = NULL,
+                      Width = NULL,
+                      Title = "Confusion Matrix",
+                      ShowLabels = FALSE,
+                      Title.YAxis = "Lift",
+                      Title.XAxis = "Population",
+                      Theme = "dark",
+                      MouseScroll = FALSE,
+                      TimeLine = TRUE,
+                      TextColor = "white",
+                      Debug = FALSE) {
+
+  if(Debug) print("here 0")
+  if(Debug) print(data.table::is.data.table(dt))
+  if(!data.table::is.data.table(dt)) {
+    tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+  }
+
+  if(Debug) print("here 1")
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  if(yvar_class %in% c("factor","character")) {
+
+    if(Debug) print("here 2")
+
+    # Shrink data
+    yvar_levels <- as.character(as.character(dt[, unique(get(YVar))]))
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
+
+    if(Debug) print("here 3")
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    if(Debug) print("here 4")
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(nam,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(nam,XVar,GroupVar)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    if(Debug) print("here 5")
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(yvar_levels,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    if(Debug) print("here 6")
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    if(Debug) print("here 7")
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      } else {
+        FacetLevels <- yvar_levels
+      }
+    } else {
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- yvar_levels
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      } else {
+        FacetLevels <- yvar_levels
+      }
+      GroupVar <- "Level"
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      GroupVar <- "Level"
+    }
+
+  } else {
+    dt2 <- data.table::copy(dt)
+  }
+
+  if(Debug) print("here 9")
+
+  if(yvar_class %in% c("factor","character") || length(GroupVar) > 0L) {
+    Levels <- sort(as.character(unique(dt2[[GroupVar]])))
+    dl <- list()
+    if(Debug) print("Start For-Loop")
+    if(length(NumberBins) == 0L) NumberBins <- 21
+    if(max(NumberBins) > 1L) NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
+    for(i in Levels) {# i = Levels[i]
+      if(Debug) print("iter")
+      if(Debug) print(i)
+      dt_ <- dt2[get(GroupVar) %in% eval(i)]
+      if(Debug) print(" iter 2")
+      dt_[, NegScore := -get(XVar)]
+      if(Debug) print(" iter 3")
+      if(Debug) print(" iter 4")
+      Cuts <- quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+      if(Debug) print(" iter 5")
+      dt_[, eval(YVar) := as.character(get(YVar))]
+      if(Debug) print(" iter 6")
+      grp <- dt_[, .N, by = eval(YVar)][order(N)]
+      if(Debug) print(" iter 7")
+      smaller_class <- grp[1L, 1L][[1L]]
+      if(Debug) print(" iter 8")
+      dt3 <- round(100 * sapply(Cuts, function(x) {
+        dt_[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt_[get(YVar) == eval(smaller_class), .N]
+      }), 2)
+      if(Debug) print(" iter 9")
+      dt3 <- rbind(dt3, -Cuts)
+      if(Debug) print(" iter 10")
+      rownames(dt3) <- c("Lift", "Score.Point")
+      if(Debug) print(" iter 11")
+      dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
+      if(Debug) print(" iter 12")
+      dt5 <- data.table::as.data.table(t(dt3))
+      if(Debug) print(" iter 13")
+      dt5[, Population := as.numeric(100 * eval(NumberBins))]
+      if(Debug) print(" iter 14")
+      dt5[, Lift := round(Lift / 100 / NumberBins, 2)]
+      if(Debug) print(" iter 15")
+      dt5[, Level := eval(i)]
+      if(Debug) print(" iter 16")
+      if(data.table::is.data.table(dt5)) {
+        if(Debug) print(" iter rbindlist")
+        dl[[i]] <- data.table::rbindlist(list(
+          data.table::data.table(Lift = 0, Score.Point = 0, Population = 0, Level = eval(i)),
+          dt5
+        ), use.names = TRUE)
+      }
+    }
+    if(Debug) print(" For Loop Done: rbindlist")
+    dt6 <- data.table::rbindlist(dl)
+
+  } else {
+
+    if(Debug) print("here 10")
+
+    # Data Prep
+    dt2[, NegScore := -get(XVar)]
+    NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
+    Cuts <- quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+    dt2[, eval(YVar) := as.character(get(YVar))]
+    grp <- dt2[, .N, by = eval(YVar)][order(N)]
+    smaller_class <- grp[1L, 1L][[1L]]
+    dt3 <- round(100 * sapply(Cuts, function(x) {
+      dt2[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt2[get(YVar) == eval(smaller_class), .N]
+    }), 2)
+    dt3 <- rbind(dt3, -Cuts)
+    rownames(dt3) <- c("Lift", "Score.Point")
+    dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
+    dt5 <- data.table::as.data.table(t(dt3))
+    dt5[, Population := as.numeric(100 * eval(NumberBins))]
+    dt5[, Lift := round(Lift / 100 / NumberBins, 2)]
+    if(data.table::is.data.table(dt5)) {
+      dt6 <- data.table::rbindlist(list(
+        data.table::data.table(Score.Point = 0, Population = 0, Lift = 0),
+        dt5
+      ), use.names = TRUE)
+    }
+  }
+
+  if(Debug) print("here 11")
+
+  # Build
+  if(Debug) print(names(dt6))
+  if("Level" %in% names(dt6)) {
+    dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift", "Level")]
+    GroupVar <- "Level"
+  } else {
+    dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Lift")]
+  }
+
+  if(Debug) print("here 12")
+
+  if(FacetRows == 1L && FacetCols == 1L && length(GroupVar) > 0L) {
+
+    if(Debug) print("here 13")
+    #dt6 <- dt6[!is.na(Lift)]
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt6,
+      PreAgg = TRUE,
+      XVar = "Population",
+      YVar = "Lift",
+      GroupVar = GroupVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Lift",
+      Title.XAxis = "Population",
+      FacetLevels = NULL,
+      Height = Height,
+      Width = Width,
+      Title = Title,
+      Area = FALSE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      MouseScroll = MouseScroll,
+      Theme = Theme,
+      TimeLine = FALSE,
+      TextColor = TextColor,
+      Debug = FALSE)
+
+  } else {
+
+    if(Debug) print("here 14")
+    #dt6 <- dt6[!is.na(Lift)]
+    p1 <- AutoPlots::Plot.Area(
+      dt = dt6,
+      PreAgg = TRUE,
+      XVar = "Population",
+      YVar = "Lift",
+      GroupVar = GroupVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = NULL,
+      Height = Height,
+      Width = Width,
+      Title = Title,
+      ShowLabels = ShowLabels,
+      MouseScroll = MouseScroll,
+      Title.YAxis = "Lift",
+      Title.XAxis = "Population",
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Theme = Theme,
+      TimeLine = FALSE,
+      TextColor = TextColor,
+      Debug = FALSE)
+  }
+
+  if(Debug) print("here 17")
+  p1 <- echarts4r::e_labels(e = p1, show = TRUE)
+
+  # Return
+  return(p1)
+}
+
+#' @title Plot.Gains
+#'
+#' @description Create a cumulative gains chart
+#'
+#' @family Model Evaluation
+#'
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param ZVar character
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param NumberBins numeric
+#' @param PreAgg logical
+#' @param NumberBins numeric
+#' @param Height NULL
+#' @param Width NULL
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor character hex
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.Gains <- function(dt = NULL,
+                       PreAgg = FALSE,
+                       XVar = NULL,
+                       YVar = NULL,
+                       ZVar = "N",
+                       GroupVar = NULL,
+                       YVarTrans = "Identity",
+                       XVarTrans = "Identity",
+                       ZVarTrans = "Identity",
+                       FacetRows = 1,
+                       FacetCols = 1,
+                       FacetLevels = NULL,
+                       NumberBins = 20,
+                       Height = NULL,
+                       Width = NULL,
+                       Title = "Gains Plot",
+                       ShowLabels = FALSE,
+                       Title.YAxis = "Gain",
+                       Title.XAxis = "Population",
+                       Theme = "dark",
+                       MouseScroll = FALSE,
+                       TimeLine = TRUE,
+                       TextColor = "white",
+                       Debug = FALSE) {
+
+  if(Debug) print("here 1")
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  if(yvar_class %in% c("factor","character")) {
+
+    if(Debug) print("here 2")
+
+    # Shrink data
+    yvar_levels <- as.character(as.character(dt[, unique(get(YVar))]))
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
+
+    if(Debug) print("here 3")
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    if(Debug) print("here 4")
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(nam,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(nam,XVar,GroupVar)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    if(Debug) print("here 5")
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(yvar_levels,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    if(Debug) print("here 6")
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    if(Debug) print("here 7")
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      } else {
+        FacetLevels <- yvar_levels
+      }
+    } else {
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- yvar_levels
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      } else {
+        FacetLevels <- yvar_levels
+      }
+      GroupVar <- "Level"
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      GroupVar <- "Level"
+    }
+
+  } else {
+    dt2 <- data.table::copy(dt)
+  }
+
+  if(Debug) print("here 9")
+
+  if(yvar_class %in% c("factor","character") || length(GroupVar) > 0L) {
+    Levels <- sort(as.character(unique(dt2[[GroupVar]])))
+    dl <- list()
+    if(Debug) print("Start For-Loop")
+    if(length(NumberBins) == 0L) NumberBins <- 21
+    if(max(NumberBins) > 1L) NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
+    for(i in Levels) {# i = 1
+      if(Debug) print("iter")
+      if(Debug) print(i)
+      dt_ <- dt2[get(GroupVar) %in% eval(i)]
+      if(Debug) print(" iter 2")
+      dt_[, NegScore := -get(XVar)]
+      if(Debug) print(" iter 3")
+      if(Debug) print(" iter 4")
+      Cuts <- quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+      if(Debug) print(" iter 5")
+      dt_[, eval(YVar) := as.character(get(YVar))]
+      if(Debug) print(" iter 6")
+      grp <- dt_[, .N, by = eval(YVar)][order(N)]
+      if(Debug) print(" iter 7")
+      smaller_class <- grp[1L, 1L][[1L]]
+      if(Debug) print(" iter 8")
+      dt3 <- round(100 * sapply(Cuts, function(x) {
+        dt_[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt_[get(YVar) == eval(smaller_class), .N]
+      }), 2)
+      if(Debug) print(" iter 9")
+      dt3 <- rbind(dt3, -Cuts)
+      if(Debug) print(" iter 10")
+      rownames(dt3) <- c("Gain", "Score.Point")
+      if(Debug) print(" iter 11")
+      dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
+      if(Debug) print(" iter 12")
+      dt5 <- data.table::as.data.table(t(dt3))
+      if(Debug) print(" iter 13")
+      dt5[, Population := as.numeric(100 * eval(NumberBins))]
+      if(Debug) print(" iter 14")
+      dt5[, Gain := round(Gain / 100 / NumberBins, 2)]
+      if(Debug) print(" iter 15")
+      dt5[, Level := eval(i)]
+      if(Debug) print(" iter 16")
+      if(data.table::is.data.table(dt5)) {
+        if(Debug) print(" iter rbindlist")
+        dl[[i]] <- data.table::rbindlist(list(
+          data.table::data.table(Gain = 0, Score.Point = 0, Population = 0, Level = eval(i)),
+          dt5
+        ), use.names = TRUE)
+      }
+    }
+    dt6 <- data.table::rbindlist(dl)
+    if(Debug) print(" For Loop Done: rbindlist")
+    if("Level" %in% names(dt5)) {
+      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Gain", "Level")]
+      GroupVar <- "Level"
+    } else {
+      dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Gain")]
+    }
+
+  } else {
+
+    if(Debug) print("here 10")
+
+    # Data Prep
+    dt2[, NegScore := -get(XVar)]
+    NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
+    Cuts <- quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+    dt2[, eval(YVar) := as.character(get(YVar))]
+    grp <- dt2[, .N, by = eval(YVar)][order(N)]
+    smaller_class <- grp[1L, 1L][[1L]]
+    dt3 <- round(100 * sapply(Cuts, function(x) {
+      dt2[NegScore <= x & get(YVar) == eval(smaller_class), .N] / dt2[get(YVar) == eval(smaller_class), .N]
+    }), 2)
+    dt3 <- rbind(dt3, -Cuts)
+    rownames(dt3) <- c("Gain", "Score.Point")
+    dt4 <- grp[1,2] / (grp[2,2] + grp[1,2])
+    dt5 <- data.table::as.data.table(t(dt3))
+    dt5[, Population := as.numeric(100 * eval(NumberBins))]
+    dt5[, Gain := round(Gain / 100 / NumberBins, 2)]
+    if(data.table::is.data.table(dt5)) {
+      dt6 <- data.table::rbindlist(list(
+        data.table::data.table(Gain = 0, Score.Point = 0, Population = 0),
+        dt5
+      ), use.names = TRUE)
+    }
+  }
+
+  if(Debug) print("here 11")
+
+  # Build
+  if(Debug) print(names(dt6))
+  if(length(GroupVar) > 0L && GroupVar %in% names(dt6)) {
+    dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Gain", GroupVar)]
+  } else {
+    dt6 <- dt6[Population > 0, .SD, .SDcols = c("Population","Gain")]
+  }
+
+  if(Debug) print("here 12")
+
+  if(FacetRows == 1L && FacetCols == 1L && length(GroupVar) > 0L) {
+
+    if(Debug) print("here 13")
+    p1 <- AutoPlots::Plot.Line(
+      dt = dt6,
+      PreAgg = TRUE,
+      XVar = "Population",
+      YVar = "Gain",
+      GroupVar = GroupVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = NULL,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Gain",
+      Title.XAxis = "Population",
+      Height = Height,
+      Width = Width,
+      Title = Title,
+      MouseScroll = MouseScroll,
+      Area = FALSE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Theme = Theme,
+      TimeLine = FALSE,
+      TextColor = TextColor,
+      Debug = FALSE)
+
+  } else {
+
+    if(Debug) print("here 14")
+    p1 <- AutoPlots::Plot.Area(
+      dt = dt6,
+      PreAgg = TRUE,
+      XVar = "Population",
+      YVar = "Gain",
+      GroupVar = GroupVar,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = NULL,
+      ShowLabels = ShowLabels,
+      Title.YAxis = "Gain",
+      Title.XAxis = "Population",
+      Height = Height,
+      Width = Width,
+      Title = Title,
+      MouseScroll = MouseScroll,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Theme = Theme,
+      TimeLine = FALSE,
+      TextColor = TextColor,
+      Debug = FALSE)
+  }
+
+  if(Debug) print("here 17")
+  p1 <- echarts4r::e_labels(e = p1, show = TRUE)
+
+  # Return
+  return(p1)
+}
+
+#' @title Plot.BinaryMetrics
+#'
+#' @description Line plot of evaluation metrics across thresholds
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param SampleSize numeric
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param ZVar character
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param CostMatrixWeights vector length 4. FP, FP, FN, TP
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Metrics Multiple selection "Utility","MCC","Accuracy","F1_Score","F2_Score","F0.5_Score","ThreatScore","TPR","TNR","FNR","FPR","FDR","FOR"
+#' @param NumberBins numeric
+#' @param PreAgg logical
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param EchartsLabels character
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param TextColor hex character
+#' @param AggMethod character
+#' @param GroupVar Character variable
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.BinaryMetrics <- function(dt = NULL,
+                               PreAgg = FALSE,
+                               AggMethod = "mean",
+                               SampleSize = 100000L,
+                               XVar = NULL,
+                               YVar = NULL,
+                               ZVar = NULL,
+                               Metrics = c("Utility","MCC","Accuracy","F1_Score","F2_Score","F0.5_Score","ThreatScore","TPR","TNR","FNR","FPR","FDR","FOR"),
+                               GroupVar = NULL,
+                               YVarTrans = "Identity",
+                               XVarTrans = "Identity",
+                               ZVarTrans = "Identity",
+                               FacetRows = 1,
+                               FacetCols = 1,
+                               FacetLevels = NULL,
+                               CostMatrixWeights = c(0,1,1,0),
+                               NumberBins = 20,
+                               Height = NULL,
+                               Width = NULL,
+                               Title = "Binary Metrics",
+                               MouseScroll = FALSE,
+                               ShowLabels = FALSE,
+                               Title.YAxis = NULL,
+                               Title.XAxis = NULL,
+                               Theme = "dark",
+                               EchartsLabels = FALSE,
+                               TimeLine = TRUE,
+                               TextColor = "white",
+                               Debug = FALSE) {
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # Minimize data before moving on
+  if(Debug) print("Plot.PartialDependence.Box # Minimize data before moving on")
+  Ncols <- ncol(dt)
+  if(Ncols > 2L && length(GroupVar) == 0L) {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar)])
+  } else if(Ncols > 3L && length(GroupVar) > 0L) {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, ZVar, GroupVar[1L])])
+  } else {
+    dt1 <- data.table::copy(dt)
+  }
+
+  # If actual is in factor form, convert to numeric
+  if(Debug) print("Plot.PartialDependence.Box # If actual is in factor form, convert to numeric")
+  if(!is.numeric(dt1[[YVar]])) {
+    data.table::set(dt1, j = YVar, value = as.numeric(as.character(dt1[[YVar]])))
+  }
+
+  # Build Plot
+  tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
+  dt2 <- BinaryMetrics(
+    ValidationData. = dt1,
+    TargetColumnName. = "BinaryTarget",
+    CostMatrixWeights. = CostMatrixWeights,
+    SaveModelObjects. = FALSE)
+  dt3 <- data.table::melt.data.table(
+    data = dt2,
+    id.vars = "Threshold",
+    measure.vars = Metrics)
+
+  # Build
+  if(Debug) print("AutoPlots::Plot.BinaryMetrics --> AutoPlots::Plot.Line()")
+  p1 <- AutoPlots::Plot.Line(
+    dt = dt3,
+    PreAgg = TRUE,
+    AggMethod = "mean",
+    Area = FALSE,
+    SampleSize = SampleSize,
+    XVar = XVar,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    FacetRows = FacetRows,
+    FacetCols = FacetCols,
+    FacetLevels = FacetLevels,
+    MouseScroll = MouseScroll,
+    Height = Height,
+    Width = Width,
+    Title = Title,
+    Theme = Theme,
+    TimeLine = tl,
+    TextColor = TextColor,
+    Debug = Debug)
+  return(p1)
+}
+
+#' @title Plot.ShapImportance
+#'
+#' @description Plot.ShapImportance variable importance
+#'
+#' @family Model Evaluation
+#' @author Adrian Antico
+#'
+#' @param dt source data.table
+#' @param PreAgg logical
+#' @param YVar Names of shap columns
+#' @param GroupVar Name of by variable
+#' @param Theme "dark-blue"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param AggMethod "mean", "median", "sum", "sd", "skewness","kurtosis", "coeffvar", "meanabs", "medianabs", "sumabs", "sdabs", "skewnessabs", "kurtosisabs", "CoeffVarabs"
+#' @param NumberBins = 21
+#' @param NumLevels_Y = 20
+#' @param NumLevels_X = 20
+#' @param TextColor character
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title "Heatmap"
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param Debug = FALSE
+#' @return plot
+#' @export
+Plot.ShapImportance <- function(dt,
+                                PreAgg = FALSE,
+                                AggMethod = 'meanabs',
+                                YVar = NULL,
+                                GroupVar = NULL,
+                                FacetRows = 1,
+                                FacetCols = 1,
+                                FacetLevels = NULL,
+                                NumberBins = 21,
+                                NumLevels_X = 33,
+                                NumLevels_Y = 33,
+                                Height = NULL,
+                                Width = NULL,
+                                Title = "Shap Importance",
+                                ShowLabels = FALSE,
+                                Title.YAxis = NULL,
+                                Title.XAxis = NULL,
+                                Theme = "dark",
+                                TextColor = "white",
+                                Debug = FALSE) {
+
+  if(Debug) print("ShapImportance Step 1")
+
+  # Subset columns
+  if(!PreAgg) {
+
+    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+      dt <- data.table::as.data.table(dt)
+    })
+    if(Debug) print("ShapImportance Step 2")
+    if(length(GroupVar) > 1L) GroupVar <- GroupVar[1L]
+    if(length(YVar) == 0L) YVar <- names(dt)[names(dt) %like% "Shap_"]
+    dt1 <- dt[, .SD, .SDcols = c(YVar, GroupVar)]
+
+    # Define Aggregation function
+    if(Debug) print("Plot.ShapImportance # Define Aggregation function")
+    if(Debug) print(AggMethod)
+    aggFunc <- SummaryFunction(AggMethod)
+
+    if(length(GroupVar) > 0L) {
+      dt1 <- dt1[, lapply(.SD, FUN = noquote(aggFunc)), by = c(GroupVar)]
+      dt2 <- data.table::melt.data.table(data = dt1, id.vars = c(GroupVar), measure.vars = YVar, variable.name = "Variable", value.name = "Importance")
+    } else {
+      dt1 <- dt1[, lapply(.SD, FUN = noquote(aggFunc))]
+      dt2 <- data.table::melt.data.table(data = dt1, id.vars = NULL, measure.vars = YVar, variable.name = "Variable", value.name = "Importance")
+    }
+  } else {
+    dt2 <- data.table::copy(dt)
+  }
+
+  # Add a column that ranks predicted values
+  if(length(GroupVar) > 0L) {
+    p1 <- AutoPlots::Plot.HeatMap(
+      dt = dt2,
+      PreAgg = TRUE,
+      AggMethod = "mean",
+      YVar = "Variable",
+      XVar = GroupVar,
+      ZVar = "Importance",
+      NumberBins = 21,
+      NumLevels_X = NumLevels_Y,
+      NumLevels_Y = NumLevels_X,
+      MouseScroll = FALSE,
+      Height = Height,
+      Width = Width,
+      Title = paste0("Shap Importance: AggMethod = ", AggMethod),
+      Theme = Theme,
+      Y_Scroll = Y_Scroll)
+
+    return(p1)
+
+  } else {
+
+    if(Debug) print("Right Here Yo")
+
+    p1 <- AutoPlots::Plot.VariableImportance(
+      dt = dt2,
+      AggMethod = 'mean',
+      XVar = "Variable",
+      YVar = "Importance",
+      GroupVar = NULL,
+      YVarTrans = "Identity",
+      XVarTrans = "Identity",
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      Height = Height,
+      Width = Width,
+      Title = paste0("Shap Importance: AggMethod = ", AggMethod),
+      Theme = Theme,
+      TimeLine = TimeLine,
+      TextColor = TextColor,
+      Debug = Debug)
+    return(p1)
+  }
+}
+
+# ----
+
+# ----
