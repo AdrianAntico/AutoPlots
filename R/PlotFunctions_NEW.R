@@ -803,7 +803,7 @@ ProbabilityPlot <- function(dt = NULL,
   dt1[, `Normal Line` := eval(meanX) + sdX * `Theoretical Quantiles`]
 
   # Actual Quantiles
-  p1 <- AutoPlots::Plot.Scatter(
+  p1 <- AutoPlots::Scatter(
     dt = dt1,
     SampleSize = SampleSize,
     XVar = "Theoretical Quantiles",
@@ -1211,7 +1211,7 @@ Histogram <- function(dt = NULL,
   # Run Bar Plot for no Group and Stacked Bar for Groups?
   dt1[, Buckets := as.character(Buckets)]
   if(length(GroupVar) == 0L) {
-    p1 <- Plot.Bar(
+    p1 <- Bar(
       dt = dt1,
       PreAgg = TRUE,
       XVar = "Buckets",
@@ -1313,7 +1313,7 @@ Histogram <- function(dt = NULL,
 
   } else {
 
-    p1 <- Plot.Bar(
+    p1 <- Bar(
       dt = dt1,
       PreAgg = TRUE,
       XVar = "Buckets",
@@ -2655,7 +2655,7 @@ Box <- function(dt = NULL,
 
   if(Debug) print("Box 4")
 
-  if(Debug) print("Plot.BoxPlot 1")
+  if(Debug) print("BoxPlot 1")
 
   # Cap number of records
   if(length(YVar) > 0L) {
@@ -2714,7 +2714,7 @@ Box <- function(dt = NULL,
 
   # Build Plot Based on Available Variables
   # Create logic checks to determine each case distinctly
-  if(Debug) print("Plot.BoxPlot 2")
+  if(Debug) print("BoxPlot 2")
   X_and_Y_and_GroupVars <- length(XVar) > 0L && length(YVar) > 0L && length(GroupVar) > 0L
   X_and_Y <- length(XVar) > 0L && length(YVar) > 0L
 
@@ -2725,7 +2725,7 @@ Box <- function(dt = NULL,
 
     if(Debug) print("Box 10")
 
-    if(Debug) print("Plot.Box Echarts")
+    if(Debug) print("Box Echarts")
     p1 <- echarts4r::e_charts_(
       data = dt1 |> dplyr::group_by(get(GroupVar[1L])),
       x = XVar,
@@ -2867,8 +2867,8 @@ Box <- function(dt = NULL,
 
     if(Debug) print("Box 10.a")
 
-    if(Debug) print("Plot.Box X_and_Y")
-    if(Debug) print("Plot.Box Echarts")
+    if(Debug) print("Box X_and_Y")
+    if(Debug) print("Box Echarts")
     p1 <- echarts4r::e_charts_(
       dt1 |> dplyr::group_by(get(XVar)),
       x = YVar,
@@ -3003,9 +3003,9 @@ Box <- function(dt = NULL,
 
     if(Debug) print("Box 10.b")
 
-    if(Debug) print("Plot.Box Y Only")
+    if(Debug) print("Box Y Only")
 
-    if(Debug) print("Plot.Box Echarts")
+    if(Debug) print("Box Echarts")
     p1 <- echarts4r::e_charts_(
       dt1,
       dispose = TRUE,
@@ -3141,9 +3141,9 @@ Box <- function(dt = NULL,
 
     if(Debug) print("Box 10.c")
 
-    if(Debug) print("Plot.Box X Only")
+    if(Debug) print("Box X Only")
 
-    if(Debug) print("Plot.Box Echarts")
+    if(Debug) print("Box Echarts")
     p1 <- echarts4r::e_charts_(
       dt1,
       dispose = TRUE,
@@ -4155,7 +4155,7 @@ Line <- function(dt = NULL,
   if(length(GroupVar) > 0L) {
 
     # Prepare Data
-    if(Debug) print("Plot.Line() Build 1")
+    if(Debug) print("Line() Build 1")
     gv <- GroupVar[1L]
     #print(dt1)
     #print(gv)
@@ -4184,7 +4184,7 @@ Line <- function(dt = NULL,
       p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
     }
 
-    if(Debug) print("Plot.Line() Build Echarts 4 1")
+    if(Debug) print("Line() Build Echarts 4 1")
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
     } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
@@ -4193,9 +4193,9 @@ Line <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
-    if(Debug) print("Plot.Line() Build Echarts 5")
+    if(Debug) print("Line() Build Echarts 5")
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    if(Debug) print("Plot.Line() Build Echarts 6")
+    if(Debug) print("Line() Build Echarts 6")
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- e_tooltip_full(
       e = p1,
@@ -4278,7 +4278,7 @@ Line <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    if(Debug) print("Plot.Line() Build Echarts 6")
+    if(Debug) print("Line() Build Echarts 6")
     p1 <- echarts4r::e_title(
       p1, Title,
       textStyle = list(
@@ -4291,12 +4291,12 @@ Line <- function(dt = NULL,
         textShadowBlur = title.textShadowBlur,
         textShadowOffsetY = title.textShadowOffsetY,
         textShadowOffsetX = title.textShadowOffsetX))
-    if(Debug) print("Plot.Line() Build Echarts 8")
+    if(Debug) print("Line() Build Echarts 8")
     if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
-      if(Debug) print("Plot.Line() Build Echarts 8 2")
+      if(Debug) print("Line() Build Echarts 8 2")
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      if(Debug) print("Plot.Line() Build Echarts 8 3")
+      if(Debug) print("Line() Build Echarts 8 3")
     } else {
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
@@ -4313,7 +4313,7 @@ Line <- function(dt = NULL,
     }
 
     # Build base plot depending on GroupVar availability
-    if(Debug) print("Plot.Line no group Echarts")
+    if(Debug) print("Line no group Echarts")
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -4879,7 +4879,7 @@ Area <- function(dt = NULL,
   if(length(GroupVar) > 0L) {
 
     # Prepare Data
-    if(Debug) print("Plot.Line() Build 1")
+    if(Debug) print("Line() Build 1")
     gv <- GroupVar[1L]
     if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
 
@@ -4891,10 +4891,10 @@ Area <- function(dt = NULL,
     }
 
     # Plot
-    if(Debug) print("Plot.Line() Build Echarts 1")
+    if(Debug) print("Line() Build Echarts 1")
 
     # Build base plot depending on GroupVar availability
-    if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
+    if(Debug) print(paste0("Line TimeLine = ", TimeLine))
     p1 <- echarts4r::e_charts_(
       data = dt1 |> dplyr::group_by(get(gv)),
       x = XVar,
@@ -4906,7 +4906,7 @@ Area <- function(dt = NULL,
       height = Height)
 
     # Finalize Plot Build
-    if(Debug) print("Plot.Line() Build Echarts 4")
+    if(Debug) print("Line() Build Echarts 4")
     if(ShowLabels) {
       p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
     } else {
@@ -5035,7 +5035,7 @@ Area <- function(dt = NULL,
     }
 
     # Build base plot depending on GroupVar availability
-    if(Debug) print("Plot.Line no group Echarts")
+    if(Debug) print("Line no group Echarts")
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -5595,7 +5595,7 @@ Step <- function(dt = NULL,
   if(length(GroupVar) > 0L) {
 
     # Prepare Data
-    if(Debug) print("Plot.Line() Build 1")
+    if(Debug) print("Line() Build 1")
     gv <- GroupVar[1L]
     if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
 
@@ -5607,10 +5607,10 @@ Step <- function(dt = NULL,
     }
 
     # Plot
-    if(Debug) print("Plot.Line() Build Echarts 1")
+    if(Debug) print("Line() Build Echarts 1")
 
     # Build base plot depending on GroupVar availability
-    if(Debug) print(paste0("Plot.Line TimeLine = ", TimeLine))
+    if(Debug) print(paste0("Line TimeLine = ", TimeLine))
     p1 <- echarts4r::e_charts_(
       data = dt1 |> dplyr::group_by(get(gv)),
       x = XVar,
@@ -5622,7 +5622,7 @@ Step <- function(dt = NULL,
       height = Height)
 
     # Finalize Plot Build
-    if(Debug) print("Plot.Line() Build Echarts 4")
+    if(Debug) print("Line() Build Echarts 4")
     if(ShowLabels) {
       p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, label = list(show = TRUE))
     } else {
@@ -5751,7 +5751,7 @@ Step <- function(dt = NULL,
     }
 
     # Build base plot depending on GroupVar availability
-    if(Debug) print("Plot.Line no group Echarts")
+    if(Debug) print("Line no group Echarts")
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -6297,7 +6297,7 @@ River <- function(dt = NULL,
   if(Debug) print("Plot.River 7b")
 
   # Build base plot depending on GroupVar availability
-  if(Debug) print("Plot.Line no group Echarts")
+  if(Debug) print("Line no group Echarts")
   p1 <- echarts4r::e_charts_(
     data = dt1,
     x = XVar,
@@ -13597,7 +13597,7 @@ Scatter <- function(dt = NULL,
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
   # Cap number of records
-  if(Debug) print('Plot.Scatter # Cap number of records')
+  if(Debug) print('Scatter # Cap number of records')
   if(length(SampleSize) == 0L) SampleSize <- 30000L
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
@@ -13619,8 +13619,8 @@ Scatter <- function(dt = NULL,
   }
 
   if(length(GroupVar) == 0L) {
-    if(Debug) print('Plot.Scatter  length(GroupVar) == 0L')
-    if(Debug) print('Plot.Scatter  Echarts')
+    if(Debug) print('Scatter  length(GroupVar) == 0L')
+    if(Debug) print('Scatter  Echarts')
     p1 <- echarts4r::e_charts_(
       dt1,
       x = XVar,
@@ -13759,8 +13759,8 @@ Scatter <- function(dt = NULL,
 
     if(Debug) print("SCatter 2")
 
-    if(Debug) print('Plot.Scatter  length(GroupVar) > 0L')
-    if(Debug) print('Plot.Scatter  Echarts')
+    if(Debug) print('Scatter  length(GroupVar) > 0L')
+    if(Debug) print('Scatter  Echarts')
     p1 <- echarts4r::e_charts_(
       dt1 |> dplyr::group_by(get(GroupVar[1L])),
       x = XVar,
@@ -14288,7 +14288,7 @@ Scatter3D <- function(dt = NULL,
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
   # Cap number of records
-  if(Debug) print('Plot.Scatter3D # Cap number of records')
+  if(Debug) print('Scatter3D # Cap number of records')
   if(length(SampleSize) == 0L) SampleSize <- 30000L
   if(dt[,.N] > SampleSize) {
     dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
@@ -14312,8 +14312,8 @@ Scatter3D <- function(dt = NULL,
   }
 
   if(length(GroupVar) > 0L) {
-    if(Debug) print('Plot.Scatter3D length(GroupVar) > 0L')
-    if(Debug) print('Plot.Scatter3D  Echarts')
+    if(Debug) print('Scatter3D length(GroupVar) > 0L')
+    if(Debug) print('Scatter3D  Echarts')
     p1 <- echarts4r::e_charts_(
       dt1 |> dplyr::group_by(get(GroupVar[1L])),
       x = XVar,
@@ -14387,8 +14387,8 @@ Scatter3D <- function(dt = NULL,
 
   } else {
 
-    if(Debug) print('Plot.Scatter3D length(GroupVar) == 0L')
-    if(Debug) print('Plot.Scatter3D  Echarts')
+    if(Debug) print('Scatter3D length(GroupVar) == 0L')
+    if(Debug) print('Scatter3D  Echarts')
     p1 <- echarts4r::e_charts_(
       dt1 |> dplyr::group_by(GroupVar[[1L]]),
       x = XVar,
@@ -14771,7 +14771,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
   dt1 <- dt1[!is.na(get(XVar))]
 
   # Build Plot
-  p1 <- AutoPlots::Plot.Scatter(
+  p1 <- AutoPlots::Scatter(
     dt = dt1,
     SampleSize = SampleSize,
     YVar = "Target - Predicted",
@@ -14926,7 +14926,7 @@ Plot.Calibration.Line <- function(dt = NULL,
     }
 
     # Build Plot
-    if(Debug) print("Plot.Calibration.Line # AutoPlots::Plot.Line()")
+    if(Debug) print("Plot.Calibration.Line # AutoPlots::Line()")
     yvar <- if(length(GroupVar) > 0L) "Target - Predicted" else YVar
     gv <- if(length(GroupVar) == 0L) "Variable" else GroupVar
     tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
@@ -14935,7 +14935,7 @@ Plot.Calibration.Line <- function(dt = NULL,
     if(Debug) print(dt1)
     if(Debug) print("here 9")
 
-    p1 <- AutoPlots::Plot.Line(
+    p1 <- AutoPlots::Line(
       dt = dt1,
       PreAgg = TRUE,
       YVar = yvar,
@@ -15047,12 +15047,12 @@ Plot.Calibration.Line <- function(dt = NULL,
     if(Debug) print("here 13")
 
     # Build
-    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Line()")
     dt2 <- dt2[!is.na(get(yvar))]
 
     if(Debug) print("here 14")
 
-    p1 <- AutoPlots::Plot.Line(
+    p1 <- AutoPlots::Line(
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
@@ -15184,10 +15184,10 @@ Plot.Calibration.Box <- function(dt = NULL,
   if(Debug) print("Plot.Calibration.Box 8")
 
   # Plot
-  if(Debug) print(paste0("TimeLine for Plot.Box=", TimeLine))
+  if(Debug) print(paste0("TimeLine for Box=", TimeLine))
   dt1 <- dt1[!is.na(`Target - Predicted`)]
   if(Debug) print("Plot.Calibration.Box 9")
-  p1 <- Plot.Box(
+  p1 <- Box(
     dt = dt1,
     SampleSize = SampleSize,
     XVar = "Percentile",
@@ -15331,9 +15331,9 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     }
 
     # Build
-    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Line()")
     dt1 <- dt1[!is.na(get(yvar))]
-    p1 <- AutoPlots::Plot.Line(
+    p1 <- AutoPlots::Line(
       Area = FALSE,
       dt = dt1,
       PreAgg = TRUE,
@@ -15431,9 +15431,9 @@ Plot.PartialDependence.Line <- function(dt = NULL,
     }
 
     # Build
-    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Plot.Line()")
+    if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Line()")
     dt2 <- dt2[!is.na(get(yvar))]
-    p1 <- AutoPlots::Plot.Line(
+    p1 <- AutoPlots::Line(
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
@@ -15557,9 +15557,9 @@ Plot.PartialDependence.Box <- function(dt = NULL,
   tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
 
   # Build
-  if(Debug) print("Plot.PartialDependence.Box --> AutoPlots::Plot.Box()")
+  if(Debug) print("Plot.PartialDependence.Box --> AutoPlots::Box()")
   dt1 <- dt1[!is.na(`Target - Predicted`)]
-  p1 <- AutoPlots::Plot.Box(
+  p1 <- AutoPlots::Box(
     dt = dt1,
     SampleSize = SampleSize,
     XVar = XVar,
@@ -15693,9 +15693,9 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       for(i in c(XVar,YVar)) dt1[, eval(i) := get(i)]
 
       # Build
-      if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
+      if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Heatmap()")
       dt1 <- dt1[!is.na(get(YVar))]
-      p1 <- AutoPlots::Plot.HeatMap(
+      p1 <- AutoPlots::Heatmap(
         dt = dt1,
         PreAgg = TRUE,
         AggMethod = "mean",
@@ -15725,7 +15725,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
       dt1 <- dt1[!is.na(get(ZVar))]
       if(Debug) print("here 5.4")
       dt1 <- dt1[, .SD, .SDcols = c(XVar, ZVar)]
-      p1 <- AutoPlots::Plot.Bar(
+      p1 <- AutoPlots::Bar(
         dt = dt1,
         PreAgg = TRUE,
         XVar = XVar,
@@ -15813,9 +15813,9 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
     dt2 <- dt2[, lapply(.SD, noquote(aggFunc)), by = c(XVar,"Level")]
 
     # Build
-    if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Plot.HeatMap()")
+    if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Heatmap()")
     dt2 <- dt2[!is.na(get(yvar))]
-    p1 <- AutoPlots::Plot.HeatMap(
+    p1 <- AutoPlots::Heatmap(
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
@@ -16161,7 +16161,7 @@ Plot.ROC <- function(dt = NULL,
   if(Debug) print("ROC 5")
 
   # Data Prep2
-  if(Debug) print("Plot.Calibration.Line # AutoPlots::Plot.Line()")
+  if(Debug) print("Plot.Calibration.Line # AutoPlots::Line()")
   data[, `1 - Specificity` := 1 - Specificity]
   data.table::set(data, j = "Specificity", value = NULL)
   YVar <- "Sensitivity"
@@ -16178,7 +16178,7 @@ Plot.ROC <- function(dt = NULL,
 
   # Build Plot (Line or Area)
   if(length(GroupVar) > 0L && FacetRows == 1L && FacetCols == 1L) {
-    p1 <- AutoPlots::Plot.Line(
+    p1 <- AutoPlots::Line(
       dt = data,
       PreAgg = TRUE,
       Smooth = TRUE,
@@ -16328,7 +16328,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
     data.table::setkeyv(x = dt4, cols = c(YVar, XVar))
     dt4[dt3, Metric := i.Metric]
     data.table::set(dt4, i = which(is.na(dt4[["Metric"]])), j = "Metric", value = 0)
-    if(Debug) print("Confusion Matrix Plot.Heatmap")
+    if(Debug) print("Confusion Matrix Heatmap")
     dt4[, `Proportion in Target` := sum(Metric), by = eval(YVar)]
     dt4[, `Proportion in Target` := data.table::fifelse(`Proportion in Target` > 0, Metric / `Proportion in Target`, 0)]
     ZVar = "Proportion in Target"
@@ -16339,7 +16339,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
   # Corr Matrix for the automatic ordering
   data.table::setorderv(dt4, c(XVar,YVar), c(1L,1L))
   dt4 <- dt4[!is.na(get(ZVar))]
-  p1 <- Plot.HeatMap(
+  p1 <- Heatmap(
     PreAgg = TRUE,
     Theme = Theme,
     Title = Title,
@@ -16604,7 +16604,7 @@ Plot.Lift <- function(dt = NULL,
 
     if(Debug) print("here 13")
     #dt6 <- dt6[!is.na(Lift)]
-    p1 <- AutoPlots::Plot.Line(
+    p1 <- AutoPlots::Line(
       dt = dt6,
       PreAgg = TRUE,
       XVar = "Population",
@@ -16910,7 +16910,7 @@ Plot.Gains <- function(dt = NULL,
   if(FacetRows == 1L && FacetCols == 1L && length(GroupVar) > 0L) {
 
     if(Debug) print("here 13")
-    p1 <- AutoPlots::Plot.Line(
+    p1 <- AutoPlots::Line(
       dt = dt6,
       PreAgg = TRUE,
       XVar = "Population",
@@ -17074,8 +17074,8 @@ Plot.BinaryMetrics <- function(dt = NULL,
     measure.vars = Metrics)
 
   # Build
-  if(Debug) print("AutoPlots::Plot.BinaryMetrics --> AutoPlots::Plot.Line()")
-  p1 <- AutoPlots::Plot.Line(
+  if(Debug) print("AutoPlots::Plot.BinaryMetrics --> AutoPlots::Line()")
+  p1 <- AutoPlots::Line(
     dt = dt3,
     PreAgg = TRUE,
     AggMethod = "mean",
@@ -17181,7 +17181,7 @@ Plot.ShapImportance <- function(dt,
 
   # Add a column that ranks predicted values
   if(length(GroupVar) > 0L) {
-    p1 <- AutoPlots::Plot.HeatMap(
+    p1 <- AutoPlots::Heatmap(
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
