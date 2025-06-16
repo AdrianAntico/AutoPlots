@@ -100,6 +100,22 @@ AutoPlots::Plot.WordCloud(
 }
 \seealso{
 Other Standard Plots: 
+\code{\link{ACF}()},
+\code{\link{Area}()},
+\code{\link{BarPlot3D}()},
+\code{\link{Bar}()},
+\code{\link{Box}()},
+\code{\link{Copula3D}()},
+\code{\link{Copula}()},
+\code{\link{CorrMatrix}()},
+\code{\link{Density}()},
+\code{\link{Donut}()},
+\code{\link{HeatMap}()},
+\code{\link{Histogram}()},
+\code{\link{Line}()},
+\code{\link{PACF}()},
+\code{\link{Parallel}()},
+\code{\link{Pie}()},
 \code{\link{Plot.ACF}()},
 \code{\link{Plot.Area}()},
 \code{\link{Plot.BarPlot3D}()},
@@ -123,6 +139,15 @@ Other Standard Plots:
 \code{\link{Plot.Scatter3D}()},
 \code{\link{Plot.Scatter}()},
 \code{\link{Plot.StackedBar}()},
-\code{\link{Plot.Step}()}
+\code{\link{Plot.Step}()},
+\code{\link{ProbabilityPlot}()},
+\code{\link{Radar}()},
+\code{\link{River}()},
+\code{\link{Rosetype}()},
+\code{\link{Scatter3D}()},
+\code{\link{Scatter}()},
+\code{\link{StackedBar}()},
+\code{\link{Step}()},
+\code{\link{WordCloud}()}
 }
 \concept{Standard Plots}
