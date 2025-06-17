@@ -363,3 +363,88 @@ e_tooltip_full <- function(
   ))
 }
 
+
+#' Enhanced Title Setter for echarts4r
+#'
+#' Exposes every title.* option so you don't have to hand-craft the JSON.
+#'
+#' @param e An echarts4r object
+#' @return The modified echarts4r object
+#' @export
+e_title_full <- function() {
+
+  ts <- .compact(list(
+    color = title.textStyle.color,
+    fontStyle = title.textStyle.fontStyle, # 'normal' 'italic' 'oblique'
+    fontWeight = title.textStyle.fontWeight, # 'normal' 'bold' 'bolder' 'lighter'
+    fontFamily = title.textStyle.fontFamily,
+    fontSize = title.textStyle.fontSize,
+    lineHeight = title.textStyle.lineHeight,
+    width = title.textStyle.width,
+    height = title.textStyle.height,
+    textBorderColor = title.textStyle.textBorderColor,
+    textBorderWidth = title.textStyle.textBorderWidth,
+    textBorderType = title.textStyle.textBorderType, # 'solid' 'dashed' 'dotted'
+    textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    textShadowColor = title.textStyle.textShadowColor,
+    textShadowBlur = title.textStyle.textShadowBlur,
+    textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    textShadowOffsetY = title.textStyle.textShadowOffsetY
+  ))
+
+  sts <- .compact(list(
+    color = title.subtextStyle.color,
+    align = title.subtextStyle.align,
+    fontStyle = title.subtextStyle.fontStyle, # 'normal' 'italic' 'oblique'
+    fontWeight = title.subtextStyle.fontWeight, # 'normal' 'bold' 'bolder' 'lighter'
+    fontFamily = title.subtextStyle.fontFamily,
+    fontSize = title.subtextStyle.fontSize,
+    lineHeight = title.subtextStyle.lineHeight,
+    width = title.subtextStyle.width,
+    height = title.subtextStyle.height,
+    textBorderColor = title.subtextStyle.textBorderColor,
+    textBorderWidth = title.subtextStyle.textBorderWidth,
+    textBorderType = title.subtextStyle.textBorderType, # 'solid' 'dashed' 'dotted'
+    textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    textShadowColor = title.subtextStyle.textShadowColor,
+    textShadowBlur = title.subtextStyle.textShadowBlur,
+    textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    textShadowOffsetY = title.subtextStyle.textShadowOffsetY
+  ))
+
+  # Assemble the final opts
+  opts <- .compact(list(
+    textStyle = if (length(ap)) ap,
+    subtextStyle = if (length(ts)) ts
+  ))
+
+  standard <- list()
+  standard[["e"]] <- e
+  standard[["text"]] <- title.text
+  standard[["show"]] <- tooltip.show
+  standard[["subtext"]] <- title.subtext
+  standard[["link"]] <- title.link
+  standard[["sublink"]] <- title.sublink
+  standard[["textAlign"]] <- title.Align # 'auto' 'left' 'right' 'center'
+  standard[["top"]] <- title.top # 'auto' '20' '20%' 'top' 'middle' 'bottom'
+  standard[["left"]] <- title.left # distance between title and left side of container
+  standard[["right"]] <- title.right # distance between title and right side of container
+  standard[["bottom"]] <- title.bottom # 'auto' '20' '20%' 'top' 'middle' 'bottom'
+  standard[["padding"]] <- title.padding
+  standard[["itemGap"]] <- title.itemGap # space between title and subtitle
+  standard[["backgroundColor"]] <- title.backgroundColor
+  standard[["borderColor"]] <- title.borderColor
+  standard[["borderWidth"]] <- title.borderWidth
+  standard[["borderRadius"]] <- title.borderRadius
+  standard[["shadowColor"]] <- title.shadowColor
+  standard[["shadowBlur"]] <- title.shadowBlur
+  standard[["shadowOffsetX"]] <- title.shadowOffsetX
+  standard[["shadowOffsetY"]] <- title.shadowOffsetY
+
+  do.call(echarts4r::e_title, c(
+    standard,
+    opts
+  ))
+}
+
+

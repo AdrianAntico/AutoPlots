@@ -41,13 +41,59 @@
 #' @param TimeLine logical
 #' @param TextColor "white"
 #' @param ContainLabel  TRUE
-#' @param Title = "Density Plot"
-#' @param title.fontSize  22
-#' @param title.fontWeight  "bold"
-#' @param title.textShadowColor  '#63aeff'
-#' @param title.textShadowBlur  3
-#' @param title.textShadowOffsetY  1
-#' @param title.textShadowOffsetX  -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -236,28 +282,72 @@
 Density <- function(dt = NULL,
                     SampleSize = 100000L,
                     XVar = NULL,
-                    GroupVar = NULL,
                     XVarTrans = "Identity",
+                    GroupVar = NULL,
                     FacetRows = 1,
                     FacetCols = 1,
                     FacetLevels = NULL,
+                    TimeLine = FALSE,
+                    Opacity = 0.4,
                     Height = NULL,
                     Width = NULL,
                     MouseScroll = FALSE,
                     ShowLabels = FALSE,
-                    Opacity = 0.4,
-                    Title.YAxis = NULL,
                     Theme = "dark",
-                    TimeLine = FALSE,
                     ContainLabel = TRUE,
                     TextColor = "white",
-                    Title = "Density Plot",
-                    title.fontSize = 22,
-                    title.fontWeight = "bold",
-                    title.textShadowColor = '#63aeff',
-                    title.textShadowBlur = 3,
-                    title.textShadowOffsetY = 1,
-                    title.textShadowOffsetX = -1,
+                    title.text = "Density Plot",
+                    title.subtext = NULL,
+                    title.link = NULL,
+                    title.sublink = NULL,
+                    title.Align = NULL,
+                    title.top = NULL,
+                    title.left = NULL,
+                    title.right = NULL,
+                    title.bottom = NULL,
+                    title.padding = NULL,
+                    title.itemGap = NULL,
+                    title.backgroundColor = NULL,
+                    title.borderColor = NULL,
+                    title.borderWidth = NULL,
+                    title.borderRadius = NULL,
+                    title.shadowColor = NULL,
+                    title.shadowBlur = NULL,
+                    title.shadowOffsetX = NULL,
+                    title.shadowOffsetY = NULL,
+                    title.textStyle.color = NULL,
+                    title.textStyle.fontStyle = NULL,
+                    title.textStyle.fontWeight = NULL,
+                    title.textStyle.fontFamily = NULL,
+                    title.textStyle.fontSize = NULL,
+                    title.textStyle.lineHeight = NULL,
+                    title.textStyle.width = NULL,
+                    title.textStyle.height = NULL,
+                    title.textStyle.textBorderColor = NULL,
+                    title.textStyle.textBorderWidth = NULL,
+                    title.textStyle.textBorderType = NULL,
+                    title.textStyle.textBorderDashOffset = NULL,
+                    title.textStyle.textShadowColor = NULL,
+                    title.textStyle.textShadowBlur = NULL,
+                    title.textStyle.textShadowOffsetX = NULL,
+                    title.textStyle.textShadowOffsetY = NULL,
+                    title.subtextStyle.color = NULL,
+                    title.subtextStyle.align = NULL,
+                    title.subtextStyle.fontStyle = NULL,
+                    title.subtextStyle.fontWeight = NULL,
+                    title.subtextStyle.fontFamily = NULL,
+                    title.subtextStyle.fontSize = NULL,
+                    title.subtextStyle.lineHeight = NULL,
+                    title.subtextStyle.width = NULL,
+                    title.subtextStyle.height = NULL,
+                    title.subtextStyle.textBorderColor = NULL,
+                    title.subtextStyle.textBorderWidth = NULL,
+                    title.subtextStyle.textBorderType = NULL,
+                    title.subtextStyle.textBorderDashOffset = NULL,
+                    title.subtextStyle.textShadowColor = NULL,
+                    title.subtextStyle.textShadowBlur = NULL,
+                    title.subtextStyle.textShadowOffsetX = NULL,
+                    title.subtextStyle.textShadowOffsetY = NULL,
                     xAxis.title = NULL,
                     xAxis.min = NULL,
                     xAxis.max = NULL,
@@ -533,18 +623,60 @@ Density <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
 
@@ -666,18 +798,61 @@ Density <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -704,16 +879,62 @@ Density <- function(dt = NULL,
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title 'Violin Plot'
 #' @param ShowLabels character
 #' @param Theme "macaron"
 #' @param TextColor 'darkblue'
-#' @param title.fontSize Default 22
-#' @param title.fontWeight Default "bold"
-#' @param title.textShadowColor Default '#63aeff'
-#' @param title.textShadowBlur Default 3
-#' @param title.textShadowOffsetY Default 1
-#' @param title.textShadowOffsetX Default -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param yaxis.fontSize Default 14
 #' @param yaxis.rotate Default 0
 #' @param ContainLabel Default TRUE
@@ -812,8 +1033,6 @@ ProbabilityPlot <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Title = Title,
-    Title.YAxis = YVar,
-    Title.XAxis = "Theoretical Quantiles",
     Theme = Theme,
     TextColor = TextColor,
     title.fontSize = title.fontSize,
@@ -822,8 +1041,6 @@ ProbabilityPlot <- function(dt = NULL,
     title.textShadowBlur = title.textShadowBlur,
     title.textShadowOffsetY = title.textShadowOffsetY,
     title.textShadowOffsetX = title.textShadowOffsetX,
-    yaxis.fontSize = yaxis.fontSize,
-    yaxis.rotate = yaxis.rotate,
     ContainLabel = ContainLabel,
     tooltip.trigger = tooltip.trigger,
     Debug = Debug)
@@ -857,13 +1074,59 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowLabels FALSE
 #' @param TextColor "white"
-#' @param Title character
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -1019,17 +1282,62 @@ Histogram <- function(dt = NULL,
                       Height = NULL,
                       Width = NULL,
                       Theme = "dark",
-                      Title = "Histogram",
                       MouseScroll = FALSE,
                       TimeLine = FALSE,
                       ShowLabels = FALSE,
                       TextColor = "white",
-                      title.fontSize = 22,
-                      title.fontWeight = "bold",
-                      title.textShadowColor = '#63aeff',
-                      title.textShadowBlur = 3,
-                      title.textShadowOffsetY = 1,
-                      title.textShadowOffsetX = -1,
+                      title.text = "Histogram",
+                      title.subtext = NULL,
+                      title.link = NULL,
+                      title.sublink = NULL,
+                      title.Align = NULL,
+                      title.top = NULL,
+                      title.left = NULL,
+                      title.right = NULL,
+                      title.bottom = NULL,
+                      title.padding = NULL,
+                      title.itemGap = NULL,
+                      title.backgroundColor = NULL,
+                      title.borderColor = NULL,
+                      title.borderWidth = NULL,
+                      title.borderRadius = NULL,
+                      title.shadowColor = NULL,
+                      title.shadowBlur = NULL,
+                      title.shadowOffsetX = NULL,
+                      title.shadowOffsetY = NULL,
+                      title.textStyle.color = NULL,
+                      title.textStyle.fontStyle = NULL,
+                      title.textStyle.fontWeight = NULL,
+                      title.textStyle.fontFamily = NULL,
+                      title.textStyle.fontSize = NULL,
+                      title.textStyle.lineHeight = NULL,
+                      title.textStyle.width = NULL,
+                      title.textStyle.height = NULL,
+                      title.textStyle.textBorderColor = NULL,
+                      title.textStyle.textBorderWidth = NULL,
+                      title.textStyle.textBorderType = NULL,
+                      title.textStyle.textBorderDashOffset = NULL,
+                      title.textStyle.textShadowColor = NULL,
+                      title.textStyle.textShadowBlur = NULL,
+                      title.textStyle.textShadowOffsetX = NULL,
+                      title.textStyle.textShadowOffsetY = NULL,
+                      title.subtextStyle.color = NULL,
+                      title.subtextStyle.align = NULL,
+                      title.subtextStyle.fontStyle = NULL,
+                      title.subtextStyle.fontWeight = NULL,
+                      title.subtextStyle.fontFamily = NULL,
+                      title.subtextStyle.fontSize = NULL,
+                      title.subtextStyle.lineHeight = NULL,
+                      title.subtextStyle.width = NULL,
+                      title.subtextStyle.height = NULL,
+                      title.subtextStyle.textBorderColor = NULL,
+                      title.subtextStyle.textBorderWidth = NULL,
+                      title.subtextStyle.textBorderType = NULL,
+                      title.subtextStyle.textBorderDashOffset = NULL,
+                      title.subtextStyle.textShadowColor = NULL,
+                      title.subtextStyle.textShadowBlur = NULL,
+                      title.subtextStyle.textShadowOffsetX = NULL,
+                      title.subtextStyle.textShadowOffsetY = NULL,
                       xAxis.title = NULL,
                       xAxis.min = NULL,
                       xAxis.max = NULL,
@@ -1218,7 +1526,7 @@ Histogram <- function(dt = NULL,
       YVar = "N",
       Height = Height,
       Width = Width,
-      Title = 'Histogram Plot',
+      Title = Title,
       Theme = Theme,
       MouseScroll = MouseScroll,
       TimeLine = TimeLine,
@@ -1324,7 +1632,7 @@ Histogram <- function(dt = NULL,
       FacetLevels = FacetLevels,
       Height = Height,
       Width = Width,
-      Title = 'Histogram Plot',
+      Title = Title,
       MouseScroll = MouseScroll,
       Theme = Theme,
       TimeLine = TimeLine,
@@ -1442,20 +1750,65 @@ Histogram <- function(dt = NULL,
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
-#' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -1536,19 +1889,64 @@ Pie <- function(dt = NULL,
                 AggMethod = 'mean',
                 Height = NULL,
                 Width = NULL,
-                Title = 'Pie Chart',
                 ShowLabels = FALSE,
                 Title.YAxis = NULL,
                 Title.XAxis = NULL,
                 Theme = "dark",
                 TimeLine = TRUE,
                 TextColor = "white",
-                title.fontSize = 22,
-                title.fontWeight = "bold",
-                title.textShadowColor = '#63aeff',
-                title.textShadowBlur = 3,
-                title.textShadowOffsetY = 1,
-                title.textShadowOffsetX = -1,
+                title.text = "Pie Chart",
+                title.subtext = NULL,
+                title.link = NULL,
+                title.sublink = NULL,
+                title.Align = NULL,
+                title.top = NULL,
+                title.left = NULL,
+                title.right = NULL,
+                title.bottom = NULL,
+                title.padding = NULL,
+                title.itemGap = NULL,
+                title.backgroundColor = NULL,
+                title.borderColor = NULL,
+                title.borderWidth = NULL,
+                title.borderRadius = NULL,
+                title.shadowColor = NULL,
+                title.shadowBlur = NULL,
+                title.shadowOffsetX = NULL,
+                title.shadowOffsetY = NULL,
+                title.textStyle.color = NULL,
+                title.textStyle.fontStyle = NULL,
+                title.textStyle.fontWeight = NULL,
+                title.textStyle.fontFamily = NULL,
+                title.textStyle.fontSize = NULL,
+                title.textStyle.lineHeight = NULL,
+                title.textStyle.width = NULL,
+                title.textStyle.height = NULL,
+                title.textStyle.textBorderColor = NULL,
+                title.textStyle.textBorderWidth = NULL,
+                title.textStyle.textBorderType = NULL,
+                title.textStyle.textBorderDashOffset = NULL,
+                title.textStyle.textShadowColor = NULL,
+                title.textStyle.textShadowBlur = NULL,
+                title.textStyle.textShadowOffsetX = NULL,
+                title.textStyle.textShadowOffsetY = NULL,
+                title.subtextStyle.color = NULL,
+                title.subtextStyle.align = NULL,
+                title.subtextStyle.fontStyle = NULL,
+                title.subtextStyle.fontWeight = NULL,
+                title.subtextStyle.fontFamily = NULL,
+                title.subtextStyle.fontSize = NULL,
+                title.subtextStyle.lineHeight = NULL,
+                title.subtextStyle.width = NULL,
+                title.subtextStyle.height = NULL,
+                title.subtextStyle.textBorderColor = NULL,
+                title.subtextStyle.textBorderWidth = NULL,
+                title.subtextStyle.textBorderType = NULL,
+                title.subtextStyle.textBorderDashOffset = NULL,
+                title.subtextStyle.textShadowColor = NULL,
+                title.subtextStyle.textShadowBlur = NULL,
+                title.subtextStyle.textShadowOffsetX = NULL,
+                title.subtextStyle.textShadowOffsetY = NULL,
                 tooltip.show = TRUE,
                 tooltip.trigger = "item",
                 tooltip.backgroundColor = NULL,
@@ -1697,18 +2095,60 @@ Pie <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
   }
@@ -1735,19 +2175,65 @@ Pie <- function(dt = NULL,
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
-#' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -1829,19 +2315,64 @@ Donut <- function(dt = NULL,
                   AggMethod = 'mean',
                   Height = NULL,
                   Width = NULL,
-                  Title = 'Donut Plot',
                   ShowLabels = FALSE,
                   Title.YAxis = NULL,
                   Title.XAxis = NULL,
                   Theme = "dark",
                   TimeLine = TRUE,
                   TextColor = "white",
-                  title.fontSize = 22,
-                  title.fontWeight = "bold",
-                  title.textShadowColor = '#63aeff',
-                  title.textShadowBlur = 3,
-                  title.textShadowOffsetY = 1,
-                  title.textShadowOffsetX = -1,
+                  title.text = "Donut Plot",
+                  title.subtext = NULL,
+                  title.link = NULL,
+                  title.sublink = NULL,
+                  title.Align = NULL,
+                  title.top = NULL,
+                  title.left = NULL,
+                  title.right = NULL,
+                  title.bottom = NULL,
+                  title.padding = NULL,
+                  title.itemGap = NULL,
+                  title.backgroundColor = NULL,
+                  title.borderColor = NULL,
+                  title.borderWidth = NULL,
+                  title.borderRadius = NULL,
+                  title.shadowColor = NULL,
+                  title.shadowBlur = NULL,
+                  title.shadowOffsetX = NULL,
+                  title.shadowOffsetY = NULL,
+                  title.textStyle.color = NULL,
+                  title.textStyle.fontStyle = NULL,
+                  title.textStyle.fontWeight = NULL,
+                  title.textStyle.fontFamily = NULL,
+                  title.textStyle.fontSize = NULL,
+                  title.textStyle.lineHeight = NULL,
+                  title.textStyle.width = NULL,
+                  title.textStyle.height = NULL,
+                  title.textStyle.textBorderColor = NULL,
+                  title.textStyle.textBorderWidth = NULL,
+                  title.textStyle.textBorderType = NULL,
+                  title.textStyle.textBorderDashOffset = NULL,
+                  title.textStyle.textShadowColor = NULL,
+                  title.textStyle.textShadowBlur = NULL,
+                  title.textStyle.textShadowOffsetX = NULL,
+                  title.textStyle.textShadowOffsetY = NULL,
+                  title.subtextStyle.color = NULL,
+                  title.subtextStyle.align = NULL,
+                  title.subtextStyle.fontStyle = NULL,
+                  title.subtextStyle.fontWeight = NULL,
+                  title.subtextStyle.fontFamily = NULL,
+                  title.subtextStyle.fontSize = NULL,
+                  title.subtextStyle.lineHeight = NULL,
+                  title.subtextStyle.width = NULL,
+                  title.subtextStyle.height = NULL,
+                  title.subtextStyle.textBorderColor = NULL,
+                  title.subtextStyle.textBorderWidth = NULL,
+                  title.subtextStyle.textBorderType = NULL,
+                  title.subtextStyle.textBorderDashOffset = NULL,
+                  title.subtextStyle.textShadowColor = NULL,
+                  title.subtextStyle.textShadowBlur = NULL,
+                  title.subtextStyle.textShadowOffsetX = NULL,
+                  title.subtextStyle.textShadowOffsetY = NULL,
                   xtooltip.show = TRUE,
                   tooltip.trigger = "item",
                   tooltip.backgroundColor = NULL,
@@ -1994,18 +2525,60 @@ Donut <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
   }
@@ -2033,19 +2606,65 @@ Donut <- function(dt = NULL,
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title title
 #' @param ShowLabels character
 #' @param Title.YAxis character
 #' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
-#' @param title.fontSize Defaults to size 22. Numeric. This changes the size of the title.
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -2126,19 +2745,64 @@ Rosetype <- function(dt = NULL,
                      AggMethod = 'mean',
                      Height = NULL,
                      Width = NULL,
-                     Title = 'Donut Plot',
                      ShowLabels = FALSE,
                      Title.YAxis = NULL,
                      Title.XAxis = NULL,
                      Theme = "dark",
                      TimeLine = TRUE,
                      TextColor = "white",
-                     title.fontSize = 22,
-                     title.fontWeight = "bold",
-                     title.textShadowColor = '#63aeff',
-                     title.textShadowBlur = 3,
-                     title.textShadowOffsetY = 1,
-                     title.textShadowOffsetX = -1,
+                     title.text = "Rosetype Plot",
+                     title.subtext = NULL,
+                     title.link = NULL,
+                     title.sublink = NULL,
+                     title.Align = NULL,
+                     title.top = NULL,
+                     title.left = NULL,
+                     title.right = NULL,
+                     title.bottom = NULL,
+                     title.padding = NULL,
+                     title.itemGap = NULL,
+                     title.backgroundColor = NULL,
+                     title.borderColor = NULL,
+                     title.borderWidth = NULL,
+                     title.borderRadius = NULL,
+                     title.shadowColor = NULL,
+                     title.shadowBlur = NULL,
+                     title.shadowOffsetX = NULL,
+                     title.shadowOffsetY = NULL,
+                     title.textStyle.color = NULL,
+                     title.textStyle.fontStyle = NULL,
+                     title.textStyle.fontWeight = NULL,
+                     title.textStyle.fontFamily = NULL,
+                     title.textStyle.fontSize = NULL,
+                     title.textStyle.lineHeight = NULL,
+                     title.textStyle.width = NULL,
+                     title.textStyle.height = NULL,
+                     title.textStyle.textBorderColor = NULL,
+                     title.textStyle.textBorderWidth = NULL,
+                     title.textStyle.textBorderType = NULL,
+                     title.textStyle.textBorderDashOffset = NULL,
+                     title.textStyle.textShadowColor = NULL,
+                     title.textStyle.textShadowBlur = NULL,
+                     title.textStyle.textShadowOffsetX = NULL,
+                     title.textStyle.textShadowOffsetY = NULL,
+                     title.subtextStyle.color = NULL,
+                     title.subtextStyle.align = NULL,
+                     title.subtextStyle.fontStyle = NULL,
+                     title.subtextStyle.fontWeight = NULL,
+                     title.subtextStyle.fontFamily = NULL,
+                     title.subtextStyle.fontSize = NULL,
+                     title.subtextStyle.lineHeight = NULL,
+                     title.subtextStyle.width = NULL,
+                     title.subtextStyle.height = NULL,
+                     title.subtextStyle.textBorderColor = NULL,
+                     title.subtextStyle.textBorderWidth = NULL,
+                     title.subtextStyle.textBorderType = NULL,
+                     title.subtextStyle.textBorderDashOffset = NULL,
+                     title.subtextStyle.textShadowColor = NULL,
+                     title.subtextStyle.textShadowBlur = NULL,
+                     title.subtextStyle.textShadowOffsetX = NULL,
+                     title.subtextStyle.textShadowOffsetY = NULL,
                      tooltip.show = TRUE,
                      tooltip.trigger = "cross",
                      tooltip.backgroundColor = NULL,
@@ -2291,18 +2955,60 @@ Rosetype <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
   }
@@ -2335,13 +3041,59 @@ Rosetype <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param ContainLabel TRUE
-#' @param Title character
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -2511,13 +3263,58 @@ Box <- function(dt = NULL,
                 TimeLine = FALSE,
                 TextColor = "white",
                 ContainLabel = TRUE,
-                Title = 'Box Plot',
-                title.fontSize = 22,
-                title.fontWeight = "bold",
-                title.textShadowColor = '#63aeff',
-                title.textShadowBlur = 3,
-                title.textShadowOffsetY = 1,
-                title.textShadowOffsetX = -1,
+                title.text = "BoxPlot",
+                title.subtext = NULL,
+                title.link = NULL,
+                title.sublink = NULL,
+                title.Align = NULL,
+                title.top = NULL,
+                title.left = NULL,
+                title.right = NULL,
+                title.bottom = NULL,
+                title.padding = NULL,
+                title.itemGap = NULL,
+                title.backgroundColor = NULL,
+                title.borderColor = NULL,
+                title.borderWidth = NULL,
+                title.borderRadius = NULL,
+                title.shadowColor = NULL,
+                title.shadowBlur = NULL,
+                title.shadowOffsetX = NULL,
+                title.shadowOffsetY = NULL,
+                title.textStyle.color = NULL,
+                title.textStyle.fontStyle = NULL,
+                title.textStyle.fontWeight = NULL,
+                title.textStyle.fontFamily = NULL,
+                title.textStyle.fontSize = NULL,
+                title.textStyle.lineHeight = NULL,
+                title.textStyle.width = NULL,
+                title.textStyle.height = NULL,
+                title.textStyle.textBorderColor = NULL,
+                title.textStyle.textBorderWidth = NULL,
+                title.textStyle.textBorderType = NULL,
+                title.textStyle.textBorderDashOffset = NULL,
+                title.textStyle.textShadowColor = NULL,
+                title.textStyle.textShadowBlur = NULL,
+                title.textStyle.textShadowOffsetX = NULL,
+                title.textStyle.textShadowOffsetY = NULL,
+                title.subtextStyle.color = NULL,
+                title.subtextStyle.align = NULL,
+                title.subtextStyle.fontStyle = NULL,
+                title.subtextStyle.fontWeight = NULL,
+                title.subtextStyle.fontFamily = NULL,
+                title.subtextStyle.fontSize = NULL,
+                title.subtextStyle.lineHeight = NULL,
+                title.subtextStyle.width = NULL,
+                title.subtextStyle.height = NULL,
+                title.subtextStyle.textBorderColor = NULL,
+                title.subtextStyle.textBorderWidth = NULL,
+                title.subtextStyle.textBorderType = NULL,
+                title.subtextStyle.textBorderDashOffset = NULL,
+                title.subtextStyle.textShadowColor = NULL,
+                title.subtextStyle.textShadowBlur = NULL,
+                title.subtextStyle.textShadowOffsetX = NULL,
+                title.subtextStyle.textShadowOffsetY = NULL,
                 xAxis.title = NULL,
                 xAxis.min = NULL,
                 xAxis.max = NULL,
@@ -2846,18 +3643,61 @@ Box <- function(dt = NULL,
 
     if(CoordFlip) p1 <- echarts4r::e_flip_coords(e = p1)
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     return(p1)
   }
@@ -2978,18 +3818,61 @@ Box <- function(dt = NULL,
 
     if(CoordFlip) p1 <- echarts4r::e_flip_coords(e = p1)
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
 
@@ -3120,18 +4003,61 @@ Box <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
 
     return(p1)
   }
@@ -3248,19 +4174,60 @@ Box <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
-
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     # Return
     return(p1)
@@ -3322,15 +4289,60 @@ WordCloud <- function(dt = NULL,
                       YVar = NULL,
                       Height = NULL,
                       Width = NULL,
-                      Title = "Word Cloud",
                       Theme = "dark",
                       TextColor = "white",
-                      title.fontSize = 22,
-                      title.fontWeight = "bold",
-                      title.textShadowColor = '#63aeff',
-                      title.textShadowBlur = 3,
-                      title.textShadowOffsetY = 1,
-                      title.textShadowOffsetX = -1,
+                      title.text = "Word Cloud",
+                      title.subtext = NULL,
+                      title.link = NULL,
+                      title.sublink = NULL,
+                      title.Align = NULL,
+                      title.top = NULL,
+                      title.left = NULL,
+                      title.right = NULL,
+                      title.bottom = NULL,
+                      title.padding = NULL,
+                      title.itemGap = NULL,
+                      title.backgroundColor = NULL,
+                      title.borderColor = NULL,
+                      title.borderWidth = NULL,
+                      title.borderRadius = NULL,
+                      title.shadowColor = NULL,
+                      title.shadowBlur = NULL,
+                      title.shadowOffsetX = NULL,
+                      title.shadowOffsetY = NULL,
+                      title.textStyle.color = NULL,
+                      title.textStyle.fontStyle = NULL,
+                      title.textStyle.fontWeight = NULL,
+                      title.textStyle.fontFamily = NULL,
+                      title.textStyle.fontSize = NULL,
+                      title.textStyle.lineHeight = NULL,
+                      title.textStyle.width = NULL,
+                      title.textStyle.height = NULL,
+                      title.textStyle.textBorderColor = NULL,
+                      title.textStyle.textBorderWidth = NULL,
+                      title.textStyle.textBorderType = NULL,
+                      title.textStyle.textBorderDashOffset = NULL,
+                      title.textStyle.textShadowColor = NULL,
+                      title.textStyle.textShadowBlur = NULL,
+                      title.textStyle.textShadowOffsetX = NULL,
+                      title.textStyle.textShadowOffsetY = NULL,
+                      title.subtextStyle.color = NULL,
+                      title.subtextStyle.align = NULL,
+                      title.subtextStyle.fontStyle = NULL,
+                      title.subtextStyle.fontWeight = NULL,
+                      title.subtextStyle.fontFamily = NULL,
+                      title.subtextStyle.fontSize = NULL,
+                      title.subtextStyle.lineHeight = NULL,
+                      title.subtextStyle.width = NULL,
+                      title.subtextStyle.height = NULL,
+                      title.subtextStyle.textBorderColor = NULL,
+                      title.subtextStyle.textBorderWidth = NULL,
+                      title.subtextStyle.textBorderType = NULL,
+                      title.subtextStyle.textBorderDashOffset = NULL,
+                      title.subtextStyle.textShadowColor = NULL,
+                      title.subtextStyle.textShadowBlur = NULL,
+                      title.subtextStyle.textShadowOffsetX = NULL,
+                      title.subtextStyle.textShadowOffsetY = NULL,
                       xaxis.fontSize = 14,
                       yaxis.fontSize = 14,
                       xaxis.rotate = 0,
@@ -3453,18 +4465,61 @@ WordCloud <- function(dt = NULL,
     colors = ColorVals)
   p1 <- echarts4r::e_charts(data = dt5)
   p1 <- echarts4r::e_cloud_(e = p1, "term", "freq", "Color", shape = "circle", sizeRange = c(20, 42))
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
   return(p1)
 }
@@ -3490,17 +4545,63 @@ WordCloud <- function(dt = NULL,
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title "Title"
 #' @param ShowLabels character
 #' @param Theme Provide an "Echarts" theme
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param ContainLabel TRUE
 #' @param DarkMode FALSE
 #' @param tooltip.show logical
@@ -3571,19 +4672,64 @@ Radar <- function(dt = NULL,
                   YVarTrans = "Identity",
                   Height = NULL,
                   Width = NULL,
-                  Title = 'Radar Plot',
                   ShowLabels = FALSE,
                   Theme = "dark",
                   ShowSymbol = FALSE,
                   TextColor = "white",
                   ContainLabel = TRUE,
                   DarkMode = FALSE,
-                  title.fontSize = 22,
-                  title.fontWeight = "bold",
-                  title.textShadowColor = '#63aeff',
-                  title.textShadowBlur = 3,
-                  title.textShadowOffsetY = 1,
-                  title.textShadowOffsetX = -1,
+                  title.text = "Radar Plot",
+                  title.subtext = NULL,
+                  title.link = NULL,
+                  title.sublink = NULL,
+                  title.Align = NULL,
+                  title.top = NULL,
+                  title.left = NULL,
+                  title.right = NULL,
+                  title.bottom = NULL,
+                  title.padding = NULL,
+                  title.itemGap = NULL,
+                  title.backgroundColor = NULL,
+                  title.borderColor = NULL,
+                  title.borderWidth = NULL,
+                  title.borderRadius = NULL,
+                  title.shadowColor = NULL,
+                  title.shadowBlur = NULL,
+                  title.shadowOffsetX = NULL,
+                  title.shadowOffsetY = NULL,
+                  title.textStyle.color = NULL,
+                  title.textStyle.fontStyle = NULL,
+                  title.textStyle.fontWeight = NULL,
+                  title.textStyle.fontFamily = NULL,
+                  title.textStyle.fontSize = NULL,
+                  title.textStyle.lineHeight = NULL,
+                  title.textStyle.width = NULL,
+                  title.textStyle.height = NULL,
+                  title.textStyle.textBorderColor = NULL,
+                  title.textStyle.textBorderWidth = NULL,
+                  title.textStyle.textBorderType = NULL,
+                  title.textStyle.textBorderDashOffset = NULL,
+                  title.textStyle.textShadowColor = NULL,
+                  title.textStyle.textShadowBlur = NULL,
+                  title.textStyle.textShadowOffsetX = NULL,
+                  title.textStyle.textShadowOffsetY = NULL,
+                  title.subtextStyle.color = NULL,
+                  title.subtextStyle.align = NULL,
+                  title.subtextStyle.fontStyle = NULL,
+                  title.subtextStyle.fontWeight = NULL,
+                  title.subtextStyle.fontFamily = NULL,
+                  title.subtextStyle.fontSize = NULL,
+                  title.subtextStyle.lineHeight = NULL,
+                  title.subtextStyle.width = NULL,
+                  title.subtextStyle.height = NULL,
+                  title.subtextStyle.textBorderColor = NULL,
+                  title.subtextStyle.textBorderWidth = NULL,
+                  title.subtextStyle.textBorderType = NULL,
+                  title.subtextStyle.textBorderDashOffset = NULL,
+                  title.subtextStyle.textShadowColor = NULL,
+                  title.subtextStyle.textShadowBlur = NULL,
+                  title.subtextStyle.textShadowOffsetX = NULL,
+                  title.subtextStyle.textShadowOffsetY = NULL,
                   tooltip.show = TRUE,
                   tooltip.trigger = "cross",
                   tooltip.backgroundColor = NULL,
@@ -3706,18 +4852,61 @@ Radar <- function(dt = NULL,
   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
   if(Debug) print("Plot.Radar() Build Echarts 8")
   p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
   return(p1)
@@ -3752,13 +4941,59 @@ Radar <- function(dt = NULL,
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param ContainLabel TRUE
 #' @param DarkMode FALSE
 #' @param xAxis.title Axis title
@@ -3956,13 +5191,58 @@ Line <- function(dt = NULL,
                  TextColor = "white",
                  ContainLabel = TRUE,
                  DarkMode = FALSE,
-                 Title = "Line Plot",
-                 title.fontSize = 22,
-                 title.fontWeight = "bold",
-                 title.textShadowColor = '#63aeff',
-                 title.textShadowBlur = 3,
-                 title.textShadowOffsetY = 1,
-                 title.textShadowOffsetX = -1,
+                 title.text = "Line Plot",
+                 title.subtext = NULL,
+                 title.link = NULL,
+                 title.sublink = NULL,
+                 title.Align = NULL,
+                 title.top = NULL,
+                 title.left = NULL,
+                 title.right = NULL,
+                 title.bottom = NULL,
+                 title.padding = NULL,
+                 title.itemGap = NULL,
+                 title.backgroundColor = NULL,
+                 title.borderColor = NULL,
+                 title.borderWidth = NULL,
+                 title.borderRadius = NULL,
+                 title.shadowColor = NULL,
+                 title.shadowBlur = NULL,
+                 title.shadowOffsetX = NULL,
+                 title.shadowOffsetY = NULL,
+                 title.textStyle.color = NULL,
+                 title.textStyle.fontStyle = NULL,
+                 title.textStyle.fontWeight = NULL,
+                 title.textStyle.fontFamily = NULL,
+                 title.textStyle.fontSize = NULL,
+                 title.textStyle.lineHeight = NULL,
+                 title.textStyle.width = NULL,
+                 title.textStyle.height = NULL,
+                 title.textStyle.textBorderColor = NULL,
+                 title.textStyle.textBorderWidth = NULL,
+                 title.textStyle.textBorderType = NULL,
+                 title.textStyle.textBorderDashOffset = NULL,
+                 title.textStyle.textShadowColor = NULL,
+                 title.textStyle.textShadowBlur = NULL,
+                 title.textStyle.textShadowOffsetX = NULL,
+                 title.textStyle.textShadowOffsetY = NULL,
+                 title.subtextStyle.color = NULL,
+                 title.subtextStyle.align = NULL,
+                 title.subtextStyle.fontStyle = NULL,
+                 title.subtextStyle.fontWeight = NULL,
+                 title.subtextStyle.fontFamily = NULL,
+                 title.subtextStyle.fontSize = NULL,
+                 title.subtextStyle.lineHeight = NULL,
+                 title.subtextStyle.width = NULL,
+                 title.subtextStyle.height = NULL,
+                 title.subtextStyle.textBorderColor = NULL,
+                 title.subtextStyle.textBorderWidth = NULL,
+                 title.subtextStyle.textBorderType = NULL,
+                 title.subtextStyle.textBorderDashOffset = NULL,
+                 title.subtextStyle.textShadowColor = NULL,
+                 title.subtextStyle.textShadowBlur = NULL,
+                 title.subtextStyle.textShadowOffsetX = NULL,
+                 title.subtextStyle.textShadowOffsetY = NULL,
                  xAxis.title = NULL,
                  xAxis.min = NULL,
                  xAxis.max = NULL,
@@ -4279,18 +5559,61 @@ Line <- function(dt = NULL,
 
     p1 <- echarts4r::e_brush(e = p1)
     if(Debug) print("Line() Build Echarts 6")
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(Debug) print("Line() Build Echarts 8")
     if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
       if(Debug) print("Line() Build Echarts 8 2")
@@ -4430,18 +5753,61 @@ Line <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
   }
   return(p1)
 }
@@ -4468,22 +5834,67 @@ Line <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title "Title"
 #' @param ShowLabels character
 #' @param Theme Provide an "Echarts" theme
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param Area logical
 #' @param Alpha 0 to 1 for setting transparency
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param ContainLabel TRUE
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
@@ -4680,13 +6091,58 @@ Area <- function(dt = NULL,
                  ShowSymbol = FALSE,
                  TextColor = "white",
                  ContainLabel = TRUE,
-                 Title = "Area Plot",
-                 title.fontSize = 22,
-                 title.fontWeight = "bold",
-                 title.textShadowColor = '#63aeff',
-                 title.textShadowBlur = 3,
-                 title.textShadowOffsetY = 1,
-                 title.textShadowOffsetX = -1,
+                 title.text = "Area Plot",
+                 title.subtext = NULL,
+                 title.link = NULL,
+                 title.sublink = NULL,
+                 title.Align = NULL,
+                 title.top = NULL,
+                 title.left = NULL,
+                 title.right = NULL,
+                 title.bottom = NULL,
+                 title.padding = NULL,
+                 title.itemGap = NULL,
+                 title.backgroundColor = NULL,
+                 title.borderColor = NULL,
+                 title.borderWidth = NULL,
+                 title.borderRadius = NULL,
+                 title.shadowColor = NULL,
+                 title.shadowBlur = NULL,
+                 title.shadowOffsetX = NULL,
+                 title.shadowOffsetY = NULL,
+                 title.textStyle.color = NULL,
+                 title.textStyle.fontStyle = NULL,
+                 title.textStyle.fontWeight = NULL,
+                 title.textStyle.fontFamily = NULL,
+                 title.textStyle.fontSize = NULL,
+                 title.textStyle.lineHeight = NULL,
+                 title.textStyle.width = NULL,
+                 title.textStyle.height = NULL,
+                 title.textStyle.textBorderColor = NULL,
+                 title.textStyle.textBorderWidth = NULL,
+                 title.textStyle.textBorderType = NULL,
+                 title.textStyle.textBorderDashOffset = NULL,
+                 title.textStyle.textShadowColor = NULL,
+                 title.textStyle.textShadowBlur = NULL,
+                 title.textStyle.textShadowOffsetX = NULL,
+                 title.textStyle.textShadowOffsetY = NULL,
+                 title.subtextStyle.color = NULL,
+                 title.subtextStyle.align = NULL,
+                 title.subtextStyle.fontStyle = NULL,
+                 title.subtextStyle.fontWeight = NULL,
+                 title.subtextStyle.fontFamily = NULL,
+                 title.subtextStyle.fontSize = NULL,
+                 title.subtextStyle.lineHeight = NULL,
+                 title.subtextStyle.width = NULL,
+                 title.subtextStyle.height = NULL,
+                 title.subtextStyle.textBorderColor = NULL,
+                 title.subtextStyle.textBorderWidth = NULL,
+                 title.subtextStyle.textBorderType = NULL,
+                 title.subtextStyle.textBorderDashOffset = NULL,
+                 title.subtextStyle.textShadowColor = NULL,
+                 title.subtextStyle.textShadowBlur = NULL,
+                 title.subtextStyle.textShadowOffsetX = NULL,
+                 title.subtextStyle.textShadowOffsetY = NULL,
                  xAxis.title = NULL,
                  xAxis.min = NULL,
                  xAxis.max = NULL,
@@ -5004,18 +6460,61 @@ Area <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -5151,18 +6650,61 @@ Area <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
   }
   return(p1)
 }
@@ -5196,13 +6738,59 @@ Area <- function(dt = NULL,
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -5396,13 +6984,58 @@ Step <- function(dt = NULL,
                  ShowSymbol = FALSE,
                  TextColor = "white",
                  ContainLabel = TRUE,
-                 Title = "Step Plot",
-                 title.fontSize = 22,
-                 title.fontWeight = "bold",
-                 title.textShadowColor = '#63aeff',
-                 title.textShadowBlur = 3,
-                 title.textShadowOffsetY = 1,
-                 title.textShadowOffsetX = -1,
+                 title.text = "Step Plot",
+                 title.subtext = NULL,
+                 title.link = NULL,
+                 title.sublink = NULL,
+                 title.Align = NULL,
+                 title.top = NULL,
+                 title.left = NULL,
+                 title.right = NULL,
+                 title.bottom = NULL,
+                 title.padding = NULL,
+                 title.itemGap = NULL,
+                 title.backgroundColor = NULL,
+                 title.borderColor = NULL,
+                 title.borderWidth = NULL,
+                 title.borderRadius = NULL,
+                 title.shadowColor = NULL,
+                 title.shadowBlur = NULL,
+                 title.shadowOffsetX = NULL,
+                 title.shadowOffsetY = NULL,
+                 title.textStyle.color = NULL,
+                 title.textStyle.fontStyle = NULL,
+                 title.textStyle.fontWeight = NULL,
+                 title.textStyle.fontFamily = NULL,
+                 title.textStyle.fontSize = NULL,
+                 title.textStyle.lineHeight = NULL,
+                 title.textStyle.width = NULL,
+                 title.textStyle.height = NULL,
+                 title.textStyle.textBorderColor = NULL,
+                 title.textStyle.textBorderWidth = NULL,
+                 title.textStyle.textBorderType = NULL,
+                 title.textStyle.textBorderDashOffset = NULL,
+                 title.textStyle.textShadowColor = NULL,
+                 title.textStyle.textShadowBlur = NULL,
+                 title.textStyle.textShadowOffsetX = NULL,
+                 title.textStyle.textShadowOffsetY = NULL,
+                 title.subtextStyle.color = NULL,
+                 title.subtextStyle.align = NULL,
+                 title.subtextStyle.fontStyle = NULL,
+                 title.subtextStyle.fontWeight = NULL,
+                 title.subtextStyle.fontFamily = NULL,
+                 title.subtextStyle.fontSize = NULL,
+                 title.subtextStyle.lineHeight = NULL,
+                 title.subtextStyle.width = NULL,
+                 title.subtextStyle.height = NULL,
+                 title.subtextStyle.textBorderColor = NULL,
+                 title.subtextStyle.textBorderWidth = NULL,
+                 title.subtextStyle.textBorderType = NULL,
+                 title.subtextStyle.textBorderDashOffset = NULL,
+                 title.subtextStyle.textShadowColor = NULL,
+                 title.subtextStyle.textShadowBlur = NULL,
+                 title.subtextStyle.textShadowOffsetX = NULL,
+                 title.subtextStyle.textShadowOffsetY = NULL,
                  xAxis.title = NULL,
                  xAxis.min = NULL,
                  xAxis.max = NULL,
@@ -5720,18 +7353,61 @@ Step <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -5867,18 +7543,60 @@ Step <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   }
   return(p1)
@@ -5910,13 +7628,59 @@ Step <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -6110,13 +7874,58 @@ River <- function(dt = NULL,
                   TimeLine = TRUE,
                   ShowSymbol = FALSE,
                   TextColor = "white",
-                  Title = "River Plot",
-                  title.fontSize = 22,
-                  title.fontWeight = "bold",
-                  title.textShadowColor = '#63aeff',
-                  title.textShadowBlur = 3,
-                  title.textShadowOffsetY = 1,
-                  title.textShadowOffsetX = -1,
+                  title.text = "River Plot",
+                  title.subtext = NULL,
+                  title.link = NULL,
+                  title.sublink = NULL,
+                  title.Align = NULL,
+                  title.top = NULL,
+                  title.left = NULL,
+                  title.right = NULL,
+                  title.bottom = NULL,
+                  title.padding = NULL,
+                  title.itemGap = NULL,
+                  title.backgroundColor = NULL,
+                  title.borderColor = NULL,
+                  title.borderWidth = NULL,
+                  title.borderRadius = NULL,
+                  title.shadowColor = NULL,
+                  title.shadowBlur = NULL,
+                  title.shadowOffsetX = NULL,
+                  title.shadowOffsetY = NULL,
+                  title.textStyle.color = NULL,
+                  title.textStyle.fontStyle = NULL,
+                  title.textStyle.fontWeight = NULL,
+                  title.textStyle.fontFamily = NULL,
+                  title.textStyle.fontSize = NULL,
+                  title.textStyle.lineHeight = NULL,
+                  title.textStyle.width = NULL,
+                  title.textStyle.height = NULL,
+                  title.textStyle.textBorderColor = NULL,
+                  title.textStyle.textBorderWidth = NULL,
+                  title.textStyle.textBorderType = NULL,
+                  title.textStyle.textBorderDashOffset = NULL,
+                  title.textStyle.textShadowColor = NULL,
+                  title.textStyle.textShadowBlur = NULL,
+                  title.textStyle.textShadowOffsetX = NULL,
+                  title.textStyle.textShadowOffsetY = NULL,
+                  title.subtextStyle.color = NULL,
+                  title.subtextStyle.align = NULL,
+                  title.subtextStyle.fontStyle = NULL,
+                  title.subtextStyle.fontWeight = NULL,
+                  title.subtextStyle.fontFamily = NULL,
+                  title.subtextStyle.fontSize = NULL,
+                  title.subtextStyle.lineHeight = NULL,
+                  title.subtextStyle.width = NULL,
+                  title.subtextStyle.height = NULL,
+                  title.subtextStyle.textBorderColor = NULL,
+                  title.subtextStyle.textBorderWidth = NULL,
+                  title.subtextStyle.textBorderType = NULL,
+                  title.subtextStyle.textBorderDashOffset = NULL,
+                  title.subtextStyle.textShadowColor = NULL,
+                  title.subtextStyle.textShadowBlur = NULL,
+                  title.subtextStyle.textShadowOffsetX = NULL,
+                  title.subtextStyle.textShadowOffsetY = NULL,
                   xAxis.title = NULL,
                   xAxis.min = NULL,
                   xAxis.max = NULL,
@@ -6403,18 +8212,61 @@ River <- function(dt = NULL,
     yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
     yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate", # "none", "truncate", "break",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
   return(p1)
 }
 
@@ -6446,13 +8298,59 @@ River <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -6668,13 +8566,58 @@ Bar <- function(dt = NULL,
                 TimeLine = TRUE,
                 TextColor = "white",
                 ContainLabel = TRUE,
-                Title = "Bar Plot",
-                title.fontSize = 22,
-                title.fontWeight = "bold",
-                title.textShadowColor = '#63aeff',
-                title.textShadowBlur = 3,
-                title.textShadowOffsetY = 1,
-                title.textShadowOffsetX = -1,
+                title.text = "Bar Plot",
+                title.subtext = NULL,
+                title.link = NULL,
+                title.sublink = NULL,
+                title.Align = NULL,
+                title.top = NULL,
+                title.left = NULL,
+                title.right = NULL,
+                title.bottom = NULL,
+                title.padding = NULL,
+                title.itemGap = NULL,
+                title.backgroundColor = NULL,
+                title.borderColor = NULL,
+                title.borderWidth = NULL,
+                title.borderRadius = NULL,
+                title.shadowColor = NULL,
+                title.shadowBlur = NULL,
+                title.shadowOffsetX = NULL,
+                title.shadowOffsetY = NULL,
+                title.textStyle.color = NULL,
+                title.textStyle.fontStyle = NULL,
+                title.textStyle.fontWeight = NULL,
+                title.textStyle.fontFamily = NULL,
+                title.textStyle.fontSize = NULL,
+                title.textStyle.lineHeight = NULL,
+                title.textStyle.width = NULL,
+                title.textStyle.height = NULL,
+                title.textStyle.textBorderColor = NULL,
+                title.textStyle.textBorderWidth = NULL,
+                title.textStyle.textBorderType = NULL,
+                title.textStyle.textBorderDashOffset = NULL,
+                title.textStyle.textShadowColor = NULL,
+                title.textStyle.textShadowBlur = NULL,
+                title.textStyle.textShadowOffsetX = NULL,
+                title.textStyle.textShadowOffsetY = NULL,
+                title.subtextStyle.color = NULL,
+                title.subtextStyle.align = NULL,
+                title.subtextStyle.fontStyle = NULL,
+                title.subtextStyle.fontWeight = NULL,
+                title.subtextStyle.fontFamily = NULL,
+                title.subtextStyle.fontSize = NULL,
+                title.subtextStyle.lineHeight = NULL,
+                title.subtextStyle.width = NULL,
+                title.subtextStyle.height = NULL,
+                title.subtextStyle.textBorderColor = NULL,
+                title.subtextStyle.textBorderWidth = NULL,
+                title.subtextStyle.textBorderType = NULL,
+                title.subtextStyle.textBorderDashOffset = NULL,
+                title.subtextStyle.textShadowColor = NULL,
+                title.subtextStyle.textShadowBlur = NULL,
+                title.subtextStyle.textShadowOffsetX = NULL,
+                title.subtextStyle.textShadowOffsetY = NULL,
                 xAxis.title = NULL,
                 xAxis.min = NULL,
                 xAxis.max = NULL,
@@ -6934,18 +8877,61 @@ Bar <- function(dt = NULL,
       p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_brush(e = p1)
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
-          color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
+      p1 <- e_title_full(
+        e = p1,
+        title.text = title.text,
+        title.subtext = title.subtext,
+        title.link = title.link,
+        title.sublink = title.sublink,
+        title.Align = title.Align,
+        title.top = title.top,
+        title.left = title.left,
+        title.right = title.right,
+        title.bottom = title.bottom,
+        title.padding = title.padding,
+        title.itemGap = title.itemGap,
+        title.backgroundColor = title.backgroundColor,
+        title.borderColor = title.borderColor,
+        title.borderWidth = title.borderWidth,
+        title.borderRadius = title.borderRadius,
+        title.shadowColor = title.shadowColor,
+        title.shadowBlur = title.shadowBlur,
+        title.shadowOffsetX = title.shadowOffsetX,
+        title.shadowOffsetY = title.shadowOffsetY,
+        title.textStyle.color = title.textStyle.color,
+        title.textStyle.fontStyle = title.textStyle.fontStyle,
+        title.textStyle.fontWeight = title.textStyle.fontWeight,
+        title.textStyle.fontFamily = title.textStyle.fontFamily,
+        title.textStyle.fontSize = title.textStyle.fontSize,
+        title.textStyle.lineHeight = title.textStyle.lineHeight,
+        title.textStyle.width = title.textStyle.width,
+        title.textStyle.height = title.textStyle.height,
+        title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+        title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+        title.textStyle.textBorderType = title.textStyle.textBorderType,
+        title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+        title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+        title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+        title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+        title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+        title.subtextStyle.color = title.subtextStyle.color,
+        title.subtextStyle.align = title.subtextStyle.align,
+        title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+        title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+        title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+        title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+        title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+        title.subtextStyle.width = title.subtextStyle.width,
+        title.subtextStyle.height = title.subtextStyle.height,
+        title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+        title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+        title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+        title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+        title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+        title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+        title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+        title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
       if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(
         e = p1,
         rows = FacetRows,
@@ -7205,18 +9191,61 @@ Bar <- function(dt = NULL,
 
       if(Debug) print("BarPlot 2.f")
       p1 <- echarts4r::e_brush(e = p1)
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
-          color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
+      p1 <- e_title_full(
+        e = p1,
+        title.text = title.text,
+        title.subtext = title.subtext,
+        title.link = title.link,
+        title.sublink = title.sublink,
+        title.Align = title.Align,
+        title.top = title.top,
+        title.left = title.left,
+        title.right = title.right,
+        title.bottom = title.bottom,
+        title.padding = title.padding,
+        title.itemGap = title.itemGap,
+        title.backgroundColor = title.backgroundColor,
+        title.borderColor = title.borderColor,
+        title.borderWidth = title.borderWidth,
+        title.borderRadius = title.borderRadius,
+        title.shadowColor = title.shadowColor,
+        title.shadowBlur = title.shadowBlur,
+        title.shadowOffsetX = title.shadowOffsetX,
+        title.shadowOffsetY = title.shadowOffsetY,
+        title.textStyle.color = title.textStyle.color,
+        title.textStyle.fontStyle = title.textStyle.fontStyle,
+        title.textStyle.fontWeight = title.textStyle.fontWeight,
+        title.textStyle.fontFamily = title.textStyle.fontFamily,
+        title.textStyle.fontSize = title.textStyle.fontSize,
+        title.textStyle.lineHeight = title.textStyle.lineHeight,
+        title.textStyle.width = title.textStyle.width,
+        title.textStyle.height = title.textStyle.height,
+        title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+        title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+        title.textStyle.textBorderType = title.textStyle.textBorderType,
+        title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+        title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+        title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+        title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+        title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+        title.subtextStyle.color = title.subtextStyle.color,
+        title.subtextStyle.align = title.subtextStyle.align,
+        title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+        title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+        title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+        title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+        title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+        title.subtextStyle.width = title.subtextStyle.width,
+        title.subtextStyle.height = title.subtextStyle.height,
+        title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+        title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+        title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+        title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+        title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+        title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+        title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+        title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
       if(Debug) print("BarPlot 2.g")
       if(FacetRows > 1L || FacetCols > 1L) {
         p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
@@ -7366,18 +9395,61 @@ Bar <- function(dt = NULL,
         yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
       p1 <- echarts4r::e_brush(e = p1)
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
-          color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
+      p1 <- e_title_full(
+        e = p1,
+        title.text = title.text,
+        title.subtext = title.subtext,
+        title.link = title.link,
+        title.sublink = title.sublink,
+        title.Align = title.Align,
+        title.top = title.top,
+        title.left = title.left,
+        title.right = title.right,
+        title.bottom = title.bottom,
+        title.padding = title.padding,
+        title.itemGap = title.itemGap,
+        title.backgroundColor = title.backgroundColor,
+        title.borderColor = title.borderColor,
+        title.borderWidth = title.borderWidth,
+        title.borderRadius = title.borderRadius,
+        title.shadowColor = title.shadowColor,
+        title.shadowBlur = title.shadowBlur,
+        title.shadowOffsetX = title.shadowOffsetX,
+        title.shadowOffsetY = title.shadowOffsetY,
+        title.textStyle.color = title.textStyle.color,
+        title.textStyle.fontStyle = title.textStyle.fontStyle,
+        title.textStyle.fontWeight = title.textStyle.fontWeight,
+        title.textStyle.fontFamily = title.textStyle.fontFamily,
+        title.textStyle.fontSize = title.textStyle.fontSize,
+        title.textStyle.lineHeight = title.textStyle.lineHeight,
+        title.textStyle.width = title.textStyle.width,
+        title.textStyle.height = title.textStyle.height,
+        title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+        title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+        title.textStyle.textBorderType = title.textStyle.textBorderType,
+        title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+        title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+        title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+        title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+        title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+        title.subtextStyle.color = title.subtextStyle.color,
+        title.subtextStyle.align = title.subtextStyle.align,
+        title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+        title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+        title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+        title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+        title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+        title.subtextStyle.width = title.subtextStyle.width,
+        title.subtextStyle.height = title.subtextStyle.height,
+        title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+        title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+        title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+        title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+        title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+        title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+        title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+        title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
       if(FacetRows > 1L || FacetCols > 1L) {
         p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
         p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -7530,18 +9602,61 @@ Bar <- function(dt = NULL,
         yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
       p1 <- echarts4r::e_brush(e = p1)
-      p1 <- echarts4r::e_title(
-        p1, Title,
-        textStyle = list(
-          color = TextColor,
-          fontWeight = title.fontWeight,
-          overflow = "truncate", # "none", "truncate", "break",
-          ellipsis = '...',
-          fontSize = title.fontSize,
-          textShadowColor = title.textShadowColor,
-          textShadowBlur = title.textShadowBlur,
-          textShadowOffsetY = title.textShadowOffsetY,
-          textShadowOffsetX = title.textShadowOffsetX))
+      p1 <- e_title_full(
+        e = p1,
+        title.text = title.text,
+        title.subtext = title.subtext,
+        title.link = title.link,
+        title.sublink = title.sublink,
+        title.Align = title.Align,
+        title.top = title.top,
+        title.left = title.left,
+        title.right = title.right,
+        title.bottom = title.bottom,
+        title.padding = title.padding,
+        title.itemGap = title.itemGap,
+        title.backgroundColor = title.backgroundColor,
+        title.borderColor = title.borderColor,
+        title.borderWidth = title.borderWidth,
+        title.borderRadius = title.borderRadius,
+        title.shadowColor = title.shadowColor,
+        title.shadowBlur = title.shadowBlur,
+        title.shadowOffsetX = title.shadowOffsetX,
+        title.shadowOffsetY = title.shadowOffsetY,
+        title.textStyle.color = title.textStyle.color,
+        title.textStyle.fontStyle = title.textStyle.fontStyle,
+        title.textStyle.fontWeight = title.textStyle.fontWeight,
+        title.textStyle.fontFamily = title.textStyle.fontFamily,
+        title.textStyle.fontSize = title.textStyle.fontSize,
+        title.textStyle.lineHeight = title.textStyle.lineHeight,
+        title.textStyle.width = title.textStyle.width,
+        title.textStyle.height = title.textStyle.height,
+        title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+        title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+        title.textStyle.textBorderType = title.textStyle.textBorderType,
+        title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+        title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+        title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+        title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+        title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+        title.subtextStyle.color = title.subtextStyle.color,
+        title.subtextStyle.align = title.subtextStyle.align,
+        title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+        title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+        title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+        title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+        title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+        title.subtextStyle.width = title.subtextStyle.width,
+        title.subtextStyle.height = title.subtextStyle.height,
+        title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+        title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+        title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+        title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+        title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+        title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+        title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+        title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
       if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
       return(p1)
@@ -7576,13 +9691,59 @@ Bar <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -7748,13 +9909,58 @@ ACF <- function(dt = NULL,
                 Theme = "dark",
                 TextColor = "white",
                 ContainLabel = TRUE,
-                Title = "Autocorrelation Plot",
-                title.fontSize = 22,
-                title.fontWeight = "bold",
-                title.textShadowColor = '#63aeff',
-                title.textShadowBlur = 3,
-                title.textShadowOffsetY = 1,
-                title.textShadowOffsetX = -1,
+                title.text = "Autocorrelation Plot",
+                title.subtext = NULL,
+                title.link = NULL,
+                title.sublink = NULL,
+                title.Align = NULL,
+                title.top = NULL,
+                title.left = NULL,
+                title.right = NULL,
+                title.bottom = NULL,
+                title.padding = NULL,
+                title.itemGap = NULL,
+                title.backgroundColor = NULL,
+                title.borderColor = NULL,
+                title.borderWidth = NULL,
+                title.borderRadius = NULL,
+                title.shadowColor = NULL,
+                title.shadowBlur = NULL,
+                title.shadowOffsetX = NULL,
+                title.shadowOffsetY = NULL,
+                title.textStyle.color = NULL,
+                title.textStyle.fontStyle = NULL,
+                title.textStyle.fontWeight = NULL,
+                title.textStyle.fontFamily = NULL,
+                title.textStyle.fontSize = NULL,
+                title.textStyle.lineHeight = NULL,
+                title.textStyle.width = NULL,
+                title.textStyle.height = NULL,
+                title.textStyle.textBorderColor = NULL,
+                title.textStyle.textBorderWidth = NULL,
+                title.textStyle.textBorderType = NULL,
+                title.textStyle.textBorderDashOffset = NULL,
+                title.textStyle.textShadowColor = NULL,
+                title.textStyle.textShadowBlur = NULL,
+                title.textStyle.textShadowOffsetX = NULL,
+                title.textStyle.textShadowOffsetY = NULL,
+                title.subtextStyle.color = NULL,
+                title.subtextStyle.align = NULL,
+                title.subtextStyle.fontStyle = NULL,
+                title.subtextStyle.fontWeight = NULL,
+                title.subtextStyle.fontFamily = NULL,
+                title.subtextStyle.fontSize = NULL,
+                title.subtextStyle.lineHeight = NULL,
+                title.subtextStyle.width = NULL,
+                title.subtextStyle.height = NULL,
+                title.subtextStyle.textBorderColor = NULL,
+                title.subtextStyle.textBorderWidth = NULL,
+                title.subtextStyle.textBorderType = NULL,
+                title.subtextStyle.textBorderDashOffset = NULL,
+                title.subtextStyle.textShadowColor = NULL,
+                title.subtextStyle.textShadowBlur = NULL,
+                title.subtextStyle.textShadowOffsetX = NULL,
+                title.subtextStyle.textShadowOffsetY = NULL,
                 xAxis.title = NULL,
                 xAxis.min = NULL,
                 xAxis.max = NULL,
@@ -8033,18 +10239,61 @@ ACF <- function(dt = NULL,
     yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
   p1 <- echarts4r::e_brush(e = p1)
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate", # "none", "truncate", "break",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
   return(p1)
 }
 
@@ -8068,13 +10317,59 @@ ACF <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -8240,13 +10535,58 @@ PACF <- function(dt = NULL,
                  Theme = "dark",
                  TextColor = "white",
                  ContainLabel = TRUE,
-                 Title = "Partial Autocorrelation Plot",
-                 title.fontSize = 22,
-                 title.fontWeight = "bold",
-                 title.textShadowColor = '#63aeff',
-                 title.textShadowBlur = 3,
-                 title.textShadowOffsetY = 1,
-                 title.textShadowOffsetX = -1,
+                 title.text = "Partial Autocorrelation Plot",
+                 title.subtext = NULL,
+                 title.link = NULL,
+                 title.sublink = NULL,
+                 title.Align = NULL,
+                 title.top = NULL,
+                 title.left = NULL,
+                 title.right = NULL,
+                 title.bottom = NULL,
+                 title.padding = NULL,
+                 title.itemGap = NULL,
+                 title.backgroundColor = NULL,
+                 title.borderColor = NULL,
+                 title.borderWidth = NULL,
+                 title.borderRadius = NULL,
+                 title.shadowColor = NULL,
+                 title.shadowBlur = NULL,
+                 title.shadowOffsetX = NULL,
+                 title.shadowOffsetY = NULL,
+                 title.textStyle.color = NULL,
+                 title.textStyle.fontStyle = NULL,
+                 title.textStyle.fontWeight = NULL,
+                 title.textStyle.fontFamily = NULL,
+                 title.textStyle.fontSize = NULL,
+                 title.textStyle.lineHeight = NULL,
+                 title.textStyle.width = NULL,
+                 title.textStyle.height = NULL,
+                 title.textStyle.textBorderColor = NULL,
+                 title.textStyle.textBorderWidth = NULL,
+                 title.textStyle.textBorderType = NULL,
+                 title.textStyle.textBorderDashOffset = NULL,
+                 title.textStyle.textShadowColor = NULL,
+                 title.textStyle.textShadowBlur = NULL,
+                 title.textStyle.textShadowOffsetX = NULL,
+                 title.textStyle.textShadowOffsetY = NULL,
+                 title.subtextStyle.color = NULL,
+                 title.subtextStyle.align = NULL,
+                 title.subtextStyle.fontStyle = NULL,
+                 title.subtextStyle.fontWeight = NULL,
+                 title.subtextStyle.fontFamily = NULL,
+                 title.subtextStyle.fontSize = NULL,
+                 title.subtextStyle.lineHeight = NULL,
+                 title.subtextStyle.width = NULL,
+                 title.subtextStyle.height = NULL,
+                 title.subtextStyle.textBorderColor = NULL,
+                 title.subtextStyle.textBorderWidth = NULL,
+                 title.subtextStyle.textBorderType = NULL,
+                 title.subtextStyle.textBorderDashOffset = NULL,
+                 title.subtextStyle.textShadowColor = NULL,
+                 title.subtextStyle.textShadowBlur = NULL,
+                 title.subtextStyle.textShadowOffsetX = NULL,
+                 title.subtextStyle.textShadowOffsetY = NULL,
                  xAxis.title = NULL,
                  xAxis.min = NULL,
                  xAxis.max = NULL,
@@ -8535,18 +10875,61 @@ PACF <- function(dt = NULL,
     yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
   p1 <- echarts4r::e_brush(e = p1)
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate", # "none", "truncate", "break",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
   return(p1)
 }
 
@@ -8577,13 +10960,59 @@ PACF <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -8797,13 +11226,58 @@ StackedBar <- function(dt = NULL,
                        TimeLine = TRUE,
                        TextColor = "white",
                        ContainLabel = TRUE,
-                       Title = "Stacked Bar Plot",
-                       title.fontSize = 22,
-                       title.fontWeight = "bold",
-                       title.textShadowColor = '#63aeff',
-                       title.textShadowBlur = 3,
-                       title.textShadowOffsetY = 1,
-                       title.textShadowOffsetX = -1,
+                       title.text = "Stacked Bar Plot",
+                       title.subtext = NULL,
+                       title.link = NULL,
+                       title.sublink = NULL,
+                       title.Align = NULL,
+                       title.top = NULL,
+                       title.left = NULL,
+                       title.right = NULL,
+                       title.bottom = NULL,
+                       title.padding = NULL,
+                       title.itemGap = NULL,
+                       title.backgroundColor = NULL,
+                       title.borderColor = NULL,
+                       title.borderWidth = NULL,
+                       title.borderRadius = NULL,
+                       title.shadowColor = NULL,
+                       title.shadowBlur = NULL,
+                       title.shadowOffsetX = NULL,
+                       title.shadowOffsetY = NULL,
+                       title.textStyle.color = NULL,
+                       title.textStyle.fontStyle = NULL,
+                       title.textStyle.fontWeight = NULL,
+                       title.textStyle.fontFamily = NULL,
+                       title.textStyle.fontSize = NULL,
+                       title.textStyle.lineHeight = NULL,
+                       title.textStyle.width = NULL,
+                       title.textStyle.height = NULL,
+                       title.textStyle.textBorderColor = NULL,
+                       title.textStyle.textBorderWidth = NULL,
+                       title.textStyle.textBorderType = NULL,
+                       title.textStyle.textBorderDashOffset = NULL,
+                       title.textStyle.textShadowColor = NULL,
+                       title.textStyle.textShadowBlur = NULL,
+                       title.textStyle.textShadowOffsetX = NULL,
+                       title.textStyle.textShadowOffsetY = NULL,
+                       title.subtextStyle.color = NULL,
+                       title.subtextStyle.align = NULL,
+                       title.subtextStyle.fontStyle = NULL,
+                       title.subtextStyle.fontWeight = NULL,
+                       title.subtextStyle.fontFamily = NULL,
+                       title.subtextStyle.fontSize = NULL,
+                       title.subtextStyle.lineHeight = NULL,
+                       title.subtextStyle.width = NULL,
+                       title.subtextStyle.height = NULL,
+                       title.subtextStyle.textBorderColor = NULL,
+                       title.subtextStyle.textBorderWidth = NULL,
+                       title.subtextStyle.textBorderType = NULL,
+                       title.subtextStyle.textBorderDashOffset = NULL,
+                       title.subtextStyle.textShadowColor = NULL,
+                       title.subtextStyle.textShadowBlur = NULL,
+                       title.subtextStyle.textShadowOffsetX = NULL,
+                       title.subtextStyle.textShadowOffsetY = NULL,
                        xAxis.title = NULL,
                        xAxis.min = NULL,
                        xAxis.max = NULL,
@@ -9123,18 +11597,61 @@ StackedBar <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -9177,13 +11694,59 @@ StackedBar <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param TextColor character
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -9404,13 +11967,58 @@ BarPlot3D <- function(dt,
                       MouseScroll = FALSE,
                       TextColor = "white",
                       ContainLabel = TRUE,
-                      Title = "3D Bar Plot",
-                      title.fontSize = 22,
-                      title.fontWeight = "bold",
-                      title.textShadowColor = '#63aeff',
-                      title.textShadowBlur = 3,
-                      title.textShadowOffsetY = 1,
-                      title.textShadowOffsetX = -1,
+                      title.text = "3D Bar Plot",
+                      title.subtext = NULL,
+                      title.link = NULL,
+                      title.sublink = NULL,
+                      title.Align = NULL,
+                      title.top = NULL,
+                      title.left = NULL,
+                      title.right = NULL,
+                      title.bottom = NULL,
+                      title.padding = NULL,
+                      title.itemGap = NULL,
+                      title.backgroundColor = NULL,
+                      title.borderColor = NULL,
+                      title.borderWidth = NULL,
+                      title.borderRadius = NULL,
+                      title.shadowColor = NULL,
+                      title.shadowBlur = NULL,
+                      title.shadowOffsetX = NULL,
+                      title.shadowOffsetY = NULL,
+                      title.textStyle.color = NULL,
+                      title.textStyle.fontStyle = NULL,
+                      title.textStyle.fontWeight = NULL,
+                      title.textStyle.fontFamily = NULL,
+                      title.textStyle.fontSize = NULL,
+                      title.textStyle.lineHeight = NULL,
+                      title.textStyle.width = NULL,
+                      title.textStyle.height = NULL,
+                      title.textStyle.textBorderColor = NULL,
+                      title.textStyle.textBorderWidth = NULL,
+                      title.textStyle.textBorderType = NULL,
+                      title.textStyle.textBorderDashOffset = NULL,
+                      title.textStyle.textShadowColor = NULL,
+                      title.textStyle.textShadowBlur = NULL,
+                      title.textStyle.textShadowOffsetX = NULL,
+                      title.textStyle.textShadowOffsetY = NULL,
+                      title.subtextStyle.color = NULL,
+                      title.subtextStyle.align = NULL,
+                      title.subtextStyle.fontStyle = NULL,
+                      title.subtextStyle.fontWeight = NULL,
+                      title.subtextStyle.fontFamily = NULL,
+                      title.subtextStyle.fontSize = NULL,
+                      title.subtextStyle.lineHeight = NULL,
+                      title.subtextStyle.width = NULL,
+                      title.subtextStyle.height = NULL,
+                      title.subtextStyle.textBorderColor = NULL,
+                      title.subtextStyle.textBorderWidth = NULL,
+                      title.subtextStyle.textBorderType = NULL,
+                      title.subtextStyle.textBorderDashOffset = NULL,
+                      title.subtextStyle.textShadowColor = NULL,
+                      title.subtextStyle.textShadowBlur = NULL,
+                      title.subtextStyle.textShadowOffsetX = NULL,
+                      title.subtextStyle.textShadowOffsetY = NULL,
                       xAxis.title = NULL,
                       xAxis.min = NULL,
                       xAxis.max = NULL,
@@ -9638,18 +12246,61 @@ BarPlot3D <- function(dt,
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
 
@@ -9759,18 +12410,61 @@ BarPlot3D <- function(dt,
 
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
 
@@ -9880,18 +12574,61 @@ BarPlot3D <- function(dt,
 
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
     return(p1)
@@ -9991,18 +12728,61 @@ BarPlot3D <- function(dt,
 
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     return(p1)
   }
@@ -10037,13 +12817,59 @@ BarPlot3D <- function(dt,
 #' @param TextColor color
 #' @param ShowLabels character
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -10261,13 +13087,58 @@ HeatMap <- function(dt,
                     MouseScroll = FALSE,
                     TextColor = "white",
                     ContainLabel = TRUE,
-                    Title = "Heatmap",
-                    title.fontSize = 22,
-                    title.fontWeight = "bold",
-                    title.textShadowColor = '#63aeff',
-                    title.textShadowBlur = 3,
-                    title.textShadowOffsetY = 1,
-                    title.textShadowOffsetX = -1,
+                    title.text = "Heatmap",
+                    title.subtext = NULL,
+                    title.link = NULL,
+                    title.sublink = NULL,
+                    title.Align = NULL,
+                    title.top = NULL,
+                    title.left = NULL,
+                    title.right = NULL,
+                    title.bottom = NULL,
+                    title.padding = NULL,
+                    title.itemGap = NULL,
+                    title.backgroundColor = NULL,
+                    title.borderColor = NULL,
+                    title.borderWidth = NULL,
+                    title.borderRadius = NULL,
+                    title.shadowColor = NULL,
+                    title.shadowBlur = NULL,
+                    title.shadowOffsetX = NULL,
+                    title.shadowOffsetY = NULL,
+                    title.textStyle.color = NULL,
+                    title.textStyle.fontStyle = NULL,
+                    title.textStyle.fontWeight = NULL,
+                    title.textStyle.fontFamily = NULL,
+                    title.textStyle.fontSize = NULL,
+                    title.textStyle.lineHeight = NULL,
+                    title.textStyle.width = NULL,
+                    title.textStyle.height = NULL,
+                    title.textStyle.textBorderColor = NULL,
+                    title.textStyle.textBorderWidth = NULL,
+                    title.textStyle.textBorderType = NULL,
+                    title.textStyle.textBorderDashOffset = NULL,
+                    title.textStyle.textShadowColor = NULL,
+                    title.textStyle.textShadowBlur = NULL,
+                    title.textStyle.textShadowOffsetX = NULL,
+                    title.textStyle.textShadowOffsetY = NULL,
+                    title.subtextStyle.color = NULL,
+                    title.subtextStyle.align = NULL,
+                    title.subtextStyle.fontStyle = NULL,
+                    title.subtextStyle.fontWeight = NULL,
+                    title.subtextStyle.fontFamily = NULL,
+                    title.subtextStyle.fontSize = NULL,
+                    title.subtextStyle.lineHeight = NULL,
+                    title.subtextStyle.width = NULL,
+                    title.subtextStyle.height = NULL,
+                    title.subtextStyle.textBorderColor = NULL,
+                    title.subtextStyle.textBorderWidth = NULL,
+                    title.subtextStyle.textBorderType = NULL,
+                    title.subtextStyle.textBorderDashOffset = NULL,
+                    title.subtextStyle.textShadowColor = NULL,
+                    title.subtextStyle.textShadowBlur = NULL,
+                    title.subtextStyle.textShadowOffsetX = NULL,
+                    title.subtextStyle.textShadowOffsetY = NULL,
                     xAxis.title = NULL,
                     xAxis.min = NULL,
                     xAxis.max = NULL,
@@ -10536,18 +13407,60 @@ HeatMap <- function(dt,
 
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
   }
@@ -10686,18 +13599,60 @@ HeatMap <- function(dt,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
   }
@@ -10834,18 +13789,60 @@ HeatMap <- function(dt,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
   }
@@ -11012,18 +14009,60 @@ HeatMap <- function(dt,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
   }
@@ -11060,13 +14099,59 @@ HeatMap <- function(dt,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
 #' @param TextColor character hex
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -11276,13 +14361,58 @@ CorrMatrix <- function(dt = NULL,
                        Theme = "dark",
                        MouseScroll = FALSE,
                        TextColor = "white",
-                       Title = "Correlogram",
-                       title.fontSize = 22,
-                       title.fontWeight = "bold",
-                       title.textShadowColor = '#63aeff',
-                       title.textShadowBlur = 3,
-                       title.textShadowOffsetY = 1,
-                       title.textShadowOffsetX = -1,
+                       title.text = "Correlogram",
+                       title.subtext = NULL,
+                       title.link = NULL,
+                       title.sublink = NULL,
+                       title.Align = NULL,
+                       title.top = NULL,
+                       title.left = NULL,
+                       title.right = NULL,
+                       title.bottom = NULL,
+                       title.padding = NULL,
+                       title.itemGap = NULL,
+                       title.backgroundColor = NULL,
+                       title.borderColor = NULL,
+                       title.borderWidth = NULL,
+                       title.borderRadius = NULL,
+                       title.shadowColor = NULL,
+                       title.shadowBlur = NULL,
+                       title.shadowOffsetX = NULL,
+                       title.shadowOffsetY = NULL,
+                       title.textStyle.color = NULL,
+                       title.textStyle.fontStyle = NULL,
+                       title.textStyle.fontWeight = NULL,
+                       title.textStyle.fontFamily = NULL,
+                       title.textStyle.fontSize = NULL,
+                       title.textStyle.lineHeight = NULL,
+                       title.textStyle.width = NULL,
+                       title.textStyle.height = NULL,
+                       title.textStyle.textBorderColor = NULL,
+                       title.textStyle.textBorderWidth = NULL,
+                       title.textStyle.textBorderType = NULL,
+                       title.textStyle.textBorderDashOffset = NULL,
+                       title.textStyle.textShadowColor = NULL,
+                       title.textStyle.textShadowBlur = NULL,
+                       title.textStyle.textShadowOffsetX = NULL,
+                       title.textStyle.textShadowOffsetY = NULL,
+                       title.subtextStyle.color = NULL,
+                       title.subtextStyle.align = NULL,
+                       title.subtextStyle.fontStyle = NULL,
+                       title.subtextStyle.fontWeight = NULL,
+                       title.subtextStyle.fontFamily = NULL,
+                       title.subtextStyle.fontSize = NULL,
+                       title.subtextStyle.lineHeight = NULL,
+                       title.subtextStyle.width = NULL,
+                       title.subtextStyle.height = NULL,
+                       title.subtextStyle.textBorderColor = NULL,
+                       title.subtextStyle.textBorderWidth = NULL,
+                       title.subtextStyle.textBorderType = NULL,
+                       title.subtextStyle.textBorderDashOffset = NULL,
+                       title.subtextStyle.textShadowColor = NULL,
+                       title.subtextStyle.textShadowBlur = NULL,
+                       title.subtextStyle.textShadowOffsetX = NULL,
+                       title.subtextStyle.textShadowOffsetY = NULL,
                        xAxis.title = NULL,
                        xAxis.min = NULL,
                        xAxis.max = NULL,
@@ -11475,18 +14605,60 @@ CorrMatrix <- function(dt = NULL,
   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate", # "none", "truncate", "break",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   # Return plot
   return(p1)
@@ -11513,13 +14685,59 @@ CorrMatrix <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
 #' @param TextColor character hex
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -11723,13 +14941,58 @@ Parallel <- function(dt = NULL,
                      Theme = "dark",
                      MouseScroll = FALSE,
                      TextColor = "white",
-                     Title = "Parallel Plot",
-                     title.fontSize = 22,
-                     title.fontWeight = "bold",
-                     title.textShadowColor = '#63aeff',
-                     title.textShadowBlur = 3,
-                     title.textShadowOffsetY = 1,
-                     title.textShadowOffsetX = -1,
+                     title.text = "Parallel Plot",
+                     title.subtext = NULL,
+                     title.link = NULL,
+                     title.sublink = NULL,
+                     title.Align = NULL,
+                     title.top = NULL,
+                     title.left = NULL,
+                     title.right = NULL,
+                     title.bottom = NULL,
+                     title.padding = NULL,
+                     title.itemGap = NULL,
+                     title.backgroundColor = NULL,
+                     title.borderColor = NULL,
+                     title.borderWidth = NULL,
+                     title.borderRadius = NULL,
+                     title.shadowColor = NULL,
+                     title.shadowBlur = NULL,
+                     title.shadowOffsetX = NULL,
+                     title.shadowOffsetY = NULL,
+                     title.textStyle.color = NULL,
+                     title.textStyle.fontStyle = NULL,
+                     title.textStyle.fontWeight = NULL,
+                     title.textStyle.fontFamily = NULL,
+                     title.textStyle.fontSize = NULL,
+                     title.textStyle.lineHeight = NULL,
+                     title.textStyle.width = NULL,
+                     title.textStyle.height = NULL,
+                     title.textStyle.textBorderColor = NULL,
+                     title.textStyle.textBorderWidth = NULL,
+                     title.textStyle.textBorderType = NULL,
+                     title.textStyle.textBorderDashOffset = NULL,
+                     title.textStyle.textShadowColor = NULL,
+                     title.textStyle.textShadowBlur = NULL,
+                     title.textStyle.textShadowOffsetX = NULL,
+                     title.textStyle.textShadowOffsetY = NULL,
+                     title.subtextStyle.color = NULL,
+                     title.subtextStyle.align = NULL,
+                     title.subtextStyle.fontStyle = NULL,
+                     title.subtextStyle.fontWeight = NULL,
+                     title.subtextStyle.fontFamily = NULL,
+                     title.subtextStyle.fontSize = NULL,
+                     title.subtextStyle.lineHeight = NULL,
+                     title.subtextStyle.width = NULL,
+                     title.subtextStyle.height = NULL,
+                     title.subtextStyle.textBorderColor = NULL,
+                     title.subtextStyle.textBorderWidth = NULL,
+                     title.subtextStyle.textBorderType = NULL,
+                     title.subtextStyle.textBorderDashOffset = NULL,
+                     title.subtextStyle.textShadowColor = NULL,
+                     title.subtextStyle.textShadowBlur = NULL,
+                     title.subtextStyle.textShadowOffsetX = NULL,
+                     title.subtextStyle.textShadowOffsetY = NULL,
                      xAxis.title = NULL,
                      xAxis.min = NULL,
                      xAxis.max = NULL,
@@ -11954,18 +15217,60 @@ Parallel <- function(dt = NULL,
   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate", # "none", "truncate", "break",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   # Return plot
   return(p1)
@@ -11998,13 +15303,59 @@ Parallel <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -12218,13 +15569,58 @@ Copula <- function(dt = NULL,
                    TimeLine = FALSE,
                    TextColor = "white",
                    ContainLabel = TRUE,
-                   Title = "Copula Plot",
-                   title.fontSize = 22,
-                   title.fontWeight = "bold",
-                   title.textShadowColor = '#63aeff',
-                   title.textShadowBlur = 3,
-                   title.textShadowOffsetY = 1,
-                   title.textShadowOffsetX = -1,
+                   title.text = "Copula Plot",
+                   title.subtext = NULL,
+                   title.link = NULL,
+                   title.sublink = NULL,
+                   title.Align = NULL,
+                   title.top = NULL,
+                   title.left = NULL,
+                   title.right = NULL,
+                   title.bottom = NULL,
+                   title.padding = NULL,
+                   title.itemGap = NULL,
+                   title.backgroundColor = NULL,
+                   title.borderColor = NULL,
+                   title.borderWidth = NULL,
+                   title.borderRadius = NULL,
+                   title.shadowColor = NULL,
+                   title.shadowBlur = NULL,
+                   title.shadowOffsetX = NULL,
+                   title.shadowOffsetY = NULL,
+                   title.textStyle.color = NULL,
+                   title.textStyle.fontStyle = NULL,
+                   title.textStyle.fontWeight = NULL,
+                   title.textStyle.fontFamily = NULL,
+                   title.textStyle.fontSize = NULL,
+                   title.textStyle.lineHeight = NULL,
+                   title.textStyle.width = NULL,
+                   title.textStyle.height = NULL,
+                   title.textStyle.textBorderColor = NULL,
+                   title.textStyle.textBorderWidth = NULL,
+                   title.textStyle.textBorderType = NULL,
+                   title.textStyle.textBorderDashOffset = NULL,
+                   title.textStyle.textShadowColor = NULL,
+                   title.textStyle.textShadowBlur = NULL,
+                   title.textStyle.textShadowOffsetX = NULL,
+                   title.textStyle.textShadowOffsetY = NULL,
+                   title.subtextStyle.color = NULL,
+                   title.subtextStyle.align = NULL,
+                   title.subtextStyle.fontStyle = NULL,
+                   title.subtextStyle.fontWeight = NULL,
+                   title.subtextStyle.fontFamily = NULL,
+                   title.subtextStyle.fontSize = NULL,
+                   title.subtextStyle.lineHeight = NULL,
+                   title.subtextStyle.width = NULL,
+                   title.subtextStyle.height = NULL,
+                   title.subtextStyle.textBorderColor = NULL,
+                   title.subtextStyle.textBorderWidth = NULL,
+                   title.subtextStyle.textBorderType = NULL,
+                   title.subtextStyle.textBorderDashOffset = NULL,
+                   title.subtextStyle.textShadowColor = NULL,
+                   title.subtextStyle.textShadowBlur = NULL,
+                   title.subtextStyle.textShadowOffsetX = NULL,
+                   title.subtextStyle.textShadowOffsetY = NULL,
                    xAxis.title = NULL,
                    xAxis.min = NULL,
                    xAxis.max = NULL,
@@ -12476,19 +15872,60 @@ Copula <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
-
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   } else {
 
@@ -12623,18 +16060,61 @@ Copula <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -12676,13 +16156,59 @@ Copula <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -12899,13 +16425,58 @@ Copula3D <- function(dt = NULL,
                      TimeLine = FALSE,
                      TextColor = "white",
                      ContainLabel = TRUE,
-                     Title = "3D Copula Plot",
-                     title.fontSize = 22,
-                     title.fontWeight = "bold",
-                     title.textShadowColor = '#63aeff',
-                     title.textShadowBlur = 3,
-                     title.textShadowOffsetY = 1,
-                     title.textShadowOffsetX = -1,
+                     title.text = "3D Copula Plot",
+                     title.subtext = NULL,
+                     title.link = NULL,
+                     title.sublink = NULL,
+                     title.Align = NULL,
+                     title.top = NULL,
+                     title.left = NULL,
+                     title.right = NULL,
+                     title.bottom = NULL,
+                     title.padding = NULL,
+                     title.itemGap = NULL,
+                     title.backgroundColor = NULL,
+                     title.borderColor = NULL,
+                     title.borderWidth = NULL,
+                     title.borderRadius = NULL,
+                     title.shadowColor = NULL,
+                     title.shadowBlur = NULL,
+                     title.shadowOffsetX = NULL,
+                     title.shadowOffsetY = NULL,
+                     title.textStyle.color = NULL,
+                     title.textStyle.fontStyle = NULL,
+                     title.textStyle.fontWeight = NULL,
+                     title.textStyle.fontFamily = NULL,
+                     title.textStyle.fontSize = NULL,
+                     title.textStyle.lineHeight = NULL,
+                     title.textStyle.width = NULL,
+                     title.textStyle.height = NULL,
+                     title.textStyle.textBorderColor = NULL,
+                     title.textStyle.textBorderWidth = NULL,
+                     title.textStyle.textBorderType = NULL,
+                     title.textStyle.textBorderDashOffset = NULL,
+                     title.textStyle.textShadowColor = NULL,
+                     title.textStyle.textShadowBlur = NULL,
+                     title.textStyle.textShadowOffsetX = NULL,
+                     title.textStyle.textShadowOffsetY = NULL,
+                     title.subtextStyle.color = NULL,
+                     title.subtextStyle.align = NULL,
+                     title.subtextStyle.fontStyle = NULL,
+                     title.subtextStyle.fontWeight = NULL,
+                     title.subtextStyle.fontFamily = NULL,
+                     title.subtextStyle.fontSize = NULL,
+                     title.subtextStyle.lineHeight = NULL,
+                     title.subtextStyle.width = NULL,
+                     title.subtextStyle.height = NULL,
+                     title.subtextStyle.textBorderColor = NULL,
+                     title.subtextStyle.textBorderWidth = NULL,
+                     title.subtextStyle.textBorderType = NULL,
+                     title.subtextStyle.textBorderDashOffset = NULL,
+                     title.subtextStyle.textShadowColor = NULL,
+                     title.subtextStyle.textShadowBlur = NULL,
+                     title.subtextStyle.textShadowOffsetX = NULL,
+                     title.subtextStyle.textShadowOffsetY = NULL,
                      xAxis.title = NULL,
                      xAxis.min = NULL,
                      xAxis.max = NULL,
@@ -13087,20 +16658,60 @@ Copula3D <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
-
-
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   } else {
 
@@ -13205,18 +16816,61 @@ Copula3D <- function(dt = NULL,
 
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
   }
 
@@ -13252,13 +16906,59 @@ Copula3D <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -13474,13 +17174,58 @@ Scatter <- function(dt = NULL,
                     TimeLine = FALSE,
                     TextColor = "white",
                     ContainLabel = TRUE,
-                    Title = "3D Copula Plot",
-                    title.fontSize = 22,
-                    title.fontWeight = "bold",
-                    title.textShadowColor = '#63aeff',
-                    title.textShadowBlur = 3,
-                    title.textShadowOffsetY = 1,
-                    title.textShadowOffsetX = -1,
+                    title.text = "Scatter Plot",
+                    title.subtext = NULL,
+                    title.link = NULL,
+                    title.sublink = NULL,
+                    title.Align = NULL,
+                    title.top = NULL,
+                    title.left = NULL,
+                    title.right = NULL,
+                    title.bottom = NULL,
+                    title.padding = NULL,
+                    title.itemGap = NULL,
+                    title.backgroundColor = NULL,
+                    title.borderColor = NULL,
+                    title.borderWidth = NULL,
+                    title.borderRadius = NULL,
+                    title.shadowColor = NULL,
+                    title.shadowBlur = NULL,
+                    title.shadowOffsetX = NULL,
+                    title.shadowOffsetY = NULL,
+                    title.textStyle.color = NULL,
+                    title.textStyle.fontStyle = NULL,
+                    title.textStyle.fontWeight = NULL,
+                    title.textStyle.fontFamily = NULL,
+                    title.textStyle.fontSize = NULL,
+                    title.textStyle.lineHeight = NULL,
+                    title.textStyle.width = NULL,
+                    title.textStyle.height = NULL,
+                    title.textStyle.textBorderColor = NULL,
+                    title.textStyle.textBorderWidth = NULL,
+                    title.textStyle.textBorderType = NULL,
+                    title.textStyle.textBorderDashOffset = NULL,
+                    title.textStyle.textShadowColor = NULL,
+                    title.textStyle.textShadowBlur = NULL,
+                    title.textStyle.textShadowOffsetX = NULL,
+                    title.textStyle.textShadowOffsetY = NULL,
+                    title.subtextStyle.color = NULL,
+                    title.subtextStyle.align = NULL,
+                    title.subtextStyle.fontStyle = NULL,
+                    title.subtextStyle.fontWeight = NULL,
+                    title.subtextStyle.fontFamily = NULL,
+                    title.subtextStyle.fontSize = NULL,
+                    title.subtextStyle.lineHeight = NULL,
+                    title.subtextStyle.width = NULL,
+                    title.subtextStyle.height = NULL,
+                    title.subtextStyle.textBorderColor = NULL,
+                    title.subtextStyle.textBorderWidth = NULL,
+                    title.subtextStyle.textBorderType = NULL,
+                    title.subtextStyle.textBorderDashOffset = NULL,
+                    title.subtextStyle.textShadowColor = NULL,
+                    title.subtextStyle.textShadowBlur = NULL,
+                    title.subtextStyle.textShadowOffsetX = NULL,
+                    title.subtextStyle.textShadowOffsetY = NULL,
                     xAxis.title = NULL,
                     xAxis.min = NULL,
                     xAxis.max = NULL,
@@ -13737,18 +17482,60 @@ Scatter <- function(dt = NULL,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   } else {
 
@@ -13889,18 +17676,61 @@ Scatter <- function(dt = NULL,
     if(Debug) print("SCatter 8")
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -13940,13 +17770,59 @@ Scatter <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
-#' @param Title "Title"
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
+#' @param title.text Title name
+#' @param tooltip.show logical
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -14163,13 +18039,58 @@ Scatter3D <- function(dt = NULL,
                       TimeLine = FALSE,
                       TextColor = "white",
                       ContainLabel = TRUE,
-                      Title = "3D Scatter Plot",
-                      title.fontSize = 22,
-                      title.fontWeight = "bold",
-                      title.textShadowColor = '#63aeff',
-                      title.textShadowBlur = 3,
-                      title.textShadowOffsetY = 1,
-                      title.textShadowOffsetX = -1,
+                      title.text = "3D Scatter Plot",
+                      title.subtext = NULL,
+                      title.link = NULL,
+                      title.sublink = NULL,
+                      title.Align = NULL,
+                      title.top = NULL,
+                      title.left = NULL,
+                      title.right = NULL,
+                      title.bottom = NULL,
+                      title.padding = NULL,
+                      title.itemGap = NULL,
+                      title.backgroundColor = NULL,
+                      title.borderColor = NULL,
+                      title.borderWidth = NULL,
+                      title.borderRadius = NULL,
+                      title.shadowColor = NULL,
+                      title.shadowBlur = NULL,
+                      title.shadowOffsetX = NULL,
+                      title.shadowOffsetY = NULL,
+                      title.textStyle.color = NULL,
+                      title.textStyle.fontStyle = NULL,
+                      title.textStyle.fontWeight = NULL,
+                      title.textStyle.fontFamily = NULL,
+                      title.textStyle.fontSize = NULL,
+                      title.textStyle.lineHeight = NULL,
+                      title.textStyle.width = NULL,
+                      title.textStyle.height = NULL,
+                      title.textStyle.textBorderColor = NULL,
+                      title.textStyle.textBorderWidth = NULL,
+                      title.textStyle.textBorderType = NULL,
+                      title.textStyle.textBorderDashOffset = NULL,
+                      title.textStyle.textShadowColor = NULL,
+                      title.textStyle.textShadowBlur = NULL,
+                      title.textStyle.textShadowOffsetX = NULL,
+                      title.textStyle.textShadowOffsetY = NULL,
+                      title.subtextStyle.color = NULL,
+                      title.subtextStyle.align = NULL,
+                      title.subtextStyle.fontStyle = NULL,
+                      title.subtextStyle.fontWeight = NULL,
+                      title.subtextStyle.fontFamily = NULL,
+                      title.subtextStyle.fontSize = NULL,
+                      title.subtextStyle.lineHeight = NULL,
+                      title.subtextStyle.width = NULL,
+                      title.subtextStyle.height = NULL,
+                      title.subtextStyle.textBorderColor = NULL,
+                      title.subtextStyle.textBorderWidth = NULL,
+                      title.subtextStyle.textBorderType = NULL,
+                      title.subtextStyle.textBorderDashOffset = NULL,
+                      title.subtextStyle.textShadowColor = NULL,
+                      title.subtextStyle.textShadowBlur = NULL,
+                      title.subtextStyle.textShadowOffsetX = NULL,
+                      title.subtextStyle.textShadowOffsetY = NULL,
                       xAxis.title = NULL,
                       xAxis.min = NULL,
                       xAxis.max = NULL,
@@ -14366,18 +18287,61 @@ Scatter3D <- function(dt = NULL,
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
@@ -14490,18 +18454,60 @@ Scatter3D <- function(dt = NULL,
 
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_title(
-      p1, Title,
-      textStyle = list(
-        color = TextColor,
-        fontWeight = title.fontWeight,
-        overflow = "truncate", # "none", "truncate", "break",
-        ellipsis = '...',
-        fontSize = title.fontSize,
-        textShadowColor = title.textShadowColor,
-        textShadowBlur = title.textShadowBlur,
-        textShadowOffsetY = title.textShadowOffsetY,
-        textShadowOffsetX = title.textShadowOffsetX))
+    p1 <- e_title_full(
+      e = p1,
+      title.text = title.text,
+      title.subtext = title.subtext,
+      title.link = title.link,
+      title.sublink = title.sublink,
+      title.Align = title.Align,
+      title.top = title.top,
+      title.left = title.left,
+      title.right = title.right,
+      title.bottom = title.bottom,
+      title.padding = title.padding,
+      title.itemGap = title.itemGap,
+      title.backgroundColor = title.backgroundColor,
+      title.borderColor = title.borderColor,
+      title.borderWidth = title.borderWidth,
+      title.borderRadius = title.borderRadius,
+      title.shadowColor = title.shadowColor,
+      title.shadowBlur = title.shadowBlur,
+      title.shadowOffsetX = title.shadowOffsetX,
+      title.shadowOffsetY = title.shadowOffsetY,
+      title.textStyle.color = title.textStyle.color,
+      title.textStyle.fontStyle = title.textStyle.fontStyle,
+      title.textStyle.fontWeight = title.textStyle.fontWeight,
+      title.textStyle.fontFamily = title.textStyle.fontFamily,
+      title.textStyle.fontSize = title.textStyle.fontSize,
+      title.textStyle.lineHeight = title.textStyle.lineHeight,
+      title.textStyle.width = title.textStyle.width,
+      title.textStyle.height = title.textStyle.height,
+      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+      title.textStyle.textBorderType = title.textStyle.textBorderType,
+      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+      title.subtextStyle.color = title.subtextStyle.color,
+      title.subtextStyle.align = title.subtextStyle.align,
+      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+      title.subtextStyle.width = title.subtextStyle.width,
+      title.subtextStyle.height = title.subtextStyle.height,
+      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   }
 

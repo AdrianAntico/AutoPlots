@@ -8,28 +8,72 @@ Density(
   dt = NULL,
   SampleSize = 100000L,
   XVar = NULL,
-  GroupVar = NULL,
   XVarTrans = "Identity",
+  GroupVar = NULL,
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
+  TimeLine = FALSE,
+  Opacity = 0.4,
   Height = NULL,
   Width = NULL,
   MouseScroll = FALSE,
   ShowLabels = FALSE,
-  Opacity = 0.4,
-  Title.YAxis = NULL,
   Theme = "dark",
-  TimeLine = FALSE,
   ContainLabel = TRUE,
   TextColor = "white",
-  Title = "Density Plot",
-  title.fontSize = 22,
-  title.fontWeight = "bold",
-  title.textShadowColor = "#63aeff",
-  title.textShadowBlur = 3,
-  title.textShadowOffsetY = 1,
-  title.textShadowOffsetX = -1,
+  title.text = "Density Plot",
+  title.subtext = NULL,
+  title.link = NULL,
+  title.sublink = NULL,
+  title.Align = NULL,
+  title.top = NULL,
+  title.left = NULL,
+  title.right = NULL,
+  title.bottom = NULL,
+  title.padding = NULL,
+  title.itemGap = NULL,
+  title.backgroundColor = NULL,
+  title.borderColor = NULL,
+  title.borderWidth = NULL,
+  title.borderRadius = NULL,
+  title.shadowColor = NULL,
+  title.shadowBlur = NULL,
+  title.shadowOffsetX = NULL,
+  title.shadowOffsetY = NULL,
+  title.textStyle.color = NULL,
+  title.textStyle.fontStyle = NULL,
+  title.textStyle.fontWeight = NULL,
+  title.textStyle.fontFamily = NULL,
+  title.textStyle.fontSize = NULL,
+  title.textStyle.lineHeight = NULL,
+  title.textStyle.width = NULL,
+  title.textStyle.height = NULL,
+  title.textStyle.textBorderColor = NULL,
+  title.textStyle.textBorderWidth = NULL,
+  title.textStyle.textBorderType = NULL,
+  title.textStyle.textBorderDashOffset = NULL,
+  title.textStyle.textShadowColor = NULL,
+  title.textStyle.textShadowBlur = NULL,
+  title.textStyle.textShadowOffsetX = NULL,
+  title.textStyle.textShadowOffsetY = NULL,
+  title.subtextStyle.color = NULL,
+  title.subtextStyle.align = NULL,
+  title.subtextStyle.fontStyle = NULL,
+  title.subtextStyle.fontWeight = NULL,
+  title.subtextStyle.fontFamily = NULL,
+  title.subtextStyle.fontSize = NULL,
+  title.subtextStyle.lineHeight = NULL,
+  title.subtextStyle.width = NULL,
+  title.subtextStyle.height = NULL,
+  title.subtextStyle.textBorderColor = NULL,
+  title.subtextStyle.textBorderWidth = NULL,
+  title.subtextStyle.textBorderType = NULL,
+  title.subtextStyle.textBorderDashOffset = NULL,
+  title.subtextStyle.textShadowColor = NULL,
+  title.subtextStyle.textShadowBlur = NULL,
+  title.subtextStyle.textShadowOffsetX = NULL,
+  title.subtextStyle.textShadowOffsetY = NULL,
   xAxis.title = NULL,
   xAxis.min = NULL,
   xAxis.max = NULL,
@@ -149,15 +193,17 @@ Density(
 
 \item{XVar}{X-Axis variable name}
 
-\item{GroupVar}{Character variable}
-
 \item{XVarTrans}{"Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"}
+
+\item{GroupVar}{Character variable}
 
 \item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}
 
 \item{FacetCols}{Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns}
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
+
+\item{TimeLine}{logical}
 
 \item{Height}{"400px"}
 
@@ -169,25 +215,113 @@ Density(
 
 \item{Theme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
-\item{TimeLine}{logical}
-
 \item{ContainLabel}{TRUE}
 
 \item{TextColor}{"white"}
 
-\item{Title}{= "Density Plot"}
+\item{title.text}{Title name}
 
-\item{title.fontSize}{22}
+\item{title.subtext}{Subtitle name}
 
-\item{title.fontWeight}{"bold"}
+\item{title.link}{Title as a link}
 
-\item{title.textShadowColor}{'#63aeff'}
+\item{title.sublink}{Subtitle as a link}
 
-\item{title.textShadowBlur}{3}
+\item{title.Align}{'auto' 'left' 'right' 'center'}
 
-\item{title.textShadowOffsetY}{1}
+\item{title.top}{'auto' '20' '20%' 'top' 'middle' 'bottom'}
 
-\item{title.textShadowOffsetX}{-1}
+\item{title.left}{distance between title and left side of container}
+
+\item{title.right}{distance between title and right side of container}
+
+\item{title.bottom}{'auto' '20' '20%' 'top' 'middle' 'bottom'}
+
+\item{title.padding}{numeric}
+
+\item{title.itemGap}{space between title and subtitle}
+
+\item{title.backgroundColor}{hex or name}
+
+\item{title.borderColor}{hex or name}
+
+\item{title.borderWidth}{numeric}
+
+\item{title.borderRadius}{numeric}
+
+\item{title.shadowColor}{hex or name}
+
+\item{title.shadowBlur}{numeric}
+
+\item{title.shadowOffsetX}{numeric}
+
+\item{title.shadowOffsetY}{numeric}
+
+\item{title.textStyle.color}{hex or name}
+
+\item{title.textStyle.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{title.textStyle.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{title.textStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{title.textStyle.fontSize}{numeric}
+
+\item{title.textStyle.lineHeight}{numeric}
+
+\item{title.textStyle.width}{numeric}
+
+\item{title.textStyle.height}{numeric}
+
+\item{title.textStyle.textBorderColor}{hex or name}
+
+\item{title.textStyle.textBorderWidth}{numeric}
+
+\item{title.textStyle.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{title.textStyle.textBorderDashOffset}{numeric}
+
+\item{title.textStyle.textShadowColor}{hex or name}
+
+\item{title.textStyle.textShadowBlur}{numeric}
+
+\item{title.textStyle.textShadowOffsetX}{numeric}
+
+\item{title.textStyle.textShadowOffsetY}{numeric}
+
+\item{title.subtextStyle.color}{hex or name}
+
+\item{title.subtextStyle.align}{'auto' 'left' 'right' 'center'}
+
+\item{title.subtextStyle.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{title.subtextStyle.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{title.subtextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{title.subtextStyle.fontSize}{numeric}
+
+\item{title.subtextStyle.lineHeight}{numeric}
+
+\item{title.subtextStyle.width}{numeric}
+
+\item{title.subtextStyle.height}{numeric}
+
+\item{title.subtextStyle.textBorderColor}{hex or name}
+
+\item{title.subtextStyle.textBorderWidth}{numeric}
+
+\item{title.subtextStyle.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{title.subtextStyle.textBorderDashOffset}{numeric}
+
+\item{title.subtextStyle.textShadowColor}{numeric}
+
+\item{title.subtextStyle.textShadowBlur}{numeric}
+
+\item{title.subtextStyle.textShadowOffsetX}{numeric}
+
+\item{title.subtextStyle.textShadowOffsetY}{numeric}
 
 \item{xAxis.title}{Axis title}
 

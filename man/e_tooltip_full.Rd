@@ -7,7 +7,7 @@
 e_tooltip_full(
   e,
   tooltip.show = TRUE,
-  tooltip.trigger = "cross",
+  tooltip.trigger = "axis",
   tooltip.backgroundColor = NULL,
   tooltip.borderColor = NULL,
   tooltip.borderWidth = NULL,
