@@ -42,15 +42,14 @@
 #' @param TextColor "white"
 #' @param ContainLabel  TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -888,10 +887,10 @@ Density <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -1080,10 +1079,10 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -1762,10 +1761,10 @@ Histogram <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -2187,10 +2186,10 @@ Pie <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -2618,10 +2617,10 @@ Donut <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -3047,10 +3046,10 @@ Rosetype <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -4555,10 +4554,10 @@ WordCloud <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -4947,10 +4946,10 @@ Radar <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -5848,10 +5847,10 @@ Line <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -6744,10 +6743,10 @@ Area <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -7634,10 +7633,10 @@ Step <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -8304,10 +8303,10 @@ River <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -9697,10 +9696,10 @@ Bar <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -10323,10 +10322,10 @@ ACF <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -10966,10 +10965,10 @@ PACF <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -11700,10 +11699,10 @@ StackedBar <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -12823,10 +12822,10 @@ BarPlot3D <- function(dt,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -14105,10 +14104,10 @@ HeatMap <- function(dt,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -14691,10 +14690,10 @@ CorrMatrix <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -15309,10 +15308,10 @@ Parallel <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -16162,10 +16161,10 @@ Copula <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -16912,10 +16911,10 @@ Copula3D <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name
@@ -17776,10 +17775,10 @@ Scatter <- function(dt = NULL,
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
 #' @param title.Align 'auto' 'left' 'right' 'center'
-#' @param title.top 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.left distance between title and left side of container
 #' @param title.right distance between title and right side of container
-#' @param title.bottom 'auto' '20' '20%' 'top' 'middle' 'bottom'
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
 #' @param title.padding numeric
 #' @param title.itemGap space between title and subtitle
 #' @param title.backgroundColor hex or name

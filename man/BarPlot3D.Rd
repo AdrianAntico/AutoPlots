@@ -246,13 +246,13 @@ BarPlot3D(
 
 \item{title.Align}{'auto' 'left' 'right' 'center'}
 
-\item{title.top}{'auto' '20' '20%' 'top' 'middle' 'bottom'}
+\item{title.top}{'auto' '20' 'top' 'middle' 'bottom'}
 
 \item{title.left}{distance between title and left side of container}
 
 \item{title.right}{distance between title and right side of container}
 
-\item{title.bottom}{'auto' '20' '20%' 'top' 'middle' 'bottom'}
+\item{title.bottom}{'auto' '20' 'top' 'middle' 'bottom'}
 
 \item{title.padding}{numeric}
 
