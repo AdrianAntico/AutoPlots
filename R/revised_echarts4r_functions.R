@@ -468,8 +468,8 @@ e_title_full <- function(
 
   # Assemble the final opts
   opts <- .compact(list(
-    textStyle = if (length(ap)) ap,
-    subtextStyle = if (length(ts)) ts
+    textStyle = if (length(ts)) ts,
+    subtextStyle = if (length(sts)) sts
   ))
 
   standard <- list()
