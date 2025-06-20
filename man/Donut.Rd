@@ -76,8 +76,129 @@ Donut(
   title.subtextStyle.textShadowBlur = NULL,
   title.subtextStyle.textShadowOffsetX = NULL,
   title.subtextStyle.textShadowOffsetY = NULL,
-  xtooltip.show = TRUE,
-  tooltip.trigger = "item",
+  legend.show = TRUE,
+  legend.type = "scross",
+  legend.selector = NULL,
+  legend.icon = NULL,
+  legend.align = NULL,
+  legend.padding = NULL,
+  legend.itemGap = NULL,
+  legend.itemWidth = NULL,
+  legend.orient = NULL,
+  legend.width = NULL,
+  legend.height = NULL,
+  legend.left = NULL,
+  legend.right = NULL,
+  legend.top = NULL,
+  legend.bottom = NULL,
+  legend.backgroundColor = NULL,
+  legend.borderColor = NULL,
+  legend.borderWidth = NULL,
+  legend.borderRadius = NULL,
+  legend.shadowBlur = NULL,
+  legend.shadowColor = NULL,
+  legend.shadowOffsetX = NULL,
+  legend.shadowOffsetY = NULL,
+  legend.itemStyle.color = NULL,
+  legend.itemStyle.borderColor = NULL,
+  legend.itemStyle.borderWidth = NULL,
+  legend.itemStyle.borderType = NULL,
+  legend.itemStyle.shadowBlur = NULL,
+  legend.itemStyle.shadowColor = NULL,
+  legend.itemStyle.shadowOffsetX = NULL,
+  legend.itemStyle.shadowOffsetY = NULL,
+  legend.itemStyle.opacity = NULL,
+  legend.lineStyle.color = NULL,
+  legend.lineStyle.width = NULL,
+  legend.lineStyle.type = NULL,
+  legend.lineStyle.shadowBlur = NULL,
+  legend.lineStyle.shadowColor = NULL,
+  legend.lineStyle.shadowOffsetX = NULL,
+  legend.lineStyle.shadowOffsetY = NULL,
+  legend.lineStyle.opacity = NULL,
+  legend.lineStyle.inactiveColor = NULL,
+  legend.lineStyle.inactiveWidth = NULL,
+  legend.textStyle.color = NULL,
+  legend.textStyle.fontStyle = NULL,
+  legend.textStyle.fontWeight = NULL,
+  legend.textStyle.fontFamily = NULL,
+  legend.textStyle.fontSize = NULL,
+  legend.textStyle.backgroundColor = NULL,
+  legend.textStyle.borderColor = NULL,
+  legend.textStyle.borderWidth = NULL,
+  legend.textStyle.borderType = NULL,
+  legend.textStyle.borderRadius = NULL,
+  legend.textStyle.padding = NULL,
+  legend.textStyle.shadowColor = NULL,
+  legend.textStyle.shadowBlur = NULL,
+  legend.textStyle.shadowOffsetX = NULL,
+  legend.textStyle.shadowOffsetY = NULL,
+  legend.textStyle.width = NULL,
+  legend.textStyle.height = NULL,
+  legend.textStyle.textBorderColor = NULL,
+  legend.textStyle.textBorderWidth = NULL,
+  legend.textStyle.textBorderType = NULL,
+  legend.textStyle.textShadowColor = NULL,
+  legend.textStyle.textShadowBlur = NULL,
+  legend.textStyle.textShadowOffsetX = NULL,
+  legend.textStyle.textShadowOffsetY = NULL,
+  legend.scrollDataIndex = NULL,
+  legend.pageButtonItemGap = NULL,
+  legend.pageButtonGap = NULL,
+  legend.pageButtonPosition = NULL,
+  legend.pageIconColor = NULL,
+  legend.pageIconInactiveColor = NULL,
+  legend.pageIconSize = NULL,
+  legend.pageTextStyle = NULL,
+  legend.animation = NULL,
+  legend.animationDurationUpdate = NULL,
+  legend.pageTextStyle.color = NULL,
+  legend.pageTextStyle.fontStyle = NULL,
+  legend.pageTextStyle.fontWeight = NULL,
+  legend.pageTextStyle.fontFamily = NULL,
+  legend.pageTextStyle.fontSize = NULL,
+  legend.pageTextStyle.lineHeight = NULL,
+  legend.pageTextStyle.width = NULL,
+  legend.pageTextStyle.height = NULL,
+  legend.pageTextStyle.textBorderColor = NULL,
+  legend.pageTextStyle.textBorderWidth = NULL,
+  legend.pageTextStyle.textBorderType = NULL,
+  legend.pageTextStyle.textShadowColor = NULL,
+  legend.pageTextStyle.textShadowBlur = NULL,
+  legend.pageTextStyle.textShadowOffsetX = NULL,
+  legend.pageTextStyle.textShadowOffsetY = NULL,
+  legend.emphasis.selectorLabel.show = NULL,
+  legend.emphasis.selectorLabel.distance = NULL,
+  legend.emphasis.selectorLabel.rotate = NULL,
+  legend.emphasis.selectorLabel.color = NULL,
+  legend.emphasis.selectorLabel.fontStyle = NULL,
+  legend.emphasis.selectorLabel.fontWeight = NULL,
+  legend.emphasis.selectorLabel.fontFamily = NULL,
+  legend.emphasis.selectorLabel.fontSize = NULL,
+  legend.emphasis.selectorLabel.align = NULL,
+  legend.emphasis.selectorLabel.verticalAlign = NULL,
+  legend.emphasis.selectorLabel.lineHeight = NULL,
+  legend.emphasis.selectorLabel.backgroundColor = NULL,
+  legend.emphasis.selectorLabel.borderColor = NULL,
+  legend.emphasis.selectorLabel.borderWidth = NULL,
+  legend.emphasis.selectorLabel.borderType = NULL,
+  legend.emphasis.selectorLabel.borderRadius = NULL,
+  legend.emphasis.selectorLabel.padding = NULL,
+  legend.emphasis.selectorLabel.shadowColor = NULL,
+  legend.emphasis.selectorLabel.shadowBlur = NULL,
+  legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+  legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+  legend.emphasis.selectorLabel.width = NULL,
+  legend.emphasis.selectorLabel.height = NULL,
+  legend.emphasis.selectorLabel.textBorderColor = NULL,
+  legend.emphasis.selectorLabel.textBorderWidth = NULL,
+  legend.emphasis.selectorLabel.textBorderType = NULL,
+  legend.emphasis.selectorLabel.textShadowColor = NULL,
+  legend.emphasis.selectorLabel.textShadowBlur = NULL,
+  legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+  legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
+  tooltip.show = TRUE,
+  tooltip.trigger = "cross",
   tooltip.backgroundColor = NULL,
   tooltip.borderColor = NULL,
   tooltip.borderWidth = NULL,
@@ -249,6 +370,230 @@ Donut(
 
 \item{title.subtextStyle.textShadowOffsetY}{numeric}
 
+\item{legend.show}{logical}
+
+\item{legend.type}{'scroll' 'plain'}
+
+\item{legend.selector}{logical}
+
+\item{legend.icon}{'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'}
+
+\item{legend.align}{'auto' 'left' 'right'}
+
+\item{legend.padding}{numeric}
+
+\item{legend.itemGap}{numeric}
+
+\item{legend.itemWidth}{numeric}
+
+\item{legend.orient}{'vertical' 'horizontal'}
+
+\item{legend.width}{numeric}
+
+\item{legend.height}{numeric}
+
+\item{legend.left}{numeric}
+
+\item{legend.right}{numeric}
+
+\item{legend.top}{numeric}
+
+\item{legend.bottom}{numeric}
+
+\item{legend.backgroundColor}{hex or color name}
+
+\item{legend.borderColor}{hex or color name}
+
+\item{legend.borderWidth}{numeric}
+
+\item{legend.borderRadius}{numeric}
+
+\item{legend.shadowBlur}{numeric}
+
+\item{legend.shadowColor}{hex or color name}
+
+\item{legend.shadowOffsetX}{numeric}
+
+\item{legend.shadowOffsetY}{numeric}
+
+\item{legend.itemStyle.color}{hex or color name}
+
+\item{legend.itemStyle.borderColor}{hex or color name}
+
+\item{legend.itemStyle.borderWidth}{numeric}
+
+\item{legend.itemStyle.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.itemStyle.shadowBlur}{numeric}
+
+\item{legend.itemStyle.shadowColor}{hex or color name}
+
+\item{legend.itemStyle.shadowOffsetX}{numeric}
+
+\item{legend.itemStyle.shadowOffsetY}{numeric}
+
+\item{legend.itemStyle.opacity}{numeric 0 to 1}
+
+\item{legend.lineStyle.color}{hex or color name}
+
+\item{legend.lineStyle.width}{numeric}
+
+\item{legend.lineStyle.type}{'solid' 'dashed' 'dotted'}
+
+\item{legend.lineStyle.shadowBlur}{numeric}
+
+\item{legend.lineStyle.shadowColor}{hex or color name}
+
+\item{legend.lineStyle.shadowOffsetX}{numeric}
+
+\item{legend.lineStyle.shadowOffsetY}{numeric}
+
+\item{legend.lineStyle.opacity}{numeric 0 to 1}
+
+\item{legend.lineStyle.inactiveColor}{hex or color name}
+
+\item{legend.lineStyle.inactiveWidth}{numeric}
+
+\item{legend.textStyle.color}{hex or color name}
+
+\item{legend.textStyle.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{legend.textStyle.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{legend.textStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{legend.textStyle.fontSize}{numeric}
+
+\item{legend.textStyle.backgroundColor}{hex or color name}
+
+\item{legend.textStyle.borderColor}{hex or color name}
+
+\item{legend.textStyle.borderWidth}{numeric}
+
+\item{legend.textStyle.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.textStyle.borderRadius}{numeric}
+
+\item{legend.textStyle.padding}{numeric}
+
+\item{legend.textStyle.shadowColor}{hex or color name}
+
+\item{legend.textStyle.shadowBlur}{numeric}
+
+\item{legend.textStyle.shadowOffsetX}{numeric}
+
+\item{legend.textStyle.shadowOffsetY}{numeric}
+
+\item{legend.textStyle.width}{numeric}
+
+\item{legend.textStyle.height}{numeric}
+
+\item{legend.textStyle.textBorderColor}{hex or color name}
+
+\item{legend.textStyle.textBorderWidth}{numeric}
+
+\item{legend.textStyle.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.textStyle.textShadowColor}{hex or color name}
+
+\item{legend.textStyle.textShadowBlur}{numeric}
+
+\item{legend.textStyle.textShadowOffsetX}{numeric}
+
+\item{legend.textStyle.textShadowOffsetY}{numeric}
+
+\item{legend.pageTextStyle.color}{hex or color name}
+
+\item{legend.pageTextStyle.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{legend.pageTextStyle.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{legend.pageTextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{legend.pageTextStyle.fontSize}{numeric}
+
+\item{legend.pageTextStyle.lineHeight}{numeric}
+
+\item{legend.pageTextStyle.width}{numeric}
+
+\item{legend.pageTextStyle.height}{numeric}
+
+\item{legend.pageTextStyle.textBorderColor}{hex or color name}
+
+\item{legend.pageTextStyle.textBorderWidth}{numeric}
+
+\item{legend.pageTextStyle.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.pageTextStyle.textShadowColor}{hex or color name}
+
+\item{legend.pageTextStyle.textShadowBlur}{numeric}
+
+\item{legend.pageTextStyle.textShadowOffsetX}{numeric}
+
+\item{legend.pageTextStyle.textShadowOffsetY}{numeric}
+
+\item{legend.emphasis.selectorLabel.show}{logical}
+
+\item{legend.emphasis.selectorLabel.distance}{numeric}
+
+\item{legend.emphasis.selectorLabel.rotate}{numeric}
+
+\item{legend.emphasis.selectorLabel.color}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{legend.emphasis.selectorLabel.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{legend.emphasis.selectorLabel.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{legend.emphasis.selectorLabel.fontSize}{numeric}
+
+\item{legend.emphasis.selectorLabel.align}{'left' 'center' 'right'}
+
+\item{legend.emphasis.selectorLabel.verticalAlign}{'top' 'middle' 'bottom'}
+
+\item{legend.emphasis.selectorLabel.lineHeight}{numeric}
+
+\item{legend.emphasis.selectorLabel.backgroundColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.borderColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.borderWidth}{numeric}
+
+\item{legend.emphasis.selectorLabel.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.emphasis.selectorLabel.borderRadius}{numeric}
+
+\item{legend.emphasis.selectorLabel.padding}{numeric}
+
+\item{legend.emphasis.selectorLabel.shadowColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.shadowBlur}{numeric}
+
+\item{legend.emphasis.selectorLabel.shadowOffsetX}{numeric}
+
+\item{legend.emphasis.selectorLabel.shadowOffsetY}{numeric}
+
+\item{legend.emphasis.selectorLabel.width}{numeric}
+
+\item{legend.emphasis.selectorLabel.height}{numeric}
+
+\item{legend.emphasis.selectorLabel.textBorderColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.textBorderWidth}{numeric}
+
+\item{legend.emphasis.selectorLabel.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.emphasis.selectorLabel.textShadowColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.textShadowBlur}{numeric}
+
+\item{legend.emphasis.selectorLabel.textShadowOffsetX}{numeric}
+
+\item{legend.emphasis.selectorLabel.textShadowOffsetY}{numeric}
+
+\item{tooltip.show}{logical}
+
 \item{tooltip.trigger}{"cross" "axis" "item" "none"}
 
 \item{tooltip.backgroundColor}{hex or name}
@@ -302,8 +647,6 @@ Donut(
 \item{tooltip.textStyle.textShadowOffsetY}{numeric}
 
 \item{Debug}{Debugging purposes}
-
-\item{tooltip.show}{logical}
 }
 \value{
 plot

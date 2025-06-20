@@ -14,13 +14,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#' @importFrom dplyr group_by
+# @import dplyr
+# @importFrom dplyr group_by
 
 #' @import data.table
-#' @importFrom data.table data.table %chin% .I .N .SD := as.data.table fwrite is.data.table rbindlist set setcolorder setnames setorderv as.IDate as.ITime %like%
-#' @importFrom lubridate %m+%
-#' @importFrom utils installed.packages
-#' @importFrom stats as.formula cor cor.test dgeom lm median na.omit optimize pnorm qnorm quantile runif sd setNames var
-#' @importFrom utils head
-NULL
+# @importFrom data.table data.table %chin% .I .N .SD := as.data.table fwrite is.data.table rbindlist set setcolorder setnames setorderv as.IDate as.ITime %like%
+# @importFrom lubridate %m+%
+# @importFrom utils installed.packages
+# @importFrom stats as.formula cor cor.test dgeom lm median na.omit optimize pnorm qnorm quantile runif sd setNames var
+# @importFrom utils head
+# NULL
 .datatable.aware = TRUE

@@ -534,7 +534,6 @@ e_legend_full <- function(
     legend.shadowColor = NULL,
     legend.shadowOffsetX = NULL,
     legend.shadowOffsetY = NULL,
-
     legend.itemStyle.color = NULL, # color of legend items
     legend.itemStyle.borderColor = NULL,
     legend.itemStyle.borderWidth = NULL,
@@ -544,7 +543,6 @@ e_legend_full <- function(
     legend.itemStyle.shadowOffsetX = NULL,
     legend.itemStyle.shadowOffsetY = NULL,
     legend.itemStyle.opacity = NULL,
-
     legend.lineStyle.color = NULL,
     legend.lineStyle.width = NULL,
     legend.lineStyle.type = NULL, # 'solid' 'dashed' 'dotted'
@@ -555,7 +553,6 @@ e_legend_full <- function(
     legend.lineStyle.opacity = NULL,
     legend.lineStyle.inactiveColor = NULL,
     legend.lineStyle.inactiveWidth = NULL,
-
     legend.textStyle.color = NULL,
     legend.textStyle.fontStyle = NULL,
     legend.textStyle.fontWeight = NULL, # 'normal' 'bold' 'bolder' 'lighter'
@@ -580,17 +577,6 @@ e_legend_full <- function(
     legend.textStyle.textShadowBlur = NULL,
     legend.textStyle.textShadowOffsetX = NULL,
     legend.textStyle.textShadowOffsetY = NULL,
-
-    legend.scrollDataIndex = NULL, # numeric; when legend.type == "scroll"
-    legend.pageButtonItemGap = NULL, # 5; when legend.type == "scroll"
-    legend.pageButtonGap = NULL, # numeric; when legend.type == "scroll"
-    legend.pageButtonPosition = NULL, # 'start' 'end'; when legend.type == "scroll"
-    legend.pageIconColor = NULL, # when legend.type == "scroll"
-    legend.pageIconInactiveColor = NULL, # when legend.type == "scroll"
-    legend.pageIconSize = NULL, # 15; when legend.type == "scroll"
-    legend.pageTextStyle = NULL, # when legend.type == "scroll"
-    legend.animation = NULL, # when legend.type == "scroll"
-    legend.animationDurationUpdate = NULL, # when legend.type == "scroll"
     legend.pageTextStyle.color = NULL, # = #333
     legend.pageTextStyle.fontStyle = NULL, # = 'normal' 'italic' 'oblique'
     legend.pageTextStyle.fontWeight = NULL, # = 'normal' 'bold' 'bolder' 'lighter'
@@ -606,7 +592,6 @@ e_legend_full <- function(
     legend.pageTextStyle.textShadowBlur = NULL, #
     legend.pageTextStyle.textShadowOffsetX = NULL, #
     legend.pageTextStyle.textShadowOffsetY = NULL,
-
     legend.emphasis.selectorLabel.show = NULL,
     legend.emphasis.selectorLabel.distance = NULL,
     legend.emphasis.selectorLabel.rotate = NULL,
@@ -638,6 +623,143 @@ e_legend_full <- function(
     legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
     legend.emphasis.selectorLabel.textShadowOffsetY = NULL) {
 
+  is <- .compact(list(
+    color = legend.itemStyle.color,
+    borderColor = legend.itemStyle.borderColor,
+    borderWidth = legend.itemStyle.borderWidth,
+    borderType = legend.itemStyle.borderType,
+    shadowBlur = legend.itemStyle.shadowBlur,
+    shadowColor = legend.itemStyle.shadowColor,
+    shadowOffsetX = legend.itemStyle.shadowOffsetX,
+    shadowOffsetY = legend.itemStyle.shadowOffsetY,
+    opacity = legend.itemStyle.opacity,
+  ))
+
+  ls <- .compact(list(
+    color = legend.lineStyle.color,
+    width = legend.lineStyle.width,
+    type = legend.lineStyle.type,
+    shadowBlur = legend.lineStyle.shadowBlur,
+    shadowColor = legend.lineStyle.shadowColor,
+    shadowOffsetX = legend.lineStyle.shadowOffsetX,
+    shadowOffsetY = legend.lineStyle.shadowOffsetY,
+    opacity = legend.lineStyle.opacity,
+    inactiveColor = legend.lineStyle.inactiveColor,
+    inactiveWidth = legend.lineStyle.inactiveWidth
+  ))
+
+  ts <- .compact(list(
+    color = legend.textStyle.color,
+    fontStyle = legend.textStyle.fontStyle,
+    fontWeight = legend.textStyle.fontWeight,
+    fontFamily = legend.textStyle.fontFamily,
+    fontSize = legend.textStyle.fontSize,
+    backgroundColor = legend.textStyle.backgroundColor,
+    borderColor = legend.textStyle.borderColor,
+    borderWidth = legend.textStyle.borderWidth,
+    borderType = legend.textStyle.borderType,
+    borderRadius = legend.textStyle.borderRadius,
+    padding = legend.textStyle.padding,
+    shadowColor = legend.textStyle.shadowColor,
+    shadowBlur = legend.textStyle.shadowBlur,
+    shadowOffsetX = legend.textStyle.shadowOffsetX,
+    shadowOffsetY = legend.textStyle.shadowOffsetY,
+    width = legend.textStyle.width,
+    height = legend.textStyle.height,
+    textBorderColor = legend.textStyle.textBorderColor,
+    textBorderWidth = legend.textStyle.textBorderWidth,
+    textBorderType = legend.textStyle.textBorderType,
+    textShadowColor = legend.textStyle.textShadowColor,
+    textShadowBlur = legend.textStyle.textShadowBlur,
+    textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+    textShadowOffsetY = legend.textStyle.textShadowOffsetY
+  ))
+
+  pts <- .compact(list(
+    color = legend.pageTextStyle.color,
+    fontStyle = legend.pageTextStyle.fontStyle,
+    fontWeight = legend.pageTextStyle.fontWeight,
+    fontFamily = legend.pageTextStyle.fontFamily,
+    fontSize = legend.pageTextStyle.fontSize,
+    lineHeight = legend.pageTextStyle.lineHeight,
+    width = legend.pageTextStyle.width,
+    height = legend.pageTextStyle.height,
+    textBorderColor = legend.pageTextStyle.textBorderColor,
+    textBorderWidth = legend.pageTextStyle.textBorderWidth,
+    textBorderType = legend.pageTextStyle.textBorderType,
+    textShadowColor = legend.pageTextStyle.textShadowColor,
+    textShadowBlur = legend.pageTextStyle.textShadowBlur,
+    textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX,
+    textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY
+  ))
+
+  esl <- .compact(list(selectorLabel = list(
+    show = legend.emphasis.selectorLabel.show,
+    distance = legend.emphasis.selectorLabel.distance,
+    rotate = legend.emphasis.selectorLabel.rotate,
+    color = legend.emphasis.selectorLabel.color,
+    fontStyle = legend.emphasis.selectorLabel.fontStyle,
+    fontWeight = legend.emphasis.selectorLabel.fontWeight,
+    fontFamily = legend.emphasis.selectorLabel.fontFamily,
+    fontSize = legend.emphasis.selectorLabel.fontSize,
+    align = legend.emphasis.selectorLabel.align,
+    verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+    lineHeight = legend.emphasis.selectorLabel.lineHeight,
+    backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+    borderColor = legend.emphasis.selectorLabel.borderColor,
+    borderWidth = legend.emphasis.selectorLabel.borderWidth,
+    borderType = legend.emphasis.selectorLabel.borderType,
+    borderRadius = legend.emphasis.selectorLabel.borderRadius,
+    padding = legend.emphasis.selectorLabel.padding,
+    shadowColor = legend.emphasis.selectorLabel.shadowColor,
+    shadowBlur = legend.emphasis.selectorLabel.shadowBlur,
+    shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+    shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY,
+    width = legend.emphasis.selectorLabel.width,
+    height = legend.emphasis.selectorLabel.height,
+    textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+    textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth,
+    textBorderType = legend.emphasis.selectorLabel.textBorderType,
+    textShadowColor = legend.emphasis.selectorLabel.textShadowColor,
+    textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+    textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX,
+    textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY
+  )))
+
+
+  # Assemble the final opts
+  opts <- .compact(list(
+    itemStyle = if (length(is)) is,
+    lineStyle = if (length(ls)) ls,
+    textStyle = if (length(ts)) ts,
+    pageTextStyle = if (length(pts)) pts,
+    emphasis = if (length(esl)) esl
+  ))
+
+  standard <- list()
+  standard[["show"]] <- legend.show
+  standard[["type"]] <- legend.type
+  standard[["selector"]] <- legend.selector
+  standard[["icon"]] <- legend.icon
+  standard[["align"]] <- legend.align
+  standard[["padding"]] <- legend.padding
+  standard[["itemGap"]] <- legend.itemGap
+  standard[["itemWidth"]] <- legend.itemWidth
+  standard[["orient"]] <- legend.orient
+  standard[["width"]] <- legend.width
+  standard[["height"]] <- legend.height
+  standard[["left"]] <- legend.left
+  standard[["right"]] <- legend.right
+  standard[["top"]] <- legend.top
+  standard[["bottom"]] <- legend.bottom
+  standard[["backgroundColor"]] <- legend.backgroundColor
+  standard[["borderColor"]] <- legend.borderColor
+  standard[["borderWidth"]] <- legend.borderWidth
+  standard[["borderRadius"]] <- legend.borderRadius
+  standard[["shadowBlur"]] <- legend.shadowBlur
+  standard[["shadowColor"]] <- legend.shadowColor
+  standard[["shadowOffsetX"]] <- legend.shadowOffsetX
+  standard[["shadowOffsetY"]] <- legend.shadowOffsetY
 
   do.call(echarts4r::e_legend, c(
     standard,

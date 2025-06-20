@@ -175,6 +175,117 @@
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -191,7 +302,7 @@
 #' @param tooltip.textStyle.color hex or name
 #' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
 #' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
-#' @param tooltip.textStyle.fontFamily valid family name
+#' @param tooltip.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
 #' @param tooltip.textStyle.lineHeight numeric
 #' @param tooltip.textStyle.width numeric
 #' @param tooltip.textStyle.height numeric
@@ -429,6 +540,127 @@ Density <- function(dt = NULL,
                     yAxis.axisLabel.textShadowOffsetX = NULL,
                     yAxis.axisLabel.textShadowOffsetY = NULL,
                     yAxis.axisLabel.overflow = NULL,
+                    legend.show = TRUE,
+                    legend.type = "scross",
+                    legend.selector = NULL,
+                    legend.icon = NULL,
+                    legend.align = NULL,
+                    legend.padding = NULL,
+                    legend.itemGap = NULL,
+                    legend.itemWidth = NULL,
+                    legend.orient = NULL,
+                    legend.width = NULL,
+                    legend.height = NULL,
+                    legend.left = NULL,
+                    legend.right = NULL,
+                    legend.top = NULL,
+                    legend.bottom = NULL,
+                    legend.backgroundColor = NULL,
+                    legend.borderColor = NULL,
+                    legend.borderWidth = NULL,
+                    legend.borderRadius = NULL,
+                    legend.shadowBlur = NULL,
+                    legend.shadowColor = NULL,
+                    legend.shadowOffsetX = NULL,
+                    legend.shadowOffsetY = NULL,
+                    legend.itemStyle.color = NULL,
+                    legend.itemStyle.borderColor = NULL,
+                    legend.itemStyle.borderWidth = NULL,
+                    legend.itemStyle.borderType = NULL,
+                    legend.itemStyle.shadowBlur = NULL,
+                    legend.itemStyle.shadowColor = NULL,
+                    legend.itemStyle.shadowOffsetX = NULL,
+                    legend.itemStyle.shadowOffsetY = NULL,
+                    legend.itemStyle.opacity = NULL,
+                    legend.lineStyle.color = NULL,
+                    legend.lineStyle.width = NULL,
+                    legend.lineStyle.type = NULL,
+                    legend.lineStyle.shadowBlur = NULL,
+                    legend.lineStyle.shadowColor = NULL,
+                    legend.lineStyle.shadowOffsetX = NULL,
+                    legend.lineStyle.shadowOffsetY = NULL,
+                    legend.lineStyle.opacity = NULL,
+                    legend.lineStyle.inactiveColor = NULL,
+                    legend.lineStyle.inactiveWidth = NULL,
+                    legend.textStyle.color = NULL,
+                    legend.textStyle.fontStyle = NULL,
+                    legend.textStyle.fontWeight = NULL,
+                    legend.textStyle.fontFamily = NULL,
+                    legend.textStyle.fontSize = NULL,
+                    legend.textStyle.backgroundColor = NULL,
+                    legend.textStyle.borderColor = NULL,
+                    legend.textStyle.borderWidth = NULL,
+                    legend.textStyle.borderType = NULL,
+                    legend.textStyle.borderRadius = NULL,
+                    legend.textStyle.padding = NULL,
+                    legend.textStyle.shadowColor = NULL,
+                    legend.textStyle.shadowBlur = NULL,
+                    legend.textStyle.shadowOffsetX = NULL,
+                    legend.textStyle.shadowOffsetY = NULL,
+                    legend.textStyle.width = NULL,
+                    legend.textStyle.height = NULL,
+                    legend.textStyle.textBorderColor = NULL,
+                    legend.textStyle.textBorderWidth = NULL,
+                    legend.textStyle.textBorderType = NULL,
+                    legend.textStyle.textShadowColor = NULL,
+                    legend.textStyle.textShadowBlur = NULL,
+                    legend.textStyle.textShadowOffsetX = NULL,
+                    legend.textStyle.textShadowOffsetY = NULL,
+                    legend.scrollDataIndex = NULL,
+                    legend.pageButtonItemGap = NULL,
+                    legend.pageButtonGap = NULL,
+                    legend.pageButtonPosition = NULL,
+                    legend.pageIconColor = NULL,
+                    legend.pageIconInactiveColor = NULL,
+                    legend.pageIconSize = NULL,
+                    legend.pageTextStyle = NULL,
+                    legend.animation = NULL,
+                    legend.animationDurationUpdate = NULL,
+                    legend.pageTextStyle.color = NULL,
+                    legend.pageTextStyle.fontStyle = NULL,
+                    legend.pageTextStyle.fontWeight = NULL,
+                    legend.pageTextStyle.fontFamily = NULL,
+                    legend.pageTextStyle.fontSize = NULL,
+                    legend.pageTextStyle.lineHeight = NULL,
+                    legend.pageTextStyle.width = NULL,
+                    legend.pageTextStyle.height = NULL,
+                    legend.pageTextStyle.textBorderColor = NULL,
+                    legend.pageTextStyle.textBorderWidth = NULL,
+                    legend.pageTextStyle.textBorderType = NULL,
+                    legend.pageTextStyle.textShadowColor = NULL,
+                    legend.pageTextStyle.textShadowBlur = NULL,
+                    legend.pageTextStyle.textShadowOffsetX = NULL,
+                    legend.pageTextStyle.textShadowOffsetY = NULL,
+                    legend.emphasis.selectorLabel.show = NULL,
+                    legend.emphasis.selectorLabel.distance = NULL,
+                    legend.emphasis.selectorLabel.rotate = NULL,
+                    legend.emphasis.selectorLabel.color = NULL,
+                    legend.emphasis.selectorLabel.fontStyle = NULL,
+                    legend.emphasis.selectorLabel.fontWeight = NULL,
+                    legend.emphasis.selectorLabel.fontFamily = NULL,
+                    legend.emphasis.selectorLabel.fontSize = NULL,
+                    legend.emphasis.selectorLabel.align = NULL,
+                    legend.emphasis.selectorLabel.verticalAlign = NULL,
+                    legend.emphasis.selectorLabel.lineHeight = NULL,
+                    legend.emphasis.selectorLabel.backgroundColor = NULL,
+                    legend.emphasis.selectorLabel.borderColor = NULL,
+                    legend.emphasis.selectorLabel.borderWidth = NULL,
+                    legend.emphasis.selectorLabel.borderType = NULL,
+                    legend.emphasis.selectorLabel.borderRadius = NULL,
+                    legend.emphasis.selectorLabel.padding = NULL,
+                    legend.emphasis.selectorLabel.shadowColor = NULL,
+                    legend.emphasis.selectorLabel.shadowBlur = NULL,
+                    legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                    legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                    legend.emphasis.selectorLabel.width = NULL,
+                    legend.emphasis.selectorLabel.height = NULL,
+                    legend.emphasis.selectorLabel.textBorderColor = NULL,
+                    legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                    legend.emphasis.selectorLabel.textBorderType = NULL,
+                    legend.emphasis.selectorLabel.textShadowColor = NULL,
+                    legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                    legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                    legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                     tooltip.show = TRUE,
                     tooltip.trigger = "cross",
                     tooltip.backgroundColor = NULL,
@@ -854,10 +1086,63 @@ Density <- function(dt = NULL,
 
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
     return(p1)
   }
@@ -1208,6 +1493,117 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -1419,6 +1815,154 @@ Histogram <- function(dt = NULL,
                       yAxis.axisLabel.textShadowOffsetX = NULL,
                       yAxis.axisLabel.textShadowOffsetY = NULL,
                       yAxis.axisLabel.overflow = NULL,
+                      legend.show = TRUE,
+                      legend.type = "scross",
+                      legend.selector = NULL,
+                      legend.icon = NULL,
+                      legend.align = NULL,
+                      legend.padding = NULL,
+                      legend.itemGap = NULL,
+                      legend.itemWidth = NULL,
+                      legend.orient = NULL,
+                      legend.width = NULL,
+                      legend.height = NULL,
+                      legend.left = NULL,
+                      legend.right = NULL,
+                      legend.top = NULL,
+                      legend.bottom = NULL,
+                      legend.backgroundColor = NULL,
+                      legend.borderColor = NULL,
+                      legend.borderWidth = NULL,
+                      legend.borderRadius = NULL,
+                      legend.shadowBlur = NULL,
+                      legend.shadowColor = NULL,
+                      legend.shadowOffsetX = NULL,
+                      legend.shadowOffsetY = NULL,
+                      legend.itemStyle.color = NULL,
+                      legend.itemStyle.borderColor = NULL,
+                      legend.itemStyle.borderWidth = NULL,
+                      legend.itemStyle.borderType = NULL,
+                      legend.itemStyle.shadowBlur = NULL,
+                      legend.itemStyle.shadowColor = NULL,
+                      legend.itemStyle.shadowOffsetX = NULL,
+                      legend.itemStyle.shadowOffsetY = NULL,
+                      legend.itemStyle.opacity = NULL,
+                      legend.lineStyle.color = NULL,
+                      legend.lineStyle.width = NULL,
+                      legend.lineStyle.type = NULL,
+                      legend.lineStyle.shadowBlur = NULL,
+                      legend.lineStyle.shadowColor = NULL,
+                      legend.lineStyle.shadowOffsetX = NULL,
+                      legend.lineStyle.shadowOffsetY = NULL,
+                      legend.lineStyle.opacity = NULL,
+                      legend.lineStyle.inactiveColor = NULL,
+                      legend.lineStyle.inactiveWidth = NULL,
+                      legend.textStyle.color = NULL,
+                      legend.textStyle.fontStyle = NULL,
+                      legend.textStyle.fontWeight = NULL,
+                      legend.textStyle.fontFamily = NULL,
+                      legend.textStyle.fontSize = NULL,
+                      legend.textStyle.backgroundColor = NULL,
+                      legend.textStyle.borderColor = NULL,
+                      legend.textStyle.borderWidth = NULL,
+                      legend.textStyle.borderType = NULL,
+                      legend.textStyle.borderRadius = NULL,
+                      legend.textStyle.padding = NULL,
+                      legend.textStyle.shadowColor = NULL,
+                      legend.textStyle.shadowBlur = NULL,
+                      legend.textStyle.shadowOffsetX = NULL,
+                      legend.textStyle.shadowOffsetY = NULL,
+                      legend.textStyle.width = NULL,
+                      legend.textStyle.height = NULL,
+                      legend.textStyle.textBorderColor = NULL,
+                      legend.textStyle.textBorderWidth = NULL,
+                      legend.textStyle.textBorderType = NULL,
+                      legend.textStyle.textShadowColor = NULL,
+                      legend.textStyle.textShadowBlur = NULL,
+                      legend.textStyle.textShadowOffsetX = NULL,
+                      legend.textStyle.textShadowOffsetY = NULL,
+                      legend.scrollDataIndex = NULL,
+                      legend.pageButtonItemGap = NULL,
+                      legend.pageButtonGap = NULL,
+                      legend.pageButtonPosition = NULL,
+                      legend.pageIconColor = NULL,
+                      legend.pageIconInactiveColor = NULL,
+                      legend.pageIconSize = NULL,
+                      legend.pageTextStyle = NULL,
+                      legend.animation = NULL,
+                      legend.animationDurationUpdate = NULL,
+                      legend.pageTextStyle.color = NULL,
+                      legend.pageTextStyle.fontStyle = NULL,
+                      legend.pageTextStyle.fontWeight = NULL,
+                      legend.pageTextStyle.fontFamily = NULL,
+                      legend.pageTextStyle.fontSize = NULL,
+                      legend.pageTextStyle.lineHeight = NULL,
+                      legend.pageTextStyle.width = NULL,
+                      legend.pageTextStyle.height = NULL,
+                      legend.pageTextStyle.textBorderColor = NULL,
+                      legend.pageTextStyle.textBorderWidth = NULL,
+                      legend.pageTextStyle.textBorderType = NULL,
+                      legend.pageTextStyle.textShadowColor = NULL,
+                      legend.pageTextStyle.textShadowBlur = NULL,
+                      legend.pageTextStyle.textShadowOffsetX = NULL,
+                      legend.pageTextStyle.textShadowOffsetY = NULL,
+                      legend.emphasis.selectorLabel.show = NULL,
+                      legend.emphasis.selectorLabel.distance = NULL,
+                      legend.emphasis.selectorLabel.rotate = NULL,
+                      legend.emphasis.selectorLabel.color = NULL,
+                      legend.emphasis.selectorLabel.fontStyle = NULL,
+                      legend.emphasis.selectorLabel.fontWeight = NULL,
+                      legend.emphasis.selectorLabel.fontFamily = NULL,
+                      legend.emphasis.selectorLabel.fontSize = NULL,
+                      legend.emphasis.selectorLabel.align = NULL,
+                      legend.emphasis.selectorLabel.verticalAlign = NULL,
+                      legend.emphasis.selectorLabel.lineHeight = NULL,
+                      legend.emphasis.selectorLabel.backgroundColor = NULL,
+                      legend.emphasis.selectorLabel.borderColor = NULL,
+                      legend.emphasis.selectorLabel.borderWidth = NULL,
+                      legend.emphasis.selectorLabel.borderType = NULL,
+                      legend.emphasis.selectorLabel.borderRadius = NULL,
+                      legend.emphasis.selectorLabel.padding = NULL,
+                      legend.emphasis.selectorLabel.shadowColor = NULL,
+                      legend.emphasis.selectorLabel.shadowBlur = NULL,
+                      legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                      legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                      legend.emphasis.selectorLabel.width = NULL,
+                      legend.emphasis.selectorLabel.height = NULL,
+                      legend.emphasis.selectorLabel.textBorderColor = NULL,
+                      legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                      legend.emphasis.selectorLabel.textBorderType = NULL,
+                      legend.emphasis.selectorLabel.textShadowColor = NULL,
+                      legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                      legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                      legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
+                      tooltip.show = TRUE,
+                      tooltip.trigger = "cross",
+                      tooltip.backgroundColor = NULL,
+                      tooltip.borderColor = NULL,
+                      tooltip.borderWidth = NULL,
+                      tooltip.padding = NULL,
+                      tooltip.axisPointer.type = "cross",
+                      tooltip.axisPointer.lineStyle.color = NULL,
+                      tooltip.axisPointer.shadowStyle.color = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                      tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                      tooltip.axisPointer.shadowStyle.opacity = NULL,
+                      tooltip.textStyle.color = NULL,
+                      tooltip.textStyle.fontStyle = NULL,
+                      tooltip.textStyle.fontWeight = NULL,
+                      tooltip.textStyle.fontFamily = NULL,
+                      tooltip.textStyle.lineHeight = NULL,
+                      tooltip.textStyle.width = NULL,
+                      tooltip.textStyle.height = NULL,
+                      tooltip.textStyle.textBorderColor = NULL,
+                      tooltip.textStyle.textBorderWidth = NULL,
+                      tooltip.textStyle.textBorderType = NULL,
+                      tooltip.textStyle.textShadowColor = NULL,
+                      tooltip.textStyle.textShadowBlur = NULL,
+                      tooltip.textStyle.textShadowOffsetX = NULL,
+                      tooltip.textStyle.textShadowOffsetY = NULL,
                       Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -1898,6 +2442,117 @@ Histogram <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -2036,8 +2691,129 @@ Pie <- function(dt = NULL,
                 title.subtextStyle.textShadowBlur = NULL,
                 title.subtextStyle.textShadowOffsetX = NULL,
                 title.subtextStyle.textShadowOffsetY = NULL,
+                legend.show = TRUE,
+                legend.type = "scross",
+                legend.selector = NULL,
+                legend.icon = NULL,
+                legend.align = NULL,
+                legend.padding = NULL,
+                legend.itemGap = NULL,
+                legend.itemWidth = NULL,
+                legend.orient = NULL,
+                legend.width = NULL,
+                legend.height = NULL,
+                legend.left = NULL,
+                legend.right = NULL,
+                legend.top = NULL,
+                legend.bottom = NULL,
+                legend.backgroundColor = NULL,
+                legend.borderColor = NULL,
+                legend.borderWidth = NULL,
+                legend.borderRadius = NULL,
+                legend.shadowBlur = NULL,
+                legend.shadowColor = NULL,
+                legend.shadowOffsetX = NULL,
+                legend.shadowOffsetY = NULL,
+                legend.itemStyle.color = NULL,
+                legend.itemStyle.borderColor = NULL,
+                legend.itemStyle.borderWidth = NULL,
+                legend.itemStyle.borderType = NULL,
+                legend.itemStyle.shadowBlur = NULL,
+                legend.itemStyle.shadowColor = NULL,
+                legend.itemStyle.shadowOffsetX = NULL,
+                legend.itemStyle.shadowOffsetY = NULL,
+                legend.itemStyle.opacity = NULL,
+                legend.lineStyle.color = NULL,
+                legend.lineStyle.width = NULL,
+                legend.lineStyle.type = NULL,
+                legend.lineStyle.shadowBlur = NULL,
+                legend.lineStyle.shadowColor = NULL,
+                legend.lineStyle.shadowOffsetX = NULL,
+                legend.lineStyle.shadowOffsetY = NULL,
+                legend.lineStyle.opacity = NULL,
+                legend.lineStyle.inactiveColor = NULL,
+                legend.lineStyle.inactiveWidth = NULL,
+                legend.textStyle.color = NULL,
+                legend.textStyle.fontStyle = NULL,
+                legend.textStyle.fontWeight = NULL,
+                legend.textStyle.fontFamily = NULL,
+                legend.textStyle.fontSize = NULL,
+                legend.textStyle.backgroundColor = NULL,
+                legend.textStyle.borderColor = NULL,
+                legend.textStyle.borderWidth = NULL,
+                legend.textStyle.borderType = NULL,
+                legend.textStyle.borderRadius = NULL,
+                legend.textStyle.padding = NULL,
+                legend.textStyle.shadowColor = NULL,
+                legend.textStyle.shadowBlur = NULL,
+                legend.textStyle.shadowOffsetX = NULL,
+                legend.textStyle.shadowOffsetY = NULL,
+                legend.textStyle.width = NULL,
+                legend.textStyle.height = NULL,
+                legend.textStyle.textBorderColor = NULL,
+                legend.textStyle.textBorderWidth = NULL,
+                legend.textStyle.textBorderType = NULL,
+                legend.textStyle.textShadowColor = NULL,
+                legend.textStyle.textShadowBlur = NULL,
+                legend.textStyle.textShadowOffsetX = NULL,
+                legend.textStyle.textShadowOffsetY = NULL,
+                legend.scrollDataIndex = NULL,
+                legend.pageButtonItemGap = NULL,
+                legend.pageButtonGap = NULL,
+                legend.pageButtonPosition = NULL,
+                legend.pageIconColor = NULL,
+                legend.pageIconInactiveColor = NULL,
+                legend.pageIconSize = NULL,
+                legend.pageTextStyle = NULL,
+                legend.animation = NULL,
+                legend.animationDurationUpdate = NULL,
+                legend.pageTextStyle.color = NULL,
+                legend.pageTextStyle.fontStyle = NULL,
+                legend.pageTextStyle.fontWeight = NULL,
+                legend.pageTextStyle.fontFamily = NULL,
+                legend.pageTextStyle.fontSize = NULL,
+                legend.pageTextStyle.lineHeight = NULL,
+                legend.pageTextStyle.width = NULL,
+                legend.pageTextStyle.height = NULL,
+                legend.pageTextStyle.textBorderColor = NULL,
+                legend.pageTextStyle.textBorderWidth = NULL,
+                legend.pageTextStyle.textBorderType = NULL,
+                legend.pageTextStyle.textShadowColor = NULL,
+                legend.pageTextStyle.textShadowBlur = NULL,
+                legend.pageTextStyle.textShadowOffsetX = NULL,
+                legend.pageTextStyle.textShadowOffsetY = NULL,
+                legend.emphasis.selectorLabel.show = NULL,
+                legend.emphasis.selectorLabel.distance = NULL,
+                legend.emphasis.selectorLabel.rotate = NULL,
+                legend.emphasis.selectorLabel.color = NULL,
+                legend.emphasis.selectorLabel.fontStyle = NULL,
+                legend.emphasis.selectorLabel.fontWeight = NULL,
+                legend.emphasis.selectorLabel.fontFamily = NULL,
+                legend.emphasis.selectorLabel.fontSize = NULL,
+                legend.emphasis.selectorLabel.align = NULL,
+                legend.emphasis.selectorLabel.verticalAlign = NULL,
+                legend.emphasis.selectorLabel.lineHeight = NULL,
+                legend.emphasis.selectorLabel.backgroundColor = NULL,
+                legend.emphasis.selectorLabel.borderColor = NULL,
+                legend.emphasis.selectorLabel.borderWidth = NULL,
+                legend.emphasis.selectorLabel.borderType = NULL,
+                legend.emphasis.selectorLabel.borderRadius = NULL,
+                legend.emphasis.selectorLabel.padding = NULL,
+                legend.emphasis.selectorLabel.shadowColor = NULL,
+                legend.emphasis.selectorLabel.shadowBlur = NULL,
+                legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                legend.emphasis.selectorLabel.width = NULL,
+                legend.emphasis.selectorLabel.height = NULL,
+                legend.emphasis.selectorLabel.textBorderColor = NULL,
+                legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                legend.emphasis.selectorLabel.textBorderType = NULL,
+                legend.emphasis.selectorLabel.textShadowColor = NULL,
+                legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                 tooltip.show = TRUE,
-                tooltip.trigger = "item",
+                tooltip.trigger = "cross",
                 tooltip.backgroundColor = NULL,
                 tooltip.borderColor = NULL,
                 tooltip.borderWidth = NULL,
@@ -2182,8 +2958,64 @@ Pie <- function(dt = NULL,
 
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_brush(e = p1)
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
     p1 <- e_title_full(
       e = p1,
       title.text = title.text,
@@ -2323,6 +3155,117 @@ Pie <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -2462,8 +3405,129 @@ Donut <- function(dt = NULL,
                   title.subtextStyle.textShadowBlur = NULL,
                   title.subtextStyle.textShadowOffsetX = NULL,
                   title.subtextStyle.textShadowOffsetY = NULL,
-                  xtooltip.show = TRUE,
-                  tooltip.trigger = "item",
+                  legend.show = TRUE,
+                  legend.type = "scross",
+                  legend.selector = NULL,
+                  legend.icon = NULL,
+                  legend.align = NULL,
+                  legend.padding = NULL,
+                  legend.itemGap = NULL,
+                  legend.itemWidth = NULL,
+                  legend.orient = NULL,
+                  legend.width = NULL,
+                  legend.height = NULL,
+                  legend.left = NULL,
+                  legend.right = NULL,
+                  legend.top = NULL,
+                  legend.bottom = NULL,
+                  legend.backgroundColor = NULL,
+                  legend.borderColor = NULL,
+                  legend.borderWidth = NULL,
+                  legend.borderRadius = NULL,
+                  legend.shadowBlur = NULL,
+                  legend.shadowColor = NULL,
+                  legend.shadowOffsetX = NULL,
+                  legend.shadowOffsetY = NULL,
+                  legend.itemStyle.color = NULL,
+                  legend.itemStyle.borderColor = NULL,
+                  legend.itemStyle.borderWidth = NULL,
+                  legend.itemStyle.borderType = NULL,
+                  legend.itemStyle.shadowBlur = NULL,
+                  legend.itemStyle.shadowColor = NULL,
+                  legend.itemStyle.shadowOffsetX = NULL,
+                  legend.itemStyle.shadowOffsetY = NULL,
+                  legend.itemStyle.opacity = NULL,
+                  legend.lineStyle.color = NULL,
+                  legend.lineStyle.width = NULL,
+                  legend.lineStyle.type = NULL,
+                  legend.lineStyle.shadowBlur = NULL,
+                  legend.lineStyle.shadowColor = NULL,
+                  legend.lineStyle.shadowOffsetX = NULL,
+                  legend.lineStyle.shadowOffsetY = NULL,
+                  legend.lineStyle.opacity = NULL,
+                  legend.lineStyle.inactiveColor = NULL,
+                  legend.lineStyle.inactiveWidth = NULL,
+                  legend.textStyle.color = NULL,
+                  legend.textStyle.fontStyle = NULL,
+                  legend.textStyle.fontWeight = NULL,
+                  legend.textStyle.fontFamily = NULL,
+                  legend.textStyle.fontSize = NULL,
+                  legend.textStyle.backgroundColor = NULL,
+                  legend.textStyle.borderColor = NULL,
+                  legend.textStyle.borderWidth = NULL,
+                  legend.textStyle.borderType = NULL,
+                  legend.textStyle.borderRadius = NULL,
+                  legend.textStyle.padding = NULL,
+                  legend.textStyle.shadowColor = NULL,
+                  legend.textStyle.shadowBlur = NULL,
+                  legend.textStyle.shadowOffsetX = NULL,
+                  legend.textStyle.shadowOffsetY = NULL,
+                  legend.textStyle.width = NULL,
+                  legend.textStyle.height = NULL,
+                  legend.textStyle.textBorderColor = NULL,
+                  legend.textStyle.textBorderWidth = NULL,
+                  legend.textStyle.textBorderType = NULL,
+                  legend.textStyle.textShadowColor = NULL,
+                  legend.textStyle.textShadowBlur = NULL,
+                  legend.textStyle.textShadowOffsetX = NULL,
+                  legend.textStyle.textShadowOffsetY = NULL,
+                  legend.scrollDataIndex = NULL,
+                  legend.pageButtonItemGap = NULL,
+                  legend.pageButtonGap = NULL,
+                  legend.pageButtonPosition = NULL,
+                  legend.pageIconColor = NULL,
+                  legend.pageIconInactiveColor = NULL,
+                  legend.pageIconSize = NULL,
+                  legend.pageTextStyle = NULL,
+                  legend.animation = NULL,
+                  legend.animationDurationUpdate = NULL,
+                  legend.pageTextStyle.color = NULL,
+                  legend.pageTextStyle.fontStyle = NULL,
+                  legend.pageTextStyle.fontWeight = NULL,
+                  legend.pageTextStyle.fontFamily = NULL,
+                  legend.pageTextStyle.fontSize = NULL,
+                  legend.pageTextStyle.lineHeight = NULL,
+                  legend.pageTextStyle.width = NULL,
+                  legend.pageTextStyle.height = NULL,
+                  legend.pageTextStyle.textBorderColor = NULL,
+                  legend.pageTextStyle.textBorderWidth = NULL,
+                  legend.pageTextStyle.textBorderType = NULL,
+                  legend.pageTextStyle.textShadowColor = NULL,
+                  legend.pageTextStyle.textShadowBlur = NULL,
+                  legend.pageTextStyle.textShadowOffsetX = NULL,
+                  legend.pageTextStyle.textShadowOffsetY = NULL,
+                  legend.emphasis.selectorLabel.show = NULL,
+                  legend.emphasis.selectorLabel.distance = NULL,
+                  legend.emphasis.selectorLabel.rotate = NULL,
+                  legend.emphasis.selectorLabel.color = NULL,
+                  legend.emphasis.selectorLabel.fontStyle = NULL,
+                  legend.emphasis.selectorLabel.fontWeight = NULL,
+                  legend.emphasis.selectorLabel.fontFamily = NULL,
+                  legend.emphasis.selectorLabel.fontSize = NULL,
+                  legend.emphasis.selectorLabel.align = NULL,
+                  legend.emphasis.selectorLabel.verticalAlign = NULL,
+                  legend.emphasis.selectorLabel.lineHeight = NULL,
+                  legend.emphasis.selectorLabel.backgroundColor = NULL,
+                  legend.emphasis.selectorLabel.borderColor = NULL,
+                  legend.emphasis.selectorLabel.borderWidth = NULL,
+                  legend.emphasis.selectorLabel.borderType = NULL,
+                  legend.emphasis.selectorLabel.borderRadius = NULL,
+                  legend.emphasis.selectorLabel.padding = NULL,
+                  legend.emphasis.selectorLabel.shadowColor = NULL,
+                  legend.emphasis.selectorLabel.shadowBlur = NULL,
+                  legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                  legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                  legend.emphasis.selectorLabel.width = NULL,
+                  legend.emphasis.selectorLabel.height = NULL,
+                  legend.emphasis.selectorLabel.textBorderColor = NULL,
+                  legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                  legend.emphasis.selectorLabel.textBorderType = NULL,
+                  legend.emphasis.selectorLabel.textShadowColor = NULL,
+                  legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                  legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                  legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
+                  tooltip.show = TRUE,
+                  tooltip.trigger = "cross",
                   tooltip.backgroundColor = NULL,
                   tooltip.borderColor = NULL,
                   tooltip.borderWidth = NULL,
@@ -2612,8 +3676,64 @@ Donut <- function(dt = NULL,
 
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_brush(e = p1)
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
     p1 <- e_title_full(
       e = p1,
       title.text = title.text,
@@ -2754,6 +3874,117 @@ Donut <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -2892,6 +4123,127 @@ Rosetype <- function(dt = NULL,
                      title.subtextStyle.textShadowBlur = NULL,
                      title.subtextStyle.textShadowOffsetX = NULL,
                      title.subtextStyle.textShadowOffsetY = NULL,
+                     legend.show = TRUE,
+                     legend.type = "scross",
+                     legend.selector = NULL,
+                     legend.icon = NULL,
+                     legend.align = NULL,
+                     legend.padding = NULL,
+                     legend.itemGap = NULL,
+                     legend.itemWidth = NULL,
+                     legend.orient = NULL,
+                     legend.width = NULL,
+                     legend.height = NULL,
+                     legend.left = NULL,
+                     legend.right = NULL,
+                     legend.top = NULL,
+                     legend.bottom = NULL,
+                     legend.backgroundColor = NULL,
+                     legend.borderColor = NULL,
+                     legend.borderWidth = NULL,
+                     legend.borderRadius = NULL,
+                     legend.shadowBlur = NULL,
+                     legend.shadowColor = NULL,
+                     legend.shadowOffsetX = NULL,
+                     legend.shadowOffsetY = NULL,
+                     legend.itemStyle.color = NULL,
+                     legend.itemStyle.borderColor = NULL,
+                     legend.itemStyle.borderWidth = NULL,
+                     legend.itemStyle.borderType = NULL,
+                     legend.itemStyle.shadowBlur = NULL,
+                     legend.itemStyle.shadowColor = NULL,
+                     legend.itemStyle.shadowOffsetX = NULL,
+                     legend.itemStyle.shadowOffsetY = NULL,
+                     legend.itemStyle.opacity = NULL,
+                     legend.lineStyle.color = NULL,
+                     legend.lineStyle.width = NULL,
+                     legend.lineStyle.type = NULL,
+                     legend.lineStyle.shadowBlur = NULL,
+                     legend.lineStyle.shadowColor = NULL,
+                     legend.lineStyle.shadowOffsetX = NULL,
+                     legend.lineStyle.shadowOffsetY = NULL,
+                     legend.lineStyle.opacity = NULL,
+                     legend.lineStyle.inactiveColor = NULL,
+                     legend.lineStyle.inactiveWidth = NULL,
+                     legend.textStyle.color = NULL,
+                     legend.textStyle.fontStyle = NULL,
+                     legend.textStyle.fontWeight = NULL,
+                     legend.textStyle.fontFamily = NULL,
+                     legend.textStyle.fontSize = NULL,
+                     legend.textStyle.backgroundColor = NULL,
+                     legend.textStyle.borderColor = NULL,
+                     legend.textStyle.borderWidth = NULL,
+                     legend.textStyle.borderType = NULL,
+                     legend.textStyle.borderRadius = NULL,
+                     legend.textStyle.padding = NULL,
+                     legend.textStyle.shadowColor = NULL,
+                     legend.textStyle.shadowBlur = NULL,
+                     legend.textStyle.shadowOffsetX = NULL,
+                     legend.textStyle.shadowOffsetY = NULL,
+                     legend.textStyle.width = NULL,
+                     legend.textStyle.height = NULL,
+                     legend.textStyle.textBorderColor = NULL,
+                     legend.textStyle.textBorderWidth = NULL,
+                     legend.textStyle.textBorderType = NULL,
+                     legend.textStyle.textShadowColor = NULL,
+                     legend.textStyle.textShadowBlur = NULL,
+                     legend.textStyle.textShadowOffsetX = NULL,
+                     legend.textStyle.textShadowOffsetY = NULL,
+                     legend.scrollDataIndex = NULL,
+                     legend.pageButtonItemGap = NULL,
+                     legend.pageButtonGap = NULL,
+                     legend.pageButtonPosition = NULL,
+                     legend.pageIconColor = NULL,
+                     legend.pageIconInactiveColor = NULL,
+                     legend.pageIconSize = NULL,
+                     legend.pageTextStyle = NULL,
+                     legend.animation = NULL,
+                     legend.animationDurationUpdate = NULL,
+                     legend.pageTextStyle.color = NULL,
+                     legend.pageTextStyle.fontStyle = NULL,
+                     legend.pageTextStyle.fontWeight = NULL,
+                     legend.pageTextStyle.fontFamily = NULL,
+                     legend.pageTextStyle.fontSize = NULL,
+                     legend.pageTextStyle.lineHeight = NULL,
+                     legend.pageTextStyle.width = NULL,
+                     legend.pageTextStyle.height = NULL,
+                     legend.pageTextStyle.textBorderColor = NULL,
+                     legend.pageTextStyle.textBorderWidth = NULL,
+                     legend.pageTextStyle.textBorderType = NULL,
+                     legend.pageTextStyle.textShadowColor = NULL,
+                     legend.pageTextStyle.textShadowBlur = NULL,
+                     legend.pageTextStyle.textShadowOffsetX = NULL,
+                     legend.pageTextStyle.textShadowOffsetY = NULL,
+                     legend.emphasis.selectorLabel.show = NULL,
+                     legend.emphasis.selectorLabel.distance = NULL,
+                     legend.emphasis.selectorLabel.rotate = NULL,
+                     legend.emphasis.selectorLabel.color = NULL,
+                     legend.emphasis.selectorLabel.fontStyle = NULL,
+                     legend.emphasis.selectorLabel.fontWeight = NULL,
+                     legend.emphasis.selectorLabel.fontFamily = NULL,
+                     legend.emphasis.selectorLabel.fontSize = NULL,
+                     legend.emphasis.selectorLabel.align = NULL,
+                     legend.emphasis.selectorLabel.verticalAlign = NULL,
+                     legend.emphasis.selectorLabel.lineHeight = NULL,
+                     legend.emphasis.selectorLabel.backgroundColor = NULL,
+                     legend.emphasis.selectorLabel.borderColor = NULL,
+                     legend.emphasis.selectorLabel.borderWidth = NULL,
+                     legend.emphasis.selectorLabel.borderType = NULL,
+                     legend.emphasis.selectorLabel.borderRadius = NULL,
+                     legend.emphasis.selectorLabel.padding = NULL,
+                     legend.emphasis.selectorLabel.shadowColor = NULL,
+                     legend.emphasis.selectorLabel.shadowBlur = NULL,
+                     legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                     legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                     legend.emphasis.selectorLabel.width = NULL,
+                     legend.emphasis.selectorLabel.height = NULL,
+                     legend.emphasis.selectorLabel.textBorderColor = NULL,
+                     legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                     legend.emphasis.selectorLabel.textBorderType = NULL,
+                     legend.emphasis.selectorLabel.textShadowColor = NULL,
+                     legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                     legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                     legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                      tooltip.show = TRUE,
                      tooltip.trigger = "cross",
                      tooltip.backgroundColor = NULL,
@@ -3042,8 +4394,64 @@ Rosetype <- function(dt = NULL,
 
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_brush(e = p1)
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
     p1 <- e_title_full(
       e = p1,
       title.text = title.text,
@@ -3265,6 +4673,117 @@ Rosetype <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -3486,6 +5005,127 @@ Box <- function(dt = NULL,
                 yAxis.axisLabel.textShadowOffsetX = NULL,
                 yAxis.axisLabel.textShadowOffsetY = NULL,
                 yAxis.axisLabel.overflow = NULL,
+                legend.show = TRUE,
+                legend.type = "scross",
+                legend.selector = NULL,
+                legend.icon = NULL,
+                legend.align = NULL,
+                legend.padding = NULL,
+                legend.itemGap = NULL,
+                legend.itemWidth = NULL,
+                legend.orient = NULL,
+                legend.width = NULL,
+                legend.height = NULL,
+                legend.left = NULL,
+                legend.right = NULL,
+                legend.top = NULL,
+                legend.bottom = NULL,
+                legend.backgroundColor = NULL,
+                legend.borderColor = NULL,
+                legend.borderWidth = NULL,
+                legend.borderRadius = NULL,
+                legend.shadowBlur = NULL,
+                legend.shadowColor = NULL,
+                legend.shadowOffsetX = NULL,
+                legend.shadowOffsetY = NULL,
+                legend.itemStyle.color = NULL,
+                legend.itemStyle.borderColor = NULL,
+                legend.itemStyle.borderWidth = NULL,
+                legend.itemStyle.borderType = NULL,
+                legend.itemStyle.shadowBlur = NULL,
+                legend.itemStyle.shadowColor = NULL,
+                legend.itemStyle.shadowOffsetX = NULL,
+                legend.itemStyle.shadowOffsetY = NULL,
+                legend.itemStyle.opacity = NULL,
+                legend.lineStyle.color = NULL,
+                legend.lineStyle.width = NULL,
+                legend.lineStyle.type = NULL,
+                legend.lineStyle.shadowBlur = NULL,
+                legend.lineStyle.shadowColor = NULL,
+                legend.lineStyle.shadowOffsetX = NULL,
+                legend.lineStyle.shadowOffsetY = NULL,
+                legend.lineStyle.opacity = NULL,
+                legend.lineStyle.inactiveColor = NULL,
+                legend.lineStyle.inactiveWidth = NULL,
+                legend.textStyle.color = NULL,
+                legend.textStyle.fontStyle = NULL,
+                legend.textStyle.fontWeight = NULL,
+                legend.textStyle.fontFamily = NULL,
+                legend.textStyle.fontSize = NULL,
+                legend.textStyle.backgroundColor = NULL,
+                legend.textStyle.borderColor = NULL,
+                legend.textStyle.borderWidth = NULL,
+                legend.textStyle.borderType = NULL,
+                legend.textStyle.borderRadius = NULL,
+                legend.textStyle.padding = NULL,
+                legend.textStyle.shadowColor = NULL,
+                legend.textStyle.shadowBlur = NULL,
+                legend.textStyle.shadowOffsetX = NULL,
+                legend.textStyle.shadowOffsetY = NULL,
+                legend.textStyle.width = NULL,
+                legend.textStyle.height = NULL,
+                legend.textStyle.textBorderColor = NULL,
+                legend.textStyle.textBorderWidth = NULL,
+                legend.textStyle.textBorderType = NULL,
+                legend.textStyle.textShadowColor = NULL,
+                legend.textStyle.textShadowBlur = NULL,
+                legend.textStyle.textShadowOffsetX = NULL,
+                legend.textStyle.textShadowOffsetY = NULL,
+                legend.scrollDataIndex = NULL,
+                legend.pageButtonItemGap = NULL,
+                legend.pageButtonGap = NULL,
+                legend.pageButtonPosition = NULL,
+                legend.pageIconColor = NULL,
+                legend.pageIconInactiveColor = NULL,
+                legend.pageIconSize = NULL,
+                legend.pageTextStyle = NULL,
+                legend.animation = NULL,
+                legend.animationDurationUpdate = NULL,
+                legend.pageTextStyle.color = NULL,
+                legend.pageTextStyle.fontStyle = NULL,
+                legend.pageTextStyle.fontWeight = NULL,
+                legend.pageTextStyle.fontFamily = NULL,
+                legend.pageTextStyle.fontSize = NULL,
+                legend.pageTextStyle.lineHeight = NULL,
+                legend.pageTextStyle.width = NULL,
+                legend.pageTextStyle.height = NULL,
+                legend.pageTextStyle.textBorderColor = NULL,
+                legend.pageTextStyle.textBorderWidth = NULL,
+                legend.pageTextStyle.textBorderType = NULL,
+                legend.pageTextStyle.textShadowColor = NULL,
+                legend.pageTextStyle.textShadowBlur = NULL,
+                legend.pageTextStyle.textShadowOffsetX = NULL,
+                legend.pageTextStyle.textShadowOffsetY = NULL,
+                legend.emphasis.selectorLabel.show = NULL,
+                legend.emphasis.selectorLabel.distance = NULL,
+                legend.emphasis.selectorLabel.rotate = NULL,
+                legend.emphasis.selectorLabel.color = NULL,
+                legend.emphasis.selectorLabel.fontStyle = NULL,
+                legend.emphasis.selectorLabel.fontWeight = NULL,
+                legend.emphasis.selectorLabel.fontFamily = NULL,
+                legend.emphasis.selectorLabel.fontSize = NULL,
+                legend.emphasis.selectorLabel.align = NULL,
+                legend.emphasis.selectorLabel.verticalAlign = NULL,
+                legend.emphasis.selectorLabel.lineHeight = NULL,
+                legend.emphasis.selectorLabel.backgroundColor = NULL,
+                legend.emphasis.selectorLabel.borderColor = NULL,
+                legend.emphasis.selectorLabel.borderWidth = NULL,
+                legend.emphasis.selectorLabel.borderType = NULL,
+                legend.emphasis.selectorLabel.borderRadius = NULL,
+                legend.emphasis.selectorLabel.padding = NULL,
+                legend.emphasis.selectorLabel.shadowColor = NULL,
+                legend.emphasis.selectorLabel.shadowBlur = NULL,
+                legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                legend.emphasis.selectorLabel.width = NULL,
+                legend.emphasis.selectorLabel.height = NULL,
+                legend.emphasis.selectorLabel.textBorderColor = NULL,
+                legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                legend.emphasis.selectorLabel.textBorderType = NULL,
+                legend.emphasis.selectorLabel.textShadowColor = NULL,
+                legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                 tooltip.show = TRUE,
                 tooltip.trigger = "cross",
                 tooltip.backgroundColor = NULL,
@@ -4691,6 +6331,117 @@ WordCloud <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param ContainLabel TRUE
 #' @param DarkMode FALSE
 #' @param tooltip.show logical
@@ -4819,6 +6570,127 @@ Radar <- function(dt = NULL,
                   title.subtextStyle.textShadowBlur = NULL,
                   title.subtextStyle.textShadowOffsetX = NULL,
                   title.subtextStyle.textShadowOffsetY = NULL,
+                  legend.show = TRUE,
+                  legend.type = "scross",
+                  legend.selector = NULL,
+                  legend.icon = NULL,
+                  legend.align = NULL,
+                  legend.padding = NULL,
+                  legend.itemGap = NULL,
+                  legend.itemWidth = NULL,
+                  legend.orient = NULL,
+                  legend.width = NULL,
+                  legend.height = NULL,
+                  legend.left = NULL,
+                  legend.right = NULL,
+                  legend.top = NULL,
+                  legend.bottom = NULL,
+                  legend.backgroundColor = NULL,
+                  legend.borderColor = NULL,
+                  legend.borderWidth = NULL,
+                  legend.borderRadius = NULL,
+                  legend.shadowBlur = NULL,
+                  legend.shadowColor = NULL,
+                  legend.shadowOffsetX = NULL,
+                  legend.shadowOffsetY = NULL,
+                  legend.itemStyle.color = NULL,
+                  legend.itemStyle.borderColor = NULL,
+                  legend.itemStyle.borderWidth = NULL,
+                  legend.itemStyle.borderType = NULL,
+                  legend.itemStyle.shadowBlur = NULL,
+                  legend.itemStyle.shadowColor = NULL,
+                  legend.itemStyle.shadowOffsetX = NULL,
+                  legend.itemStyle.shadowOffsetY = NULL,
+                  legend.itemStyle.opacity = NULL,
+                  legend.lineStyle.color = NULL,
+                  legend.lineStyle.width = NULL,
+                  legend.lineStyle.type = NULL,
+                  legend.lineStyle.shadowBlur = NULL,
+                  legend.lineStyle.shadowColor = NULL,
+                  legend.lineStyle.shadowOffsetX = NULL,
+                  legend.lineStyle.shadowOffsetY = NULL,
+                  legend.lineStyle.opacity = NULL,
+                  legend.lineStyle.inactiveColor = NULL,
+                  legend.lineStyle.inactiveWidth = NULL,
+                  legend.textStyle.color = NULL,
+                  legend.textStyle.fontStyle = NULL,
+                  legend.textStyle.fontWeight = NULL,
+                  legend.textStyle.fontFamily = NULL,
+                  legend.textStyle.fontSize = NULL,
+                  legend.textStyle.backgroundColor = NULL,
+                  legend.textStyle.borderColor = NULL,
+                  legend.textStyle.borderWidth = NULL,
+                  legend.textStyle.borderType = NULL,
+                  legend.textStyle.borderRadius = NULL,
+                  legend.textStyle.padding = NULL,
+                  legend.textStyle.shadowColor = NULL,
+                  legend.textStyle.shadowBlur = NULL,
+                  legend.textStyle.shadowOffsetX = NULL,
+                  legend.textStyle.shadowOffsetY = NULL,
+                  legend.textStyle.width = NULL,
+                  legend.textStyle.height = NULL,
+                  legend.textStyle.textBorderColor = NULL,
+                  legend.textStyle.textBorderWidth = NULL,
+                  legend.textStyle.textBorderType = NULL,
+                  legend.textStyle.textShadowColor = NULL,
+                  legend.textStyle.textShadowBlur = NULL,
+                  legend.textStyle.textShadowOffsetX = NULL,
+                  legend.textStyle.textShadowOffsetY = NULL,
+                  legend.scrollDataIndex = NULL,
+                  legend.pageButtonItemGap = NULL,
+                  legend.pageButtonGap = NULL,
+                  legend.pageButtonPosition = NULL,
+                  legend.pageIconColor = NULL,
+                  legend.pageIconInactiveColor = NULL,
+                  legend.pageIconSize = NULL,
+                  legend.pageTextStyle = NULL,
+                  legend.animation = NULL,
+                  legend.animationDurationUpdate = NULL,
+                  legend.pageTextStyle.color = NULL,
+                  legend.pageTextStyle.fontStyle = NULL,
+                  legend.pageTextStyle.fontWeight = NULL,
+                  legend.pageTextStyle.fontFamily = NULL,
+                  legend.pageTextStyle.fontSize = NULL,
+                  legend.pageTextStyle.lineHeight = NULL,
+                  legend.pageTextStyle.width = NULL,
+                  legend.pageTextStyle.height = NULL,
+                  legend.pageTextStyle.textBorderColor = NULL,
+                  legend.pageTextStyle.textBorderWidth = NULL,
+                  legend.pageTextStyle.textBorderType = NULL,
+                  legend.pageTextStyle.textShadowColor = NULL,
+                  legend.pageTextStyle.textShadowBlur = NULL,
+                  legend.pageTextStyle.textShadowOffsetX = NULL,
+                  legend.pageTextStyle.textShadowOffsetY = NULL,
+                  legend.emphasis.selectorLabel.show = NULL,
+                  legend.emphasis.selectorLabel.distance = NULL,
+                  legend.emphasis.selectorLabel.rotate = NULL,
+                  legend.emphasis.selectorLabel.color = NULL,
+                  legend.emphasis.selectorLabel.fontStyle = NULL,
+                  legend.emphasis.selectorLabel.fontWeight = NULL,
+                  legend.emphasis.selectorLabel.fontFamily = NULL,
+                  legend.emphasis.selectorLabel.fontSize = NULL,
+                  legend.emphasis.selectorLabel.align = NULL,
+                  legend.emphasis.selectorLabel.verticalAlign = NULL,
+                  legend.emphasis.selectorLabel.lineHeight = NULL,
+                  legend.emphasis.selectorLabel.backgroundColor = NULL,
+                  legend.emphasis.selectorLabel.borderColor = NULL,
+                  legend.emphasis.selectorLabel.borderWidth = NULL,
+                  legend.emphasis.selectorLabel.borderType = NULL,
+                  legend.emphasis.selectorLabel.borderRadius = NULL,
+                  legend.emphasis.selectorLabel.padding = NULL,
+                  legend.emphasis.selectorLabel.shadowColor = NULL,
+                  legend.emphasis.selectorLabel.shadowBlur = NULL,
+                  legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                  legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                  legend.emphasis.selectorLabel.width = NULL,
+                  legend.emphasis.selectorLabel.height = NULL,
+                  legend.emphasis.selectorLabel.textBorderColor = NULL,
+                  legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                  legend.emphasis.selectorLabel.textBorderType = NULL,
+                  legend.emphasis.selectorLabel.textShadowColor = NULL,
+                  legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                  legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                  legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                   tooltip.show = TRUE,
                   tooltip.trigger = "cross",
                   tooltip.backgroundColor = NULL,
@@ -4997,7 +6869,62 @@ Radar <- function(dt = NULL,
     title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   if(Debug) print("Plot.Radar() Build Echarts 8")
-  p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+  p1 <- echarts4r::e_legend_full(
+    e = p1,
+    legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+    legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+    legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+    legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+    legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+    legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+    legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+    legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+    legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+    legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+    legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+    legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+    legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+    legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+    legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+    legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+    legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+    legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+    legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+    legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+    legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+    legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+    legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+    legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+    legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+    legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+    legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+    legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+    legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+    legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+    legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+    legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+    legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+    legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+    legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+    legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+    legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+    legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+    legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+    legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+    legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+    legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+    legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+    legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+    legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+    legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+    legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+    legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+    legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+    legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+    legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+    legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+    legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
   return(p1)
 }
 
@@ -5126,47 +7053,6 @@ Radar <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -5208,6 +7094,117 @@ Radar <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -5414,6 +7411,127 @@ Line <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetX = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
+                 legend.show = TRUE,
+                 legend.type = "scross",
+                 legend.selector = NULL,
+                 legend.icon = NULL,
+                 legend.align = NULL,
+                 legend.padding = NULL,
+                 legend.itemGap = NULL,
+                 legend.itemWidth = NULL,
+                 legend.orient = NULL,
+                 legend.width = NULL,
+                 legend.height = NULL,
+                 legend.left = NULL,
+                 legend.right = NULL,
+                 legend.top = NULL,
+                 legend.bottom = NULL,
+                 legend.backgroundColor = NULL,
+                 legend.borderColor = NULL,
+                 legend.borderWidth = NULL,
+                 legend.borderRadius = NULL,
+                 legend.shadowBlur = NULL,
+                 legend.shadowColor = NULL,
+                 legend.shadowOffsetX = NULL,
+                 legend.shadowOffsetY = NULL,
+                 legend.itemStyle.color = NULL,
+                 legend.itemStyle.borderColor = NULL,
+                 legend.itemStyle.borderWidth = NULL,
+                 legend.itemStyle.borderType = NULL,
+                 legend.itemStyle.shadowBlur = NULL,
+                 legend.itemStyle.shadowColor = NULL,
+                 legend.itemStyle.shadowOffsetX = NULL,
+                 legend.itemStyle.shadowOffsetY = NULL,
+                 legend.itemStyle.opacity = NULL,
+                 legend.lineStyle.color = NULL,
+                 legend.lineStyle.width = NULL,
+                 legend.lineStyle.type = NULL,
+                 legend.lineStyle.shadowBlur = NULL,
+                 legend.lineStyle.shadowColor = NULL,
+                 legend.lineStyle.shadowOffsetX = NULL,
+                 legend.lineStyle.shadowOffsetY = NULL,
+                 legend.lineStyle.opacity = NULL,
+                 legend.lineStyle.inactiveColor = NULL,
+                 legend.lineStyle.inactiveWidth = NULL,
+                 legend.textStyle.color = NULL,
+                 legend.textStyle.fontStyle = NULL,
+                 legend.textStyle.fontWeight = NULL,
+                 legend.textStyle.fontFamily = NULL,
+                 legend.textStyle.fontSize = NULL,
+                 legend.textStyle.backgroundColor = NULL,
+                 legend.textStyle.borderColor = NULL,
+                 legend.textStyle.borderWidth = NULL,
+                 legend.textStyle.borderType = NULL,
+                 legend.textStyle.borderRadius = NULL,
+                 legend.textStyle.padding = NULL,
+                 legend.textStyle.shadowColor = NULL,
+                 legend.textStyle.shadowBlur = NULL,
+                 legend.textStyle.shadowOffsetX = NULL,
+                 legend.textStyle.shadowOffsetY = NULL,
+                 legend.textStyle.width = NULL,
+                 legend.textStyle.height = NULL,
+                 legend.textStyle.textBorderColor = NULL,
+                 legend.textStyle.textBorderWidth = NULL,
+                 legend.textStyle.textBorderType = NULL,
+                 legend.textStyle.textShadowColor = NULL,
+                 legend.textStyle.textShadowBlur = NULL,
+                 legend.textStyle.textShadowOffsetX = NULL,
+                 legend.textStyle.textShadowOffsetY = NULL,
+                 legend.scrollDataIndex = NULL,
+                 legend.pageButtonItemGap = NULL,
+                 legend.pageButtonGap = NULL,
+                 legend.pageButtonPosition = NULL,
+                 legend.pageIconColor = NULL,
+                 legend.pageIconInactiveColor = NULL,
+                 legend.pageIconSize = NULL,
+                 legend.pageTextStyle = NULL,
+                 legend.animation = NULL,
+                 legend.animationDurationUpdate = NULL,
+                 legend.pageTextStyle.color = NULL,
+                 legend.pageTextStyle.fontStyle = NULL,
+                 legend.pageTextStyle.fontWeight = NULL,
+                 legend.pageTextStyle.fontFamily = NULL,
+                 legend.pageTextStyle.fontSize = NULL,
+                 legend.pageTextStyle.lineHeight = NULL,
+                 legend.pageTextStyle.width = NULL,
+                 legend.pageTextStyle.height = NULL,
+                 legend.pageTextStyle.textBorderColor = NULL,
+                 legend.pageTextStyle.textBorderWidth = NULL,
+                 legend.pageTextStyle.textBorderType = NULL,
+                 legend.pageTextStyle.textShadowColor = NULL,
+                 legend.pageTextStyle.textShadowBlur = NULL,
+                 legend.pageTextStyle.textShadowOffsetX = NULL,
+                 legend.pageTextStyle.textShadowOffsetY = NULL,
+                 legend.emphasis.selectorLabel.show = NULL,
+                 legend.emphasis.selectorLabel.distance = NULL,
+                 legend.emphasis.selectorLabel.rotate = NULL,
+                 legend.emphasis.selectorLabel.color = NULL,
+                 legend.emphasis.selectorLabel.fontStyle = NULL,
+                 legend.emphasis.selectorLabel.fontWeight = NULL,
+                 legend.emphasis.selectorLabel.fontFamily = NULL,
+                 legend.emphasis.selectorLabel.fontSize = NULL,
+                 legend.emphasis.selectorLabel.align = NULL,
+                 legend.emphasis.selectorLabel.verticalAlign = NULL,
+                 legend.emphasis.selectorLabel.lineHeight = NULL,
+                 legend.emphasis.selectorLabel.backgroundColor = NULL,
+                 legend.emphasis.selectorLabel.borderColor = NULL,
+                 legend.emphasis.selectorLabel.borderWidth = NULL,
+                 legend.emphasis.selectorLabel.borderType = NULL,
+                 legend.emphasis.selectorLabel.borderRadius = NULL,
+                 legend.emphasis.selectorLabel.padding = NULL,
+                 legend.emphasis.selectorLabel.shadowColor = NULL,
+                 legend.emphasis.selectorLabel.shadowBlur = NULL,
+                 legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                 legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                 legend.emphasis.selectorLabel.width = NULL,
+                 legend.emphasis.selectorLabel.height = NULL,
+                 legend.emphasis.selectorLabel.textBorderColor = NULL,
+                 legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                 legend.emphasis.selectorLabel.textBorderType = NULL,
+                 legend.emphasis.selectorLabel.textShadowColor = NULL,
+                 legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                 legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                 legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                  tooltip.show = TRUE,
                  tooltip.trigger = "cross",
                  tooltip.backgroundColor = NULL,
@@ -5707,11 +7825,63 @@ Line <- function(dt = NULL,
     if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
       if(Debug) print("Line() Build Echarts 8 2")
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      if(Debug) print("Line() Build Echarts 8 3")
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
   } else {
 
@@ -6026,47 +8196,6 @@ Line <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -6108,6 +8237,117 @@ Line <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -6314,6 +8554,127 @@ Area <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetX = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
+                 legend.show = TRUE,
+                 legend.type = "scross",
+                 legend.selector = NULL,
+                 legend.icon = NULL,
+                 legend.align = NULL,
+                 legend.padding = NULL,
+                 legend.itemGap = NULL,
+                 legend.itemWidth = NULL,
+                 legend.orient = NULL,
+                 legend.width = NULL,
+                 legend.height = NULL,
+                 legend.left = NULL,
+                 legend.right = NULL,
+                 legend.top = NULL,
+                 legend.bottom = NULL,
+                 legend.backgroundColor = NULL,
+                 legend.borderColor = NULL,
+                 legend.borderWidth = NULL,
+                 legend.borderRadius = NULL,
+                 legend.shadowBlur = NULL,
+                 legend.shadowColor = NULL,
+                 legend.shadowOffsetX = NULL,
+                 legend.shadowOffsetY = NULL,
+                 legend.itemStyle.color = NULL,
+                 legend.itemStyle.borderColor = NULL,
+                 legend.itemStyle.borderWidth = NULL,
+                 legend.itemStyle.borderType = NULL,
+                 legend.itemStyle.shadowBlur = NULL,
+                 legend.itemStyle.shadowColor = NULL,
+                 legend.itemStyle.shadowOffsetX = NULL,
+                 legend.itemStyle.shadowOffsetY = NULL,
+                 legend.itemStyle.opacity = NULL,
+                 legend.lineStyle.color = NULL,
+                 legend.lineStyle.width = NULL,
+                 legend.lineStyle.type = NULL,
+                 legend.lineStyle.shadowBlur = NULL,
+                 legend.lineStyle.shadowColor = NULL,
+                 legend.lineStyle.shadowOffsetX = NULL,
+                 legend.lineStyle.shadowOffsetY = NULL,
+                 legend.lineStyle.opacity = NULL,
+                 legend.lineStyle.inactiveColor = NULL,
+                 legend.lineStyle.inactiveWidth = NULL,
+                 legend.textStyle.color = NULL,
+                 legend.textStyle.fontStyle = NULL,
+                 legend.textStyle.fontWeight = NULL,
+                 legend.textStyle.fontFamily = NULL,
+                 legend.textStyle.fontSize = NULL,
+                 legend.textStyle.backgroundColor = NULL,
+                 legend.textStyle.borderColor = NULL,
+                 legend.textStyle.borderWidth = NULL,
+                 legend.textStyle.borderType = NULL,
+                 legend.textStyle.borderRadius = NULL,
+                 legend.textStyle.padding = NULL,
+                 legend.textStyle.shadowColor = NULL,
+                 legend.textStyle.shadowBlur = NULL,
+                 legend.textStyle.shadowOffsetX = NULL,
+                 legend.textStyle.shadowOffsetY = NULL,
+                 legend.textStyle.width = NULL,
+                 legend.textStyle.height = NULL,
+                 legend.textStyle.textBorderColor = NULL,
+                 legend.textStyle.textBorderWidth = NULL,
+                 legend.textStyle.textBorderType = NULL,
+                 legend.textStyle.textShadowColor = NULL,
+                 legend.textStyle.textShadowBlur = NULL,
+                 legend.textStyle.textShadowOffsetX = NULL,
+                 legend.textStyle.textShadowOffsetY = NULL,
+                 legend.scrollDataIndex = NULL,
+                 legend.pageButtonItemGap = NULL,
+                 legend.pageButtonGap = NULL,
+                 legend.pageButtonPosition = NULL,
+                 legend.pageIconColor = NULL,
+                 legend.pageIconInactiveColor = NULL,
+                 legend.pageIconSize = NULL,
+                 legend.pageTextStyle = NULL,
+                 legend.animation = NULL,
+                 legend.animationDurationUpdate = NULL,
+                 legend.pageTextStyle.color = NULL,
+                 legend.pageTextStyle.fontStyle = NULL,
+                 legend.pageTextStyle.fontWeight = NULL,
+                 legend.pageTextStyle.fontFamily = NULL,
+                 legend.pageTextStyle.fontSize = NULL,
+                 legend.pageTextStyle.lineHeight = NULL,
+                 legend.pageTextStyle.width = NULL,
+                 legend.pageTextStyle.height = NULL,
+                 legend.pageTextStyle.textBorderColor = NULL,
+                 legend.pageTextStyle.textBorderWidth = NULL,
+                 legend.pageTextStyle.textBorderType = NULL,
+                 legend.pageTextStyle.textShadowColor = NULL,
+                 legend.pageTextStyle.textShadowBlur = NULL,
+                 legend.pageTextStyle.textShadowOffsetX = NULL,
+                 legend.pageTextStyle.textShadowOffsetY = NULL,
+                 legend.emphasis.selectorLabel.show = NULL,
+                 legend.emphasis.selectorLabel.distance = NULL,
+                 legend.emphasis.selectorLabel.rotate = NULL,
+                 legend.emphasis.selectorLabel.color = NULL,
+                 legend.emphasis.selectorLabel.fontStyle = NULL,
+                 legend.emphasis.selectorLabel.fontWeight = NULL,
+                 legend.emphasis.selectorLabel.fontFamily = NULL,
+                 legend.emphasis.selectorLabel.fontSize = NULL,
+                 legend.emphasis.selectorLabel.align = NULL,
+                 legend.emphasis.selectorLabel.verticalAlign = NULL,
+                 legend.emphasis.selectorLabel.lineHeight = NULL,
+                 legend.emphasis.selectorLabel.backgroundColor = NULL,
+                 legend.emphasis.selectorLabel.borderColor = NULL,
+                 legend.emphasis.selectorLabel.borderWidth = NULL,
+                 legend.emphasis.selectorLabel.borderType = NULL,
+                 legend.emphasis.selectorLabel.borderRadius = NULL,
+                 legend.emphasis.selectorLabel.padding = NULL,
+                 legend.emphasis.selectorLabel.shadowColor = NULL,
+                 legend.emphasis.selectorLabel.shadowBlur = NULL,
+                 legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                 legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                 legend.emphasis.selectorLabel.width = NULL,
+                 legend.emphasis.selectorLabel.height = NULL,
+                 legend.emphasis.selectorLabel.textBorderColor = NULL,
+                 legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                 legend.emphasis.selectorLabel.textBorderType = NULL,
+                 legend.emphasis.selectorLabel.textShadowColor = NULL,
+                 legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                 legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                 legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                  tooltip.show = TRUE,
                  tooltip.trigger = "cross",
                  tooltip.backgroundColor = NULL,
@@ -6606,10 +8967,63 @@ Area <- function(dt = NULL,
 
     if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
   } else {
 
@@ -6921,47 +9335,6 @@ Area <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -7003,6 +9376,117 @@ Area <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -7207,6 +9691,127 @@ Step <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetX = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
+                 legend.show = TRUE,
+                 legend.type = "scross",
+                 legend.selector = NULL,
+                 legend.icon = NULL,
+                 legend.align = NULL,
+                 legend.padding = NULL,
+                 legend.itemGap = NULL,
+                 legend.itemWidth = NULL,
+                 legend.orient = NULL,
+                 legend.width = NULL,
+                 legend.height = NULL,
+                 legend.left = NULL,
+                 legend.right = NULL,
+                 legend.top = NULL,
+                 legend.bottom = NULL,
+                 legend.backgroundColor = NULL,
+                 legend.borderColor = NULL,
+                 legend.borderWidth = NULL,
+                 legend.borderRadius = NULL,
+                 legend.shadowBlur = NULL,
+                 legend.shadowColor = NULL,
+                 legend.shadowOffsetX = NULL,
+                 legend.shadowOffsetY = NULL,
+                 legend.itemStyle.color = NULL,
+                 legend.itemStyle.borderColor = NULL,
+                 legend.itemStyle.borderWidth = NULL,
+                 legend.itemStyle.borderType = NULL,
+                 legend.itemStyle.shadowBlur = NULL,
+                 legend.itemStyle.shadowColor = NULL,
+                 legend.itemStyle.shadowOffsetX = NULL,
+                 legend.itemStyle.shadowOffsetY = NULL,
+                 legend.itemStyle.opacity = NULL,
+                 legend.lineStyle.color = NULL,
+                 legend.lineStyle.width = NULL,
+                 legend.lineStyle.type = NULL,
+                 legend.lineStyle.shadowBlur = NULL,
+                 legend.lineStyle.shadowColor = NULL,
+                 legend.lineStyle.shadowOffsetX = NULL,
+                 legend.lineStyle.shadowOffsetY = NULL,
+                 legend.lineStyle.opacity = NULL,
+                 legend.lineStyle.inactiveColor = NULL,
+                 legend.lineStyle.inactiveWidth = NULL,
+                 legend.textStyle.color = NULL,
+                 legend.textStyle.fontStyle = NULL,
+                 legend.textStyle.fontWeight = NULL,
+                 legend.textStyle.fontFamily = NULL,
+                 legend.textStyle.fontSize = NULL,
+                 legend.textStyle.backgroundColor = NULL,
+                 legend.textStyle.borderColor = NULL,
+                 legend.textStyle.borderWidth = NULL,
+                 legend.textStyle.borderType = NULL,
+                 legend.textStyle.borderRadius = NULL,
+                 legend.textStyle.padding = NULL,
+                 legend.textStyle.shadowColor = NULL,
+                 legend.textStyle.shadowBlur = NULL,
+                 legend.textStyle.shadowOffsetX = NULL,
+                 legend.textStyle.shadowOffsetY = NULL,
+                 legend.textStyle.width = NULL,
+                 legend.textStyle.height = NULL,
+                 legend.textStyle.textBorderColor = NULL,
+                 legend.textStyle.textBorderWidth = NULL,
+                 legend.textStyle.textBorderType = NULL,
+                 legend.textStyle.textShadowColor = NULL,
+                 legend.textStyle.textShadowBlur = NULL,
+                 legend.textStyle.textShadowOffsetX = NULL,
+                 legend.textStyle.textShadowOffsetY = NULL,
+                 legend.scrollDataIndex = NULL,
+                 legend.pageButtonItemGap = NULL,
+                 legend.pageButtonGap = NULL,
+                 legend.pageButtonPosition = NULL,
+                 legend.pageIconColor = NULL,
+                 legend.pageIconInactiveColor = NULL,
+                 legend.pageIconSize = NULL,
+                 legend.pageTextStyle = NULL,
+                 legend.animation = NULL,
+                 legend.animationDurationUpdate = NULL,
+                 legend.pageTextStyle.color = NULL,
+                 legend.pageTextStyle.fontStyle = NULL,
+                 legend.pageTextStyle.fontWeight = NULL,
+                 legend.pageTextStyle.fontFamily = NULL,
+                 legend.pageTextStyle.fontSize = NULL,
+                 legend.pageTextStyle.lineHeight = NULL,
+                 legend.pageTextStyle.width = NULL,
+                 legend.pageTextStyle.height = NULL,
+                 legend.pageTextStyle.textBorderColor = NULL,
+                 legend.pageTextStyle.textBorderWidth = NULL,
+                 legend.pageTextStyle.textBorderType = NULL,
+                 legend.pageTextStyle.textShadowColor = NULL,
+                 legend.pageTextStyle.textShadowBlur = NULL,
+                 legend.pageTextStyle.textShadowOffsetX = NULL,
+                 legend.pageTextStyle.textShadowOffsetY = NULL,
+                 legend.emphasis.selectorLabel.show = NULL,
+                 legend.emphasis.selectorLabel.distance = NULL,
+                 legend.emphasis.selectorLabel.rotate = NULL,
+                 legend.emphasis.selectorLabel.color = NULL,
+                 legend.emphasis.selectorLabel.fontStyle = NULL,
+                 legend.emphasis.selectorLabel.fontWeight = NULL,
+                 legend.emphasis.selectorLabel.fontFamily = NULL,
+                 legend.emphasis.selectorLabel.fontSize = NULL,
+                 legend.emphasis.selectorLabel.align = NULL,
+                 legend.emphasis.selectorLabel.verticalAlign = NULL,
+                 legend.emphasis.selectorLabel.lineHeight = NULL,
+                 legend.emphasis.selectorLabel.backgroundColor = NULL,
+                 legend.emphasis.selectorLabel.borderColor = NULL,
+                 legend.emphasis.selectorLabel.borderWidth = NULL,
+                 legend.emphasis.selectorLabel.borderType = NULL,
+                 legend.emphasis.selectorLabel.borderRadius = NULL,
+                 legend.emphasis.selectorLabel.padding = NULL,
+                 legend.emphasis.selectorLabel.shadowColor = NULL,
+                 legend.emphasis.selectorLabel.shadowBlur = NULL,
+                 legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                 legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                 legend.emphasis.selectorLabel.width = NULL,
+                 legend.emphasis.selectorLabel.height = NULL,
+                 legend.emphasis.selectorLabel.textBorderColor = NULL,
+                 legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                 legend.emphasis.selectorLabel.textBorderType = NULL,
+                 legend.emphasis.selectorLabel.textShadowColor = NULL,
+                 legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                 legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                 legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                  tooltip.show = TRUE,
                  tooltip.trigger = "cross",
                  tooltip.backgroundColor = NULL,
@@ -7499,10 +10104,63 @@ Step <- function(dt = NULL,
 
     if((FacetRows > 1L || FacetCols > 1) && length(FacetLevels) > 0L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
   } else {
 
@@ -7811,47 +10469,6 @@ Step <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -7893,6 +10510,117 @@ Step <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -8097,6 +10825,127 @@ River <- function(dt = NULL,
                   yAxis.axisLabel.textShadowOffsetX = NULL,
                   yAxis.axisLabel.textShadowOffsetY = NULL,
                   yAxis.axisLabel.overflow = NULL,
+                  legend.show = TRUE,
+                  legend.type = "scross",
+                  legend.selector = NULL,
+                  legend.icon = NULL,
+                  legend.align = NULL,
+                  legend.padding = NULL,
+                  legend.itemGap = NULL,
+                  legend.itemWidth = NULL,
+                  legend.orient = NULL,
+                  legend.width = NULL,
+                  legend.height = NULL,
+                  legend.left = NULL,
+                  legend.right = NULL,
+                  legend.top = NULL,
+                  legend.bottom = NULL,
+                  legend.backgroundColor = NULL,
+                  legend.borderColor = NULL,
+                  legend.borderWidth = NULL,
+                  legend.borderRadius = NULL,
+                  legend.shadowBlur = NULL,
+                  legend.shadowColor = NULL,
+                  legend.shadowOffsetX = NULL,
+                  legend.shadowOffsetY = NULL,
+                  legend.itemStyle.color = NULL,
+                  legend.itemStyle.borderColor = NULL,
+                  legend.itemStyle.borderWidth = NULL,
+                  legend.itemStyle.borderType = NULL,
+                  legend.itemStyle.shadowBlur = NULL,
+                  legend.itemStyle.shadowColor = NULL,
+                  legend.itemStyle.shadowOffsetX = NULL,
+                  legend.itemStyle.shadowOffsetY = NULL,
+                  legend.itemStyle.opacity = NULL,
+                  legend.lineStyle.color = NULL,
+                  legend.lineStyle.width = NULL,
+                  legend.lineStyle.type = NULL,
+                  legend.lineStyle.shadowBlur = NULL,
+                  legend.lineStyle.shadowColor = NULL,
+                  legend.lineStyle.shadowOffsetX = NULL,
+                  legend.lineStyle.shadowOffsetY = NULL,
+                  legend.lineStyle.opacity = NULL,
+                  legend.lineStyle.inactiveColor = NULL,
+                  legend.lineStyle.inactiveWidth = NULL,
+                  legend.textStyle.color = NULL,
+                  legend.textStyle.fontStyle = NULL,
+                  legend.textStyle.fontWeight = NULL,
+                  legend.textStyle.fontFamily = NULL,
+                  legend.textStyle.fontSize = NULL,
+                  legend.textStyle.backgroundColor = NULL,
+                  legend.textStyle.borderColor = NULL,
+                  legend.textStyle.borderWidth = NULL,
+                  legend.textStyle.borderType = NULL,
+                  legend.textStyle.borderRadius = NULL,
+                  legend.textStyle.padding = NULL,
+                  legend.textStyle.shadowColor = NULL,
+                  legend.textStyle.shadowBlur = NULL,
+                  legend.textStyle.shadowOffsetX = NULL,
+                  legend.textStyle.shadowOffsetY = NULL,
+                  legend.textStyle.width = NULL,
+                  legend.textStyle.height = NULL,
+                  legend.textStyle.textBorderColor = NULL,
+                  legend.textStyle.textBorderWidth = NULL,
+                  legend.textStyle.textBorderType = NULL,
+                  legend.textStyle.textShadowColor = NULL,
+                  legend.textStyle.textShadowBlur = NULL,
+                  legend.textStyle.textShadowOffsetX = NULL,
+                  legend.textStyle.textShadowOffsetY = NULL,
+                  legend.scrollDataIndex = NULL,
+                  legend.pageButtonItemGap = NULL,
+                  legend.pageButtonGap = NULL,
+                  legend.pageButtonPosition = NULL,
+                  legend.pageIconColor = NULL,
+                  legend.pageIconInactiveColor = NULL,
+                  legend.pageIconSize = NULL,
+                  legend.pageTextStyle = NULL,
+                  legend.animation = NULL,
+                  legend.animationDurationUpdate = NULL,
+                  legend.pageTextStyle.color = NULL,
+                  legend.pageTextStyle.fontStyle = NULL,
+                  legend.pageTextStyle.fontWeight = NULL,
+                  legend.pageTextStyle.fontFamily = NULL,
+                  legend.pageTextStyle.fontSize = NULL,
+                  legend.pageTextStyle.lineHeight = NULL,
+                  legend.pageTextStyle.width = NULL,
+                  legend.pageTextStyle.height = NULL,
+                  legend.pageTextStyle.textBorderColor = NULL,
+                  legend.pageTextStyle.textBorderWidth = NULL,
+                  legend.pageTextStyle.textBorderType = NULL,
+                  legend.pageTextStyle.textShadowColor = NULL,
+                  legend.pageTextStyle.textShadowBlur = NULL,
+                  legend.pageTextStyle.textShadowOffsetX = NULL,
+                  legend.pageTextStyle.textShadowOffsetY = NULL,
+                  legend.emphasis.selectorLabel.show = NULL,
+                  legend.emphasis.selectorLabel.distance = NULL,
+                  legend.emphasis.selectorLabel.rotate = NULL,
+                  legend.emphasis.selectorLabel.color = NULL,
+                  legend.emphasis.selectorLabel.fontStyle = NULL,
+                  legend.emphasis.selectorLabel.fontWeight = NULL,
+                  legend.emphasis.selectorLabel.fontFamily = NULL,
+                  legend.emphasis.selectorLabel.fontSize = NULL,
+                  legend.emphasis.selectorLabel.align = NULL,
+                  legend.emphasis.selectorLabel.verticalAlign = NULL,
+                  legend.emphasis.selectorLabel.lineHeight = NULL,
+                  legend.emphasis.selectorLabel.backgroundColor = NULL,
+                  legend.emphasis.selectorLabel.borderColor = NULL,
+                  legend.emphasis.selectorLabel.borderWidth = NULL,
+                  legend.emphasis.selectorLabel.borderType = NULL,
+                  legend.emphasis.selectorLabel.borderRadius = NULL,
+                  legend.emphasis.selectorLabel.padding = NULL,
+                  legend.emphasis.selectorLabel.shadowColor = NULL,
+                  legend.emphasis.selectorLabel.shadowBlur = NULL,
+                  legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                  legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                  legend.emphasis.selectorLabel.width = NULL,
+                  legend.emphasis.selectorLabel.height = NULL,
+                  legend.emphasis.selectorLabel.textBorderColor = NULL,
+                  legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                  legend.emphasis.selectorLabel.textBorderType = NULL,
+                  legend.emphasis.selectorLabel.textShadowColor = NULL,
+                  legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                  legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                  legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                   tooltip.show = TRUE,
                   tooltip.trigger = "cross",
                   tooltip.backgroundColor = NULL,
@@ -8250,8 +11099,63 @@ River <- function(dt = NULL,
 
   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-  p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
   p1 <- echarts4r::e_brush(e = p1)
+
+  p1 <- echarts4r::e_legend_full(
+    e = p1,
+    legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+    legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+    legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+    legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+    legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+    legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+    legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+    legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+    legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+    legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+    legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+    legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+    legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+    legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+    legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+    legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+    legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+    legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+    legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+    legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+    legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+    legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+    legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+    legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+    legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+    legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+    legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+    legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+    legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+    legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+    legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+    legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+    legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+    legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+    legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+    legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+    legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+    legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+    legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+    legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+    legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+    legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+    legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+    legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+    legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+    legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+    legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+    legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+    legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+    legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+    legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+    legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+    legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
   p1 <- e_x_axis_full(
     e = p1,
@@ -8481,47 +11385,6 @@ River <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -8563,6 +11426,117 @@ River <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -8789,6 +11763,127 @@ Bar <- function(dt = NULL,
                 yAxis.axisLabel.textShadowOffsetX = NULL,
                 yAxis.axisLabel.textShadowOffsetY = NULL,
                 yAxis.axisLabel.overflow = NULL,
+                legend.show = TRUE,
+                legend.type = "scross",
+                legend.selector = NULL,
+                legend.icon = NULL,
+                legend.align = NULL,
+                legend.padding = NULL,
+                legend.itemGap = NULL,
+                legend.itemWidth = NULL,
+                legend.orient = NULL,
+                legend.width = NULL,
+                legend.height = NULL,
+                legend.left = NULL,
+                legend.right = NULL,
+                legend.top = NULL,
+                legend.bottom = NULL,
+                legend.backgroundColor = NULL,
+                legend.borderColor = NULL,
+                legend.borderWidth = NULL,
+                legend.borderRadius = NULL,
+                legend.shadowBlur = NULL,
+                legend.shadowColor = NULL,
+                legend.shadowOffsetX = NULL,
+                legend.shadowOffsetY = NULL,
+                legend.itemStyle.color = NULL,
+                legend.itemStyle.borderColor = NULL,
+                legend.itemStyle.borderWidth = NULL,
+                legend.itemStyle.borderType = NULL,
+                legend.itemStyle.shadowBlur = NULL,
+                legend.itemStyle.shadowColor = NULL,
+                legend.itemStyle.shadowOffsetX = NULL,
+                legend.itemStyle.shadowOffsetY = NULL,
+                legend.itemStyle.opacity = NULL,
+                legend.lineStyle.color = NULL,
+                legend.lineStyle.width = NULL,
+                legend.lineStyle.type = NULL,
+                legend.lineStyle.shadowBlur = NULL,
+                legend.lineStyle.shadowColor = NULL,
+                legend.lineStyle.shadowOffsetX = NULL,
+                legend.lineStyle.shadowOffsetY = NULL,
+                legend.lineStyle.opacity = NULL,
+                legend.lineStyle.inactiveColor = NULL,
+                legend.lineStyle.inactiveWidth = NULL,
+                legend.textStyle.color = NULL,
+                legend.textStyle.fontStyle = NULL,
+                legend.textStyle.fontWeight = NULL,
+                legend.textStyle.fontFamily = NULL,
+                legend.textStyle.fontSize = NULL,
+                legend.textStyle.backgroundColor = NULL,
+                legend.textStyle.borderColor = NULL,
+                legend.textStyle.borderWidth = NULL,
+                legend.textStyle.borderType = NULL,
+                legend.textStyle.borderRadius = NULL,
+                legend.textStyle.padding = NULL,
+                legend.textStyle.shadowColor = NULL,
+                legend.textStyle.shadowBlur = NULL,
+                legend.textStyle.shadowOffsetX = NULL,
+                legend.textStyle.shadowOffsetY = NULL,
+                legend.textStyle.width = NULL,
+                legend.textStyle.height = NULL,
+                legend.textStyle.textBorderColor = NULL,
+                legend.textStyle.textBorderWidth = NULL,
+                legend.textStyle.textBorderType = NULL,
+                legend.textStyle.textShadowColor = NULL,
+                legend.textStyle.textShadowBlur = NULL,
+                legend.textStyle.textShadowOffsetX = NULL,
+                legend.textStyle.textShadowOffsetY = NULL,
+                legend.scrollDataIndex = NULL,
+                legend.pageButtonItemGap = NULL,
+                legend.pageButtonGap = NULL,
+                legend.pageButtonPosition = NULL,
+                legend.pageIconColor = NULL,
+                legend.pageIconInactiveColor = NULL,
+                legend.pageIconSize = NULL,
+                legend.pageTextStyle = NULL,
+                legend.animation = NULL,
+                legend.animationDurationUpdate = NULL,
+                legend.pageTextStyle.color = NULL,
+                legend.pageTextStyle.fontStyle = NULL,
+                legend.pageTextStyle.fontWeight = NULL,
+                legend.pageTextStyle.fontFamily = NULL,
+                legend.pageTextStyle.fontSize = NULL,
+                legend.pageTextStyle.lineHeight = NULL,
+                legend.pageTextStyle.width = NULL,
+                legend.pageTextStyle.height = NULL,
+                legend.pageTextStyle.textBorderColor = NULL,
+                legend.pageTextStyle.textBorderWidth = NULL,
+                legend.pageTextStyle.textBorderType = NULL,
+                legend.pageTextStyle.textShadowColor = NULL,
+                legend.pageTextStyle.textShadowBlur = NULL,
+                legend.pageTextStyle.textShadowOffsetX = NULL,
+                legend.pageTextStyle.textShadowOffsetY = NULL,
+                legend.emphasis.selectorLabel.show = NULL,
+                legend.emphasis.selectorLabel.distance = NULL,
+                legend.emphasis.selectorLabel.rotate = NULL,
+                legend.emphasis.selectorLabel.color = NULL,
+                legend.emphasis.selectorLabel.fontStyle = NULL,
+                legend.emphasis.selectorLabel.fontWeight = NULL,
+                legend.emphasis.selectorLabel.fontFamily = NULL,
+                legend.emphasis.selectorLabel.fontSize = NULL,
+                legend.emphasis.selectorLabel.align = NULL,
+                legend.emphasis.selectorLabel.verticalAlign = NULL,
+                legend.emphasis.selectorLabel.lineHeight = NULL,
+                legend.emphasis.selectorLabel.backgroundColor = NULL,
+                legend.emphasis.selectorLabel.borderColor = NULL,
+                legend.emphasis.selectorLabel.borderWidth = NULL,
+                legend.emphasis.selectorLabel.borderType = NULL,
+                legend.emphasis.selectorLabel.borderRadius = NULL,
+                legend.emphasis.selectorLabel.padding = NULL,
+                legend.emphasis.selectorLabel.shadowColor = NULL,
+                legend.emphasis.selectorLabel.shadowBlur = NULL,
+                legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                legend.emphasis.selectorLabel.width = NULL,
+                legend.emphasis.selectorLabel.height = NULL,
+                legend.emphasis.selectorLabel.textBorderColor = NULL,
+                legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                legend.emphasis.selectorLabel.textBorderType = NULL,
+                legend.emphasis.selectorLabel.textShadowColor = NULL,
+                legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                 tooltip.show = TRUE,
                 tooltip.trigger = "cross",
                 tooltip.backgroundColor = NULL,
@@ -9338,14 +12433,66 @@ Bar <- function(dt = NULL,
       if(Debug) print("BarPlot 2.g")
       if(FacetRows > 1L || FacetCols > 1L) {
         p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      } else {
-        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
-      if(Debug) print("BarPlot 2.h")
+
+      p1 <- echarts4r::e_legend_full(
+        e = p1,
+        legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+        legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+        legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+        legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+        legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+        legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+        legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+        legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+        legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+        legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+        legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+        legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+        legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+        legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+        legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+        legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+        legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+        legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+        legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+        legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+        legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+        legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+        legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+        legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+        legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+        legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+        legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+        legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+        legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+        legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+        legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+        legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+        legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+        legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+        legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+        legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+        legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+        legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+        legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+        legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+        legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+        legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+        legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+        legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+        legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+        legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+        legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+        legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+        legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+        legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+        legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+        legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+        legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
       return(p1)
     }
-
   }
 
   if(check2) {
@@ -9541,16 +12688,68 @@ Bar <- function(dt = NULL,
 
       if(FacetRows > 1L || FacetCols > 1L) {
         p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-      } else {
-        p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
       }
+
+      p1 <- echarts4r::e_legend_full(
+        e = p1,
+        legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+        legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+        legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+        legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+        legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+        legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+        legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+        legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+        legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+        legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+        legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+        legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+        legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+        legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+        legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+        legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+        legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+        legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+        legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+        legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+        legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+        legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+        legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+        legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+        legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+        legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+        legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+        legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+        legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+        legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+        legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+        legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+        legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+        legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+        legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+        legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+        legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+        legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+        legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+        legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+        legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+        legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+        legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+        legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+        legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+        legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+        legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+        legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+        legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+        legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+        legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+        legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+        legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
       return(p1)
     } else {
       return(NULL)
     }
-
   }
 
   if(check3) {
@@ -9874,47 +13073,6 @@ Bar <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -9956,6 +13114,117 @@ Bar <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -10132,6 +13401,127 @@ ACF <- function(dt = NULL,
                 yAxis.axisLabel.textShadowOffsetX = NULL,
                 yAxis.axisLabel.textShadowOffsetY = NULL,
                 yAxis.axisLabel.overflow = NULL,
+                legend.show = TRUE,
+                legend.type = "scross",
+                legend.selector = NULL,
+                legend.icon = NULL,
+                legend.align = NULL,
+                legend.padding = NULL,
+                legend.itemGap = NULL,
+                legend.itemWidth = NULL,
+                legend.orient = NULL,
+                legend.width = NULL,
+                legend.height = NULL,
+                legend.left = NULL,
+                legend.right = NULL,
+                legend.top = NULL,
+                legend.bottom = NULL,
+                legend.backgroundColor = NULL,
+                legend.borderColor = NULL,
+                legend.borderWidth = NULL,
+                legend.borderRadius = NULL,
+                legend.shadowBlur = NULL,
+                legend.shadowColor = NULL,
+                legend.shadowOffsetX = NULL,
+                legend.shadowOffsetY = NULL,
+                legend.itemStyle.color = NULL,
+                legend.itemStyle.borderColor = NULL,
+                legend.itemStyle.borderWidth = NULL,
+                legend.itemStyle.borderType = NULL,
+                legend.itemStyle.shadowBlur = NULL,
+                legend.itemStyle.shadowColor = NULL,
+                legend.itemStyle.shadowOffsetX = NULL,
+                legend.itemStyle.shadowOffsetY = NULL,
+                legend.itemStyle.opacity = NULL,
+                legend.lineStyle.color = NULL,
+                legend.lineStyle.width = NULL,
+                legend.lineStyle.type = NULL,
+                legend.lineStyle.shadowBlur = NULL,
+                legend.lineStyle.shadowColor = NULL,
+                legend.lineStyle.shadowOffsetX = NULL,
+                legend.lineStyle.shadowOffsetY = NULL,
+                legend.lineStyle.opacity = NULL,
+                legend.lineStyle.inactiveColor = NULL,
+                legend.lineStyle.inactiveWidth = NULL,
+                legend.textStyle.color = NULL,
+                legend.textStyle.fontStyle = NULL,
+                legend.textStyle.fontWeight = NULL,
+                legend.textStyle.fontFamily = NULL,
+                legend.textStyle.fontSize = NULL,
+                legend.textStyle.backgroundColor = NULL,
+                legend.textStyle.borderColor = NULL,
+                legend.textStyle.borderWidth = NULL,
+                legend.textStyle.borderType = NULL,
+                legend.textStyle.borderRadius = NULL,
+                legend.textStyle.padding = NULL,
+                legend.textStyle.shadowColor = NULL,
+                legend.textStyle.shadowBlur = NULL,
+                legend.textStyle.shadowOffsetX = NULL,
+                legend.textStyle.shadowOffsetY = NULL,
+                legend.textStyle.width = NULL,
+                legend.textStyle.height = NULL,
+                legend.textStyle.textBorderColor = NULL,
+                legend.textStyle.textBorderWidth = NULL,
+                legend.textStyle.textBorderType = NULL,
+                legend.textStyle.textShadowColor = NULL,
+                legend.textStyle.textShadowBlur = NULL,
+                legend.textStyle.textShadowOffsetX = NULL,
+                legend.textStyle.textShadowOffsetY = NULL,
+                legend.scrollDataIndex = NULL,
+                legend.pageButtonItemGap = NULL,
+                legend.pageButtonGap = NULL,
+                legend.pageButtonPosition = NULL,
+                legend.pageIconColor = NULL,
+                legend.pageIconInactiveColor = NULL,
+                legend.pageIconSize = NULL,
+                legend.pageTextStyle = NULL,
+                legend.animation = NULL,
+                legend.animationDurationUpdate = NULL,
+                legend.pageTextStyle.color = NULL,
+                legend.pageTextStyle.fontStyle = NULL,
+                legend.pageTextStyle.fontWeight = NULL,
+                legend.pageTextStyle.fontFamily = NULL,
+                legend.pageTextStyle.fontSize = NULL,
+                legend.pageTextStyle.lineHeight = NULL,
+                legend.pageTextStyle.width = NULL,
+                legend.pageTextStyle.height = NULL,
+                legend.pageTextStyle.textBorderColor = NULL,
+                legend.pageTextStyle.textBorderWidth = NULL,
+                legend.pageTextStyle.textBorderType = NULL,
+                legend.pageTextStyle.textShadowColor = NULL,
+                legend.pageTextStyle.textShadowBlur = NULL,
+                legend.pageTextStyle.textShadowOffsetX = NULL,
+                legend.pageTextStyle.textShadowOffsetY = NULL,
+                legend.emphasis.selectorLabel.show = NULL,
+                legend.emphasis.selectorLabel.distance = NULL,
+                legend.emphasis.selectorLabel.rotate = NULL,
+                legend.emphasis.selectorLabel.color = NULL,
+                legend.emphasis.selectorLabel.fontStyle = NULL,
+                legend.emphasis.selectorLabel.fontWeight = NULL,
+                legend.emphasis.selectorLabel.fontFamily = NULL,
+                legend.emphasis.selectorLabel.fontSize = NULL,
+                legend.emphasis.selectorLabel.align = NULL,
+                legend.emphasis.selectorLabel.verticalAlign = NULL,
+                legend.emphasis.selectorLabel.lineHeight = NULL,
+                legend.emphasis.selectorLabel.backgroundColor = NULL,
+                legend.emphasis.selectorLabel.borderColor = NULL,
+                legend.emphasis.selectorLabel.borderWidth = NULL,
+                legend.emphasis.selectorLabel.borderType = NULL,
+                legend.emphasis.selectorLabel.borderRadius = NULL,
+                legend.emphasis.selectorLabel.padding = NULL,
+                legend.emphasis.selectorLabel.shadowColor = NULL,
+                legend.emphasis.selectorLabel.shadowBlur = NULL,
+                legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                legend.emphasis.selectorLabel.width = NULL,
+                legend.emphasis.selectorLabel.height = NULL,
+                legend.emphasis.selectorLabel.textBorderColor = NULL,
+                legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                legend.emphasis.selectorLabel.textBorderType = NULL,
+                legend.emphasis.selectorLabel.textShadowColor = NULL,
+                legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                 tooltip.show = TRUE,
                 tooltip.trigger = "cross",
                 tooltip.backgroundColor = NULL,
@@ -10500,47 +13890,6 @@ ACF <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -10582,6 +13931,117 @@ ACF <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -10758,6 +14218,127 @@ PACF <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetX = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
+                 legend.show = TRUE,
+                 legend.type = "scross",
+                 legend.selector = NULL,
+                 legend.icon = NULL,
+                 legend.align = NULL,
+                 legend.padding = NULL,
+                 legend.itemGap = NULL,
+                 legend.itemWidth = NULL,
+                 legend.orient = NULL,
+                 legend.width = NULL,
+                 legend.height = NULL,
+                 legend.left = NULL,
+                 legend.right = NULL,
+                 legend.top = NULL,
+                 legend.bottom = NULL,
+                 legend.backgroundColor = NULL,
+                 legend.borderColor = NULL,
+                 legend.borderWidth = NULL,
+                 legend.borderRadius = NULL,
+                 legend.shadowBlur = NULL,
+                 legend.shadowColor = NULL,
+                 legend.shadowOffsetX = NULL,
+                 legend.shadowOffsetY = NULL,
+                 legend.itemStyle.color = NULL,
+                 legend.itemStyle.borderColor = NULL,
+                 legend.itemStyle.borderWidth = NULL,
+                 legend.itemStyle.borderType = NULL,
+                 legend.itemStyle.shadowBlur = NULL,
+                 legend.itemStyle.shadowColor = NULL,
+                 legend.itemStyle.shadowOffsetX = NULL,
+                 legend.itemStyle.shadowOffsetY = NULL,
+                 legend.itemStyle.opacity = NULL,
+                 legend.lineStyle.color = NULL,
+                 legend.lineStyle.width = NULL,
+                 legend.lineStyle.type = NULL,
+                 legend.lineStyle.shadowBlur = NULL,
+                 legend.lineStyle.shadowColor = NULL,
+                 legend.lineStyle.shadowOffsetX = NULL,
+                 legend.lineStyle.shadowOffsetY = NULL,
+                 legend.lineStyle.opacity = NULL,
+                 legend.lineStyle.inactiveColor = NULL,
+                 legend.lineStyle.inactiveWidth = NULL,
+                 legend.textStyle.color = NULL,
+                 legend.textStyle.fontStyle = NULL,
+                 legend.textStyle.fontWeight = NULL,
+                 legend.textStyle.fontFamily = NULL,
+                 legend.textStyle.fontSize = NULL,
+                 legend.textStyle.backgroundColor = NULL,
+                 legend.textStyle.borderColor = NULL,
+                 legend.textStyle.borderWidth = NULL,
+                 legend.textStyle.borderType = NULL,
+                 legend.textStyle.borderRadius = NULL,
+                 legend.textStyle.padding = NULL,
+                 legend.textStyle.shadowColor = NULL,
+                 legend.textStyle.shadowBlur = NULL,
+                 legend.textStyle.shadowOffsetX = NULL,
+                 legend.textStyle.shadowOffsetY = NULL,
+                 legend.textStyle.width = NULL,
+                 legend.textStyle.height = NULL,
+                 legend.textStyle.textBorderColor = NULL,
+                 legend.textStyle.textBorderWidth = NULL,
+                 legend.textStyle.textBorderType = NULL,
+                 legend.textStyle.textShadowColor = NULL,
+                 legend.textStyle.textShadowBlur = NULL,
+                 legend.textStyle.textShadowOffsetX = NULL,
+                 legend.textStyle.textShadowOffsetY = NULL,
+                 legend.scrollDataIndex = NULL,
+                 legend.pageButtonItemGap = NULL,
+                 legend.pageButtonGap = NULL,
+                 legend.pageButtonPosition = NULL,
+                 legend.pageIconColor = NULL,
+                 legend.pageIconInactiveColor = NULL,
+                 legend.pageIconSize = NULL,
+                 legend.pageTextStyle = NULL,
+                 legend.animation = NULL,
+                 legend.animationDurationUpdate = NULL,
+                 legend.pageTextStyle.color = NULL,
+                 legend.pageTextStyle.fontStyle = NULL,
+                 legend.pageTextStyle.fontWeight = NULL,
+                 legend.pageTextStyle.fontFamily = NULL,
+                 legend.pageTextStyle.fontSize = NULL,
+                 legend.pageTextStyle.lineHeight = NULL,
+                 legend.pageTextStyle.width = NULL,
+                 legend.pageTextStyle.height = NULL,
+                 legend.pageTextStyle.textBorderColor = NULL,
+                 legend.pageTextStyle.textBorderWidth = NULL,
+                 legend.pageTextStyle.textBorderType = NULL,
+                 legend.pageTextStyle.textShadowColor = NULL,
+                 legend.pageTextStyle.textShadowBlur = NULL,
+                 legend.pageTextStyle.textShadowOffsetX = NULL,
+                 legend.pageTextStyle.textShadowOffsetY = NULL,
+                 legend.emphasis.selectorLabel.show = NULL,
+                 legend.emphasis.selectorLabel.distance = NULL,
+                 legend.emphasis.selectorLabel.rotate = NULL,
+                 legend.emphasis.selectorLabel.color = NULL,
+                 legend.emphasis.selectorLabel.fontStyle = NULL,
+                 legend.emphasis.selectorLabel.fontWeight = NULL,
+                 legend.emphasis.selectorLabel.fontFamily = NULL,
+                 legend.emphasis.selectorLabel.fontSize = NULL,
+                 legend.emphasis.selectorLabel.align = NULL,
+                 legend.emphasis.selectorLabel.verticalAlign = NULL,
+                 legend.emphasis.selectorLabel.lineHeight = NULL,
+                 legend.emphasis.selectorLabel.backgroundColor = NULL,
+                 legend.emphasis.selectorLabel.borderColor = NULL,
+                 legend.emphasis.selectorLabel.borderWidth = NULL,
+                 legend.emphasis.selectorLabel.borderType = NULL,
+                 legend.emphasis.selectorLabel.borderRadius = NULL,
+                 legend.emphasis.selectorLabel.padding = NULL,
+                 legend.emphasis.selectorLabel.shadowColor = NULL,
+                 legend.emphasis.selectorLabel.shadowBlur = NULL,
+                 legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                 legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                 legend.emphasis.selectorLabel.width = NULL,
+                 legend.emphasis.selectorLabel.height = NULL,
+                 legend.emphasis.selectorLabel.textBorderColor = NULL,
+                 legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                 legend.emphasis.selectorLabel.textBorderType = NULL,
+                 legend.emphasis.selectorLabel.textShadowColor = NULL,
+                 legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                 legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                 legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                  tooltip.show = TRUE,
                  tooltip.trigger = "cross",
                  tooltip.backgroundColor = NULL,
@@ -11143,47 +14724,6 @@ PACF <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -11225,6 +14765,117 @@ PACF <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -11449,6 +15100,127 @@ StackedBar <- function(dt = NULL,
                        yAxis.axisLabel.textShadowOffsetX = NULL,
                        yAxis.axisLabel.textShadowOffsetY = NULL,
                        yAxis.axisLabel.overflow = NULL,
+                       legend.show = TRUE,
+                       legend.type = "scross",
+                       legend.selector = NULL,
+                       legend.icon = NULL,
+                       legend.align = NULL,
+                       legend.padding = NULL,
+                       legend.itemGap = NULL,
+                       legend.itemWidth = NULL,
+                       legend.orient = NULL,
+                       legend.width = NULL,
+                       legend.height = NULL,
+                       legend.left = NULL,
+                       legend.right = NULL,
+                       legend.top = NULL,
+                       legend.bottom = NULL,
+                       legend.backgroundColor = NULL,
+                       legend.borderColor = NULL,
+                       legend.borderWidth = NULL,
+                       legend.borderRadius = NULL,
+                       legend.shadowBlur = NULL,
+                       legend.shadowColor = NULL,
+                       legend.shadowOffsetX = NULL,
+                       legend.shadowOffsetY = NULL,
+                       legend.itemStyle.color = NULL,
+                       legend.itemStyle.borderColor = NULL,
+                       legend.itemStyle.borderWidth = NULL,
+                       legend.itemStyle.borderType = NULL,
+                       legend.itemStyle.shadowBlur = NULL,
+                       legend.itemStyle.shadowColor = NULL,
+                       legend.itemStyle.shadowOffsetX = NULL,
+                       legend.itemStyle.shadowOffsetY = NULL,
+                       legend.itemStyle.opacity = NULL,
+                       legend.lineStyle.color = NULL,
+                       legend.lineStyle.width = NULL,
+                       legend.lineStyle.type = NULL,
+                       legend.lineStyle.shadowBlur = NULL,
+                       legend.lineStyle.shadowColor = NULL,
+                       legend.lineStyle.shadowOffsetX = NULL,
+                       legend.lineStyle.shadowOffsetY = NULL,
+                       legend.lineStyle.opacity = NULL,
+                       legend.lineStyle.inactiveColor = NULL,
+                       legend.lineStyle.inactiveWidth = NULL,
+                       legend.textStyle.color = NULL,
+                       legend.textStyle.fontStyle = NULL,
+                       legend.textStyle.fontWeight = NULL,
+                       legend.textStyle.fontFamily = NULL,
+                       legend.textStyle.fontSize = NULL,
+                       legend.textStyle.backgroundColor = NULL,
+                       legend.textStyle.borderColor = NULL,
+                       legend.textStyle.borderWidth = NULL,
+                       legend.textStyle.borderType = NULL,
+                       legend.textStyle.borderRadius = NULL,
+                       legend.textStyle.padding = NULL,
+                       legend.textStyle.shadowColor = NULL,
+                       legend.textStyle.shadowBlur = NULL,
+                       legend.textStyle.shadowOffsetX = NULL,
+                       legend.textStyle.shadowOffsetY = NULL,
+                       legend.textStyle.width = NULL,
+                       legend.textStyle.height = NULL,
+                       legend.textStyle.textBorderColor = NULL,
+                       legend.textStyle.textBorderWidth = NULL,
+                       legend.textStyle.textBorderType = NULL,
+                       legend.textStyle.textShadowColor = NULL,
+                       legend.textStyle.textShadowBlur = NULL,
+                       legend.textStyle.textShadowOffsetX = NULL,
+                       legend.textStyle.textShadowOffsetY = NULL,
+                       legend.scrollDataIndex = NULL,
+                       legend.pageButtonItemGap = NULL,
+                       legend.pageButtonGap = NULL,
+                       legend.pageButtonPosition = NULL,
+                       legend.pageIconColor = NULL,
+                       legend.pageIconInactiveColor = NULL,
+                       legend.pageIconSize = NULL,
+                       legend.pageTextStyle = NULL,
+                       legend.animation = NULL,
+                       legend.animationDurationUpdate = NULL,
+                       legend.pageTextStyle.color = NULL,
+                       legend.pageTextStyle.fontStyle = NULL,
+                       legend.pageTextStyle.fontWeight = NULL,
+                       legend.pageTextStyle.fontFamily = NULL,
+                       legend.pageTextStyle.fontSize = NULL,
+                       legend.pageTextStyle.lineHeight = NULL,
+                       legend.pageTextStyle.width = NULL,
+                       legend.pageTextStyle.height = NULL,
+                       legend.pageTextStyle.textBorderColor = NULL,
+                       legend.pageTextStyle.textBorderWidth = NULL,
+                       legend.pageTextStyle.textBorderType = NULL,
+                       legend.pageTextStyle.textShadowColor = NULL,
+                       legend.pageTextStyle.textShadowBlur = NULL,
+                       legend.pageTextStyle.textShadowOffsetX = NULL,
+                       legend.pageTextStyle.textShadowOffsetY = NULL,
+                       legend.emphasis.selectorLabel.show = NULL,
+                       legend.emphasis.selectorLabel.distance = NULL,
+                       legend.emphasis.selectorLabel.rotate = NULL,
+                       legend.emphasis.selectorLabel.color = NULL,
+                       legend.emphasis.selectorLabel.fontStyle = NULL,
+                       legend.emphasis.selectorLabel.fontWeight = NULL,
+                       legend.emphasis.selectorLabel.fontFamily = NULL,
+                       legend.emphasis.selectorLabel.fontSize = NULL,
+                       legend.emphasis.selectorLabel.align = NULL,
+                       legend.emphasis.selectorLabel.verticalAlign = NULL,
+                       legend.emphasis.selectorLabel.lineHeight = NULL,
+                       legend.emphasis.selectorLabel.backgroundColor = NULL,
+                       legend.emphasis.selectorLabel.borderColor = NULL,
+                       legend.emphasis.selectorLabel.borderWidth = NULL,
+                       legend.emphasis.selectorLabel.borderType = NULL,
+                       legend.emphasis.selectorLabel.borderRadius = NULL,
+                       legend.emphasis.selectorLabel.padding = NULL,
+                       legend.emphasis.selectorLabel.shadowColor = NULL,
+                       legend.emphasis.selectorLabel.shadowBlur = NULL,
+                       legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                       legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                       legend.emphasis.selectorLabel.width = NULL,
+                       legend.emphasis.selectorLabel.height = NULL,
+                       legend.emphasis.selectorLabel.textBorderColor = NULL,
+                       legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                       legend.emphasis.selectorLabel.textBorderType = NULL,
+                       legend.emphasis.selectorLabel.textShadowColor = NULL,
+                       legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                       legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                       legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                        tooltip.show = TRUE,
                        tooltip.trigger = "cross",
                        tooltip.backgroundColor = NULL,
@@ -11743,10 +15515,64 @@ StackedBar <- function(dt = NULL,
 
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
     return(p1)
 
   } else {
@@ -11877,47 +15703,6 @@ StackedBar <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -11959,6 +15744,117 @@ StackedBar <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -12190,6 +16086,127 @@ BarPlot3D <- function(dt,
                       yAxis.axisLabel.textShadowOffsetX = NULL,
                       yAxis.axisLabel.textShadowOffsetY = NULL,
                       yAxis.axisLabel.overflow = NULL,
+                      legend.show = TRUE,
+                      legend.type = "scross",
+                      legend.selector = NULL,
+                      legend.icon = NULL,
+                      legend.align = NULL,
+                      legend.padding = NULL,
+                      legend.itemGap = NULL,
+                      legend.itemWidth = NULL,
+                      legend.orient = NULL,
+                      legend.width = NULL,
+                      legend.height = NULL,
+                      legend.left = NULL,
+                      legend.right = NULL,
+                      legend.top = NULL,
+                      legend.bottom = NULL,
+                      legend.backgroundColor = NULL,
+                      legend.borderColor = NULL,
+                      legend.borderWidth = NULL,
+                      legend.borderRadius = NULL,
+                      legend.shadowBlur = NULL,
+                      legend.shadowColor = NULL,
+                      legend.shadowOffsetX = NULL,
+                      legend.shadowOffsetY = NULL,
+                      legend.itemStyle.color = NULL,
+                      legend.itemStyle.borderColor = NULL,
+                      legend.itemStyle.borderWidth = NULL,
+                      legend.itemStyle.borderType = NULL,
+                      legend.itemStyle.shadowBlur = NULL,
+                      legend.itemStyle.shadowColor = NULL,
+                      legend.itemStyle.shadowOffsetX = NULL,
+                      legend.itemStyle.shadowOffsetY = NULL,
+                      legend.itemStyle.opacity = NULL,
+                      legend.lineStyle.color = NULL,
+                      legend.lineStyle.width = NULL,
+                      legend.lineStyle.type = NULL,
+                      legend.lineStyle.shadowBlur = NULL,
+                      legend.lineStyle.shadowColor = NULL,
+                      legend.lineStyle.shadowOffsetX = NULL,
+                      legend.lineStyle.shadowOffsetY = NULL,
+                      legend.lineStyle.opacity = NULL,
+                      legend.lineStyle.inactiveColor = NULL,
+                      legend.lineStyle.inactiveWidth = NULL,
+                      legend.textStyle.color = NULL,
+                      legend.textStyle.fontStyle = NULL,
+                      legend.textStyle.fontWeight = NULL,
+                      legend.textStyle.fontFamily = NULL,
+                      legend.textStyle.fontSize = NULL,
+                      legend.textStyle.backgroundColor = NULL,
+                      legend.textStyle.borderColor = NULL,
+                      legend.textStyle.borderWidth = NULL,
+                      legend.textStyle.borderType = NULL,
+                      legend.textStyle.borderRadius = NULL,
+                      legend.textStyle.padding = NULL,
+                      legend.textStyle.shadowColor = NULL,
+                      legend.textStyle.shadowBlur = NULL,
+                      legend.textStyle.shadowOffsetX = NULL,
+                      legend.textStyle.shadowOffsetY = NULL,
+                      legend.textStyle.width = NULL,
+                      legend.textStyle.height = NULL,
+                      legend.textStyle.textBorderColor = NULL,
+                      legend.textStyle.textBorderWidth = NULL,
+                      legend.textStyle.textBorderType = NULL,
+                      legend.textStyle.textShadowColor = NULL,
+                      legend.textStyle.textShadowBlur = NULL,
+                      legend.textStyle.textShadowOffsetX = NULL,
+                      legend.textStyle.textShadowOffsetY = NULL,
+                      legend.scrollDataIndex = NULL,
+                      legend.pageButtonItemGap = NULL,
+                      legend.pageButtonGap = NULL,
+                      legend.pageButtonPosition = NULL,
+                      legend.pageIconColor = NULL,
+                      legend.pageIconInactiveColor = NULL,
+                      legend.pageIconSize = NULL,
+                      legend.pageTextStyle = NULL,
+                      legend.animation = NULL,
+                      legend.animationDurationUpdate = NULL,
+                      legend.pageTextStyle.color = NULL,
+                      legend.pageTextStyle.fontStyle = NULL,
+                      legend.pageTextStyle.fontWeight = NULL,
+                      legend.pageTextStyle.fontFamily = NULL,
+                      legend.pageTextStyle.fontSize = NULL,
+                      legend.pageTextStyle.lineHeight = NULL,
+                      legend.pageTextStyle.width = NULL,
+                      legend.pageTextStyle.height = NULL,
+                      legend.pageTextStyle.textBorderColor = NULL,
+                      legend.pageTextStyle.textBorderWidth = NULL,
+                      legend.pageTextStyle.textBorderType = NULL,
+                      legend.pageTextStyle.textShadowColor = NULL,
+                      legend.pageTextStyle.textShadowBlur = NULL,
+                      legend.pageTextStyle.textShadowOffsetX = NULL,
+                      legend.pageTextStyle.textShadowOffsetY = NULL,
+                      legend.emphasis.selectorLabel.show = NULL,
+                      legend.emphasis.selectorLabel.distance = NULL,
+                      legend.emphasis.selectorLabel.rotate = NULL,
+                      legend.emphasis.selectorLabel.color = NULL,
+                      legend.emphasis.selectorLabel.fontStyle = NULL,
+                      legend.emphasis.selectorLabel.fontWeight = NULL,
+                      legend.emphasis.selectorLabel.fontFamily = NULL,
+                      legend.emphasis.selectorLabel.fontSize = NULL,
+                      legend.emphasis.selectorLabel.align = NULL,
+                      legend.emphasis.selectorLabel.verticalAlign = NULL,
+                      legend.emphasis.selectorLabel.lineHeight = NULL,
+                      legend.emphasis.selectorLabel.backgroundColor = NULL,
+                      legend.emphasis.selectorLabel.borderColor = NULL,
+                      legend.emphasis.selectorLabel.borderWidth = NULL,
+                      legend.emphasis.selectorLabel.borderType = NULL,
+                      legend.emphasis.selectorLabel.borderRadius = NULL,
+                      legend.emphasis.selectorLabel.padding = NULL,
+                      legend.emphasis.selectorLabel.shadowColor = NULL,
+                      legend.emphasis.selectorLabel.shadowBlur = NULL,
+                      legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                      legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                      legend.emphasis.selectorLabel.width = NULL,
+                      legend.emphasis.selectorLabel.height = NULL,
+                      legend.emphasis.selectorLabel.textBorderColor = NULL,
+                      legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                      legend.emphasis.selectorLabel.textBorderType = NULL,
+                      legend.emphasis.selectorLabel.textShadowColor = NULL,
+                      legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                      legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                      legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                       tooltip.show = TRUE,
                       tooltip.trigger = "cross",
                       tooltip.backgroundColor = NULL,
@@ -13000,47 +17017,6 @@ BarPlot3D <- function(dt,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -13082,6 +17058,117 @@ BarPlot3D <- function(dt,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -13310,6 +17397,127 @@ HeatMap <- function(dt,
                     yAxis.axisLabel.textShadowOffsetX = NULL,
                     yAxis.axisLabel.textShadowOffsetY = NULL,
                     yAxis.axisLabel.overflow = NULL,
+                    legend.show = TRUE,
+                    legend.type = "scross",
+                    legend.selector = NULL,
+                    legend.icon = NULL,
+                    legend.align = NULL,
+                    legend.padding = NULL,
+                    legend.itemGap = NULL,
+                    legend.itemWidth = NULL,
+                    legend.orient = NULL,
+                    legend.width = NULL,
+                    legend.height = NULL,
+                    legend.left = NULL,
+                    legend.right = NULL,
+                    legend.top = NULL,
+                    legend.bottom = NULL,
+                    legend.backgroundColor = NULL,
+                    legend.borderColor = NULL,
+                    legend.borderWidth = NULL,
+                    legend.borderRadius = NULL,
+                    legend.shadowBlur = NULL,
+                    legend.shadowColor = NULL,
+                    legend.shadowOffsetX = NULL,
+                    legend.shadowOffsetY = NULL,
+                    legend.itemStyle.color = NULL,
+                    legend.itemStyle.borderColor = NULL,
+                    legend.itemStyle.borderWidth = NULL,
+                    legend.itemStyle.borderType = NULL,
+                    legend.itemStyle.shadowBlur = NULL,
+                    legend.itemStyle.shadowColor = NULL,
+                    legend.itemStyle.shadowOffsetX = NULL,
+                    legend.itemStyle.shadowOffsetY = NULL,
+                    legend.itemStyle.opacity = NULL,
+                    legend.lineStyle.color = NULL,
+                    legend.lineStyle.width = NULL,
+                    legend.lineStyle.type = NULL,
+                    legend.lineStyle.shadowBlur = NULL,
+                    legend.lineStyle.shadowColor = NULL,
+                    legend.lineStyle.shadowOffsetX = NULL,
+                    legend.lineStyle.shadowOffsetY = NULL,
+                    legend.lineStyle.opacity = NULL,
+                    legend.lineStyle.inactiveColor = NULL,
+                    legend.lineStyle.inactiveWidth = NULL,
+                    legend.textStyle.color = NULL,
+                    legend.textStyle.fontStyle = NULL,
+                    legend.textStyle.fontWeight = NULL,
+                    legend.textStyle.fontFamily = NULL,
+                    legend.textStyle.fontSize = NULL,
+                    legend.textStyle.backgroundColor = NULL,
+                    legend.textStyle.borderColor = NULL,
+                    legend.textStyle.borderWidth = NULL,
+                    legend.textStyle.borderType = NULL,
+                    legend.textStyle.borderRadius = NULL,
+                    legend.textStyle.padding = NULL,
+                    legend.textStyle.shadowColor = NULL,
+                    legend.textStyle.shadowBlur = NULL,
+                    legend.textStyle.shadowOffsetX = NULL,
+                    legend.textStyle.shadowOffsetY = NULL,
+                    legend.textStyle.width = NULL,
+                    legend.textStyle.height = NULL,
+                    legend.textStyle.textBorderColor = NULL,
+                    legend.textStyle.textBorderWidth = NULL,
+                    legend.textStyle.textBorderType = NULL,
+                    legend.textStyle.textShadowColor = NULL,
+                    legend.textStyle.textShadowBlur = NULL,
+                    legend.textStyle.textShadowOffsetX = NULL,
+                    legend.textStyle.textShadowOffsetY = NULL,
+                    legend.scrollDataIndex = NULL,
+                    legend.pageButtonItemGap = NULL,
+                    legend.pageButtonGap = NULL,
+                    legend.pageButtonPosition = NULL,
+                    legend.pageIconColor = NULL,
+                    legend.pageIconInactiveColor = NULL,
+                    legend.pageIconSize = NULL,
+                    legend.pageTextStyle = NULL,
+                    legend.animation = NULL,
+                    legend.animationDurationUpdate = NULL,
+                    legend.pageTextStyle.color = NULL,
+                    legend.pageTextStyle.fontStyle = NULL,
+                    legend.pageTextStyle.fontWeight = NULL,
+                    legend.pageTextStyle.fontFamily = NULL,
+                    legend.pageTextStyle.fontSize = NULL,
+                    legend.pageTextStyle.lineHeight = NULL,
+                    legend.pageTextStyle.width = NULL,
+                    legend.pageTextStyle.height = NULL,
+                    legend.pageTextStyle.textBorderColor = NULL,
+                    legend.pageTextStyle.textBorderWidth = NULL,
+                    legend.pageTextStyle.textBorderType = NULL,
+                    legend.pageTextStyle.textShadowColor = NULL,
+                    legend.pageTextStyle.textShadowBlur = NULL,
+                    legend.pageTextStyle.textShadowOffsetX = NULL,
+                    legend.pageTextStyle.textShadowOffsetY = NULL,
+                    legend.emphasis.selectorLabel.show = NULL,
+                    legend.emphasis.selectorLabel.distance = NULL,
+                    legend.emphasis.selectorLabel.rotate = NULL,
+                    legend.emphasis.selectorLabel.color = NULL,
+                    legend.emphasis.selectorLabel.fontStyle = NULL,
+                    legend.emphasis.selectorLabel.fontWeight = NULL,
+                    legend.emphasis.selectorLabel.fontFamily = NULL,
+                    legend.emphasis.selectorLabel.fontSize = NULL,
+                    legend.emphasis.selectorLabel.align = NULL,
+                    legend.emphasis.selectorLabel.verticalAlign = NULL,
+                    legend.emphasis.selectorLabel.lineHeight = NULL,
+                    legend.emphasis.selectorLabel.backgroundColor = NULL,
+                    legend.emphasis.selectorLabel.borderColor = NULL,
+                    legend.emphasis.selectorLabel.borderWidth = NULL,
+                    legend.emphasis.selectorLabel.borderType = NULL,
+                    legend.emphasis.selectorLabel.borderRadius = NULL,
+                    legend.emphasis.selectorLabel.padding = NULL,
+                    legend.emphasis.selectorLabel.shadowColor = NULL,
+                    legend.emphasis.selectorLabel.shadowBlur = NULL,
+                    legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                    legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                    legend.emphasis.selectorLabel.width = NULL,
+                    legend.emphasis.selectorLabel.height = NULL,
+                    legend.emphasis.selectorLabel.textBorderColor = NULL,
+                    legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                    legend.emphasis.selectorLabel.textBorderType = NULL,
+                    legend.emphasis.selectorLabel.textShadowColor = NULL,
+                    legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                    legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                    legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                     tooltip.show = TRUE,
                     tooltip.trigger = "cross",
                     tooltip.backgroundColor = NULL,
@@ -14282,47 +18490,6 @@ HeatMap <- function(dt,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -14364,6 +18531,117 @@ HeatMap <- function(dt,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -14584,6 +18862,127 @@ CorrMatrix <- function(dt = NULL,
                        yAxis.axisLabel.textShadowOffsetX = NULL,
                        yAxis.axisLabel.textShadowOffsetY = NULL,
                        yAxis.axisLabel.overflow = NULL,
+                       legend.show = TRUE,
+                       legend.type = "scross",
+                       legend.selector = NULL,
+                       legend.icon = NULL,
+                       legend.align = NULL,
+                       legend.padding = NULL,
+                       legend.itemGap = NULL,
+                       legend.itemWidth = NULL,
+                       legend.orient = NULL,
+                       legend.width = NULL,
+                       legend.height = NULL,
+                       legend.left = NULL,
+                       legend.right = NULL,
+                       legend.top = NULL,
+                       legend.bottom = NULL,
+                       legend.backgroundColor = NULL,
+                       legend.borderColor = NULL,
+                       legend.borderWidth = NULL,
+                       legend.borderRadius = NULL,
+                       legend.shadowBlur = NULL,
+                       legend.shadowColor = NULL,
+                       legend.shadowOffsetX = NULL,
+                       legend.shadowOffsetY = NULL,
+                       legend.itemStyle.color = NULL,
+                       legend.itemStyle.borderColor = NULL,
+                       legend.itemStyle.borderWidth = NULL,
+                       legend.itemStyle.borderType = NULL,
+                       legend.itemStyle.shadowBlur = NULL,
+                       legend.itemStyle.shadowColor = NULL,
+                       legend.itemStyle.shadowOffsetX = NULL,
+                       legend.itemStyle.shadowOffsetY = NULL,
+                       legend.itemStyle.opacity = NULL,
+                       legend.lineStyle.color = NULL,
+                       legend.lineStyle.width = NULL,
+                       legend.lineStyle.type = NULL,
+                       legend.lineStyle.shadowBlur = NULL,
+                       legend.lineStyle.shadowColor = NULL,
+                       legend.lineStyle.shadowOffsetX = NULL,
+                       legend.lineStyle.shadowOffsetY = NULL,
+                       legend.lineStyle.opacity = NULL,
+                       legend.lineStyle.inactiveColor = NULL,
+                       legend.lineStyle.inactiveWidth = NULL,
+                       legend.textStyle.color = NULL,
+                       legend.textStyle.fontStyle = NULL,
+                       legend.textStyle.fontWeight = NULL,
+                       legend.textStyle.fontFamily = NULL,
+                       legend.textStyle.fontSize = NULL,
+                       legend.textStyle.backgroundColor = NULL,
+                       legend.textStyle.borderColor = NULL,
+                       legend.textStyle.borderWidth = NULL,
+                       legend.textStyle.borderType = NULL,
+                       legend.textStyle.borderRadius = NULL,
+                       legend.textStyle.padding = NULL,
+                       legend.textStyle.shadowColor = NULL,
+                       legend.textStyle.shadowBlur = NULL,
+                       legend.textStyle.shadowOffsetX = NULL,
+                       legend.textStyle.shadowOffsetY = NULL,
+                       legend.textStyle.width = NULL,
+                       legend.textStyle.height = NULL,
+                       legend.textStyle.textBorderColor = NULL,
+                       legend.textStyle.textBorderWidth = NULL,
+                       legend.textStyle.textBorderType = NULL,
+                       legend.textStyle.textShadowColor = NULL,
+                       legend.textStyle.textShadowBlur = NULL,
+                       legend.textStyle.textShadowOffsetX = NULL,
+                       legend.textStyle.textShadowOffsetY = NULL,
+                       legend.scrollDataIndex = NULL,
+                       legend.pageButtonItemGap = NULL,
+                       legend.pageButtonGap = NULL,
+                       legend.pageButtonPosition = NULL,
+                       legend.pageIconColor = NULL,
+                       legend.pageIconInactiveColor = NULL,
+                       legend.pageIconSize = NULL,
+                       legend.pageTextStyle = NULL,
+                       legend.animation = NULL,
+                       legend.animationDurationUpdate = NULL,
+                       legend.pageTextStyle.color = NULL,
+                       legend.pageTextStyle.fontStyle = NULL,
+                       legend.pageTextStyle.fontWeight = NULL,
+                       legend.pageTextStyle.fontFamily = NULL,
+                       legend.pageTextStyle.fontSize = NULL,
+                       legend.pageTextStyle.lineHeight = NULL,
+                       legend.pageTextStyle.width = NULL,
+                       legend.pageTextStyle.height = NULL,
+                       legend.pageTextStyle.textBorderColor = NULL,
+                       legend.pageTextStyle.textBorderWidth = NULL,
+                       legend.pageTextStyle.textBorderType = NULL,
+                       legend.pageTextStyle.textShadowColor = NULL,
+                       legend.pageTextStyle.textShadowBlur = NULL,
+                       legend.pageTextStyle.textShadowOffsetX = NULL,
+                       legend.pageTextStyle.textShadowOffsetY = NULL,
+                       legend.emphasis.selectorLabel.show = NULL,
+                       legend.emphasis.selectorLabel.distance = NULL,
+                       legend.emphasis.selectorLabel.rotate = NULL,
+                       legend.emphasis.selectorLabel.color = NULL,
+                       legend.emphasis.selectorLabel.fontStyle = NULL,
+                       legend.emphasis.selectorLabel.fontWeight = NULL,
+                       legend.emphasis.selectorLabel.fontFamily = NULL,
+                       legend.emphasis.selectorLabel.fontSize = NULL,
+                       legend.emphasis.selectorLabel.align = NULL,
+                       legend.emphasis.selectorLabel.verticalAlign = NULL,
+                       legend.emphasis.selectorLabel.lineHeight = NULL,
+                       legend.emphasis.selectorLabel.backgroundColor = NULL,
+                       legend.emphasis.selectorLabel.borderColor = NULL,
+                       legend.emphasis.selectorLabel.borderWidth = NULL,
+                       legend.emphasis.selectorLabel.borderType = NULL,
+                       legend.emphasis.selectorLabel.borderRadius = NULL,
+                       legend.emphasis.selectorLabel.padding = NULL,
+                       legend.emphasis.selectorLabel.shadowColor = NULL,
+                       legend.emphasis.selectorLabel.shadowBlur = NULL,
+                       legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                       legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                       legend.emphasis.selectorLabel.width = NULL,
+                       legend.emphasis.selectorLabel.height = NULL,
+                       legend.emphasis.selectorLabel.textBorderColor = NULL,
+                       legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                       legend.emphasis.selectorLabel.textBorderType = NULL,
+                       legend.emphasis.selectorLabel.textShadowColor = NULL,
+                       legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                       legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                       legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                        tooltip.show = TRUE,
                        tooltip.trigger = "cross",
                        tooltip.backgroundColor = NULL,
@@ -14868,47 +19267,6 @@ CorrMatrix <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -14950,6 +19308,117 @@ CorrMatrix <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -15164,6 +19633,127 @@ Parallel <- function(dt = NULL,
                      yAxis.axisLabel.textShadowOffsetX = NULL,
                      yAxis.axisLabel.textShadowOffsetY = NULL,
                      yAxis.axisLabel.overflow = NULL,
+                     legend.show = TRUE,
+                     legend.type = "scross",
+                     legend.selector = NULL,
+                     legend.icon = NULL,
+                     legend.align = NULL,
+                     legend.padding = NULL,
+                     legend.itemGap = NULL,
+                     legend.itemWidth = NULL,
+                     legend.orient = NULL,
+                     legend.width = NULL,
+                     legend.height = NULL,
+                     legend.left = NULL,
+                     legend.right = NULL,
+                     legend.top = NULL,
+                     legend.bottom = NULL,
+                     legend.backgroundColor = NULL,
+                     legend.borderColor = NULL,
+                     legend.borderWidth = NULL,
+                     legend.borderRadius = NULL,
+                     legend.shadowBlur = NULL,
+                     legend.shadowColor = NULL,
+                     legend.shadowOffsetX = NULL,
+                     legend.shadowOffsetY = NULL,
+                     legend.itemStyle.color = NULL,
+                     legend.itemStyle.borderColor = NULL,
+                     legend.itemStyle.borderWidth = NULL,
+                     legend.itemStyle.borderType = NULL,
+                     legend.itemStyle.shadowBlur = NULL,
+                     legend.itemStyle.shadowColor = NULL,
+                     legend.itemStyle.shadowOffsetX = NULL,
+                     legend.itemStyle.shadowOffsetY = NULL,
+                     legend.itemStyle.opacity = NULL,
+                     legend.lineStyle.color = NULL,
+                     legend.lineStyle.width = NULL,
+                     legend.lineStyle.type = NULL,
+                     legend.lineStyle.shadowBlur = NULL,
+                     legend.lineStyle.shadowColor = NULL,
+                     legend.lineStyle.shadowOffsetX = NULL,
+                     legend.lineStyle.shadowOffsetY = NULL,
+                     legend.lineStyle.opacity = NULL,
+                     legend.lineStyle.inactiveColor = NULL,
+                     legend.lineStyle.inactiveWidth = NULL,
+                     legend.textStyle.color = NULL,
+                     legend.textStyle.fontStyle = NULL,
+                     legend.textStyle.fontWeight = NULL,
+                     legend.textStyle.fontFamily = NULL,
+                     legend.textStyle.fontSize = NULL,
+                     legend.textStyle.backgroundColor = NULL,
+                     legend.textStyle.borderColor = NULL,
+                     legend.textStyle.borderWidth = NULL,
+                     legend.textStyle.borderType = NULL,
+                     legend.textStyle.borderRadius = NULL,
+                     legend.textStyle.padding = NULL,
+                     legend.textStyle.shadowColor = NULL,
+                     legend.textStyle.shadowBlur = NULL,
+                     legend.textStyle.shadowOffsetX = NULL,
+                     legend.textStyle.shadowOffsetY = NULL,
+                     legend.textStyle.width = NULL,
+                     legend.textStyle.height = NULL,
+                     legend.textStyle.textBorderColor = NULL,
+                     legend.textStyle.textBorderWidth = NULL,
+                     legend.textStyle.textBorderType = NULL,
+                     legend.textStyle.textShadowColor = NULL,
+                     legend.textStyle.textShadowBlur = NULL,
+                     legend.textStyle.textShadowOffsetX = NULL,
+                     legend.textStyle.textShadowOffsetY = NULL,
+                     legend.scrollDataIndex = NULL,
+                     legend.pageButtonItemGap = NULL,
+                     legend.pageButtonGap = NULL,
+                     legend.pageButtonPosition = NULL,
+                     legend.pageIconColor = NULL,
+                     legend.pageIconInactiveColor = NULL,
+                     legend.pageIconSize = NULL,
+                     legend.pageTextStyle = NULL,
+                     legend.animation = NULL,
+                     legend.animationDurationUpdate = NULL,
+                     legend.pageTextStyle.color = NULL,
+                     legend.pageTextStyle.fontStyle = NULL,
+                     legend.pageTextStyle.fontWeight = NULL,
+                     legend.pageTextStyle.fontFamily = NULL,
+                     legend.pageTextStyle.fontSize = NULL,
+                     legend.pageTextStyle.lineHeight = NULL,
+                     legend.pageTextStyle.width = NULL,
+                     legend.pageTextStyle.height = NULL,
+                     legend.pageTextStyle.textBorderColor = NULL,
+                     legend.pageTextStyle.textBorderWidth = NULL,
+                     legend.pageTextStyle.textBorderType = NULL,
+                     legend.pageTextStyle.textShadowColor = NULL,
+                     legend.pageTextStyle.textShadowBlur = NULL,
+                     legend.pageTextStyle.textShadowOffsetX = NULL,
+                     legend.pageTextStyle.textShadowOffsetY = NULL,
+                     legend.emphasis.selectorLabel.show = NULL,
+                     legend.emphasis.selectorLabel.distance = NULL,
+                     legend.emphasis.selectorLabel.rotate = NULL,
+                     legend.emphasis.selectorLabel.color = NULL,
+                     legend.emphasis.selectorLabel.fontStyle = NULL,
+                     legend.emphasis.selectorLabel.fontWeight = NULL,
+                     legend.emphasis.selectorLabel.fontFamily = NULL,
+                     legend.emphasis.selectorLabel.fontSize = NULL,
+                     legend.emphasis.selectorLabel.align = NULL,
+                     legend.emphasis.selectorLabel.verticalAlign = NULL,
+                     legend.emphasis.selectorLabel.lineHeight = NULL,
+                     legend.emphasis.selectorLabel.backgroundColor = NULL,
+                     legend.emphasis.selectorLabel.borderColor = NULL,
+                     legend.emphasis.selectorLabel.borderWidth = NULL,
+                     legend.emphasis.selectorLabel.borderType = NULL,
+                     legend.emphasis.selectorLabel.borderRadius = NULL,
+                     legend.emphasis.selectorLabel.padding = NULL,
+                     legend.emphasis.selectorLabel.shadowColor = NULL,
+                     legend.emphasis.selectorLabel.shadowBlur = NULL,
+                     legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                     legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                     legend.emphasis.selectorLabel.width = NULL,
+                     legend.emphasis.selectorLabel.height = NULL,
+                     legend.emphasis.selectorLabel.textBorderColor = NULL,
+                     legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                     legend.emphasis.selectorLabel.textBorderType = NULL,
+                     legend.emphasis.selectorLabel.textShadowColor = NULL,
+                     legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                     legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                     legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                      tooltip.show = TRUE,
                      tooltip.trigger = "cross",
                      tooltip.backgroundColor = NULL,
@@ -15393,7 +19983,6 @@ Parallel <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -15486,47 +20075,6 @@ Parallel <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -15568,6 +20116,117 @@ Parallel <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -15792,6 +20451,127 @@ Copula <- function(dt = NULL,
                    yAxis.axisLabel.textShadowOffsetX = NULL,
                    yAxis.axisLabel.textShadowOffsetY = NULL,
                    yAxis.axisLabel.overflow = NULL,
+                   legend.show = TRUE,
+                   legend.type = "scross",
+                   legend.selector = NULL,
+                   legend.icon = NULL,
+                   legend.align = NULL,
+                   legend.padding = NULL,
+                   legend.itemGap = NULL,
+                   legend.itemWidth = NULL,
+                   legend.orient = NULL,
+                   legend.width = NULL,
+                   legend.height = NULL,
+                   legend.left = NULL,
+                   legend.right = NULL,
+                   legend.top = NULL,
+                   legend.bottom = NULL,
+                   legend.backgroundColor = NULL,
+                   legend.borderColor = NULL,
+                   legend.borderWidth = NULL,
+                   legend.borderRadius = NULL,
+                   legend.shadowBlur = NULL,
+                   legend.shadowColor = NULL,
+                   legend.shadowOffsetX = NULL,
+                   legend.shadowOffsetY = NULL,
+                   legend.itemStyle.color = NULL,
+                   legend.itemStyle.borderColor = NULL,
+                   legend.itemStyle.borderWidth = NULL,
+                   legend.itemStyle.borderType = NULL,
+                   legend.itemStyle.shadowBlur = NULL,
+                   legend.itemStyle.shadowColor = NULL,
+                   legend.itemStyle.shadowOffsetX = NULL,
+                   legend.itemStyle.shadowOffsetY = NULL,
+                   legend.itemStyle.opacity = NULL,
+                   legend.lineStyle.color = NULL,
+                   legend.lineStyle.width = NULL,
+                   legend.lineStyle.type = NULL,
+                   legend.lineStyle.shadowBlur = NULL,
+                   legend.lineStyle.shadowColor = NULL,
+                   legend.lineStyle.shadowOffsetX = NULL,
+                   legend.lineStyle.shadowOffsetY = NULL,
+                   legend.lineStyle.opacity = NULL,
+                   legend.lineStyle.inactiveColor = NULL,
+                   legend.lineStyle.inactiveWidth = NULL,
+                   legend.textStyle.color = NULL,
+                   legend.textStyle.fontStyle = NULL,
+                   legend.textStyle.fontWeight = NULL,
+                   legend.textStyle.fontFamily = NULL,
+                   legend.textStyle.fontSize = NULL,
+                   legend.textStyle.backgroundColor = NULL,
+                   legend.textStyle.borderColor = NULL,
+                   legend.textStyle.borderWidth = NULL,
+                   legend.textStyle.borderType = NULL,
+                   legend.textStyle.borderRadius = NULL,
+                   legend.textStyle.padding = NULL,
+                   legend.textStyle.shadowColor = NULL,
+                   legend.textStyle.shadowBlur = NULL,
+                   legend.textStyle.shadowOffsetX = NULL,
+                   legend.textStyle.shadowOffsetY = NULL,
+                   legend.textStyle.width = NULL,
+                   legend.textStyle.height = NULL,
+                   legend.textStyle.textBorderColor = NULL,
+                   legend.textStyle.textBorderWidth = NULL,
+                   legend.textStyle.textBorderType = NULL,
+                   legend.textStyle.textShadowColor = NULL,
+                   legend.textStyle.textShadowBlur = NULL,
+                   legend.textStyle.textShadowOffsetX = NULL,
+                   legend.textStyle.textShadowOffsetY = NULL,
+                   legend.scrollDataIndex = NULL,
+                   legend.pageButtonItemGap = NULL,
+                   legend.pageButtonGap = NULL,
+                   legend.pageButtonPosition = NULL,
+                   legend.pageIconColor = NULL,
+                   legend.pageIconInactiveColor = NULL,
+                   legend.pageIconSize = NULL,
+                   legend.pageTextStyle = NULL,
+                   legend.animation = NULL,
+                   legend.animationDurationUpdate = NULL,
+                   legend.pageTextStyle.color = NULL,
+                   legend.pageTextStyle.fontStyle = NULL,
+                   legend.pageTextStyle.fontWeight = NULL,
+                   legend.pageTextStyle.fontFamily = NULL,
+                   legend.pageTextStyle.fontSize = NULL,
+                   legend.pageTextStyle.lineHeight = NULL,
+                   legend.pageTextStyle.width = NULL,
+                   legend.pageTextStyle.height = NULL,
+                   legend.pageTextStyle.textBorderColor = NULL,
+                   legend.pageTextStyle.textBorderWidth = NULL,
+                   legend.pageTextStyle.textBorderType = NULL,
+                   legend.pageTextStyle.textShadowColor = NULL,
+                   legend.pageTextStyle.textShadowBlur = NULL,
+                   legend.pageTextStyle.textShadowOffsetX = NULL,
+                   legend.pageTextStyle.textShadowOffsetY = NULL,
+                   legend.emphasis.selectorLabel.show = NULL,
+                   legend.emphasis.selectorLabel.distance = NULL,
+                   legend.emphasis.selectorLabel.rotate = NULL,
+                   legend.emphasis.selectorLabel.color = NULL,
+                   legend.emphasis.selectorLabel.fontStyle = NULL,
+                   legend.emphasis.selectorLabel.fontWeight = NULL,
+                   legend.emphasis.selectorLabel.fontFamily = NULL,
+                   legend.emphasis.selectorLabel.fontSize = NULL,
+                   legend.emphasis.selectorLabel.align = NULL,
+                   legend.emphasis.selectorLabel.verticalAlign = NULL,
+                   legend.emphasis.selectorLabel.lineHeight = NULL,
+                   legend.emphasis.selectorLabel.backgroundColor = NULL,
+                   legend.emphasis.selectorLabel.borderColor = NULL,
+                   legend.emphasis.selectorLabel.borderWidth = NULL,
+                   legend.emphasis.selectorLabel.borderType = NULL,
+                   legend.emphasis.selectorLabel.borderRadius = NULL,
+                   legend.emphasis.selectorLabel.padding = NULL,
+                   legend.emphasis.selectorLabel.shadowColor = NULL,
+                   legend.emphasis.selectorLabel.shadowBlur = NULL,
+                   legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                   legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                   legend.emphasis.selectorLabel.width = NULL,
+                   legend.emphasis.selectorLabel.height = NULL,
+                   legend.emphasis.selectorLabel.textBorderColor = NULL,
+                   legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                   legend.emphasis.selectorLabel.textBorderType = NULL,
+                   legend.emphasis.selectorLabel.textShadowColor = NULL,
+                   legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                   legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                   legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                    tooltip.show = TRUE,
                    tooltip.trigger = "cross",
                    tooltip.backgroundColor = NULL,
@@ -15910,7 +20690,62 @@ Copula <- function(dt = NULL,
 
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -16206,11 +21041,63 @@ Copula <- function(dt = NULL,
 
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
 
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
   }
 
@@ -16339,47 +21226,6 @@ Copula <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -16421,6 +21267,117 @@ Copula <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -16648,6 +21605,127 @@ Copula3D <- function(dt = NULL,
                      yAxis.axisLabel.textShadowOffsetX = NULL,
                      yAxis.axisLabel.textShadowOffsetY = NULL,
                      yAxis.axisLabel.overflow = NULL,
+                     legend.show = TRUE,
+                     legend.type = "scross",
+                     legend.selector = NULL,
+                     legend.icon = NULL,
+                     legend.align = NULL,
+                     legend.padding = NULL,
+                     legend.itemGap = NULL,
+                     legend.itemWidth = NULL,
+                     legend.orient = NULL,
+                     legend.width = NULL,
+                     legend.height = NULL,
+                     legend.left = NULL,
+                     legend.right = NULL,
+                     legend.top = NULL,
+                     legend.bottom = NULL,
+                     legend.backgroundColor = NULL,
+                     legend.borderColor = NULL,
+                     legend.borderWidth = NULL,
+                     legend.borderRadius = NULL,
+                     legend.shadowBlur = NULL,
+                     legend.shadowColor = NULL,
+                     legend.shadowOffsetX = NULL,
+                     legend.shadowOffsetY = NULL,
+                     legend.itemStyle.color = NULL,
+                     legend.itemStyle.borderColor = NULL,
+                     legend.itemStyle.borderWidth = NULL,
+                     legend.itemStyle.borderType = NULL,
+                     legend.itemStyle.shadowBlur = NULL,
+                     legend.itemStyle.shadowColor = NULL,
+                     legend.itemStyle.shadowOffsetX = NULL,
+                     legend.itemStyle.shadowOffsetY = NULL,
+                     legend.itemStyle.opacity = NULL,
+                     legend.lineStyle.color = NULL,
+                     legend.lineStyle.width = NULL,
+                     legend.lineStyle.type = NULL,
+                     legend.lineStyle.shadowBlur = NULL,
+                     legend.lineStyle.shadowColor = NULL,
+                     legend.lineStyle.shadowOffsetX = NULL,
+                     legend.lineStyle.shadowOffsetY = NULL,
+                     legend.lineStyle.opacity = NULL,
+                     legend.lineStyle.inactiveColor = NULL,
+                     legend.lineStyle.inactiveWidth = NULL,
+                     legend.textStyle.color = NULL,
+                     legend.textStyle.fontStyle = NULL,
+                     legend.textStyle.fontWeight = NULL,
+                     legend.textStyle.fontFamily = NULL,
+                     legend.textStyle.fontSize = NULL,
+                     legend.textStyle.backgroundColor = NULL,
+                     legend.textStyle.borderColor = NULL,
+                     legend.textStyle.borderWidth = NULL,
+                     legend.textStyle.borderType = NULL,
+                     legend.textStyle.borderRadius = NULL,
+                     legend.textStyle.padding = NULL,
+                     legend.textStyle.shadowColor = NULL,
+                     legend.textStyle.shadowBlur = NULL,
+                     legend.textStyle.shadowOffsetX = NULL,
+                     legend.textStyle.shadowOffsetY = NULL,
+                     legend.textStyle.width = NULL,
+                     legend.textStyle.height = NULL,
+                     legend.textStyle.textBorderColor = NULL,
+                     legend.textStyle.textBorderWidth = NULL,
+                     legend.textStyle.textBorderType = NULL,
+                     legend.textStyle.textShadowColor = NULL,
+                     legend.textStyle.textShadowBlur = NULL,
+                     legend.textStyle.textShadowOffsetX = NULL,
+                     legend.textStyle.textShadowOffsetY = NULL,
+                     legend.scrollDataIndex = NULL,
+                     legend.pageButtonItemGap = NULL,
+                     legend.pageButtonGap = NULL,
+                     legend.pageButtonPosition = NULL,
+                     legend.pageIconColor = NULL,
+                     legend.pageIconInactiveColor = NULL,
+                     legend.pageIconSize = NULL,
+                     legend.pageTextStyle = NULL,
+                     legend.animation = NULL,
+                     legend.animationDurationUpdate = NULL,
+                     legend.pageTextStyle.color = NULL,
+                     legend.pageTextStyle.fontStyle = NULL,
+                     legend.pageTextStyle.fontWeight = NULL,
+                     legend.pageTextStyle.fontFamily = NULL,
+                     legend.pageTextStyle.fontSize = NULL,
+                     legend.pageTextStyle.lineHeight = NULL,
+                     legend.pageTextStyle.width = NULL,
+                     legend.pageTextStyle.height = NULL,
+                     legend.pageTextStyle.textBorderColor = NULL,
+                     legend.pageTextStyle.textBorderWidth = NULL,
+                     legend.pageTextStyle.textBorderType = NULL,
+                     legend.pageTextStyle.textShadowColor = NULL,
+                     legend.pageTextStyle.textShadowBlur = NULL,
+                     legend.pageTextStyle.textShadowOffsetX = NULL,
+                     legend.pageTextStyle.textShadowOffsetY = NULL,
+                     legend.emphasis.selectorLabel.show = NULL,
+                     legend.emphasis.selectorLabel.distance = NULL,
+                     legend.emphasis.selectorLabel.rotate = NULL,
+                     legend.emphasis.selectorLabel.color = NULL,
+                     legend.emphasis.selectorLabel.fontStyle = NULL,
+                     legend.emphasis.selectorLabel.fontWeight = NULL,
+                     legend.emphasis.selectorLabel.fontFamily = NULL,
+                     legend.emphasis.selectorLabel.fontSize = NULL,
+                     legend.emphasis.selectorLabel.align = NULL,
+                     legend.emphasis.selectorLabel.verticalAlign = NULL,
+                     legend.emphasis.selectorLabel.lineHeight = NULL,
+                     legend.emphasis.selectorLabel.backgroundColor = NULL,
+                     legend.emphasis.selectorLabel.borderColor = NULL,
+                     legend.emphasis.selectorLabel.borderWidth = NULL,
+                     legend.emphasis.selectorLabel.borderType = NULL,
+                     legend.emphasis.selectorLabel.borderRadius = NULL,
+                     legend.emphasis.selectorLabel.padding = NULL,
+                     legend.emphasis.selectorLabel.shadowColor = NULL,
+                     legend.emphasis.selectorLabel.shadowBlur = NULL,
+                     legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                     legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                     legend.emphasis.selectorLabel.width = NULL,
+                     legend.emphasis.selectorLabel.height = NULL,
+                     legend.emphasis.selectorLabel.textBorderColor = NULL,
+                     legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                     legend.emphasis.selectorLabel.textBorderType = NULL,
+                     legend.emphasis.selectorLabel.textShadowColor = NULL,
+                     legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                     legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                     legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                      tooltip.show = TRUE,
                      tooltip.trigger = "cross",
                      tooltip.backgroundColor = NULL,
@@ -16712,7 +21790,63 @@ Copula3D <- function(dt = NULL,
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor))
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -16745,8 +21879,8 @@ Copula3D <- function(dt = NULL,
 
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     p1 <- echarts4r::e_brush(e = p1)
+
     p1 <- e_title_full(
       e = p1,
       title.text = title.text,
@@ -17089,47 +22223,6 @@ Copula3D <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -17171,6 +22264,117 @@ Copula3D <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -17397,6 +22601,127 @@ Scatter <- function(dt = NULL,
                     yAxis.axisLabel.textShadowOffsetX = NULL,
                     yAxis.axisLabel.textShadowOffsetY = NULL,
                     yAxis.axisLabel.overflow = NULL,
+                    legend.show = TRUE,
+                    legend.type = "scross",
+                    legend.selector = NULL,
+                    legend.icon = NULL,
+                    legend.align = NULL,
+                    legend.padding = NULL,
+                    legend.itemGap = NULL,
+                    legend.itemWidth = NULL,
+                    legend.orient = NULL,
+                    legend.width = NULL,
+                    legend.height = NULL,
+                    legend.left = NULL,
+                    legend.right = NULL,
+                    legend.top = NULL,
+                    legend.bottom = NULL,
+                    legend.backgroundColor = NULL,
+                    legend.borderColor = NULL,
+                    legend.borderWidth = NULL,
+                    legend.borderRadius = NULL,
+                    legend.shadowBlur = NULL,
+                    legend.shadowColor = NULL,
+                    legend.shadowOffsetX = NULL,
+                    legend.shadowOffsetY = NULL,
+                    legend.itemStyle.color = NULL,
+                    legend.itemStyle.borderColor = NULL,
+                    legend.itemStyle.borderWidth = NULL,
+                    legend.itemStyle.borderType = NULL,
+                    legend.itemStyle.shadowBlur = NULL,
+                    legend.itemStyle.shadowColor = NULL,
+                    legend.itemStyle.shadowOffsetX = NULL,
+                    legend.itemStyle.shadowOffsetY = NULL,
+                    legend.itemStyle.opacity = NULL,
+                    legend.lineStyle.color = NULL,
+                    legend.lineStyle.width = NULL,
+                    legend.lineStyle.type = NULL,
+                    legend.lineStyle.shadowBlur = NULL,
+                    legend.lineStyle.shadowColor = NULL,
+                    legend.lineStyle.shadowOffsetX = NULL,
+                    legend.lineStyle.shadowOffsetY = NULL,
+                    legend.lineStyle.opacity = NULL,
+                    legend.lineStyle.inactiveColor = NULL,
+                    legend.lineStyle.inactiveWidth = NULL,
+                    legend.textStyle.color = NULL,
+                    legend.textStyle.fontStyle = NULL,
+                    legend.textStyle.fontWeight = NULL,
+                    legend.textStyle.fontFamily = NULL,
+                    legend.textStyle.fontSize = NULL,
+                    legend.textStyle.backgroundColor = NULL,
+                    legend.textStyle.borderColor = NULL,
+                    legend.textStyle.borderWidth = NULL,
+                    legend.textStyle.borderType = NULL,
+                    legend.textStyle.borderRadius = NULL,
+                    legend.textStyle.padding = NULL,
+                    legend.textStyle.shadowColor = NULL,
+                    legend.textStyle.shadowBlur = NULL,
+                    legend.textStyle.shadowOffsetX = NULL,
+                    legend.textStyle.shadowOffsetY = NULL,
+                    legend.textStyle.width = NULL,
+                    legend.textStyle.height = NULL,
+                    legend.textStyle.textBorderColor = NULL,
+                    legend.textStyle.textBorderWidth = NULL,
+                    legend.textStyle.textBorderType = NULL,
+                    legend.textStyle.textShadowColor = NULL,
+                    legend.textStyle.textShadowBlur = NULL,
+                    legend.textStyle.textShadowOffsetX = NULL,
+                    legend.textStyle.textShadowOffsetY = NULL,
+                    legend.scrollDataIndex = NULL,
+                    legend.pageButtonItemGap = NULL,
+                    legend.pageButtonGap = NULL,
+                    legend.pageButtonPosition = NULL,
+                    legend.pageIconColor = NULL,
+                    legend.pageIconInactiveColor = NULL,
+                    legend.pageIconSize = NULL,
+                    legend.pageTextStyle = NULL,
+                    legend.animation = NULL,
+                    legend.animationDurationUpdate = NULL,
+                    legend.pageTextStyle.color = NULL,
+                    legend.pageTextStyle.fontStyle = NULL,
+                    legend.pageTextStyle.fontWeight = NULL,
+                    legend.pageTextStyle.fontFamily = NULL,
+                    legend.pageTextStyle.fontSize = NULL,
+                    legend.pageTextStyle.lineHeight = NULL,
+                    legend.pageTextStyle.width = NULL,
+                    legend.pageTextStyle.height = NULL,
+                    legend.pageTextStyle.textBorderColor = NULL,
+                    legend.pageTextStyle.textBorderWidth = NULL,
+                    legend.pageTextStyle.textBorderType = NULL,
+                    legend.pageTextStyle.textShadowColor = NULL,
+                    legend.pageTextStyle.textShadowBlur = NULL,
+                    legend.pageTextStyle.textShadowOffsetX = NULL,
+                    legend.pageTextStyle.textShadowOffsetY = NULL,
+                    legend.emphasis.selectorLabel.show = NULL,
+                    legend.emphasis.selectorLabel.distance = NULL,
+                    legend.emphasis.selectorLabel.rotate = NULL,
+                    legend.emphasis.selectorLabel.color = NULL,
+                    legend.emphasis.selectorLabel.fontStyle = NULL,
+                    legend.emphasis.selectorLabel.fontWeight = NULL,
+                    legend.emphasis.selectorLabel.fontFamily = NULL,
+                    legend.emphasis.selectorLabel.fontSize = NULL,
+                    legend.emphasis.selectorLabel.align = NULL,
+                    legend.emphasis.selectorLabel.verticalAlign = NULL,
+                    legend.emphasis.selectorLabel.lineHeight = NULL,
+                    legend.emphasis.selectorLabel.backgroundColor = NULL,
+                    legend.emphasis.selectorLabel.borderColor = NULL,
+                    legend.emphasis.selectorLabel.borderWidth = NULL,
+                    legend.emphasis.selectorLabel.borderType = NULL,
+                    legend.emphasis.selectorLabel.borderRadius = NULL,
+                    legend.emphasis.selectorLabel.padding = NULL,
+                    legend.emphasis.selectorLabel.shadowColor = NULL,
+                    legend.emphasis.selectorLabel.shadowBlur = NULL,
+                    legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                    legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                    legend.emphasis.selectorLabel.width = NULL,
+                    legend.emphasis.selectorLabel.height = NULL,
+                    legend.emphasis.selectorLabel.textBorderColor = NULL,
+                    legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                    legend.emphasis.selectorLabel.textBorderType = NULL,
+                    legend.emphasis.selectorLabel.textShadowColor = NULL,
+                    legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                    legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                    legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                     tooltip.show = TRUE,
                     tooltip.trigger = "cross",
                     tooltip.backgroundColor = NULL,
@@ -17520,7 +22845,62 @@ Scatter <- function(dt = NULL,
 
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
-    p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -17822,10 +23202,64 @@ Scatter <- function(dt = NULL,
 
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
   }
 
   # Return plot
@@ -17953,47 +23387,6 @@ Scatter <- function(dt = NULL,
 #' @param xAxis.axisLabel.textShadowOffsetX numeric
 #' @param xAxis.axisLabel.textShadowOffsetY numeric
 #' @param xAxis.axisLabel.overflow 'truncate'
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
 #' @param yAxis.title Axis title
 #' @param yAxis.min Min value
 #' @param yAxis.max Max value
@@ -18035,6 +23428,117 @@ Scatter <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
 #' @param tooltip.trigger "cross" "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
@@ -18262,6 +23766,127 @@ Scatter3D <- function(dt = NULL,
                       yAxis.axisLabel.textShadowOffsetX = NULL,
                       yAxis.axisLabel.textShadowOffsetY = NULL,
                       yAxis.axisLabel.overflow = NULL,
+                      legend.show = TRUE,
+                      legend.type = "scross",
+                      legend.selector = NULL,
+                      legend.icon = NULL,
+                      legend.align = NULL,
+                      legend.padding = NULL,
+                      legend.itemGap = NULL,
+                      legend.itemWidth = NULL,
+                      legend.orient = NULL,
+                      legend.width = NULL,
+                      legend.height = NULL,
+                      legend.left = NULL,
+                      legend.right = NULL,
+                      legend.top = NULL,
+                      legend.bottom = NULL,
+                      legend.backgroundColor = NULL,
+                      legend.borderColor = NULL,
+                      legend.borderWidth = NULL,
+                      legend.borderRadius = NULL,
+                      legend.shadowBlur = NULL,
+                      legend.shadowColor = NULL,
+                      legend.shadowOffsetX = NULL,
+                      legend.shadowOffsetY = NULL,
+                      legend.itemStyle.color = NULL,
+                      legend.itemStyle.borderColor = NULL,
+                      legend.itemStyle.borderWidth = NULL,
+                      legend.itemStyle.borderType = NULL,
+                      legend.itemStyle.shadowBlur = NULL,
+                      legend.itemStyle.shadowColor = NULL,
+                      legend.itemStyle.shadowOffsetX = NULL,
+                      legend.itemStyle.shadowOffsetY = NULL,
+                      legend.itemStyle.opacity = NULL,
+                      legend.lineStyle.color = NULL,
+                      legend.lineStyle.width = NULL,
+                      legend.lineStyle.type = NULL,
+                      legend.lineStyle.shadowBlur = NULL,
+                      legend.lineStyle.shadowColor = NULL,
+                      legend.lineStyle.shadowOffsetX = NULL,
+                      legend.lineStyle.shadowOffsetY = NULL,
+                      legend.lineStyle.opacity = NULL,
+                      legend.lineStyle.inactiveColor = NULL,
+                      legend.lineStyle.inactiveWidth = NULL,
+                      legend.textStyle.color = NULL,
+                      legend.textStyle.fontStyle = NULL,
+                      legend.textStyle.fontWeight = NULL,
+                      legend.textStyle.fontFamily = NULL,
+                      legend.textStyle.fontSize = NULL,
+                      legend.textStyle.backgroundColor = NULL,
+                      legend.textStyle.borderColor = NULL,
+                      legend.textStyle.borderWidth = NULL,
+                      legend.textStyle.borderType = NULL,
+                      legend.textStyle.borderRadius = NULL,
+                      legend.textStyle.padding = NULL,
+                      legend.textStyle.shadowColor = NULL,
+                      legend.textStyle.shadowBlur = NULL,
+                      legend.textStyle.shadowOffsetX = NULL,
+                      legend.textStyle.shadowOffsetY = NULL,
+                      legend.textStyle.width = NULL,
+                      legend.textStyle.height = NULL,
+                      legend.textStyle.textBorderColor = NULL,
+                      legend.textStyle.textBorderWidth = NULL,
+                      legend.textStyle.textBorderType = NULL,
+                      legend.textStyle.textShadowColor = NULL,
+                      legend.textStyle.textShadowBlur = NULL,
+                      legend.textStyle.textShadowOffsetX = NULL,
+                      legend.textStyle.textShadowOffsetY = NULL,
+                      legend.scrollDataIndex = NULL,
+                      legend.pageButtonItemGap = NULL,
+                      legend.pageButtonGap = NULL,
+                      legend.pageButtonPosition = NULL,
+                      legend.pageIconColor = NULL,
+                      legend.pageIconInactiveColor = NULL,
+                      legend.pageIconSize = NULL,
+                      legend.pageTextStyle = NULL,
+                      legend.animation = NULL,
+                      legend.animationDurationUpdate = NULL,
+                      legend.pageTextStyle.color = NULL,
+                      legend.pageTextStyle.fontStyle = NULL,
+                      legend.pageTextStyle.fontWeight = NULL,
+                      legend.pageTextStyle.fontFamily = NULL,
+                      legend.pageTextStyle.fontSize = NULL,
+                      legend.pageTextStyle.lineHeight = NULL,
+                      legend.pageTextStyle.width = NULL,
+                      legend.pageTextStyle.height = NULL,
+                      legend.pageTextStyle.textBorderColor = NULL,
+                      legend.pageTextStyle.textBorderWidth = NULL,
+                      legend.pageTextStyle.textBorderType = NULL,
+                      legend.pageTextStyle.textShadowColor = NULL,
+                      legend.pageTextStyle.textShadowBlur = NULL,
+                      legend.pageTextStyle.textShadowOffsetX = NULL,
+                      legend.pageTextStyle.textShadowOffsetY = NULL,
+                      legend.emphasis.selectorLabel.show = NULL,
+                      legend.emphasis.selectorLabel.distance = NULL,
+                      legend.emphasis.selectorLabel.rotate = NULL,
+                      legend.emphasis.selectorLabel.color = NULL,
+                      legend.emphasis.selectorLabel.fontStyle = NULL,
+                      legend.emphasis.selectorLabel.fontWeight = NULL,
+                      legend.emphasis.selectorLabel.fontFamily = NULL,
+                      legend.emphasis.selectorLabel.fontSize = NULL,
+                      legend.emphasis.selectorLabel.align = NULL,
+                      legend.emphasis.selectorLabel.verticalAlign = NULL,
+                      legend.emphasis.selectorLabel.lineHeight = NULL,
+                      legend.emphasis.selectorLabel.backgroundColor = NULL,
+                      legend.emphasis.selectorLabel.borderColor = NULL,
+                      legend.emphasis.selectorLabel.borderWidth = NULL,
+                      legend.emphasis.selectorLabel.borderType = NULL,
+                      legend.emphasis.selectorLabel.borderRadius = NULL,
+                      legend.emphasis.selectorLabel.padding = NULL,
+                      legend.emphasis.selectorLabel.shadowColor = NULL,
+                      legend.emphasis.selectorLabel.shadowBlur = NULL,
+                      legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+                      legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+                      legend.emphasis.selectorLabel.width = NULL,
+                      legend.emphasis.selectorLabel.height = NULL,
+                      legend.emphasis.selectorLabel.textBorderColor = NULL,
+                      legend.emphasis.selectorLabel.textBorderWidth = NULL,
+                      legend.emphasis.selectorLabel.textBorderType = NULL,
+                      legend.emphasis.selectorLabel.textShadowColor = NULL,
+                      legend.emphasis.selectorLabel.textShadowBlur = NULL,
+                      legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+                      legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
                       tooltip.show = TRUE,
                       tooltip.trigger = "cross",
                       tooltip.backgroundColor = NULL,
@@ -18433,10 +24058,63 @@ Scatter3D <- function(dt = NULL,
 
     if(FacetRows > 1L || FacetCols > 1L) {
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "horizontal", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
-    } else {
-      p1 <- echarts4r::e_legend(e = p1, type = "scroll", orient = "vertical", right = 50, top = 40, height = "240px", textStyle = list(color = TextColor, fontWeight = "bold"))
     }
+
+    p1 <- echarts4r::e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
   } else {
 
