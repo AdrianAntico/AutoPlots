@@ -18612,7 +18612,7 @@ Scatter3D <- function(dt = NULL,
 # > Model Evaluation Plots                                                    ----
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 
-#' @title Plot.Residuals.Histogram
+#' @title Residuals.Histogram
 #'
 #' @description Residuals Plot
 #'
@@ -18655,7 +18655,7 @@ Scatter3D <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.Residuals.Histogram <- function(dt = NULL,
+Residuals.Histogram <- function(dt = NULL,
                                      AggMethod = 'mean',
                                      SampleSize = 100000,
                                      XVar = NULL,
@@ -18788,7 +18788,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.Residuals.Scatter
+#' @title Residuals.Scatter
 #'
 #' @description Residuals_2 Plot
 #'
@@ -18819,7 +18819,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.Residuals.Scatter <- function(dt = NULL,
+Residuals.Scatter <- function(dt = NULL,
                                    AggMethod = 'mean',
                                    SampleSize = 100000,
                                    XVar = NULL,
@@ -18892,7 +18892,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.Calibration.Line
+#' @title Calibration.Line
 #'
 #' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
 #'
@@ -18923,7 +18923,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.Calibration.Line <- function(dt = NULL,
+Calibration.Line <- function(dt = NULL,
                                   AggMethod = 'mean',
                                   XVar = NULL,
                                   YVar = NULL,
@@ -19176,7 +19176,7 @@ Plot.Calibration.Line <- function(dt = NULL,
   }
 }
 
-#' @title Plot.Calibration.Box
+#' @title Calibration.Box
 #'
 #' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
 #'
@@ -19208,7 +19208,7 @@ Plot.Calibration.Line <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.Calibration.Box <- function(dt = NULL,
+Calibration.Box <- function(dt = NULL,
                                  SampleSize = 100000L,
                                  AggMethod = 'mean',
                                  XVar = NULL,
@@ -19304,7 +19304,7 @@ Plot.Calibration.Box <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.PartialDependence.Line
+#' @title PartialDependence.Line
 #'
 #' @description This function automatically builds partial dependence calibration plots
 #'
@@ -19338,7 +19338,7 @@ Plot.Calibration.Box <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.PartialDependence.Line <- function(dt = NULL,
+PartialDependence.Line <- function(dt = NULL,
                                         XVar = NULL,
                                         YVar = NULL,
                                         ZVar = NULL,
@@ -19555,7 +19555,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
   }
 }
 
-#' @title Plot.PartialDependence.Box
+#' @title PartialDependence.Box
 #'
 #' @description This function automatically builds partial dependence calibration plots
 #'
@@ -19591,7 +19591,7 @@ Plot.PartialDependence.Line <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.PartialDependence.Box <- function(dt = NULL,
+PartialDependence.Box <- function(dt = NULL,
                                        PreAgg = FALSE,
                                        SampleSize = 100000L,
                                        XVar = NULL,
@@ -19673,7 +19673,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.PartialDependence.HeatMap
+#' @title PartialDependence.HeatMap
 #'
 #' @description This function automatically builds partial dependence calibration plots
 #'
@@ -19707,7 +19707,7 @@ Plot.PartialDependence.Box <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.PartialDependence.HeatMap <- function(dt = NULL,
+PartialDependence.HeatMap <- function(dt = NULL,
                                            XVar = NULL,
                                            YVar = NULL,
                                            ZVar = NULL,
@@ -19928,7 +19928,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
   }
 }
 
-#' @title Plot.VariableImportance
+#' @title VariableImportance
 #'
 #' @description Generate variable importance plots
 #'
@@ -19965,7 +19965,7 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.VariableImportance <- function(dt = NULL,
+VariableImportance <- function(dt = NULL,
                                     XVar = NULL,
                                     YVar = NULL,
                                     GroupVar = NULL,
@@ -20066,7 +20066,7 @@ Plot.VariableImportance <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.ROC
+#' @title ROC
 #'
 #' @description ROC Plot
 #'
@@ -20097,7 +20097,7 @@ Plot.VariableImportance <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.ROC <- function(dt = NULL,
+ROC <- function(dt = NULL,
                      SampleSize = 100000,
                      XVar = NULL,
                      YVar = NULL,
@@ -20320,7 +20320,7 @@ Plot.ROC <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.ConfusionMatrix
+#' @title ConfusionMatrix
 #'
 #' @description Generate variable importance plots
 #'
@@ -20361,7 +20361,7 @@ Plot.ROC <- function(dt = NULL,
 #'
 #' @return plot
 #' @export
-Plot.ConfusionMatrix <- function(dt = NULL,
+ConfusionMatrix <- function(dt = NULL,
                                  PreAgg = FALSE,
                                  XVar = NULL,
                                  YVar = NULL,
@@ -20449,7 +20449,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.Lift
+#' @title Lift
 #'
 #' @description Create a cumulative gains chart
 #'
@@ -20484,7 +20484,7 @@ Plot.ConfusionMatrix <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.Lift <- function(dt = NULL,
+Lift <- function(dt = NULL,
                       PreAgg = FALSE,
                       XVar = NULL,
                       YVar = NULL,
@@ -20756,7 +20756,7 @@ Plot.Lift <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.Gains
+#' @title Gains
 #'
 #' @description Create a cumulative gains chart
 #'
@@ -20791,7 +20791,7 @@ Plot.Lift <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.Gains <- function(dt = NULL,
+Gains <- function(dt = NULL,
                        PreAgg = FALSE,
                        XVar = NULL,
                        YVar = NULL,
@@ -21061,7 +21061,7 @@ Plot.Gains <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.BinaryMetrics
+#' @title BinaryMetrics
 #'
 #' @description Line plot of evaluation metrics across thresholds
 #'
@@ -21099,7 +21099,7 @@ Plot.Gains <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-Plot.BinaryMetrics <- function(dt = NULL,
+BinaryMetrics <- function(dt = NULL,
                                PreAgg = FALSE,
                                AggMethod = "mean",
                                SampleSize = 100000L,
@@ -21189,9 +21189,9 @@ Plot.BinaryMetrics <- function(dt = NULL,
   return(p1)
 }
 
-#' @title Plot.ShapImportance
+#' @title ShapImportance
 #'
-#' @description Plot.ShapImportance variable importance
+#' @description ShapImportance variable importance
 #'
 #' @family Model Evaluation
 #' @author Adrian Antico
@@ -21218,7 +21218,7 @@ Plot.BinaryMetrics <- function(dt = NULL,
 #' @param Debug = FALSE
 #' @return plot
 #' @export
-Plot.ShapImportance <- function(dt,
+ShapImportance <- function(dt,
                                 PreAgg = FALSE,
                                 AggMethod = 'meanabs',
                                 YVar = NULL,

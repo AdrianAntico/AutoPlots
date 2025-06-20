@@ -14,17 +14,15 @@ Depends:
     R (>= 4.1.0)
 Imports: 
     combinat,
-    data.table,
     dplyr,
+    data.table,
     e1071,
     echarts4r,
     lubridate,
     nortest,
     quanteda,
     quanteda.textstats,
-    scales,
-    stats,
-    utils
+    scales
 Contact: Adrian Antico
 Encoding: UTF-8
 Language: en-US

@@ -502,3 +502,150 @@ e_title_full <- function(
 }
 
 
+#' Enhanced Title Setter for echarts4r
+#'
+#' Exposes every legend.* option so you don't have to hand-craft the JSON.
+#'
+#' @param e An echarts4r object
+#' @return The modified echarts4r object
+#' @export
+e_legend_full <- function(
+    e = NULL,
+    legend.show = FALSE,
+    legend.type = "scroll", # 'plain' 'scroll'
+    legend.selector = "all", # 'all' 'inverse'
+    legend.icon = NULL, # 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+    legend.align = "auto", # 'auto' 'left' 'right'
+    legend.padding = c(5,10,5,10), # Supply 1, 2 (top bottom, left right), or 4 numbers (top, right, bottom, left)
+    legend.itemGap = 10,
+    legend.itemWidth = 25, # image width of legend symbol-0o9
+    legend.orient = "horizontal",
+    legend.width = NULL,
+    legend.height = "240px",
+    legend.left = NULL,
+    legend.right = 50,
+    legend.top = 40,
+    legend.bottom = NULL,
+    legend.backgroundColor = NULL,
+    legend.borderColor = NULL,
+    legend.borderWidth = NULL,
+    legend.borderRadius = NULL,
+    legend.shadowBlur = NULL,
+    legend.shadowColor = NULL,
+    legend.shadowOffsetX = NULL,
+    legend.shadowOffsetY = NULL,
+
+    legend.itemStyle.color = NULL, # color of legend items
+    legend.itemStyle.borderColor = NULL,
+    legend.itemStyle.borderWidth = NULL,
+    legend.itemStyle.borderType = NULL, # 'solid' 'dashed' 'dotted'
+    legend.itemStyle.shadowBlur = NULL, # numeric
+    legend.itemStyle.shadowColor = NULL,
+    legend.itemStyle.shadowOffsetX = NULL,
+    legend.itemStyle.shadowOffsetY = NULL,
+    legend.itemStyle.opacity = NULL,
+
+    legend.lineStyle.color = NULL,
+    legend.lineStyle.width = NULL,
+    legend.lineStyle.type = NULL, # 'solid' 'dashed' 'dotted'
+    legend.lineStyle.shadowBlur = NULL,
+    legend.lineStyle.shadowColor = NULL,
+    legend.lineStyle.shadowOffsetX = NULL,
+    legend.lineStyle.shadowOffsetY = NULL,
+    legend.lineStyle.opacity = NULL,
+    legend.lineStyle.inactiveColor = NULL,
+    legend.lineStyle.inactiveWidth = NULL,
+
+    legend.textStyle.color = NULL,
+    legend.textStyle.fontStyle = NULL,
+    legend.textStyle.fontWeight = NULL, # 'normal' 'bold' 'bolder' 'lighter'
+    legend.textStyle.fontFamily = NULL,
+    legend.textStyle.fontSize = NULL,
+    legend.textStyle.backgroundColor = NULL,
+    legend.textStyle.borderColor = NULL,
+    legend.textStyle.borderWidth = NULL,
+    legend.textStyle.borderType = NULL, # 'solid' 'dashed' 'dotted'
+    legend.textStyle.borderRadius = NULL,
+    legend.textStyle.padding = NULL,
+    legend.textStyle.shadowColor = NULL,
+    legend.textStyle.shadowBlur = NULL,
+    legend.textStyle.shadowOffsetX = NULL,
+    legend.textStyle.shadowOffsetY = NULL,
+    legend.textStyle.width = NULL,
+    legend.textStyle.height = NULL,
+    legend.textStyle.textBorderColor = NULL,
+    legend.textStyle.textBorderWidth = NULL,
+    legend.textStyle.textBorderType = NULL, # 'solid' 'dashed' 'dotted'
+    legend.textStyle.textShadowColor = NULL,
+    legend.textStyle.textShadowBlur = NULL,
+    legend.textStyle.textShadowOffsetX = NULL,
+    legend.textStyle.textShadowOffsetY = NULL,
+
+    legend.scrollDataIndex = NULL, # numeric; when legend.type == "scroll"
+    legend.pageButtonItemGap = NULL, # 5; when legend.type == "scroll"
+    legend.pageButtonGap = NULL, # numeric; when legend.type == "scroll"
+    legend.pageButtonPosition = NULL, # 'start' 'end'; when legend.type == "scroll"
+    legend.pageIconColor = NULL, # when legend.type == "scroll"
+    legend.pageIconInactiveColor = NULL, # when legend.type == "scroll"
+    legend.pageIconSize = NULL, # 15; when legend.type == "scroll"
+    legend.pageTextStyle = NULL, # when legend.type == "scroll"
+    legend.animation = NULL, # when legend.type == "scroll"
+    legend.animationDurationUpdate = NULL, # when legend.type == "scroll"
+    legend.pageTextStyle.color = NULL, # = #333
+    legend.pageTextStyle.fontStyle = NULL, # = 'normal' 'italic' 'oblique'
+    legend.pageTextStyle.fontWeight = NULL, # = 'normal' 'bold' 'bolder' 'lighter'
+    legend.pageTextStyle.fontFamily = NULL, # = 'sans-serif'
+    legend.pageTextStyle.fontSize = NULL, # = 12
+    legend.pageTextStyle.lineHeight = NULL, #
+    legend.pageTextStyle.width = NULL, #
+    legend.pageTextStyle.height = NULL, #
+    legend.pageTextStyle.textBorderColor = NULL, #
+    legend.pageTextStyle.textBorderWidth = NULL, #
+    legend.pageTextStyle.textBorderType = NULL, # = 'solid' 'dashed' 'dotted'
+    legend.pageTextStyle.textShadowColor = NULL, # = 'transparent'
+    legend.pageTextStyle.textShadowBlur = NULL, #
+    legend.pageTextStyle.textShadowOffsetX = NULL, #
+    legend.pageTextStyle.textShadowOffsetY = NULL,
+
+    legend.emphasis.selectorLabel.show = NULL,
+    legend.emphasis.selectorLabel.distance = NULL,
+    legend.emphasis.selectorLabel.rotate = NULL,
+    legend.emphasis.selectorLabel.color = NULL,
+    legend.emphasis.selectorLabel.fontStyle = NULL,
+    legend.emphasis.selectorLabel.fontWeight = NULL,
+    legend.emphasis.selectorLabel.fontFamily = NULL,
+    legend.emphasis.selectorLabel.fontSize = NULL,
+    legend.emphasis.selectorLabel.align = NULL,
+    legend.emphasis.selectorLabel.verticalAlign = NULL,
+    legend.emphasis.selectorLabel.lineHeight = NULL,
+    legend.emphasis.selectorLabel.backgroundColor = NULL,
+    legend.emphasis.selectorLabel.borderColor = NULL,
+    legend.emphasis.selectorLabel.borderWidth = NULL,
+    legend.emphasis.selectorLabel.borderType = NULL,
+    legend.emphasis.selectorLabel.borderRadius = NULL,
+    legend.emphasis.selectorLabel.padding = NULL,
+    legend.emphasis.selectorLabel.shadowColor = NULL,
+    legend.emphasis.selectorLabel.shadowBlur = NULL,
+    legend.emphasis.selectorLabel.shadowOffsetX = NULL,
+    legend.emphasis.selectorLabel.shadowOffsetY = NULL,
+    legend.emphasis.selectorLabel.width = NULL,
+    legend.emphasis.selectorLabel.height = NULL,
+    legend.emphasis.selectorLabel.textBorderColor = NULL,
+    legend.emphasis.selectorLabel.textBorderWidth = NULL,
+    legend.emphasis.selectorLabel.textBorderType = NULL,
+    legend.emphasis.selectorLabel.textShadowColor = NULL,
+    legend.emphasis.selectorLabel.textShadowBlur = NULL,
+    legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
+    legend.emphasis.selectorLabel.textShadowOffsetY = NULL) {
+
+
+  do.call(echarts4r::e_legend, c(
+    standard,
+    opts
+  ))
+}
+
+
+
+
+

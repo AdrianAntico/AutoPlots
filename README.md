@@ -57,7 +57,6 @@ Additionally, all model evaluation plots supports grouping variables for by-anal
 Another giant bonus is that the user can either pre-aggregate their data and pass that through to these functions (using PreAgg = TRUE) or they can leave their data in raw form and let my optimized data.table code manage it for them. This means you can develop plots from giant data sets without having to wait for long running data operations. Further, there is a SampleSize parameter in the functions to limit the number of records to display, for the giant data cases (or for scatter / copula plots). This sampling takes place AFTER data aggregation, not before.
 
 ### Features
-- Common API across all functions, regardless of Echarts usage or Plotly usage
 - Automatic data management via data.table operations
 - Large variety of aggregation statistics options
 - Large number of numeric transformations options
