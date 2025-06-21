@@ -14,7 +14,6 @@ Depends:
     R (>= 4.1.0)
 Imports: 
     combinat,
-    dplyr,
     data.table,
     e1071,
     echarts4r,
@@ -31,4 +30,5 @@ NeedsCompilation: no
 Packaged: 2024-01-19 14:00:00 UTC
 RoxygenNote: 7.2.3
 Suggests: 
-    spelling
+    spelling,
+    dplyr

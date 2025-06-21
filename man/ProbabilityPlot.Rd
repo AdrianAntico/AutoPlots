@@ -181,20 +181,10 @@ AutoPlots::ProbabilityPlot(
   YVarTrans = "Identity",
   Height = NULL,
   Width = NULL,
-  Title = 'Normal Probability Plot',
   ShowLabels = FALSE,
   Theme = "blue",
   TextColor = "black",
-  title.fontSize = 22,
-  title.fontWeight = "bold",
-  title.textShadowColor = '#63aeff',
-  title.textShadowBlur = 3,
-  title.textShadowOffsetY = 1,
-  title.textShadowOffsetX = -1,
-  yaxis.fontSize = 14,
-  yaxis.rotate = 0,
   ContainLabel = TRUE,
-  tooltip.trigger = "axis",
   Debug = FALSE)
 
 }

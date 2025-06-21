@@ -673,21 +673,10 @@ AutoPlots::Pie(
   AggMethod = 'mean',
   Height = NULL,
   Width = NULL,
-  Title = 'Pie Chart',
   ShowLabels = FALSE,
-  Title.YAxis = NULL,
-  Title.XAxis = NULL,
   Theme = "dark",
   TimeLine = TRUE,
   TextColor = "black",
-  title.fontSize = 22,
-  title.fontWeight = "bold",
-  title.textShadowColor = '#63aeff',
-  title.textShadowBlur = 3,
-  title.textShadowOffsetY = 1,
-  title.textShadowOffsetX = -1,
-  xaxis.fontSize = 14,
-  yaxis.fontSize = 14,
   Debug = FALSE)
 
 }
