@@ -6,12 +6,50 @@
 #' Exposes every xAxis.* option so you don't have to hand-craft the JSON.
 #'
 #' @param e An echarts4r object
+#' @param axis "x"
+#' @param serie NULL
 #' @param index Which x axis to target (zero-based). Default: 0
-#' @param xAxis.nameTextStyle.fontStyle,fontWeight,fontSize Font settings for the axis name
-#' @param xAxis.min,xAxis.max Numeric data min/max
-#' @param xAxis.splitNumber Numeric: how many segments between min & max
-#' @param xAxis.axisLabel.* See list below
-#' @param xAxis.axisPointer.* See list below
+#' @param xAxis.title Axis title
+#' @param xAxis.min Min value
+#' @param xAxis.max Max value
+#' @param xAxis.position 'bottom', 'top'
+#' @param xAxis.nameLocation 'center', 'start', 'middle'
+#' @param xAxis.axisTick.customValues Custom values for the x-axis
+#' @param xAxis.nameTextStyle.color hex or named color
+#' @param xAxis.nameTextStyle.padding numeric
+#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.nameTextStyle.fontSize numeric
+#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param xAxis.axisLabel.rotate numeric
+#' @param xAxis.axisLabel.margin numeric
+#' @param xAxis.axisLabel.color hex or named
+#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.axisLabel.fontSize numeric
+#' @param xAxis.axisLabel.align 'center', 'left', 'right'
+#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param xAxis.axisLabel.backgroundColor hex or named
+#' @param xAxis.axisLabel.borderColor hex or named
+#' @param xAxis.axisLabel.borderWidth numeric
+#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.borderRadius numeric
+#' @param xAxis.axisLabel.padding numeric
+#' @param xAxis.axisLabel.shadowColor hex or named
+#' @param xAxis.axisLabel.shadowBlur numeric
+#' @param xAxis.axisLabel.shadowOffsetX numeric
+#' @param xAxis.axisLabel.shadowOffsetY numeric
+#' @param xAxis.axisLabel.textBorderColor hex or named
+#' @param xAxis.axisLabel.textBorderWidth numeric
+#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param xAxis.axisLabel.textShadowColor hex or named
+#' @param xAxis.axisLabel.textShadowBlur numeric
+#' @param xAxis.axisLabel.textShadowOffsetX numeric
+#' @param xAxis.axisLabel.textShadowOffsetY numeric
+#' @param xAxis.axisLabel.overflow 'truncate'
 #'
 #' @return The modified echarts4r object
 #' @export
@@ -21,7 +59,7 @@ e_x_axis_full <- function(
     index = 0,
     serie = NULL,
     axis = "x",
-    name = NULL,
+    xAxis.title = NULL,
     xAxis.position = "bottom",
     xAxis.nameLocation = "center",
     xAxis.axisTick.customValues = NULL,
@@ -131,7 +169,7 @@ e_x_axis_full <- function(
       e = e,
       axis = axis,
       index = index,
-      name = name,
+      name = xAxis.title,
       nameLocation = xAxis.nameLocation
     ),
     opts
@@ -144,12 +182,50 @@ e_x_axis_full <- function(
 #' Exposes every yAxis.* option so you don't have to hand-craft the JSON.
 #'
 #' @param e An echarts4r object
+#' @param axis "y"
+#' @param serie NULL
 #' @param index Which y axis to target (zero-based). Default: 0
-#' @param yAxis.nameTextStyle.fontStyle,fontWeight,fontSize Font settings for the axis name
-#' @param yAxis.min,yAxis.max Numeric data min/max
-#' @param yAxis.splitNumber Numeric: how many segments between min & max
-#' @param yAxis.axisLabel.* See list below
-#' @param yAxis.axisPointer.* See list below
+#' @param yAxis.title Axis title
+#' @param yAxis.min Min value
+#' @param yAxis.max Max value
+#' @param yAxis.position 'bottom', 'top'
+#' @param yAxis.axisTick.customValues Custom values for the y-axis
+#' @param yAxis.nameLocation 'center', 'start', 'middle'
+#' @param yAxis.nameTextStyle.color hex or named color
+#' @param yAxis.nameTextStyle.padding numeric
+#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
+#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.nameTextStyle.fontSize numeric
+#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
+#' @param yAxis.axisLabel.rotate numeric
+#' @param yAxis.axisLabel.margin numeric
+#' @param yAxis.axisLabel.color hex or named
+#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
+#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
+#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.axisLabel.fontSize numeric
+#' @param yAxis.axisLabel.align 'center', 'left', 'right'
+#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
+#' @param yAxis.axisLabel.backgroundColor hex or named
+#' @param yAxis.axisLabel.borderColor hex or named
+#' @param yAxis.axisLabel.borderWidth numeric
+#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.borderRadius numeric
+#' @param yAxis.axisLabel.padding numeric
+#' @param yAxis.axisLabel.shadowColor hex or named
+#' @param yAxis.axisLabel.shadowBlur numeric
+#' @param yAxis.axisLabel.shadowOffsetX numeric
+#' @param yAxis.axisLabel.shadowOffsetY numeric
+#' @param yAxis.axisLabel.textBorderColor hex or named
+#' @param yAxis.axisLabel.textBorderWidth numeric
+#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
+#' @param yAxis.axisLabel.textShadowColor hex or named
+#' @param yAxis.axisLabel.textShadowBlur numeric
+#' @param yAxis.axisLabel.textShadowOffsetX numeric
+#' @param yAxis.axisLabel.textShadowOffsetY numeric
+#' @param yAxis.axisLabel.overflow 'truncate'
 #'
 #' @return The modified echarts4r object
 #' @export
@@ -159,7 +235,7 @@ e_y_axis_full <- function(
     index = 0,
     serie = NULL,
     axis = "y",
-    name = NULL,
+    yAxis.title = NULL,
     yAxis.position = "bottom",
     yAxis.nameLocation = "center",
     yAxis.axisTick.customValues = NULL,
@@ -268,7 +344,7 @@ e_y_axis_full <- function(
       e = e,
       axis = axis,
       index = index,
-      name = name,
+      name = yAxis.title,
       nameLocation = yAxis.nameLocation
     ),
     opts
@@ -280,6 +356,33 @@ e_y_axis_full <- function(
 #' Exposes every tooltip.* option so you don't have to hand-craft the JSON.
 #'
 #' @param e An echarts4r object
+#' @param tooltip.show logical
+#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.backgroundColor hex or name
+#' @param tooltip.borderColor numeric
+#' @param tooltip.borderWidth numeric
+#' @param tooltip.padding numeric
+#' @param tooltip.axisPointer.type "line" or "shadow"
+#' @param tooltip.axisPointer.lineStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.color hex or name
+#' @param tooltip.axisPointer.shadowStyle.shadowBlur numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetX numeric
+#' @param tooltip.axisPointer.shadowStyle.shadowOffsetY numeric
+#' @param tooltip.axisPointer.shadowStyle.opacity numeric between 0 and 1
+#' @param tooltip.textStyle.color hex or name
+#' @param tooltip.textStyle.fontStyle "normal" "italic" "oblique"
+#' @param tooltip.textStyle.fontWeight "normal" "bold" "bolder" "lighter"
+#' @param tooltip.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param tooltip.textStyle.lineHeight numeric
+#' @param tooltip.textStyle.width numeric
+#' @param tooltip.textStyle.height numeric
+#' @param tooltip.textStyle.textBorderColor hex or name
+#' @param tooltip.textStyle.textBorderWidth numeric
+#' @param tooltip.textStyle.textBorderType "solid" "dashed" "dotted"
+#' @param tooltip.textStyle.textShadowColor hex or name
+#' @param tooltip.textStyle.textShadowBlur numeric
+#' @param tooltip.textStyle.textShadowOffsetX numeric
+#' @param tooltip.textStyle.textShadowOffsetY numeric
 #' @return The modified echarts4r object
 #' @export
 e_tooltip_full <- function(
@@ -369,6 +472,58 @@ e_tooltip_full <- function(
 #' Exposes every title.* option so you don't have to hand-craft the JSON.
 #'
 #' @param e An echarts4r object
+#' @param title.text Title name
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @return The modified echarts4r object
 #' @export
 e_title_full <- function(
@@ -507,6 +662,117 @@ e_title_full <- function(
 #' Exposes every legend.* option so you don't have to hand-craft the JSON.
 #'
 #' @param e An echarts4r object
+#' @param legend.show logical
+#' @param legend.type 'scroll' 'plain'
+#' @param legend.selector logical
+#' @param legend.icon 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param legend.align 'auto' 'left' 'right'
+#' @param legend.padding numeric
+#' @param legend.itemGap numeric
+#' @param legend.itemWidth numeric
+#' @param legend.orient 'vertical' 'horizontal'
+#' @param legend.width numeric
+#' @param legend.height numeric
+#' @param legend.left numeric
+#' @param legend.right numeric
+#' @param legend.top numeric
+#' @param legend.bottom numeric
+#' @param legend.backgroundColor hex or color name
+#' @param legend.borderColor hex or color name
+#' @param legend.borderWidth numeric
+#' @param legend.borderRadius numeric
+#' @param legend.shadowBlur numeric
+#' @param legend.shadowColor hex or color name
+#' @param legend.shadowOffsetX numeric
+#' @param legend.shadowOffsetY numeric
+#' @param legend.itemStyle.color hex or color name
+#' @param legend.itemStyle.borderColor hex or color name
+#' @param legend.itemStyle.borderWidth numeric
+#' @param legend.itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.itemStyle.shadowBlur numeric
+#' @param legend.itemStyle.shadowColor hex or color name
+#' @param legend.itemStyle.shadowOffsetX numeric
+#' @param legend.itemStyle.shadowOffsetY numeric
+#' @param legend.itemStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.color hex or color name
+#' @param legend.lineStyle.width numeric
+#' @param legend.lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param legend.lineStyle.shadowBlur numeric
+#' @param legend.lineStyle.shadowColor hex or color name
+#' @param legend.lineStyle.shadowOffsetX numeric
+#' @param legend.lineStyle.shadowOffsetY numeric
+#' @param legend.lineStyle.opacity numeric 0 to 1
+#' @param legend.lineStyle.inactiveColor hex or color name
+#' @param legend.lineStyle.inactiveWidth numeric
+#' @param legend.textStyle.color hex or color name
+#' @param legend.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.textStyle.fontSize numeric
+#' @param legend.textStyle.backgroundColor hex or color name
+#' @param legend.textStyle.borderColor hex or color name
+#' @param legend.textStyle.borderWidth numeric
+#' @param legend.textStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.borderRadius numeric
+#' @param legend.textStyle.padding numeric
+#' @param legend.textStyle.shadowColor hex or color name
+#' @param legend.textStyle.shadowBlur numeric
+#' @param legend.textStyle.shadowOffsetX numeric
+#' @param legend.textStyle.shadowOffsetY numeric
+#' @param legend.textStyle.width numeric
+#' @param legend.textStyle.height numeric
+#' @param legend.textStyle.textBorderColor hex or color name
+#' @param legend.textStyle.textBorderWidth numeric
+#' @param legend.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.textStyle.textShadowColor hex or color name
+#' @param legend.textStyle.textShadowBlur numeric
+#' @param legend.textStyle.textShadowOffsetX numeric
+#' @param legend.textStyle.textShadowOffsetY numeric
+#' @param legend.pageTextStyle.color hex or color name
+#' @param legend.pageTextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.pageTextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.pageTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.pageTextStyle.fontSize numeric
+#' @param legend.pageTextStyle.lineHeight numeric
+#' @param legend.pageTextStyle.width numeric
+#' @param legend.pageTextStyle.height numeric
+#' @param legend.pageTextStyle.textBorderColor hex or color name
+#' @param legend.pageTextStyle.textBorderWidth numeric
+#' @param legend.pageTextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.pageTextStyle.textShadowColor hex or color name
+#' @param legend.pageTextStyle.textShadowBlur numeric
+#' @param legend.pageTextStyle.textShadowOffsetX numeric
+#' @param legend.pageTextStyle.textShadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.show logical
+#' @param legend.emphasis.selectorLabel.distance numeric
+#' @param legend.emphasis.selectorLabel.rotate numeric
+#' @param legend.emphasis.selectorLabel.color hex or color name
+#' @param legend.emphasis.selectorLabel.fontStyle 'normal' 'italic' 'oblique'
+#' @param legend.emphasis.selectorLabel.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param legend.emphasis.selectorLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param legend.emphasis.selectorLabel.fontSize numeric
+#' @param legend.emphasis.selectorLabel.align 'left' 'center' 'right'
+#' @param legend.emphasis.selectorLabel.verticalAlign 'top' 'middle' 'bottom'
+#' @param legend.emphasis.selectorLabel.lineHeight numeric
+#' @param legend.emphasis.selectorLabel.backgroundColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderColor hex or color name
+#' @param legend.emphasis.selectorLabel.borderWidth numeric
+#' @param legend.emphasis.selectorLabel.borderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.borderRadius numeric
+#' @param legend.emphasis.selectorLabel.padding numeric
+#' @param legend.emphasis.selectorLabel.shadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.shadowBlur numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.shadowOffsetY numeric
+#' @param legend.emphasis.selectorLabel.width numeric
+#' @param legend.emphasis.selectorLabel.height numeric
+#' @param legend.emphasis.selectorLabel.textBorderColor hex or color name
+#' @param legend.emphasis.selectorLabel.textBorderWidth numeric
+#' @param legend.emphasis.selectorLabel.textBorderType 'solid' 'dashed' 'dotted'
+#' @param legend.emphasis.selectorLabel.textShadowColor hex or color name
+#' @param legend.emphasis.selectorLabel.textShadowBlur numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
+#' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @return The modified echarts4r object
 #' @export
 e_legend_full <- function(

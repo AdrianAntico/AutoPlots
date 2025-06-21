@@ -37,6 +37,60 @@ e_tooltip_full(
 }
 \arguments{
 \item{e}{An echarts4r object}
+
+\item{tooltip.show}{logical}
+
+\item{tooltip.trigger}{"cross" "axis" "item" "none"}
+
+\item{tooltip.backgroundColor}{hex or name}
+
+\item{tooltip.borderColor}{numeric}
+
+\item{tooltip.borderWidth}{numeric}
+
+\item{tooltip.padding}{numeric}
+
+\item{tooltip.axisPointer.type}{"line" or "shadow"}
+
+\item{tooltip.axisPointer.lineStyle.color}{hex or name}
+
+\item{tooltip.axisPointer.shadowStyle.color}{hex or name}
+
+\item{tooltip.axisPointer.shadowStyle.shadowBlur}{numeric}
+
+\item{tooltip.axisPointer.shadowStyle.shadowOffsetX}{numeric}
+
+\item{tooltip.axisPointer.shadowStyle.shadowOffsetY}{numeric}
+
+\item{tooltip.axisPointer.shadowStyle.opacity}{numeric between 0 and 1}
+
+\item{tooltip.textStyle.color}{hex or name}
+
+\item{tooltip.textStyle.fontStyle}{"normal" "italic" "oblique"}
+
+\item{tooltip.textStyle.fontWeight}{"normal" "bold" "bolder" "lighter"}
+
+\item{tooltip.textStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{tooltip.textStyle.lineHeight}{numeric}
+
+\item{tooltip.textStyle.width}{numeric}
+
+\item{tooltip.textStyle.height}{numeric}
+
+\item{tooltip.textStyle.textBorderColor}{hex or name}
+
+\item{tooltip.textStyle.textBorderWidth}{numeric}
+
+\item{tooltip.textStyle.textBorderType}{"solid" "dashed" "dotted"}
+
+\item{tooltip.textStyle.textShadowColor}{hex or name}
+
+\item{tooltip.textStyle.textShadowBlur}{numeric}
+
+\item{tooltip.textStyle.textShadowOffsetX}{numeric}
+
+\item{tooltip.textStyle.textShadowOffsetY}{numeric}
 }
 \value{
 The modified echarts4r object

@@ -121,6 +121,228 @@ e_legend_full(
 }
 \arguments{
 \item{e}{An echarts4r object}
+
+\item{legend.show}{logical}
+
+\item{legend.type}{'scroll' 'plain'}
+
+\item{legend.selector}{logical}
+
+\item{legend.icon}{'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'}
+
+\item{legend.align}{'auto' 'left' 'right'}
+
+\item{legend.padding}{numeric}
+
+\item{legend.itemGap}{numeric}
+
+\item{legend.itemWidth}{numeric}
+
+\item{legend.orient}{'vertical' 'horizontal'}
+
+\item{legend.width}{numeric}
+
+\item{legend.height}{numeric}
+
+\item{legend.left}{numeric}
+
+\item{legend.right}{numeric}
+
+\item{legend.top}{numeric}
+
+\item{legend.bottom}{numeric}
+
+\item{legend.backgroundColor}{hex or color name}
+
+\item{legend.borderColor}{hex or color name}
+
+\item{legend.borderWidth}{numeric}
+
+\item{legend.borderRadius}{numeric}
+
+\item{legend.shadowBlur}{numeric}
+
+\item{legend.shadowColor}{hex or color name}
+
+\item{legend.shadowOffsetX}{numeric}
+
+\item{legend.shadowOffsetY}{numeric}
+
+\item{legend.itemStyle.color}{hex or color name}
+
+\item{legend.itemStyle.borderColor}{hex or color name}
+
+\item{legend.itemStyle.borderWidth}{numeric}
+
+\item{legend.itemStyle.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.itemStyle.shadowBlur}{numeric}
+
+\item{legend.itemStyle.shadowColor}{hex or color name}
+
+\item{legend.itemStyle.shadowOffsetX}{numeric}
+
+\item{legend.itemStyle.shadowOffsetY}{numeric}
+
+\item{legend.itemStyle.opacity}{numeric 0 to 1}
+
+\item{legend.lineStyle.color}{hex or color name}
+
+\item{legend.lineStyle.width}{numeric}
+
+\item{legend.lineStyle.type}{'solid' 'dashed' 'dotted'}
+
+\item{legend.lineStyle.shadowBlur}{numeric}
+
+\item{legend.lineStyle.shadowColor}{hex or color name}
+
+\item{legend.lineStyle.shadowOffsetX}{numeric}
+
+\item{legend.lineStyle.shadowOffsetY}{numeric}
+
+\item{legend.lineStyle.opacity}{numeric 0 to 1}
+
+\item{legend.lineStyle.inactiveColor}{hex or color name}
+
+\item{legend.lineStyle.inactiveWidth}{numeric}
+
+\item{legend.textStyle.color}{hex or color name}
+
+\item{legend.textStyle.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{legend.textStyle.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{legend.textStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{legend.textStyle.fontSize}{numeric}
+
+\item{legend.textStyle.backgroundColor}{hex or color name}
+
+\item{legend.textStyle.borderColor}{hex or color name}
+
+\item{legend.textStyle.borderWidth}{numeric}
+
+\item{legend.textStyle.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.textStyle.borderRadius}{numeric}
+
+\item{legend.textStyle.padding}{numeric}
+
+\item{legend.textStyle.shadowColor}{hex or color name}
+
+\item{legend.textStyle.shadowBlur}{numeric}
+
+\item{legend.textStyle.shadowOffsetX}{numeric}
+
+\item{legend.textStyle.shadowOffsetY}{numeric}
+
+\item{legend.textStyle.width}{numeric}
+
+\item{legend.textStyle.height}{numeric}
+
+\item{legend.textStyle.textBorderColor}{hex or color name}
+
+\item{legend.textStyle.textBorderWidth}{numeric}
+
+\item{legend.textStyle.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.textStyle.textShadowColor}{hex or color name}
+
+\item{legend.textStyle.textShadowBlur}{numeric}
+
+\item{legend.textStyle.textShadowOffsetX}{numeric}
+
+\item{legend.textStyle.textShadowOffsetY}{numeric}
+
+\item{legend.pageTextStyle.color}{hex or color name}
+
+\item{legend.pageTextStyle.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{legend.pageTextStyle.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{legend.pageTextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{legend.pageTextStyle.fontSize}{numeric}
+
+\item{legend.pageTextStyle.lineHeight}{numeric}
+
+\item{legend.pageTextStyle.width}{numeric}
+
+\item{legend.pageTextStyle.height}{numeric}
+
+\item{legend.pageTextStyle.textBorderColor}{hex or color name}
+
+\item{legend.pageTextStyle.textBorderWidth}{numeric}
+
+\item{legend.pageTextStyle.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.pageTextStyle.textShadowColor}{hex or color name}
+
+\item{legend.pageTextStyle.textShadowBlur}{numeric}
+
+\item{legend.pageTextStyle.textShadowOffsetX}{numeric}
+
+\item{legend.pageTextStyle.textShadowOffsetY}{numeric}
+
+\item{legend.emphasis.selectorLabel.show}{logical}
+
+\item{legend.emphasis.selectorLabel.distance}{numeric}
+
+\item{legend.emphasis.selectorLabel.rotate}{numeric}
+
+\item{legend.emphasis.selectorLabel.color}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{legend.emphasis.selectorLabel.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{legend.emphasis.selectorLabel.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{legend.emphasis.selectorLabel.fontSize}{numeric}
+
+\item{legend.emphasis.selectorLabel.align}{'left' 'center' 'right'}
+
+\item{legend.emphasis.selectorLabel.verticalAlign}{'top' 'middle' 'bottom'}
+
+\item{legend.emphasis.selectorLabel.lineHeight}{numeric}
+
+\item{legend.emphasis.selectorLabel.backgroundColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.borderColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.borderWidth}{numeric}
+
+\item{legend.emphasis.selectorLabel.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.emphasis.selectorLabel.borderRadius}{numeric}
+
+\item{legend.emphasis.selectorLabel.padding}{numeric}
+
+\item{legend.emphasis.selectorLabel.shadowColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.shadowBlur}{numeric}
+
+\item{legend.emphasis.selectorLabel.shadowOffsetX}{numeric}
+
+\item{legend.emphasis.selectorLabel.shadowOffsetY}{numeric}
+
+\item{legend.emphasis.selectorLabel.width}{numeric}
+
+\item{legend.emphasis.selectorLabel.height}{numeric}
+
+\item{legend.emphasis.selectorLabel.textBorderColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.textBorderWidth}{numeric}
+
+\item{legend.emphasis.selectorLabel.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{legend.emphasis.selectorLabel.textShadowColor}{hex or color name}
+
+\item{legend.emphasis.selectorLabel.textShadowBlur}{numeric}
+
+\item{legend.emphasis.selectorLabel.textShadowOffsetX}{numeric}
+
+\item{legend.emphasis.selectorLabel.textShadowOffsetY}{numeric}
 }
 \value{
 The modified echarts4r object

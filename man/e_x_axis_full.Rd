@@ -9,7 +9,7 @@ e_x_axis_full(
   index = 0,
   serie = NULL,
   axis = "x",
-  name = NULL,
+  xAxis.title = NULL,
   xAxis.position = "bottom",
   xAxis.nameLocation = "center",
   xAxis.axisTick.customValues = NULL,
@@ -62,15 +62,91 @@ e_x_axis_full(
 
 \item{index}{Which x axis to target (zero-based). Default: 0}
 
-\item{xAxis.nameTextStyle.fontStyle, fontWeight, fontSize}{Font settings for the axis name}
+\item{serie}{NULL}
 
-\item{xAxis.min, xAxis.max}{Numeric data min/max}
+\item{axis}{"x"}
 
-\item{xAxis.splitNumber}{Numeric: how many segments between min & max}
+\item{xAxis.title}{Axis title}
 
-\item{xAxis.axisLabel.*}{See list below}
+\item{xAxis.position}{'bottom', 'top'}
 
-\item{xAxis.axisPointer.*}{See list below}
+\item{xAxis.nameLocation}{'center', 'start', 'middle'}
+
+\item{xAxis.axisTick.customValues}{Custom values for the x-axis}
+
+\item{xAxis.nameTextStyle.color}{hex or named color}
+
+\item{xAxis.nameTextStyle.padding}{numeric}
+
+\item{xAxis.nameTextStyle.align}{'center', 'left', 'right'}
+
+\item{xAxis.nameTextStyle.fontStyle}{'italic', 'normal' 'oblique'}
+
+\item{xAxis.nameTextStyle.fontWeight}{'normal', 'bold', 'bolder', 'lighter'}
+
+\item{xAxis.nameTextStyle.fontSize}{numeric}
+
+\item{xAxis.nameTextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{xAxis.min}{Min value}
+
+\item{xAxis.max}{Max value}
+
+\item{xAxis.splitNumber}{numeric. Increments for numeric axis labels}
+
+\item{xAxis.axisLabel.rotate}{numeric}
+
+\item{xAxis.axisLabel.margin}{numeric}
+
+\item{xAxis.axisLabel.color}{hex or named}
+
+\item{xAxis.axisLabel.fontStyle}{'italic', 'normal' 'oblique'}
+
+\item{xAxis.axisLabel.fontWeight}{'normal', 'bold', 'bolder', 'lighter'}
+
+\item{xAxis.axisLabel.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{xAxis.axisLabel.fontSize}{numeric}
+
+\item{xAxis.axisLabel.align}{'center', 'left', 'right'}
+
+\item{xAxis.axisLabel.verticalAlign}{'top', 'bottom'}
+
+\item{xAxis.axisLabel.backgroundColor}{hex or named}
+
+\item{xAxis.axisLabel.borderColor}{hex or named}
+
+\item{xAxis.axisLabel.borderWidth}{numeric}
+
+\item{xAxis.axisLabel.borderType}{'solid', 'dashed', 'dotted'}
+
+\item{xAxis.axisLabel.borderRadius}{numeric}
+
+\item{xAxis.axisLabel.padding}{numeric}
+
+\item{xAxis.axisLabel.shadowColor}{hex or named}
+
+\item{xAxis.axisLabel.shadowBlur}{numeric}
+
+\item{xAxis.axisLabel.shadowOffsetX}{numeric}
+
+\item{xAxis.axisLabel.shadowOffsetY}{numeric}
+
+\item{xAxis.axisLabel.textBorderColor}{hex or named}
+
+\item{xAxis.axisLabel.textBorderWidth}{numeric}
+
+\item{xAxis.axisLabel.textBorderType}{'solid', 'dashed', 'dotted'}
+
+\item{xAxis.axisLabel.textShadowColor}{hex or named}
+
+\item{xAxis.axisLabel.textShadowBlur}{numeric}
+
+\item{xAxis.axisLabel.textShadowOffsetX}{numeric}
+
+\item{xAxis.axisLabel.textShadowOffsetY}{numeric}
+
+\item{xAxis.axisLabel.overflow}{'truncate'}
 }
 \value{
 The modified echarts4r object

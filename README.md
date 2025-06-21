@@ -1,5 +1,4 @@
 ![Version:1.0.0](https://img.shields.io/static/v1?label=Version&message=1.0.0&color=blue&?style=plastic)
-[![R-CMD-check](https://github.com/AdrianAntico/AutoPlots/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AdrianAntico/AutoPlots/actions/workflows/R-CMD-check.yaml)
 [![metacran downloads](https://cranlogs.r-pkg.org/badges/last-week/AutoPlots)](https://cran.r-project.org/package=AutoPlots)
 
 
