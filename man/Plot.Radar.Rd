@@ -82,7 +82,7 @@ Plot.Radar
 }
 \examples{
 # Create Data
-dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
+dt <- data.table::data.table(Y = pnorm(q = stats::runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
 
 # Create plot
 AutoPlots::Plot.Radar(

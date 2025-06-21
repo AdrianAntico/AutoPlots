@@ -19,24 +19,11 @@ Residuals.Histogram(
   NumberBins = 20,
   Height = NULL,
   Width = NULL,
-  Title = "Residuals Histogram",
   ShowLabels = FALSE,
-  Title.YAxis = NULL,
-  Title.XAxis = "Target - Predicted",
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
   TextColor = "white",
-  title.fontSize = 22,
-  title.fontWeight = "bold",
-  title.textShadowColor = "#63aeff",
-  title.textShadowBlur = 3,
-  title.textShadowOffsetY = 1,
-  title.textShadowOffsetX = -1,
-  xaxis.fontSize = 14,
-  yaxis.fontSize = 14,
-  xaxis.rotate = 0,
-  yaxis.rotate = 0,
   ContainLabel = TRUE,
   Debug = FALSE
 )
@@ -70,13 +57,7 @@ Residuals.Histogram(
 
 \item{Width}{"200px"}
 
-\item{Title}{character}
-
 \item{ShowLabels}{character}
-
-\item{Title.YAxis}{character}
-
-\item{Title.XAxis}{character}
 
 \item{Theme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
@@ -85,26 +66,6 @@ Residuals.Histogram(
 \item{TimeLine}{logical}
 
 \item{TextColor}{Not Implemented}
-
-\item{title.fontSize}{22}
-
-\item{title.fontWeight}{"bold"}
-
-\item{title.textShadowColor}{'#63aeff'}
-
-\item{title.textShadowBlur}{3}
-
-\item{title.textShadowOffsetY}{1}
-
-\item{title.textShadowOffsetX}{-1}
-
-\item{xaxis.fontSize}{14}
-
-\item{yaxis.fontSize}{14}
-
-\item{xaxis.rotate}{0}
-
-\item{yaxis.rotate}{0}
 
 \item{ContainLabel}{TRUE}
 

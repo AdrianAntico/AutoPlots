@@ -18,10 +18,12 @@
 # @importFrom dplyr group_by
 
 #' @import data.table
-# @importFrom data.table data.table %chin% .I .N .SD := as.data.table fwrite is.data.table rbindlist set setcolorder setnames setorderv as.IDate as.ITime %like%
+#' @importFrom data.table data.table %chin% .I .N .SD := as.data.table fwrite is.data.table rbindlist set setcolorder setnames setorderv as.IDate as.ITime %like%
 # @importFrom lubridate %m+%
 # @importFrom utils installed.packages
-# @importFrom stats as.formula cor cor.test dgeom lm median na.omit optimize pnorm qnorm quantile runif sd setNames var
 # @importFrom utils head
 # NULL
 .datatable.aware = TRUE
+
+#' @import stats
+#' @importFrom stats as.formula cor cor.test dgeom lm median na.omit optimize pnorm qnorm quantile runif sd setNames var

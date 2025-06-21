@@ -103,7 +103,7 @@ Build a donut plot by simply passing arguments to a single function
 }
 \examples{
 # Create fake data
-dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 
 # Create plot
 AutoPlots::Plot.Rosetype(

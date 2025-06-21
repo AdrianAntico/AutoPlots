@@ -106,7 +106,7 @@ Build a histogram plot by simply passing arguments to a single function. It will
 }
 \examples{
 # Create fake data
-dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)))
 
 # Create plot
 AutoPlots::Plot.Histogram(

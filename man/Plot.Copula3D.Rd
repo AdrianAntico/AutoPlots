@@ -122,7 +122,7 @@ Build a 3D-copula plot by simply passing arguments to a single function. It will
 \examples{
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 100000)
-data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
+data[, Independent_Variable9 := Independent_Variable9 * stats::runif(.N)]
 
 # Echarts Copula Plot Chart
 AutoPlots::Plot.Copula3D(

@@ -119,7 +119,7 @@ Build a copula plot by simply passing arguments to a single function. It will sa
 \examples{
 # Create fake data
 data <- AutoPlots::FakeDataGenerator(N = 100000)
-data[, Independent_Variable8 := Independent_Variable8 * runif(.N)]
+data[, Independent_Variable8 := Independent_Variable8 * stats::runif(.N)]
 
 # Echarts Scatter Plot Chart
 AutoPlots::Plot.Scatter(

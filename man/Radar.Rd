@@ -72,7 +72,7 @@ Radar(
   title.subtextStyle.textShadowOffsetX = NULL,
   title.subtextStyle.textShadowOffsetY = NULL,
   legend.show = TRUE,
-  legend.type = "scross",
+  legend.type = "scroll",
   legend.selector = NULL,
   legend.icon = NULL,
   legend.align = NULL,

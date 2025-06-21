@@ -63,11 +63,6 @@ WordCloud(
   title.subtextStyle.textShadowBlur = NULL,
   title.subtextStyle.textShadowOffsetX = NULL,
   title.subtextStyle.textShadowOffsetY = NULL,
-  xaxis.fontSize = 14,
-  yaxis.fontSize = 14,
-  xaxis.rotate = 0,
-  yaxis.rotate = 0,
-  ContainLabel = TRUE,
   Debug = FALSE
 )
 }
@@ -84,23 +79,111 @@ WordCloud(
 
 \item{TextColor}{"white",}
 
-\item{ContainLabel}{TRUE}
+\item{title.text}{Title name}
+
+\item{title.subtext}{Subtitle name}
+
+\item{title.link}{Title as a link}
+
+\item{title.sublink}{Subtitle as a link}
+
+\item{title.Align}{'auto' 'left' 'right' 'center'}
+
+\item{title.top}{'auto' '20' 'top' 'middle' 'bottom'}
+
+\item{title.left}{distance between title and left side of container}
+
+\item{title.right}{distance between title and right side of container}
+
+\item{title.bottom}{'auto' '20' 'top' 'middle' 'bottom'}
+
+\item{title.padding}{numeric}
+
+\item{title.itemGap}{space between title and subtitle}
+
+\item{title.backgroundColor}{hex or name}
+
+\item{title.borderColor}{hex or name}
+
+\item{title.borderWidth}{numeric}
+
+\item{title.borderRadius}{numeric}
+
+\item{title.shadowColor}{hex or name}
+
+\item{title.shadowBlur}{numeric}
+
+\item{title.shadowOffsetX}{numeric}
+
+\item{title.shadowOffsetY}{numeric}
+
+\item{title.textStyle.color}{hex or name}
+
+\item{title.textStyle.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{title.textStyle.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{title.textStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{title.textStyle.fontSize}{numeric}
+
+\item{title.textStyle.lineHeight}{numeric}
+
+\item{title.textStyle.width}{numeric}
+
+\item{title.textStyle.height}{numeric}
+
+\item{title.textStyle.textBorderColor}{hex or name}
+
+\item{title.textStyle.textBorderWidth}{numeric}
+
+\item{title.textStyle.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{title.textStyle.textBorderDashOffset}{numeric}
+
+\item{title.textStyle.textShadowColor}{hex or name}
+
+\item{title.textStyle.textShadowBlur}{numeric}
+
+\item{title.textStyle.textShadowOffsetX}{numeric}
+
+\item{title.textStyle.textShadowOffsetY}{numeric}
+
+\item{title.subtextStyle.color}{hex or name}
+
+\item{title.subtextStyle.align}{'auto' 'left' 'right' 'center'}
+
+\item{title.subtextStyle.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{title.subtextStyle.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{title.subtextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{title.subtextStyle.fontSize}{numeric}
+
+\item{title.subtextStyle.lineHeight}{numeric}
+
+\item{title.subtextStyle.width}{numeric}
+
+\item{title.subtextStyle.height}{numeric}
+
+\item{title.subtextStyle.textBorderColor}{hex or name}
+
+\item{title.subtextStyle.textBorderWidth}{numeric}
+
+\item{title.subtextStyle.textBorderType}{'solid' 'dashed' 'dotted'}
+
+\item{title.subtextStyle.textBorderDashOffset}{numeric}
+
+\item{title.subtextStyle.textShadowColor}{numeric}
+
+\item{title.subtextStyle.textShadowBlur}{numeric}
+
+\item{title.subtextStyle.textShadowOffsetX}{numeric}
+
+\item{title.subtextStyle.textShadowOffsetY}{numeric}
 
 \item{Debug}{Debugging purposes}
-
-\item{Title}{= "Density Plot"}
-
-\item{title.fontSize}{22}
-
-\item{title.fontWeight}{"bold"}
-
-\item{title.textShadowColor}{'#63aeff'}
-
-\item{title.textShadowBlur}{3}
-
-\item{title.textShadowOffsetY}{1}
-
-\item{title.textShadowOffsetX}{-1}
 }
 \value{
 plot
@@ -120,7 +203,6 @@ AutoPlots::WordCloud(
   Width = NULL,
   Theme = "dark",
   TextColor = "black",
-  ContainLabel = TRUE,
   Debug = FALSE)
 
 }

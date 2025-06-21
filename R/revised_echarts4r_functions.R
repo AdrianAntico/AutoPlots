@@ -64,7 +64,6 @@ e_x_axis_full <- function(
     xAxis.nameLocation = "center",
     xAxis.axisTick.customValues = NULL,
     xAxis.nameTextStyle.color = NULL,
-    xAxis.nameTextStyle.backgroundColor = NULL,
     xAxis.nameTextStyle.padding = 15,
     xAxis.nameTextStyle.align = NULL,
     xAxis.nameTextStyle.fontStyle = NULL,
@@ -100,11 +99,7 @@ e_x_axis_full <- function(
     xAxis.axisLabel.textShadowBlur = NULL,
     xAxis.axisLabel.textShadowOffsetX = NULL,
     xAxis.axisLabel.textShadowOffsetY = NULL,
-    xAxis.axisLabel.overflow = NULL,
-    xAxis.axisPointer.axis = NULL,
-    xAxis.axisPointer.type = NULL,
-    xAxis.axisPointer.triggerEmphasis = NULL,
-    xAxis.axisPointer.triggerTooltip = NULL ) {
+    xAxis.axisLabel.overflow = NULL) {
 
   # Build the nameTextStyle list
   nts <- .compact(list(
@@ -164,7 +159,7 @@ e_x_axis_full <- function(
   ))
 
   # Call the internal helper
-  do.call(echarts4r:::e_axis_, c(
+  do.call(echarts4r::e_axis_, c(
     list(
       e = e,
       axis = axis,
@@ -275,11 +270,7 @@ e_y_axis_full <- function(
     yAxis.axisLabel.textShadowBlur = NULL,
     yAxis.axisLabel.textShadowOffsetX = NULL,
     yAxis.axisLabel.textShadowOffsetY = NULL,
-    yAxis.axisLabel.overflow = NULL,
-    yAxis.axisPointer.axis = NULL,
-    yAxis.axisPointer.type = NULL,
-    yAxis.axisPointer.triggerEmphasis = NULL,
-    yAxis.axisPointer.triggerTooltip = NULL ) {
+    yAxis.axisLabel.overflow = NULL) {
 
   # Build the nameTextStyle list
   nts <- .compact(list(
@@ -339,7 +330,7 @@ e_y_axis_full <- function(
   ))
 
   # Call the internal helper
-  do.call(echarts4r:::e_axis_, c(
+  do.call(echarts4r::e_axis_, c(
     list(
       e = e,
       axis = axis,
@@ -529,7 +520,6 @@ e_tooltip_full <- function(
 e_title_full <- function(
     e = NULL,
     title.text = NULL,
-    tooltip.show = NULL,
     title.subtext = NULL,
     title.link = NULL,
     title.sublink = NULL,
@@ -630,7 +620,6 @@ e_title_full <- function(
   standard <- list()
   standard[["e"]] <- e
   standard[["text"]] <- title.text
-  standard[["show"]] <- tooltip.show
   standard[["subtext"]] <- title.subtext
   standard[["link"]] <- title.link
   standard[["sublink"]] <- title.sublink
@@ -898,7 +887,7 @@ e_legend_full <- function(
     shadowColor = legend.itemStyle.shadowColor,
     shadowOffsetX = legend.itemStyle.shadowOffsetX,
     shadowOffsetY = legend.itemStyle.shadowOffsetY,
-    opacity = legend.itemStyle.opacity,
+    opacity = legend.itemStyle.opacity
   ))
 
   ls <- .compact(list(
@@ -1003,6 +992,7 @@ e_legend_full <- function(
   ))
 
   standard <- list()
+  standard[["e"]] <- e
   standard[["show"]] <- legend.show
   standard[["type"]] <- legend.type
   standard[["selector"]] <- legend.selector

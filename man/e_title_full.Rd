@@ -7,7 +7,6 @@
 e_title_full(
   e = NULL,
   title.text = NULL,
-  tooltip.show = NULL,
   title.subtext = NULL,
   title.link = NULL,
   title.sublink = NULL,

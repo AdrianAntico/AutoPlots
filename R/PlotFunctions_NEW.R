@@ -41,6 +41,7 @@
 #' @param TimeLine logical
 #' @param TextColor "white"
 #' @param ContainLabel  TRUE
+#' @param Opacity numeric
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -323,7 +324,7 @@
 #' AutoPlots::Density(
 #'   dt = dt,
 #'   SampleSize = 30000L,
-#'   XVar = NULL,
+#'   XVar = "Y",
 #'   GroupVar = NULL,
 #'   XVarTrans = "Identity",
 #'   FacetRows = 1,
@@ -493,7 +494,7 @@ Density <- function(dt = NULL,
                     yAxis.axisLabel.textShadowOffsetY = NULL,
                     yAxis.axisLabel.overflow = NULL,
                     legend.show = TRUE,
-                    legend.type = "scross",
+                    legend.type = "scroll",
                     legend.selector = NULL,
                     legend.icon = NULL,
                     legend.align = NULL,
@@ -644,7 +645,7 @@ Density <- function(dt = NULL,
   }
 
   if(dt[, .N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -776,7 +777,7 @@ Density <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
-      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else NULL, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
       yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
@@ -950,7 +951,7 @@ Density <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
-      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else NULL, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
       yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
@@ -1030,7 +1031,7 @@ Density <- function(dt = NULL,
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     }
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -1109,7 +1110,6 @@ Density <- function(dt = NULL,
 #' @param Theme "macaron"
 #' @param TextColor 'darkblue'
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -1161,8 +1161,6 @@ Density <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
-#' @param yaxis.fontSize Default 14
-#' @param yaxis.rotate Default 0
 #' @param ContainLabel Default TRUE
 #' @param tooltip.trigger Default "axis"
 #' @param Debug Debugging purposes
@@ -1193,18 +1191,61 @@ ProbabilityPlot <- function(dt = NULL,
                             YVarTrans = "Identity",
                             Height = NULL,
                             Width = NULL,
-                            Title = 'Normal Probability Plot',
                             ShowLabels = FALSE,
                             Theme = "dark",
                             TextColor = "white",
-                            title.fontSize = 22,
-                            title.fontWeight = "bold",
-                            title.textShadowColor = '#63aeff',
-                            title.textShadowBlur = 3,
-                            title.textShadowOffsetY = 1,
-                            title.textShadowOffsetX = -1,
-                            yaxis.fontSize = 14,
-                            yaxis.rotate = 0,
+                            title.text = "Density Plot",
+                            title.subtext = NULL,
+                            title.link = NULL,
+                            title.sublink = NULL,
+                            title.Align = NULL,
+                            title.top = NULL,
+                            title.left = NULL,
+                            title.right = NULL,
+                            title.bottom = NULL,
+                            title.padding = NULL,
+                            title.itemGap = NULL,
+                            title.backgroundColor = NULL,
+                            title.borderColor = NULL,
+                            title.borderWidth = NULL,
+                            title.borderRadius = NULL,
+                            title.shadowColor = NULL,
+                            title.shadowBlur = NULL,
+                            title.shadowOffsetX = NULL,
+                            title.shadowOffsetY = NULL,
+                            title.textStyle.color = NULL,
+                            title.textStyle.fontStyle = NULL,
+                            title.textStyle.fontWeight = NULL,
+                            title.textStyle.fontFamily = NULL,
+                            title.textStyle.fontSize = NULL,
+                            title.textStyle.lineHeight = NULL,
+                            title.textStyle.width = NULL,
+                            title.textStyle.height = NULL,
+                            title.textStyle.textBorderColor = NULL,
+                            title.textStyle.textBorderWidth = NULL,
+                            title.textStyle.textBorderType = NULL,
+                            title.textStyle.textBorderDashOffset = NULL,
+                            title.textStyle.textShadowColor = NULL,
+                            title.textStyle.textShadowBlur = NULL,
+                            title.textStyle.textShadowOffsetX = NULL,
+                            title.textStyle.textShadowOffsetY = NULL,
+                            title.subtextStyle.color = NULL,
+                            title.subtextStyle.align = NULL,
+                            title.subtextStyle.fontStyle = NULL,
+                            title.subtextStyle.fontWeight = NULL,
+                            title.subtextStyle.fontFamily = NULL,
+                            title.subtextStyle.fontSize = NULL,
+                            title.subtextStyle.lineHeight = NULL,
+                            title.subtextStyle.width = NULL,
+                            title.subtextStyle.height = NULL,
+                            title.subtextStyle.textBorderColor = NULL,
+                            title.subtextStyle.textBorderWidth = NULL,
+                            title.subtextStyle.textBorderType = NULL,
+                            title.subtextStyle.textBorderDashOffset = NULL,
+                            title.subtextStyle.textShadowColor = NULL,
+                            title.subtextStyle.textShadowBlur = NULL,
+                            title.subtextStyle.textShadowOffsetX = NULL,
+                            title.subtextStyle.textShadowOffsetY = NULL,
                             ContainLabel = TRUE,
                             tooltip.trigger = "axis",
                             Debug = FALSE) {
@@ -1216,7 +1257,7 @@ ProbabilityPlot <- function(dt = NULL,
   })
 
   if(Debug) print("here 1")
-  if(Debug) print(head(dt))
+  if(Debug) print(utils::head(dt))
 
   # Subset columns
   dt1 <- dt[, .SD, .SDcols = c(YVar)]
@@ -1231,12 +1272,12 @@ ProbabilityPlot <- function(dt = NULL,
   # Theoretical Quantiles
   data.table::setorderv(x = dt1, cols = YVar, 1)
   dt1[, temp_i := seq_len(.N)]
-  dt1[, `Theoretical Quantiles` := qnorm((temp_i-0.5)/.N)]
+  dt1[, `Theoretical Quantiles` := stats::qnorm((temp_i-0.5)/.N)]
   dt1[, temp_i := NULL]
 
   # Normal Line
   meanX <- dt1[, mean(get(YVar), na.rm = TRUE)]
-  sdX <- dt1[, sd(get(YVar), na.rm = TRUE)]
+  sdX <- dt1[, stats::sd(get(YVar), na.rm = TRUE)]
   dt1[, `Normal Line` := eval(meanX) + sdX * `Theoretical Quantiles`]
 
   # Actual Quantiles
@@ -1248,17 +1289,61 @@ ProbabilityPlot <- function(dt = NULL,
     YVarTrans = "Identity",
     Height = Height,
     Width = Width,
-    Title = Title,
     Theme = Theme,
     TextColor = TextColor,
-    title.fontSize = title.fontSize,
-    title.fontWeight = title.fontWeight,
-    title.textShadowColor = title.textShadowColor,
-    title.textShadowBlur = title.textShadowBlur,
-    title.textShadowOffsetY = title.textShadowOffsetY,
-    title.textShadowOffsetX = title.textShadowOffsetX,
     ContainLabel = ContainLabel,
-    tooltip.trigger = tooltip.trigger,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY,
     Debug = Debug)
 
   # Add Normal Line
@@ -1291,7 +1376,6 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param ShowLabels FALSE
 #' @param TextColor "white"
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -1741,7 +1825,7 @@ Histogram <- function(dt = NULL,
                       yAxis.axisLabel.textShadowOffsetY = NULL,
                       yAxis.axisLabel.overflow = NULL,
                       legend.show = TRUE,
-                      legend.type = "scross",
+                      legend.type = "scroll",
                       legend.selector = NULL,
                       legend.icon = NULL,
                       legend.align = NULL,
@@ -1894,7 +1978,7 @@ Histogram <- function(dt = NULL,
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
   if(dt[, .N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -1927,7 +2011,7 @@ Histogram <- function(dt = NULL,
     XVar <- NULL
     GroupVar <- NULL
     dt1[, temp__ := "a"]
-    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "temp__", measure.vars = YVar, variable.name = "Measures", value.name = "Values")
+    dt1 <- data.table::melt.data.table(data = dt1, id.vars = "temp__", measure.vars = XVar, variable.name = "Measures", value.name = "Values")
     dt1[, temp__ := NULL]
     GroupVar <- "Measures"
     XVar <- "Values"
@@ -2299,13 +2383,10 @@ Histogram <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -2538,8 +2619,6 @@ Pie <- function(dt = NULL,
                 Height = NULL,
                 Width = NULL,
                 ShowLabels = FALSE,
-                Title.YAxis = NULL,
-                Title.XAxis = NULL,
                 Theme = "dark",
                 TimeLine = TRUE,
                 TextColor = "white",
@@ -2596,7 +2675,7 @@ Pie <- function(dt = NULL,
                 title.subtextStyle.textShadowOffsetX = NULL,
                 title.subtextStyle.textShadowOffsetY = NULL,
                 legend.show = TRUE,
-                legend.type = "scross",
+                legend.type = "scroll",
                 legend.selector = NULL,
                 legend.icon = NULL,
                 legend.align = NULL,
@@ -2854,7 +2933,7 @@ Pie <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -2991,13 +3070,10 @@ Pie <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -3212,7 +3288,7 @@ Pie <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   TimeLine = TRUE,
-#'   TextColor = "black"
+#'   TextColor = "black",
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -3231,8 +3307,6 @@ Donut <- function(dt = NULL,
                   Height = NULL,
                   Width = NULL,
                   ShowLabels = FALSE,
-                  Title.YAxis = NULL,
-                  Title.XAxis = NULL,
                   Theme = "dark",
                   TimeLine = TRUE,
                   TextColor = "white",
@@ -3289,7 +3363,7 @@ Donut <- function(dt = NULL,
                   title.subtextStyle.textShadowOffsetX = NULL,
                   title.subtextStyle.textShadowOffsetY = NULL,
                   legend.show = TRUE,
-                  legend.type = "scross",
+                  legend.type = "scroll",
                   legend.selector = NULL,
                   legend.icon = NULL,
                   legend.align = NULL,
@@ -3551,7 +3625,7 @@ Donut <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -3689,13 +3763,10 @@ Donut <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -3928,8 +3999,6 @@ Rosetype <- function(dt = NULL,
                      Height = NULL,
                      Width = NULL,
                      ShowLabels = FALSE,
-                     Title.YAxis = NULL,
-                     Title.XAxis = NULL,
                      Theme = "dark",
                      TimeLine = TRUE,
                      TextColor = "white",
@@ -3986,7 +4055,7 @@ Rosetype <- function(dt = NULL,
                      title.subtextStyle.textShadowOffsetX = NULL,
                      title.subtextStyle.textShadowOffsetY = NULL,
                      legend.show = TRUE,
-                     legend.type = "scross",
+                     legend.type = "scroll",
                      legend.selector = NULL,
                      legend.icon = NULL,
                      legend.align = NULL,
@@ -4248,7 +4317,7 @@ Rosetype <- function(dt = NULL,
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -4391,7 +4460,6 @@ Rosetype <- function(dt = NULL,
 #' @param TextColor character hex
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -4845,7 +4913,7 @@ Box <- function(dt = NULL,
                 yAxis.axisLabel.textShadowOffsetY = NULL,
                 yAxis.axisLabel.overflow = NULL,
                 legend.show = TRUE,
-                legend.type = "scross",
+                legend.type = "scroll",
                 legend.selector = NULL,
                 legend.icon = NULL,
                 legend.align = NULL,
@@ -5017,7 +5085,7 @@ Box <- function(dt = NULL,
     SampleSize <- SampleSize / length(YVar)
   }
   if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -5502,39 +5570,29 @@ Box <- function(dt = NULL,
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-    if(length(Title.XAxis) == 0L) {
-      p1 <- echarts4r::e_axis_(
-        e = p1,
-        serie = NULL,
-        axis = "x",
-        name = XVar,
-        nameLocation = "middle",
-        nameGap = 45,
-        nameTextStyle = list(
-          color = TextColor,
-          fontStyle = "normal",
-          fontWeight = "bold",
-          fontSize = xaxis.fontSize),
-        axisLabel = list(
-          rotate = xaxis.rotate,
-          grid = list(containLabel = ContainLabel)))
-    } else {
-      p1 <- echarts4r::e_axis_(
-        e = p1,
-        serie = NULL,
-        axis = "x",
-        name = Title.XAxis,
-        nameLocation = "middle",
-        nameGap = 45,
-        nameTextStyle = list(
-          color = TextColor,
-          fontStyle = "normal",
-          fontWeight = "bold",
-          fontSize = xaxis.fontSize),
-        axisLabel = list(
-          rotate = xaxis.rotate,
-          grid = list(containLabel = ContainLabel)))
-    }
+    p1 <- e_x_axis_full(
+      e = p1,
+      serie = NULL,
+      axis = "x",
+      xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
 
     p1 <- e_y_axis_full(
       e = p1,
@@ -5803,16 +5861,60 @@ Box <- function(dt = NULL,
 #' @param YVar Y-Axis variable name
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title = "Density Plot"
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TextColor "white",
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
-#' @param ContainLabel TRUE
+#' @param title.text Title name
+#' @param title.subtext Subtitle name
+#' @param title.link Title as a link
+#' @param title.sublink Subtitle as a link
+#' @param title.Align 'auto' 'left' 'right' 'center'
+#' @param title.top 'auto' '20' 'top' 'middle' 'bottom'
+#' @param title.left distance between title and left side of container
+#' @param title.right distance between title and right side of container
+#' @param title.bottom 'auto' '20' 'top' 'middle' 'bottom'
+#' @param title.padding numeric
+#' @param title.itemGap space between title and subtitle
+#' @param title.backgroundColor hex or name
+#' @param title.borderColor hex or name
+#' @param title.borderWidth numeric
+#' @param title.borderRadius numeric
+#' @param title.shadowColor hex or name
+#' @param title.shadowBlur numeric
+#' @param title.shadowOffsetX numeric
+#' @param title.shadowOffsetY numeric
+#' @param title.textStyle.color hex or name
+#' @param title.textStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.textStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.textStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.textStyle.fontSize numeric
+#' @param title.textStyle.lineHeight numeric
+#' @param title.textStyle.width numeric
+#' @param title.textStyle.height numeric
+#' @param title.textStyle.textBorderColor hex or name
+#' @param title.textStyle.textBorderWidth numeric
+#' @param title.textStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.textStyle.textBorderDashOffset numeric
+#' @param title.textStyle.textShadowColor hex or name
+#' @param title.textStyle.textShadowBlur numeric
+#' @param title.textStyle.textShadowOffsetX numeric
+#' @param title.textStyle.textShadowOffsetY numeric
+#' @param title.subtextStyle.color hex or name
+#' @param title.subtextStyle.align 'auto' 'left' 'right' 'center'
+#' @param title.subtextStyle.fontStyle 'normal' 'italic' 'oblique'
+#' @param title.subtextStyle.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param title.subtextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param title.subtextStyle.fontSize numeric
+#' @param title.subtextStyle.lineHeight numeric
+#' @param title.subtextStyle.width numeric
+#' @param title.subtextStyle.height numeric
+#' @param title.subtextStyle.textBorderColor hex or name
+#' @param title.subtextStyle.textBorderWidth numeric
+#' @param title.subtextStyle.textBorderType 'solid' 'dashed' 'dotted'
+#' @param title.subtextStyle.textBorderDashOffset numeric
+#' @param title.subtextStyle.textShadowColor numeric
+#' @param title.subtextStyle.textShadowBlur numeric
+#' @param title.subtextStyle.textShadowOffsetX numeric
+#' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -5827,7 +5929,6 @@ Box <- function(dt = NULL,
 #'   Width = NULL,
 #'   Theme = "dark",
 #'   TextColor = "black",
-#'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -5890,11 +5991,6 @@ WordCloud <- function(dt = NULL,
                       title.subtextStyle.textShadowBlur = NULL,
                       title.subtextStyle.textShadowOffsetX = NULL,
                       title.subtextStyle.textShadowOffsetY = NULL,
-                      xaxis.fontSize = 14,
-                      yaxis.fontSize = 14,
-                      xaxis.rotate = 0,
-                      yaxis.rotate = 0,
-                      ContainLabel = TRUE,
                       Debug = FALSE) {
 
   if(Theme == 'auritus') {
@@ -6097,7 +6193,6 @@ WordCloud <- function(dt = NULL,
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -6382,7 +6477,7 @@ Radar <- function(dt = NULL,
                   title.subtextStyle.textShadowOffsetX = NULL,
                   title.subtextStyle.textShadowOffsetY = NULL,
                   legend.show = TRUE,
-                  legend.type = "scross",
+                  legend.type = "scroll",
                   legend.selector = NULL,
                   legend.icon = NULL,
                   legend.align = NULL,
@@ -6670,7 +6765,7 @@ Radar <- function(dt = NULL,
     title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   if(Debug) print("Plot.Radar() Build Echarts 8")
-  p1 <- echarts4r::e_legend_full(
+  p1 <- e_legend_full(
     e = p1,
     legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
     legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -6731,7 +6826,7 @@ Radar <- function(dt = NULL,
 
 #' @title Line
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Standard Plots
@@ -6759,7 +6854,6 @@ Radar <- function(dt = NULL,
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -7213,7 +7307,7 @@ Line <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
                  legend.show = TRUE,
-                 legend.type = "scross",
+                 legend.type = "scroll",
                  legend.selector = NULL,
                  legend.icon = NULL,
                  legend.align = NULL,
@@ -7618,7 +7712,7 @@ Line <- function(dt = NULL,
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     }
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -7864,7 +7958,7 @@ Line <- function(dt = NULL,
 
 #' @title Area
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Standard Plots
@@ -7893,7 +7987,6 @@ Line <- function(dt = NULL,
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -8346,7 +8439,7 @@ Area <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
                  legend.show = TRUE,
-                 legend.type = "scross",
+                 legend.type = "scroll",
                  legend.selector = NULL,
                  legend.icon = NULL,
                  legend.align = NULL,
@@ -8750,7 +8843,7 @@ Area <- function(dt = NULL,
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     }
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -8995,7 +9088,7 @@ Area <- function(dt = NULL,
 
 #' @title Step
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Standard Plots
@@ -9023,7 +9116,6 @@ Area <- function(dt = NULL,
 #' @param TextColor "Not Implemented"
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -9473,7 +9565,7 @@ Step <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
                  legend.show = TRUE,
-                 legend.type = "scross",
+                 legend.type = "scroll",
                  legend.selector = NULL,
                  legend.icon = NULL,
                  legend.align = NULL,
@@ -9877,7 +9969,7 @@ Step <- function(dt = NULL,
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     }
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -10122,7 +10214,7 @@ Step <- function(dt = NULL,
 
 #' @title River
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Standard Plots
@@ -10147,7 +10239,6 @@ Step <- function(dt = NULL,
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -10597,7 +10688,7 @@ River <- function(dt = NULL,
                   yAxis.axisLabel.textShadowOffsetY = NULL,
                   yAxis.axisLabel.overflow = NULL,
                   legend.show = TRUE,
-                  legend.type = "scross",
+                  legend.type = "scroll",
                   legend.selector = NULL,
                   legend.icon = NULL,
                   legend.align = NULL,
@@ -10862,7 +10953,7 @@ River <- function(dt = NULL,
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
 
-  p1 <- echarts4r::e_legend_full(
+  p1 <- e_legend_full(
     e = p1,
     legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
     legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -11053,7 +11144,6 @@ River <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -11512,7 +11602,7 @@ Bar <- function(dt = NULL,
                 yAxis.axisLabel.textShadowOffsetY = NULL,
                 yAxis.axisLabel.overflow = NULL,
                 legend.show = TRUE,
-                legend.type = "scross",
+                legend.type = "scroll",
                 legend.selector = NULL,
                 legend.icon = NULL,
                 legend.align = NULL,
@@ -12173,7 +12263,7 @@ Bar <- function(dt = NULL,
         p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       }
 
-      p1 <- echarts4r::e_legend_full(
+      p1 <- e_legend_full(
         e = p1,
         legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
         legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -12428,7 +12518,7 @@ Bar <- function(dt = NULL,
         p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
       }
 
-      p1 <- echarts4r::e_legend_full(
+      p1 <- e_legend_full(
         e = p1,
         legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
         legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -12718,7 +12808,6 @@ Bar <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -13140,7 +13229,7 @@ ACF <- function(dt = NULL,
                 yAxis.axisLabel.textShadowOffsetY = NULL,
                 yAxis.axisLabel.overflow = NULL,
                 legend.show = TRUE,
-                legend.type = "scross",
+                legend.type = "scroll",
                 legend.selector = NULL,
                 legend.icon = NULL,
                 legend.align = NULL,
@@ -13327,7 +13416,7 @@ ACF <- function(dt = NULL,
   if(Debug) print("Plot.ACH 5")
   for(i in seq_len(MaxLags)) {# i = 1
     lagCol <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
-    lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[lagCol]])
+    lag_test <- stats::cor.test(x = dt1[[YVar]], y = dt1[[lagCol]])
     data.table::set(ACF_Data, i = i, j = "Lag", value = i)
     data.table::set(ACF_Data, i = i, j = "Cor", value = lag_test$estimate)
     data.table::set(ACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
@@ -13401,7 +13490,7 @@ ACF <- function(dt = NULL,
     e = p1,
     serie = NULL,
     axis = "x",
-    xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+    xAxis.title = "Lag", xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
     xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
     xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
     xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
@@ -13525,7 +13614,6 @@ ACF <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -13947,7 +14035,7 @@ PACF <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
                  legend.show = TRUE,
-                 legend.type = "scross",
+                 legend.type = "scroll",
                  legend.selector = NULL,
                  legend.icon = NULL,
                  legend.align = NULL,
@@ -14141,14 +14229,14 @@ PACF <- function(dt = NULL,
   for(i in seq_len(MaxLags)) {# i = 1L  i = 2L
     LagCols[i] <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
     if(i == 1L) {
-      lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[LagCols]])
+      lag_test <- stats::cor.test(x = dt1[[YVar]], y = dt1[[LagCols]])
       data.table::set(PACF_Data, i = i, j = "Lag", value = i)
       data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
       data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
       data.table::set(PACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
     } else {
-      x <- as.vector(lm(formula = as.formula(paste0(YVar, " ~ ", paste0(LagCols, collapse = " + "))), data = dt1)$residuals)
-      lag_test <- cor.test(x = x, y = dt1[[LagCols[i]]])
+      x <- as.vector(stats::lm(formula = stats::as.formula(paste0(YVar, " ~ ", paste0(LagCols, collapse = " + "))), data = dt1)$residuals)
+      lag_test <- stats::cor.test(x = x, y = dt1[[LagCols[i]]])
       data.table::set(PACF_Data, i = i, j = "Lag", value = i)
       data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
       data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
@@ -14218,7 +14306,7 @@ PACF <- function(dt = NULL,
     e = p1,
     serie = NULL,
     axis = "x",
-    xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+    xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else "Lags", xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
     xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
     xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
     xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
@@ -14349,7 +14437,6 @@ PACF <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -14806,7 +14893,7 @@ StackedBar <- function(dt = NULL,
                        yAxis.axisLabel.textShadowOffsetY = NULL,
                        yAxis.axisLabel.overflow = NULL,
                        legend.show = TRUE,
-                       legend.type = "scross",
+                       legend.type = "scroll",
                        legend.selector = NULL,
                        legend.icon = NULL,
                        legend.align = NULL,
@@ -15212,7 +15299,7 @@ StackedBar <- function(dt = NULL,
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     }
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -15305,7 +15392,6 @@ StackedBar <- function(dt = NULL,
 #' @param TextColor character
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -15768,7 +15854,7 @@ BarPlot3D <- function(dt,
                       yAxis.axisLabel.textShadowOffsetY = NULL,
                       yAxis.axisLabel.overflow = NULL,
                       legend.show = TRUE,
-                      legend.type = "scross",
+                      legend.type = "scroll",
                       legend.selector = NULL,
                       legend.icon = NULL,
                       legend.align = NULL,
@@ -15961,7 +16047,7 @@ BarPlot3D <- function(dt,
     vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Create final data for plot
     g <- "Measure_Variable"
@@ -16101,7 +16187,7 @@ BarPlot3D <- function(dt,
     vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Transformation
     if(ZVarTrans != "Identity") {
@@ -16271,7 +16357,7 @@ BarPlot3D <- function(dt,
       vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
     }
 
     # Create final dt1 for plot
@@ -16592,7 +16678,6 @@ BarPlot3D <- function(dt,
 #' @param ShowLabels character
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -17053,7 +17138,7 @@ HeatMap <- function(dt,
                     yAxis.axisLabel.textShadowOffsetY = NULL,
                     yAxis.axisLabel.overflow = NULL,
                     legend.show = TRUE,
-                    legend.type = "scross",
+                    legend.type = "scroll",
                     legend.selector = NULL,
                     legend.icon = NULL,
                     legend.align = NULL,
@@ -17237,7 +17322,7 @@ HeatMap <- function(dt,
     vals <- unique(scales::rescale(c(dt1[[ZVar]])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
     data.table::setnames(dt1, ZVar, "Measure_Variable")
     data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
 
@@ -17428,7 +17513,7 @@ HeatMap <- function(dt,
       vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
     }
 
     # Create final data for plot
@@ -17619,7 +17704,7 @@ HeatMap <- function(dt,
       vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
     }
 
     # Create final dt1 for plot
@@ -17800,12 +17885,12 @@ HeatMap <- function(dt,
         dt1 <- dt1[get(YVar) %in% eval(temp_yy) & get(XVar) %in% eval(temp_xx)]
         dt1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
       } else if(AggMethod == 'median') {
-        temp_y <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
         temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
         temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
         dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+        dt1 <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
       } else if(AggMethod == 'sum') {
         temp_y <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
         temp_x <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
@@ -17814,19 +17899,12 @@ HeatMap <- function(dt,
         dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
         dt1 <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
       } else if(AggMethod == 'sd') {
-        temp_y <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
         temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
         temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
         dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'coeffvar') {
-        temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+        dt1 <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
       } else if(AggMethod == 'count') {
         temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
         temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
@@ -18039,7 +18117,6 @@ HeatMap <- function(dt,
 #' @param PreAgg logical
 #' @param TextColor character hex
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -18318,7 +18395,7 @@ HeatMap <- function(dt,
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
 #'
 #' # Echarts CorrMatrix Plot Chart
-#' AutoPlots::Plot.CorrMatrix(
+#' AutoPlots::CorrMatrix(
 #'   dt = data,
 #'   CorrVars = c(
 #'     "Adrian",
@@ -18494,7 +18571,7 @@ CorrMatrix <- function(dt = NULL,
                        yAxis.axisLabel.textShadowOffsetY = NULL,
                        yAxis.axisLabel.overflow = NULL,
                        legend.show = TRUE,
-                       legend.type = "scross",
+                       legend.type = "scroll",
                        legend.selector = NULL,
                        legend.icon = NULL,
                        legend.align = NULL,
@@ -18634,7 +18711,7 @@ CorrMatrix <- function(dt = NULL,
                        Debug = FALSE) {
 
   # Filter out bad vars
-  x <- c(); for(i in CorrVars) if(dt[, sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
+  x <- c(); for(i in CorrVars) if(dt[, stats::sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
   CorrVars <- x
   NN <- dt[,.N]
   x <- c(); for(i in CorrVars) if(sum(dt[, is.na(get(i))]) / NN <= MaxNAPercent) x <- c(x, i)
@@ -18645,7 +18722,7 @@ CorrMatrix <- function(dt = NULL,
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
       dt <- data.table::as.data.table(dt)
     })
-    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
+    dt1 <- stats::na.omit(dt[, .SD, .SDcols = c(CorrVars)])
 
     # Transformation
     if(CorrVarTrans != "Identity") {
@@ -18656,7 +18733,7 @@ CorrMatrix <- function(dt = NULL,
       zz <- nchar(yy)
       data.table::setnames(dt1, yy, substr(x = yy, start = max(0L, zz - 40L), stop = nchar(yy)))
     }
-    corr_mat <- cor(method = tolower(Method), x = dt1)
+    corr_mat <- stats::cor(method = tolower(Method), x = dt1)
   } else {
     corr_mat <- dt
   }
@@ -18795,7 +18872,6 @@ CorrMatrix <- function(dt = NULL,
 #' @param PreAgg logical
 #' @param TextColor character hex
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -19244,7 +19320,7 @@ Parallel <- function(dt = NULL,
                      yAxis.axisLabel.textShadowOffsetY = NULL,
                      yAxis.axisLabel.overflow = NULL,
                      legend.show = TRUE,
-                     legend.type = "scross",
+                     legend.type = "scroll",
                      legend.selector = NULL,
                      legend.icon = NULL,
                      legend.align = NULL,
@@ -19392,14 +19468,14 @@ Parallel <- function(dt = NULL,
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
       dt <- data.table::as.data.table(dt)
     })
-    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
+    dt1 <- stats::na.omit(dt[, .SD, .SDcols = c(CorrVars)])
 
   } else {
     dt1 <- dt
   }
 
   if(length(SampleSize) > 0L && dt1[,.N] > SampleSize) {
-    dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt1[order(stats::runif(.N))][seq_len(SampleSize)]
   }
 
   if(Debug) {
@@ -20039,7 +20115,7 @@ Copula <- function(dt = NULL,
                    yAxis.axisLabel.textShadowOffsetY = NULL,
                    yAxis.axisLabel.overflow = NULL,
                    legend.show = TRUE,
-                   legend.type = "scross",
+                   legend.type = "scroll",
                    legend.selector = NULL,
                    legend.icon = NULL,
                    legend.align = NULL,
@@ -20189,7 +20265,7 @@ Copula <- function(dt = NULL,
   # Cap number of records
   if(Debug) print('Plot.Copula # Cap number of records')
   if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -20268,7 +20344,7 @@ Copula <- function(dt = NULL,
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -20620,7 +20696,7 @@ Copula <- function(dt = NULL,
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     }
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -20710,7 +20786,6 @@ Copula <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -21168,7 +21243,7 @@ Copula3D <- function(dt = NULL,
                      yAxis.axisLabel.textShadowOffsetY = NULL,
                      yAxis.axisLabel.overflow = NULL,
                      legend.show = TRUE,
-                     legend.type = "scross",
+                     legend.type = "scroll",
                      legend.selector = NULL,
                      legend.icon = NULL,
                      legend.align = NULL,
@@ -21317,7 +21392,7 @@ Copula3D <- function(dt = NULL,
   if(Debug) print('Plot.Copula3D # Cap number of records')
   N <- dt[,.N]
   if(SampleSize > 50000L) SampleSize <- 50000L
-  if(N > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
+  if(N > SampleSize) dt <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   dt1 <- data.table::copy(dt)
   dt1[, eval(YVar) := data.table::frank(get(YVar)) * (1 / 0.001) / .N * 0.001]
   dt1[, eval(XVar) := data.table::frank(get(XVar)) * (1 / 0.001) / .N * 0.001]
@@ -21343,7 +21418,7 @@ Copula3D <- function(dt = NULL,
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -21589,7 +21664,6 @@ Copula3D <- function(dt = NULL,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
       e = p1,
@@ -21682,7 +21756,6 @@ Copula3D <- function(dt = NULL,
 #' @param TextColor character hex
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -22140,7 +22213,7 @@ Scatter <- function(dt = NULL,
                     yAxis.axisLabel.textShadowOffsetY = NULL,
                     yAxis.axisLabel.overflow = NULL,
                     legend.show = TRUE,
-                    legend.type = "scross",
+                    legend.type = "scroll",
                     legend.selector = NULL,
                     legend.icon = NULL,
                     legend.align = NULL,
@@ -22290,7 +22363,7 @@ Scatter <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
   if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -22374,7 +22447,7 @@ Scatter <- function(dt = NULL,
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -22732,7 +22805,7 @@ Scatter <- function(dt = NULL,
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     }
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -22822,7 +22895,6 @@ Scatter <- function(dt = NULL,
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
-#' @param tooltip.show logical
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
 #' @param title.sublink Subtitle as a link
@@ -23280,7 +23352,7 @@ Scatter3D <- function(dt = NULL,
                       yAxis.axisLabel.textShadowOffsetY = NULL,
                       yAxis.axisLabel.overflow = NULL,
                       legend.show = TRUE,
-                      legend.type = "scross",
+                      legend.type = "scroll",
                       legend.selector = NULL,
                       legend.icon = NULL,
                       legend.align = NULL,
@@ -23429,7 +23501,7 @@ Scatter3D <- function(dt = NULL,
   if(Debug) print('Scatter3D # Cap number of records')
   if(length(SampleSize) == 0L) SampleSize <- 30000L
   if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -23563,7 +23635,7 @@ Scatter3D <- function(dt = NULL,
       p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
     }
 
-    p1 <- echarts4r::e_legend_full(
+    p1 <- e_legend_full(
       e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
@@ -23722,7 +23794,6 @@ Scatter3D <- function(dt = NULL,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = xaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
       e = p1,
@@ -23812,26 +23883,13 @@ Scatter3D <- function(dt = NULL,
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumberBins numeric
-#' @param Title character
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor Not Implemented
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
-#' @param xaxis.fontSize 14
-#' @param yaxis.fontSize 14
-#' @param xaxis.rotate 0
-#' @param yaxis.rotate 0
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @return plot
@@ -23850,24 +23908,11 @@ Residuals.Histogram <- function(dt = NULL,
                                      NumberBins = 20,
                                      Height = NULL,
                                      Width = NULL,
-                                     Title = 'Residuals Histogram',
                                      ShowLabels = FALSE,
-                                     Title.YAxis = NULL,
-                                     Title.XAxis = "Target - Predicted",
                                      Theme = "dark",
                                      MouseScroll = FALSE,
                                      TimeLine = FALSE,
                                      TextColor = "white",
-                                     title.fontSize = 22,
-                                     title.fontWeight = "bold",
-                                     title.textShadowColor = '#63aeff',
-                                     title.textShadowBlur = 3,
-                                     title.textShadowOffsetY = 1,
-                                     title.textShadowOffsetX = -1,
-                                     xaxis.fontSize = 14,
-                                     yaxis.fontSize = 14,
-                                     xaxis.rotate = 0,
-                                     yaxis.rotate = 0,
                                      ContainLabel = TRUE,
                                      Debug = FALSE) {
 
@@ -23878,13 +23923,13 @@ Residuals.Histogram <- function(dt = NULL,
   })
 
   if(Debug) print("here 1")
-  if(Debug) print(head(dt))
+  if(Debug) print(utils::head(dt))
 
   # Subset columns
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
 
   # Shrink display data
-  dt1 <- dt1[order(runif(.N))][seq_len(min(.N, SampleSize))]
+  dt1 <- dt1[order(stats::runif(.N))][seq_len(min(.N, SampleSize))]
 
   # Prepare data
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
@@ -23893,18 +23938,18 @@ Residuals.Histogram <- function(dt = NULL,
   if(length(GroupVar) > 0L) GroupVar <- GroupVar[1L]
 
   if(Debug) print("here 2")
-  if(Debug) print(head(dt1))
+  if(Debug) print(utils::head(dt1))
 
   # Faceting shrink
   if(length(GroupVar) > 0L) {
     data.table::setorderv(x = dt1, cols = c(GroupVar), 1L)
-    if(Debug) print(head(dt1))
+    if(Debug) print(utils::head(dt1))
     dt1 <- dt1[order(get(GroupVar))]
-    if(Debug) print(head(dt1))
+    if(Debug) print(utils::head(dt1))
   }
 
   if(Debug) print("here 3.1")
-  if(Debug) print(head(dt1))
+  if(Debug) print(utils::head(dt1))
 
   if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L)) {
     dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,GroupVar)]
@@ -23913,7 +23958,7 @@ Residuals.Histogram <- function(dt = NULL,
   }
 
   if(Debug) print("here 3")
-  if(Debug) print(head(dt1))
+  if(Debug) print(utils::head(dt1))
 
   # Data Prep2
   if(Debug) print("Plot.Residuals.Histogram")
@@ -23927,21 +23972,19 @@ Residuals.Histogram <- function(dt = NULL,
   }
 
   if(Debug) print("here 4")
-  if(Debug) print(head(dt1))
+  if(Debug) print(utils::head(dt1))
 
   # Create base plot object
   if(Debug) print('Create Plot with only data')
 
   dt1 <- dt1[!is.na(get(YVar))]
 
-  p1 <- AutoPlots::Plot.Histogram(
+  p1 <- Histogram(
     dt = dt1,
     SampleSize = SampleSize,
-    XVar = NULL,
-    YVar = YVar,
+    XVar = YVar,
     GroupVar = GroupVar,
-    YVarTrans = YVarTrans,
-    XVarTrans = XVarTrans,
+    XVarTrans = YVarTrans,
     FacetRows = FacetRows,
     FacetCols = FacetCols,
     FacetLevels = FacetLevels,
@@ -23949,21 +23992,10 @@ Residuals.Histogram <- function(dt = NULL,
     Height = Height,
     Width = Width,
     MouseScroll = MouseScroll,
-    Title = Title,
     ShowLabels = ShowLabels,
-    Title.YAxis = Title.YAxis,
-    Title.XAxis = Title.XAxis,
     Theme = Theme,
     TimeLine = TimeLine,
     TextColor = "white",
-    title.fontSize = title.fontSize,
-    title.fontWeight = title.fontWeight,
-    title.textShadowColor = title.textShadowColor,
-    title.textShadowBlur = title.textShadowBlur,
-    title.textShadowOffsetY = title.textShadowOffsetY,
-    title.textShadowOffsetX = title.textShadowOffsetX,
-    xaxis.fontSize = xaxis.fontSize,
-    yaxis.fontSize = yaxis.fontSize,
     Debug = Debug)
 
   return(p1)
@@ -23989,10 +24021,7 @@ Residuals.Histogram <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -24014,10 +24043,7 @@ Residuals.Scatter <- function(dt = NULL,
                                    Height = NULL,
                                    Width = NULL,
                                    MouseScroll = FALSE,
-                                   Title = 'Residual Scatterplot',
                                    ShowLabels = FALSE,
-                                   Title.YAxis = "Target - Predicted",
-                                   Title.XAxis = "Predicted",
                                    Theme = "dark",
                                    TimeLine = FALSE,
                                    TextColor = "white",
@@ -24029,7 +24055,7 @@ Residuals.Scatter <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
-  if(dt1[, .N] > SampleSize) dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
+  if(dt1[, .N] > SampleSize) dt1 <- dt1[order(stats::runif(.N))][seq_len(SampleSize)]
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
   if(length(GroupVar) > 0L) GroupVar <- GroupVar[1L]
   if(length(GroupVar) > 0L) {
@@ -24059,23 +24085,19 @@ Residuals.Scatter <- function(dt = NULL,
     FacetCols = FacetCols,
     FacetLevels = FacetLevels,
     Height = Height,
-    Title.YAxis = YVar,
-    Title.XAxis = paste0(XVar, " every 5th Percentile"),
     ShowLabels = ShowLabels,
     Width = Width,
     MouseScroll = MouseScroll,
-    Title = Title,
     Theme = Theme,
     TimeLine = tl,
     TextColor = TextColor,
-    tooltip.trigger = "item",
     Debug = Debug)
   return(p1)
 }
 
 #' @title Calibration.Line
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Model Evaluation
@@ -24093,10 +24115,7 @@ Residuals.Scatter <- function(dt = NULL,
 #' @param NumberBins numeric
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -24117,10 +24136,7 @@ Calibration.Line <- function(dt = NULL,
                                   NumberBins = 21,
                                   Height = NULL,
                                   Width = NULL,
-                                  Title = 'Calibration Line',
                                   ShowLabels = FALSE,
-                                  Title.YAxis = NULL,
-                                  Title.XAxis = NULL,
                                   Theme = "dark",
                                   TimeLine = FALSE,
                                   MouseScroll = FALSE,
@@ -24222,13 +24238,10 @@ Calibration.Line <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
-      Title.YAxis = yvar,
-      Title.XAxis = "Predicted",
       ShowLabels = ShowLabels,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-      Title = 'Calibration Line Plot',
       Theme = Theme,
       TimeLine = tl,
       TextColor = TextColor,
@@ -24343,14 +24356,10 @@ Calibration.Line <- function(dt = NULL,
       FacetCols = FacetCols,
       FacetLevels = FacetLevels,
       MouseScroll = MouseScroll,
-      Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
       Height = Height,
       Width = Width,
-      Title = "Calibration Line Plot",
-      Title.YAxis = yvar,
-      Title.XAxis = "Predicted",
       TextColor = TextColor,
       Debug = Debug)
     return(p1)
@@ -24359,7 +24368,7 @@ Calibration.Line <- function(dt = NULL,
 
 #' @title Calibration.Box
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Model Evaluation
@@ -24378,10 +24387,7 @@ Calibration.Line <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param NumberBins numeric
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -24403,11 +24409,8 @@ Calibration.Box <- function(dt = NULL,
                                  NumberBins = 21,
                                  Height = NULL,
                                  Width = NULL,
-                                 Title = 'Calibration Box',
                                  MouseScroll = FALSE,
                                  ShowLabels = FALSE,
-                                 Title.YAxis = NULL,
-                                 Title.XAxis = NULL,
                                  Theme = "dark",
                                  TimeLine = FALSE,
                                  TextColor = "white",
@@ -24420,7 +24423,7 @@ Calibration.Box <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
   if(Debug) print("Plot.Calibration.Box 2")
-  if(dt[, .N] > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
+  if(dt[, .N] > SampleSize) dt <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   if(Debug) print("Plot.Calibration.Box 3")
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
@@ -24497,10 +24500,7 @@ Calibration.Box <- function(dt = NULL,
 #' @param YVar Y-Axis variable name
 #' @param ZVar character
 #' @param NumberBins numeric
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
 #' @param ZVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
@@ -24534,10 +24534,7 @@ PartialDependence.Line <- function(dt = NULL,
                                         AggMethod = "mean",
                                         Height = NULL,
                                         Width = NULL,
-                                        Title = "Partial Dependence Line",
                                         ShowLabels = FALSE,
-                                        Title.YAxis = NULL,
-                                        Title.XAxis = NULL,
                                         Theme = "dark",
                                         MouseScroll = FALSE,
                                         EchartsLabels = FALSE,
@@ -24623,11 +24620,8 @@ PartialDependence.Line <- function(dt = NULL,
       FacetLevels = FacetLevels,
       ShowLabels = ShowLabels,
       MouseScroll = MouseScroll,
-      Title.YAxis = if(length(GroupVar) > 0L) "Target - Predicted" else "Target & Predicted",
-      Title.XAxis = XVar,
       Height = Height,
       Width = Width,
-      Title = "Partial Dependence",
       TextColor = TextColor,
       Debug = Debug)
     return(p1)
@@ -24722,14 +24716,10 @@ PartialDependence.Line <- function(dt = NULL,
       FacetLevels = FacetLevels,
       ShowLabels = ShowLabels,
       MouseScroll = MouseScroll,
-      Title.YAxis = if(length(GroupVar) > 0L) "Target - Predicted" else "Target & Predicted",
-      Title.XAxis = XVar,
-      Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
       Height = Height,
       Width = Width,
-      Title = "Partial Dependence",
       TextColor = TextColor,
       Debug = Debug)
     return(p1)
@@ -24756,10 +24746,7 @@ PartialDependence.Line <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param NumberBins numeric
 #' @param PreAgg logical
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
@@ -24789,10 +24776,7 @@ PartialDependence.Box <- function(dt = NULL,
                                        AggMethod = "mean",
                                        Height = NULL,
                                        Width = NULL,
-                                       Title = "Partial Dependence Box",
                                        ShowLabels = FALSE,
-                                       Title.YAxis = NULL,
-                                       Title.XAxis = NULL,
                                        Theme = "dark",
                                        MouseScroll = FALSE,
                                        EchartsLabels = FALSE,
@@ -24874,10 +24858,7 @@ PartialDependence.Box <- function(dt = NULL,
 #' @param NumberBins numeric
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
@@ -24903,11 +24884,8 @@ PartialDependence.HeatMap <- function(dt = NULL,
                                            AggMethod = "mean",
                                            Height = NULL,
                                            Width = NULL,
-                                           Title = "Partial Dependence Heatmap",
                                            ShowLabels = FALSE,
                                            MouseScroll = FALSE,
-                                           Title.YAxis = NULL,
-                                           Title.XAxis = NULL,
                                            Theme = "dark",
                                            EchartsLabels = FALSE,
                                            TimeLine = TRUE,
@@ -24965,7 +24943,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
       # Build
       if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Heatmap()")
       dt1 <- dt1[!is.na(get(YVar))]
-      p1 <- AutoPlots::Heatmap(
+      p1 <- HeatMap(
         dt = dt1,
         PreAgg = TRUE,
         AggMethod = "mean",
@@ -24978,11 +24956,8 @@ PartialDependence.HeatMap <- function(dt = NULL,
         ZVarTrans = ZVarTrans,
         ShowLabels = ShowLabels,
         MouseScroll = MouseScroll,
-        Title.YAxis = YVar,
-        Title.XAxis = XVar,
         Height = Height,
         Width = Width,
-        Title = "Partial Dependence Heatmap: Target - Predicted",
         TextColor = TextColor,
         NumberBins = NumberBins,
         Debug = Debug)
@@ -24995,7 +24970,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
       dt1 <- dt1[!is.na(get(ZVar))]
       if(Debug) print("here 5.4")
       dt1 <- dt1[, .SD, .SDcols = c(XVar, ZVar)]
-      p1 <- AutoPlots::Bar(
+      p1 <- Bar(
         dt = dt1,
         PreAgg = TRUE,
         XVar = XVar,
@@ -25010,21 +24985,10 @@ PartialDependence.HeatMap <- function(dt = NULL,
         Height = Height,
         Width = Width,
         MouseScroll = MouseScroll,
-        Title = "Partial Dependence Bar Plot: Target - Predicted",
         ShowLabels = ShowLabels,
-        Title.YAxis = "Target - Predicted",
-        Title.XAxis = XVar,
         Theme = Theme,
         TimeLine = TRUE,
         TextColor = "white",
-        title.fontSize = 22,
-        title.fontWeight = "bold",
-        title.textShadowColor = "#63aeff",
-        title.textShadowBlur = 3,
-        title.textShadowOffsetY = 1,
-        title.textShadowOffsetX = -1,
-        xaxis.fontSize = 14,
-        yaxis.fontSize = 14,
         Debug = Debug)
       return(p1)
     }
@@ -25085,7 +25049,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
     # Build
     if(Debug) print("Plot.PartialDependence.HeatMap --> AutoPlots::Heatmap()")
     dt2 <- dt2[!is.na(get(yvar))]
-    p1 <- AutoPlots::Heatmap(
+    p1 <- HeatMap(
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
@@ -25096,12 +25060,9 @@ PartialDependence.HeatMap <- function(dt = NULL,
       YVarTrans = YVarTrans,
       XVarTrans = XVarTrans,
       ZVarTrans = ZVarTrans,
-      Title.YAxis = YVar,
-      Title.XAxis = XVar,
       Height = Height,
       Width = Width,
       MouseScroll = MouseScroll,
-      Title = "Partial Dependence Heatmap: Target - Predicted",
       TextColor = TextColor,
       NumberBins = NumberBins,
       Debug = Debug)
@@ -25128,21 +25089,10 @@ PartialDependence.HeatMap <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title title
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param TextColor 'darkblue'
-#' @param title.fontSize 22
-#' @param title.fontWeight "bold"
-#' @param title.textShadowColor '#63aeff'
-#' @param title.textShadowBlur 3
-#' @param title.textShadowOffsetY 1
-#' @param title.textShadowOffsetX -1
-#' @param xaxis.fontSize 14
-#' @param yaxis.fontSize 14
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -25158,21 +25108,10 @@ VariableImportance <- function(dt = NULL,
                                     AggMethod = 'mean',
                                     Height = NULL,
                                     Width = NULL,
-                                    Title = 'Variable Importance Plot',
                                     ShowLabels = FALSE,
-                                    Title.YAxis = NULL,
-                                    Title.XAxis = NULL,
                                     Theme = "dark",
                                     TimeLine = TRUE,
                                     TextColor = "white",
-                                    title.fontSize = 22,
-                                    title.fontWeight = "bold",
-                                    title.textShadowColor = '#63aeff',
-                                    title.textShadowBlur = 3,
-                                    title.textShadowOffsetY = 1,
-                                    title.textShadowOffsetX = -1,
-                                    xaxis.fontSize = 14,
-                                    yaxis.fontSize = 14,
                                     Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -25198,51 +25137,11 @@ VariableImportance <- function(dt = NULL,
   p1 <- echarts4r::e_bar_(e = p1, Var2)
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-  p1 <- e_tooltip_full(
-    e = p1,
-    tooltip.show = tooltip.show,
-    tooltip.trigger = tooltip.trigger,
-    tooltip.backgroundColor = tooltip.backgroundColor,
-    tooltip.borderColor = tooltip.borderColor,
-    tooltip.borderWidth = tooltip.borderWidth,
-    tooltip.padding = tooltip.padding,
-    tooltip.axisPointer.type = tooltip.axisPointer.type,
-    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
-    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
-    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
-    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
-    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
-    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
-    tooltip.textStyle.color = tooltip.textStyle.color,
-    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
-    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
-    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
-    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
-    tooltip.textStyle.width = tooltip.textStyle.width,
-    tooltip.textStyle.height = tooltip.textStyle.height,
-    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
-    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
-    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
-    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
-    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
-    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
-    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
-  p1 <- echarts4r::e_title(
-    p1, Title,
-    textStyle = list(
-      color = TextColor,
-      fontWeight = title.fontWeight,
-      overflow = "truncate", # "none", "truncate", "break",
-      ellipsis = '...',
-      fontSize = title.fontSize,
-      textShadowColor = title.textShadowColor,
-      textShadowBlur = title.textShadowBlur,
-      textShadowOffsetY = title.textShadowOffsetY,
-      textShadowOffsetX = title.textShadowOffsetX))
+
   p1 <- echarts4r::e_flip_coords(e = p1)
   return(p1)
 }
@@ -25266,10 +25165,7 @@ VariableImportance <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -25291,10 +25187,7 @@ ROC <- function(dt = NULL,
                      AggMethod = 'mean',
                      Height = NULL,
                      Width = NULL,
-                     Title = 'ROC Plot',
                      ShowLabels = FALSE,
-                     Title.YAxis = "True Positive Rate",
-                     Title.XAxis = "1 - False Positive Rate",
                      Theme = "dark",
                      MouseScroll = FALSE,
                      TimeLine = FALSE,
@@ -25437,10 +25330,7 @@ ROC <- function(dt = NULL,
   YVar <- "Sensitivity"
   XVar <- "1 - Specificity"
   tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
-  if(length(GroupVar) > 0L && (FacetRows > 1L && FacetCols > 1L)) {
-    title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC, 3), "%\n*Excluding cases of all 1's or 0's")
-  }
-  title <- paste0(Title, ":\nMicro-AUC: ", 100 * round(AUC, 3), "%")
+
   gv <- if(length(GroupVar) > 0L) "GroupLevels" else NULL
   data.table::setorderv(x = data, cols = c(gv, "Sensitivity"))
 
@@ -25468,12 +25358,11 @@ ROC <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-      Title = title,
       TextColor = TextColor,
       Debug = Debug)
 
   } else {
-    p1 <- AutoPlots::Plot.Area(
+    p1 <- AutoPlots::Area(
       dt = data,
       PreAgg = TRUE,
       Smooth = TRUE,
@@ -25492,7 +25381,6 @@ ROC <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-      Title = title,
       TextColor = TextColor,
       Debug = Debug)
   }
@@ -25528,12 +25416,7 @@ ROC <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title title
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
-#' @param xaxis.rotate numeric
-#' @param yaxis.rotate numeric
 #' @param ContainLabel logical
 #' @param GroupVar = NULL
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
@@ -25558,18 +25441,13 @@ ConfusionMatrix <- function(dt = NULL,
                                  NumLevels_Y = 50,
                                  Height = NULL,
                                  Width = NULL,
-                                 Title = "Confusion Matrix",
                                  ShowLabels = FALSE,
-                                 Title.YAxis = NULL,
-                                 Title.XAxis = NULL,
                                  Theme = "dark",
                                  MouseScroll = FALSE,
                                  TimeLine = TRUE,
                                  TextColor = "white",
                                  AggMethod = "count",
                                  GroupVar = NULL,
-                                 xaxis.rotate = 0,
-                                 yaxis.rotate = 0,
                                  ContainLabel = TRUE,
                                  Debug = FALSE) {
 
@@ -25609,10 +25487,9 @@ ConfusionMatrix <- function(dt = NULL,
   # Corr Matrix for the automatic ordering
   data.table::setorderv(dt4, c(XVar,YVar), c(1L,1L))
   dt4 <- dt4[!is.na(get(ZVar))]
-  p1 <- Heatmap(
+  p1 <- AutoPlots::HeatMap(
     PreAgg = TRUE,
     Theme = Theme,
-    Title = Title,
     dt = dt4,
     YVar = YVar,
     XVar = XVar,
@@ -25624,8 +25501,6 @@ ConfusionMatrix <- function(dt = NULL,
     NumLevels_X = NumLevels_X,
     NumLevels_Y = NumLevels_Y,
     MouseScroll = MouseScroll,
-    xaxis.rotate = xaxis.rotate,
-    yaxis.rotate = yaxis.rotate,
     ContainLabel = ContainLabel)
   return(p1)
 }
@@ -25654,10 +25529,7 @@ ConfusionMatrix <- function(dt = NULL,
 #' @param NumberBins numeric
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -25680,10 +25552,7 @@ Lift <- function(dt = NULL,
                       NumberBins = 20,
                       Height = NULL,
                       Width = NULL,
-                      Title = "Confusion Matrix",
                       ShowLabels = FALSE,
-                      Title.YAxis = "Lift",
-                      Title.XAxis = "Population",
                       Theme = "dark",
                       MouseScroll = FALSE,
                       TimeLine = TRUE,
@@ -25792,7 +25661,7 @@ Lift <- function(dt = NULL,
       dt_[, NegScore := -get(XVar)]
       if(Debug) print(" iter 3")
       if(Debug) print(" iter 4")
-      Cuts <- quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+      Cuts <- stats::quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
       if(Debug) print(" iter 5")
       dt_[, eval(YVar) := as.character(get(YVar))]
       if(Debug) print(" iter 6")
@@ -25836,7 +25705,7 @@ Lift <- function(dt = NULL,
     # Data Prep
     dt2[, NegScore := -get(XVar)]
     NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
-    Cuts <- quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+    Cuts <- stats::quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
     dt2[, eval(YVar) := as.character(get(YVar))]
     grp <- dt2[, .N, by = eval(YVar)][order(N)]
     smaller_class <- grp[1L, 1L][[1L]]
@@ -25874,7 +25743,7 @@ Lift <- function(dt = NULL,
 
     if(Debug) print("here 13")
     #dt6 <- dt6[!is.na(Lift)]
-    p1 <- AutoPlots::Line(
+    p1 <- Line(
       dt = dt6,
       PreAgg = TRUE,
       XVar = "Population",
@@ -25885,13 +25754,9 @@ Lift <- function(dt = NULL,
       FacetRows = FacetRows,
       FacetCols = FacetCols,
       ShowLabels = ShowLabels,
-      Title.YAxis = "Lift",
-      Title.XAxis = "Population",
       FacetLevels = NULL,
       Height = Height,
       Width = Width,
-      Title = Title,
-      Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
       MouseScroll = MouseScroll,
@@ -25904,7 +25769,7 @@ Lift <- function(dt = NULL,
 
     if(Debug) print("here 14")
     #dt6 <- dt6[!is.na(Lift)]
-    p1 <- AutoPlots::Plot.Area(
+    p1 <- Area(
       dt = dt6,
       PreAgg = TRUE,
       XVar = "Population",
@@ -25917,11 +25782,8 @@ Lift <- function(dt = NULL,
       FacetLevels = NULL,
       Height = Height,
       Width = Width,
-      Title = Title,
       ShowLabels = ShowLabels,
       MouseScroll = MouseScroll,
-      Title.YAxis = "Lift",
-      Title.XAxis = "Population",
       Smooth = TRUE,
       ShowSymbol = FALSE,
       Theme = Theme,
@@ -25961,10 +25823,7 @@ Lift <- function(dt = NULL,
 #' @param NumberBins numeric
 #' @param Height NULL
 #' @param Width NULL
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -25987,10 +25846,7 @@ Gains <- function(dt = NULL,
                        NumberBins = 20,
                        Height = NULL,
                        Width = NULL,
-                       Title = "Gains Plot",
                        ShowLabels = FALSE,
-                       Title.YAxis = "Gain",
-                       Title.XAxis = "Population",
                        Theme = "dark",
                        MouseScroll = FALSE,
                        TimeLine = TRUE,
@@ -26094,7 +25950,7 @@ Gains <- function(dt = NULL,
       dt_[, NegScore := -get(XVar)]
       if(Debug) print(" iter 3")
       if(Debug) print(" iter 4")
-      Cuts <- quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+      Cuts <- stats::quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
       if(Debug) print(" iter 5")
       dt_[, eval(YVar) := as.character(get(YVar))]
       if(Debug) print(" iter 6")
@@ -26144,7 +26000,7 @@ Gains <- function(dt = NULL,
     # Data Prep
     dt2[, NegScore := -get(XVar)]
     NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
-    Cuts <- quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+    Cuts <- stats::quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
     dt2[, eval(YVar) := as.character(get(YVar))]
     grp <- dt2[, .N, by = eval(YVar)][order(N)]
     smaller_class <- grp[1L, 1L][[1L]]
@@ -26180,7 +26036,7 @@ Gains <- function(dt = NULL,
   if(FacetRows == 1L && FacetCols == 1L && length(GroupVar) > 0L) {
 
     if(Debug) print("here 13")
-    p1 <- AutoPlots::Line(
+    p1 <- Line(
       dt = dt6,
       PreAgg = TRUE,
       XVar = "Population",
@@ -26192,13 +26048,9 @@ Gains <- function(dt = NULL,
       FacetCols = FacetCols,
       FacetLevels = NULL,
       ShowLabels = ShowLabels,
-      Title.YAxis = "Gain",
-      Title.XAxis = "Population",
       Height = Height,
       Width = Width,
-      Title = Title,
       MouseScroll = MouseScroll,
-      Area = FALSE,
       Smooth = TRUE,
       ShowSymbol = FALSE,
       Theme = Theme,
@@ -26209,7 +26061,7 @@ Gains <- function(dt = NULL,
   } else {
 
     if(Debug) print("here 14")
-    p1 <- AutoPlots::Plot.Area(
+    p1 <- Area(
       dt = dt6,
       PreAgg = TRUE,
       XVar = "Population",
@@ -26221,11 +26073,8 @@ Gains <- function(dt = NULL,
       FacetCols = FacetCols,
       FacetLevels = NULL,
       ShowLabels = ShowLabels,
-      Title.YAxis = "Gain",
-      Title.XAxis = "Population",
       Height = Height,
       Width = Width,
-      Title = Title,
       MouseScroll = MouseScroll,
       Smooth = TRUE,
       ShowSymbol = FALSE,
@@ -26266,10 +26115,7 @@ Gains <- function(dt = NULL,
 #' @param Metrics Multiple selection "Utility","MCC","Accuracy","F1_Score","F2_Score","F0.5_Score","ThreatScore","TPR","TNR","FNR","FPR","FDR","FOR"
 #' @param NumberBins numeric
 #' @param PreAgg logical
-#' @param Title character
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
@@ -26299,11 +26145,8 @@ BinaryMetricsPlot <- function(dt = NULL,
                                NumberBins = 20,
                                Height = NULL,
                                Width = NULL,
-                               Title = "Binary Metrics",
                                MouseScroll = FALSE,
                                ShowLabels = FALSE,
-                               Title.YAxis = NULL,
-                               Title.XAxis = NULL,
                                Theme = "dark",
                                EchartsLabels = FALSE,
                                TimeLine = TRUE,
@@ -26333,7 +26176,7 @@ BinaryMetricsPlot <- function(dt = NULL,
 
   # Build Plot
   tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
-  dt2 <- AutoPlots:::BinaryMetrics(
+  dt2 <- BinaryMetrics(
     ValidationData. = dt1,
     TargetColumnName. = "BinaryTarget",
     CostMatrixWeights. = CostMatrixWeights,
@@ -26362,7 +26205,6 @@ BinaryMetricsPlot <- function(dt = NULL,
     MouseScroll = MouseScroll,
     Height = Height,
     Width = Width,
-    Title = Title,
     Theme = Theme,
     TimeLine = tl,
     TextColor = TextColor,
@@ -26392,10 +26234,7 @@ BinaryMetricsPlot <- function(dt = NULL,
 #' @param TextColor character
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Title "Heatmap"
 #' @param ShowLabels character
-#' @param Title.YAxis character
-#' @param Title.XAxis character
 #' @param Debug = FALSE
 #' @return plot
 #' @export
@@ -26412,10 +26251,7 @@ ShapImportance <- function(dt,
                                 NumLevels_Y = 33,
                                 Height = NULL,
                                 Width = NULL,
-                                Title = "Shap Importance",
                                 ShowLabels = FALSE,
-                                Title.YAxis = NULL,
-                                Title.XAxis = NULL,
                                 Theme = "dark",
                                 TextColor = "white",
                                 Debug = FALSE) {
@@ -26451,7 +26287,7 @@ ShapImportance <- function(dt,
 
   # Add a column that ranks predicted values
   if(length(GroupVar) > 0L) {
-    p1 <- AutoPlots::Heatmap(
+    p1 <- HeatMap(
       dt = dt2,
       PreAgg = TRUE,
       AggMethod = "mean",
@@ -26464,9 +26300,7 @@ ShapImportance <- function(dt,
       MouseScroll = FALSE,
       Height = Height,
       Width = Width,
-      Title = paste0("Shap Importance: AggMethod = ", AggMethod),
-      Theme = Theme,
-      Y_Scroll = Y_Scroll)
+      Theme = Theme)
 
     return(p1)
 
@@ -26474,7 +26308,7 @@ ShapImportance <- function(dt,
 
     if(Debug) print("Right Here Yo")
 
-    p1 <- AutoPlots::Plot.VariableImportance(
+    p1 <- VariableImportance(
       dt = dt2,
       AggMethod = 'mean',
       XVar = "Variable",
@@ -26487,7 +26321,6 @@ ShapImportance <- function(dt,
       FacetLevels = FacetLevels,
       Height = Height,
       Width = Width,
-      Title = paste0("Shap Importance: AggMethod = ", AggMethod),
       Theme = Theme,
       TimeLine = TimeLine,
       TextColor = TextColor,

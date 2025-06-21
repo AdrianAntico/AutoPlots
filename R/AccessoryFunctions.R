@@ -35,17 +35,17 @@ SummaryFunction <- function(AggMethod) {
   } else if(AggMethod == "sum(abs(x))") {
     aggFunc <- function(x) sum(abs(x), na.rm = TRUE)
   } else if(AggMethod == "median") {
-    aggFunc <- function(x) median(x, na.rm = TRUE)
-  } else if(AggMethod == "log(median(x))") {
-    aggFunc <- function(x) log(median(x, na.rm = TRUE))
-  } else if(AggMethod == "median(abs(x))") {
-    aggFunc <- function(x) median(abs(x), na.rm = TRUE)
+    aggFunc <- function(x) stats::median(x, na.rm = TRUE)
+  } else if(AggMethod == "log(stats::median(x))") {
+    aggFunc <- function(x) log(stats::median(x, na.rm = TRUE))
+  } else if(AggMethod == "stats::median(abs(x))") {
+    aggFunc <- function(x) stats::median(abs(x), na.rm = TRUE)
   } else if(AggMethod == "sd") {
-    aggFunc <- function(x) sd(x, na.rm = TRUE)
-  } else if(AggMethod == "log(sd(x))") {
-    aggFunc <- function(x) log(sd(x, na.rm = TRUE))
-  } else if(AggMethod == "sd(abs(x))") {
-    aggFunc <- function(x) sd(abs(x), na.rm = TRUE)
+    aggFunc <- function(x) stats::sd(x, na.rm = TRUE)
+  } else if(AggMethod == "log(stats::sd(x))") {
+    aggFunc <- function(x) log(stats::sd(x, na.rm = TRUE))
+  } else if(AggMethod == "stats::sd(abs(x))") {
+    aggFunc <- function(x) stats::sd(abs(x), na.rm = TRUE)
   } else if(AggMethod == "skewness") {
     aggFunc <- function(x) e1071::skewness(x, na.rm = TRUE)
   } else if(AggMethod == "skewness(abs(x))") {
@@ -55,9 +55,9 @@ SummaryFunction <- function(AggMethod) {
   } else if(AggMethod == "kurtosis(abs(x))") {
     aggFunc <- function(x) e1071::kurtosis(abs(x), na.rm = TRUE)
   } else if(AggMethod == "CoeffVar") {
-    aggFunc <- function(x) sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+    aggFunc <- function(x) stats::sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
   } else if(AggMethod == "CoeffVar(abs(x))") {
-    aggFunc <- function(x) sd(abs(x), na.rm = TRUE) / mean(abs(x), na.rm = TRUE)
+    aggFunc <- function(x) stats::sd(abs(x), na.rm = TRUE) / mean(abs(x), na.rm = TRUE)
   }
   return(aggFunc)
 }
@@ -295,13 +295,13 @@ FakeDataGenerator <- function(Correlation = 0.70,
     for(cal in seq(NN)) {
 
       # Generate first element of decay data
-      DecayCurveData <- dgeom(x = 0, prob = runif(n = 1L, min = 0.45, max = 0.55), log = FALSE)
+      DecayCurveData <- stats::dgeom(x = 0, prob = stats::runif(n = 1L, min = 0.45, max = 0.55), log = FALSE)
 
       # Fill in remain elements in vector
       if(cal > 1L) {
         zz <- seq_len(min(15L, cal))
         for(i in zz[1:min(cal-1L,15)]) {
-          DecayCurveData <- c(DecayCurveData, c(dgeom(x = i, prob = runif(n = 1L, min = 0.45, max = 0.55), log = FALSE)))
+          DecayCurveData <- c(DecayCurveData, c(stats::dgeom(x = i, prob = stats::runif(n = 1L, min = 0.45, max = 0.55), log = FALSE)))
         }
       }
 
@@ -311,10 +311,10 @@ FakeDataGenerator <- function(Correlation = 0.70,
 
     # Fill in Leads and Conversions----
     x <- unique(ChainLadderData[, .SD, .SDcols = c("CalendarDateColumn","Leads")])
-    x[, Leads := runif(n = x[, .N], min = 100, max = 500)]
+    x[, Leads := stats::runif(n = x[, .N], min = 100, max = 500)]
     ChainLadderData <- merge(ChainLadderData[, .SD, .SDcols = c("CalendarDateColumn","CohortDateColumn","CohortDays","Appointments","Rates")], x, by = "CalendarDateColumn", all = FALSE)
     ChainLadderData[, Appointments := Leads * Rates]
-    ChainLadderData[, Sales := Appointments * Rates * (runif(.N))]
+    ChainLadderData[, Sales := Appointments * Rates * (stats::runif(.N))]
     ChainLadderData[, Rates := NULL]
     data.table::setcolorder(ChainLadderData, c(1,2,3,5,4))
     return(ChainLadderData)
@@ -328,25 +328,25 @@ FakeDataGenerator <- function(Correlation = 0.70,
 
   # Create data----
   Correl <- Correlation
-  data <- data.table::data.table(Adrian = runif(N))
-  data[, x1 := qnorm(Adrian)]
-  data[, x2 := runif(N)]
-  data[, Independent_Variable1 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))]
-  data[, Independent_Variable2 := log(pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))]
-  data[, Independent_Variable3 := exp(pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))]
-  data[, Independent_Variable4 := exp(exp(pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2))))]
-  data[, Independent_Variable5 := sqrt(pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))]
-  data[, Independent_Variable6 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^0.10]
-  data[, Independent_Variable7 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^0.25]
-  data[, Independent_Variable8 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^0.75]
-  data[, Independent_Variable9 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^2]
-  data[, Independent_Variable10 := (pnorm(Correl * x1 + sqrt(1-Correl^2) * qnorm(x2)))^4]
-  if(ID > 0L) for(i in seq_len(ID)) data[, paste0("IDcol_", i) := runif(N)]
+  data <- data.table::data.table(Adrian = stats::runif(N))
+  data[, x1 := stats::qnorm(Adrian)]
+  data[, x2 := stats::runif(N)]
+  data[, Independent_Variable1 := (stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))]
+  data[, Independent_Variable2 := log(stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))]
+  data[, Independent_Variable3 := exp(stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))]
+  data[, Independent_Variable4 := exp(exp(stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2))))]
+  data[, Independent_Variable5 := sqrt(stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))]
+  data[, Independent_Variable6 := (stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))^0.10]
+  data[, Independent_Variable7 := (stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))^0.25]
+  data[, Independent_Variable8 := (stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))^0.75]
+  data[, Independent_Variable9 := (stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))^2]
+  data[, Independent_Variable10 := (stats::pnorm(Correl * x1 + sqrt(1-Correl^2) * stats::qnorm(x2)))^4]
+  if(ID > 0L) for(i in seq_len(ID)) data[, paste0("IDcol_", i) := stats::runif(N)]
   data[, ":=" (x2 = NULL)]
 
   # FactorCount----
   for(i in seq_len(FactorCount)) {
-    RandomValues <- sort(c(runif(n = 4L, min = 0.01, max = 0.99)))
+    RandomValues <- sort(c(stats::runif(n = 4L, min = 0.01, max = 0.99)))
     RandomLetters <- sort(c(sample(x = LETTERS, size = 5L, replace = FALSE)))
     data[, paste0("Factor_", i) := as.factor(
       data.table::fifelse(Independent_Variable1 < RandomValues[1L], RandomLetters[1L],
@@ -420,7 +420,7 @@ FakeDataGenerator <- function(Correlation = 0.70,
 
   # Add weights column
   if(AddWeightsColumn) {
-    data[, Weights := runif(.N)]
+    data[, Weights := stats::runif(.N)]
   }
 
   # Return data
@@ -446,16 +446,16 @@ Standardize <- function(data, ColNames, GroupVars = NULL, Center = TRUE, Scale =
 
   # Standardize
   if(length(GroupVars) == 0L) {
-    data[, paste0(ColNames, '_Standardize') := lapply(.SD, FUN = function(x) (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)), .SDcols = c(ColNames)]
+    data[, paste0(ColNames, '_Standardize') := lapply(.SD, FUN = function(x) (x - mean(x, na.rm = TRUE)) / stats::sd(x, na.rm = TRUE)), .SDcols = c(ColNames)]
   } else {
-    data[, paste0(ColNames, '_Standardize') := lapply(.SD, FUN = function(x) (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)), .SDcols = c(ColNames), by = c(eval(GroupVars))]
+    data[, paste0(ColNames, '_Standardize') := lapply(.SD, FUN = function(x) (x - mean(x, na.rm = TRUE)) / stats::sd(x, na.rm = TRUE)), .SDcols = c(ColNames), by = c(eval(GroupVars))]
   }
 
   # ScoreTable creation
   if(ScoreTable) {
     x <- data[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ColNames), by = c(GroupVars)]
     data.table::setnames(x = x, old = ColNames, new = paste0(ColNames, "_mean"))
-    y <- data[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ColNames), by = c(GroupVars)]
+    y <- data[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ColNames), by = c(GroupVars)]
     data.table::setnames(x = y, old = ColNames, new = paste0(ColNames, "_sd"))
     xy <- cbind(x,y[, (GroupVars) := NULL])
   }
@@ -563,7 +563,7 @@ Test_YeoJohnson <- function(x,
   na_idx <- is.na(x)
   trans_data[!na_idx] <- Apply_YeoJohnson(x[!na_idx], lambda, eps)
   mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
+  sigma <- stats::sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
   ptest <- nortest::pearson.test(trans_data_standardized)
   val <- list(Name = "YeoJohnson", Data = trans_data, Lambda = lambda, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -593,12 +593,12 @@ Estimate_YeoJohnson_Lambda <- function(x,
   yj_loglik <- function(lambda) {
     x_t <- Apply_YeoJohnson(x, lambda, eps)
     x_t_bar <- mean(x_t)
-    x_t_var <- var(x_t) * (n - 1) / n
+    x_t_var <- stats::var(x_t) * (n - 1) / n
     constant <- sum(sign(x) * log(abs(x) + 1))
     - 0.5 * n * log(x_t_var) + (lambda - 1) * constant
   }
 
-  results <- optimize(
+  results <- stats::optimize(
     yj_loglik,
     lower = lower,
     upper = upper,
@@ -686,7 +686,7 @@ Test_BoxCox <- function(x, ...) {
   lambda <- Estimate_BoxCox_Lambda(x, ...)
   trans_data <- Apply_BoxCox(x, lambda)
   mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
+  sigma <- stats::sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
   ptest <- nortest::pearson.test(trans_data_standardized)
   val <- list(Name = "BoxCox", Data = trans_data, Lambda = lambda, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -713,19 +713,20 @@ Estimate_BoxCox_Lambda <- function(x,
   if (any(x <= 0)) stop("x must be positive")
   log_x <- log(x)
   xbar <- exp(mean(log_x))
-  fit <- lm(x ~ 1, data = data.frame(x = x))
+  fit <- stats::lm(x ~ 1, data = data.frame(x = x))
   xqr <- fit$qr
   boxcox_loglik <- function(lambda) {
-    if (abs(lambda) > eps)
+    if (abs(lambda) > eps) {
       xt <- (x ^ lambda - 1) / lambda
-    else
+    } else {
       xt <- log_x * (1 + (lambda * log_x) / 2 *
                        (1 + (lambda * log_x) / 3 *
                           (1 + (lambda * log_x) / 4)))
+    }
     - n / 2 * log(sum(qr.resid(xqr, xt / xbar ^ (lambda - 1)) ^ 2))
   }
 
-  results <- optimize(
+  results <- stats::optimize(
     boxcox_loglik,
     lower = lower,
     upper = upper,
@@ -788,7 +789,7 @@ Test_Asinh <- function(x) {
   stopifnot(is.numeric(x))
   trans_data <- asinh(x)
   mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
+  sigma <- stats::sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
   ptest <- nortest::pearson.test(trans_data_standardized)
   val <- list(Name = "Asinh", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -828,7 +829,7 @@ Test_Asin <- function(x) {
   stopifnot(is.numeric(x))
   trans_data <- asin(sqrt(x))
   mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
+  sigma <- stats::sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
   ptest <- nortest::pearson.test(trans_data_standardized)
   val <- list(Name = "Asin", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -868,7 +869,7 @@ Test_Logit <- function(x) {
   stopifnot(is.numeric(x))
   trans_data <- log(x / (1 - x))
   mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
+  sigma <- stats::sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
   ptest <- nortest::pearson.test(trans_data_standardized)
   val <- list(Name = "Logit", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -908,7 +909,7 @@ Test_Identity <- function(x) {
   stopifnot(is.numeric(x))
   x.t <- x
   mu <- mean(x.t, na.rm = TRUE)
-  sigma <- sd(x.t, na.rm = TRUE)
+  sigma <- stats::sd(x.t, na.rm = TRUE)
   x.t <- (x.t - mu) / sigma
   ptest <- nortest::pearson.test(x.t)
   val <- list(Name = "Identity", Data = x, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -926,7 +927,7 @@ Test_Log <- function(x) {
   stopifnot(is.numeric(x))
   trans_data <- log(x)
   mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
+  sigma <- stats::sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
   ptest <- nortest::pearson.test(trans_data_standardized)
   val <- list(Name = "Log", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -967,7 +968,7 @@ Test_LogPlus1 <- function(x) {
   xx <- min(x, na.rm = TRUE)
   if(xx <= 0) trans_data <- log(x+abs(xx)+1) else trans_data <- log(x)
   mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
+  sigma <- stats::sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
   ptest <- nortest::pearson.test(trans_data_standardized)
   val <- list(Name = "LogPlus1", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -1007,7 +1008,7 @@ Test_Sqrt <- function(x) {
   stopifnot(is.numeric(x))
   trans_data <- sqrt(x)
   mu <- mean(trans_data, na.rm = TRUE)
-  sigma <- sd(trans_data, na.rm = TRUE)
+  sigma <- stats::sd(trans_data, na.rm = TRUE)
   trans_data_standardized <- (trans_data - mu) / sigma
   ptest <- nortest::pearson.test(trans_data_standardized)
   val <- list(Name = "Sqrt", Data = trans_data, Lambda = NA, Normalized_Statistic = unname(ptest$statistic / ptest$df))
@@ -1396,7 +1397,7 @@ BinaryMetrics <- function(ClassWeights. = ClassWeights,
     vals <- seq(0.01,0.99,0.01)
   } else if(Method == "bins") {
     temp <- ValidationData.$p1
-    vals <- quantile(temp, probs = seq(0.05,1,0.05), type = 7)
+    vals <- stats::quantile(temp, probs = seq(0.05,1,0.05), type = 7)
   }
   if(SaveModelObjects. && !TrainOnFull.) {
     EvalMetrics <- RemixClassificationMetrics(TargetVariable = eval(TargetColumnName.), Thresholds = unique(vals), CostMatrix = CostMatrixWeights., ClassLabels = c(1,0), ValidationData. = ValidationData.)
@@ -2083,7 +2084,7 @@ DT_GDL_Feature_Engineering <- function(data,
         tempperiods <- SDperiods[SDperiods > 1L]
         SD_Names <- c()
         for(t in Targets) for(j in seq_along(tempperiods)) SD_Names <- c(SD_Names, paste0("SD_", tempperiods[j], "_", t))
-        data[, paste0(SD_Names) := data.table::frollapply(x = .SD, n = tempperiods, FUN = sd, na.rm = TRUE), by = c(groupingVars[i]), .SDcols = c(Targets)]
+        data[, paste0(SD_Names) := data.table::frollapply(x = .SD, n = tempperiods, FUN = stats::sd, na.rm = TRUE), by = c(groupingVars[i]), .SDcols = c(Targets)]
       }
 
       # Skewness stats ----
@@ -2109,7 +2110,7 @@ DT_GDL_Feature_Engineering <- function(data,
           if(any(paste0("q",z) %chin% statsFUNs)) {
             Names <- c()
             for(t in Targets) for(j in seq_along(tempperiods)) Names <- c(Names, paste0("Q_", z, "_", tempperiods[j], "_", t))
-            data[, paste0(Names) := data.table::frollapply(x = .SD, n = tempperiods, FUN = quantile, probs = z/100, na.rm = TRUE), by = c(groupingVars[i]), .SDcols = c(Targets)]
+            data[, paste0(Names) := data.table::frollapply(x = .SD, n = tempperiods, FUN = stats::quantile, probs = z/100, na.rm = TRUE), by = c(groupingVars[i]), .SDcols = c(Targets)]
           }
         }
       }
@@ -2166,7 +2167,7 @@ DT_GDL_Feature_Engineering <- function(data,
       tempperiods <- SDperiods[SDperiods > 1L]
       SD_Names <- c()
       for(t in Targets) for(j in seq_along(tempperiods)) SD_Names <- c(SD_Names, paste0("SD_", tempperiods[j], "_", t))
-      data[, paste0(SD_Names) := data.table::frollapply(x = .SD, n = tempperiods, FUN = sd, na.rm = TRUE), .SDcols = c(Targets)]
+      data[, paste0(SD_Names) := data.table::frollapply(x = .SD, n = tempperiods, FUN = stats::sd, na.rm = TRUE), .SDcols = c(Targets)]
     }
 
     # Skewness stats ----
@@ -2192,7 +2193,7 @@ DT_GDL_Feature_Engineering <- function(data,
         if(any(paste0("q",z) %chin% statsFUNs)) {
           Names <- c()
           for(t in Targets) for(j in seq_along(tempperiods)) Names <- c(Names, paste0("Q_", z, "_", tempperiods[j], "_", t))
-          data[, paste0(Names) := data.table::frollapply(x = .SD, n = tempperiods, FUN = quantile, probs = z/100, na.rm = TRUE), .SDcols = c(Targets)]
+          data[, paste0(Names) := data.table::frollapply(x = .SD, n = tempperiods, FUN = stats::quantile, probs = z/100, na.rm = TRUE), .SDcols = c(Targets)]
         }
       }
     }

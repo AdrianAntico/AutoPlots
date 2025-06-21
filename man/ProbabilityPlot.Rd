@@ -11,18 +11,61 @@ ProbabilityPlot(
   YVarTrans = "Identity",
   Height = NULL,
   Width = NULL,
-  Title = "Normal Probability Plot",
   ShowLabels = FALSE,
   Theme = "dark",
   TextColor = "white",
-  title.fontSize = 22,
-  title.fontWeight = "bold",
-  title.textShadowColor = "#63aeff",
-  title.textShadowBlur = 3,
-  title.textShadowOffsetY = 1,
-  title.textShadowOffsetX = -1,
-  yaxis.fontSize = 14,
-  yaxis.rotate = 0,
+  title.text = "Density Plot",
+  title.subtext = NULL,
+  title.link = NULL,
+  title.sublink = NULL,
+  title.Align = NULL,
+  title.top = NULL,
+  title.left = NULL,
+  title.right = NULL,
+  title.bottom = NULL,
+  title.padding = NULL,
+  title.itemGap = NULL,
+  title.backgroundColor = NULL,
+  title.borderColor = NULL,
+  title.borderWidth = NULL,
+  title.borderRadius = NULL,
+  title.shadowColor = NULL,
+  title.shadowBlur = NULL,
+  title.shadowOffsetX = NULL,
+  title.shadowOffsetY = NULL,
+  title.textStyle.color = NULL,
+  title.textStyle.fontStyle = NULL,
+  title.textStyle.fontWeight = NULL,
+  title.textStyle.fontFamily = NULL,
+  title.textStyle.fontSize = NULL,
+  title.textStyle.lineHeight = NULL,
+  title.textStyle.width = NULL,
+  title.textStyle.height = NULL,
+  title.textStyle.textBorderColor = NULL,
+  title.textStyle.textBorderWidth = NULL,
+  title.textStyle.textBorderType = NULL,
+  title.textStyle.textBorderDashOffset = NULL,
+  title.textStyle.textShadowColor = NULL,
+  title.textStyle.textShadowBlur = NULL,
+  title.textStyle.textShadowOffsetX = NULL,
+  title.textStyle.textShadowOffsetY = NULL,
+  title.subtextStyle.color = NULL,
+  title.subtextStyle.align = NULL,
+  title.subtextStyle.fontStyle = NULL,
+  title.subtextStyle.fontWeight = NULL,
+  title.subtextStyle.fontFamily = NULL,
+  title.subtextStyle.fontSize = NULL,
+  title.subtextStyle.lineHeight = NULL,
+  title.subtextStyle.width = NULL,
+  title.subtextStyle.height = NULL,
+  title.subtextStyle.textBorderColor = NULL,
+  title.subtextStyle.textBorderWidth = NULL,
+  title.subtextStyle.textBorderType = NULL,
+  title.subtextStyle.textBorderDashOffset = NULL,
+  title.subtextStyle.textShadowColor = NULL,
+  title.subtextStyle.textShadowBlur = NULL,
+  title.subtextStyle.textShadowOffsetX = NULL,
+  title.subtextStyle.textShadowOffsetY = NULL,
   ContainLabel = TRUE,
   tooltip.trigger = "axis",
   Debug = FALSE
@@ -47,19 +90,7 @@ ProbabilityPlot(
 
 \item{TextColor}{'darkblue'}
 
-\item{yaxis.fontSize}{Default 14}
-
-\item{yaxis.rotate}{Default 0}
-
-\item{ContainLabel}{Default TRUE}
-
-\item{tooltip.trigger}{Default "axis"}
-
-\item{Debug}{Debugging purposes}
-
 \item{title.text}{Title name}
-
-\item{tooltip.show}{logical}
 
 \item{title.subtext}{Subtitle name}
 
@@ -162,6 +193,12 @@ ProbabilityPlot(
 \item{title.subtextStyle.textShadowOffsetX}{numeric}
 
 \item{title.subtextStyle.textShadowOffsetY}{numeric}
+
+\item{ContainLabel}{Default TRUE}
+
+\item{tooltip.trigger}{Default "axis"}
+
+\item{Debug}{Debugging purposes}
 }
 \value{
 plot

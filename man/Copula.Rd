@@ -159,7 +159,7 @@ Copula(
   yAxis.axisLabel.textShadowOffsetY = NULL,
   yAxis.axisLabel.overflow = NULL,
   legend.show = TRUE,
-  legend.type = "scross",
+  legend.type = "scroll",
   legend.selector = NULL,
   legend.icon = NULL,
   legend.align = NULL,

@@ -18,10 +18,7 @@ ShapImportance(
   NumLevels_Y = 33,
   Height = NULL,
   Width = NULL,
-  Title = "Shap Importance",
   ShowLabels = FALSE,
-  Title.YAxis = NULL,
-  Title.XAxis = NULL,
   Theme = "dark",
   TextColor = "white",
   Debug = FALSE
@@ -54,13 +51,7 @@ ShapImportance(
 
 \item{Width}{"200px"}
 
-\item{Title}{"Heatmap"}
-
 \item{ShowLabels}{character}
-
-\item{Title.YAxis}{character}
-
-\item{Title.XAxis}{character}
 
 \item{Theme}{"dark-blue"}
 

@@ -21,7 +21,8 @@ Imports:
     nortest,
     quanteda,
     quanteda.textstats,
-    scales
+    scales,
+    stats
 Contact: Adrian Antico
 Encoding: UTF-8
 Language: en-US

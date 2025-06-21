@@ -155,7 +155,7 @@ CorrMatrix(
   yAxis.axisLabel.textShadowOffsetY = NULL,
   yAxis.axisLabel.overflow = NULL,
   legend.show = TRUE,
-  legend.type = "scross",
+  legend.type = "scroll",
   legend.selector = NULL,
   legend.icon = NULL,
   legend.align = NULL,
@@ -883,7 +883,7 @@ Build a correlation matrix plot by simply passing arguments to a single function
 data <- AutoPlots::FakeDataGenerator(N = 100000)
 
 # Echarts CorrMatrix Plot Chart
-AutoPlots::Plot.CorrMatrix(
+AutoPlots::CorrMatrix(
   dt = data,
   CorrVars = c(
     "Adrian",

@@ -49,11 +49,7 @@ e_y_axis_full(
   yAxis.axisLabel.textShadowBlur = NULL,
   yAxis.axisLabel.textShadowOffsetX = NULL,
   yAxis.axisLabel.textShadowOffsetY = NULL,
-  yAxis.axisLabel.overflow = NULL,
-  yAxis.axisPointer.axis = NULL,
-  yAxis.axisPointer.type = NULL,
-  yAxis.axisPointer.triggerEmphasis = NULL,
-  yAxis.axisPointer.triggerTooltip = NULL
+  yAxis.axisLabel.overflow = NULL
 )
 }
 \arguments{

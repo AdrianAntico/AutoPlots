@@ -79,7 +79,7 @@ Build a normal probability plot
 }
 \examples{
 # Create fake data
-dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)))
 
 # Create plot
 AutoPlots::Plot.ProbabilityPlot(

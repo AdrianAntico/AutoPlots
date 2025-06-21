@@ -19,8 +19,6 @@ Donut(
   Height = NULL,
   Width = NULL,
   ShowLabels = FALSE,
-  Title.YAxis = NULL,
-  Title.XAxis = NULL,
   Theme = "dark",
   TimeLine = TRUE,
   TextColor = "white",
@@ -77,7 +75,7 @@ Donut(
   title.subtextStyle.textShadowOffsetX = NULL,
   title.subtextStyle.textShadowOffsetY = NULL,
   legend.show = TRUE,
-  legend.type = "scross",
+  legend.type = "scroll",
   legend.selector = NULL,
   legend.icon = NULL,
   legend.align = NULL,
@@ -245,10 +243,6 @@ Donut(
 \item{Width}{"200px"}
 
 \item{ShowLabels}{character}
-
-\item{Title.YAxis}{character}
-
-\item{Title.XAxis}{character}
 
 \item{Theme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
@@ -667,7 +661,7 @@ AutoPlots::Donut(
   ShowLabels = FALSE,
   Theme = "dark",
   TimeLine = TRUE,
-  TextColor = "black"
+  TextColor = "black",
   Debug = FALSE)
 
 }

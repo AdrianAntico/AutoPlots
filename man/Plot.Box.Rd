@@ -112,7 +112,7 @@ Build a box plot by simply passing arguments to a single function. It will sampl
 }
 \examples{
 # Create fake data
-dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 
 AutoPlots::Plot.Box(
   dt = dt,

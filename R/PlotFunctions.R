@@ -1690,7 +1690,7 @@ Plots.ModelEvaluation <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#' dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)))
 #'
 #' # Create plot
 #' AutoPlots::Plot.ProbabilityPlot(
@@ -1747,7 +1747,7 @@ Plot.ProbabilityPlot <- function(dt = NULL,
   })
 
   if(Debug) print("here 1")
-  if(Debug) print(head(dt))
+  if(Debug) print(utils::head(dt))
 
   # Subset columns
   dt1 <- dt[, .SD, .SDcols = c(YVar)]
@@ -1762,12 +1762,12 @@ Plot.ProbabilityPlot <- function(dt = NULL,
   # Theoretical Quantiles
   data.table::setorderv(x = dt1, cols = YVar, 1)
   dt1[, temp_i := seq_len(.N)]
-  dt1[, `Theoretical Quantiles` := qnorm((temp_i-0.5)/.N)]
+  dt1[, `Theoretical Quantiles` := stats::qnorm((temp_i-0.5)/.N)]
   dt1[, temp_i := NULL]
 
   # Normal Line
   meanX <- dt1[, mean(get(YVar), na.rm = TRUE)]
-  sdX <- dt1[, sd(get(YVar), na.rm = TRUE)]
+  sdX <- dt1[, stats::sd(get(YVar), na.rm = TRUE)]
   dt1[, `Normal Line` := eval(meanX) + sdX * `Theoretical Quantiles`]
 
   # Actual Quantiles
@@ -1842,7 +1842,7 @@ Plot.ProbabilityPlot <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#' dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)))
 #'
 #' # Create plot
 #' AutoPlots::Plot.Histogram(
@@ -1923,7 +1923,7 @@ Plot.Histogram <- function(dt = NULL,
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
   if(dt[, .N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -2113,7 +2113,7 @@ Plot.Histogram <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
+#' dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)))
 #'
 #' # Create plot
 #' AutoPlots::Plot.Density(
@@ -2194,7 +2194,7 @@ Plot.Density <- function(dt = NULL,
   }
 
   if(dt[, .N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -2463,7 +2463,7 @@ Plot.Density <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#' dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 #'
 #' # Create plot
 #' AutoPlots::Plot.Pie(
@@ -2677,7 +2677,7 @@ Plot.Pie <- function(dt = NULL,
 #' @examples
 #'
 #' # Create fake data
-#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#' dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 #'
 #' # Create plot
 #' AutoPlots::Plot.Donut(
@@ -2894,7 +2894,7 @@ Plot.Donut <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#' dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 #'
 #' # Create plot
 #' AutoPlots::Plot.Rosetype(
@@ -3114,7 +3114,7 @@ Plot.Rosetype <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1000, TRUE))
+#' dt <- data.table::data.table(Y = qnorm(p = stats::runif(10000)), GV = sample(LETTERS, 1000, TRUE))
 #'
 #' AutoPlots::Plot.Box(
 #'   dt = dt,
@@ -3218,7 +3218,7 @@ Plot.Box <- function(dt = NULL,
     SampleSize <- SampleSize / length(YVar)
   }
   if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -4023,7 +4023,7 @@ Plot.WordCloud <- function(dt = NULL,
 #'
 #' @examples
 #' # Create Data
-#' dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
+#' dt <- data.table::data.table(Y = pnorm(q = stats::runif(8)), GV = sample(LETTERS[1:4], 8, TRUE))
 #'
 #' # Create plot
 #' AutoPlots::Plot.Radar(
@@ -4158,7 +4158,7 @@ Plot.Radar <- function(dt = NULL,
 
 #' @title Plot.Line
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Standard Plots
@@ -4620,7 +4620,7 @@ Plot.Line <- function(dt = NULL,
 
 #' @title Plot.Area
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Standard Plots
@@ -5076,7 +5076,7 @@ Plot.Area <- function(dt = NULL,
 
 #' @title Plot.Step
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Standard Plots
@@ -5528,7 +5528,7 @@ Plot.Step <- function(dt = NULL,
 
 #' @title Plot.River
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Standard Plots
@@ -6695,7 +6695,7 @@ Plot.ACF <- function(dt = NULL,
   if(Debug) print("Plot.ACH 5")
   for(i in seq_len(MaxLags)) {# i = 1
     lagCol <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
-    lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[lagCol]])
+    lag_test <- stats::cor.test(x = dt1[[YVar]], y = dt1[[lagCol]])
     data.table::set(ACF_Data, i = i, j = "Lag", value = i)
     data.table::set(ACF_Data, i = i, j = "Cor", value = lag_test$estimate)
     data.table::set(ACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
@@ -6896,14 +6896,14 @@ Plot.PACF <- function(dt = NULL,
   for(i in seq_len(MaxLags)) {# i = 1L  i = 2L
     LagCols[i] <- names(dt1)[which(grepl(pattern = paste0("_LAG_",i,"_"), x = names(dt1)))]
     if(i == 1L) {
-      lag_test <- cor.test(x = dt1[[YVar]], y = dt1[[LagCols]])
+      lag_test <- stats::cor.test(x = dt1[[YVar]], y = dt1[[LagCols]])
       data.table::set(PACF_Data, i = i, j = "Lag", value = i)
       data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
       data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
       data.table::set(PACF_Data, i = i, j = "Upper 95th", value = lag_test$conf.int[2L])
     } else {
-      x <- as.vector(lm(formula = as.formula(paste0(YVar, " ~ ", paste0(LagCols, collapse = " + "))), data = dt1)$residuals)
-      lag_test <- cor.test(x = x, y = dt1[[LagCols[i]]])
+      x <- as.vector(stats::lm(formula = stats::as.formula(paste0(YVar, " ~ ", paste0(LagCols, collapse = " + "))), data = dt1)$residuals)
+      lag_test <- stats::cor.test(x = x, y = dt1[[LagCols[i]]])
       data.table::set(PACF_Data, i = i, j = "Lag", value = i)
       data.table::set(PACF_Data, i = i, j = "Cor", value = lag_test$estimate)
       data.table::set(PACF_Data, i = i, j = "Lower 95th", value = lag_test$conf.int[1L])
@@ -7511,7 +7511,7 @@ Plot.BarPlot3D <- function(dt,
     vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Create final data for plot
     g <- "Measure_Variable"
@@ -7579,7 +7579,7 @@ Plot.BarPlot3D <- function(dt,
     vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Transformation
     if(ZVarTrans != "Identity") {
@@ -7727,7 +7727,7 @@ Plot.BarPlot3D <- function(dt,
       vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
     }
 
     # Create final dt1 for plot
@@ -8144,7 +8144,7 @@ Plot.HeatMap <- function(dt,
     vals <- unique(scales::rescale(c(dt1[[ZVar]])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-    colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
     data.table::setnames(dt1, ZVar, "Measure_Variable")
     data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
 
@@ -8285,7 +8285,7 @@ Plot.HeatMap <- function(dt,
       vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
     }
 
     # Create final data for plot
@@ -8426,7 +8426,7 @@ Plot.HeatMap <- function(dt,
       vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- setNames(data.frame(vals[o], cols[o]), NULL)
+      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
     }
 
     # Create final dt1 for plot
@@ -8557,12 +8557,12 @@ Plot.HeatMap <- function(dt,
         dt1 <- dt1[get(YVar) %in% eval(temp_yy) & get(XVar) %in% eval(temp_xx)]
         dt1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
       } else if(AggMethod == 'median') {
-        temp_y <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
         temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
         temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
         dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+        dt1 <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
       } else if(AggMethod == 'sum') {
         temp_y <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
         temp_x <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
@@ -8571,12 +8571,12 @@ Plot.HeatMap <- function(dt,
         dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
         dt1 <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
       } else if(AggMethod == 'sd') {
-        temp_y <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
+        temp_y <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
+        temp_x <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
         temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
         temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
         dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
+        dt1 <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
       } else if(AggMethod == 'coeffvar') {
         temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
         temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
@@ -8828,7 +8828,7 @@ Plot.CorrMatrix <- function(dt = NULL,
                             Debug = FALSE) {
 
   # Filter out bad vars
-  x <- c(); for(i in CorrVars) if(dt[, sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
+  x <- c(); for(i in CorrVars) if(dt[, stats::sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
   CorrVars <- x
   NN <- dt[,.N]
   x <- c(); for(i in CorrVars) if(sum(dt[, is.na(get(i))]) / NN <= MaxNAPercent) x <- c(x, i)
@@ -8839,7 +8839,7 @@ Plot.CorrMatrix <- function(dt = NULL,
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
       dt <- data.table::as.data.table(dt)
     })
-    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
+    dt1 <- stats::na.omit(dt[, .SD, .SDcols = c(CorrVars)])
 
     # Transformation
     if(CorrVarTrans != "Identity") {
@@ -8850,7 +8850,7 @@ Plot.CorrMatrix <- function(dt = NULL,
       zz <- nchar(yy)
       data.table::setnames(dt1, yy, substr(x = yy, start = max(0L, zz - 40L), stop = nchar(yy)))
     }
-    corr_mat <- cor(method = tolower(Method), x = dt1)
+    corr_mat <- stats::cor(method = tolower(Method), x = dt1)
   } else {
     corr_mat <- dt
   }
@@ -9003,14 +9003,14 @@ Plot.Parallel <- function(dt = NULL,
     if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
       dt <- data.table::as.data.table(dt)
     })
-    dt1 <- na.omit(dt[, .SD, .SDcols = c(CorrVars)])
+    dt1 <- stats::na.omit(dt[, .SD, .SDcols = c(CorrVars)])
 
   } else {
     dt1 <- dt
   }
 
   if(length(SampleSize) > 0L && dt1[,.N] > SampleSize) {
-    dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt1[order(stats::runif(.N))][seq_len(SampleSize)]
   }
 
   if(Debug) {
@@ -9224,7 +9224,7 @@ Plot.Copula <- function(dt = NULL,
   # Cap number of records
   if(Debug) print('Plot.Copula # Cap number of records')
   if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -9555,7 +9555,7 @@ Plot.Copula <- function(dt = NULL,
 #' @examples
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
-#' data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
+#' data[, Independent_Variable9 := Independent_Variable9 * stats::runif(.N)]
 #'
 #' # Echarts Copula Plot Chart
 #' AutoPlots::Plot.Copula3D(
@@ -9643,7 +9643,7 @@ Plot.Copula3D <- function(dt = NULL,
   if(Debug) print('Plot.Copula3D # Cap number of records')
   N <- dt[,.N]
   if(SampleSize > 50000L) SampleSize <- 50000L
-  if(N > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
+  if(N > SampleSize) dt <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   dt1 <- data.table::copy(dt)
   dt1[, eval(YVar) := data.table::frank(get(YVar)) * (1 / 0.001) / .N * 0.001]
   dt1[, eval(XVar) := data.table::frank(get(XVar)) * (1 / 0.001) / .N * 0.001]
@@ -9850,7 +9850,7 @@ Plot.Copula3D <- function(dt = NULL,
 #' @examples
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
-#' data[, Independent_Variable8 := Independent_Variable8 * runif(.N)]
+#' data[, Independent_Variable8 := Independent_Variable8 * stats::runif(.N)]
 #'
 #' # Echarts Scatter Plot Chart
 #' AutoPlots::Plot.Scatter(
@@ -9937,7 +9937,7 @@ Plot.Scatter <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
   if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -10278,7 +10278,7 @@ Plot.Scatter <- function(dt = NULL,
 #' @examples
 #' # Create fake data
 #' data <- AutoPlots::FakeDataGenerator(N = 100000)
-#' data[, Independent_Variable9 := Independent_Variable9 * runif(.N)]
+#' data[, Independent_Variable9 := Independent_Variable9 * stats::runif(.N)]
 #'
 #' # Echarts Copula Plot Chart
 #' AutoPlots::Plot.Scatter3D(
@@ -10366,7 +10366,7 @@ Plot.Scatter3D <- function(dt = NULL,
   if(Debug) print('Plot.Scatter3D # Cap number of records')
   if(length(SampleSize) == 0L) SampleSize <- 30000L
   if(dt[,.N] > SampleSize) {
-    dt1 <- dt[order(runif(.N))][seq_len(SampleSize)]
+    dt1 <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   } else {
     dt1 <- data.table::copy(dt)
   }
@@ -10641,13 +10641,13 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   })
 
   if(Debug) print("here 1")
-  if(Debug) print(head(dt))
+  if(Debug) print(utils::head(dt))
 
   # Subset columns
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
 
   # Shrink display data
-  dt1 <- dt1[order(runif(.N))][seq_len(min(.N, SampleSize))]
+  dt1 <- dt1[order(stats::runif(.N))][seq_len(min(.N, SampleSize))]
 
   # Prepare data
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
@@ -10656,18 +10656,18 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   if(length(GroupVar) > 0L) GroupVar <- GroupVar[1L]
 
   if(Debug) print("here 2")
-  if(Debug) print(head(dt1))
+  if(Debug) print(utils::head(dt1))
 
   # Faceting shrink
   if(length(GroupVar) > 0L) {
     data.table::setorderv(x = dt1, cols = c(GroupVar), 1L)
-    if(Debug) print(head(dt1))
+    if(Debug) print(utils::head(dt1))
     dt1 <- dt1[order(get(GroupVar))]
-    if(Debug) print(head(dt1))
+    if(Debug) print(utils::head(dt1))
   }
 
   if(Debug) print("here 3.1")
-  if(Debug) print(head(dt1))
+  if(Debug) print(utils::head(dt1))
 
   if(length(GroupVar) > 0L && (FacetRows > 1L || FacetCols > 1L)) {
     dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,GroupVar)]
@@ -10676,7 +10676,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   }
 
   if(Debug) print("here 3")
-  if(Debug) print(head(dt1))
+  if(Debug) print(utils::head(dt1))
 
   # Data Prep2
   if(Debug) print("Plot.Residuals.Histogram")
@@ -10690,7 +10690,7 @@ Plot.Residuals.Histogram <- function(dt = NULL,
   }
 
   if(Debug) print("here 4")
-  if(Debug) print(head(dt1))
+  if(Debug) print(utils::head(dt1))
 
   # Create base plot object
   if(Debug) print('Create Plot with only data')
@@ -10794,7 +10794,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
   dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,GroupVar)]
-  if(dt1[, .N] > SampleSize) dt1 <- dt1[order(runif(.N))][seq_len(SampleSize)]
+  if(dt1[, .N] > SampleSize) dt1 <- dt1[order(stats::runif(.N))][seq_len(SampleSize)]
   dt1[, `Target - Predicted` := get(YVar) - get(XVar)]
   if(length(GroupVar) > 0L) GroupVar <- GroupVar[1L]
   if(length(GroupVar) > 0L) {
@@ -10840,7 +10840,7 @@ Plot.Residuals.Scatter <- function(dt = NULL,
 
 #' @title Plot.Calibration.Line
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Model Evaluation
@@ -11151,7 +11151,7 @@ Plot.Calibration.Line <- function(dt = NULL,
 
 #' @title Plot.Calibration.Box
 #'
-#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+#' @description This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 #'
 #' @author Adrian Antico
 #' @family Model Evaluation
@@ -11212,7 +11212,7 @@ Plot.Calibration.Box <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
   if(Debug) print("Plot.Calibration.Box 2")
-  if(dt[, .N] > SampleSize) dt <- dt[order(runif(.N))][seq_len(SampleSize)]
+  if(dt[, .N] > SampleSize) dt <- dt[order(stats::runif(.N))][seq_len(SampleSize)]
   if(Debug) print("Plot.Calibration.Box 3")
   Ncols <- ncol(dt)
   if(Ncols > 2L && length(GroupVar) == 0L) {
@@ -11788,8 +11788,6 @@ Plot.PartialDependence.HeatMap <- function(dt = NULL,
         Width = Width,
         Title = "Partial Dependence Heatmap: Target - Predicted",
         TextColor = TextColor,
-
-
         NumberBins = NumberBins,
         Debug = Debug)
       return(p1)
@@ -12581,7 +12579,7 @@ Plot.Lift <- function(dt = NULL,
       dt_[, NegScore := -get(XVar)]
       if(Debug) print(" iter 3")
       if(Debug) print(" iter 4")
-      Cuts <- quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+      Cuts <- stats::quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
       if(Debug) print(" iter 5")
       dt_[, eval(YVar) := as.character(get(YVar))]
       if(Debug) print(" iter 6")
@@ -12625,7 +12623,7 @@ Plot.Lift <- function(dt = NULL,
     # Data Prep
     dt2[, NegScore := -get(XVar)]
     NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
-    Cuts <- quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+    Cuts <- stats::quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
     dt2[, eval(YVar) := as.character(get(YVar))]
     grp <- dt2[, .N, by = eval(YVar)][order(N)]
     smaller_class <- grp[1L, 1L][[1L]]
@@ -12889,7 +12887,7 @@ Plot.Gains <- function(dt = NULL,
       dt_[, NegScore := -get(XVar)]
       if(Debug) print(" iter 3")
       if(Debug) print(" iter 4")
-      Cuts <- quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+      Cuts <- stats::quantile(x = dt_[["NegScore"]], na.rm = TRUE, probs = NumberBins)
       if(Debug) print(" iter 5")
       dt_[, eval(YVar) := as.character(get(YVar))]
       if(Debug) print(" iter 6")
@@ -12939,7 +12937,7 @@ Plot.Gains <- function(dt = NULL,
     # Data Prep
     dt2[, NegScore := -get(XVar)]
     NumberBins <- c(seq(1/NumberBins, 1 - 1/NumberBins, 1/NumberBins), 1)
-    Cuts <- quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
+    Cuts <- stats::quantile(x = dt2[["NegScore"]], na.rm = TRUE, probs = NumberBins)
     dt2[, eval(YVar) := as.character(get(YVar))]
     grp <- dt2[, .N, by = eval(YVar)][order(N)]
     smaller_class <- grp[1L, 1L][[1L]]
@@ -13510,7 +13508,7 @@ Plot.ShapImportance <- function(dt,
 #
 #     data <- data.table::as.data.table(PolyOut$results)
 #     data[, Date := as.Date(lubridate::as_datetime((t+10800000)/1000, origin = "1970-01-01"))]
-#     if(Debug) print(head(data))
+#     if(Debug) print(utils::head(data))
 #
 #     tryCatch({
 #       if(TimeAgg == 'weeks') {
@@ -13544,7 +13542,7 @@ Plot.ShapImportance <- function(dt,
 #   } else {
 #     if(Debug) print("here 1b")
 #     data <- PolyOut
-#     if(Debug) print(head(data))
+#     if(Debug) print(utils::head(data))
 #   }
 #
 #   return(list(results = data, PolyOut = PolyOut, CompanyName = CompanyName, Symbol = Symbol, Metric = Metric, StartDate = StartDate, EndDate = EndDate, APIKey = APIKey))

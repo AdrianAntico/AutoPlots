@@ -78,7 +78,7 @@ Plot.Calibration.Line(
 plot
 }
 \description{
-This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 }
 \seealso{
 Other Model Evaluation: 

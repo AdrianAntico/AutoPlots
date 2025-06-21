@@ -14,7 +14,6 @@ e_x_axis_full(
   xAxis.nameLocation = "center",
   xAxis.axisTick.customValues = NULL,
   xAxis.nameTextStyle.color = NULL,
-  xAxis.nameTextStyle.backgroundColor = NULL,
   xAxis.nameTextStyle.padding = 15,
   xAxis.nameTextStyle.align = NULL,
   xAxis.nameTextStyle.fontStyle = NULL,
@@ -50,11 +49,7 @@ e_x_axis_full(
   xAxis.axisLabel.textShadowBlur = NULL,
   xAxis.axisLabel.textShadowOffsetX = NULL,
   xAxis.axisLabel.textShadowOffsetY = NULL,
-  xAxis.axisLabel.overflow = NULL,
-  xAxis.axisPointer.axis = NULL,
-  xAxis.axisPointer.type = NULL,
-  xAxis.axisPointer.triggerEmphasis = NULL,
-  xAxis.axisPointer.triggerTooltip = NULL
+  xAxis.axisLabel.overflow = NULL
 )
 }
 \arguments{

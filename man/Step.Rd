@@ -162,7 +162,7 @@ Step(
   yAxis.axisLabel.textShadowOffsetY = NULL,
   yAxis.axisLabel.overflow = NULL,
   legend.show = TRUE,
-  legend.type = "scross",
+  legend.type = "scroll",
   legend.selector = NULL,
   legend.icon = NULL,
   legend.align = NULL,
@@ -897,7 +897,7 @@ Step(
 plot
 }
 \description{
-This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, quantile regression, and binary and multinomial classification
+This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 }
 \examples{
 # Create fake data

@@ -157,7 +157,7 @@ Density(
   yAxis.axisLabel.textShadowOffsetY = NULL,
   yAxis.axisLabel.overflow = NULL,
   legend.show = TRUE,
-  legend.type = "scross",
+  legend.type = "scroll",
   legend.selector = NULL,
   legend.icon = NULL,
   legend.align = NULL,
@@ -315,6 +315,8 @@ Density(
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
 \item{TimeLine}{logical}
+
+\item{Opacity}{numeric}
 
 \item{Height}{"400px"}
 
@@ -890,7 +892,7 @@ dt <- data.table::data.table(Y = qnorm(p = runif(10000)))
 AutoPlots::Density(
   dt = dt,
   SampleSize = 30000L,
-  XVar = NULL,
+  XVar = "Y",
   GroupVar = NULL,
   XVarTrans = "Identity",
   FacetRows = 1,
