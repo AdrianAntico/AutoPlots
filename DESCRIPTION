@@ -15,6 +15,7 @@ Depends:
 Imports: 
     combinat,
     data.table,
+    dplyr,
     e1071,
     echarts4r,
     lubridate,
@@ -31,5 +32,4 @@ NeedsCompilation: no
 Packaged: 2024-01-19 14:00:00 UTC
 RoxygenNote: 7.2.3
 Suggests: 
-    spelling,
-    dplyr
+    spelling
