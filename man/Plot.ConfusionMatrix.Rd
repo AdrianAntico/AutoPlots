@@ -106,7 +106,7 @@ Generate variable importance plots
 }
 \seealso{
 Other Model Evaluation: 
-\code{\link{BinaryMetrics}()},
+\code{\link{BinaryMetricsPlot}()},
 \code{\link{Calibration.Box}()},
 \code{\link{Calibration.Line}()},
 \code{\link{ConfusionMatrix}()},

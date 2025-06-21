@@ -16345,7 +16345,6 @@ BarPlot3D <- function(dt,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
       e = p1,
@@ -16509,7 +16508,6 @@ BarPlot3D <- function(dt,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
       e = p1,
@@ -16614,6 +16612,7 @@ BarPlot3D <- function(dt,
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -16663,8 +16662,6 @@ BarPlot3D <- function(dt,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
-    p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
       e = p1,
       title.text = title.text,
@@ -17471,6 +17468,7 @@ HeatMap <- function(dt,
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -17520,8 +17518,6 @@ HeatMap <- function(dt,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
-    p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
       e = p1,
       title.text = title.text,
@@ -17633,6 +17629,7 @@ HeatMap <- function(dt,
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -17682,8 +17679,6 @@ HeatMap <- function(dt,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
-    p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -17823,6 +17818,7 @@ HeatMap <- function(dt,
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -17872,8 +17868,6 @@ HeatMap <- function(dt,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
-    p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "z", name = ZVar, nameLocation = "middle", nameGap = 45, nameTextStyle = list(color = TextColor, fontStyle = "normal", fontWeight = "bold", fontSize = yaxis.fontSize))
-    p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -26478,7 +26472,7 @@ Gains <- function(dt = NULL,
   return(p1)
 }
 
-#' @title BinaryMetrics
+#' @title BinaryMetricsPlot
 #'
 #' @description Line plot of evaluation metrics across thresholds
 #'
@@ -26516,7 +26510,7 @@ Gains <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
-BinaryMetrics <- function(dt = NULL,
+BinaryMetricsPlot <- function(dt = NULL,
                                PreAgg = FALSE,
                                AggMethod = "mean",
                                SampleSize = 100000L,
@@ -26569,7 +26563,7 @@ BinaryMetrics <- function(dt = NULL,
 
   # Build Plot
   tl <- if(length(GroupVar) == 0L) FALSE else TimeLine
-  dt2 <- BinaryMetrics(
+  dt2 <- AutoPlots:::BinaryMetrics(
     ValidationData. = dt1,
     TargetColumnName. = "BinaryTarget",
     CostMatrixWeights. = CostMatrixWeights,

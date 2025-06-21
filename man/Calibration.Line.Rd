@@ -82,7 +82,7 @@ This function automatically builds calibration plots and calibration boxplots fo
 }
 \seealso{
 Other Model Evaluation: 
-\code{\link{BinaryMetrics}()},
+\code{\link{BinaryMetricsPlot}()},
 \code{\link{Calibration.Box}()},
 \code{\link{ConfusionMatrix}()},
 \code{\link{Gains}()},
