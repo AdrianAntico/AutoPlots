@@ -1162,7 +1162,6 @@ Density <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
 #' @param ContainLabel Default TRUE
-#' @param tooltip.trigger Default "axis"
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -1194,7 +1193,8 @@ ProbabilityPlot <- function(dt = NULL,
                             ShowLabels = FALSE,
                             Theme = "dark",
                             TextColor = "white",
-                            title.text = "Density Plot",
+                            ContainLabel = TRUE,
+                            title.text = "Probability Plot",
                             title.subtext = NULL,
                             title.link = NULL,
                             title.sublink = NULL,
@@ -1246,7 +1246,6 @@ ProbabilityPlot <- function(dt = NULL,
                             title.subtextStyle.textShadowBlur = NULL,
                             title.subtextStyle.textShadowOffsetX = NULL,
                             title.subtextStyle.textShadowOffsetY = NULL,
-                            ContainLabel = TRUE,
                             Debug = FALSE) {
 
   # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)

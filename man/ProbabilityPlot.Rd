@@ -14,7 +14,8 @@ ProbabilityPlot(
   ShowLabels = FALSE,
   Theme = "dark",
   TextColor = "white",
-  title.text = "Density Plot",
+  ContainLabel = TRUE,
+  title.text = "Probability Plot",
   title.subtext = NULL,
   title.link = NULL,
   title.sublink = NULL,
@@ -66,7 +67,6 @@ ProbabilityPlot(
   title.subtextStyle.textShadowBlur = NULL,
   title.subtextStyle.textShadowOffsetX = NULL,
   title.subtextStyle.textShadowOffsetY = NULL,
-  ContainLabel = TRUE,
   Debug = FALSE
 )
 }
@@ -88,6 +88,8 @@ ProbabilityPlot(
 \item{Theme}{"macaron"}
 
 \item{TextColor}{'darkblue'}
+
+\item{ContainLabel}{Default TRUE}
 
 \item{title.text}{Title name}
 
@@ -193,11 +195,7 @@ ProbabilityPlot(
 
 \item{title.subtextStyle.textShadowOffsetY}{numeric}
 
-\item{ContainLabel}{Default TRUE}
-
 \item{Debug}{Debugging purposes}
-
-\item{tooltip.trigger}{Default "axis"}
 }
 \value{
 plot
