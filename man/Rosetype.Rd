@@ -186,7 +186,7 @@ Rosetype(
   legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
   legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
   tooltip.show = TRUE,
-  tooltip.trigger = "axis",
+  tooltip.trigger = "item",
   tooltip.backgroundColor = NULL,
   tooltip.borderColor = NULL,
   tooltip.borderWidth = NULL,
