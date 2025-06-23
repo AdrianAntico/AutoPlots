@@ -67,7 +67,6 @@ ProbabilityPlot(
   title.subtextStyle.textShadowOffsetX = NULL,
   title.subtextStyle.textShadowOffsetY = NULL,
   ContainLabel = TRUE,
-  tooltip.trigger = "axis",
   Debug = FALSE
 )
 }
@@ -196,9 +195,9 @@ ProbabilityPlot(
 
 \item{ContainLabel}{Default TRUE}
 
-\item{tooltip.trigger}{Default "axis"}
-
 \item{Debug}{Debugging purposes}
+
+\item{tooltip.trigger}{Default "axis"}
 }
 \value{
 plot

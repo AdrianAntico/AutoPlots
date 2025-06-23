@@ -288,7 +288,7 @@
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -1620,7 +1620,7 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -2549,7 +2549,7 @@ Histogram <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -3236,7 +3236,7 @@ Pie <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -3929,7 +3929,7 @@ Donut <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -4704,7 +4704,7 @@ Rosetype <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -6357,7 +6357,7 @@ WordCloud <- function(dt = NULL,
 #' @param ContainLabel TRUE
 #' @param DarkMode FALSE
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -7100,7 +7100,7 @@ Radar <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -8232,7 +8232,7 @@ Line <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -9360,7 +9360,7 @@ Area <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -10483,7 +10483,7 @@ Step <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -11388,7 +11388,7 @@ River <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -13052,7 +13052,7 @@ Bar <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -13858,7 +13858,7 @@ ACF <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -14681,7 +14681,7 @@ PACF <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -15636,7 +15636,7 @@ StackedBar <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -16922,7 +16922,7 @@ BarPlot3D <- function(dt,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -18361,7 +18361,7 @@ HeatMap <- function(dt,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -19116,7 +19116,7 @@ CorrMatrix <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -19903,7 +19903,7 @@ Parallel <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -21030,7 +21030,7 @@ Copula <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -22000,7 +22000,7 @@ Copula3D <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric
@@ -23139,7 +23139,7 @@ Scatter <- function(dt = NULL,
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
 #' @param tooltip.show logical
-#' @param tooltip.trigger "cross" "axis" "item" "none"
+#' @param tooltip.trigger "axis" "item" "none"
 #' @param tooltip.backgroundColor hex or name
 #' @param tooltip.borderColor numeric
 #' @param tooltip.borderWidth numeric

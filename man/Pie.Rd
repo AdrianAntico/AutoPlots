@@ -186,7 +186,7 @@ Pie(
   legend.emphasis.selectorLabel.textShadowOffsetX = NULL,
   legend.emphasis.selectorLabel.textShadowOffsetY = NULL,
   tooltip.show = TRUE,
-  tooltip.trigger = "cross",
+  tooltip.trigger = "axis",
   tooltip.backgroundColor = NULL,
   tooltip.borderColor = NULL,
   tooltip.borderWidth = NULL,
@@ -578,7 +578,7 @@ Pie(
 
 \item{tooltip.show}{logical}
 
-\item{tooltip.trigger}{"cross" "axis" "item" "none"}
+\item{tooltip.trigger}{"axis" "item" "none"}
 
 \item{tooltip.backgroundColor}{hex or name}
 
