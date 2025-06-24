@@ -1065,7 +1065,7 @@ e_area_full <- function(e = NULL,
 
   # Assemble the final opts
   opts <- .compact(list(
-    areaStyle = if (length(is)) as
+    areaStyle = if (length(as)) as
   ))
 
   standard <- list()
