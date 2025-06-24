@@ -1032,14 +1032,14 @@ e_legend_full <- function(
 #' @param serie Variable
 #' @param smooth Smooth line
 #' @param showSymbol Logical
-#' @param y_index Index of x axis
-#' @param x_index Index of y axis
+#' @param y_index Index of y axis
+#' @param x_index Index of x axis
 #' @param coord_system Coordinate system to plot against
-#' @param areaStyle.color Fill color
+#' @param areaStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
 #' @param areaStyle.shadowBlur blur effect
 #' @param areaStyle.shadowColor shadow color
-#' @param areaStyle.shadowOffsetX shadown position along x-axis
-#' @param areaStyle.shadowOffsetY shadown position along y-axis
+#' @param areaStyle.shadowOffsetX shadow position along x-axis
+#' @param areaStyle.shadowOffsetY shadow position along y-axis
 #' @param areaStyle.opacity transparency
 #' @return The modified echarts4r object
 #' @export
@@ -1054,6 +1054,22 @@ e_area_full <- function(e = NULL,
                         areaStyle.shadowOffsetY = NULL,
                         areaStyle.opacity = NULL) {
 
+  # Create gradient if multiple colors are passed
+  if (!is.null(areaStyle.color) && length(areaStyle.color) > 1) {
+    n_colors <- length(areaStyle.color)
+    areaStyle.color <- list(
+      type = "linear",
+      x = 0, y = 0, x2 = 0, y2 = 1,
+      colorStops = lapply(seq_along(areaStyle.color), function(i) {
+        list(
+          offset = (i - 1) / (n_colors - 1),
+          color = areaStyle.color[[i]]
+        )
+      })
+    )
+  }
+
+  # areaStyle list
   as <- .compact(list(
     color = areaStyle.color,
     shadowBlur = areaStyle.shadowBlur,
@@ -1063,21 +1079,19 @@ e_area_full <- function(e = NULL,
     opacity = areaStyle.opacity
   ))
 
-  # Assemble the final opts
+  # opts
   opts <- .compact(list(
-    itemStyle = if (length(as)) as
+    areaStyle = if (length(as)) as
   ))
 
-  standard <- list()
-  standard[["e"]] <- e
-  standard[["serie"]] <- serie
-  standard[["smooth"]] <- smooth
-  standard[["showSymbol"]] <- showSymbol
+  # standard e_area_ args
+  standard <- list(
+    e = e,
+    serie = serie,
+    smooth = smooth,
+    showSymbol = showSymbol
+  )
 
-  do.call(echarts4r::e_area_, c(
-    standard,
-    opts
-  ))
+  # final call
+  do.call(echarts4r::e_area_, c(standard, opts))
 }
-
-
