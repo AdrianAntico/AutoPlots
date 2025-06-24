@@ -1086,9 +1086,9 @@ e_area_full <- function(e = NULL,
 
   # standard e_area_ args
   standard <- list()
-  standard[["e"]] <- e,
-  standard[["serie"]] <- serie,
-  standard[["smooth"]] <- smooth,
+  standard[["e"]] <- e
+  standard[["serie"]] <- serie
+  standard[["smooth"]] <- smooth
   standard[["showSymbol"]] <- showSymbol
 
   # final call
