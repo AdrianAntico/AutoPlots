@@ -1081,16 +1081,15 @@ e_area_full <- function(e = NULL,
 
   # opts
   opts <- .compact(list(
-    areaStyle = if (length(as)) as
+    itemStyle = if (length(as)) as
   ))
 
   # standard e_area_ args
-  standard <- list(
-    e = e,
-    serie = serie,
-    smooth = smooth,
-    showSymbol = showSymbol
-  )
+  standard <- list()
+  standard[["e"]] <- e,
+  standard[["serie"]] <- serie,
+  standard[["smooth"]] <- smooth,
+  standard[["showSymbol"]] <- showSymbol
 
   # final call
   do.call(echarts4r::e_area_, c(standard, opts))
