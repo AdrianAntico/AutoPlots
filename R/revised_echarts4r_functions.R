@@ -1073,9 +1073,6 @@ e_area_full <- function(e = NULL,
   standard[["serie"]] <- serie
   standard[["smooth"]] <- smooth
   standard[["showSymbol"]] <- showSymbol
-  standard[["y_index"]] <- y_index
-  standard[["x_index"]] <- x_index
-  standard[["coord_system"]] <- coord_system
 
   do.call(echarts4r::e_area_, c(
     standard,
