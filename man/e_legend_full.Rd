@@ -2,7 +2,7 @@
 % Please edit documentation in R/revised_echarts4r_functions.R
 \name{e_legend_full}
 \alias{e_legend_full}
-\title{Enhanced Title Setter for echarts4r}
+\title{Enhanced Legend Setter for echarts4r}
 \usage{
 e_legend_full(
   e = NULL,

@@ -646,7 +646,7 @@ e_title_full <- function(
 }
 
 
-#' Enhanced Title Setter for echarts4r
+#' Enhanced Legend Setter for echarts4r
 #'
 #' Exposes every legend.* option so you don't have to hand-craft the JSON.
 #'
@@ -1024,6 +1024,63 @@ e_legend_full <- function(
 }
 
 
+#' Enhanced area Setter for echarts4r
+#'
+#' Exposes every area* option so you don't have to hand-craft the JSON.
+#'
+#' @param e plot object
+#' @param serie Variable
+#' @param smooth Smooth line
+#' @param showSymbol Logical
+#' @param y_index Index of x axis
+#' @param x_index Index of y axis
+#' @param coord_system Coordinate system to plot against
+#' @param areaStyle.color Fill color
+#' @param areaStyle.shadowBlur blur effect
+#' @param areaStyle.shadowColor shadow color
+#' @param areaStyle.shadowOffsetX shadown position along x-axis
+#' @param areaStyle.shadowOffsetY shadown position along y-axis
+#' @param areaStyle.opacity transparency
+#' @return The modified echarts4r object
+#' @export
+e_area_full <- function(e = NULL,
+                        serie = NULL,
+                        smooth = NULL,
+                        showSymbol = NULL,
+                        areaStyle.color = NULL,
+                        areaStyle.shadowBlur = NULL,
+                        areaStyle.shadowColor = NULL,
+                        areaStyle.shadowOffsetX = NULL,
+                        areaStyle.shadowOffsetY = NULL,
+                        areaStyle.opacity = NULL) {
 
+  as <- .compact(list(
+    color = areaStyle.color,
+    shadowBlur = areaStyle.shadowBlur,
+    shadowColor = areaStyle.shadowColor,
+    shadowOffsetX = areaStyle.shadowOffsetX,
+    shadowOffsetY = areaStyle.shadowOffsetY,
+    opacity = areaStyle.opacity
+  ))
+
+  # Assemble the final opts
+  opts <- .compact(list(
+    areaStyle = if (length(is)) as
+  ))
+
+  standard <- list()
+  standard[["e"]] <- e
+  standard[["serie"]] <- serie
+  standard[["smooth"]] <- smooth
+  standard[["showSymbol"]] <- showSymbol
+  standard[["y_index"]] <- y_index
+  standard[["x_index"]] <- x_index
+  standard[["coord_system"]] <- coord_system
+
+  do.call(echarts4r::e_area_, c(
+    standard,
+    opts
+  ))
+}
 
 

@@ -21,12 +21,17 @@ Area(
   Height = NULL,
   Width = NULL,
   ShowLabels = FALSE,
+  Smooth = TRUE,
+  ShowSymbol = FALSE,
+  areaStyle.color = NULL,
+  areaStyle.shadowBlur = NULL,
+  areaStyle.shadowColor = NULL,
+  areaStyle.shadowOffsetX = NULL,
+  areaStyle.shadowOffsetY = NULL,
+  areaStyle.opacity = NULL,
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = TRUE,
-  Alpha = 0.5,
-  Smooth = TRUE,
-  ShowSymbol = FALSE,
   TextColor = "white",
   ContainLabel = TRUE,
   title.text = "Area Plot",
@@ -337,17 +342,27 @@ Area(
 
 \item{ShowLabels}{character}
 
+\item{Smooth}{= TRUE}
+
+\item{ShowSymbol}{= FALSE}
+
+\item{areaStyle.color}{Fill color}
+
+\item{areaStyle.shadowBlur}{blur effect}
+
+\item{areaStyle.shadowColor}{shadow color}
+
+\item{areaStyle.shadowOffsetX}{shadown position along x-axis}
+
+\item{areaStyle.shadowOffsetY}{shadown position along y-axis}
+
+\item{areaStyle.opacity}{transparency}
+
 \item{Theme}{Provide an "Echarts" theme}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{Logical}
-
-\item{Alpha}{0 to 1 for setting transparency}
-
-\item{Smooth}{= TRUE}
-
-\item{ShowSymbol}{= FALSE}
 
 \item{TextColor}{"Not Implemented"}
 

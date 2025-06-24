@@ -705,7 +705,7 @@ Density <- function(dt = NULL,
       XVar,
       areaStyle = list(opacity = Opacity),
       smooth = TRUE,
-      y_index = 1,
+      y_index = 0,
       label = list(show = ShowLabels))
 
     if(!MouseScroll) {
@@ -777,7 +777,7 @@ Density <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
-      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else NULL, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else NULL, index = 0, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
       yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
@@ -879,7 +879,12 @@ Density <- function(dt = NULL,
         height = Height)
     }
 
-    p1 <- echarts4r::e_density_(e = p1, XVar, areaStyle = list(opacity = Opacity), smooth = TRUE, y_index = 1)
+    p1 <- echarts4r::e_density_(
+      e = p1,
+      XVar,
+      areaStyle = list(opacity = Opacity),
+      smooth = TRUE,
+      y_index = 0)
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
     } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
@@ -7980,10 +7985,15 @@ Line <- function(dt = NULL,
 #' @param Theme Provide an "Echarts" theme
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param Alpha 0 to 1 for setting transparency
+#' @param TextColor "Not Implemented"
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
-#' @param TextColor "Not Implemented"
+#' @param areaStyle.color Fill color
+#' @param areaStyle.shadowBlur blur effect
+#' @param areaStyle.shadowColor shadow color
+#' @param areaStyle.shadowOffsetX shadown position along x-axis
+#' @param areaStyle.shadowOffsetY shadown position along y-axis
+#' @param areaStyle.opacity transparency
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -8294,12 +8304,19 @@ Area <- function(dt = NULL,
                  Height = NULL,
                  Width = NULL,
                  ShowLabels = FALSE,
+
+                 Smooth = TRUE,
+                 ShowSymbol = FALSE,
+                 areaStyle.color = NULL,
+                 areaStyle.shadowBlur = NULL,
+                 areaStyle.shadowColor = NULL,
+                 areaStyle.shadowOffsetX = NULL,
+                 areaStyle.shadowOffsetY = NULL,
+                 areaStyle.opacity = NULL,
+
                  Theme = "dark",
                  MouseScroll = FALSE,
                  TimeLine = TRUE,
-                 Alpha = 0.50,
-                 Smooth = TRUE,
-                 ShowSymbol = FALSE,
                  TextColor = "white",
                  ContainLabel = TRUE,
                  title.text = "Area Plot",
@@ -8685,11 +8702,18 @@ Area <- function(dt = NULL,
 
     # Finalize Plot Build
     if(Debug) print("Line() Build Echarts 4")
-    if(ShowLabels) {
-      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
-    }
+    p1 <- e_area_full(
+      e = p1,
+      serie = YVar,
+      smooth = Smooth,
+      showSymbol = ShowSymbol,
+      areaStyle.color = areaStyle.color,
+      areaStyle.shadowBlur = areaStyle.shadowBlur,
+      areaStyle.shadowColor = areaStyle.shadowColor,
+      areaStyle.shadowOffsetX = areaStyle.shadowOffsetX,
+      areaStyle.shadowOffsetY = areaStyle.shadowOffsetY,
+      areaStyle.opacity = areaStyle.opacity)
+
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
     } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
@@ -8918,18 +8942,25 @@ Area <- function(dt = NULL,
       width = Width,
       height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_area_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
-    }
+    p1 <- e_area_full(
+      e = p1,
+      serie = YVar,
+      smooth = Smooth,
+      showSymbol = ShowSymbol,
+      areaStyle.color = areaStyle.color,
+      areaStyle.shadowBlur = areaStyle.shadowBlur,
+      areaStyle.shadowColor = areaStyle.shadowColor,
+      areaStyle.shadowOffsetX = areaStyle.shadowOffsetX,
+      areaStyle.shadowOffsetY = areaStyle.shadowOffsetY,
+      areaStyle.opacity = areaStyle.opacity)
 
     if(length(DualYVar) > 0L) {
-      if(ShowLabels) {
-        p1 <- echarts4r::e_area_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
-      } else {
-        p1 <- echarts4r::e_area_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
-      }
+      p1 <- e_area_full(
+        e = p1,
+        serie = DualYVar,
+        smooth = Smooth,
+        showSymbol = ShowSymbol,
+        areaStyle.opacity = areaStyle.opacity)
     }
 
     # Finalize Plot Build
