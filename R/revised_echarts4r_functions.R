@@ -1084,10 +1084,6 @@ e_area_full <- function(e = NULL,
   # areaStyle list
   as <- .compact(list(
     color = areaStyle.color,
-    shadowBlur = areaStyle.shadowBlur,
-    shadowColor = areaStyle.shadowColor,
-    shadowOffsetX = areaStyle.shadowOffsetX,
-    shadowOffsetY = areaStyle.shadowOffsetY,
     opacity = areaStyle.opacity
   ))
 
