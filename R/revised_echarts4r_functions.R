@@ -1032,14 +1032,7 @@ e_legend_full <- function(
 #' @param serie Variable
 #' @param smooth Smooth line
 #' @param showSymbol Logical
-#' @param y_index Index of y axis
-#' @param x_index Index of x axis
-#' @param coord_system Coordinate system to plot against
 #' @param areaStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
-#' @param areaStyle.shadowBlur blur effect
-#' @param areaStyle.shadowColor shadow color
-#' @param areaStyle.shadowOffsetX shadow position along x-axis
-#' @param areaStyle.shadowOffsetY shadow position along y-axis
 #' @param areaStyle.opacity transparency
 #' @return The modified echarts4r object
 #' @export
