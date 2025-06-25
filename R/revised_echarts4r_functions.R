@@ -1064,12 +1064,21 @@ e_area_full <- function(e = NULL,
   # If multiple colors, build a vertical linear gradient
   if (!is.null(areaStyle.color) && length(areaStyle.color) > 1) {
     n_colors <- length(areaStyle.color)
-    alpha <- if (is.null(areaStyle.opacity)) 1 else areaStyle.opacity
+
+    # Handle opacity: single value or vector
+    alpha <- areaStyle.opacity
+    if (is.null(alpha)) {
+      alpha <- rep(1, n_colors)
+    } else if (length(alpha) == 1) {
+      alpha <- rep(alpha, n_colors)
+    } else if (length(alpha) != n_colors) {
+      stop("Length of areaStyle.opacity must be 1 or match length of areaStyle.color")
+    }
 
     colorStops <- lapply(seq_along(areaStyle.color), function(i) {
       list(
         offset = (i - 1) / (n_colors - 1),
-        color = hex_to_rgba(areaStyle.color[[i]], alpha)
+        color = hex_to_rgba(areaStyle.color[[i]], alpha[i])
       )
     })
 
@@ -1079,7 +1088,8 @@ e_area_full <- function(e = NULL,
       colorStops = colorStops
     )
 
-    areaStyle.opacity <- NULL  # remove top-level opacity so it's not ignored
+    # Remove top-level opacity to avoid conflict
+    areaStyle.opacity <- NULL
   }
 
   # areaStyle list
