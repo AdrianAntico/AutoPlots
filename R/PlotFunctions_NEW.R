@@ -8125,7 +8125,6 @@ Line <- function(dt = NULL,
 #' @param yAxis.axisLabel.textShadowOffsetX numeric
 #' @param yAxis.axisLabel.textShadowOffsetY numeric
 #' @param yAxis.axisLabel.overflow 'truncate'
-#' @param legend.name name of legend
 #' @param legend.show logical
 #' @param legend.type 'scroll' 'plain'
 #' @param legend.selector logical
@@ -8446,7 +8445,6 @@ Area <- function(dt = NULL,
                  yAxis.axisLabel.textShadowOffsetX = NULL,
                  yAxis.axisLabel.textShadowOffsetY = NULL,
                  yAxis.axisLabel.overflow = NULL,
-                 legend.name = NULL,
                  legend.show = TRUE,
                  legend.type = "scroll",
                  legend.selector = NULL,
@@ -8860,7 +8858,7 @@ Area <- function(dt = NULL,
     }
 
     p1 <- e_legend_full(
-      e = p1, name = legend.name,
+      e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
       legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
@@ -9102,7 +9100,7 @@ Area <- function(dt = NULL,
       title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     p1 <- e_legend_full(
-      e = p1, name = legend.name,
+      e = p1,
       legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
       legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
       legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,

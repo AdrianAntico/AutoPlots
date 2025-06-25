@@ -6,7 +6,6 @@
 \usage{
 e_area_full(
   e = NULL,
-  name = NULL,
   serie = NULL,
   smooth = NULL,
   showSymbol = NULL,
@@ -16,8 +15,6 @@ e_area_full(
 }
 \arguments{
 \item{e}{plot object}
-
-\item{name}{legend name}
 
 \item{serie}{Variable}
 
