@@ -1041,10 +1041,6 @@ e_area_full <- function(e = NULL,
                         smooth = NULL,
                         showSymbol = NULL,
                         areaStyle.color = NULL,
-                        areaStyle.shadowBlur = NULL,
-                        areaStyle.shadowColor = NULL,
-                        areaStyle.shadowOffsetX = NULL,
-                        areaStyle.shadowOffsetY = NULL,
                         areaStyle.opacity = NULL) {
 
   # Helper to convert hex color to rgba with opacity
