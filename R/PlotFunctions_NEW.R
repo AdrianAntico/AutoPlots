@@ -7989,10 +7989,6 @@ Line <- function(dt = NULL,
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
 #' @param areaStyle.color Fill color
-#' @param areaStyle.shadowBlur blur effect
-#' @param areaStyle.shadowColor shadow color
-#' @param areaStyle.shadowOffsetX shadown position along x-axis
-#' @param areaStyle.shadowOffsetY shadown position along y-axis
 #' @param areaStyle.opacity transparency
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -8308,10 +8304,6 @@ Area <- function(dt = NULL,
                  Smooth = TRUE,
                  ShowSymbol = FALSE,
                  areaStyle.color = NULL,
-                 areaStyle.shadowBlur = NULL,
-                 areaStyle.shadowColor = NULL,
-                 areaStyle.shadowOffsetX = NULL,
-                 areaStyle.shadowOffsetY = NULL,
                  areaStyle.opacity = NULL,
 
                  Theme = "dark",
@@ -8948,10 +8940,6 @@ Area <- function(dt = NULL,
       smooth = Smooth,
       showSymbol = ShowSymbol,
       areaStyle.color = areaStyle.color,
-      areaStyle.shadowBlur = areaStyle.shadowBlur,
-      areaStyle.shadowColor = areaStyle.shadowColor,
-      areaStyle.shadowOffsetX = areaStyle.shadowOffsetX,
-      areaStyle.shadowOffsetY = areaStyle.shadowOffsetY,
       areaStyle.opacity = areaStyle.opacity)
 
     if(length(DualYVar) > 0L) {

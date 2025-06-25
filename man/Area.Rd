@@ -24,10 +24,6 @@ Area(
   Smooth = TRUE,
   ShowSymbol = FALSE,
   areaStyle.color = NULL,
-  areaStyle.shadowBlur = NULL,
-  areaStyle.shadowColor = NULL,
-  areaStyle.shadowOffsetX = NULL,
-  areaStyle.shadowOffsetY = NULL,
   areaStyle.opacity = NULL,
   Theme = "dark",
   MouseScroll = FALSE,
@@ -347,14 +343,6 @@ Area(
 \item{ShowSymbol}{= FALSE}
 
 \item{areaStyle.color}{Fill color}
-
-\item{areaStyle.shadowBlur}{blur effect}
-
-\item{areaStyle.shadowColor}{shadow color}
-
-\item{areaStyle.shadowOffsetX}{shadown position along x-axis}
-
-\item{areaStyle.shadowOffsetY}{shadown position along y-axis}
 
 \item{areaStyle.opacity}{transparency}
 

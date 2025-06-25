@@ -1054,19 +1054,32 @@ e_area_full <- function(e = NULL,
                         areaStyle.shadowOffsetY = NULL,
                         areaStyle.opacity = NULL) {
 
-  # Create gradient if multiple colors are passed
+  # Helper to convert hex color to rgba with opacity
+  hex_to_rgba <- function(hex, alpha = 1) {
+    rgb <- grDevices::col2rgb(hex) / 255
+    sprintf("rgba(%d,%d,%d,%.2f)", rgb[1]*255, rgb[2]*255, rgb[3]*255, alpha)
+  }
+
+
+  # If multiple colors, build a vertical linear gradient
   if (!is.null(areaStyle.color) && length(areaStyle.color) > 1) {
     n_colors <- length(areaStyle.color)
+    alpha <- if (is.null(areaStyle.opacity)) 1 else areaStyle.opacity
+
+    colorStops <- lapply(seq_along(areaStyle.color), function(i) {
+      list(
+        offset = (i - 1) / (n_colors - 1),
+        color = hex_to_rgba(areaStyle.color[[i]], alpha)
+      )
+    })
+
     areaStyle.color <- list(
       type = "linear",
       x = 0, y = 0, x2 = 0, y2 = 1,
-      colorStops = lapply(seq_along(areaStyle.color), function(i) {
-        list(
-          offset = (i - 1) / (n_colors - 1),
-          color = areaStyle.color[[i]]
-        )
-      })
+      colorStops = colorStops
     )
+
+    areaStyle.opacity <- NULL  # remove top-level opacity so it's not ignored
   }
 
   # areaStyle list

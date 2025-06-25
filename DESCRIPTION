@@ -18,6 +18,7 @@ Imports:
     dplyr,
     e1071,
     echarts4r,
+    grDevices,
     lubridate,
     nortest,
     quanteda,

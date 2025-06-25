@@ -26,21 +26,21 @@ e_area_full(
 
 \item{showSymbol}{Logical}
 
-\item{areaStyle.color}{Fill color}
+\item{areaStyle.color}{Fill color. Can be a single color or vector of multiple colors for gradient.}
 
 \item{areaStyle.shadowBlur}{blur effect}
 
 \item{areaStyle.shadowColor}{shadow color}
 
-\item{areaStyle.shadowOffsetX}{shadown position along x-axis}
+\item{areaStyle.shadowOffsetX}{shadow position along x-axis}
 
-\item{areaStyle.shadowOffsetY}{shadown position along y-axis}
+\item{areaStyle.shadowOffsetY}{shadow position along y-axis}
 
 \item{areaStyle.opacity}{transparency}
 
-\item{y_index}{Index of x axis}
+\item{y_index}{Index of y axis}
 
-\item{x_index}{Index of y axis}
+\item{x_index}{Index of x axis}
 
 \item{coord_system}{Coordinate system to plot against}
 }
