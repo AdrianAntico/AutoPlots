@@ -1049,7 +1049,6 @@ e_area_full <- function(e = NULL,
     sprintf("rgba(%d,%d,%d,%.2f)", rgb[1]*255, rgb[2]*255, rgb[3]*255, alpha)
   }
 
-
   # If multiple colors, build a vertical linear gradient
   if (!is.null(areaStyle.color) && length(areaStyle.color) > 1) {
     n_colors <- length(areaStyle.color)
