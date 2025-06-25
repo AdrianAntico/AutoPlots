@@ -164,6 +164,7 @@ Area(
   yAxis.axisLabel.textShadowOffsetX = NULL,
   yAxis.axisLabel.textShadowOffsetY = NULL,
   yAxis.axisLabel.overflow = NULL,
+  legend.name = NULL,
   legend.show = TRUE,
   legend.type = "scroll",
   legend.selector = NULL,
@@ -623,6 +624,8 @@ Area(
 \item{yAxis.axisLabel.textShadowOffsetY}{numeric}
 
 \item{yAxis.axisLabel.overflow}{'truncate'}
+
+\item{legend.name}{name of legend}
 
 \item{legend.show}{logical}
 

@@ -1029,6 +1029,7 @@ e_legend_full <- function(
 #' Exposes every area* option so you don't have to hand-craft the JSON.
 #'
 #' @param e plot object
+#' @param name legend name
 #' @param serie Variable
 #' @param smooth Smooth line
 #' @param showSymbol Logical
@@ -1037,6 +1038,7 @@ e_legend_full <- function(
 #' @return The modified echarts4r object
 #' @export
 e_area_full <- function(e = NULL,
+                        name = NULL,
                         serie = NULL,
                         smooth = NULL,
                         showSymbol = NULL,
@@ -1094,6 +1096,7 @@ e_area_full <- function(e = NULL,
   # standard e_area_ args
   standard <- list()
   standard[["e"]] <- e
+  standard[["name"]] <- name
   standard[["serie"]] <- serie
   standard[["smooth"]] <- smooth
   standard[["showSymbol"]] <- showSymbol
