@@ -1101,3 +1101,56 @@ e_area_full <- function(e = NULL,
   # final call
   do.call(echarts4r::e_area_, c(standard, opts))
 }
+
+#' Display a Series of Plots in a Styled HTML Grid with Columns
+#'
+#' @param plots A list of echarts4r plots (or htmlwidgets).
+#' @param cols Number of columns.
+#' @param container_class CSS class for each plot container.
+#' @param grid_class CSS class for the grid layout container.
+#' @return A browsable HTML grid for use in Rmarkdown, Shiny, or viewer pane.
+#' @export
+display_plots_grid <- function(
+    plots,
+    cols = NULL,
+    container_class = "plot-card",
+    grid_class = "plot-grid") {
+
+  nplots <- length(plots)
+
+  if (is.null(cols)) {
+    # Auto layout using auto-fit
+    grid_style <- "display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;"
+  } else {
+    grid_style <- paste0(
+      "display: grid; ",
+      "grid-template-columns: repeat(", cols, ", 1fr); ",
+      "gap: 20px;"
+    )
+  }
+
+  # Determine leftover in last row
+  plots_in_last_row <- nplots %% cols
+  if (plots_in_last_row == 0) plots_in_last_row <- cols
+
+  wrapped_plots <- purrr::imap(plots, function(p, i) {
+    # If it's the only plot in last row, span all columns
+    if (!is.null(cols) && i > nplots - plots_in_last_row && plots_in_last_row == 1) {
+      htmltools::div(
+        class = container_class,
+        style = paste0("grid-column: span ", cols, ";"),
+        p
+      )
+    } else {
+      htmltools::div(class = container_class, p)
+    }
+  })
+
+  htmltools::browsable(
+    htmltools::tags$div(
+      class = grid_class,
+      style = grid_style,
+      wrapped_plots
+    )
+  )
+}
