@@ -25,6 +25,8 @@ Bar(
   TimeLine = TRUE,
   TextColor = "white",
   ContainLabel = TRUE,
+  backgroundStyle.color = NULL,
+  backgroundStyle.opacity = NULL,
   title.text = "Bar Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -340,6 +342,10 @@ Bar(
 \item{TextColor}{'darkblue'}
 
 \item{ContainLabel}{TRUE}
+
+\item{backgroundStyle.color}{vector of colors}
+
+\item{backgroundStyle.opacity}{vector of opacities}
 
 \item{title.text}{Title name}
 

@@ -1102,6 +1102,81 @@ e_area_full <- function(e = NULL,
   do.call(echarts4r::e_area_, c(standard, opts))
 }
 
+#' Enhanced area Setter for echarts4r
+#'
+#' Exposes every area* option so you don't have to hand-craft the JSON.
+#'
+#' @param e plot object
+#' @param serie Variable
+#' @param label Logical
+#' @param backgroundStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
+#' @param backgroundStyle.opacity transparency
+#' @return The modified echarts4r object
+#' @export
+e_bar_full <- function(e = NULL,
+                       serie = NULL,
+                       label = FALSE,
+                       backgroundStyle.color = NULL,
+                       backgroundStyle.opacity = NULL) {
+
+  # Helper to convert hex color to rgba with opacity
+  hex_to_rgba <- function(hex, alpha = 1) {
+    rgb <- grDevices::col2rgb(hex) / 255
+    sprintf("rgba(%d,%d,%d,%.2f)", rgb[1]*255, rgb[2]*255, rgb[3]*255, alpha)
+  }
+
+  # If multiple colors, build a vertical linear gradient
+  if (!is.null(backgroundStyle.color) && length(backgroundStyle.color) > 1) {
+    n_colors <- length(backgroundStyle.color)
+
+    # Handle opacity: single value or vector
+    alpha <- backgroundStyle.opacity
+    if (is.null(alpha)) {
+      alpha <- rep(1, n_colors)
+    } else if (length(alpha) == 1) {
+      alpha <- rep(alpha, n_colors)
+    } else if (length(alpha) != n_colors) {
+      stop("Length of backgroundStyle.opacity must be 1 or match length of backgroundStyle.color")
+    }
+
+    colorStops <- lapply(seq_along(backgroundStyle.color), function(i) {
+      list(
+        offset = (i - 1) / (n_colors - 1),
+        color = hex_to_rgba(backgroundStyle.color[[i]], alpha[i])
+      )
+    })
+
+    backgroundStyle.color <- list(
+      type = "linear",
+      x = 0, y = 0, x2 = 0, y2 = 1,
+      colorStops = colorStops
+    )
+
+    # Remove top-level opacity to avoid conflict
+    backgroundStyle.opacity <- NULL
+  }
+
+  # backgroundStyle list
+  as <- .compact(list(
+    color = backgroundStyle.color,
+    opacity = backgroundStyle.opacity
+  ))
+
+  # opts
+  opts <- .compact(list(
+    itemStyle = if (length(as)) as
+  ))
+
+  # standard e_area_ args
+  standard <- list()
+  standard[["e"]] <- e
+  standard[["serie"]] <- serie
+  standard[["label"]] <- list(show = label)
+
+  # final call
+  do.call(echarts4r::e_bar_, c(standard, opts))
+}
+
 #' Display a Series of Plots in a Styled HTML Grid with Columns
 #'
 #' @param plots A list of echarts4r plots (or htmlwidgets).

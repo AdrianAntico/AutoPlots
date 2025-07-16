@@ -10563,6 +10563,8 @@ River <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
+#' @param backgroundStyle.color vector of colors
+#' @param backgroundStyle.opacity vector of opacities
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -10887,6 +10889,8 @@ Bar <- function(dt = NULL,
                 TimeLine = TRUE,
                 TextColor = "white",
                 ContainLabel = TRUE,
+                backgroundStyle.color = NULL,
+                backgroundStyle.opacity = NULL,
                 title.text = "Bar Plot",
                 title.subtext = NULL,
                 title.link = NULL,
@@ -11260,16 +11264,15 @@ Bar <- function(dt = NULL,
         width = Width,
         height = Height)
 
-      if(ShowLabels) {
-        p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
-      } else {
-        p1 <- echarts4r::e_bar_(e = p1, YVar)
-      }
+      p1 <- e_bar_full(
+        e = p1,
+        YVar,
+        label = ShowLabels,
+        backgroundStyle.color = backgroundStyle.color,
+        backgroundStyle.opacity = backgroundStyle.opacity)
 
       if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
         p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
-      } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
-        p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
       } else {
         p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
         p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
@@ -11503,31 +11506,13 @@ Bar <- function(dt = NULL,
 
       if(Debug) print("BarPlot 2.c")
 
-      if(ShowLabels) {
-        if(length(LabelValues) > 0L && PreAgg) {
-          p1 <- echarts4r::e_charts_(
-            temp,
-            x = XVar,
-            dispose = TRUE,
-            darkMode = TRUE,
-            width = Width,
-            height = Height) |>
-            echarts4r::e_bar_(
-              YVar,
-              bind = LabelValues,
-              label = list(
-                show = TRUE,
-                formatter = "{b}",
-                position = "outside"))
+      p1 <- e_bar_full(
+        e = p1,
+        YVar,
+        label = ShowLabels,
+        backgroundStyle.color = backgroundStyle.color,
+        backgroundStyle.opacity = backgroundStyle.opacity)
 
-        } else {
-          p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
-        }
-
-      } else {
-        if(Debug) print("BarPlot 2.cc")
-        p1 <- echarts4r::e_bar_(e = p1, YVar)
-      }
       if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
         p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
       } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
@@ -11782,11 +11767,14 @@ Bar <- function(dt = NULL,
         darkMode = TRUE,
         width = Width,
         height = Height)
-      if(ShowLabels) {
-        p1 <- echarts4r::e_bar_(e = p1, YVar, label = list(show = TRUE))
-      } else {
-        p1 <- echarts4r::e_bar_(e = p1, YVar)
-      }
+
+      p1 <- e_bar_full(
+        e = p1,
+        YVar,
+        label = ShowLabels,
+        backgroundStyle.color = backgroundStyle.color,
+        backgroundStyle.opacity = backgroundStyle.opacity)
+
       if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
         p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
       } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
@@ -12041,11 +12029,14 @@ Bar <- function(dt = NULL,
         darkMode = TRUE,
         width = Width,
         height = Height)
-      if(ShowLabels) {
-        p1 <- echarts4r::e_bar_(e = p1, XVar, label = list(show = TRUE))
-      } else {
-        p1 <- echarts4r::e_bar_(e = p1, XVar)
-      }
+
+      p1 <- e_bar_full(
+        e = p1,
+        YVar,
+        label = ShowLabels,
+        backgroundStyle.color = backgroundStyle.color,
+        backgroundStyle.opacity = backgroundStyle.opacity)
+
       if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
         p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
       } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
