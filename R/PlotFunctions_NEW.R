@@ -4465,6 +4465,16 @@ Rosetype <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TextColor character hex
 #' @param ContainLabel TRUE
+#' @param itemStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
+#' @param itemStyle.opacity transparency
+#' @param itemStyle.borderColor hex or color name
+#' @param itemStyle.borderWidth numeric
+#' @param itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param itemStyle.borderCap 'butt' 'round' 'square'
+#' @param itemStyle.shadowBlur numeric
+#' @param itemStyle.shadowColor hex or name
+#' @param itemStyle.shadowOffsetX numeric
+#' @param itemStyle.shadowOffsetY numeric
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -4784,6 +4794,16 @@ Box <- function(dt = NULL,
                 TimeLine = FALSE,
                 TextColor = "white",
                 ContainLabel = TRUE,
+                itemStyle.color = NULL,
+                itemStyle.opacity = NULL,
+                itemStyle.borderColor = NULL,
+                itemStyle.borderWidth = NULL,
+                itemStyle.borderType = NULL,
+                itemStyle.borderCap = NULL,
+                itemStyle.shadowBlur = NULL,
+                itemStyle.shadowColor = NULL,
+                itemStyle.shadowOffsetX = NULL,
+                itemStyle.shadowOffsetY = NULL,
                 title.text = "BoxPlot",
                 title.subtext = NULL,
                 title.link = NULL,
@@ -5166,11 +5186,20 @@ Box <- function(dt = NULL,
 
     if(Debug) print("Box 11")
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_boxplot_(e = p1, YVar, label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_boxplot_(e = p1, YVar)
-    }
+    p1 <- e_boxplot_full(
+      e = p1,
+      serie = YVar,
+      label = ShowLabels,
+      itemStyle.color = itemStyle.color,
+      itemStyle.opacity = itemStyle.opacity,
+      itemStyle.borderColor = itemStyle.borderColor,
+      itemStyle.borderWidth = itemStyle.borderWidth,
+      itemStyle.borderType = itemStyle.borderType,
+      itemStyle.borderCap = itemStyle.borderCap,
+      itemStyle.shadowBlur = itemStyle.shadowBlur,
+      itemStyle.shadowColor = itemStyle.shadowColor,
+      itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+      itemStyle.shadowOffsetY = itemStyle.shadowOffsetY)
 
     if(Debug) print("Box 12")
 
@@ -5350,11 +5379,20 @@ Box <- function(dt = NULL,
       width = Width,
       height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_boxplot_(e = p1, YVar, label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_boxplot_(e = p1, YVar)
-    }
+    p1 <- e_boxplot_full(
+      e = p1,
+      serie = YVar,
+      label = ShowLabels,
+      itemStyle.color = itemStyle.color,
+      itemStyle.opacity = itemStyle.opacity,
+      itemStyle.borderColor = itemStyle.borderColor,
+      itemStyle.borderWidth = itemStyle.borderWidth,
+      itemStyle.borderType = itemStyle.borderType,
+      itemStyle.borderCap = itemStyle.borderCap,
+      itemStyle.shadowBlur = itemStyle.shadowBlur,
+      itemStyle.shadowColor = itemStyle.shadowColor,
+      itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+      itemStyle.shadowOffsetY = itemStyle.shadowOffsetY)
 
     p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
@@ -5527,11 +5565,22 @@ Box <- function(dt = NULL,
       darkMode = TRUE,
       width = Width,
       height = Height)
-    if(ShowLabels) {
-      p1 <- echarts4r::e_boxplot_(e = p1, YVar, label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_boxplot_(e = p1, YVar)
-    }
+
+    p1 <- e_boxplot_full(
+      e = p1,
+      serie = YVar,
+      label = ShowLabels,
+      itemStyle.color = itemStyle.color,
+      itemStyle.opacity = itemStyle.opacity,
+      itemStyle.borderColor = itemStyle.borderColor,
+      itemStyle.borderWidth = itemStyle.borderWidth,
+      itemStyle.borderType = itemStyle.borderType,
+      itemStyle.borderCap = itemStyle.borderCap,
+      itemStyle.shadowBlur = itemStyle.shadowBlur,
+      itemStyle.shadowColor = itemStyle.shadowColor,
+      itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+      itemStyle.shadowOffsetY = itemStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_visual_map_(e = p1, YVar, show = FALSE)
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
@@ -5698,11 +5747,20 @@ Box <- function(dt = NULL,
       darkMode = TRUE,
       width = Width,
       height = Height)
-    if(ShowLabels) {
-      p1 <- echarts4r::e_boxplot_(e = p1, XVar, label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_boxplot_(e = p1, XVar)
-    }
+    p1 <- e_boxplot_full(
+      e = p1,
+      serie = XVar,
+      label = ShowLabels,
+      itemStyle.color = itemStyle.color,
+      itemStyle.opacity = itemStyle.opacity,
+      itemStyle.borderColor = itemStyle.borderColor,
+      itemStyle.borderWidth = itemStyle.borderWidth,
+      itemStyle.borderType = itemStyle.borderType,
+      itemStyle.borderCap = itemStyle.borderCap,
+      itemStyle.shadowBlur = itemStyle.shadowBlur,
+      itemStyle.shadowColor = itemStyle.shadowColor,
+      itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+      itemStyle.shadowOffsetY = itemStyle.shadowOffsetY)
     p1 <- echarts4r::e_visual_map_(e = p1, XVar, show = FALSE)
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))

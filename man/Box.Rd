@@ -23,6 +23,16 @@ Box(
   TimeLine = FALSE,
   TextColor = "white",
   ContainLabel = TRUE,
+  itemStyle.color = NULL,
+  itemStyle.opacity = NULL,
+  itemStyle.borderColor = NULL,
+  itemStyle.borderWidth = NULL,
+  itemStyle.borderType = NULL,
+  itemStyle.borderCap = NULL,
+  itemStyle.shadowBlur = NULL,
+  itemStyle.shadowColor = NULL,
+  itemStyle.shadowOffsetX = NULL,
+  itemStyle.shadowOffsetY = NULL,
   title.text = "BoxPlot",
   title.subtext = NULL,
   title.link = NULL,
@@ -334,6 +344,26 @@ Box(
 \item{TextColor}{character hex}
 
 \item{ContainLabel}{TRUE}
+
+\item{itemStyle.color}{Fill color. Can be a single color or vector of multiple colors for gradient.}
+
+\item{itemStyle.opacity}{transparency}
+
+\item{itemStyle.borderColor}{hex or color name}
+
+\item{itemStyle.borderWidth}{numeric}
+
+\item{itemStyle.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{itemStyle.borderCap}{'butt' 'round' 'square'}
+
+\item{itemStyle.shadowBlur}{numeric}
+
+\item{itemStyle.shadowColor}{hex or name}
+
+\item{itemStyle.shadowOffsetX}{numeric}
+
+\item{itemStyle.shadowOffsetY}{numeric}
 
 \item{title.text}{Title name}
 

@@ -1177,6 +1177,108 @@ e_bar_full <- function(e = NULL,
   do.call(echarts4r::e_bar_, c(standard, opts))
 }
 
+
+#' Enhanced area Setter for echarts4r
+#'
+#' Exposes every area* option so you don't have to hand-craft the JSON.
+#'
+#' @param e plot object
+#' @param serie Variable
+#' @param label Logical
+#' @param itemStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
+#' @param itemStyle.opacity transparency
+#' @param itemStyle.borderColor hex or color name
+#' @param itemStyle.borderWidth numeric
+#' @param itemStyle.borderType 'solid' 'dashed' 'dotted'
+#' @param itemStyle.borderCap 'butt' 'round' 'square'
+#' @param itemStyle.shadowBlur numeric
+#' @param itemStyle.shadowColor hex or name
+#' @param itemStyle.shadowOffsetX numeric
+#' @param itemStyle.shadowOffsetY numeric
+#' @return The modified echarts4r object
+#' @export
+e_boxplot_full <- function(e = NULL,
+                           serie = NULL,
+                           label = FALSE,
+                           itemStyle.color = NULL,
+                           itemStyle.opacity = NULL,
+                           itemStyle.borderColor = NULL,
+                           itemStyle.borderWidth = NULL,
+                           itemStyle.borderType = NULL,
+                           itemStyle.borderCap = NULL,
+                           itemStyle.shadowBlur = NULL,
+                           itemStyle.shadowColor = NULL,
+                           itemStyle.shadowOffsetX = NULL,
+                           itemStyle.shadowOffsetY = NULL) {
+
+  # Helper to convert hex color to rgba with opacity
+  hex_to_rgba <- function(hex, alpha = 1) {
+    rgb <- grDevices::col2rgb(hex) / 255
+    sprintf("rgba(%d,%d,%d,%.2f)", rgb[1]*255, rgb[2]*255, rgb[3]*255, alpha)
+  }
+
+  # If multiple colors, build a vertical linear gradient
+  if (!is.null(itemStyle.color) && length(itemStyle.color) > 1) {
+    n_colors <- length(itemStyle.color)
+
+    # Handle opacity: single value or vector
+    alpha <- itemStyle.opacity
+    if (is.null(alpha)) {
+      alpha <- rep(1, n_colors)
+    } else if (length(alpha) == 1) {
+      alpha <- rep(alpha, n_colors)
+    } else if (length(alpha) != n_colors) {
+      stop("Length of itemStyle.opacity must be 1 or match length of itemStyle.color")
+    }
+
+    colorStops <- lapply(seq_along(itemStyle.color), function(i) {
+      list(
+        offset = (i - 1) / (n_colors - 1),
+        color = hex_to_rgba(itemStyle.color[[i]], alpha[i])
+      )
+    })
+
+    itemStyle.color <- list(
+      type = "linear",
+      x = 0, y = 0, x2 = 0, y2 = 1,
+      colorStops = colorStops
+    )
+
+    # Remove top-level opacity to avoid conflict
+    itemStyle.opacity <- NULL
+  }
+
+  # backgroundStyle list
+  is <- .compact(list(
+    color = itemStyle.color,
+    opacity = itemStyle.opacity,
+    borderColor = itemStyle.borderColor,
+    borderWidth = itemStyle.borderWidth,
+    borderType = itemStyle.borderType,
+    borderCap = itemStyle.borderCap,
+    shadowBlur = itemStyle.shadowBlur,
+    shadowColor = itemStyle.shadowColor,
+    shadowOffsetX = itemStyle.shadowOffsetX,
+    shadowOffsetY = itemStyle.shadowOffsetY
+  ))
+
+  # opts
+  opts <- .compact(list(
+    itemStyle = if (length(is)) is
+  ))
+
+  # standard e_area_ args
+  standard <- list()
+  standard[["e"]] <- e
+  standard[["serie"]] <- serie
+  standard[["label"]] <- list(show = label)
+
+  # final call
+  do.call(echarts4r::e_boxplot_, c(standard, opts))
+}
+
+
+
 #' Display a Series of Plots in a Styled HTML Grid with Columns
 #'
 #' @param plots A list of echarts4r plots (or htmlwidgets).
