@@ -6944,9 +6944,6 @@ Line <- function(dt = NULL,
     # Prepare Data
     if(Debug) print("Line() Build 1")
     gv <- GroupVar[1L]
-    #print(dt1)
-    #print(gv)
-    #print(XVar)
     if(PreAgg) data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
 
     cxv <- class(dt1[[XVar]])[1L]

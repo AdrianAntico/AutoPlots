@@ -1282,7 +1282,7 @@ e_boxplot_full <- function(e = NULL,
 #' Display a Series of Plots in a Styled HTML Grid with Columns
 #'
 #' @param plots A list of echarts4r plots (or htmlwidgets).
-#' @param cols Number of columns.
+#' @param cols Number of columns (positive integer) or NULL for auto-fit.
 #' @param container_class CSS class for each plot container.
 #' @param grid_class CSS class for the grid layout container.
 #' @return A browsable HTML grid for use in Rmarkdown, Shiny, or viewer pane.
@@ -1291,43 +1291,57 @@ display_plots_grid <- function(
     plots,
     cols = NULL,
     container_class = "plot-card",
-    grid_class = "plot-grid") {
-
+    grid_class = "plot-grid"
+) {
+  stopifnot(is.list(plots))
   nplots <- length(plots)
 
-  if (is.null(cols)) {
-    # Auto layout using auto-fit
-    grid_style <- "display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;"
+  explicit_cols <- !is.null(cols)
+  if (explicit_cols) {
+    if (!(is.numeric(cols) && length(cols) == 1 && is.finite(cols) && cols >= 1)) {
+      stop("`cols` must be a single positive integer or NULL.")
+    }
+    cols <- as.integer(cols)
+    grid_style <- sprintf(
+      "display:grid;grid-template-columns:repeat(%d,1fr);gap:20px;",
+      cols
+    )
   } else {
     grid_style <- paste0(
-      "display: grid; ",
-      "grid-template-columns: repeat(", cols, ", 1fr); ",
-      "gap: 20px;"
+      "display:grid;",
+      "grid-template-columns:repeat(auto-fit,minmax(350px,1fr));",
+      "gap:20px;"
     )
   }
 
-  # Determine leftover in last row
-  plots_in_last_row <- nplots %% cols
-  if (plots_in_last_row == 0) plots_in_last_row <- cols
+  # How many plots in the last row (only matters when cols is explicit)
+  plots_in_last_row <- if (explicit_cols) {
+    r <- nplots %% cols
+    if (r == 0L && nplots > 0L) cols else r
+  } else {
+    NA_integer_
+  }
 
-  wrapped_plots <- purrr::imap(plots, function(p, i) {
-    # If it's the only plot in last row, span all columns
-    if (!is.null(cols) && i > nplots - plots_in_last_row && plots_in_last_row == 1) {
-      htmltools::div(
-        class = container_class,
-        style = paste0("grid-column: span ", cols, ";"),
-        p
-      )
-    } else {
-      htmltools::div(class = container_class, p)
-    }
+  wrapped_plots <- lapply(seq_len(nplots), function(i) {
+    span_all <- explicit_cols &&
+      (plots_in_last_row == 1L) &&
+      (i > nplots - plots_in_last_row)
+
+    style <- if (isTRUE(span_all)) sprintf("grid-column: span %d;", cols) else NULL
+
+    htmltools::tags$div(
+      class = container_class,
+      style = style,
+      plots[[i]]
+    )
   })
 
   htmltools::browsable(
     htmltools::tags$div(
       class = grid_class,
       style = grid_style,
-      wrapped_plots
+      # Important: splice children correctly
+      htmltools::tagList(wrapped_plots)
     )
   )
 }
