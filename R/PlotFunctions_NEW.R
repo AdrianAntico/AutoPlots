@@ -745,10 +745,7 @@ Density <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(
-      e = p1,
-      feature = c("saveAsImage","dataZoom")
-    )
+    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
