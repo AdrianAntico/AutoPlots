@@ -14,7 +14,7 @@ display_plots_grid(
 \arguments{
 \item{plots}{A list of echarts4r plots (or htmlwidgets).}
 
-\item{cols}{Number of columns.}
+\item{cols}{Number of columns (positive integer) or NULL for auto-fit.}
 
 \item{container_class}{CSS class for each plot container.}
 

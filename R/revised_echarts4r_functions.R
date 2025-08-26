@@ -1108,6 +1108,85 @@ e_area_full <- function(e = NULL,
 #'
 #' @param e plot object
 #' @param serie Variable
+#' @param smooth Smooth line
+#' @param showSymbol Logical
+#' @param areaStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
+#' @param areaStyle.opacity transparency
+#' @return The modified echarts4r object
+#' @export
+e_density_full <- function(e = NULL,
+                           serie = NULL,
+                           smooth = NULL,
+                           showSymbol = NULL,
+                           areaStyle.color = NULL,
+                           areaStyle.opacity = NULL) {
+
+  # Helper to convert hex color to rgba with opacity
+  hex_to_rgba <- function(hex, alpha = 1) {
+    rgb <- grDevices::col2rgb(hex) / 255
+    sprintf("rgba(%d,%d,%d,%.2f)", rgb[1]*255, rgb[2]*255, rgb[3]*255, alpha)
+  }
+
+  # If multiple colors, build a vertical linear gradient
+  if (!is.null(areaStyle.color) && length(areaStyle.color) > 1) {
+    n_colors <- length(areaStyle.color)
+
+    # Handle opacity: single value or vector
+    alpha <- areaStyle.opacity
+    if (is.null(alpha)) {
+      alpha <- rep(1, n_colors)
+    } else if (length(alpha) == 1) {
+      alpha <- rep(alpha, n_colors)
+    } else if (length(alpha) != n_colors) {
+      stop("Length of areaStyle.opacity must be 1 or match length of areaStyle.color")
+    }
+
+    colorStops <- lapply(seq_along(areaStyle.color), function(i) {
+      list(
+        offset = (i - 1) / (n_colors - 1),
+        color = hex_to_rgba(areaStyle.color[[i]], alpha[i])
+      )
+    })
+
+    areaStyle.color <- list(
+      type = "linear",
+      x = 0, y = 0, x2 = 0, y2 = 1,
+      colorStops = colorStops
+    )
+
+    # Remove top-level opacity to avoid conflict
+    areaStyle.opacity <- NULL
+  }
+
+  # areaStyle list
+  as <- .compact(list(
+    color = areaStyle.color,
+    opacity = areaStyle.opacity
+  ))
+
+  # opts
+  opts <- .compact(list(
+    itemStyle = if (length(as)) as
+  ))
+
+  # standard e_area_ args
+  standard <- list()
+  standard[["e"]] <- e
+  standard[["serie"]] <- serie
+  standard[["smooth"]] <- smooth
+  standard[["showSymbol"]] <- showSymbol
+  standard[["y_index"]] <- 0
+
+  # final call
+  do.call(echarts4r::e_density_, c(standard, opts))
+}
+
+#' Enhanced area Setter for echarts4r
+#'
+#' Exposes every area* option so you don't have to hand-craft the JSON.
+#'
+#' @param e plot object
+#' @param serie Variable
 #' @param label Logical
 #' @param backgroundStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
 #' @param backgroundStyle.opacity transparency

@@ -351,7 +351,9 @@ Density <- function(dt = NULL,
                     FacetCols = 1,
                     FacetLevels = NULL,
                     TimeLine = FALSE,
-                    Opacity = 0.4,
+                    showSymbol = FALSE,
+                    areaStyle.color = NULL,
+                    areaStyle.opacity = NULL,
                     Height = NULL,
                     Width = NULL,
                     MouseScroll = FALSE,
@@ -700,13 +702,21 @@ Density <- function(dt = NULL,
       width = Width,
       height = Height)
 
-    p1 <- echarts4r::e_density_(
+    # p1 <- echarts4r::e_density_(
+    #   e = p1,
+    #   XVar,
+    #   areaStyle = list(opacity = Opacity),
+    #   smooth = TRUE,
+    #   y_index = 0,
+    #   label = list(show = ShowLabels))
+    p1 <- e_density_full(
       e = p1,
-      XVar,
-      areaStyle = list(opacity = Opacity),
+      serie = XVar,
       smooth = TRUE,
-      y_index = 0,
-      label = list(show = ShowLabels))
+      showSymbol = showSymbol,
+      areaStyle.color = areaStyle.color,
+      areaStyle.opacity = areaStyle.opacity
+    )
 
     if(!MouseScroll) {
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
@@ -714,7 +724,6 @@ Density <- function(dt = NULL,
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE, decal = list(show = TRUE))
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -879,12 +888,15 @@ Density <- function(dt = NULL,
         height = Height)
     }
 
-    p1 <- echarts4r::e_density_(
+    p1 <- e_density_full(
       e = p1,
-      XVar,
-      areaStyle = list(opacity = Opacity),
+      serie = XVar,
       smooth = TRUE,
-      y_index = 0)
+      showSymbol = showSymbol,
+      areaStyle.color = areaStyle.color,
+      areaStyle.opacity = areaStyle.opacity
+    )
+
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
     } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {

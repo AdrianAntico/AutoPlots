@@ -14,7 +14,9 @@ Density(
   FacetCols = 1,
   FacetLevels = NULL,
   TimeLine = FALSE,
-  Opacity = 0.4,
+  showSymbol = FALSE,
+  areaStyle.color = NULL,
+  areaStyle.opacity = NULL,
   Height = NULL,
   Width = NULL,
   MouseScroll = FALSE,
@@ -315,8 +317,6 @@ Density(
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
 \item{TimeLine}{logical}
-
-\item{Opacity}{numeric}
 
 \item{Height}{"400px"}
 
@@ -877,6 +877,8 @@ Density(
 \item{tooltip.textStyle.textShadowOffsetY}{numeric}
 
 \item{Debug}{Debugging purposes}
+
+\item{Opacity}{numeric}
 }
 \value{
 plot
