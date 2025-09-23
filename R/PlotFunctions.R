@@ -8286,6 +8286,8 @@ Plot.HeatMap <- function(dt,
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
       colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
+    } else {
+      data.table::setnames(dt1, ZVar, "Measure_Variable")
     }
 
     # Create final data for plot
@@ -8427,6 +8429,8 @@ Plot.HeatMap <- function(dt,
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
       colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
+    } else {
+      data.table::setnames(dt1, ZVar, "Measure_Variable")
     }
 
     # Create final dt1 for plot

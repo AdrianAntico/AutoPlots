@@ -16808,7 +16808,7 @@ HeatMap <- function(dt,
       x = XVar,
       darkMode = TRUE,
       width = Width,
-      height = Height)#, dispose = TRUE)
+      height = Height)
 
     if(ShowLabels) {
       p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
@@ -16989,6 +16989,8 @@ HeatMap <- function(dt,
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
       colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
+    } else {
+      data.table::setnames(dt1, ZVar, "Measure_Variable")
     }
 
     # Create final data for plot
@@ -17180,6 +17182,8 @@ HeatMap <- function(dt,
       o <- order(vals, decreasing = FALSE)
       cols <- scales::col_numeric("Purples", domain = NULL)(vals)
       colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
+    } else {
+      data.table::setnames(dt1, ZVar, "Measure_Variable")
     }
 
     # Create final dt1 for plot
