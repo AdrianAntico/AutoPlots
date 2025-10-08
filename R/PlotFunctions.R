@@ -12292,6 +12292,288 @@ Plot.ROC <- function(dt = NULL,
   return(p1)
 }
 
+#' @title Plot.prROC
+#'
+#' @description ROC Plot
+#'
+#' @author Adrian Antico
+#' @family Model Evaluation
+#'
+#' @param dt source data.table
+#' @param XVar X-Axis variable name
+#' @param YVar Y-Axis variable name
+#' @param AggMethod character
+#' @param GroupVar Character variable
+#' @param YVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param XVarTrans "Asinh", "Log", "LogPlus1", "Sqrt", "Asin", "Logit", "PercRank", "Standardize", "BoxCox", "YeoJohnson"
+#' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
+#' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
+#' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
+#' @param Height "400px"
+#' @param Width "200px"
+#' @param Title character
+#' @param ShowLabels character
+#' @param Title.YAxis character
+#' @param Title.XAxis character
+#' @param EchartsTheme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param TimeLine logical
+#' @param MouseScroll logical, zoom via mouse scroll
+#' @param SampleSize numeric
+#' @param TextColor character hex
+#' @param Debug Debugging purposes
+#' @return plot
+#' @export
+Plot.prROC <- function(dt = NULL,
+                     SampleSize = 100000,
+                     XVar = NULL,
+                     YVar = NULL,
+                     GroupVar = NULL,
+                     YVarTrans = "Identity",
+                     XVarTrans = "Identity",
+                     FacetRows = 1,
+                     FacetCols = 1,
+                     FacetLevels = NULL,
+                     AggMethod = 'mean',
+                     Height = NULL,
+                     Width = NULL,
+                     Title = 'ROC Plot',
+                     ShowLabels = FALSE,
+                     Title.YAxis = "True Positive Rate",
+                     Title.XAxis = "1 - False Positive Rate",
+                     EchartsTheme = "macarons",
+                     MouseScroll = TRUE,
+                     TimeLine = FALSE,
+                     TextColor = "white",
+                     Debug = FALSE) {
+
+  # AUC
+  fastPR <- function(preds, target) {
+    y <- as.integer(target)
+    if (!all(y %in% c(0L,1L))) stop("target must be 0/1")
+    keep <- !(is.na(preds) | is.na(y))
+    x <- preds[keep]; y <- y[keep]
+
+    # sort descending by predicted score
+    o <- order(x, decreasing = TRUE)
+    y <- y[o]
+
+    tp <- cumsum(y == 1L)
+    fp <- cumsum(y == 0L)
+    recall <- tp / sum(y == 1L)
+    precision <- tp / (tp + fp)
+
+    # prepend (0,1) for complete curve
+    recall <- c(0, recall)
+    precision <- c(1, precision)
+
+    list(recall = recall, precision = precision)
+  }
+
+  fastPRAUC <- function(preds, target) {
+    pr <- fastPR(preds, target)
+    # trapezoidal integration over recall axis
+    sum(diff(pr$recall) * (head(pr$precision, -1) + tail(pr$precision, -1)) / 2)
+  }
+
+
+  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
+    dt <- data.table::as.data.table(dt)
+  })
+
+  # YVar check
+  yvar_class <- class(dt[[YVar]])[1L]
+  if(yvar_class %in% c("factor","character")) {
+
+    # Shrink data
+    yvar_levels <- as.character(dt[, unique(get(YVar))])
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(XVar, YVar, yvar_levels, GroupVar)])
+
+    # Dummify Target
+    nam <- data.table::copy(names(dt1))
+    dt1 <- DummifyDT(data = dt1, cols = YVar, TopN = length(yvar_levels), KeepFactorCols = FALSE, OneHot = FALSE, SaveFactorLevels = FALSE, SavePath = getwd(), ImportFactorLevels = FALSE, FactorLevelsList = NULL, ClustScore = FALSE, ReturnFactorLevels = FALSE)
+    nam <- setdiff(names(dt1), nam)
+
+    # Melt Predict Cols
+    dt2 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(nam,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = names(dt1)[!names(dt1) %in% c(nam,XVar,GroupVar)],
+      variable.name = "Level",
+      value.name = XVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Melt Target Cols
+    dt3 <- data.table::melt.data.table(
+      data = dt1[, .SD, .SDcols = c(names(dt1)[!names(dt1) %in% c(yvar_levels,XVar)])],
+      id.vars = GroupVar,
+      measure.vars = nam,
+      variable.name = "Level",
+      value.name = YVar,
+      na.rm = TRUE,
+      variable.factor = FALSE)
+
+    # Join data
+    dt2[, eval(YVar) := dt3[[YVar]]]
+
+    # Update Args
+    if(length(GroupVar) > 0L) {
+      dt2[, GroupVariables := do.call(paste, c(.SD, sep = ' :: ')), .SDcols = c(GroupVar, "Level")]
+      GroupVar <- "GroupVariables"
+      if(FacetRows > 1L && FacetCols > 1L) {
+        FacetLevels <- as.character(dt2[, unique(GroupVariables)])
+        FacetLevels <- FacetLevels[seq_len(min(length(FacetLevels),FacetRows*FacetCols))]
+        dt2 <- dt2[GroupVariables %chin% c(eval(FacetLevels))]
+      }
+    } else if(length(GroupVar) == 0L && (FacetRows > 1L || FacetCols > 1L)) {
+      FacetLevels <- yvar_levels[seq_len(min(length(yvar_levels), FacetRows * FacetCols))]
+      dt2 <- dt2[Level %chin% c(eval(FacetLevels))]
+      GroupVar <- "Level"
+    } else {
+      GroupVar <- "Level"
+    }
+
+  } else {
+    dt2 <- data.table::copy(dt)
+  }
+
+  # Data Prep1
+  # --- Data Prep: PR (Recall/Precision) ---
+  if (Debug) print("PR start")
+
+  make_dt <- function(x) data.table::rbindlist(x, use.names = TRUE, fill = TRUE)
+
+  if (!is.null(GroupVar) && length(GroupVar) > 0L) {
+    vals <- sort(unique(dt2[[GroupVar]]))
+    curve_rows <- vector("list", length(vals))
+    auc_rows   <- vector("list", length(vals))
+
+    for (i in seq_along(vals)) {
+      if (Debug) { print(i); print("PR group") }
+      temp <- dt2[get(GroupVar) == vals[i]]
+      PR   <- tryCatch(fastPR(temp[[XVar]], temp[[YVar]]),     error = function(e) NULL)
+      A    <- tryCatch(fastPRAUC(temp[[XVar]], temp[[YVar]]),  error = function(e) NA_real_)
+      if (is.null(PR)) next
+
+      curve_rows[[i]] <- data.table::data.table(
+        GroupLevels = vals[i],
+        Recall      = PR$recall,
+        Precision   = PR$precision
+      )
+      auc_rows[[i]] <- data.table::data.table(
+        GroupLevels = vals[i],
+        PRAUC = A
+      )
+    }
+
+    if (Debug) print("PR combine")
+    data <- make_dt(curve_rows)
+    AUC  <- make_dt(auc_rows)
+
+  } else {
+    PR  <- tryCatch(fastPR(dt2[[XVar]],  dt2[[YVar]]),    error = function(e) NULL)
+    AUC <- tryCatch(fastPRAUC(dt2[[XVar]], dt2[[YVar]]),  error = function(e) NA_real_)
+    data <- data.table::data.table(
+      GroupLevels = 0L,
+      Recall      = PR$recall,
+      Precision   = PR$precision
+    )
+  }
+
+  if(Debug) print("ROC 5")
+
+  # --- Data Prep2 (PR curves) ---
+  if (Debug) print("PR Plot Prep (AutoPlots::Plot.Line)")
+
+  # X/Y mapping for PR plots
+  data[, `1 - Recall` := 1 - Recall]
+  data[, Recall := NULL]
+  YVar <- "Precision"
+  XVar <- "1 - Recall"
+
+  # timeline flag & group var
+  tl <- if (!is.null(GroupVar) && length(GroupVar) > 0L) TimeLine else FALSE
+  gv <- if (!is.null(GroupVar) && length(GroupVar) > 0L) "GroupLevels" else NULL
+
+  # Build title and (optionally) per-group labels
+  if (data.table::is.data.table(AUC)) {
+    # Grouped case: AUC is a table with columns: GroupLevels, PRAUC
+    # Add a label per group if you want it in legends/facets
+    AUC[, Label := sprintf("%s (PR-AUC: %.1f%%)", as.character(GroupLevels), 100 * round(PRAUC, 3))]
+    data <- merge(data, AUC[, .(GroupLevels, Label)], by = "GroupLevels", all.x = TRUE)
+
+    # Title: generic, since AUC differs by group
+    title <- paste0(Title, ":\nPR-AUC by group")
+  } else {
+    # Non-grouped case: AUC is a single numeric
+    auc_val <- as.numeric(AUC)
+    title <- paste0(Title, ":\nPR-AUC: ", sprintf("%.1f%%", 100 * round(auc_val, 3)))
+  }
+
+  # Order for plotting (Recall should be non-decreasing)
+  if (!is.null(gv)) {
+    data.table::setorderv(data, c(gv, "1 - Recall"))
+  } else {
+    data.table::setorderv(data, "1 - Recall")
+  }
+
+  if (Debug) print("PR Plot Prep done")
+
+  # Build Plot (Line or Area)
+  if(length(GroupVar) > 0L && FacetRows == 1L && FacetCols == 1L) {
+    p1 <- AutoPlots::Plot.Line(
+      dt = data,
+      PreAgg = TRUE,
+      Smooth = TRUE,
+      Area = FALSE,
+      ShowSymbol = FALSE,
+      Alpha = 0.50,
+      EchartsTheme = EchartsTheme,
+      TimeLine = tl,
+      YVar = YVar,
+      XVar = XVar,
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
+      Height = Height,
+      Width = Width,
+      Title = title,
+      TextColor = TextColor,
+      Debug = Debug)
+
+  } else {
+    p1 <- AutoPlots::Plot.Area(
+      dt = data,
+      PreAgg = TRUE,
+      Smooth = TRUE,
+      ShowSymbol = FALSE,
+      Alpha = 0.50,
+      EchartsTheme = EchartsTheme,
+      TimeLine = tl,
+      YVar = YVar,
+      XVar = XVar,
+      GroupVar = gv,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetRows = FacetRows,
+      FacetCols = FacetCols,
+      FacetLevels = FacetLevels,
+      MouseScroll = MouseScroll,
+      Height = Height,
+      Width = Width,
+      Title = title,
+      TextColor = TextColor,
+      Debug = Debug)
+  }
+
+  # Return
+  return(p1)
+}
+
 #' @title Plot.ConfusionMatrix
 #'
 #' @description Generate variable importance plots

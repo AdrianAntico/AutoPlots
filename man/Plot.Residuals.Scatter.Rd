@@ -104,6 +104,7 @@ Other Model Evaluation:
 \code{\link{Plot.Residuals.Histogram}()},
 \code{\link{Plot.ShapImportance}()},
 \code{\link{Plot.VariableImportance}()},
+\code{\link{Plot.prROC}()},
 \code{\link{ROC}()},
 \code{\link{Residuals.Histogram}()},
 \code{\link{Residuals.Scatter}()},
