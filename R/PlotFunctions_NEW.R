@@ -754,7 +754,15 @@ Density <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -937,7 +945,15 @@ Density <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -2614,7 +2630,7 @@ Histogram <- function(dt = NULL,
 #'   Width = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
-#'   TimeLine = TRUE,
+#'   TimeLine = FALSE,
 #'   TextColor = "black",
 #'   Debug = FALSE)
 #'
@@ -2635,7 +2651,7 @@ Pie <- function(dt = NULL,
                 Width = NULL,
                 ShowLabels = FALSE,
                 Theme = "dark",
-                TimeLine = TRUE,
+                TimeLine = FALSE,
                 TextColor = "white",
                 title.text = "Pie Chart",
                 title.subtext = NULL,
@@ -2944,7 +2960,14 @@ Pie <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -3302,7 +3325,7 @@ Pie <- function(dt = NULL,
 #'   Width = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
-#'   TimeLine = TRUE,
+#'   TimeLine = FALSE,
 #'   TextColor = "black",
 #'   Debug = FALSE)
 #'
@@ -3323,7 +3346,7 @@ Donut <- function(dt = NULL,
                   Width = NULL,
                   ShowLabels = FALSE,
                   Theme = "dark",
-                  TimeLine = TRUE,
+                  TimeLine = FALSE,
                   TextColor = "white",
                   title.text = "Donut Plot",
                   title.subtext = NULL,
@@ -3636,7 +3659,14 @@ Donut <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -3994,7 +4024,7 @@ Donut <- function(dt = NULL,
 #'   Width = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
-#'   TimeLine = TRUE,
+#'   TimeLine = FALSE,
 #'   TextColor = "black",
 #'   Debug = FALSE)
 #'
@@ -4015,7 +4045,7 @@ Rosetype <- function(dt = NULL,
                      Width = NULL,
                      ShowLabels = FALSE,
                      Theme = "dark",
-                     TimeLine = TRUE,
+                     TimeLine = FALSE,
                      TextColor = "white",
                      title.text = "Rosetype Plot",
                      title.subtext = NULL,
@@ -4328,7 +4358,14 @@ Rosetype <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -5256,7 +5293,14 @@ Box <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     if(Debug) print("Box 14")
@@ -5444,7 +5488,14 @@ Box <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -5631,7 +5682,14 @@ Box <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -5811,7 +5869,14 @@ Box <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -7020,7 +7085,15 @@ Line <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- e_x_axis_full(
@@ -7266,7 +7339,15 @@ Line <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -7724,7 +7805,7 @@ Area <- function(dt = NULL,
                  areaStyle.opacity = NULL,
                  Theme = "dark",
                  MouseScroll = FALSE,
-                 TimeLine = TRUE,
+                 TimeLine = FALSE,
                  TextColor = "white",
                  ContainLabel = TRUE,
                  title.text = "Area Plot",
@@ -8157,7 +8238,16 @@ Area <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -8403,7 +8493,15 @@ Area <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -8910,7 +9008,7 @@ Step <- function(dt = NULL,
                  ShowLabels = FALSE,
                  Theme = "dark",
                  MouseScroll = FALSE,
-                 TimeLine = TRUE,
+                 TimeLine = FALSE,
                  ShowSymbol = FALSE,
                  TextColor = "white",
                  ContainLabel = TRUE,
@@ -9342,7 +9440,15 @@ Step <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -9585,7 +9691,15 @@ Step <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -10034,7 +10148,7 @@ River <- function(dt = NULL,
                   ShowLabels = FALSE,
                   Theme = "dark",
                   MouseScroll = FALSE,
-                  TimeLine = TRUE,
+                  TimeLine = FALSE,
                   ShowSymbol = FALSE,
                   TextColor = "white",
                   title.text = "River Plot",
@@ -10433,7 +10547,14 @@ River <- function(dt = NULL,
     tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
     tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+  p1$x$opts$toolbox$feature <- list(
+    dataZoom    = list(
+      show = TRUE,
+      title = list(zoom = "Zoom", back = "Reset Zoom")
+    ),
+    saveAsImage = list(show = TRUE, name = title.text)
+  )
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
 
@@ -10926,7 +11047,7 @@ River <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
-#'   TimeLine = TRUE,
+#'   TimeLine = FALSE,
 #'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
@@ -10950,7 +11071,7 @@ Bar <- function(dt = NULL,
                 ShowLabels = FALSE,
                 Theme = "dark",
                 MouseScroll = FALSE,
-                TimeLine = TRUE,
+                TimeLine = FALSE,
                 TextColor = "white",
                 ContainLabel = TRUE,
                 backgroundStyle.color = NULL,
@@ -11373,7 +11494,15 @@ Bar <- function(dt = NULL,
         tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
         tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
+      p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+      p1$x$opts$toolbox$feature <- list(
+        dataZoom    = list(
+          show = TRUE,
+          title = list(zoom = "Zoom", back = "Reset Zoom")
+        ),
+        magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+        saveAsImage = list(show = TRUE, name = title.text)
+      )
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_brush(e = p1)
       p1 <- e_title_full(
@@ -11671,7 +11800,15 @@ Bar <- function(dt = NULL,
         tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
         tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
+      p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+      p1$x$opts$toolbox$feature <- list(
+        dataZoom    = list(
+          show = TRUE,
+          title = list(zoom = "Zoom", back = "Reset Zoom")
+        ),
+        magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+        saveAsImage = list(show = TRUE, name = title.text)
+      )
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
       if(Debug) print("BarPlot 2.d")
@@ -11932,7 +12069,15 @@ Bar <- function(dt = NULL,
         tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
         tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
+      p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+      p1$x$opts$toolbox$feature <- list(
+        dataZoom    = list(
+          show = TRUE,
+          title = list(zoom = "Zoom", back = "Reset Zoom")
+        ),
+        magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+        saveAsImage = list(show = TRUE, name = title.text)
+      )
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
       p1 <- e_x_axis_full(
@@ -12194,7 +12339,15 @@ Bar <- function(dt = NULL,
         tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
         tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-      p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("magicType"), type = list("line","bar","stack"))
+      p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+      p1$x$opts$toolbox$feature <- list(
+        dataZoom    = list(
+          show = TRUE,
+          title = list(zoom = "Zoom", back = "Reset Zoom")
+        ),
+        magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+        saveAsImage = list(show = TRUE, name = title.text)
+      )
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
       p1 <- e_x_axis_full(
@@ -13068,7 +13221,15 @@ ACF <- function(dt = NULL,
     tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
     tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+  p1$x$opts$toolbox$feature <- list(
+    dataZoom    = list(
+      show = TRUE,
+      title = list(zoom = "Zoom", back = "Reset Zoom")
+    ),
+    magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+    saveAsImage = list(show = TRUE, name = title.text)
+  )
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- e_x_axis_full(
     e = p1,
@@ -13884,7 +14045,15 @@ PACF <- function(dt = NULL,
     tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
     tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+  p1$x$opts$toolbox$feature <- list(
+    dataZoom    = list(
+      show = TRUE,
+      title = list(zoom = "Zoom", back = "Reset Zoom")
+    ),
+    magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+    saveAsImage = list(show = TRUE, name = title.text)
+  )
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- e_x_axis_full(
     e = p1,
@@ -14316,7 +14485,7 @@ PACF <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
-#'   TimeLine = TRUE,
+#'   TimeLine = FALSE,
 #'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
@@ -14339,7 +14508,7 @@ StackedBar <- function(dt = NULL,
                        ShowLabels = FALSE,
                        Theme = "dark",
                        MouseScroll = FALSE,
-                       TimeLine = TRUE,
+                       TimeLine = FALSE,
                        TextColor = "white",
                        ContainLabel = TRUE,
                        title.text = "Stacked Bar Plot",
@@ -14772,7 +14941,15 @@ StackedBar <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -15690,7 +15867,14 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
@@ -16965,7 +17149,14 @@ HeatMap <- function(dt,
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -18204,7 +18395,14 @@ Radar <- function(dt = NULL,
     tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
     tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+  p1$x$opts$toolbox$feature <- list(
+    dataZoom    = list(
+      show = TRUE,
+      title = list(zoom = "Zoom", back = "Reset Zoom")
+    ),
+    saveAsImage = list(show = TRUE, name = title.text)
+  )
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
   p1 <- e_title_full(
@@ -19026,7 +19224,14 @@ CorrMatrix <- function(dt = NULL,
 
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+  p1$x$opts$toolbox$feature <- list(
+    dataZoom    = list(
+      show = TRUE,
+      title = list(zoom = "Zoom", back = "Reset Zoom")
+    ),
+    saveAsImage = list(show = TRUE, name = title.text)
+  )
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
   p1 <- e_title_full(
@@ -19807,7 +20012,14 @@ Parallel <- function(dt = NULL,
   }
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+  p1$x$opts$toolbox$feature <- list(
+    dataZoom    = list(
+      show = TRUE,
+      title = list(zoom = "Zoom", back = "Reset Zoom")
+    ),
+    saveAsImage = list(show = TRUE, name = title.text)
+  )
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
   p1 <- e_title_full(
@@ -20579,7 +20791,14 @@ Copula <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_legend_full(
@@ -20755,7 +20974,7 @@ Copula <- function(dt = NULL,
         dt1 |> dplyr::group_by(get(GroupVar[1L])),
         x = XVar,
         colorBy = GroupVar[1L],
-        timeline = TRUE,
+        TimeLine = FALSE,
         darkMode = TRUE,
         emphasis = list(focus = "series"),
         dispose = TRUE,
@@ -20823,7 +21042,14 @@ Copula <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -21742,7 +21968,14 @@ Copula3D <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -21851,7 +22084,14 @@ Copula3D <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -22682,7 +22922,14 @@ Scatter <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_legend_full(
@@ -22928,7 +23175,14 @@ Scatter <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     if(Debug) print("SCatter 7")
@@ -23811,7 +24065,14 @@ Scatter3D <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
@@ -23981,7 +24242,14 @@ Scatter3D <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
+    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
+    p1$x$opts$toolbox$feature <- list(
+      dataZoom    = list(
+        show = TRUE,
+        title = list(zoom = "Zoom", back = "Reset Zoom")
+      ),
+      saveAsImage = list(show = TRUE, name = title.text)
+    )
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -24776,7 +25044,7 @@ PartialDependence.Line <- function(dt = NULL,
                                         Theme = "dark",
                                         MouseScroll = FALSE,
                                         EchartsLabels = FALSE,
-                                        TimeLine = TRUE,
+                                        TimeLine = FALSE,
                                         TextColor = "white",
                                         Debug = FALSE) {
 
@@ -25018,7 +25286,7 @@ PartialDependence.Box <- function(dt = NULL,
                                        Theme = "dark",
                                        MouseScroll = FALSE,
                                        EchartsLabels = FALSE,
-                                       TimeLine = TRUE,
+                                       TimeLine = FALSE,
                                        TextColor = "white",
                                        Debug = FALSE) {
 
@@ -25126,7 +25394,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
                                            MouseScroll = FALSE,
                                            Theme = "dark",
                                            EchartsLabels = FALSE,
-                                           TimeLine = TRUE,
+                                           TimeLine = FALSE,
                                            TextColor = "white",
                                            Debug = FALSE) {
 
@@ -25225,7 +25493,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
         MouseScroll = MouseScroll,
         ShowLabels = ShowLabels,
         Theme = Theme,
-        TimeLine = TRUE,
+        TimeLine = FALSE,
         TextColor = "white",
         Debug = Debug)
       return(p1)
@@ -25348,7 +25616,7 @@ VariableImportance <- function(dt = NULL,
                                     Width = NULL,
                                     ShowLabels = FALSE,
                                     Theme = "dark",
-                                    TimeLine = TRUE,
+                                    TimeLine = FALSE,
                                     TextColor = "white",
                                     Debug = FALSE) {
 
@@ -25682,7 +25950,7 @@ ConfusionMatrix <- function(dt = NULL,
                                  ShowLabels = FALSE,
                                  Theme = "dark",
                                  MouseScroll = FALSE,
-                                 TimeLine = TRUE,
+                                 TimeLine = FALSE,
                                  TextColor = "white",
                                  AggMethod = "count",
                                  GroupVar = NULL,
@@ -25793,7 +26061,7 @@ Lift <- function(dt = NULL,
                       ShowLabels = FALSE,
                       Theme = "dark",
                       MouseScroll = FALSE,
-                      TimeLine = TRUE,
+                      TimeLine = FALSE,
                       TextColor = "white",
                       Debug = FALSE) {
 
@@ -26087,7 +26355,7 @@ Gains <- function(dt = NULL,
                        ShowLabels = FALSE,
                        Theme = "dark",
                        MouseScroll = FALSE,
-                       TimeLine = TRUE,
+                       TimeLine = FALSE,
                        TextColor = "white",
                        Debug = FALSE) {
 
@@ -26387,7 +26655,7 @@ BinaryMetricsPlot <- function(dt = NULL,
                                ShowLabels = FALSE,
                                Theme = "dark",
                                EchartsLabels = FALSE,
-                               TimeLine = TRUE,
+                               TimeLine = FALSE,
                                TextColor = "white",
                                Debug = FALSE) {
 
