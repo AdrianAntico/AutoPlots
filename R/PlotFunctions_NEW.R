@@ -332,7 +332,7 @@
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -674,7 +674,7 @@ Density <- function(dt = NULL,
                     toolbox.feature.dataView.show = TRUE,
                     toolbox.iconStyle.color = NULL,
                     toolbox.iconStyle.borderColor = NULL,
-                    toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                    toolbox.emphasis.iconStyle.borderColor = NULL,
                     toolbox.iconStyle.shadowBlur = NULL,
                     toolbox.iconStyle.shadowColor = NULL,
                     toolbox.iconStyle.shadowOffsetX = NULL,
@@ -813,7 +813,7 @@ Density <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -1077,7 +1077,7 @@ Density <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -1825,7 +1825,7 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -2163,7 +2163,7 @@ Histogram <- function(dt = NULL,
                       toolbox.feature.dataView.show = TRUE,
                       toolbox.iconStyle.color = NULL,
                       toolbox.iconStyle.borderColor = NULL,
-                      toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                      toolbox.emphasis.iconStyle.borderColor = NULL,
                       toolbox.iconStyle.shadowBlur = NULL,
                       toolbox.iconStyle.shadowColor = NULL,
                       toolbox.iconStyle.shadowOffsetX = NULL,
@@ -2800,7 +2800,7 @@ Histogram <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -3059,7 +3059,7 @@ Pie <- function(dt = NULL,
                 toolbox.feature.dataView.show = TRUE,
                 toolbox.iconStyle.color = NULL,
                 toolbox.iconStyle.borderColor = NULL,
-                toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                toolbox.emphasis.iconStyle.borderColor = NULL,
                 toolbox.iconStyle.shadowBlur = NULL,
                 toolbox.iconStyle.shadowColor = NULL,
                 toolbox.iconStyle.shadowOffsetX = NULL,
@@ -3201,7 +3201,7 @@ Pie <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -3558,7 +3558,7 @@ Pie <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -3818,7 +3818,7 @@ Donut <- function(dt = NULL,
                   toolbox.feature.dataView.show = TRUE,
                   toolbox.iconStyle.color = NULL,
                   toolbox.iconStyle.borderColor = NULL,
-                  toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                  toolbox.emphasis.iconStyle.borderColor = NULL,
                   toolbox.iconStyle.shadowBlur = NULL,
                   toolbox.iconStyle.shadowColor = NULL,
                   toolbox.iconStyle.shadowOffsetX = NULL,
@@ -3964,7 +3964,7 @@ Donut <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -4322,7 +4322,7 @@ Donut <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -4581,7 +4581,7 @@ Rosetype <- function(dt = NULL,
                      toolbox.feature.dataView.show = TRUE,
                      toolbox.iconStyle.color = NULL,
                      toolbox.iconStyle.borderColor = NULL,
-                     toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                     toolbox.emphasis.iconStyle.borderColor = NULL,
                      toolbox.iconStyle.shadowBlur = NULL,
                      toolbox.iconStyle.shadowColor = NULL,
                      toolbox.iconStyle.shadowOffsetX = NULL,
@@ -4727,7 +4727,7 @@ Rosetype <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -5178,7 +5178,7 @@ Rosetype <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -5530,7 +5530,7 @@ Box <- function(dt = NULL,
                 toolbox.feature.dataView.show = TRUE,
                 toolbox.iconStyle.color = NULL,
                 toolbox.iconStyle.borderColor = NULL,
-                toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                toolbox.emphasis.iconStyle.borderColor = NULL,
                 toolbox.iconStyle.shadowBlur = NULL,
                 toolbox.iconStyle.shadowColor = NULL,
                 toolbox.iconStyle.shadowOffsetX = NULL,
@@ -5726,7 +5726,7 @@ Box <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -5939,7 +5939,7 @@ Box <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -6151,7 +6151,7 @@ Box <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -6356,7 +6356,7 @@ Box <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -7119,7 +7119,7 @@ WordCloud <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -7459,7 +7459,7 @@ Line <- function(dt = NULL,
                  toolbox.feature.dataView.show = TRUE,
                  toolbox.iconStyle.color = NULL,
                  toolbox.iconStyle.borderColor = NULL,
-                 toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                 toolbox.emphasis.iconStyle.borderColor = NULL,
                  toolbox.iconStyle.shadowBlur = NULL,
                  toolbox.iconStyle.shadowColor = NULL,
                  toolbox.iconStyle.shadowOffsetX = NULL,
@@ -7636,7 +7636,7 @@ Line <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -7907,7 +7907,7 @@ Line <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -8345,7 +8345,7 @@ Line <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -8686,7 +8686,7 @@ Area <- function(dt = NULL,
                  toolbox.feature.dataView.show = TRUE,
                  toolbox.iconStyle.color = NULL,
                  toolbox.iconStyle.borderColor = NULL,
-                 toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                 toolbox.emphasis.iconStyle.borderColor = NULL,
                  toolbox.iconStyle.shadowBlur = NULL,
                  toolbox.iconStyle.shadowColor = NULL,
                  toolbox.iconStyle.shadowOffsetX = NULL,
@@ -8869,7 +8869,7 @@ Area <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -9140,7 +9140,7 @@ Area <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -9631,7 +9631,7 @@ Area <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -9969,7 +9969,7 @@ Step <- function(dt = NULL,
                  toolbox.feature.dataView.show = TRUE,
                  toolbox.iconStyle.color = NULL,
                  toolbox.iconStyle.borderColor = NULL,
-                 toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                 toolbox.emphasis.iconStyle.borderColor = NULL,
                  toolbox.iconStyle.shadowBlur = NULL,
                  toolbox.iconStyle.shadowColor = NULL,
                  toolbox.iconStyle.shadowOffsetX = NULL,
@@ -10150,7 +10150,7 @@ Step <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -10418,7 +10418,7 @@ Step <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -10850,7 +10850,7 @@ Step <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -11188,7 +11188,7 @@ River <- function(dt = NULL,
                   toolbox.feature.dataView.show = TRUE,
                   toolbox.iconStyle.color = NULL,
                   toolbox.iconStyle.borderColor = NULL,
-                  toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                  toolbox.emphasis.iconStyle.borderColor = NULL,
                   toolbox.iconStyle.shadowBlur = NULL,
                   toolbox.iconStyle.shadowColor = NULL,
                   toolbox.iconStyle.shadowOffsetX = NULL,
@@ -11337,7 +11337,7 @@ River <- function(dt = NULL,
     toolbox.feature.dataView.show = toolbox.feature.dataView.show,
     toolbox.iconStyle.color = toolbox.iconStyle.color,
     toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
     toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
     toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -11828,7 +11828,7 @@ River <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -12177,7 +12177,7 @@ Bar <- function(dt = NULL,
                 toolbox.feature.dataView.show = TRUE,
                 toolbox.iconStyle.color = NULL,
                 toolbox.iconStyle.borderColor = NULL,
-                toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                toolbox.emphasis.iconStyle.borderColor = NULL,
                 toolbox.iconStyle.shadowBlur = NULL,
                 toolbox.iconStyle.shadowColor = NULL,
                 toolbox.iconStyle.shadowOffsetX = NULL,
@@ -12348,7 +12348,7 @@ Bar <- function(dt = NULL,
         toolbox.feature.dataView.show = toolbox.feature.dataView.show,
         toolbox.iconStyle.color = toolbox.iconStyle.color,
         toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-        toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+        toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
         toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
         toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
         toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -12671,7 +12671,7 @@ Bar <- function(dt = NULL,
         toolbox.feature.dataView.show = toolbox.feature.dataView.show,
         toolbox.iconStyle.color = toolbox.iconStyle.color,
         toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-        toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+        toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
         toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
         toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
         toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -12957,7 +12957,7 @@ Bar <- function(dt = NULL,
         toolbox.feature.dataView.show = toolbox.feature.dataView.show,
         toolbox.iconStyle.color = toolbox.iconStyle.color,
         toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-        toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+        toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
         toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
         toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
         toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -13244,7 +13244,7 @@ Bar <- function(dt = NULL,
         toolbox.feature.dataView.show = toolbox.feature.dataView.show,
         toolbox.iconStyle.color = toolbox.iconStyle.color,
         toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-        toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+        toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
         toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
         toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
         toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -13736,7 +13736,7 @@ Bar <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -14046,7 +14046,7 @@ ACF <- function(dt = NULL,
                 toolbox.feature.dataView.show = TRUE,
                 toolbox.iconStyle.color = NULL,
                 toolbox.iconStyle.borderColor = NULL,
-                toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                toolbox.emphasis.iconStyle.borderColor = NULL,
                 toolbox.iconStyle.shadowBlur = NULL,
                 toolbox.iconStyle.shadowColor = NULL,
                 toolbox.iconStyle.shadowOffsetX = NULL,
@@ -14189,7 +14189,7 @@ ACF <- function(dt = NULL,
     toolbox.feature.dataView.show = toolbox.feature.dataView.show,
     toolbox.iconStyle.color = toolbox.iconStyle.color,
     toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
     toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
     toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -14613,7 +14613,7 @@ ACF <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -14923,7 +14923,7 @@ PACF <- function(dt = NULL,
                  toolbox.feature.dataView.show = TRUE,
                  toolbox.iconStyle.color = NULL,
                  toolbox.iconStyle.borderColor = NULL,
-                 toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                 toolbox.emphasis.iconStyle.borderColor = NULL,
                  toolbox.iconStyle.shadowBlur = NULL,
                  toolbox.iconStyle.shadowColor = NULL,
                  toolbox.iconStyle.shadowOffsetX = NULL,
@@ -15076,7 +15076,7 @@ PACF <- function(dt = NULL,
     toolbox.feature.dataView.show = toolbox.feature.dataView.show,
     toolbox.iconStyle.color = toolbox.iconStyle.color,
     toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
     toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
     toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -15507,7 +15507,7 @@ PACF <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -15852,7 +15852,7 @@ StackedBar <- function(dt = NULL,
                        toolbox.feature.dataView.show = TRUE,
                        toolbox.iconStyle.color = NULL,
                        toolbox.iconStyle.borderColor = NULL,
-                       toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                       toolbox.emphasis.iconStyle.borderColor = NULL,
                        toolbox.iconStyle.shadowBlur = NULL,
                        toolbox.iconStyle.shadowColor = NULL,
                        toolbox.iconStyle.shadowOffsetX = NULL,
@@ -16035,7 +16035,7 @@ StackedBar <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -16533,7 +16533,7 @@ StackedBar <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -16884,7 +16884,7 @@ BarPlot3D <- function(dt,
                       toolbox.feature.dataView.show = TRUE,
                       toolbox.iconStyle.color = NULL,
                       toolbox.iconStyle.borderColor = NULL,
-                      toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                      toolbox.emphasis.iconStyle.borderColor = NULL,
                       toolbox.iconStyle.shadowBlur = NULL,
                       toolbox.iconStyle.shadowColor = NULL,
                       toolbox.iconStyle.shadowOffsetX = NULL,
@@ -17025,7 +17025,7 @@ BarPlot3D <- function(dt,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -17891,7 +17891,7 @@ BarPlot3D <- function(dt,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -18240,7 +18240,7 @@ HeatMap <- function(dt,
                     toolbox.feature.dataView.show = TRUE,
                     toolbox.iconStyle.color = NULL,
                     toolbox.iconStyle.borderColor = NULL,
-                    toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                    toolbox.emphasis.iconStyle.borderColor = NULL,
                     toolbox.iconStyle.shadowBlur = NULL,
                     toolbox.iconStyle.shadowColor = NULL,
                     toolbox.iconStyle.shadowOffsetX = NULL,
@@ -18372,7 +18372,7 @@ HeatMap <- function(dt,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -19312,7 +19312,7 @@ HeatMap <- function(dt,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -19565,7 +19565,7 @@ Radar <- function(dt = NULL,
                   toolbox.feature.dataView.show = TRUE,
                   toolbox.iconStyle.color = NULL,
                   toolbox.iconStyle.borderColor = NULL,
-                  toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                  toolbox.emphasis.iconStyle.borderColor = NULL,
                   toolbox.iconStyle.shadowBlur = NULL,
                   toolbox.iconStyle.shadowColor = NULL,
                   toolbox.iconStyle.shadowOffsetX = NULL,
@@ -19682,7 +19682,7 @@ Radar <- function(dt = NULL,
     toolbox.feature.dataView.show = toolbox.feature.dataView.show,
     toolbox.iconStyle.color = toolbox.iconStyle.color,
     toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
     toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
     toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -20127,7 +20127,7 @@ Radar <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -20470,7 +20470,7 @@ CorrMatrix <- function(dt = NULL,
                        toolbox.feature.dataView.show = TRUE,
                        toolbox.iconStyle.color = NULL,
                        toolbox.iconStyle.borderColor = NULL,
-                       toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                       toolbox.emphasis.iconStyle.borderColor = NULL,
                        toolbox.iconStyle.shadowBlur = NULL,
                        toolbox.iconStyle.shadowColor = NULL,
                        toolbox.iconStyle.shadowOffsetX = NULL,
@@ -20576,7 +20576,7 @@ CorrMatrix <- function(dt = NULL,
     toolbox.feature.dataView.show = toolbox.feature.dataView.show,
     toolbox.iconStyle.color = toolbox.iconStyle.color,
     toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
     toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
     toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -20954,7 +20954,7 @@ CorrMatrix <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -21291,7 +21291,7 @@ Parallel <- function(dt = NULL,
                      toolbox.feature.dataView.show = TRUE,
                      toolbox.iconStyle.color = NULL,
                      toolbox.iconStyle.borderColor = NULL,
-                     toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                     toolbox.emphasis.iconStyle.borderColor = NULL,
                      toolbox.iconStyle.shadowBlur = NULL,
                      toolbox.iconStyle.shadowColor = NULL,
                      toolbox.iconStyle.shadowOffsetX = NULL,
@@ -21429,7 +21429,7 @@ Parallel <- function(dt = NULL,
     toolbox.feature.dataView.show = toolbox.feature.dataView.show,
     toolbox.iconStyle.color = toolbox.iconStyle.color,
     toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
     toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
     toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -21813,7 +21813,7 @@ Parallel <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -22158,7 +22158,7 @@ Copula <- function(dt = NULL,
                    toolbox.feature.dataView.show = TRUE,
                    toolbox.iconStyle.color = NULL,
                    toolbox.iconStyle.borderColor = NULL,
-                   toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                   toolbox.emphasis.iconStyle.borderColor = NULL,
                    toolbox.iconStyle.shadowBlur = NULL,
                    toolbox.iconStyle.shadowColor = NULL,
                    toolbox.iconStyle.shadowOffsetX = NULL,
@@ -22272,7 +22272,7 @@ Copula <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -22541,7 +22541,7 @@ Copula <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -23036,7 +23036,7 @@ Copula <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -23382,7 +23382,7 @@ Copula3D <- function(dt = NULL,
                      toolbox.feature.dataView.show = TRUE,
                      toolbox.iconStyle.color = NULL,
                      toolbox.iconStyle.borderColor = NULL,
-                     toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                     toolbox.emphasis.iconStyle.borderColor = NULL,
                      toolbox.iconStyle.shadowBlur = NULL,
                      toolbox.iconStyle.shadowColor = NULL,
                      toolbox.iconStyle.shadowOffsetX = NULL,
@@ -23531,7 +23531,7 @@ Copula3D <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -23665,7 +23665,7 @@ Copula3D <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -24102,7 +24102,7 @@ Copula3D <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -24448,7 +24448,7 @@ Scatter <- function(dt = NULL,
                     toolbox.feature.dataView.show = TRUE,
                     toolbox.iconStyle.color = NULL,
                     toolbox.iconStyle.borderColor = NULL,
-                    toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                    toolbox.emphasis.iconStyle.borderColor = NULL,
                     toolbox.iconStyle.shadowBlur = NULL,
                     toolbox.iconStyle.shadowColor = NULL,
                     toolbox.iconStyle.shadowOffsetX = NULL,
@@ -24567,7 +24567,7 @@ Scatter <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -24838,7 +24838,7 @@ Scatter <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -25337,7 +25337,7 @@ Scatter <- function(dt = NULL,
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -25683,7 +25683,7 @@ Scatter3D <- function(dt = NULL,
                       toolbox.feature.dataView.show = TRUE,
                       toolbox.iconStyle.color = NULL,
                       toolbox.iconStyle.borderColor = NULL,
-                      toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                      toolbox.emphasis.iconStyle.borderColor = NULL,
                       toolbox.iconStyle.shadowBlur = NULL,
                       toolbox.iconStyle.shadowColor = NULL,
                       toolbox.iconStyle.shadowOffsetX = NULL,
@@ -25792,7 +25792,7 @@ Scatter3D <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
@@ -25987,7 +25987,7 @@ Scatter3D <- function(dt = NULL,
       toolbox.feature.dataView.show = toolbox.feature.dataView.show,
       toolbox.iconStyle.color = toolbox.iconStyle.color,
       toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
       toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
       toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,

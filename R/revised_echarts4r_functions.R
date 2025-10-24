@@ -1047,7 +1047,7 @@ e_legend_full <- function(
 #' @param toolbox.feature.dataView.show logical
 #' @param toolbox.iconStyle.color hex
 #' @param toolbox.iconStyle.borderColor hex
-#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.emphasis.iconStyle.borderColor hex
 #' @param toolbox.iconStyle.shadowBlur numeric
 #' @param toolbox.iconStyle.shadowColor hex
 #' @param toolbox.iconStyle.shadowOffsetX numeric
@@ -1074,7 +1074,7 @@ e_toolbox_full <- function(
     toolbox.feature.dataView.show = TRUE,
     toolbox.iconStyle.color = NULL,
     toolbox.iconStyle.borderColor = NULL,
-    toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+    toolbox.emphasis.iconStyle.borderColor = NULL,
     toolbox.iconStyle.shadowBlur = NULL,
     toolbox.iconStyle.shadowColor = NULL,
     toolbox.iconStyle.shadowOffsetX = NULL,
@@ -1131,7 +1131,7 @@ e_toolbox_full <- function(
   p1$x$opts$toolbox$width <- toolbox.width
   p1$x$opts$toolbox$heigth <- toolbox.heigth
   p1$x$opts$toolbox$iconStyle <- is
-  p1$x$opts$toolbox$emphasis$iconStyle = .compact(list(borderColor = toolbox.feature.emphasis.iconStyle.borderColor))
+  p1$x$opts$toolbox$emphasis$iconStyle = .compact(list(borderColor = toolbox.emphasis.iconStyle.borderColor))
   p1
 }
 

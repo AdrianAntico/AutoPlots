@@ -314,7 +314,7 @@ River(
   toolbox.feature.dataView.show = TRUE,
   toolbox.iconStyle.color = NULL,
   toolbox.iconStyle.borderColor = NULL,
-  toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+  toolbox.emphasis.iconStyle.borderColor = NULL,
   toolbox.iconStyle.shadowBlur = NULL,
   toolbox.iconStyle.shadowColor = NULL,
   toolbox.iconStyle.shadowOffsetX = NULL,
@@ -941,7 +941,7 @@ River(
 
 \item{toolbox.iconStyle.borderColor}{hex}
 
-\item{toolbox.feature.emphasis.iconStyle.borderColor}{hex}
+\item{toolbox.emphasis.iconStyle.borderColor}{hex}
 
 \item{toolbox.iconStyle.shadowBlur}{numeric}
 
