@@ -1113,9 +1113,9 @@ e_toolbox_full <- function(
   )
 
   p1$x$opts$toolbox$feature <- .compact(list(
-    saveAsImage = .compact(list(show = toolbox.feature.saveAsImage.show)),
-    restore = .compact(list(show = toolbox.feature.restore.show)),
     dataZoom = dz,
+    restore = .compact(list(show = toolbox.feature.restore.show)),
+    saveAsImage = .compact(list(show = toolbox.feature.saveAsImage.show)),
     magicType = mt,
     dataView = dv
   ))
