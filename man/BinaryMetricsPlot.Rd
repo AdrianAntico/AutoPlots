@@ -29,7 +29,7 @@ BinaryMetricsPlot(
   ShowLabels = FALSE,
   Theme = "dark",
   EchartsLabels = FALSE,
-  TimeLine = TRUE,
+  TimeLine = FALSE,
   TextColor = "white",
   Debug = FALSE
 )

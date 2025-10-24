@@ -24,7 +24,7 @@ ConfusionMatrix(
   ShowLabels = FALSE,
   Theme = "dark",
   MouseScroll = FALSE,
-  TimeLine = TRUE,
+  TimeLine = FALSE,
   TextColor = "white",
   AggMethod = "count",
   GroupVar = NULL,

@@ -314,6 +314,29 @@
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -633,6 +656,29 @@ Density <- function(dt = NULL,
                     tooltip.textStyle.textShadowBlur = NULL,
                     tooltip.textStyle.textShadowOffsetX = NULL,
                     tooltip.textStyle.textShadowOffsetY = NULL,
+                    toolbox.show = TRUE,
+                    toolbox.orient = "horizontal",
+                    toolbox.itemSize = 15,
+                    toolbox.itemGap = 8,
+                    toolbox.top = NULL,
+                    toolbox.left = NULL,
+                    toolbox.right = NULL,
+                    toolbox.bottom = NULL,
+                    toolbox.width = NULL,
+                    toolbox.heigth = NULL,
+                    toolbox.feature.saveAsImage.show = TRUE,
+                    toolbox.feature.restore.show = TRUE,
+                    toolbox.feature.dataZoom.show = TRUE,
+                    toolbox.feature.magicType.show = TRUE,
+                    toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                    toolbox.feature.dataView.show = TRUE,
+                    toolbox.iconStyle.color = NULL,
+                    toolbox.iconStyle.borderColor = NULL,
+                    toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                    toolbox.iconStyle.shadowBlur = NULL,
+                    toolbox.iconStyle.shadowColor = NULL,
+                    toolbox.iconStyle.shadowOffsetX = NULL,
+                    toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
 
   # Cap number of records
@@ -702,13 +748,6 @@ Density <- function(dt = NULL,
       width = Width,
       height = Height)
 
-    # p1 <- echarts4r::e_density_(
-    #   e = p1,
-    #   XVar,
-    #   areaStyle = list(opacity = Opacity),
-    #   smooth = TRUE,
-    #   y_index = 0,
-    #   label = list(show = ShowLabels))
     p1 <- e_density_full(
       e = p1,
       serie = XVar,
@@ -754,15 +793,32 @@ Density <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -869,6 +925,62 @@ Density <- function(dt = NULL,
       title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
       title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
+    p1 <- e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
     return(p1)
 
   } else {
@@ -945,15 +1057,32 @@ Density <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -1678,6 +1807,29 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -1993,6 +2145,29 @@ Histogram <- function(dt = NULL,
                       tooltip.textStyle.textShadowBlur = NULL,
                       tooltip.textStyle.textShadowOffsetX = NULL,
                       tooltip.textStyle.textShadowOffsetY = NULL,
+                      toolbox.show = TRUE,
+                      toolbox.orient = "horizontal",
+                      toolbox.itemSize = 15,
+                      toolbox.itemGap = 8,
+                      toolbox.top = NULL,
+                      toolbox.left = NULL,
+                      toolbox.right = NULL,
+                      toolbox.bottom = NULL,
+                      toolbox.width = NULL,
+                      toolbox.heigth = NULL,
+                      toolbox.feature.saveAsImage.show = TRUE,
+                      toolbox.feature.restore.show = TRUE,
+                      toolbox.feature.dataZoom.show = TRUE,
+                      toolbox.feature.magicType.show = TRUE,
+                      toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                      toolbox.feature.dataView.show = TRUE,
+                      toolbox.iconStyle.color = NULL,
+                      toolbox.iconStyle.borderColor = NULL,
+                      toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                      toolbox.iconStyle.shadowBlur = NULL,
+                      toolbox.iconStyle.shadowColor = NULL,
+                      toolbox.iconStyle.shadowOffsetX = NULL,
+                      toolbox.iconStyle.shadowOffsetY = NULL,
                       Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -2607,6 +2782,29 @@ Histogram <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -2843,6 +3041,29 @@ Pie <- function(dt = NULL,
                 tooltip.textStyle.textShadowBlur = NULL,
                 tooltip.textStyle.textShadowOffsetX = NULL,
                 tooltip.textStyle.textShadowOffsetY = NULL,
+                toolbox.show = TRUE,
+                toolbox.orient = "horizontal",
+                toolbox.itemSize = 15,
+                toolbox.itemGap = 8,
+                toolbox.top = NULL,
+                toolbox.left = NULL,
+                toolbox.right = NULL,
+                toolbox.bottom = NULL,
+                toolbox.width = NULL,
+                toolbox.heigth = NULL,
+                toolbox.feature.saveAsImage.show = TRUE,
+                toolbox.feature.restore.show = TRUE,
+                toolbox.feature.dataZoom.show = TRUE,
+                toolbox.feature.magicType.show = TRUE,
+                toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                toolbox.feature.dataView.show = TRUE,
+                toolbox.iconStyle.color = NULL,
+                toolbox.iconStyle.borderColor = NULL,
+                toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                toolbox.iconStyle.shadowBlur = NULL,
+                toolbox.iconStyle.shadowColor = NULL,
+                toolbox.iconStyle.shadowOffsetX = NULL,
+                toolbox.iconStyle.shadowOffsetY = NULL,
                 Debug = FALSE) {
 
   if(length(YVar) > 0L) YVar <- YVar[1L]
@@ -2960,14 +3181,32 @@ Pie <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -3301,6 +3540,29 @@ Pie <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -3538,6 +3800,29 @@ Donut <- function(dt = NULL,
                   tooltip.textStyle.textShadowBlur = NULL,
                   tooltip.textStyle.textShadowOffsetX = NULL,
                   tooltip.textStyle.textShadowOffsetY = NULL,
+                  toolbox.show = TRUE,
+                  toolbox.orient = "horizontal",
+                  toolbox.itemSize = 15,
+                  toolbox.itemGap = 8,
+                  toolbox.top = NULL,
+                  toolbox.left = NULL,
+                  toolbox.right = NULL,
+                  toolbox.bottom = NULL,
+                  toolbox.width = NULL,
+                  toolbox.heigth = NULL,
+                  toolbox.feature.saveAsImage.show = TRUE,
+                  toolbox.feature.restore.show = TRUE,
+                  toolbox.feature.dataZoom.show = TRUE,
+                  toolbox.feature.magicType.show = TRUE,
+                  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                  toolbox.feature.dataView.show = TRUE,
+                  toolbox.iconStyle.color = NULL,
+                  toolbox.iconStyle.borderColor = NULL,
+                  toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                  toolbox.iconStyle.shadowBlur = NULL,
+                  toolbox.iconStyle.shadowColor = NULL,
+                  toolbox.iconStyle.shadowOffsetX = NULL,
+                  toolbox.iconStyle.shadowOffsetY = NULL,
                   Debug = FALSE) {
 
   if(length(YVar) > 0L) YVar <- YVar[1L]
@@ -3659,14 +3944,32 @@ Donut <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -4001,6 +4304,29 @@ Donut <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -4237,6 +4563,29 @@ Rosetype <- function(dt = NULL,
                      tooltip.textStyle.textShadowBlur = NULL,
                      tooltip.textStyle.textShadowOffsetX = NULL,
                      tooltip.textStyle.textShadowOffsetY = NULL,
+                     toolbox.show = TRUE,
+                     toolbox.orient = "horizontal",
+                     toolbox.itemSize = 15,
+                     toolbox.itemGap = 8,
+                     toolbox.top = NULL,
+                     toolbox.left = NULL,
+                     toolbox.right = NULL,
+                     toolbox.bottom = NULL,
+                     toolbox.width = NULL,
+                     toolbox.heigth = NULL,
+                     toolbox.feature.saveAsImage.show = TRUE,
+                     toolbox.feature.restore.show = TRUE,
+                     toolbox.feature.dataZoom.show = TRUE,
+                     toolbox.feature.magicType.show = TRUE,
+                     toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                     toolbox.feature.dataView.show = TRUE,
+                     toolbox.iconStyle.color = NULL,
+                     toolbox.iconStyle.borderColor = NULL,
+                     toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                     toolbox.iconStyle.shadowBlur = NULL,
+                     toolbox.iconStyle.shadowColor = NULL,
+                     toolbox.iconStyle.shadowOffsetX = NULL,
+                     toolbox.iconStyle.shadowOffsetY = NULL,
                      Debug = FALSE) {
 
   if(length(YVar) > 0L) YVar <- YVar[1L]
@@ -4358,14 +4707,32 @@ Rosetype <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -4793,6 +5160,29 @@ Rosetype <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -5122,6 +5512,29 @@ Box <- function(dt = NULL,
                 tooltip.textStyle.textShadowBlur = NULL,
                 tooltip.textStyle.textShadowOffsetX = NULL,
                 tooltip.textStyle.textShadowOffsetY = NULL,
+                toolbox.show = TRUE,
+                toolbox.orient = "horizontal",
+                toolbox.itemSize = 15,
+                toolbox.itemGap = 8,
+                toolbox.top = NULL,
+                toolbox.left = NULL,
+                toolbox.right = NULL,
+                toolbox.bottom = NULL,
+                toolbox.width = NULL,
+                toolbox.heigth = NULL,
+                toolbox.feature.saveAsImage.show = TRUE,
+                toolbox.feature.restore.show = TRUE,
+                toolbox.feature.dataZoom.show = TRUE,
+                toolbox.feature.magicType.show = TRUE,
+                toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                toolbox.feature.dataView.show = TRUE,
+                toolbox.iconStyle.color = NULL,
+                toolbox.iconStyle.borderColor = NULL,
+                toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                toolbox.iconStyle.shadowBlur = NULL,
+                toolbox.iconStyle.shadowColor = NULL,
+                toolbox.iconStyle.shadowOffsetX = NULL,
+                toolbox.iconStyle.shadowOffsetY = NULL,
                 Debug = FALSE) {
 
   if(Debug) print("Box 1")
@@ -5293,14 +5706,32 @@ Box <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     if(Debug) print("Box 14")
@@ -5488,14 +5919,32 @@ Box <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -5682,14 +6131,32 @@ Box <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -5869,14 +6336,32 @@ Box <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -6616,6 +7101,29 @@ WordCloud <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -6933,6 +7441,29 @@ Line <- function(dt = NULL,
                  tooltip.textStyle.textShadowBlur = NULL,
                  tooltip.textStyle.textShadowOffsetX = NULL,
                  tooltip.textStyle.textShadowOffsetY = NULL,
+                 toolbox.show = TRUE,
+                 toolbox.orient = "horizontal",
+                 toolbox.itemSize = 15,
+                 toolbox.itemGap = 8,
+                 toolbox.top = NULL,
+                 toolbox.left = NULL,
+                 toolbox.right = NULL,
+                 toolbox.bottom = NULL,
+                 toolbox.width = NULL,
+                 toolbox.heigth = NULL,
+                 toolbox.feature.saveAsImage.show = TRUE,
+                 toolbox.feature.restore.show = TRUE,
+                 toolbox.feature.dataZoom.show = TRUE,
+                 toolbox.feature.magicType.show = TRUE,
+                 toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                 toolbox.feature.dataView.show = TRUE,
+                 toolbox.iconStyle.color = NULL,
+                 toolbox.iconStyle.borderColor = NULL,
+                 toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                 toolbox.iconStyle.shadowBlur = NULL,
+                 toolbox.iconStyle.shadowColor = NULL,
+                 toolbox.iconStyle.shadowOffsetX = NULL,
+                 toolbox.iconStyle.shadowOffsetY = NULL,
                  Debug = FALSE) {
 
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
@@ -7085,15 +7616,32 @@ Line <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- e_x_axis_full(
@@ -7339,15 +7887,32 @@ Line <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -7762,6 +8327,29 @@ Line <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -8080,6 +8668,29 @@ Area <- function(dt = NULL,
                  tooltip.textStyle.textShadowBlur = NULL,
                  tooltip.textStyle.textShadowOffsetX = NULL,
                  tooltip.textStyle.textShadowOffsetY = NULL,
+                 toolbox.show = TRUE,
+                 toolbox.orient = "horizontal",
+                 toolbox.itemSize = 15,
+                 toolbox.itemGap = 8,
+                 toolbox.top = NULL,
+                 toolbox.left = NULL,
+                 toolbox.right = NULL,
+                 toolbox.bottom = NULL,
+                 toolbox.width = NULL,
+                 toolbox.heigth = NULL,
+                 toolbox.feature.saveAsImage.show = TRUE,
+                 toolbox.feature.restore.show = TRUE,
+                 toolbox.feature.dataZoom.show = TRUE,
+                 toolbox.feature.magicType.show = TRUE,
+                 toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                 toolbox.feature.dataView.show = TRUE,
+                 toolbox.iconStyle.color = NULL,
+                 toolbox.iconStyle.borderColor = NULL,
+                 toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                 toolbox.iconStyle.shadowBlur = NULL,
+                 toolbox.iconStyle.shadowColor = NULL,
+                 toolbox.iconStyle.shadowOffsetX = NULL,
+                 toolbox.iconStyle.shadowOffsetY = NULL,
                  Debug = FALSE) {
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
@@ -8238,15 +8849,31 @@ Area <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -8493,15 +9120,32 @@ Area <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -8969,6 +9613,29 @@ Area <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -9284,6 +9951,29 @@ Step <- function(dt = NULL,
                  tooltip.textStyle.textShadowBlur = NULL,
                  tooltip.textStyle.textShadowOffsetX = NULL,
                  tooltip.textStyle.textShadowOffsetY = NULL,
+                 toolbox.show = TRUE,
+                 toolbox.orient = "horizontal",
+                 toolbox.itemSize = 15,
+                 toolbox.itemGap = 8,
+                 toolbox.top = NULL,
+                 toolbox.left = NULL,
+                 toolbox.right = NULL,
+                 toolbox.bottom = NULL,
+                 toolbox.width = NULL,
+                 toolbox.heigth = NULL,
+                 toolbox.feature.saveAsImage.show = TRUE,
+                 toolbox.feature.restore.show = TRUE,
+                 toolbox.feature.dataZoom.show = TRUE,
+                 toolbox.feature.magicType.show = TRUE,
+                 toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                 toolbox.feature.dataView.show = TRUE,
+                 toolbox.iconStyle.color = NULL,
+                 toolbox.iconStyle.borderColor = NULL,
+                 toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                 toolbox.iconStyle.shadowBlur = NULL,
+                 toolbox.iconStyle.shadowColor = NULL,
+                 toolbox.iconStyle.shadowOffsetX = NULL,
+                 toolbox.iconStyle.shadowOffsetY = NULL,
                  Debug = FALSE) {
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
@@ -9440,15 +10130,32 @@ Step <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -9691,15 +10398,32 @@ Step <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
@@ -10108,6 +10832,29 @@ Step <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -10423,6 +11170,29 @@ River <- function(dt = NULL,
                   tooltip.textStyle.textShadowBlur = NULL,
                   tooltip.textStyle.textShadowOffsetX = NULL,
                   tooltip.textStyle.textShadowOffsetY = NULL,
+                  toolbox.show = TRUE,
+                  toolbox.orient = "horizontal",
+                  toolbox.itemSize = 15,
+                  toolbox.itemGap = 8,
+                  toolbox.top = NULL,
+                  toolbox.left = NULL,
+                  toolbox.right = NULL,
+                  toolbox.bottom = NULL,
+                  toolbox.width = NULL,
+                  toolbox.heigth = NULL,
+                  toolbox.feature.saveAsImage.show = TRUE,
+                  toolbox.feature.restore.show = TRUE,
+                  toolbox.feature.dataZoom.show = TRUE,
+                  toolbox.feature.magicType.show = TRUE,
+                  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                  toolbox.feature.dataView.show = TRUE,
+                  toolbox.iconStyle.color = NULL,
+                  toolbox.iconStyle.borderColor = NULL,
+                  toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                  toolbox.iconStyle.shadowBlur = NULL,
+                  toolbox.iconStyle.shadowColor = NULL,
+                  toolbox.iconStyle.shadowOffsetX = NULL,
+                  toolbox.iconStyle.shadowOffsetY = NULL,
                   Debug = FALSE) {
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
@@ -10547,14 +11317,32 @@ River <- function(dt = NULL,
     tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
     tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-  p1$x$opts$toolbox$feature <- list(
-    dataZoom    = list(
-      show = TRUE,
-      title = list(zoom = "Zoom", back = "Reset Zoom")
-    ),
-    saveAsImage = list(show = TRUE, name = title.text)
-  )
+  p1 <- e_toolbox_full(
+    e = p1,
+    toolbox.show = toolbox.show,
+    toolbox.orient = toolbox.orient,
+    toolbox.itemSize = toolbox.itemSize,
+    toolbox.itemGap = toolbox.itemGap,
+    toolbox.top = toolbox.top,
+    toolbox.left = toolbox.left,
+    toolbox.right = toolbox.right,
+    toolbox.bottom = toolbox.bottom,
+    toolbox.width = toolbox.width,
+    toolbox.heigth = toolbox.heigth,
+    toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+    toolbox.feature.restore.show = toolbox.feature.restore.show,
+    toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+    toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+    toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+    toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+    toolbox.iconStyle.color = toolbox.iconStyle.color,
+    toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+    toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+    toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
 
@@ -11022,6 +11810,29 @@ River <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -11348,6 +12159,29 @@ Bar <- function(dt = NULL,
                 tooltip.textStyle.textShadowBlur = NULL,
                 tooltip.textStyle.textShadowOffsetX = NULL,
                 tooltip.textStyle.textShadowOffsetY = NULL,
+                toolbox.show = TRUE,
+                toolbox.orient = "horizontal",
+                toolbox.itemSize = 15,
+                toolbox.itemGap = 8,
+                toolbox.top = NULL,
+                toolbox.left = NULL,
+                toolbox.right = NULL,
+                toolbox.bottom = NULL,
+                toolbox.width = NULL,
+                toolbox.heigth = NULL,
+                toolbox.feature.saveAsImage.show = TRUE,
+                toolbox.feature.restore.show = TRUE,
+                toolbox.feature.dataZoom.show = TRUE,
+                toolbox.feature.magicType.show = TRUE,
+                toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                toolbox.feature.dataView.show = TRUE,
+                toolbox.iconStyle.color = NULL,
+                toolbox.iconStyle.borderColor = NULL,
+                toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                toolbox.iconStyle.shadowBlur = NULL,
+                toolbox.iconStyle.shadowColor = NULL,
+                toolbox.iconStyle.shadowOffsetX = NULL,
+                toolbox.iconStyle.shadowOffsetY = NULL,
                 Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -11494,15 +12328,32 @@ Bar <- function(dt = NULL,
         tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
         tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-      p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-      p1$x$opts$toolbox$feature <- list(
-        dataZoom    = list(
-          show = TRUE,
-          title = list(zoom = "Zoom", back = "Reset Zoom")
-        ),
-        magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-        saveAsImage = list(show = TRUE, name = title.text)
-      )
+      p1 <- e_toolbox_full(
+        e = p1,
+        toolbox.show = toolbox.show,
+        toolbox.orient = toolbox.orient,
+        toolbox.itemSize = toolbox.itemSize,
+        toolbox.itemGap = toolbox.itemGap,
+        toolbox.top = toolbox.top,
+        toolbox.left = toolbox.left,
+        toolbox.right = toolbox.right,
+        toolbox.bottom = toolbox.bottom,
+        toolbox.width = toolbox.width,
+        toolbox.heigth = toolbox.heigth,
+        toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+        toolbox.feature.restore.show = toolbox.feature.restore.show,
+        toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+        toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+        toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+        toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+        toolbox.iconStyle.color = toolbox.iconStyle.color,
+        toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+        toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+        toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+        toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+        toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+        toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
       p1 <- echarts4r::e_brush(e = p1)
       p1 <- e_title_full(
@@ -11800,15 +12651,32 @@ Bar <- function(dt = NULL,
         tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
         tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-      p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-      p1$x$opts$toolbox$feature <- list(
-        dataZoom    = list(
-          show = TRUE,
-          title = list(zoom = "Zoom", back = "Reset Zoom")
-        ),
-        magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-        saveAsImage = list(show = TRUE, name = title.text)
-      )
+      p1 <- e_toolbox_full(
+        e = p1,
+        toolbox.show = toolbox.show,
+        toolbox.orient = toolbox.orient,
+        toolbox.itemSize = toolbox.itemSize,
+        toolbox.itemGap = toolbox.itemGap,
+        toolbox.top = toolbox.top,
+        toolbox.left = toolbox.left,
+        toolbox.right = toolbox.right,
+        toolbox.bottom = toolbox.bottom,
+        toolbox.width = toolbox.width,
+        toolbox.heigth = toolbox.heigth,
+        toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+        toolbox.feature.restore.show = toolbox.feature.restore.show,
+        toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+        toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+        toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+        toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+        toolbox.iconStyle.color = toolbox.iconStyle.color,
+        toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+        toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+        toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+        toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+        toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+        toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
       if(Debug) print("BarPlot 2.d")
@@ -12069,15 +12937,32 @@ Bar <- function(dt = NULL,
         tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
         tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-      p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-      p1$x$opts$toolbox$feature <- list(
-        dataZoom    = list(
-          show = TRUE,
-          title = list(zoom = "Zoom", back = "Reset Zoom")
-        ),
-        magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-        saveAsImage = list(show = TRUE, name = title.text)
-      )
+      p1 <- e_toolbox_full(
+        e = p1,
+        toolbox.show = toolbox.show,
+        toolbox.orient = toolbox.orient,
+        toolbox.itemSize = toolbox.itemSize,
+        toolbox.itemGap = toolbox.itemGap,
+        toolbox.top = toolbox.top,
+        toolbox.left = toolbox.left,
+        toolbox.right = toolbox.right,
+        toolbox.bottom = toolbox.bottom,
+        toolbox.width = toolbox.width,
+        toolbox.heigth = toolbox.heigth,
+        toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+        toolbox.feature.restore.show = toolbox.feature.restore.show,
+        toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+        toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+        toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+        toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+        toolbox.iconStyle.color = toolbox.iconStyle.color,
+        toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+        toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+        toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+        toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+        toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+        toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
       p1 <- e_x_axis_full(
@@ -12339,15 +13224,32 @@ Bar <- function(dt = NULL,
         tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
         tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-      p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-      p1$x$opts$toolbox$feature <- list(
-        dataZoom    = list(
-          show = TRUE,
-          title = list(zoom = "Zoom", back = "Reset Zoom")
-        ),
-        magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-        saveAsImage = list(show = TRUE, name = title.text)
-      )
+      p1 <- e_toolbox_full(
+        e = p1,
+        toolbox.show = toolbox.show,
+        toolbox.orient = toolbox.orient,
+        toolbox.itemSize = toolbox.itemSize,
+        toolbox.itemGap = toolbox.itemGap,
+        toolbox.top = toolbox.top,
+        toolbox.left = toolbox.left,
+        toolbox.right = toolbox.right,
+        toolbox.bottom = toolbox.bottom,
+        toolbox.width = toolbox.width,
+        toolbox.heigth = toolbox.heigth,
+        toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+        toolbox.feature.restore.show = toolbox.feature.restore.show,
+        toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+        toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+        toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+        toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+        toolbox.iconStyle.color = toolbox.iconStyle.color,
+        toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+        toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+        toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+        toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+        toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+        toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
       p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
       p1 <- e_x_axis_full(
@@ -12816,6 +13718,29 @@ Bar <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -13103,6 +14028,29 @@ ACF <- function(dt = NULL,
                 tooltip.textStyle.textShadowBlur = NULL,
                 tooltip.textStyle.textShadowOffsetX = NULL,
                 tooltip.textStyle.textShadowOffsetY = NULL,
+                toolbox.show = TRUE,
+                toolbox.orient = "horizontal",
+                toolbox.itemSize = 15,
+                toolbox.itemGap = 8,
+                toolbox.top = NULL,
+                toolbox.left = NULL,
+                toolbox.right = NULL,
+                toolbox.bottom = NULL,
+                toolbox.width = NULL,
+                toolbox.heigth = NULL,
+                toolbox.feature.saveAsImage.show = TRUE,
+                toolbox.feature.restore.show = TRUE,
+                toolbox.feature.dataZoom.show = TRUE,
+                toolbox.feature.magicType.show = TRUE,
+                toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                toolbox.feature.dataView.show = TRUE,
+                toolbox.iconStyle.color = NULL,
+                toolbox.iconStyle.borderColor = NULL,
+                toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                toolbox.iconStyle.shadowBlur = NULL,
+                toolbox.iconStyle.shadowColor = NULL,
+                toolbox.iconStyle.shadowOffsetX = NULL,
+                toolbox.iconStyle.shadowOffsetY = NULL,
                 Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -13221,15 +14169,32 @@ ACF <- function(dt = NULL,
     tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
     tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-  p1$x$opts$toolbox$feature <- list(
-    dataZoom    = list(
-      show = TRUE,
-      title = list(zoom = "Zoom", back = "Reset Zoom")
-    ),
-    magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-    saveAsImage = list(show = TRUE, name = title.text)
-  )
+  p1 <- e_toolbox_full(
+    e = p1,
+    toolbox.show = toolbox.show,
+    toolbox.orient = toolbox.orient,
+    toolbox.itemSize = toolbox.itemSize,
+    toolbox.itemGap = toolbox.itemGap,
+    toolbox.top = toolbox.top,
+    toolbox.left = toolbox.left,
+    toolbox.right = toolbox.right,
+    toolbox.bottom = toolbox.bottom,
+    toolbox.width = toolbox.width,
+    toolbox.heigth = toolbox.heigth,
+    toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+    toolbox.feature.restore.show = toolbox.feature.restore.show,
+    toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+    toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+    toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+    toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+    toolbox.iconStyle.color = toolbox.iconStyle.color,
+    toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+    toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+    toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- e_x_axis_full(
     e = p1,
@@ -13630,6 +14595,29 @@ ACF <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -13917,6 +14905,29 @@ PACF <- function(dt = NULL,
                  tooltip.textStyle.textShadowBlur = NULL,
                  tooltip.textStyle.textShadowOffsetX = NULL,
                  tooltip.textStyle.textShadowOffsetY = NULL,
+                 toolbox.show = TRUE,
+                 toolbox.orient = "horizontal",
+                 toolbox.itemSize = 15,
+                 toolbox.itemGap = 8,
+                 toolbox.top = NULL,
+                 toolbox.left = NULL,
+                 toolbox.right = NULL,
+                 toolbox.bottom = NULL,
+                 toolbox.width = NULL,
+                 toolbox.heigth = NULL,
+                 toolbox.feature.saveAsImage.show = TRUE,
+                 toolbox.feature.restore.show = TRUE,
+                 toolbox.feature.dataZoom.show = TRUE,
+                 toolbox.feature.magicType.show = TRUE,
+                 toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                 toolbox.feature.dataView.show = TRUE,
+                 toolbox.iconStyle.color = NULL,
+                 toolbox.iconStyle.borderColor = NULL,
+                 toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                 toolbox.iconStyle.shadowBlur = NULL,
+                 toolbox.iconStyle.shadowColor = NULL,
+                 toolbox.iconStyle.shadowOffsetX = NULL,
+                 toolbox.iconStyle.shadowOffsetY = NULL,
                  Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -14045,15 +15056,32 @@ PACF <- function(dt = NULL,
     tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
     tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-  p1$x$opts$toolbox$feature <- list(
-    dataZoom    = list(
-      show = TRUE,
-      title = list(zoom = "Zoom", back = "Reset Zoom")
-    ),
-    magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-    saveAsImage = list(show = TRUE, name = title.text)
-  )
+  p1 <- e_toolbox_full(
+    e = p1,
+    toolbox.show = toolbox.show,
+    toolbox.orient = toolbox.orient,
+    toolbox.itemSize = toolbox.itemSize,
+    toolbox.itemGap = toolbox.itemGap,
+    toolbox.top = toolbox.top,
+    toolbox.left = toolbox.left,
+    toolbox.right = toolbox.right,
+    toolbox.bottom = toolbox.bottom,
+    toolbox.width = toolbox.width,
+    toolbox.heigth = toolbox.heigth,
+    toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+    toolbox.feature.restore.show = toolbox.feature.restore.show,
+    toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+    toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+    toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+    toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+    toolbox.iconStyle.color = toolbox.iconStyle.color,
+    toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+    toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+    toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- e_x_axis_full(
     e = p1,
@@ -14461,6 +15489,29 @@ PACF <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -14783,6 +15834,29 @@ StackedBar <- function(dt = NULL,
                        tooltip.textStyle.textShadowBlur = NULL,
                        tooltip.textStyle.textShadowOffsetX = NULL,
                        tooltip.textStyle.textShadowOffsetY = NULL,
+                       toolbox.show = TRUE,
+                       toolbox.orient = "horizontal",
+                       toolbox.itemSize = 15,
+                       toolbox.itemGap = 8,
+                       toolbox.top = NULL,
+                       toolbox.left = NULL,
+                       toolbox.right = NULL,
+                       toolbox.bottom = NULL,
+                       toolbox.width = NULL,
+                       toolbox.heigth = NULL,
+                       toolbox.feature.saveAsImage.show = TRUE,
+                       toolbox.feature.restore.show = TRUE,
+                       toolbox.feature.dataZoom.show = TRUE,
+                       toolbox.feature.magicType.show = TRUE,
+                       toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                       toolbox.feature.dataView.show = TRUE,
+                       toolbox.iconStyle.color = NULL,
+                       toolbox.iconStyle.borderColor = NULL,
+                       toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                       toolbox.iconStyle.shadowBlur = NULL,
+                       toolbox.iconStyle.shadowColor = NULL,
+                       toolbox.iconStyle.shadowOffsetX = NULL,
+                       toolbox.iconStyle.shadowOffsetY = NULL,
                        Debug = FALSE) {
 
   if(length(XVar) == 0L) return(NULL)
@@ -14941,15 +16015,32 @@ StackedBar <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      magicType   = list(show = TRUE, type = c("line", "bar", "stack", "tiled")),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -15424,6 +16515,29 @@ StackedBar <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -15752,6 +16866,29 @@ BarPlot3D <- function(dt,
                       tooltip.textStyle.textShadowBlur = NULL,
                       tooltip.textStyle.textShadowOffsetX = NULL,
                       tooltip.textStyle.textShadowOffsetY = NULL,
+                      toolbox.show = TRUE,
+                      toolbox.orient = "horizontal",
+                      toolbox.itemSize = 15,
+                      toolbox.itemGap = 8,
+                      toolbox.top = NULL,
+                      toolbox.left = NULL,
+                      toolbox.right = NULL,
+                      toolbox.bottom = NULL,
+                      toolbox.width = NULL,
+                      toolbox.heigth = NULL,
+                      toolbox.feature.saveAsImage.show = TRUE,
+                      toolbox.feature.restore.show = TRUE,
+                      toolbox.feature.dataZoom.show = TRUE,
+                      toolbox.feature.magicType.show = TRUE,
+                      toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                      toolbox.feature.dataView.show = TRUE,
+                      toolbox.iconStyle.color = NULL,
+                      toolbox.iconStyle.borderColor = NULL,
+                      toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                      toolbox.iconStyle.shadowBlur = NULL,
+                      toolbox.iconStyle.shadowColor = NULL,
+                      toolbox.iconStyle.shadowOffsetX = NULL,
+                      toolbox.iconStyle.shadowOffsetY = NULL,
                       Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -15867,14 +17004,33 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
@@ -16717,6 +17873,29 @@ BarPlot3D <- function(dt,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging parameter
 #'
 #' @examples
@@ -17043,6 +18222,29 @@ HeatMap <- function(dt,
                     tooltip.textStyle.textShadowBlur = NULL,
                     tooltip.textStyle.textShadowOffsetX = NULL,
                     tooltip.textStyle.textShadowOffsetY = NULL,
+                    toolbox.show = TRUE,
+                    toolbox.orient = "horizontal",
+                    toolbox.itemSize = 15,
+                    toolbox.itemGap = 8,
+                    toolbox.top = NULL,
+                    toolbox.left = NULL,
+                    toolbox.right = NULL,
+                    toolbox.bottom = NULL,
+                    toolbox.width = NULL,
+                    toolbox.heigth = NULL,
+                    toolbox.feature.saveAsImage.show = TRUE,
+                    toolbox.feature.restore.show = TRUE,
+                    toolbox.feature.dataZoom.show = TRUE,
+                    toolbox.feature.magicType.show = TRUE,
+                    toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                    toolbox.feature.dataView.show = TRUE,
+                    toolbox.iconStyle.color = NULL,
+                    toolbox.iconStyle.borderColor = NULL,
+                    toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                    toolbox.iconStyle.shadowBlur = NULL,
+                    toolbox.iconStyle.shadowColor = NULL,
+                    toolbox.iconStyle.shadowOffsetX = NULL,
+                    toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -17149,14 +18351,33 @@ HeatMap <- function(dt,
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -18073,6 +19294,29 @@ HeatMap <- function(dt,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -18303,6 +19547,29 @@ Radar <- function(dt = NULL,
                   tooltip.textStyle.textShadowBlur = NULL,
                   tooltip.textStyle.textShadowOffsetX = NULL,
                   tooltip.textStyle.textShadowOffsetY = NULL,
+                  toolbox.show = TRUE,
+                  toolbox.orient = "horizontal",
+                  toolbox.itemSize = 15,
+                  toolbox.itemGap = 8,
+                  toolbox.top = NULL,
+                  toolbox.left = NULL,
+                  toolbox.right = NULL,
+                  toolbox.bottom = NULL,
+                  toolbox.width = NULL,
+                  toolbox.heigth = NULL,
+                  toolbox.feature.saveAsImage.show = TRUE,
+                  toolbox.feature.restore.show = TRUE,
+                  toolbox.feature.dataZoom.show = TRUE,
+                  toolbox.feature.magicType.show = TRUE,
+                  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                  toolbox.feature.dataView.show = TRUE,
+                  toolbox.iconStyle.color = NULL,
+                  toolbox.iconStyle.borderColor = NULL,
+                  toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                  toolbox.iconStyle.shadowBlur = NULL,
+                  toolbox.iconStyle.shadowColor = NULL,
+                  toolbox.iconStyle.shadowOffsetX = NULL,
+                  toolbox.iconStyle.shadowOffsetY = NULL,
                   Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -18395,14 +19662,32 @@ Radar <- function(dt = NULL,
     tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
     tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-  p1$x$opts$toolbox$feature <- list(
-    dataZoom    = list(
-      show = TRUE,
-      title = list(zoom = "Zoom", back = "Reset Zoom")
-    ),
-    saveAsImage = list(show = TRUE, name = title.text)
-  )
+  p1 <- e_toolbox_full(
+    e = p1,
+    toolbox.show = toolbox.show,
+    toolbox.orient = toolbox.orient,
+    toolbox.itemSize = toolbox.itemSize,
+    toolbox.itemGap = toolbox.itemGap,
+    toolbox.top = toolbox.top,
+    toolbox.left = toolbox.left,
+    toolbox.right = toolbox.right,
+    toolbox.bottom = toolbox.bottom,
+    toolbox.width = toolbox.width,
+    toolbox.heigth = toolbox.heigth,
+    toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+    toolbox.feature.restore.show = toolbox.feature.restore.show,
+    toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+    toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+    toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+    toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+    toolbox.iconStyle.color = toolbox.iconStyle.color,
+    toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+    toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+    toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
   p1 <- e_title_full(
@@ -18824,6 +20109,29 @@ Radar <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -19144,6 +20452,29 @@ CorrMatrix <- function(dt = NULL,
                        tooltip.textStyle.textShadowBlur = NULL,
                        tooltip.textStyle.textShadowOffsetX = NULL,
                        tooltip.textStyle.textShadowOffsetY = NULL,
+                       toolbox.show = TRUE,
+                       toolbox.orient = "horizontal",
+                       toolbox.itemSize = 15,
+                       toolbox.itemGap = 8,
+                       toolbox.top = NULL,
+                       toolbox.left = NULL,
+                       toolbox.right = NULL,
+                       toolbox.bottom = NULL,
+                       toolbox.width = NULL,
+                       toolbox.heigth = NULL,
+                       toolbox.feature.saveAsImage.show = TRUE,
+                       toolbox.feature.restore.show = TRUE,
+                       toolbox.feature.dataZoom.show = TRUE,
+                       toolbox.feature.magicType.show = TRUE,
+                       toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                       toolbox.feature.dataView.show = TRUE,
+                       toolbox.iconStyle.color = NULL,
+                       toolbox.iconStyle.borderColor = NULL,
+                       toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                       toolbox.iconStyle.shadowBlur = NULL,
+                       toolbox.iconStyle.shadowColor = NULL,
+                       toolbox.iconStyle.shadowOffsetX = NULL,
+                       toolbox.iconStyle.shadowOffsetY = NULL,
                        Debug = FALSE) {
 
   # Filter out bad vars
@@ -19224,14 +20555,33 @@ CorrMatrix <- function(dt = NULL,
 
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-  p1$x$opts$toolbox$feature <- list(
-    dataZoom    = list(
-      show = TRUE,
-      title = list(zoom = "Zoom", back = "Reset Zoom")
-    ),
-    saveAsImage = list(show = TRUE, name = title.text)
-  )
+
+  p1 <- e_toolbox_full(
+    e = p1,
+    toolbox.show = toolbox.show,
+    toolbox.orient = toolbox.orient,
+    toolbox.itemSize = toolbox.itemSize,
+    toolbox.itemGap = toolbox.itemGap,
+    toolbox.top = toolbox.top,
+    toolbox.left = toolbox.left,
+    toolbox.right = toolbox.right,
+    toolbox.bottom = toolbox.bottom,
+    toolbox.width = toolbox.width,
+    toolbox.heigth = toolbox.heigth,
+    toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+    toolbox.feature.restore.show = toolbox.feature.restore.show,
+    toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+    toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+    toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+    toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+    toolbox.iconStyle.color = toolbox.iconStyle.color,
+    toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+    toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+    toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
   p1 <- e_title_full(
@@ -19586,6 +20936,29 @@ CorrMatrix <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -19900,6 +21273,29 @@ Parallel <- function(dt = NULL,
                      tooltip.textStyle.textShadowBlur = NULL,
                      tooltip.textStyle.textShadowOffsetX = NULL,
                      tooltip.textStyle.textShadowOffsetY = NULL,
+                     toolbox.show = TRUE,
+                     toolbox.orient = "horizontal",
+                     toolbox.itemSize = 15,
+                     toolbox.itemGap = 8,
+                     toolbox.top = NULL,
+                     toolbox.left = NULL,
+                     toolbox.right = NULL,
+                     toolbox.bottom = NULL,
+                     toolbox.width = NULL,
+                     toolbox.heigth = NULL,
+                     toolbox.feature.saveAsImage.show = TRUE,
+                     toolbox.feature.restore.show = TRUE,
+                     toolbox.feature.dataZoom.show = TRUE,
+                     toolbox.feature.magicType.show = TRUE,
+                     toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                     toolbox.feature.dataView.show = TRUE,
+                     toolbox.iconStyle.color = NULL,
+                     toolbox.iconStyle.borderColor = NULL,
+                     toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                     toolbox.iconStyle.shadowBlur = NULL,
+                     toolbox.iconStyle.shadowColor = NULL,
+                     toolbox.iconStyle.shadowOffsetX = NULL,
+                     toolbox.iconStyle.shadowOffsetY = NULL,
                      Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -20012,14 +21408,33 @@ Parallel <- function(dt = NULL,
   }
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
   p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
-  p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-  p1$x$opts$toolbox$feature <- list(
-    dataZoom    = list(
-      show = TRUE,
-      title = list(zoom = "Zoom", back = "Reset Zoom")
-    ),
-    saveAsImage = list(show = TRUE, name = title.text)
-  )
+
+  p1 <- e_toolbox_full(
+    e = p1,
+    toolbox.show = toolbox.show,
+    toolbox.orient = toolbox.orient,
+    toolbox.itemSize = toolbox.itemSize,
+    toolbox.itemGap = toolbox.itemGap,
+    toolbox.top = toolbox.top,
+    toolbox.left = toolbox.left,
+    toolbox.right = toolbox.right,
+    toolbox.bottom = toolbox.bottom,
+    toolbox.width = toolbox.width,
+    toolbox.heigth = toolbox.heigth,
+    toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+    toolbox.feature.restore.show = toolbox.feature.restore.show,
+    toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+    toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+    toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+    toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+    toolbox.iconStyle.color = toolbox.iconStyle.color,
+    toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+    toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+    toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+    toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+    toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
   p1 <- e_title_full(
@@ -20380,6 +21795,29 @@ Parallel <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -20702,6 +22140,29 @@ Copula <- function(dt = NULL,
                    tooltip.textStyle.textShadowBlur = NULL,
                    tooltip.textStyle.textShadowOffsetX = NULL,
                    tooltip.textStyle.textShadowOffsetY = NULL,
+                   toolbox.show = TRUE,
+                   toolbox.orient = "horizontal",
+                   toolbox.itemSize = 15,
+                   toolbox.itemGap = 8,
+                   toolbox.top = NULL,
+                   toolbox.left = NULL,
+                   toolbox.right = NULL,
+                   toolbox.bottom = NULL,
+                   toolbox.width = NULL,
+                   toolbox.heigth = NULL,
+                   toolbox.feature.saveAsImage.show = TRUE,
+                   toolbox.feature.restore.show = TRUE,
+                   toolbox.feature.dataZoom.show = TRUE,
+                   toolbox.feature.magicType.show = TRUE,
+                   toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                   toolbox.feature.dataView.show = TRUE,
+                   toolbox.iconStyle.color = NULL,
+                   toolbox.iconStyle.borderColor = NULL,
+                   toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                   toolbox.iconStyle.shadowBlur = NULL,
+                   toolbox.iconStyle.shadowColor = NULL,
+                   toolbox.iconStyle.shadowOffsetX = NULL,
+                   toolbox.iconStyle.shadowOffsetY = NULL,
                    Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -20791,14 +22252,32 @@ Copula <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_legend_full(
@@ -21042,14 +22521,32 @@ Copula <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -21521,6 +23018,29 @@ Copula <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -21844,6 +23364,29 @@ Copula3D <- function(dt = NULL,
                      tooltip.textStyle.textShadowBlur = NULL,
                      tooltip.textStyle.textShadowOffsetX = NULL,
                      tooltip.textStyle.textShadowOffsetY = NULL,
+                     toolbox.show = TRUE,
+                     toolbox.orient = "horizontal",
+                     toolbox.itemSize = 15,
+                     toolbox.itemGap = 8,
+                     toolbox.top = NULL,
+                     toolbox.left = NULL,
+                     toolbox.right = NULL,
+                     toolbox.bottom = NULL,
+                     toolbox.width = NULL,
+                     toolbox.heigth = NULL,
+                     toolbox.feature.saveAsImage.show = TRUE,
+                     toolbox.feature.restore.show = TRUE,
+                     toolbox.feature.dataZoom.show = TRUE,
+                     toolbox.feature.magicType.show = TRUE,
+                     toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                     toolbox.feature.dataView.show = TRUE,
+                     toolbox.iconStyle.color = NULL,
+                     toolbox.iconStyle.borderColor = NULL,
+                     toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                     toolbox.iconStyle.shadowBlur = NULL,
+                     toolbox.iconStyle.shadowColor = NULL,
+                     toolbox.iconStyle.shadowOffsetX = NULL,
+                     toolbox.iconStyle.shadowOffsetY = NULL,
                      Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -21968,14 +23511,32 @@ Copula3D <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -22084,14 +23645,32 @@ Copula3D <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -22505,6 +24084,29 @@ Copula3D <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -22828,6 +24430,29 @@ Scatter <- function(dt = NULL,
                     tooltip.textStyle.textShadowBlur = NULL,
                     tooltip.textStyle.textShadowOffsetX = NULL,
                     tooltip.textStyle.textShadowOffsetY = NULL,
+                    toolbox.show = TRUE,
+                    toolbox.orient = "horizontal",
+                    toolbox.itemSize = 15,
+                    toolbox.itemGap = 8,
+                    toolbox.top = NULL,
+                    toolbox.left = NULL,
+                    toolbox.right = NULL,
+                    toolbox.bottom = NULL,
+                    toolbox.width = NULL,
+                    toolbox.heigth = NULL,
+                    toolbox.feature.saveAsImage.show = TRUE,
+                    toolbox.feature.restore.show = TRUE,
+                    toolbox.feature.dataZoom.show = TRUE,
+                    toolbox.feature.magicType.show = TRUE,
+                    toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                    toolbox.feature.dataView.show = TRUE,
+                    toolbox.iconStyle.color = NULL,
+                    toolbox.iconStyle.borderColor = NULL,
+                    toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                    toolbox.iconStyle.shadowBlur = NULL,
+                    toolbox.iconStyle.shadowColor = NULL,
+                    toolbox.iconStyle.shadowOffsetX = NULL,
+                    toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
@@ -22922,14 +24547,32 @@ Scatter <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_legend_full(
@@ -23175,14 +24818,32 @@ Scatter <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     if(Debug) print("SCatter 7")
@@ -23658,6 +25319,29 @@ Scatter <- function(dt = NULL,
 #' @param tooltip.textStyle.textShadowBlur numeric
 #' @param tooltip.textStyle.textShadowOffsetX numeric
 #' @param tooltip.textStyle.textShadowOffsetY numeric
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -23981,6 +25665,29 @@ Scatter3D <- function(dt = NULL,
                       tooltip.textStyle.textShadowBlur = NULL,
                       tooltip.textStyle.textShadowOffsetX = NULL,
                       tooltip.textStyle.textShadowOffsetY = NULL,
+                      toolbox.show = TRUE,
+                      toolbox.orient = "horizontal",
+                      toolbox.itemSize = 15,
+                      toolbox.itemGap = 8,
+                      toolbox.top = NULL,
+                      toolbox.left = NULL,
+                      toolbox.right = NULL,
+                      toolbox.bottom = NULL,
+                      toolbox.width = NULL,
+                      toolbox.heigth = NULL,
+                      toolbox.feature.saveAsImage.show = TRUE,
+                      toolbox.feature.restore.show = TRUE,
+                      toolbox.feature.dataZoom.show = TRUE,
+                      toolbox.feature.magicType.show = TRUE,
+                      toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                      toolbox.feature.dataView.show = TRUE,
+                      toolbox.iconStyle.color = NULL,
+                      toolbox.iconStyle.borderColor = NULL,
+                      toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+                      toolbox.iconStyle.shadowBlur = NULL,
+                      toolbox.iconStyle.shadowColor = NULL,
+                      toolbox.iconStyle.shadowOffsetX = NULL,
+                      toolbox.iconStyle.shadowOffsetY = NULL,
                       Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -24065,14 +25772,32 @@ Scatter3D <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
@@ -24242,14 +25967,32 @@ Scatter3D <- function(dt = NULL,
       tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
-    p1 <- echarts4r::e_toolbox(e = p1, toolbox = list(orient = "vertical", right = "2%", top = "middle"))
-    p1$x$opts$toolbox$feature <- list(
-      dataZoom    = list(
-        show = TRUE,
-        title = list(zoom = "Zoom", back = "Reset Zoom")
-      ),
-      saveAsImage = list(show = TRUE, name = title.text)
-    )
+    p1 <- e_toolbox_full(
+      e = p1,
+      toolbox.show = toolbox.show,
+      toolbox.orient = toolbox.orient,
+      toolbox.itemSize = toolbox.itemSize,
+      toolbox.itemGap = toolbox.itemGap,
+      toolbox.top = toolbox.top,
+      toolbox.left = toolbox.left,
+      toolbox.right = toolbox.right,
+      toolbox.bottom = toolbox.bottom,
+      toolbox.width = toolbox.width,
+      toolbox.heigth = toolbox.heigth,
+      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+      toolbox.feature.restore.show = toolbox.feature.restore.show,
+      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+      toolbox.iconStyle.color = toolbox.iconStyle.color,
+      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+      toolbox.feature.emphasis.iconStyle.borderColor = toolbox.feature.emphasis.iconStyle.borderColor,
+      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(

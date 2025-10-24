@@ -296,6 +296,29 @@ Copula(
   tooltip.textStyle.textShadowBlur = NULL,
   tooltip.textStyle.textShadowOffsetX = NULL,
   tooltip.textStyle.textShadowOffsetY = NULL,
+  toolbox.show = TRUE,
+  toolbox.orient = "horizontal",
+  toolbox.itemSize = 15,
+  toolbox.itemGap = 8,
+  toolbox.top = NULL,
+  toolbox.left = NULL,
+  toolbox.right = NULL,
+  toolbox.bottom = NULL,
+  toolbox.width = NULL,
+  toolbox.heigth = NULL,
+  toolbox.feature.saveAsImage.show = TRUE,
+  toolbox.feature.restore.show = TRUE,
+  toolbox.feature.dataZoom.show = TRUE,
+  toolbox.feature.magicType.show = TRUE,
+  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+  toolbox.feature.dataView.show = TRUE,
+  toolbox.iconStyle.color = NULL,
+  toolbox.iconStyle.borderColor = NULL,
+  toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+  toolbox.iconStyle.shadowBlur = NULL,
+  toolbox.iconStyle.shadowColor = NULL,
+  toolbox.iconStyle.shadowOffsetX = NULL,
+  toolbox.iconStyle.shadowOffsetY = NULL,
   Debug = FALSE
 )
 }
@@ -881,6 +904,52 @@ Copula(
 \item{tooltip.textStyle.textShadowOffsetX}{numeric}
 
 \item{tooltip.textStyle.textShadowOffsetY}{numeric}
+
+\item{toolbox.show}{logical}
+
+\item{toolbox.orient}{"horizontal" or "vertical"}
+
+\item{toolbox.itemSize}{Default 15}
+
+\item{toolbox.itemGap}{Default 8}
+
+\item{toolbox.top}{numeric}
+
+\item{toolbox.left}{numeric}
+
+\item{toolbox.right}{numeric}
+
+\item{toolbox.bottom}{numeric}
+
+\item{toolbox.width}{numeric}
+
+\item{toolbox.heigth}{numeric}
+
+\item{toolbox.feature.saveAsImage.show}{logical}
+
+\item{toolbox.feature.restore.show}{logical}
+
+\item{toolbox.feature.dataZoom.show}{logical}
+
+\item{toolbox.feature.magicType.show}{logical}
+
+\item{toolbox.feature.magicType.type}{'bar' 'line' 'stack'}
+
+\item{toolbox.feature.dataView.show}{logical}
+
+\item{toolbox.iconStyle.color}{hex}
+
+\item{toolbox.iconStyle.borderColor}{hex}
+
+\item{toolbox.feature.emphasis.iconStyle.borderColor}{hex}
+
+\item{toolbox.iconStyle.shadowBlur}{numeric}
+
+\item{toolbox.iconStyle.shadowColor}{hex}
+
+\item{toolbox.iconStyle.shadowOffsetX}{numeric}
+
+\item{toolbox.iconStyle.shadowOffsetY}{numeric}
 
 \item{Debug}{Debugging purposes}
 }

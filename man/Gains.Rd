@@ -23,7 +23,7 @@ Gains(
   ShowLabels = FALSE,
   Theme = "dark",
   MouseScroll = FALSE,
-  TimeLine = TRUE,
+  TimeLine = FALSE,
   TextColor = "white",
   Debug = FALSE
 )

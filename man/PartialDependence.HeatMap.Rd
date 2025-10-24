@@ -24,7 +24,7 @@ PartialDependence.HeatMap(
   MouseScroll = FALSE,
   Theme = "dark",
   EchartsLabels = FALSE,
-  TimeLine = TRUE,
+  TimeLine = FALSE,
   TextColor = "white",
   Debug = FALSE
 )

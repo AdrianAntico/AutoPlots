@@ -1023,6 +1023,118 @@ e_legend_full <- function(
   ))
 }
 
+#' @title toolbox function
+#'
+#' @description
+#' exposed parameters for toolbox
+#'
+#' @param e existing plot
+#' @param toolbox.show logical
+#' @param toolbox.orient "horizontal" or "vertical"
+#' @param toolbox.itemSize Default 15
+#' @param toolbox.itemGap Default 8
+#' @param toolbox.top numeric
+#' @param toolbox.left numeric
+#' @param toolbox.right numeric
+#' @param toolbox.bottom numeric
+#' @param toolbox.width numeric
+#' @param toolbox.heigth numeric
+#' @param toolbox.feature.saveAsImage.show logical
+#' @param toolbox.feature.restore.show logical
+#' @param toolbox.feature.dataZoom.show logical
+#' @param toolbox.feature.magicType.show logical
+#' @param toolbox.feature.magicType.type 'bar' 'line' 'stack'
+#' @param toolbox.feature.dataView.show logical
+#' @param toolbox.iconStyle.color hex
+#' @param toolbox.iconStyle.borderColor hex
+#' @param toolbox.feature.emphasis.iconStyle.borderColor hex
+#' @param toolbox.iconStyle.shadowBlur numeric
+#' @param toolbox.iconStyle.shadowColor hex
+#' @param toolbox.iconStyle.shadowOffsetX numeric
+#' @param toolbox.iconStyle.shadowOffsetY numeric
+#' @return The modified echarts4r object
+#' @export
+e_toolbox_full <- function(
+    e = NULL,
+    toolbox.show = TRUE,
+    toolbox.orient = "horizontal",
+    toolbox.itemSize = 15,
+    toolbox.itemGap = 8,
+    toolbox.top = NULL,
+    toolbox.left = NULL,
+    toolbox.right = NULL,
+    toolbox.bottom = NULL,
+    toolbox.width = NULL,
+    toolbox.heigth = NULL,
+    toolbox.feature.saveAsImage.show = TRUE,
+    toolbox.feature.restore.show = TRUE,
+    toolbox.feature.dataZoom.show = TRUE,
+    toolbox.feature.magicType.show = TRUE,
+    toolbox.feature.magicType.type = c("line", "bar", "stack"),
+    toolbox.feature.dataView.show = TRUE,
+    toolbox.iconStyle.color = NULL,
+    toolbox.iconStyle.borderColor = NULL,
+    toolbox.feature.emphasis.iconStyle.borderColor = NULL,
+    toolbox.iconStyle.shadowBlur = NULL,
+    toolbox.iconStyle.shadowColor = NULL,
+    toolbox.iconStyle.shadowOffsetX = NULL,
+    toolbox.iconStyle.shadowOffsetY = NULL) {
+
+  is <- .compact(list(
+    color = toolbox.iconStyle.color,
+    borderColor = toolbox.iconStyle.borderColor,
+    shadowBlur = toolbox.iconStyle.shadowBlur,
+    shadowColor = toolbox.iconStyle.shadowColor,
+    shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    shadowOffsetY = toolbox.iconStyle.shadowOffsetY
+  ))
+
+  dz <- .compact(list(
+    show = toolbox.feature.dataZoom.show,
+    title = list(
+      zoom = "Zoom",
+      back = "Undo Zoom"
+    )
+  ))
+
+  mt <- .compact(list(
+    show = toolbox.feature.magicType.show,
+    type = toolbox.feature.magicType.type
+  ))
+
+  dv <- .compact(list(
+    show = toolbox.feature.dataView.show
+  ))
+
+
+  # start with the base toolbox shell
+  p1 <- echarts4r::e_toolbox(
+    e = e
+  )
+
+  p1$x$opts$toolbox$feature <- .compact(list(
+    saveAsImage = toolbox.feature.saveAsImage.show,
+    restore = toolbox.feature.restore.show,
+    dataZoom = dz,
+    magicType = mt,
+    dataView = dv
+  ))
+
+  p1$x$opts$toolbox$show <- toolbox.show
+  p1$x$opts$toolbox$toolbox$orient <- toolbox.orient
+  p1$x$opts$toolbox$itemSize <- toolbox.itemSize
+  p1$x$opts$toolbox$itemGap <- toolbox.itemGap
+  p1$x$opts$toolbox$top <- toolbox.top
+  p1$x$opts$toolbox$left <- toolbox.left
+  p1$x$opts$toolbox$right <- toolbox.right
+  p1$x$opts$toolbox$bottom <- toolbox.bottom
+  p1$x$opts$toolbox$width <- toolbox.width
+  p1$x$opts$toolbox$heigth <- toolbox.heigth
+  p1$x$opts$toolbox$iconStyle <- is
+  p1$x$opts$toolbox$emphasis$iconStyle = .compact(list(borderColor = toolbox.feature.emphasis.iconStyle.borderColor))
+  p1
+}
+
 
 #' Enhanced area Setter for echarts4r
 #'
@@ -1355,7 +1467,6 @@ e_boxplot_full <- function(e = NULL,
   # final call
   do.call(echarts4r::e_boxplot_, c(standard, opts))
 }
-
 
 
 #' Display a Series of Plots in a Styled HTML Grid with Columns

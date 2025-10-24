@@ -26,7 +26,7 @@ PartialDependence.Box(
   Theme = "dark",
   MouseScroll = FALSE,
   EchartsLabels = FALSE,
-  TimeLine = TRUE,
+  TimeLine = FALSE,
   TextColor = "white",
   Debug = FALSE
 )

@@ -19,7 +19,7 @@ VariableImportance(
   Width = NULL,
   ShowLabels = FALSE,
   Theme = "dark",
-  TimeLine = TRUE,
+  TimeLine = FALSE,
   TextColor = "white",
   Debug = FALSE
 )
