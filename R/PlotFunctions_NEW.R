@@ -1026,7 +1026,7 @@ Density <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -3150,7 +3150,7 @@ Pie <- function(dt = NULL,
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -3913,7 +3913,7 @@ Donut <- function(dt = NULL,
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -4676,7 +4676,7 @@ Rosetype <- function(dt = NULL,
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -5675,7 +5675,7 @@ Box <- function(dt = NULL,
     if(Debug) print("Box 13")
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -5888,7 +5888,7 @@ Box <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -6100,7 +6100,7 @@ Box <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -6305,7 +6305,7 @@ Box <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -7585,7 +7585,7 @@ Line <- function(dt = NULL,
     if(Debug) print("Line() Build Echarts 5")
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     if(Debug) print("Line() Build Echarts 6")
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -7856,7 +7856,7 @@ Line <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -8818,7 +8818,7 @@ Area <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -9089,7 +9089,7 @@ Area <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -10099,7 +10099,7 @@ Step <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -10367,7 +10367,7 @@ Step <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -11286,7 +11286,7 @@ River <- function(dt = NULL,
     p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
   }
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
   p1 <- e_tooltip_full(
     e = p1,
     tooltip.show = tooltip.show,
@@ -12297,7 +12297,7 @@ Bar <- function(dt = NULL,
         p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
       }
       p1 <- echarts4r::e_theme(e = p1, name = Theme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
       p1 <- e_tooltip_full(
         e = p1,
         tooltip.show = tooltip.show,
@@ -12620,7 +12620,7 @@ Bar <- function(dt = NULL,
       }
       if(Debug) print("BarPlot 2.cccc")
       p1 <- echarts4r::e_theme(e = p1, name = Theme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
       p1 <- e_tooltip_full(
         e = p1,
         tooltip.show = tooltip.show,
@@ -12906,7 +12906,7 @@ Bar <- function(dt = NULL,
         p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
       }
       p1 <- echarts4r::e_theme(e = p1, name = Theme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
       p1 <- e_tooltip_full(
         e = p1,
         tooltip.show = tooltip.show,
@@ -13193,7 +13193,7 @@ Bar <- function(dt = NULL,
         p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
       }
       p1 <- echarts4r::e_theme(e = p1, name = Theme)
-      p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
       p1 <- e_tooltip_full(
         e = p1,
         tooltip.show = tooltip.show,
@@ -14138,7 +14138,7 @@ ACF <- function(dt = NULL,
   # Extras
   if(Debug) print("Plot.ACH 10")
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
   p1 <- e_tooltip_full(
     e = p1,
     tooltip.show = tooltip.show,
@@ -15025,7 +15025,7 @@ PACF <- function(dt = NULL,
   # Extras
   if(Debug) print("Plot.PACH 10")
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
   p1 <- e_tooltip_full(
     e = p1,
     tooltip.show = tooltip.show,
@@ -15984,7 +15984,7 @@ StackedBar <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -17003,7 +17003,7 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
 
     p1 <- e_toolbox_full(
       e = p1,
@@ -17144,7 +17144,7 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -17307,7 +17307,7 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -17460,7 +17460,7 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -18350,7 +18350,7 @@ HeatMap <- function(dt,
       tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
 
     p1 <- e_toolbox_full(
       e = p1,
@@ -18540,7 +18540,7 @@ HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -18731,7 +18731,7 @@ HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
@@ -18944,7 +18944,7 @@ HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
 
     p1 <- e_x_axis_full(
@@ -19631,7 +19631,7 @@ Radar <- function(dt = NULL,
   if(Debug) print("Plot.Radar() Build Echarts 5")
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
   if(Debug) print("Plot.Radar() Build Echarts 6")
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
   p1 <- e_tooltip_full(
     e = p1,
     tooltip.show = tooltip.show,
@@ -20554,7 +20554,7 @@ CorrMatrix <- function(dt = NULL,
   }
 
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
 
   p1 <- e_toolbox_full(
     e = p1,
@@ -21407,7 +21407,7 @@ Parallel <- function(dt = NULL,
     p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
   }
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
 
   p1 <- e_toolbox_full(
     e = p1,
@@ -22221,7 +22221,7 @@ Copula <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -22490,7 +22490,7 @@ Copula <- function(dt = NULL,
     }
     p1 <- echarts4r::e_axis_(e = p1, serie = NULL, axis = "x", name = XVar)
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -23423,7 +23423,7 @@ Copula3D <- function(dt = NULL,
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
 
     p1 <- e_legend_full(
       e = p1,
@@ -23614,7 +23614,7 @@ Copula3D <- function(dt = NULL,
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -24516,7 +24516,7 @@ Scatter <- function(dt = NULL,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -24787,7 +24787,7 @@ Scatter <- function(dt = NULL,
     if(Debug) print("SCatter 6")
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -25741,7 +25741,7 @@ Scatter3D <- function(dt = NULL,
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -25936,7 +25936,7 @@ Scatter3D <- function(dt = NULL,
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -27385,7 +27385,7 @@ VariableImportance <- function(dt = NULL,
     height = Height)
   p1 <- echarts4r::e_bar_(e = p1, Var2)
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
-  p1 <- echarts4r::e_aria(e = p1, enabled = TRUE)
+
 
   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
   p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
