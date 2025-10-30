@@ -984,7 +984,7 @@ data <- AutoPlots::FakeDataGenerator(N = 1000)
 # Build plot
 AutoPlots::Area(
   dt = data,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = "mean",
   XVar = "DateTime",
   YVar = "Independent_Variable3",

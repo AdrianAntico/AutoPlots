@@ -6,7 +6,7 @@
 \usage{
 BinaryMetricsPlot(
   dt = NULL,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = "mean",
   SampleSize = 100000L,
   XVar = NULL,

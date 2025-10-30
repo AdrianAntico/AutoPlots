@@ -6,7 +6,7 @@
 \usage{
 HeatMap(
   dt,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = "mean",
   XVar = NULL,
   YVar = NULL,
@@ -975,7 +975,7 @@ data <- AutoPlots::FakeDataGenerator(N = 100000)
 # Echarts Heatmap Plot Chart
 AutoPlots::HeatMap(
   dt = data,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   XVar = "Factor_1",
   YVar = "Factor_2",
   ZVar = "Independent_Variable6",

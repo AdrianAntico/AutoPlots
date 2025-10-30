@@ -975,7 +975,7 @@ data <- AutoPlots::FakeDataGenerator(N = 1000)
 # Build plot
 AutoPlots::Step(
   dt = data,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = "mean",
   XVar = "DateTime",
   YVar = "Independent_Variable3",

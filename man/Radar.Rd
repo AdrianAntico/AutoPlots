@@ -706,7 +706,7 @@ dt <- data.table::data.table(Y = pnorm(q = runif(8)), GV = sample(LETTERS[1:4], 
 AutoPlots::Radar(
   dt = dt,
   AggMethod = "mean",
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   YVar = "Y",
   GroupVar = "GV",
   YVarTrans = "Identity",

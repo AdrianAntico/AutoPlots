@@ -6,7 +6,7 @@
 \usage{
 PartialDependence.Box(
   dt = NULL,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   SampleSize = 100000L,
   XVar = NULL,
   YVar = NULL,

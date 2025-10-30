@@ -6,7 +6,7 @@
 \usage{
 ConfusionMatrix(
   dt = NULL,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   XVar = NULL,
   YVar = NULL,
   ZVar = "N",

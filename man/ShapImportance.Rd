@@ -6,7 +6,7 @@
 \usage{
 ShapImportance(
   dt,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = "meanabs",
   YVar = NULL,
   GroupVar = NULL,

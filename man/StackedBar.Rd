@@ -6,7 +6,7 @@
 \usage{
 StackedBar(
   dt = NULL,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -966,7 +966,7 @@ data <- AutoPlots::FakeDataGenerator(N = 100000)
 # Echarts Stacked Bar Chart
 AutoPlots::StackedBar(
   dt = data,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   XVar = "Factor_1",
   YVar = "Adrian",
   GroupVar = "Factor_2",

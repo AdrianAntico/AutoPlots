@@ -6,7 +6,7 @@
 \usage{
 Pie(
   dt = NULL,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   XVar = NULL,
   YVar = NULL,
   GroupVar = NULL,
@@ -714,7 +714,7 @@ dt <- data.table::data.table(Y = qnorm(p = runif(10000)), GV = sample(LETTERS, 1
 # Create plot
 AutoPlots::Pie(
   dt = dt,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   XVar = "GV",
   YVar = "Y",
   GroupVar = NULL,

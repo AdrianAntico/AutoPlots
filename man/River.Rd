@@ -966,7 +966,7 @@ data <- AutoPlots::FakeDataGenerator(N = 1000)
 # Build plot
 AutoPlots::River(
   dt = data,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = "mean",
   XVar = "DateTime",
   YVar = c(

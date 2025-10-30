@@ -6,7 +6,7 @@
 \usage{
 BarPlot3D(
   dt,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = "mean",
   XVar = NULL,
   YVar = NULL,
@@ -975,7 +975,7 @@ data <- AutoPlots::FakeDataGenerator(N = 100000)
 # Echarts 3D Bar Chart
 AutoPlots::BarPlot3D(
   dt = data,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = 'mean',
   XVar = "Factor_1",
   YVar = "Factor_2",

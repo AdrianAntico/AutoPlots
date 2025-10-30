@@ -981,7 +981,7 @@ data <- AutoPlots::FakeDataGenerator(N = 1000)
 # Build Line plot
 AutoPlots::Line(
   dt = data,
-  PreAgg = FALSE,
+  PreAgg = TRUE,
   AggMethod = "mean",
   XVar = "DateTime",
   YVar = "Independent_Variable3",
