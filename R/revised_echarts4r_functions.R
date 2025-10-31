@@ -1463,6 +1463,7 @@ e_boxplot_full <- function(e = NULL,
   standard[["e"]] <- e
   standard[["serie"]] <- serie
   standard[["label"]] <- list(show = label)
+  standard[["outliers"]] <- TRUE
 
   # final call
   do.call(echarts4r::e_boxplot_, c(standard, opts))
