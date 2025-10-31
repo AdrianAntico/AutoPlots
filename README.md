@@ -95,6 +95,7 @@ AutoPlots::Area(
   areaStyle.opacity = c(0.9,0.4,0.05),
   legend.show = FALSE)
 ```
+
 <br>
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot.PNG" align="center" width="800" />
