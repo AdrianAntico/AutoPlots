@@ -131,7 +131,7 @@ AutoPlots::display_plots_grid(
 
 <br>
 
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot_ _grid.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot_grid.PNG" align="center" width="800" />
 
 </details>
 
