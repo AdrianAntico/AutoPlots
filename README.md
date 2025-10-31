@@ -6,7 +6,7 @@
 
 <br> 
 
-A simple api for visualizing Echarts. See `Code Examples` below to copy / paste code and get started.
+A simple api for visualizing Echarts. Plotting functions expose most Echarts customization options. See documentation for details.
 
 <br> 
 
