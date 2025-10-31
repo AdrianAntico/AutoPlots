@@ -112,7 +112,7 @@ data <- data[, .(
 # Build plot
 ch <- as.character(sort(unique(data$Factor_1)))
 plot_list <- lapply(ch, function(x) {
-  plot_list[[gv]] <- AutoPlots::Area(
+  AutoPlots::Area(
     dt = data[Factor_1 == x],
     XVar = "DateTime",
     YVar = "IndepVar",
@@ -127,7 +127,6 @@ AutoPlots::display_plots_grid(
   plot_list,
   cols = 2
 )
-
 ```
 
 <br>
