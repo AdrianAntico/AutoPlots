@@ -737,4 +737,90 @@ AutoPlots::display_plots_grid(
 <br>
 
 
+### Histogram
+
+<details><summary>Heatmap Plot Examples</summary>
+
+```r
+# Create fake data
+data <- data.table::data.table(Variable = rnorm(n = 1000, mean = 5, sd = 2))
+
+# Build Plots
+AutoPlots::Histogram(
+  dt = data,
+  XVar = "Variable",
+  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
+  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
+  legend.show = FALSE
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Histogram.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+# Create fake data
+data <- data.table::data.table(Variable = rnorm(n = 1000, mean = 5, sd = 2))
+data[, Variable2 := rnorm(n = 1000, mean = 5, sd = 5)]
+data[, Variable3 := rnorm(n = 1000, mean = 5, sd = 10)]
+data[, Variable4 := rnorm(n = 1000, mean = 5, sd = 20)]
+
+# Build Plots
+p1 <- AutoPlots::Histogram(
+  dt = data,
+  XVar = "Variable",
+  title.text = "Var",
+  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
+  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
+  legend.show = FALSE
+)
+
+p2 <- AutoPlots::Histogram(
+  dt = data,
+  XVar = "Variable2",
+  title.text = "Var2",
+  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
+  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
+  legend.show = FALSE
+)
+
+p3 <- AutoPlots::Histogram(
+  dt = data,
+  XVar = "Variable3",
+  title.text = "Var3",
+  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
+  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
+  legend.show = FALSE
+)
+
+p4 <- AutoPlots::Histogram(
+  dt = data,
+  XVar = "Variable4",
+  title.text = "Var4",
+  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
+  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
+  legend.show = FALSE
+)
+  
+AutoPlots::display_plots_grid(
+  list(p1,p2,p3,p4),
+  cols = 2
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Histogram_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
 

@@ -21,6 +21,8 @@ Histogram(
   TimeLine = FALSE,
   ShowLabels = FALSE,
   TextColor = "white",
+  backgroundStyle.color = NULL,
+  backgroundStyle.opacity = NULL,
   title.text = "Histogram",
   title.subtext = NULL,
   title.link = NULL,
@@ -306,8 +308,8 @@ Histogram(
   toolbox.feature.saveAsImage.show = TRUE,
   toolbox.feature.restore.show = TRUE,
   toolbox.feature.dataZoom.show = TRUE,
-  toolbox.feature.magicType.show = TRUE,
-  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+  toolbox.feature.magicType.show = FALSE,
+  toolbox.feature.magicType.type = NULL,
   toolbox.feature.dataView.show = TRUE,
   toolbox.iconStyle.color = NULL,
   toolbox.iconStyle.borderColor = NULL,
@@ -351,6 +353,10 @@ Histogram(
 \item{ShowLabels}{FALSE}
 
 \item{TextColor}{"white"}
+
+\item{backgroundStyle.color}{vector of colors}
+
+\item{backgroundStyle.opacity}{vector of opacities}
 
 \item{title.text}{Title name}
 
