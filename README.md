@@ -16,11 +16,11 @@ A simple api for visualizing Echarts. Plotting functions expose most Echarts cus
 - Box
 - Copula
 - Correlogram
-- Density Plots
-- Donut Plot
+- Density
+- Donut
 - Heatmaps
-- Histogram Plots
-- Line Plots
+- Histogram
+- Line
 - Parallel
 - Pie
 - Probability
@@ -476,3 +476,92 @@ AutoPlots::display_plots_grid(
 </details>
 
 <br>
+
+
+
+### Density
+
+<details><summary>Density Plot Examples</summary>
+
+```r
+# Create fake data
+data <- data.table::data.table(IndepVar = rnorm(1000, mean = 0, sd = 1))
+
+# Build plot
+AutoPlots::Density(
+  dt = data,
+  XVar = "IndepVar",
+  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
+  areaStyle.opacity = c(0.9,0.4,0.05),
+  legend.show = FALSE
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Density.PNG" align="center" width="800" />
+
+<br>
+
+```r
+# Create fake data
+data <- data.table::data.table(IndepVar = rnorm(1000, mean = 5, sd = 2))
+data[, IndepVar2 := rnorm(1000, mean = 10, sd = 5)]
+data[, IndepVar3 := rnorm(1000, mean = 10, sd = 15)]
+data[, IndepVar4 := rnorm(1000, mean = 10, sd = 20)]
+
+# Build Plots
+p1 <- AutoPlots::Density(
+  dt = data,
+  XVar = "IndepVar",
+  title.text = "IndepVar",
+  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
+  areaStyle.opacity = c(0.9,0.4,0.05),
+  legend.show = FALSE
+)
+
+p2 <- AutoPlots::Density(
+  dt = data,
+  XVar = "IndepVar2",
+  title.text = "IndepVar2",
+  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
+  areaStyle.opacity = c(0.9,0.4,0.05),
+  legend.show = FALSE
+)
+
+p3 <- AutoPlots::Density(
+  dt = data,
+  XVar = "IndepVar3",
+  title.text = "IndepVar3",
+  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
+  areaStyle.opacity = c(0.9,0.4,0.05),
+  legend.show = FALSE
+)
+
+p4 <- AutoPlots::Density(
+  dt = data,
+  XVar = "IndepVar4",
+  title.text = "IndepVar4",
+  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
+  areaStyle.opacity = c(0.9,0.4,0.05),
+  legend.show = FALSE
+)
+
+AutoPlots::display_plots_grid(
+  list(p1,p2,p3,p4),
+  cols = 2
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Density_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+
