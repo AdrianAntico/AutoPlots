@@ -275,9 +275,6 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-
-
-
 ### Copula Plots
 
 <details><summary>Copula Plot Examples</summary>
@@ -374,6 +371,104 @@ AutoPlots::display_plots_grid(
 <br>
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CopulaPlot_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+
+
+### Correlogram
+
+<details><summary>Correlogram Examples</summary>
+
+```r
+n   <- 1000        # rows
+p   <- 4           # number of variables
+rho <- 0.8         # correlation between neighbors (AR(1))
+mu  <- c(50, 100, 0, 10)     # means (length p)
+sds <- c(10, 5, 3, 1)        # standard deviations (length p)
+Sigma_cor <- outer(1:p, 1:p, \(i, j) rho^abs(i - j))   # AR(1) correlation matrix
+L <- chol(Sigma_cor)                                   # Cholesky factor (upper-tri)
+Z <- matrix(rnorm(n * p), nrow = n, ncol = p)          # iid N(0,1)
+X_cor <- Z %*% L                                       # correlated, unit variance
+X <- X_cor %*% diag(sds)                               # set std devs
+X <- sweep(X, 2, mu, `+`)                              # set means
+dt <- data.table::as.data.table(X)
+data.table::setnames(dt, paste0("x", seq_len(p)))
+
+# Build Plot
+AutoPlots::CorrMatrix(
+  dt = dt,
+  PreAgg = FALSE,
+  Method = "Spearman",
+  CorrVars = c("x1","x2","x3","x4"),
+  ShowLabels = T,
+  title.text = "Spearman Correlation"
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CorrelogramPlot.PNG" align="center" width="800" />
+
+<br>
+
+```r
+n   <- 1000        # rows
+p   <- 4           # number of variables
+rho <- 0.8         # correlation between neighbors (AR(1))
+mu  <- c(50, 100, 0, 10)     # means (length p)
+sds <- c(10, 5, 3, 1)        # standard deviations (length p)
+Sigma_cor <- outer(1:p, 1:p, \(i, j) rho^abs(i - j))   # AR(1) correlation matrix
+L <- chol(Sigma_cor)                                   # Cholesky factor (upper-tri)
+Z <- matrix(rnorm(n * p), nrow = n, ncol = p)          # iid N(0,1)
+X_cor <- Z %*% L                                       # correlated, unit variance
+X <- X_cor %*% diag(sds)                               # set std devs
+X <- sweep(X, 2, mu, `+`)                              # set means
+dt <- data.table::as.data.table(X)
+data.table::setnames(dt, paste0("x", seq_len(p)))
+
+# Build Plot
+p1 <- AutoPlots::CorrMatrix(
+  dt = dt,
+  PreAgg = FALSE,
+  Method = "Spearman",
+  CorrVars = c("x1","x2","x3","x4"),
+  ShowLabels = T,
+  title.text = "Spearman Correlation"
+)
+
+p2 <- AutoPlots::CorrMatrix(
+  dt = dt,
+  PreAgg = FALSE,
+  Method = "Pearson",
+  CorrVars = c("x1","x2","x3","x4"),
+  ShowLabels = T,
+  title.text = "Pearson Correlation"
+)
+
+p3 <- AutoPlots::CorrMatrix(
+  dt = dt,
+  PreAgg = FALSE,
+  Method = "Kendall",
+  CorrVars = c("x1","x2","x3","x4"),
+  ShowLabels = T,
+  title.text = "Kendall's Tau Correlation"
+)
+
+AutoPlots::display_plots_grid(
+  list(p1,p2,p3),
+  cols = 2
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CorrelogramPlot_grid.PNG" align="center" width="800" />
 
 <br>
 

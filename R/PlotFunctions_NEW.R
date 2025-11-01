@@ -20501,6 +20501,7 @@ CorrMatrix <- function(dt = NULL,
       data.table::setnames(dt1, yy, substr(x = yy, start = max(0L, zz - 40L), stop = nchar(yy)))
     }
     corr_mat <- stats::cor(method = tolower(Method), x = dt1)
+    corr_mat <- round(corr_mat, 3)
   } else {
     corr_mat <- dt
   }
@@ -20513,7 +20514,7 @@ CorrMatrix <- function(dt = NULL,
   }
 
   p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
-  p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
+  p1 <- echarts4r::e_correlations(e = p1, order = "hclust", label = list(show = ShowLabels))
   p1 <- e_tooltip_full(
     e = p1,
     tooltip.show = tooltip.show,
