@@ -20180,6 +20180,21 @@ Radar <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
 #' @param TextColor character hex
+#' @param visualMap.show TRUE
+#' @param visualMap.min min value
+#' @param visualMap.max max value
+#' @param visualMap.orient 'vertical' 'horizontal'
+#' @param visualMap.right number
+#' @param visualMap.top number
+#' @param visualMap.bottom number
+#' @param visualMap.left number
+#' @param visualMap.backgroundColor hex or name
+#' @param visualMap.borderColor hex or name
+#' @param visualMap.borderWidth number
+#' @param visualMap.InRange.color hex or name
+#' @param visualMap.InRange.opacity number
+#' @param visualMap.InRange.symbol 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param visualMap.InRange.symbolSize number
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -20523,6 +20538,21 @@ CorrMatrix <- function(dt = NULL,
                        Theme = "dark",
                        MouseScroll = FALSE,
                        TextColor = "white",
+                       visualMap.show = TRUE,
+                       visualMap.min = -1.0,
+                       visualMap.max = 1.0,
+                       visualMap.orient = "vertical",
+                       visualMap.right = "2%",
+                       visualMap.top = "middle",
+                       visualMap.bottom = NULL,
+                       visualMap.left = NULL,
+                       visualMap.backgroundColor = NULL,
+                       visualMap.borderColor = NULL,
+                       visualMap.borderWidth = NULL,
+                       visualMap.InRange.color = NULL,
+                       visualMap.InRange.opacity = NULL,
+                       visualMap.InRange.symbol = NULL,
+                       visualMap.InRange.symbolSize = NULL,
                        title.text = "Correlogram",
                        title.subtext = NULL,
                        title.link = NULL,
@@ -20808,8 +20838,8 @@ CorrMatrix <- function(dt = NULL,
                        toolbox.feature.saveAsImage.show = TRUE,
                        toolbox.feature.restore.show = TRUE,
                        toolbox.feature.dataZoom.show = TRUE,
-                       toolbox.feature.magicType.show = TRUE,
-                       toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                       toolbox.feature.magicType.show = FALSE,
+                       toolbox.feature.magicType.type = NULL,
                        toolbox.feature.dataView.show = TRUE,
                        toolbox.iconStyle.color = NULL,
                        toolbox.iconStyle.borderColor = NULL,
@@ -20857,7 +20887,31 @@ CorrMatrix <- function(dt = NULL,
   }
 
   p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
-  p1 <- echarts4r::e_correlations(e = p1, order = "hclust", label = list(show = ShowLabels))
+  p1 <- echarts4r::e_correlations(
+    e = p1,
+    order = "hclust",
+    visual_map = FALSE,
+    label = list(show = ShowLabels)
+  )
+
+  p1 <- e_visual_map_full(
+    e = p1,
+    serie = NULL,
+    visualMap.min = -1.0,
+    visualMap.max = 1.0,
+    visualMap.orient = visualMap.orient,
+    visualMap.right = visualMap.right,
+    visualMap.top = visualMap.top,
+    visualMap.bottom = visualMap.bottom,
+    visualMap.left = visualMap.left,
+    visualMap.backgroundColor = visualMap.backgroundColor,
+    visualMap.borderColor = visualMap.borderColor,
+    visualMap.borderWidth = visualMap.borderWidth,
+    visualMap.InRange.color = visualMap.InRange.color,
+    visualMap.InRange.opacity = visualMap.InRange.opacity,
+    visualMap.InRange.symbol = visualMap.InRange.symbol,
+    visualMap.InRange.symbolSize = visualMap.InRange.symbolSize)
+
   p1 <- e_tooltip_full(
     e = p1,
     tooltip.show = tooltip.show,
@@ -27547,7 +27601,6 @@ PartialDependence.HeatMap <- function(dt = NULL,
         YVarTrans = YVarTrans,
         XVarTrans = XVarTrans,
         ZVarTrans = ZVarTrans,
-        ShowLabels = ShowLabels,
         MouseScroll = MouseScroll,
         Height = Height,
         Width = Width,

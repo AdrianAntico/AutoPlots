@@ -20,6 +20,21 @@ CorrMatrix(
   Theme = "dark",
   MouseScroll = FALSE,
   TextColor = "white",
+  visualMap.show = TRUE,
+  visualMap.min = -1,
+  visualMap.max = 1,
+  visualMap.orient = "vertical",
+  visualMap.right = "2\%",
+  visualMap.top = "middle",
+  visualMap.bottom = NULL,
+  visualMap.left = NULL,
+  visualMap.backgroundColor = NULL,
+  visualMap.borderColor = NULL,
+  visualMap.borderWidth = NULL,
+  visualMap.InRange.color = NULL,
+  visualMap.InRange.opacity = NULL,
+  visualMap.InRange.symbol = NULL,
+  visualMap.InRange.symbolSize = NULL,
   title.text = "Correlogram",
   title.subtext = NULL,
   title.link = NULL,
@@ -305,8 +320,8 @@ CorrMatrix(
   toolbox.feature.saveAsImage.show = TRUE,
   toolbox.feature.restore.show = TRUE,
   toolbox.feature.dataZoom.show = TRUE,
-  toolbox.feature.magicType.show = TRUE,
-  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+  toolbox.feature.magicType.show = FALSE,
+  toolbox.feature.magicType.type = NULL,
   toolbox.feature.dataView.show = TRUE,
   toolbox.iconStyle.color = NULL,
   toolbox.iconStyle.borderColor = NULL,
@@ -348,6 +363,36 @@ CorrMatrix(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TextColor}{character hex}
+
+\item{visualMap.show}{TRUE}
+
+\item{visualMap.min}{min value}
+
+\item{visualMap.max}{max value}
+
+\item{visualMap.orient}{'vertical' 'horizontal'}
+
+\item{visualMap.right}{number}
+
+\item{visualMap.top}{number}
+
+\item{visualMap.bottom}{number}
+
+\item{visualMap.left}{number}
+
+\item{visualMap.backgroundColor}{hex or name}
+
+\item{visualMap.borderColor}{hex or name}
+
+\item{visualMap.borderWidth}{number}
+
+\item{visualMap.InRange.color}{hex or name}
+
+\item{visualMap.InRange.opacity}{number}
+
+\item{visualMap.InRange.symbol}{'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'}
+
+\item{visualMap.InRange.symbolSize}{number}
 
 \item{title.text}{Title name}
 

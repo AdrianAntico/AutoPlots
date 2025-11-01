@@ -410,8 +410,8 @@ AutoPlots::CorrMatrix(
   PreAgg = FALSE,
   Method = "Spearman",
   CorrVars = c("x1","x2","x3","x4"),
-  ShowLabels = T,
-  title.text = "Spearman Correlation"
+  ShowLabels = TRUE,
+  visualMap.InRange.color = c("white", "gray", "darkblue")
 )
 ```
 
@@ -443,7 +443,8 @@ p1 <- AutoPlots::CorrMatrix(
   PreAgg = FALSE,
   Method = "Spearman",
   CorrVars = c("x1","x2","x3","x4"),
-  ShowLabels = T,
+  ShowLabels = TRUE,
+  visualMap.InRange.color = c("white", "gray", "darkblue"),
   title.text = "Spearman Correlation"
 )
 
@@ -452,7 +453,8 @@ p2 <- AutoPlots::CorrMatrix(
   PreAgg = FALSE,
   Method = "Pearson",
   CorrVars = c("x1","x2","x3","x4"),
-  ShowLabels = T,
+  ShowLabels = TRUE,
+  visualMap.InRange.color = c("white", "gray", "darkgreen"),
   title.text = "Pearson Correlation"
 )
 
@@ -461,7 +463,8 @@ p3 <- AutoPlots::CorrMatrix(
   PreAgg = FALSE,
   Method = "Kendall",
   CorrVars = c("x1","x2","x3","x4"),
-  ShowLabels = T,
+  ShowLabels = TRUE,
+  visualMap.InRange.color = c("white", "gray", "darkred"),
   title.text = "Kendall's Tau Correlation"
 )
 
