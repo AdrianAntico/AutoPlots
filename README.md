@@ -101,6 +101,7 @@ AutoPlots::Area(
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/AreaPlot.PNG" align="center" width="800" />
 
 <br>
+<br>
 
 ```r
 # Create fake data
@@ -163,6 +164,7 @@ AutoPlots::Bar(
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/BarPlot.PNG" align="center" width="800" />
 
+<br>
 <br>
 
 ```r
@@ -232,6 +234,7 @@ AutoPlots::Box(
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/BoxPlot.PNG" align="center" width="800" />
 
+<br>
 <br>
 
 ```r
@@ -308,6 +311,7 @@ p1 <- AutoPlots::Copula(
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CopulaPlot.PNG" align="center" width="800" />
 
+<br>
 <br>
 
 ```r
@@ -416,6 +420,7 @@ AutoPlots::CorrMatrix(
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/CorrelogramPlot.PNG" align="center" width="800" />
 
 <br>
+<br>
 
 ```r
 n   <- 1000        # rows
@@ -501,6 +506,7 @@ AutoPlots::Density(
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Density.PNG" align="center" width="800" />
 
+<br>
 <br>
 
 ```r
