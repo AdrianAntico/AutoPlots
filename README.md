@@ -739,7 +739,7 @@ AutoPlots::display_plots_grid(
 
 ### Histogram
 
-<details><summary>Heatmap Plot Examples</summary>
+<details><summary>Histogram Examples</summary>
 
 ```r
 # Create fake data
