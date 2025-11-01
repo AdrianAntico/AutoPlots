@@ -75,7 +75,7 @@ devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE
 ## Code Examples
 
 
-### Area Plot
+### Area
 
 <details><summary>Area Plot Examples</summary>
 
@@ -138,7 +138,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Bar Plots
+### Bar
 
 <details><summary>Bar Plot Examples</summary>
 
@@ -205,7 +205,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Box Plots
+### Box
 
 <details><summary>Box Plot Examples</summary>
 
@@ -275,7 +275,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Copula Plots
+### Copula
 
 <details><summary>Copula Plot Examples</summary>
 
