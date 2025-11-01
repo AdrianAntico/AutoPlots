@@ -39,12 +39,12 @@ A simple api for visualizing Echarts. Plotting functions expose most Echarts cus
 - Autocorrelation
 - Calibration
 - Calibration Scatter
-- Confusion Matrix Heatmaps
+- Confusion Matrix Heatmap
 - Gain
 - Lift
 - Partial Autocorrelation
 - Partial Dependence
-- Partial Dependence Heatmaps
+- Partial Dependence Heatmap
 - ROC
 - Shapely Importance
 - Variable Importance
@@ -640,6 +640,98 @@ AutoPlots::display_plots_grid(
 <br>
 
 
+
+### Heatmap
+
+<details><summary>Heatmap Plot Examples</summary>
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000, Correlation = 0.1)
+data <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_1", "Factor_2")]
+
+# Build Plots
+AutoPlots::HeatMap(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "Factor_2",
+  ZVar = "IndepVar",
+  title.text = "V1",
+  label.show = TRUE,
+  label.fontWeight = "bolder",
+  emphasis.shadowColor = "white",
+  emphasis.shadowBlur = 10, 
+  visualMap.InRange.color = c("blue", "white", "red")
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Heatmap.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000, Correlation = 0.1)
+data <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_1", "Factor_2")]
+
+# Build Plots
+p1 <- AutoPlots::HeatMap(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "Factor_2",
+  ZVar = "IndepVar",
+  title.text = "V1",
+  label.show = TRUE,
+  label.fontWeight = "bolder",
+  emphasis.shadowColor = "white",
+  emphasis.shadowBlur = 10, 
+  visualMap.InRange.color = c("blue", "white", "red")
+)
+
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000, Correlation = 0.1)
+data <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_1", "Factor_2")]
+
+# Build Plots
+p2 <- AutoPlots::HeatMap(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "Factor_2",
+  ZVar = "IndepVar",
+  title.text = "V2",
+  label.show = TRUE,
+  label.fontWeight = "bolder",
+  emphasis.shadowColor = "white",
+  emphasis.shadowBlur = 10, 
+  visualMap.InRange.color = c("green", "white", "orange")
+)
+
+AutoPlots::display_plots_grid(
+  list(p1, p2),
+  cols = 1
+)
+
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Heatmap_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
 
 
 

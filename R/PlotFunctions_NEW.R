@@ -17640,8 +17640,82 @@ BarPlot3D <- function(dt,
 #' @param NumLevels_X = 20.
 #' @param PreAgg logical
 #' @param TextColor color
-#' @param ShowLabels character
 #' @param ContainLabel TRUE
+#' @param visualMap.show TRUE
+#' @param visualMap.min min value
+#' @param visualMap.max max value
+#' @param visualMap.orient 'vertical' 'horizontal'
+#' @param visualMap.right number
+#' @param visualMap.top number
+#' @param visualMap.bottom number
+#' @param visualMap.left number
+#' @param visualMap.backgroundColor hex or name
+#' @param visualMap.borderColor hex or name
+#' @param visualMap.borderWidth number
+#' @param visualMap.InRange.color hex or name
+#' @param visualMap.InRange.opacity number
+#' @param visualMap.InRange.symbol 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+#' @param visualMap.InRange.symbolSize number
+#' @param itemStyle.borderColor hex or name
+#' @param itemStyle.borderWidth number
+#' @param itemStyle.shadowColor hex or name
+#' @param itemStyle.shadowBlur number
+#' @param itemStyle.shadowOffsetY number
+#' @param itemStyle.shadowOffsetX number
+#' @param itemStyle.opacity decimal
+#' @param itemStyle.borderRadius number
+#' @param emphasis.shadowColor hex or name
+#' @param emphasis.shadowBlur number
+#' @param itemStyle.emphasis.label.show logical
+#' @param itemStyle.emphasis.label.color hex or name
+#' @param itemStyle.emphasis.label.fontStyle 'normal' 'italic' 'oblique'
+#' @param itemStyle.emphasis.label.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param itemStyle.emphasis.label.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param itemStyle.emphasis.label.fontSize number
+#' @param itemStyle.emphasis.label.align 'left' 'center' 'right'
+#' @param itemStyle.emphasis.label.verticalAlign 'top' 'middle' 'bottom'
+#' @param itemStyle.emphasis.label.backgroundColor hex or name
+#' @param itemStyle.emphasis.label.borderColor hex or name
+#' @param itemStyle.emphasis.label.borderWidth number
+#' @param itemStyle.emphasis.label.borderType 'solid' 'dashed' 'dotted'
+#' @param itemStyle.emphasis.label.borderRadius number
+#' @param itemStyle.emphasis.label.shadowColor hex or name
+#' @param itemStyle.emphasis.label.shadowBlur number
+#' @param itemStyle.emphasis.label.shadowOffsetY number
+#' @param itemStyle.emphasis.label.shadowOffsetX number
+#' @param itemStyle.emphasis.label.width number
+#' @param itemStyle.emphasis.label.height number
+#' @param itemStyle.emphasis.label.textBorderColor hex or name
+#' @param itemStyle.emphasis.label.textBorderWidth number
+#' @param itemStyle.emphasis.label.textShadowColor hex or name
+#' @param itemStyle.emphasis.label.textShadowBlur number
+#' @param itemStyle.emphasis.label.textShadowOffsetY number
+#' @param itemStyle.emphasis.label.textShadowOffsetX number
+#' @param label.show logical
+#' @param label.color hex or name
+#' @param label.fontStyle 'normal' 'italic' 'oblique'
+#' @param label.fontWeight 'normal' 'bold' 'bolder' 'lighter'
+#' @param label.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param label.fontSize number
+#' @param label.align 'left' 'center' 'right'
+#' @param label.verticalAlign 'top' 'middle' 'bottom'
+#' @param label.backgroundColor hex or name
+#' @param label.borderColor hex or name
+#' @param label.borderWidth number
+#' @param label.borderType 'solid' 'dashed' 'dotted'
+#' @param label.borderRadius number
+#' @param label.shadowColor hex or name
+#' @param label.shadowBlur number
+#' @param label.shadowOffsetY number
+#' @param label.shadowOffsetX number
+#' @param label.width number
+#' @param label.height number
+#' @param label.textBorderColor hex or name
+#' @param label.textBorderWidth number
+#' @param label.textShadowColor hex or name
+#' @param label.textShadowBlur number
+#' @param label.textShadowOffsetY number
+#' @param label.textShadowOffsetX number
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -17960,7 +18034,6 @@ BarPlot3D <- function(dt,
 #'   NumLevels_X = 33,
 #'   Height = NULL,
 #'   Width = NULL,
-#'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TextColor = "black",
@@ -17986,11 +18059,85 @@ HeatMap <- function(dt,
                     NumLevels_X = 33,
                     Height = NULL,
                     Width = NULL,
-                    ShowLabels = FALSE,
                     Theme = "dark",
                     MouseScroll = FALSE,
                     TextColor = "white",
                     ContainLabel = TRUE,
+                    visualMap.show = TRUE,
+                    visualMap.min = NULL,
+                    visualMap.max = NULL,
+                    visualMap.orient = "vertical",
+                    visualMap.right = "2%",
+                    visualMap.top = "middle",
+                    visualMap.bottom = NULL,
+                    visualMap.left = NULL,
+                    visualMap.backgroundColor = NULL,
+                    visualMap.borderColor = NULL,
+                    visualMap.borderWidth = NULL,
+                    visualMap.InRange.color = NULL,
+                    visualMap.InRange.opacity = NULL,
+                    visualMap.InRange.symbol = NULL,
+                    visualMap.InRange.symbolSize = NULL,
+                    itemStyle.borderColor = NULL,
+                    itemStyle.borderWidth = NULL,
+                    itemStyle.shadowColor = NULL,
+                    itemStyle.shadowBlur = NULL,
+                    itemStyle.shadowOffsetY = NULL,
+                    itemStyle.shadowOffsetX = NULL,
+                    itemStyle.opacity = NULL,
+                    itemStyle.borderRadius = NULL,
+                    emphasis.shadowColor = NULL,
+                    emphasis.shadowBlur = NULL,
+                    itemStyle.emphasis.label.show = NULL,
+                    itemStyle.emphasis.label.color = NULL,
+                    itemStyle.emphasis.label.fontStyle = NULL,
+                    itemStyle.emphasis.label.fontWeight = NULL,
+                    itemStyle.emphasis.label.fontFamily = NULL,
+                    itemStyle.emphasis.label.fontSize = NULL,
+                    itemStyle.emphasis.label.align = NULL,
+                    itemStyle.emphasis.label.verticalAlign = NULL,
+                    itemStyle.emphasis.label.backgroundColor = NULL,
+                    itemStyle.emphasis.label.borderColor = NULL,
+                    itemStyle.emphasis.label.borderWidth = NULL,
+                    itemStyle.emphasis.label.borderType = NULL,
+                    itemStyle.emphasis.label.borderRadius = NULL,
+                    itemStyle.emphasis.label.shadowColor = NULL,
+                    itemStyle.emphasis.label.shadowBlur = NULL,
+                    itemStyle.emphasis.label.shadowOffsetY = NULL,
+                    itemStyle.emphasis.label.shadowOffsetX = NULL,
+                    itemStyle.emphasis.label.width = NULL,
+                    itemStyle.emphasis.label.height = NULL,
+                    itemStyle.emphasis.label.textBorderColor = NULL,
+                    itemStyle.emphasis.label.textBorderWidth = NULL,
+                    itemStyle.emphasis.label.textShadowColor = NULL,
+                    itemStyle.emphasis.label.textShadowBlur = NULL,
+                    itemStyle.emphasis.label.textShadowOffsetY = NULL,
+                    itemStyle.emphasis.label.textShadowOffsetX = NULL,
+                    label.show = NULL,
+                    label.color = NULL,
+                    label.fontStyle = NULL,
+                    label.fontWeight = NULL,
+                    label.fontFamily = NULL,
+                    label.fontSize = NULL,
+                    label.align = NULL,
+                    label.verticalAlign = NULL,
+                    label.backgroundColor = NULL,
+                    label.borderColor = NULL,
+                    label.borderWidth = NULL,
+                    label.borderType = NULL,
+                    label.borderRadius = NULL,
+                    label.shadowColor = NULL,
+                    label.shadowBlur = NULL,
+                    label.shadowOffsetY = NULL,
+                    label.shadowOffsetX = NULL,
+                    label.width = NULL,
+                    label.height = NULL,
+                    label.textBorderColor = NULL,
+                    label.textBorderWidth = NULL,
+                    label.textShadowColor = NULL,
+                    label.textShadowBlur = NULL,
+                    label.textShadowOffsetY = NULL,
+                    label.textShadowOffsetX = NULL,
                     title.text = "Heatmap",
                     title.subtext = NULL,
                     title.link = NULL,
@@ -18277,7 +18424,7 @@ HeatMap <- function(dt,
                     toolbox.feature.restore.show = TRUE,
                     toolbox.feature.dataZoom.show = TRUE,
                     toolbox.feature.magicType.show = TRUE,
-                    toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                    toolbox.feature.magicType.type = NULL,
                     toolbox.feature.dataView.show = TRUE,
                     toolbox.iconStyle.color = NULL,
                     toolbox.iconStyle.borderColor = NULL,
@@ -18311,8 +18458,6 @@ HeatMap <- function(dt,
   x_num <- x_check && !y_check
   x_char <- !x_check && y_check
   all_char <- !x_check && !y_check
-
-
   Z.HoverFormat <- "%{zaxis.title.text}: %{y:,.2f}<br>"
 
   # XVar == numeric or integer && YVar == numeric or integer
@@ -18346,11 +18491,52 @@ HeatMap <- function(dt,
       width = Width,
       height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-    }
+    p1 <- e_heatmap_full(
+      e = p1, y = YVar, z = ZVar,
+      itemStyle.borderColor = itemStyle.borderColor, itemStyle.borderWidth = itemStyle.borderWidth,
+      itemStyle.shadowColor = itemStyle.shadowColor, itemStyle.shadowBlur = itemStyle.shadowBlur,
+      itemStyle.shadowOffsetY = itemStyle.shadowOffsetY, itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+      itemStyle.opacity = itemStyle.opacity, itemStyle.borderRadius = itemStyle.borderRadius,
+      emphasis.shadowColor = emphasis.shadowColor, emphasis.shadowBlur = emphasis.shadowBlur,
+      itemStyle.emphasis.label.show = itemStyle.emphasis.label.show, itemStyle.emphasis.label.color = itemStyle.emphasis.label.color,
+      itemStyle.emphasis.label.fontStyle = itemStyle.emphasis.label.fontStyle, itemStyle.emphasis.label.fontWeight = itemStyle.emphasis.label.fontWeight,
+      itemStyle.emphasis.label.fontFamily = itemStyle.emphasis.label.fontFamily, itemStyle.emphasis.label.fontSize = itemStyle.emphasis.label.fontSize,
+      itemStyle.emphasis.label.align = itemStyle.emphasis.label.align, itemStyle.emphasis.label.verticalAlign = itemStyle.emphasis.label.verticalAlign,
+      itemStyle.emphasis.label.backgroundColor = itemStyle.emphasis.label.backgroundColor, itemStyle.emphasis.label.borderColor = itemStyle.emphasis.label.borderColor,
+      itemStyle.emphasis.label.borderWidth = itemStyle.emphasis.label.borderWidth, itemStyle.emphasis.label.borderType = itemStyle.emphasis.label.borderType,
+      itemStyle.emphasis.label.borderRadius = itemStyle.emphasis.label.borderRadius, itemStyle.emphasis.label.shadowColor = itemStyle.emphasis.label.shadowColor,
+      itemStyle.emphasis.label.shadowBlur = itemStyle.emphasis.label.shadowBlur, itemStyle.emphasis.label.shadowOffsetY = itemStyle.emphasis.label.shadowOffsetY,
+      itemStyle.emphasis.label.shadowOffsetX = itemStyle.emphasis.label.shadowOffsetX, itemStyle.emphasis.label.width = itemStyle.emphasis.label.width,
+      itemStyle.emphasis.label.height = itemStyle.emphasis.label.height, itemStyle.emphasis.label.textBorderColor = itemStyle.emphasis.label.textBorderColor,
+      itemStyle.emphasis.label.textBorderWidth = itemStyle.emphasis.label.textBorderWidth, itemStyle.emphasis.label.textShadowColor = itemStyle.emphasis.label.textShadowColor,
+      itemStyle.emphasis.label.textShadowBlur = itemStyle.emphasis.label.textShadowBlur, itemStyle.emphasis.label.textShadowOffsetY = itemStyle.emphasis.label.textShadowOffsetY,
+      itemStyle.emphasis.label.textShadowOffsetX = itemStyle.emphasis.label.textShadowOffsetX, label.show = label.show,
+      label.color = label.color, label.fontStyle = label.fontStyle, label.fontWeight = label.fontWeight, label.fontFamily = label.fontFamily,
+      label.fontSize = label.fontSize, label.align = label.align, label.verticalAlign = label.verticalAlign, label.backgroundColor = label.backgroundColor,
+      label.borderColor = label.borderColor, label.borderWidth = label.borderWidth, label.borderType = label.borderType, label.borderRadius = label.borderRadius,
+      label.shadowColor = label.shadowColor, label.shadowBlur = label.shadowBlur, label.shadowOffsetY = label.shadowOffsetY, label.shadowOffsetX = label.shadowOffsetX,
+      label.width = label.width, label.height = label.height, label.textBorderColor = label.textBorderColor, label.textBorderWidth = label.textBorderWidth,
+      label.textShadowColor = label.textShadowColor, label.textShadowBlur = label.textShadowBlur, label.textShadowOffsetY = label.textShadowOffsetY, label.textShadowOffsetX = label.textShadowOffsetX)
+
+    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[ZVar]])
+    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[ZVar]])
+    p1 <- e_visual_map_full(
+      e = p1,
+      serie = ZVar,
+      visualMap.min = visualMap.min,
+      visualMap.max = visualMap.max,
+      visualMap.orient = visualMap.orient,
+      visualMap.right = visualMap.right,
+      visualMap.top = visualMap.top,
+      visualMap.bottom = visualMap.bottom,
+      visualMap.left = visualMap.left,
+      visualMap.backgroundColor = visualMap.backgroundColor,
+      visualMap.borderColor = visualMap.borderColor,
+      visualMap.borderWidth = visualMap.borderWidth,
+      visualMap.InRange.color = visualMap.InRange.color,
+      visualMap.InRange.opacity = visualMap.InRange.opacity,
+      visualMap.InRange.symbol = visualMap.InRange.symbol,
+      visualMap.InRange.symbolSize = visualMap.InRange.symbolSize)
 
     if(MouseScroll) {
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
@@ -18359,7 +18545,6 @@ HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
-    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
     p1 <- e_tooltip_full(
       e = p1,
       tooltip.show = tooltip.show,
@@ -18565,13 +18750,53 @@ HeatMap <- function(dt,
       width = Width,
       height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-    }
+    p1 <- e_heatmap_full(
+      e = p1, y = YVar, z = ZVar,
+      itemStyle.borderColor = itemStyle.borderColor, itemStyle.borderWidth = itemStyle.borderWidth,
+      itemStyle.shadowColor = itemStyle.shadowColor, itemStyle.shadowBlur = itemStyle.shadowBlur,
+      itemStyle.shadowOffsetY = itemStyle.shadowOffsetY, itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+      itemStyle.opacity = itemStyle.opacity, itemStyle.borderRadius = itemStyle.borderRadius,
+      emphasis.shadowColor = emphasis.shadowColor, emphasis.shadowBlur = emphasis.shadowBlur,
+      itemStyle.emphasis.label.show = itemStyle.emphasis.label.show, itemStyle.emphasis.label.color = itemStyle.emphasis.label.color,
+      itemStyle.emphasis.label.fontStyle = itemStyle.emphasis.label.fontStyle, itemStyle.emphasis.label.fontWeight = itemStyle.emphasis.label.fontWeight,
+      itemStyle.emphasis.label.fontFamily = itemStyle.emphasis.label.fontFamily, itemStyle.emphasis.label.fontSize = itemStyle.emphasis.label.fontSize,
+      itemStyle.emphasis.label.align = itemStyle.emphasis.label.align, itemStyle.emphasis.label.verticalAlign = itemStyle.emphasis.label.verticalAlign,
+      itemStyle.emphasis.label.backgroundColor = itemStyle.emphasis.label.backgroundColor, itemStyle.emphasis.label.borderColor = itemStyle.emphasis.label.borderColor,
+      itemStyle.emphasis.label.borderWidth = itemStyle.emphasis.label.borderWidth, itemStyle.emphasis.label.borderType = itemStyle.emphasis.label.borderType,
+      itemStyle.emphasis.label.borderRadius = itemStyle.emphasis.label.borderRadius, itemStyle.emphasis.label.shadowColor = itemStyle.emphasis.label.shadowColor,
+      itemStyle.emphasis.label.shadowBlur = itemStyle.emphasis.label.shadowBlur, itemStyle.emphasis.label.shadowOffsetY = itemStyle.emphasis.label.shadowOffsetY,
+      itemStyle.emphasis.label.shadowOffsetX = itemStyle.emphasis.label.shadowOffsetX, itemStyle.emphasis.label.width = itemStyle.emphasis.label.width,
+      itemStyle.emphasis.label.height = itemStyle.emphasis.label.height, itemStyle.emphasis.label.textBorderColor = itemStyle.emphasis.label.textBorderColor,
+      itemStyle.emphasis.label.textBorderWidth = itemStyle.emphasis.label.textBorderWidth, itemStyle.emphasis.label.textShadowColor = itemStyle.emphasis.label.textShadowColor,
+      itemStyle.emphasis.label.textShadowBlur = itemStyle.emphasis.label.textShadowBlur, itemStyle.emphasis.label.textShadowOffsetY = itemStyle.emphasis.label.textShadowOffsetY,
+      itemStyle.emphasis.label.textShadowOffsetX = itemStyle.emphasis.label.textShadowOffsetX, label.show = label.show,
+      label.color = label.color, label.fontStyle = label.fontStyle, label.fontWeight = label.fontWeight, label.fontFamily = label.fontFamily,
+      label.fontSize = label.fontSize, label.align = label.align, label.verticalAlign = label.verticalAlign, label.backgroundColor = label.backgroundColor,
+      label.borderColor = label.borderColor, label.borderWidth = label.borderWidth, label.borderType = label.borderType, label.borderRadius = label.borderRadius,
+      label.shadowColor = label.shadowColor, label.shadowBlur = label.shadowBlur, label.shadowOffsetY = label.shadowOffsetY, label.shadowOffsetX = label.shadowOffsetX,
+      label.width = label.width, label.height = label.height, label.textBorderColor = label.textBorderColor, label.textBorderWidth = label.textBorderWidth,
+      label.textShadowColor = label.textShadowColor, label.textShadowBlur = label.textShadowBlur, label.textShadowOffsetY = label.textShadowOffsetY, label.textShadowOffsetX = label.textShadowOffsetX)
 
-    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[ZVar]])
+    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[ZVar]])
+    p1 <- e_visual_map_full(
+      e = p1,
+      serie = ZVar,
+      visualMap.min = visualMap.min,
+      visualMap.max = visualMap.max,
+      visualMap.orient = visualMap.orient,
+      visualMap.right = visualMap.right,
+      visualMap.top = visualMap.top,
+      visualMap.bottom = visualMap.bottom,
+      visualMap.left = visualMap.left,
+      visualMap.backgroundColor = visualMap.backgroundColor,
+      visualMap.borderColor = visualMap.borderColor,
+      visualMap.borderWidth = visualMap.borderWidth,
+      visualMap.InRange.color = visualMap.InRange.color,
+      visualMap.InRange.opacity = visualMap.InRange.opacity,
+      visualMap.InRange.symbol = visualMap.InRange.symbol,
+      visualMap.InRange.symbolSize = visualMap.InRange.symbolSize)
+
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
     } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
@@ -18758,13 +18983,53 @@ HeatMap <- function(dt,
       width = Width,
       height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
-    }
+    p1 <- e_heatmap_full(
+      e = p1, y = YVar, z = ZVar,
+      itemStyle.borderColor = itemStyle.borderColor, itemStyle.borderWidth = itemStyle.borderWidth,
+      itemStyle.shadowColor = itemStyle.shadowColor, itemStyle.shadowBlur = itemStyle.shadowBlur,
+      itemStyle.shadowOffsetY = itemStyle.shadowOffsetY, itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+      itemStyle.opacity = itemStyle.opacity, itemStyle.borderRadius = itemStyle.borderRadius,
+      emphasis.shadowColor = emphasis.shadowColor, emphasis.shadowBlur = emphasis.shadowBlur,
+      itemStyle.emphasis.label.show = itemStyle.emphasis.label.show, itemStyle.emphasis.label.color = itemStyle.emphasis.label.color,
+      itemStyle.emphasis.label.fontStyle = itemStyle.emphasis.label.fontStyle, itemStyle.emphasis.label.fontWeight = itemStyle.emphasis.label.fontWeight,
+      itemStyle.emphasis.label.fontFamily = itemStyle.emphasis.label.fontFamily, itemStyle.emphasis.label.fontSize = itemStyle.emphasis.label.fontSize,
+      itemStyle.emphasis.label.align = itemStyle.emphasis.label.align, itemStyle.emphasis.label.verticalAlign = itemStyle.emphasis.label.verticalAlign,
+      itemStyle.emphasis.label.backgroundColor = itemStyle.emphasis.label.backgroundColor, itemStyle.emphasis.label.borderColor = itemStyle.emphasis.label.borderColor,
+      itemStyle.emphasis.label.borderWidth = itemStyle.emphasis.label.borderWidth, itemStyle.emphasis.label.borderType = itemStyle.emphasis.label.borderType,
+      itemStyle.emphasis.label.borderRadius = itemStyle.emphasis.label.borderRadius, itemStyle.emphasis.label.shadowColor = itemStyle.emphasis.label.shadowColor,
+      itemStyle.emphasis.label.shadowBlur = itemStyle.emphasis.label.shadowBlur, itemStyle.emphasis.label.shadowOffsetY = itemStyle.emphasis.label.shadowOffsetY,
+      itemStyle.emphasis.label.shadowOffsetX = itemStyle.emphasis.label.shadowOffsetX, itemStyle.emphasis.label.width = itemStyle.emphasis.label.width,
+      itemStyle.emphasis.label.height = itemStyle.emphasis.label.height, itemStyle.emphasis.label.textBorderColor = itemStyle.emphasis.label.textBorderColor,
+      itemStyle.emphasis.label.textBorderWidth = itemStyle.emphasis.label.textBorderWidth, itemStyle.emphasis.label.textShadowColor = itemStyle.emphasis.label.textShadowColor,
+      itemStyle.emphasis.label.textShadowBlur = itemStyle.emphasis.label.textShadowBlur, itemStyle.emphasis.label.textShadowOffsetY = itemStyle.emphasis.label.textShadowOffsetY,
+      itemStyle.emphasis.label.textShadowOffsetX = itemStyle.emphasis.label.textShadowOffsetX, label.show = label.show,
+      label.color = label.color, label.fontStyle = label.fontStyle, label.fontWeight = label.fontWeight, label.fontFamily = label.fontFamily,
+      label.fontSize = label.fontSize, label.align = label.align, label.verticalAlign = label.verticalAlign, label.backgroundColor = label.backgroundColor,
+      label.borderColor = label.borderColor, label.borderWidth = label.borderWidth, label.borderType = label.borderType, label.borderRadius = label.borderRadius,
+      label.shadowColor = label.shadowColor, label.shadowBlur = label.shadowBlur, label.shadowOffsetY = label.shadowOffsetY, label.shadowOffsetX = label.shadowOffsetX,
+      label.width = label.width, label.height = label.height, label.textBorderColor = label.textBorderColor, label.textBorderWidth = label.textBorderWidth,
+      label.textShadowColor = label.textShadowColor, label.textShadowBlur = label.textShadowBlur, label.textShadowOffsetY = label.textShadowOffsetY, label.textShadowOffsetX = label.textShadowOffsetX)
 
-    p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
+    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[ZVar]])
+    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[ZVar]])
+    p1 <- e_visual_map_full(
+      e = p1,
+      serie = ZVar,
+      visualMap.min = visualMap.min,
+      visualMap.max = visualMap.max,
+      visualMap.orient = visualMap.orient,
+      visualMap.right = visualMap.right,
+      visualMap.top = visualMap.top,
+      visualMap.bottom = visualMap.bottom,
+      visualMap.left = visualMap.left,
+      visualMap.backgroundColor = visualMap.backgroundColor,
+      visualMap.borderColor = visualMap.borderColor,
+      visualMap.borderWidth = visualMap.borderWidth,
+      visualMap.InRange.color = visualMap.InRange.color,
+      visualMap.InRange.opacity = visualMap.InRange.opacity,
+      visualMap.InRange.symbol = visualMap.InRange.symbol,
+      visualMap.InRange.symbolSize = visualMap.InRange.symbolSize)
+
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     if(MouseScroll) {
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
@@ -18964,20 +19229,57 @@ HeatMap <- function(dt,
     # Create final dt1 for plot
     if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
     p1 <- echarts4r::e_charts_(
-      data = dt1,
-      x = XVar,
-      dispose = TRUE,
-      darkMode = TRUE,
-      width = Width,
-      height = Height)
+      data = dt1, x = XVar,
+      dispose = TRUE, darkMode = TRUE,
+      width = Width, height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, ZVar, itemStyle = list(emphasis = list(shadowBlur = 10)))
-    }
+    p1 <- e_heatmap_full(
+      e = p1, y = YVar, z = ZVar,
+      itemStyle.borderColor = itemStyle.borderColor, itemStyle.borderWidth = itemStyle.borderWidth,
+      itemStyle.shadowColor = itemStyle.shadowColor, itemStyle.shadowBlur = itemStyle.shadowBlur,
+      itemStyle.shadowOffsetY = itemStyle.shadowOffsetY, itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+      itemStyle.opacity = itemStyle.opacity, itemStyle.borderRadius = itemStyle.borderRadius,
+      emphasis.shadowColor = emphasis.shadowColor, emphasis.shadowBlur = emphasis.shadowBlur,
+      itemStyle.emphasis.label.show = itemStyle.emphasis.label.show, itemStyle.emphasis.label.color = itemStyle.emphasis.label.color,
+      itemStyle.emphasis.label.fontStyle = itemStyle.emphasis.label.fontStyle, itemStyle.emphasis.label.fontWeight = itemStyle.emphasis.label.fontWeight,
+      itemStyle.emphasis.label.fontFamily = itemStyle.emphasis.label.fontFamily, itemStyle.emphasis.label.fontSize = itemStyle.emphasis.label.fontSize,
+      itemStyle.emphasis.label.align = itemStyle.emphasis.label.align, itemStyle.emphasis.label.verticalAlign = itemStyle.emphasis.label.verticalAlign,
+      itemStyle.emphasis.label.backgroundColor = itemStyle.emphasis.label.backgroundColor, itemStyle.emphasis.label.borderColor = itemStyle.emphasis.label.borderColor,
+      itemStyle.emphasis.label.borderWidth = itemStyle.emphasis.label.borderWidth, itemStyle.emphasis.label.borderType = itemStyle.emphasis.label.borderType,
+      itemStyle.emphasis.label.borderRadius = itemStyle.emphasis.label.borderRadius, itemStyle.emphasis.label.shadowColor = itemStyle.emphasis.label.shadowColor,
+      itemStyle.emphasis.label.shadowBlur = itemStyle.emphasis.label.shadowBlur, itemStyle.emphasis.label.shadowOffsetY = itemStyle.emphasis.label.shadowOffsetY,
+      itemStyle.emphasis.label.shadowOffsetX = itemStyle.emphasis.label.shadowOffsetX, itemStyle.emphasis.label.width = itemStyle.emphasis.label.width,
+      itemStyle.emphasis.label.height = itemStyle.emphasis.label.height, itemStyle.emphasis.label.textBorderColor = itemStyle.emphasis.label.textBorderColor,
+      itemStyle.emphasis.label.textBorderWidth = itemStyle.emphasis.label.textBorderWidth, itemStyle.emphasis.label.textShadowColor = itemStyle.emphasis.label.textShadowColor,
+      itemStyle.emphasis.label.textShadowBlur = itemStyle.emphasis.label.textShadowBlur, itemStyle.emphasis.label.textShadowOffsetY = itemStyle.emphasis.label.textShadowOffsetY,
+      itemStyle.emphasis.label.textShadowOffsetX = itemStyle.emphasis.label.textShadowOffsetX, label.show = label.show,
+      label.color = label.color, label.fontStyle = label.fontStyle, label.fontWeight = label.fontWeight, label.fontFamily = label.fontFamily,
+      label.fontSize = label.fontSize, label.align = label.align, label.verticalAlign = label.verticalAlign, label.backgroundColor = label.backgroundColor,
+      label.borderColor = label.borderColor, label.borderWidth = label.borderWidth, label.borderType = label.borderType, label.borderRadius = label.borderRadius,
+      label.shadowColor = label.shadowColor, label.shadowBlur = label.shadowBlur, label.shadowOffsetY = label.shadowOffsetY, label.shadowOffsetX = label.shadowOffsetX,
+      label.width = label.width, label.height = label.height, label.textBorderColor = label.textBorderColor, label.textBorderWidth = label.textBorderWidth,
+      label.textShadowColor = label.textShadowColor, label.textShadowBlur = label.textShadowBlur, label.textShadowOffsetY = label.textShadowOffsetY, label.textShadowOffsetX = label.textShadowOffsetX)
 
-    p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
+    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[ZVar]])
+    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[ZVar]])
+    p1 <- e_visual_map_full(
+      e = p1,
+      serie = ZVar,
+      visualMap.min = visualMap.min,
+      visualMap.max = visualMap.max,
+      visualMap.orient = visualMap.orient,
+      visualMap.right = visualMap.right,
+      visualMap.top = visualMap.top,
+      visualMap.bottom = visualMap.bottom,
+      visualMap.left = visualMap.left,
+      visualMap.backgroundColor = visualMap.backgroundColor,
+      visualMap.borderColor = visualMap.borderColor,
+      visualMap.borderWidth = visualMap.borderWidth,
+      visualMap.InRange.color = visualMap.InRange.color,
+      visualMap.InRange.opacity = visualMap.InRange.opacity,
+      visualMap.InRange.symbol = visualMap.InRange.symbol,
+      visualMap.InRange.symbolSize = visualMap.InRange.symbolSize)
+
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     if(MouseScroll) {
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))

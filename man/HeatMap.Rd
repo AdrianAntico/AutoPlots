@@ -22,11 +22,85 @@ HeatMap(
   NumLevels_X = 33,
   Height = NULL,
   Width = NULL,
-  ShowLabels = FALSE,
   Theme = "dark",
   MouseScroll = FALSE,
   TextColor = "white",
   ContainLabel = TRUE,
+  visualMap.show = TRUE,
+  visualMap.min = NULL,
+  visualMap.max = NULL,
+  visualMap.orient = "vertical",
+  visualMap.right = "2\%",
+  visualMap.top = "middle",
+  visualMap.bottom = NULL,
+  visualMap.left = NULL,
+  visualMap.backgroundColor = NULL,
+  visualMap.borderColor = NULL,
+  visualMap.borderWidth = NULL,
+  visualMap.InRange.color = NULL,
+  visualMap.InRange.opacity = NULL,
+  visualMap.InRange.symbol = NULL,
+  visualMap.InRange.symbolSize = NULL,
+  itemStyle.borderColor = NULL,
+  itemStyle.borderWidth = NULL,
+  itemStyle.shadowColor = NULL,
+  itemStyle.shadowBlur = NULL,
+  itemStyle.shadowOffsetY = NULL,
+  itemStyle.shadowOffsetX = NULL,
+  itemStyle.opacity = NULL,
+  itemStyle.borderRadius = NULL,
+  emphasis.shadowColor = NULL,
+  emphasis.shadowBlur = NULL,
+  itemStyle.emphasis.label.show = NULL,
+  itemStyle.emphasis.label.color = NULL,
+  itemStyle.emphasis.label.fontStyle = NULL,
+  itemStyle.emphasis.label.fontWeight = NULL,
+  itemStyle.emphasis.label.fontFamily = NULL,
+  itemStyle.emphasis.label.fontSize = NULL,
+  itemStyle.emphasis.label.align = NULL,
+  itemStyle.emphasis.label.verticalAlign = NULL,
+  itemStyle.emphasis.label.backgroundColor = NULL,
+  itemStyle.emphasis.label.borderColor = NULL,
+  itemStyle.emphasis.label.borderWidth = NULL,
+  itemStyle.emphasis.label.borderType = NULL,
+  itemStyle.emphasis.label.borderRadius = NULL,
+  itemStyle.emphasis.label.shadowColor = NULL,
+  itemStyle.emphasis.label.shadowBlur = NULL,
+  itemStyle.emphasis.label.shadowOffsetY = NULL,
+  itemStyle.emphasis.label.shadowOffsetX = NULL,
+  itemStyle.emphasis.label.width = NULL,
+  itemStyle.emphasis.label.height = NULL,
+  itemStyle.emphasis.label.textBorderColor = NULL,
+  itemStyle.emphasis.label.textBorderWidth = NULL,
+  itemStyle.emphasis.label.textShadowColor = NULL,
+  itemStyle.emphasis.label.textShadowBlur = NULL,
+  itemStyle.emphasis.label.textShadowOffsetY = NULL,
+  itemStyle.emphasis.label.textShadowOffsetX = NULL,
+  label.show = NULL,
+  label.color = NULL,
+  label.fontStyle = NULL,
+  label.fontWeight = NULL,
+  label.fontFamily = NULL,
+  label.fontSize = NULL,
+  label.align = NULL,
+  label.verticalAlign = NULL,
+  label.backgroundColor = NULL,
+  label.borderColor = NULL,
+  label.borderWidth = NULL,
+  label.borderType = NULL,
+  label.borderRadius = NULL,
+  label.shadowColor = NULL,
+  label.shadowBlur = NULL,
+  label.shadowOffsetY = NULL,
+  label.shadowOffsetX = NULL,
+  label.width = NULL,
+  label.height = NULL,
+  label.textBorderColor = NULL,
+  label.textBorderWidth = NULL,
+  label.textShadowColor = NULL,
+  label.textShadowBlur = NULL,
+  label.textShadowOffsetY = NULL,
+  label.textShadowOffsetX = NULL,
   title.text = "Heatmap",
   title.subtext = NULL,
   title.link = NULL,
@@ -313,7 +387,7 @@ HeatMap(
   toolbox.feature.restore.show = TRUE,
   toolbox.feature.dataZoom.show = TRUE,
   toolbox.feature.magicType.show = TRUE,
-  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+  toolbox.feature.magicType.type = NULL,
   toolbox.feature.dataView.show = TRUE,
   toolbox.iconStyle.color = NULL,
   toolbox.iconStyle.borderColor = NULL,
@@ -360,8 +434,6 @@ HeatMap(
 
 \item{Width}{"200px"}
 
-\item{ShowLabels}{character}
-
 \item{Theme}{"dark-blue"}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
@@ -369,6 +441,156 @@ HeatMap(
 \item{TextColor}{color}
 
 \item{ContainLabel}{TRUE}
+
+\item{visualMap.show}{TRUE}
+
+\item{visualMap.min}{min value}
+
+\item{visualMap.max}{max value}
+
+\item{visualMap.orient}{'vertical' 'horizontal'}
+
+\item{visualMap.right}{number}
+
+\item{visualMap.top}{number}
+
+\item{visualMap.bottom}{number}
+
+\item{visualMap.left}{number}
+
+\item{visualMap.backgroundColor}{hex or name}
+
+\item{visualMap.borderColor}{hex or name}
+
+\item{visualMap.borderWidth}{number}
+
+\item{visualMap.InRange.color}{hex or name}
+
+\item{visualMap.InRange.opacity}{number}
+
+\item{visualMap.InRange.symbol}{'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'}
+
+\item{visualMap.InRange.symbolSize}{number}
+
+\item{itemStyle.borderColor}{hex or name}
+
+\item{itemStyle.borderWidth}{number}
+
+\item{itemStyle.shadowColor}{hex or name}
+
+\item{itemStyle.shadowBlur}{number}
+
+\item{itemStyle.shadowOffsetY}{number}
+
+\item{itemStyle.shadowOffsetX}{number}
+
+\item{itemStyle.opacity}{decimal}
+
+\item{itemStyle.borderRadius}{number}
+
+\item{emphasis.shadowColor}{hex or name}
+
+\item{emphasis.shadowBlur}{number}
+
+\item{itemStyle.emphasis.label.show}{logical}
+
+\item{itemStyle.emphasis.label.color}{hex or name}
+
+\item{itemStyle.emphasis.label.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{itemStyle.emphasis.label.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{itemStyle.emphasis.label.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{itemStyle.emphasis.label.fontSize}{number}
+
+\item{itemStyle.emphasis.label.align}{'left' 'center' 'right'}
+
+\item{itemStyle.emphasis.label.verticalAlign}{'top' 'middle' 'bottom'}
+
+\item{itemStyle.emphasis.label.backgroundColor}{hex or name}
+
+\item{itemStyle.emphasis.label.borderColor}{hex or name}
+
+\item{itemStyle.emphasis.label.borderWidth}{number}
+
+\item{itemStyle.emphasis.label.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{itemStyle.emphasis.label.borderRadius}{number}
+
+\item{itemStyle.emphasis.label.shadowColor}{hex or name}
+
+\item{itemStyle.emphasis.label.shadowBlur}{number}
+
+\item{itemStyle.emphasis.label.shadowOffsetY}{number}
+
+\item{itemStyle.emphasis.label.shadowOffsetX}{number}
+
+\item{itemStyle.emphasis.label.width}{number}
+
+\item{itemStyle.emphasis.label.height}{number}
+
+\item{itemStyle.emphasis.label.textBorderColor}{hex or name}
+
+\item{itemStyle.emphasis.label.textBorderWidth}{number}
+
+\item{itemStyle.emphasis.label.textShadowColor}{hex or name}
+
+\item{itemStyle.emphasis.label.textShadowBlur}{number}
+
+\item{itemStyle.emphasis.label.textShadowOffsetY}{number}
+
+\item{itemStyle.emphasis.label.textShadowOffsetX}{number}
+
+\item{label.show}{logical}
+
+\item{label.color}{hex or name}
+
+\item{label.fontStyle}{'normal' 'italic' 'oblique'}
+
+\item{label.fontWeight}{'normal' 'bold' 'bolder' 'lighter'}
+
+\item{label.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{label.fontSize}{number}
+
+\item{label.align}{'left' 'center' 'right'}
+
+\item{label.verticalAlign}{'top' 'middle' 'bottom'}
+
+\item{label.backgroundColor}{hex or name}
+
+\item{label.borderColor}{hex or name}
+
+\item{label.borderWidth}{number}
+
+\item{label.borderType}{'solid' 'dashed' 'dotted'}
+
+\item{label.borderRadius}{number}
+
+\item{label.shadowColor}{hex or name}
+
+\item{label.shadowBlur}{number}
+
+\item{label.shadowOffsetY}{number}
+
+\item{label.shadowOffsetX}{number}
+
+\item{label.width}{number}
+
+\item{label.height}{number}
+
+\item{label.textBorderColor}{hex or name}
+
+\item{label.textBorderWidth}{number}
+
+\item{label.textShadowColor}{hex or name}
+
+\item{label.textShadowBlur}{number}
+
+\item{label.textShadowOffsetY}{number}
+
+\item{label.textShadowOffsetX}{number}
 
 \item{title.text}{Title name}
 
@@ -989,7 +1211,6 @@ AutoPlots::HeatMap(
   NumLevels_X = 33,
   Height = NULL,
   Width = NULL,
-  ShowLabels = FALSE,
   Theme = "dark",
   MouseScroll = FALSE,
   TextColor = "black",
