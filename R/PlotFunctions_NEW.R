@@ -3906,10 +3906,25 @@ Donut <- function(dt = NULL,
       emphasis = list(focus = "series"),
       width = Width, height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, label = list(show = TRUE), radius = c("50%", "70%"))
-    } else {
-      p1 <- echarts4r::e_pie_(e = p1, YVar, stack = XVar, radius = c("50%", "70%"))
+    p1 <- echarts4r::e_pie_(
+      e = p1,
+      YVar,
+      stack = XVar,
+      radius = c("50%", "70%")
+    )
+
+    if (ShowLabels) {
+      p1 <- echarts4r::e_labels(
+        e = p1,
+        show = TRUE,
+        #formatter = "{b}: {c} ({d}%)",  # {b}=label, {c}=value, {d}=percent
+        formatter = htmlwidgets::JS(
+          "function(params) {
+             return params.name + ': ' + params.value.toFixed(1) + ' (' + params.percent.toFixed(1) + '%)';
+           }"
+        ),
+        position = "outside"
+      )
     }
 
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
