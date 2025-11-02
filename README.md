@@ -824,3 +824,97 @@ AutoPlots::display_plots_grid(
 <br>
 
 
+### Line
+
+<details><summary>Line Plot Examples</summary>
+
+```r
+# Create data
+data <- AutoPlots::FakeDataGenerator(N = 1000, AddDate = T)
+data <- data[, .(
+  IndepVar = mean(Independent_Variable8)
+), by = c("DateTime")]
+
+# Build plot
+AutoPlots::Line(
+  dt = data,
+  XVar = "DateTime",
+  YVar = "IndepVar",
+  title.text = "IndepVar",
+  lineStyle.color = c("red","#3848FF","blue"),
+  legend.show = FALSE
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/LinePlot.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+# Create data
+data <- AutoPlots::FakeDataGenerator(N = 1000, AddDate = T)
+data <- data[, .(
+  IndepVar = mean(Independent_Variable8),
+  IndepVar2 = mean(Independent_Variable7),
+  IndepVar3 = mean(Independent_Variable6),
+  IndepVar4 = mean(Independent_Variable5)
+), by = c("DateTime")]
+
+# Build plot
+p1 <- AutoPlots::Line(
+  dt = data,
+  XVar = "DateTime",
+  YVar = "IndepVar",
+  title.text = "IndepVar",
+  lineStyle.color = c("red","#3848FF","blue"),
+  legend.show = FALSE
+)
+
+p2 <- AutoPlots::Line(
+  dt = data,
+  XVar = "DateTime",
+  YVar = "IndepVar2",
+  title.text = "IndepVar2",
+  lineStyle.color = c("red","#3848FF","blue"),
+  legend.show = FALSE
+)
+
+p3 <- AutoPlots::Line(
+  dt = data,
+  XVar = "DateTime",
+  YVar = "IndepVar3",
+  title.text = "IndepVar3",
+  lineStyle.color = c("red","#3848FF","blue"),
+  legend.show = FALSE
+)
+
+p4 <- AutoPlots::Line(
+  dt = data,
+  XVar = "DateTime",
+  YVar = "IndepVar4",
+  title.text = "IndepVar4",
+  lineStyle.color = c("red","#3848FF","blue"),
+  legend.show = FALSE
+)
+
+AutoPlots::display_plots_grid(
+  list(p1,p2,p3,p4),
+  cols = 2
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/LinePlot_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+

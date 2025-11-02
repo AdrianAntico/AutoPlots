@@ -7198,6 +7198,7 @@ WordCloud <- function(dt = NULL,
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
+#' @param lineStyle.color hex or name
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -7540,6 +7541,7 @@ Line <- function(dt = NULL,
                  TextColor = "white",
                  ContainLabel = TRUE,
                  DarkMode = FALSE,
+                 lineStyle.color = NULL,
                  title.text = "Line Plot",
                  title.subtext = NULL,
                  title.link = NULL,
@@ -7939,7 +7941,15 @@ Line <- function(dt = NULL,
 
     # Finalize Plot Build
     if(ShowLabels) {
-      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+      p1 <- echarts4r::e_line_(
+        e = p1,
+        serie = YVar,
+        smooth = Smooth,
+        showSymbol = ShowSymbol,
+        label = list(
+          show = TRUE
+        )
+      )
     } else {
       p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
     }
@@ -8217,6 +8227,18 @@ Line <- function(dt = NULL,
       }
     }
 
+    if (length(lineStyle.color) > 0 && length(DualYVar) == 0) {
+      visualMap.min <- min(dt1[[YVar]])
+      visualMap.max <- max(dt1[[YVar]])
+      p1 <- e_visual_map_full(
+        e = p1,
+        serie = YVar,
+        visualMap.show = FALSE,
+        visualMap.min = visualMap.min,
+        visualMap.max = visualMap.max,
+        visualMap.InRange.color = lineStyle.color)
+    }
+
     # Finalize Plot Build
     if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
@@ -8389,6 +8411,62 @@ Line <- function(dt = NULL,
       title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
       title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
       title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
+    p1 <- e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
   }
   return(p1)
@@ -10900,6 +10978,62 @@ Step <- function(dt = NULL,
       title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
       title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
       title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
+    p1 <- e_legend_full(
+      e = p1,
+      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
 
   }
   return(p1)
@@ -18853,6 +18987,7 @@ HeatMap <- function(dt,
     p1 <- e_visual_map_full(
       e = p1,
       serie = ZVar,
+      visualMap.show = visualMap.show,
       visualMap.min = visualMap.min,
       visualMap.max = visualMap.max,
       visualMap.orient = visualMap.orient,
@@ -19112,6 +19247,7 @@ HeatMap <- function(dt,
     p1 <- e_visual_map_full(
       e = p1,
       serie = ZVar,
+      visualMap.show = visualMap.show,
       visualMap.min = visualMap.min,
       visualMap.max = visualMap.max,
       visualMap.orient = visualMap.orient,
@@ -19345,6 +19481,7 @@ HeatMap <- function(dt,
     p1 <- e_visual_map_full(
       e = p1,
       serie = ZVar,
+      visualMap.show = visualMap.show,
       visualMap.min = visualMap.min,
       visualMap.max = visualMap.max,
       visualMap.orient = visualMap.orient,
@@ -19595,6 +19732,7 @@ HeatMap <- function(dt,
     p1 <- e_visual_map_full(
       e = p1,
       serie = ZVar,
+      visualMap.show = visualMap.show,
       visualMap.min = visualMap.min,
       visualMap.max = visualMap.max,
       visualMap.orient = visualMap.orient,
@@ -21227,6 +21365,7 @@ CorrMatrix <- function(dt = NULL,
   p1 <- e_visual_map_full(
     e = p1,
     serie = NULL,
+    visualMap.show = visualMap.show,
     visualMap.min = -1.0,
     visualMap.max = 1.0,
     visualMap.orient = visualMap.orient,

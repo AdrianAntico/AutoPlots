@@ -29,6 +29,7 @@ Line(
   TextColor = "white",
   ContainLabel = TRUE,
   DarkMode = FALSE,
+  lineStyle.color = NULL,
   title.text = "Line Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -375,6 +376,8 @@ Line(
 \item{ContainLabel}{TRUE}
 
 \item{DarkMode}{FALSE}
+
+\item{lineStyle.color}{hex or name}
 
 \item{title.text}{Title name}
 
