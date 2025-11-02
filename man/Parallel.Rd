@@ -11,13 +11,30 @@ Parallel(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  PreAgg = TRUE,
   Height = NULL,
   Width = NULL,
   ShowLabels = FALSE,
   Theme = "dark",
   MouseScroll = FALSE,
   TextColor = "white",
+  rm_x = TRUE,
+  rm_y = TRUE,
+  lineStyle.color = NULL,
+  lineStyle.width = NULL,
+  lineStyle.type = NULL,
+  lineStyle.shadowBlur = NULL,
+  lineStyle.shadowColor = NULL,
+  lineStyle.shadowOffsetX = NULL,
+  lineStyle.shadowOffsetY = NULL,
+  lineStyle.opacity = NULL,
+  lineStyle.emphasis.color = "red",
+  lineStyle.emphasis.width = 5,
+  lineStyle.emphasis.type = NULL,
+  lineStyle.emphasis.shadowBlur = 5,
+  lineStyle.emphasis.shadowColor = "black",
+  lineStyle.emphasis.shadowOffsetX = NULL,
+  lineStyle.emphasis.shadowOffsetY = NULL,
+  lineStyle.emphasis.opacity = NULL,
   title.text = "Parallel Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -303,8 +320,8 @@ Parallel(
   toolbox.feature.saveAsImage.show = TRUE,
   toolbox.feature.restore.show = TRUE,
   toolbox.feature.dataZoom.show = TRUE,
-  toolbox.feature.magicType.show = TRUE,
-  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+  toolbox.feature.magicType.show = FALSE,
+  toolbox.feature.magicType.type = NULL,
   toolbox.feature.dataView.show = TRUE,
   toolbox.iconStyle.color = NULL,
   toolbox.iconStyle.borderColor = NULL,
@@ -329,8 +346,6 @@ Parallel(
 
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
-\item{PreAgg}{logical}
-
 \item{Height}{"400px"}
 
 \item{Width}{"200px"}
@@ -342,6 +357,42 @@ Parallel(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TextColor}{character hex}
+
+\item{rm_x}{logical. Remove x-axis}
+
+\item{rm_y}{logical. Remove y-axis}
+
+\item{lineStyle.color}{hex or color}
+
+\item{lineStyle.width}{number}
+
+\item{lineStyle.type}{'solid' 'dashed' 'dotted'}
+
+\item{lineStyle.shadowBlur}{number}
+
+\item{lineStyle.shadowColor}{hex or color}
+
+\item{lineStyle.shadowOffsetX}{number}
+
+\item{lineStyle.shadowOffsetY}{number}
+
+\item{lineStyle.opacity}{decimal}
+
+\item{lineStyle.emphasis.color}{hex or color}
+
+\item{lineStyle.emphasis.width}{number}
+
+\item{lineStyle.emphasis.type}{'solid' 'dashed' 'dotted'}
+
+\item{lineStyle.emphasis.shadowBlur}{number}
+
+\item{lineStyle.emphasis.shadowColor}{hex or color}
+
+\item{lineStyle.emphasis.shadowOffsetX}{number}
+
+\item{lineStyle.emphasis.shadowOffsetY}{number}
+
+\item{lineStyle.emphasis.opacity}{decimal}
 
 \item{title.text}{Title name}
 

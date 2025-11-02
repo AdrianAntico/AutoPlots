@@ -918,3 +918,81 @@ AutoPlots::display_plots_grid(
 <br>
 
 
+### Parallel
+
+<details><summary>Parallel Plot Examples</summary>
+
+```r
+# Create data
+n   <- 1000        # rows
+p   <- 8           # number of variables
+rho <- 0.8         # correlation between neighbors (AR(1))
+mu  <- c(50, 100, 0, 10,1,2,3,4)     # means (length p)
+sds <- c(10, 5, 3, 1, 1,2,3,4)        # standard deviations (length p)
+Sigma_cor <- outer(1:p, 1:p, \(i, j) rho^abs(i - j))   # AR(1) correlation matrix
+L <- chol(Sigma_cor)                                   # Cholesky factor (upper-tri)
+Z <- matrix(rnorm(n * p), nrow = n, ncol = p)          # iid N(0,1)
+X_cor <- Z %*% L                                       # correlated, unit variance
+X <- X_cor %*% diag(sds)                               # set std devs
+X <- sweep(X, 2, mu, `+`)                              # set means
+dt <- data.table::as.data.table(X)
+data.table::setnames(dt, paste0("x", seq_len(p)))
+data.table::setnames(dt, "x1", "bl bl bl")
+
+# Build Plot
+AutoPlots::Parallel(
+  dt = dt,
+  CorrVars = names(dt),
+  ShowLabels = T,
+  lineStyle.color = "blue",
+  lineStyle.width = 0.2
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ParallelPlot.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+# Create data
+data <- AutoPlots::FakeDataGenerator(N = 1000, ID = 0)
+data.table::setnames(
+  data,
+  paste0("Independent_Variable", 1:8),
+  paste0("x", 1:8)
+)
+
+# Build Plots
+group_vars <- sort(as.character(unique(data$Factor_1)))[1:4]
+plot_list <- lapply(group_vars, function(x) {
+  AutoPlots::Parallel(
+    dt = data[Factor_1 == x],
+    CorrVars = paste0("x", 1:8),
+    ShowLabels = T,
+    lineStyle.color = "blue",
+    lineStyle.width = 0.2,
+    title.text = x
+  )
+})
+
+AutoPlots::display_plots_grid(
+  plot_list,
+  cols = 2
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ParallelPlot_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+

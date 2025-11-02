@@ -21529,8 +21529,25 @@ CorrMatrix <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param PreAgg logical
 #' @param TextColor character hex
+#' @param rm_x logical. Remove x-axis
+#' @param rm_y logical. Remove y-axis
+#' @param lineStyle.color hex or color
+#' @param lineStyle.width number
+#' @param lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param lineStyle.shadowBlur number
+#' @param lineStyle.shadowColor hex or color
+#' @param lineStyle.shadowOffsetX number
+#' @param lineStyle.shadowOffsetY number
+#' @param lineStyle.opacity decimal
+#' @param lineStyle.emphasis.color hex or color
+#' @param lineStyle.emphasis.width number
+#' @param lineStyle.emphasis.type 'solid' 'dashed' 'dotted'
+#' @param lineStyle.emphasis.shadowBlur number
+#' @param lineStyle.emphasis.shadowColor hex or color
+#' @param lineStyle.emphasis.shadowOffsetX number
+#' @param lineStyle.emphasis.shadowOffsetY number
+#' @param lineStyle.emphasis.opacity decimal
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -21861,13 +21878,30 @@ Parallel <- function(dt = NULL,
                      FacetRows = 1,
                      FacetCols = 1,
                      FacetLevels = NULL,
-                     PreAgg = TRUE,
                      Height = NULL,
                      Width = NULL,
                      ShowLabels = FALSE,
                      Theme = "dark",
                      MouseScroll = FALSE,
                      TextColor = "white",
+                     rm_x = TRUE,
+                     rm_y = TRUE,
+                     lineStyle.color = NULL,
+                     lineStyle.width = NULL,
+                     lineStyle.type = NULL,
+                     lineStyle.shadowBlur = NULL,
+                     lineStyle.shadowColor = NULL,
+                     lineStyle.shadowOffsetX = NULL,
+                     lineStyle.shadowOffsetY = NULL,
+                     lineStyle.opacity = NULL,
+                     lineStyle.emphasis.color = "red",
+                     lineStyle.emphasis.width = 5,
+                     lineStyle.emphasis.type = NULL,
+                     lineStyle.emphasis.shadowBlur = 5,
+                     lineStyle.emphasis.shadowColor = "black",
+                     lineStyle.emphasis.shadowOffsetX = NULL,
+                     lineStyle.emphasis.shadowOffsetY = NULL,
+                     lineStyle.emphasis.opacity = NULL,
                      title.text = "Parallel Plot",
                      title.subtext = NULL,
                      title.link = NULL,
@@ -22153,8 +22187,8 @@ Parallel <- function(dt = NULL,
                      toolbox.feature.saveAsImage.show = TRUE,
                      toolbox.feature.restore.show = TRUE,
                      toolbox.feature.dataZoom.show = TRUE,
-                     toolbox.feature.magicType.show = TRUE,
-                     toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                     toolbox.feature.magicType.show = FALSE,
+                     toolbox.feature.magicType.type = NULL,
                      toolbox.feature.dataView.show = TRUE,
                      toolbox.iconStyle.color = NULL,
                      toolbox.iconStyle.borderColor = NULL,
@@ -22169,71 +22203,26 @@ Parallel <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
 
-  # Plot
-  if(!PreAgg) {
-    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-      dt <- data.table::as.data.table(dt)
-    })
-    dt1 <- stats::na.omit(dt[, .SD, .SDcols = c(CorrVars)])
-
-  } else {
-    dt1 <- dt
-  }
+  # Subset
+  dt1 <- stats::na.omit(dt[, .SD, .SDcols = c(CorrVars)])
 
   if(length(SampleSize) > 0L && dt1[,.N] > SampleSize) {
     dt1 <- dt1[order(stats::runif(.N))][seq_len(SampleSize)]
   }
 
-  if(Debug) {
-    print("Plot.CorrMatrix Echarts")
-    print(Width)
-    print(Height)
-  }
-
-  # Names modification: because of the parse() I can't have spaces in the colnames
-  old <- c()
-  new <- c()
-  for(i in seq_along(CorrVars)) {
-    if(grepl(pattern = " ", x = CorrVars[i])) {
-      old <- c(old, CorrVars[i])
-      new <- c(new, gsub(pattern = " ", replacement = ".", x = CorrVars[i]))
-    }
-  }
-  if(length(new) > 0L) {
-    CorrVars <- new
-    data.table::setnames(dt1, old = old, new = new)
-  }
-
   # Build Plot
   p1 <- echarts4r::e_charts(data = dt1, width = Width, height = Height)
 
-  # Metaprog because issue with function accepting vector of names
-  p1 <- eval(
-    parse(
-      text = c(
-        "echarts4r::e_parallel_(e = p1, ",
-        noquote(
-          c(
-            paste0(CorrVars[seq_len(length(CorrVars)-1L)], collpase = ","),
-            CorrVars[length(CorrVars)])
-        ),
-        ", opts = list(smooth = TRUE))"
-      )
-    )
-  )
-
-  # Warning message:
-  #   Using an external vector in selections was deprecated in tidyselect 1.1.0.
-  # ℹ Please use `all_of()` or `any_of()` instead.
-  # # Was:
-  # data %>% select(v)
-  #
-  # # Now:
-  # data %>% select(all_of(v))
-  #
-  # See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-  # This warning is displayed once every 8 hours.
-  # Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+  p1 <- e_parallel_full(
+    e = p1, vars = names(dt1), rm_x = rm_x, rm_y = rm_y,
+    lineStyle.color = lineStyle.color, lineStyle.width = lineStyle.width,
+    lineStyle.type = lineStyle.type, lineStyle.shadowBlur = lineStyle.shadowBlur,
+    lineStyle.shadowColor = lineStyle.shadowColor, lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
+    lineStyle.shadowOffsetY = lineStyle.shadowOffsetY, lineStyle.opacity = lineStyle.opacity,
+    lineStyle.emphasis.color = lineStyle.emphasis.color, lineStyle.emphasis.width = lineStyle.emphasis.width,
+    lineStyle.emphasis.type = lineStyle.emphasis.type, lineStyle.emphasis.shadowBlur = lineStyle.emphasis.shadowBlur,
+    lineStyle.emphasis.shadowColor = lineStyle.emphasis.shadowColor, lineStyle.emphasis.shadowOffsetX = lineStyle.emphasis.shadowOffsetX,
+    lineStyle.emphasis.shadowOffsetY = lineStyle.emphasis.shadowOffsetY, lineStyle.emphasis.opacity = lineStyle.emphasis.opacity)
 
   p1 <- e_tooltip_full(
     e = p1,

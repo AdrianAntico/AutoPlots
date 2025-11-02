@@ -1767,6 +1767,90 @@ e_heatmap_full <- function(e,
 }
 
 
+
+#' Parallel customization
+#'
+#' Expose most parallel options
+#'
+#' @param e plot
+#' @param vars character vector
+#' @param rm_x logical
+#' @param rm_y logical
+#' @param lineStyle.color hex or color
+#' @param lineStyle.width number
+#' @param lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param lineStyle.shadowBlur number
+#' @param lineStyle.shadowColor hex or color
+#' @param lineStyle.shadowOffsetX number
+#' @param lineStyle.shadowOffsetY number
+#' @param lineStyle.opacity decimal
+#' @param lineStyle.emphasis.color hex or color
+#' @param lineStyle.emphasis.width number
+#' @param lineStyle.emphasis.type 'solid' 'dashed' 'dotted'
+#' @param lineStyle.emphasis.shadowBlur number
+#' @param lineStyle.emphasis.shadowColor hex or color
+#' @param lineStyle.emphasis.shadowOffsetX number
+#' @param lineStyle.emphasis.shadowOffsetY number
+#' @param lineStyle.emphasis.opacity decimal
+#'
+#' @return The modified echarts4r object
+#' @export
+e_parallel_full <- function(e,
+                            vars,
+                            rm_x = TRUE,
+                            rm_y = TRUE,
+                            lineStyle.color = NULL,
+                            lineStyle.width = NULL,
+                            lineStyle.type = NULL,
+                            lineStyle.shadowBlur = NULL,
+                            lineStyle.shadowColor = NULL,
+                            lineStyle.shadowOffsetX = NULL,
+                            lineStyle.shadowOffsetY = NULL,
+                            lineStyle.opacity = NULL,
+                            lineStyle.emphasis.color = NULL,
+                            lineStyle.emphasis.width = NULL,
+                            lineStyle.emphasis.type = NULL,
+                            lineStyle.emphasis.shadowBlur = NULL,
+                            lineStyle.emphasis.shadowColor = NULL,
+                            lineStyle.emphasis.shadowOffsetX = NULL,
+                            lineStyle.emphasis.shadowOffsetY = NULL,
+                            lineStyle.emphasis.opacity = NULL) {
+
+  ls <- .compact(list(
+    color         = lineStyle.color,
+    width         = lineStyle.width,
+    type          = lineStyle.type,
+    shadowBlur    = lineStyle.shadowBlur,
+    shadowColor   = lineStyle.shadowColor,
+    shadowOffsetX = lineStyle.shadowOffsetX,
+    shadowOffsetY = lineStyle.shadowOffsetY,
+    opacity       = lineStyle.opacity,
+    emphasis      = .compact(list(
+      color         = lineStyle.emphasis.color,
+      width         = lineStyle.emphasis.width,
+      type          = lineStyle.emphasis.type,
+      shadowBlur    = lineStyle.emphasis.shadowBlur,
+      shadowColor   = lineStyle.emphasis.shadowColor,
+      shadowOffsetX = lineStyle.emphasis.shadowOffsetX,
+      shadowOffsetY = lineStyle.emphasis.shadowOffsetY,
+      opacity       = lineStyle.emphasis.opacity
+    ))
+  ))
+
+  if (length(ls) > 0) {
+    p <- echarts4r::e_parallel_(e = e, vars, opts = list(
+      smooth = TRUE,
+      lineStyle = ls
+    ))
+  } else {
+    p <- echarts4r::e_parallel_(e = e, vars, opts = list(
+      smooth = TRUE
+    ))
+  }
+  p
+}
+
+
 #' Display a Series of Plots in a Styled HTML Grid with Columns
 #'
 #' @param plots A list of echarts4r plots (or htmlwidgets).
