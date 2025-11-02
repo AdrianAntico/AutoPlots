@@ -54,19 +54,13 @@ A simple api for visualizing Echarts. Plotting functions expose most Echarts cus
 ## Installation
 
 ```r
-install.packages("combinat")
-install.packages("data.table")
-install.packages("devtools")
-install.packages("dplyr")
-install.packages("e1071")
-install.packages("echarts4r")
-install.packages("lubridate")
-install.packages("nortest")
-install.packages("quanteda")
-install.packages("quanteda.textstats")
-install.packages("scales")
-install.packages("stats")
-install.packages("utils")
+# Install CRAN dependencies
+install.packages(c(
+  "combinat", "data.table", "devtools", "dplyr", "e1071", "echarts4r",
+  "lubridate", "nortest", "quanteda", "quanteda.textstats", "scales"
+))
+
+# Install AutoPlots from GitHub
 devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
 ```
 
