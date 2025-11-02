@@ -990,3 +990,73 @@ AutoPlots::display_plots_grid(
 <br>
 
 
+
+### Pie
+
+<details><summary>Pie Plot Examples</summary>
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+data <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_1")]
+
+# Build Plot
+AutoPlots::Pie(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "IndepVar",
+  ShowLabels = T)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Pie.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+dt1 <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_1")]
+dt2 <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_2")]
+
+# Build Plots
+p1 <- AutoPlots::Pie(
+  dt = dt1,
+  XVar = "Factor_1",
+  YVar = "IndepVar",
+  title.text = "Factor_1",
+  ShowLabels = T)
+
+p2 <- AutoPlots::Pie(
+  dt = dt2,
+  XVar = "Factor_2",
+  YVar = "IndepVar",
+  title.text = "Factor_2",
+  ShowLabels = T)
+
+AutoPlots::display_plots_grid(
+  list(p1, p2),
+  cols = 1
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Pie_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+
