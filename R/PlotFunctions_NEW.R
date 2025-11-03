@@ -11777,7 +11777,12 @@ River <- function(dt = NULL,
     darkMode = TRUE,
     width = Width,
     height = Height)
-  for(i in YVar) p1 <- echarts4r::e_river_(e = p1, serie = i)
+  for(i in YVar) {
+    p1 <- echarts4r::e_river_(
+      e = p1,
+      serie = i
+    )
+  }
 
   if(Debug) print("Plot.River 8b")
 
@@ -20446,7 +20451,7 @@ Radar <- function(dt = NULL,
       serie = yvar,
       max = mv,
       name = yvar,
-      label = list(show = TRUE)
+      label = list(show = ShowLabels)
     )
   }
 
