@@ -1091,32 +1091,42 @@ AutoPlots::Radar(
 <br>
 
 ```r
-# Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 1000)
-dt1 <- data[, .(
-  IndepVar = round(mean(Independent_Variable8), 3)
-), by = c("Factor_1")]
-dt2 <- data[, .(
-  IndepVar = round(mean(Independent_Variable8), 3)
-), by = c("Factor_2")]
+# Create Data
+dt <- data.table::data.table(
+  Y1 = pnorm(q = runif(10)),
+  Y2 = pnorm(q = runif(10)),
+  Y3 = pnorm(q = runif(10)),
+  GV = sample(LETTERS[1:10], 10, TRUE))
 
-# Build Plots
-p1 <- AutoPlots::Pie(
-  dt = dt1,
-  XVar = "Factor_1",
-  YVar = "IndepVar",
-  title.text = "Factor_1",
-  ShowLabels = T)
+dt2 <- data.table::data.table(
+  Y1 = pnorm(q = runif(10)),
+  Y2 = pnorm(q = runif(10)),
+  Y3 = pnorm(q = runif(10)),
+  GV = sample(LETTERS[11:20], 10, TRUE))
 
-p2 <- AutoPlots::Pie(
+# Create plot
+p1 <- AutoPlots::Radar(
+  dt = dt,
+  AggMethod = "mean",
+  ShowLabels = TRUE,
+  PreAgg = FALSE,
+  YVar = c("Y1","Y2","Y3"),
+  GroupVar = "GV",
+  title.text = "Data 1",
+  lineStyle.color = c("#00BFFF", "#FF69B4", "#32CD32"))
+
+p2 <- AutoPlots::Radar(
   dt = dt2,
-  XVar = "Factor_2",
-  YVar = "IndepVar",
-  title.text = "Factor_2",
-  ShowLabels = T)
+  AggMethod = "mean",
+  ShowLabels = TRUE,
+  PreAgg = FALSE,
+  YVar = c("Y1","Y2","Y3"),
+  GroupVar = "GV",
+  title.text = "Data 2",
+  lineStyle.color = c("#00BFFF", "#FF69B4", "#32CD32"))
 
 AutoPlots::display_plots_grid(
-  list(p1, p2),
+  list(p1,p2),
   cols = 1
 )
 ```
