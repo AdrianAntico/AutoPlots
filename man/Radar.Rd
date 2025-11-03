@@ -19,6 +19,7 @@ Radar(
   TextColor = "white",
   ContainLabel = TRUE,
   DarkMode = FALSE,
+  lineStyle.color = NULL,
   title.text = "Radar Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -263,6 +264,8 @@ Radar(
 \item{ContainLabel}{TRUE}
 
 \item{DarkMode}{FALSE}
+
+\item{lineStyle.color}{hex or name for radar lines}
 
 \item{title.text}{Title name}
 

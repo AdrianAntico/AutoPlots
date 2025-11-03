@@ -23,7 +23,6 @@ A simple api for visualizing Echarts. Plotting functions expose most Echarts cus
 - Line
 - Parallel
 - Pie
-- Probability
 - Radar
 - River
 - Rosetype
@@ -45,6 +44,7 @@ A simple api for visualizing Echarts. Plotting functions expose most Echarts cus
 - Partial Autocorrelation
 - Partial Dependence
 - Partial Dependence Heatmap
+- Probability
 - ROC
 - Shapely Importance
 - Variable Importance
@@ -1051,6 +1051,79 @@ AutoPlots::display_plots_grid(
 <br>
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Pie_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+
+### Radar
+
+<details><summary>Radar Plot Examples</summary>
+
+```r
+# Create Data
+dt <- data.table::data.table(
+  Y1 = pnorm(q = runif(10)),
+  Y2 = pnorm(q = runif(10)),
+  Y3 = pnorm(q = runif(10)),
+  GV = sample(LETTERS[1:10], 10, TRUE))
+
+# Create plot
+AutoPlots::Radar(
+  dt = dt,
+  AggMethod = "mean",
+  ShowLabels = TRUE,
+  PreAgg = FALSE,
+  YVar = c("Y1","Y2","Y3"),
+  GroupVar = "GV",
+  lineStyle.color = c("#00BFFF", "#FF69B4", "#32CD32"))
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Radar.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+dt1 <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_1")]
+dt2 <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_2")]
+
+# Build Plots
+p1 <- AutoPlots::Pie(
+  dt = dt1,
+  XVar = "Factor_1",
+  YVar = "IndepVar",
+  title.text = "Factor_1",
+  ShowLabels = T)
+
+p2 <- AutoPlots::Pie(
+  dt = dt2,
+  XVar = "Factor_2",
+  YVar = "IndepVar",
+  title.text = "Factor_2",
+  ShowLabels = T)
+
+AutoPlots::display_plots_grid(
+  list(p1, p2),
+  cols = 1
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Radar_grid.PNG" align="center" width="800" />
 
 <br>
 

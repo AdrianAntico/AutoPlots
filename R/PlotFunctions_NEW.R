@@ -19913,6 +19913,7 @@ HeatMap <- function(dt,
 #' @param Theme Provide an "Echarts" theme
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
+#' @param lineStyle.color hex or name for radar lines
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -20168,6 +20169,7 @@ Radar <- function(dt = NULL,
                   TextColor = "white",
                   ContainLabel = TRUE,
                   DarkMode = FALSE,
+                  lineStyle.color = NULL,
                   title.text = "Radar Plot",
                   title.subtext = NULL,
                   title.link = NULL,
@@ -20421,6 +20423,7 @@ Radar <- function(dt = NULL,
   mv <- c(rep(0, length(YVar)))
   for(i in seq_along(YVar)) {
     mv[i] <- dt1[, max(get(YVar[i]), na.rm = TRUE)]
+    dt1[, eval(YVar[i]) := round(get(YVar[i]), 2)]
   }
 
   YVarMod <- YVar[which(mv == max(mv, na.rm = TRUE))]
@@ -20435,8 +20438,20 @@ Radar <- function(dt = NULL,
     emphasis = list(focus = "series"),
     dispose = TRUE, width = Width, height = Height)
 
+  counter <- 0
   for(yvar in YVarMod) {
-    p1 <- echarts4r::e_radar_(e = p1, serie = yvar, max = mv, name = yvar)
+    counter <- counter + 1
+    p1 <- echarts4r::e_radar_(
+      e = p1,
+      serie = yvar,
+      max = mv,
+      name = yvar,
+      label = list(show = TRUE)
+    )
+  }
+
+  if (length(lineStyle.color) == length(YVarMod)) {
+    p1 <- echarts4r::e_color(e = p1, color = lineStyle.color)
   }
 
   if(Debug) print("Plot.Radar() Build Echarts 5")
