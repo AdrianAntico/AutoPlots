@@ -1143,3 +1143,52 @@ AutoPlots::display_plots_grid(
 <br>
 
 
+
+### River
+
+<details><summary>River Plot Examples</summary>
+
+```r
+# Create fake data
+dates <- seq.Date(Sys.Date() - 30, Sys.Date(), by = "day")
+grps <- lapply(LETTERS[1:5], rep, 31) |> unlist()
+dt <- data.table::data.table(
+  dates = rep(dates, 5),
+  groups = grps,
+  values = runif(length(grps), 1, 50)
+)
+
+# Build Plot
+AutoPlots::River(
+  dt = dt,
+  PreAgg = TRUE,
+  XVar = "dates",
+  legend.orient = "horizontal",
+  itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4"),
+  YVar = "values",
+  GroupVar = "groups")
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/River.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/River_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+

@@ -24,6 +24,7 @@ River(
   TimeLine = FALSE,
   ShowSymbol = FALSE,
   TextColor = "white",
+  itemStyle.color = NULL,
   title.text = "River Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -76,88 +77,6 @@ River(
   title.subtextStyle.textShadowBlur = NULL,
   title.subtextStyle.textShadowOffsetX = NULL,
   title.subtextStyle.textShadowOffsetY = NULL,
-  xAxis.title = NULL,
-  xAxis.min = NULL,
-  xAxis.max = NULL,
-  xAxis.position = "bottom",
-  xAxis.nameLocation = "center",
-  xAxis.axisTick.customValues = NULL,
-  xAxis.nameTextStyle.color = NULL,
-  xAxis.nameTextStyle.padding = 25,
-  xAxis.nameTextStyle.align = NULL,
-  xAxis.nameTextStyle.fontStyle = NULL,
-  xAxis.nameTextStyle.fontWeight = "bolder",
-  xAxis.nameTextStyle.fontSize = NULL,
-  xAxis.nameTextStyle.fontFamily = "Segoe UI",
-  xAxis.splitNumber = NULL,
-  xAxis.axisLabel.rotate = NULL,
-  xAxis.axisLabel.margin = NULL,
-  xAxis.axisLabel.color = NULL,
-  xAxis.axisLabel.fontStyle = NULL,
-  xAxis.axisLabel.fontWeight = NULL,
-  xAxis.axisLabel.fontFamily = "Segoe UI",
-  xAxis.axisLabel.fontSize = 14,
-  xAxis.axisLabel.align = NULL,
-  xAxis.axisLabel.verticalAlign = NULL,
-  xAxis.axisLabel.backgroundColor = NULL,
-  xAxis.axisLabel.borderColor = NULL,
-  xAxis.axisLabel.borderWidth = NULL,
-  xAxis.axisLabel.borderType = NULL,
-  xAxis.axisLabel.borderRadius = NULL,
-  xAxis.axisLabel.padding = NULL,
-  xAxis.axisLabel.shadowColor = NULL,
-  xAxis.axisLabel.shadowBlur = NULL,
-  xAxis.axisLabel.shadowOffsetX = NULL,
-  xAxis.axisLabel.shadowOffsetY = NULL,
-  xAxis.axisLabel.textBorderColor = NULL,
-  xAxis.axisLabel.textBorderWidth = NULL,
-  xAxis.axisLabel.textBorderType = NULL,
-  xAxis.axisLabel.textShadowColor = NULL,
-  xAxis.axisLabel.textShadowBlur = NULL,
-  xAxis.axisLabel.textShadowOffsetX = NULL,
-  xAxis.axisLabel.textShadowOffsetY = NULL,
-  xAxis.axisLabel.overflow = NULL,
-  yAxis.title = NULL,
-  yAxis.min = NULL,
-  yAxis.max = NULL,
-  yAxis.position = "center",
-  yAxis.nameLocation = "center",
-  yAxis.axisTick.customValues = NULL,
-  yAxis.nameTextStyle.color = NULL,
-  yAxis.nameTextStyle.padding = 25,
-  yAxis.nameTextStyle.align = NULL,
-  yAxis.nameTextStyle.fontStyle = NULL,
-  yAxis.nameTextStyle.fontWeight = "bolder",
-  yAxis.nameTextStyle.fontSize = NULL,
-  yAxis.nameTextStyle.fontFamily = "Segoe UI",
-  yAxis.splitNumber = NULL,
-  yAxis.axisLabel.rotate = NULL,
-  yAxis.axisLabel.margin = NULL,
-  yAxis.axisLabel.color = NULL,
-  yAxis.axisLabel.fontStyle = NULL,
-  yAxis.axisLabel.fontWeight = NULL,
-  yAxis.axisLabel.fontFamily = "Segoe UI",
-  yAxis.axisLabel.fontSize = 14,
-  yAxis.axisLabel.align = NULL,
-  yAxis.axisLabel.verticalAlign = NULL,
-  yAxis.axisLabel.backgroundColor = NULL,
-  yAxis.axisLabel.borderColor = NULL,
-  yAxis.axisLabel.borderWidth = NULL,
-  yAxis.axisLabel.borderType = NULL,
-  yAxis.axisLabel.borderRadius = NULL,
-  yAxis.axisLabel.padding = NULL,
-  yAxis.axisLabel.shadowColor = NULL,
-  yAxis.axisLabel.shadowBlur = NULL,
-  yAxis.axisLabel.shadowOffsetX = NULL,
-  yAxis.axisLabel.shadowOffsetY = NULL,
-  yAxis.axisLabel.textBorderColor = NULL,
-  yAxis.axisLabel.textBorderWidth = NULL,
-  yAxis.axisLabel.textBorderType = NULL,
-  yAxis.axisLabel.textShadowColor = NULL,
-  yAxis.axisLabel.textShadowBlur = NULL,
-  yAxis.axisLabel.textShadowOffsetX = NULL,
-  yAxis.axisLabel.textShadowOffsetY = NULL,
-  yAxis.axisLabel.overflow = NULL,
   legend.show = TRUE,
   legend.type = "scroll",
   legend.selector = NULL,
@@ -307,10 +226,10 @@ River(
   toolbox.width = NULL,
   toolbox.heigth = NULL,
   toolbox.feature.saveAsImage.show = TRUE,
-  toolbox.feature.restore.show = TRUE,
-  toolbox.feature.dataZoom.show = TRUE,
-  toolbox.feature.magicType.show = TRUE,
-  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+  toolbox.feature.restore.show = FALSE,
+  toolbox.feature.dataZoom.show = FALSE,
+  toolbox.feature.magicType.show = FALSE,
+  toolbox.feature.magicType.type = NULL,
   toolbox.feature.dataView.show = TRUE,
   toolbox.iconStyle.color = NULL,
   toolbox.iconStyle.borderColor = NULL,
@@ -464,170 +383,6 @@ River(
 \item{title.subtextStyle.textShadowOffsetX}{numeric}
 
 \item{title.subtextStyle.textShadowOffsetY}{numeric}
-
-\item{xAxis.title}{Axis title}
-
-\item{xAxis.min}{Min value}
-
-\item{xAxis.max}{Max value}
-
-\item{xAxis.position}{'bottom', 'top'}
-
-\item{xAxis.nameLocation}{'center', 'start', 'middle'}
-
-\item{xAxis.axisTick.customValues}{Custom values for the x-axis}
-
-\item{xAxis.nameTextStyle.color}{hex or named color}
-
-\item{xAxis.nameTextStyle.padding}{numeric}
-
-\item{xAxis.nameTextStyle.align}{'center', 'left', 'right'}
-
-\item{xAxis.nameTextStyle.fontStyle}{'italic', 'normal' 'oblique'}
-
-\item{xAxis.nameTextStyle.fontWeight}{'normal', 'bold', 'bolder', 'lighter'}
-
-\item{xAxis.nameTextStyle.fontSize}{numeric}
-
-\item{xAxis.nameTextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
-
-\item{xAxis.splitNumber}{numeric. Increments for numeric axis labels}
-
-\item{xAxis.axisLabel.rotate}{numeric}
-
-\item{xAxis.axisLabel.margin}{numeric}
-
-\item{xAxis.axisLabel.color}{hex or named}
-
-\item{xAxis.axisLabel.fontStyle}{'italic', 'normal' 'oblique'}
-
-\item{xAxis.axisLabel.fontWeight}{'normal', 'bold', 'bolder', 'lighter'}
-
-\item{xAxis.axisLabel.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
-
-\item{xAxis.axisLabel.fontSize}{numeric}
-
-\item{xAxis.axisLabel.align}{'center', 'left', 'right'}
-
-\item{xAxis.axisLabel.verticalAlign}{'top', 'bottom'}
-
-\item{xAxis.axisLabel.backgroundColor}{hex or named}
-
-\item{xAxis.axisLabel.borderColor}{hex or named}
-
-\item{xAxis.axisLabel.borderWidth}{numeric}
-
-\item{xAxis.axisLabel.borderType}{'solid', 'dashed', 'dotted'}
-
-\item{xAxis.axisLabel.borderRadius}{numeric}
-
-\item{xAxis.axisLabel.padding}{numeric}
-
-\item{xAxis.axisLabel.shadowColor}{hex or named}
-
-\item{xAxis.axisLabel.shadowBlur}{numeric}
-
-\item{xAxis.axisLabel.shadowOffsetX}{numeric}
-
-\item{xAxis.axisLabel.shadowOffsetY}{numeric}
-
-\item{xAxis.axisLabel.textBorderColor}{hex or named}
-
-\item{xAxis.axisLabel.textBorderWidth}{numeric}
-
-\item{xAxis.axisLabel.textBorderType}{'solid', 'dashed', 'dotted'}
-
-\item{xAxis.axisLabel.textShadowColor}{hex or named}
-
-\item{xAxis.axisLabel.textShadowBlur}{numeric}
-
-\item{xAxis.axisLabel.textShadowOffsetX}{numeric}
-
-\item{xAxis.axisLabel.textShadowOffsetY}{numeric}
-
-\item{xAxis.axisLabel.overflow}{'truncate'}
-
-\item{yAxis.title}{Axis title}
-
-\item{yAxis.min}{Min value}
-
-\item{yAxis.max}{Max value}
-
-\item{yAxis.position}{'bottom', 'top'}
-
-\item{yAxis.nameLocation}{'center', 'start', 'middle'}
-
-\item{yAxis.axisTick.customValues}{Custom values for the y-axis}
-
-\item{yAxis.nameTextStyle.color}{hex or named color}
-
-\item{yAxis.nameTextStyle.padding}{numeric}
-
-\item{yAxis.nameTextStyle.align}{'center', 'left', 'right'}
-
-\item{yAxis.nameTextStyle.fontStyle}{'italic', 'normal' 'oblique'}
-
-\item{yAxis.nameTextStyle.fontWeight}{'normal', 'bold', 'bolder', 'lighter'}
-
-\item{yAxis.nameTextStyle.fontSize}{numeric}
-
-\item{yAxis.nameTextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
-
-\item{yAxis.splitNumber}{numeric. Increments for numeric axis labels}
-
-\item{yAxis.axisLabel.rotate}{numeric}
-
-\item{yAxis.axisLabel.margin}{numeric}
-
-\item{yAxis.axisLabel.color}{hex or named}
-
-\item{yAxis.axisLabel.fontStyle}{'italic', 'normal' 'oblique'}
-
-\item{yAxis.axisLabel.fontWeight}{'normal', 'bold', 'bolder', 'lighter'}
-
-\item{yAxis.axisLabel.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
-
-\item{yAxis.axisLabel.fontSize}{numeric}
-
-\item{yAxis.axisLabel.align}{'center', 'left', 'right'}
-
-\item{yAxis.axisLabel.verticalAlign}{'top', 'bottom'}
-
-\item{yAxis.axisLabel.backgroundColor}{hex or named}
-
-\item{yAxis.axisLabel.borderColor}{hex or named}
-
-\item{yAxis.axisLabel.borderWidth}{numeric}
-
-\item{yAxis.axisLabel.borderType}{'solid', 'dashed', 'dotted'}
-
-\item{yAxis.axisLabel.borderRadius}{numeric}
-
-\item{yAxis.axisLabel.padding}{numeric}
-
-\item{yAxis.axisLabel.shadowColor}{hex or named}
-
-\item{yAxis.axisLabel.shadowBlur}{numeric}
-
-\item{yAxis.axisLabel.shadowOffsetX}{numeric}
-
-\item{yAxis.axisLabel.shadowOffsetY}{numeric}
-
-\item{yAxis.axisLabel.textBorderColor}{hex or named}
-
-\item{yAxis.axisLabel.textBorderWidth}{numeric}
-
-\item{yAxis.axisLabel.textBorderType}{'solid', 'dashed', 'dotted'}
-
-\item{yAxis.axisLabel.textShadowColor}{hex or named}
-
-\item{yAxis.axisLabel.textShadowBlur}{numeric}
-
-\item{yAxis.axisLabel.textShadowOffsetX}{numeric}
-
-\item{yAxis.axisLabel.textShadowOffsetY}{numeric}
-
-\item{yAxis.axisLabel.overflow}{'truncate'}
 
 \item{legend.show}{logical}
 

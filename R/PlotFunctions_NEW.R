@@ -11117,88 +11117,6 @@ Step <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
-#' @param xAxis.title Axis title
-#' @param xAxis.min Min value
-#' @param xAxis.max Max value
-#' @param xAxis.position 'bottom', 'top'
-#' @param xAxis.nameLocation 'center', 'start', 'middle'
-#' @param xAxis.axisTick.customValues Custom values for the x-axis
-#' @param xAxis.nameTextStyle.color hex or named color
-#' @param xAxis.nameTextStyle.padding numeric
-#' @param xAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param xAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.nameTextStyle.fontSize numeric
-#' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param xAxis.axisLabel.rotate numeric
-#' @param xAxis.axisLabel.margin numeric
-#' @param xAxis.axisLabel.color hex or named
-#' @param xAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param xAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param xAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param xAxis.axisLabel.fontSize numeric
-#' @param xAxis.axisLabel.align 'center', 'left', 'right'
-#' @param xAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param xAxis.axisLabel.backgroundColor hex or named
-#' @param xAxis.axisLabel.borderColor hex or named
-#' @param xAxis.axisLabel.borderWidth numeric
-#' @param xAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.borderRadius numeric
-#' @param xAxis.axisLabel.padding numeric
-#' @param xAxis.axisLabel.shadowColor hex or named
-#' @param xAxis.axisLabel.shadowBlur numeric
-#' @param xAxis.axisLabel.shadowOffsetX numeric
-#' @param xAxis.axisLabel.shadowOffsetY numeric
-#' @param xAxis.axisLabel.textBorderColor hex or named
-#' @param xAxis.axisLabel.textBorderWidth numeric
-#' @param xAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param xAxis.axisLabel.textShadowColor hex or named
-#' @param xAxis.axisLabel.textShadowBlur numeric
-#' @param xAxis.axisLabel.textShadowOffsetX numeric
-#' @param xAxis.axisLabel.textShadowOffsetY numeric
-#' @param xAxis.axisLabel.overflow 'truncate'
-#' @param yAxis.title Axis title
-#' @param yAxis.min Min value
-#' @param yAxis.max Max value
-#' @param yAxis.position 'bottom', 'top'
-#' @param yAxis.axisTick.customValues Custom values for the y-axis
-#' @param yAxis.nameLocation 'center', 'start', 'middle'
-#' @param yAxis.nameTextStyle.color hex or named color
-#' @param yAxis.nameTextStyle.padding numeric
-#' @param yAxis.nameTextStyle.align 'center', 'left', 'right'
-#' @param yAxis.nameTextStyle.fontStyle 'italic', 'normal' 'oblique'
-#' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param yAxis.nameTextStyle.fontSize numeric
-#' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param yAxis.splitNumber numeric. Increments for numeric axis labels
-#' @param yAxis.axisLabel.rotate numeric
-#' @param yAxis.axisLabel.margin numeric
-#' @param yAxis.axisLabel.color hex or named
-#' @param yAxis.axisLabel.fontStyle 'italic', 'normal' 'oblique'
-#' @param yAxis.axisLabel.fontWeight 'normal', 'bold', 'bolder', 'lighter'
-#' @param yAxis.axisLabel.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
-#' @param yAxis.axisLabel.fontSize numeric
-#' @param yAxis.axisLabel.align 'center', 'left', 'right'
-#' @param yAxis.axisLabel.verticalAlign 'top', 'bottom'
-#' @param yAxis.axisLabel.backgroundColor hex or named
-#' @param yAxis.axisLabel.borderColor hex or named
-#' @param yAxis.axisLabel.borderWidth numeric
-#' @param yAxis.axisLabel.borderType 'solid', 'dashed', 'dotted'
-#' @param yAxis.axisLabel.borderRadius numeric
-#' @param yAxis.axisLabel.padding numeric
-#' @param yAxis.axisLabel.shadowColor hex or named
-#' @param yAxis.axisLabel.shadowBlur numeric
-#' @param yAxis.axisLabel.shadowOffsetX numeric
-#' @param yAxis.axisLabel.shadowOffsetY numeric
-#' @param yAxis.axisLabel.textBorderColor hex or named
-#' @param yAxis.axisLabel.textBorderWidth numeric
-#' @param yAxis.axisLabel.textBorderType 'solid', 'dashed', 'dotted'
-#' @param yAxis.axisLabel.textShadowColor hex or named
-#' @param yAxis.axisLabel.textShadowBlur numeric
-#' @param yAxis.axisLabel.textShadowOffsetX numeric
-#' @param yAxis.axisLabel.textShadowOffsetY numeric
-#' @param yAxis.axisLabel.overflow 'truncate'
 #' @param legend.show logical
 #' @param legend.type 'scroll' 'plain'
 #' @param legend.selector logical
@@ -11403,6 +11321,7 @@ River <- function(dt = NULL,
                   TimeLine = FALSE,
                   ShowSymbol = FALSE,
                   TextColor = "white",
+                  itemStyle.color = NULL,
                   title.text = "River Plot",
                   title.subtext = NULL,
                   title.link = NULL,
@@ -11455,88 +11374,6 @@ River <- function(dt = NULL,
                   title.subtextStyle.textShadowBlur = NULL,
                   title.subtextStyle.textShadowOffsetX = NULL,
                   title.subtextStyle.textShadowOffsetY = NULL,
-                  xAxis.title = NULL,
-                  xAxis.min = NULL,
-                  xAxis.max = NULL,
-                  xAxis.position = "bottom",
-                  xAxis.nameLocation = 'center',
-                  xAxis.axisTick.customValues = NULL,
-                  xAxis.nameTextStyle.color = NULL,
-                  xAxis.nameTextStyle.padding = 25,
-                  xAxis.nameTextStyle.align = NULL,
-                  xAxis.nameTextStyle.fontStyle = NULL,
-                  xAxis.nameTextStyle.fontWeight = "bolder",
-                  xAxis.nameTextStyle.fontSize = NULL,
-                  xAxis.nameTextStyle.fontFamily = "Segoe UI",
-                  xAxis.splitNumber = NULL,
-                  xAxis.axisLabel.rotate = NULL,
-                  xAxis.axisLabel.margin = NULL,
-                  xAxis.axisLabel.color = NULL,
-                  xAxis.axisLabel.fontStyle = NULL,
-                  xAxis.axisLabel.fontWeight = NULL,
-                  xAxis.axisLabel.fontFamily = "Segoe UI",
-                  xAxis.axisLabel.fontSize = 14,
-                  xAxis.axisLabel.align = NULL,
-                  xAxis.axisLabel.verticalAlign = NULL,
-                  xAxis.axisLabel.backgroundColor = NULL,
-                  xAxis.axisLabel.borderColor = NULL,
-                  xAxis.axisLabel.borderWidth = NULL,
-                  xAxis.axisLabel.borderType = NULL,
-                  xAxis.axisLabel.borderRadius = NULL,
-                  xAxis.axisLabel.padding = NULL,
-                  xAxis.axisLabel.shadowColor = NULL,
-                  xAxis.axisLabel.shadowBlur = NULL,
-                  xAxis.axisLabel.shadowOffsetX = NULL,
-                  xAxis.axisLabel.shadowOffsetY = NULL,
-                  xAxis.axisLabel.textBorderColor = NULL,
-                  xAxis.axisLabel.textBorderWidth = NULL,
-                  xAxis.axisLabel.textBorderType = NULL,
-                  xAxis.axisLabel.textShadowColor = NULL,
-                  xAxis.axisLabel.textShadowBlur = NULL,
-                  xAxis.axisLabel.textShadowOffsetX = NULL,
-                  xAxis.axisLabel.textShadowOffsetY = NULL,
-                  xAxis.axisLabel.overflow = NULL,
-                  yAxis.title = NULL,
-                  yAxis.min = NULL,
-                  yAxis.max = NULL,
-                  yAxis.position = "center",
-                  yAxis.nameLocation = 'center',
-                  yAxis.axisTick.customValues = NULL,
-                  yAxis.nameTextStyle.color = NULL,
-                  yAxis.nameTextStyle.padding = 25,
-                  yAxis.nameTextStyle.align = NULL,
-                  yAxis.nameTextStyle.fontStyle = NULL,
-                  yAxis.nameTextStyle.fontWeight = "bolder",
-                  yAxis.nameTextStyle.fontSize = NULL,
-                  yAxis.nameTextStyle.fontFamily = "Segoe UI",
-                  yAxis.splitNumber = NULL,
-                  yAxis.axisLabel.rotate = NULL,
-                  yAxis.axisLabel.margin = NULL,
-                  yAxis.axisLabel.color = NULL,
-                  yAxis.axisLabel.fontStyle = NULL,
-                  yAxis.axisLabel.fontWeight = NULL,
-                  yAxis.axisLabel.fontFamily = "Segoe UI",
-                  yAxis.axisLabel.fontSize = 14,
-                  yAxis.axisLabel.align = NULL,
-                  yAxis.axisLabel.verticalAlign = NULL,
-                  yAxis.axisLabel.backgroundColor = NULL,
-                  yAxis.axisLabel.borderColor = NULL,
-                  yAxis.axisLabel.borderWidth = NULL,
-                  yAxis.axisLabel.borderType = NULL,
-                  yAxis.axisLabel.borderRadius = NULL,
-                  yAxis.axisLabel.padding = NULL,
-                  yAxis.axisLabel.shadowColor = NULL,
-                  yAxis.axisLabel.shadowBlur = NULL,
-                  yAxis.axisLabel.shadowOffsetX = NULL,
-                  yAxis.axisLabel.shadowOffsetY = NULL,
-                  yAxis.axisLabel.textBorderColor = NULL,
-                  yAxis.axisLabel.textBorderWidth = NULL,
-                  yAxis.axisLabel.textBorderType = NULL,
-                  yAxis.axisLabel.textShadowColor = NULL,
-                  yAxis.axisLabel.textShadowBlur = NULL,
-                  yAxis.axisLabel.textShadowOffsetX = NULL,
-                  yAxis.axisLabel.textShadowOffsetY = NULL,
-                  yAxis.axisLabel.overflow = NULL,
                   legend.show = TRUE,
                   legend.type = "scroll",
                   legend.selector = NULL,
@@ -11686,10 +11523,10 @@ River <- function(dt = NULL,
                   toolbox.width = NULL,
                   toolbox.heigth = NULL,
                   toolbox.feature.saveAsImage.show = TRUE,
-                  toolbox.feature.restore.show = TRUE,
-                  toolbox.feature.dataZoom.show = TRUE,
-                  toolbox.feature.magicType.show = TRUE,
-                  toolbox.feature.magicType.type = c("line", "bar", "stack"),
+                  toolbox.feature.restore.show = FALSE,
+                  toolbox.feature.dataZoom.show = FALSE,
+                  toolbox.feature.magicType.show = FALSE,
+                  toolbox.feature.magicType.type = NULL,
                   toolbox.feature.dataView.show = TRUE,
                   toolbox.iconStyle.color = NULL,
                   toolbox.iconStyle.borderColor = NULL,
@@ -11709,7 +11546,7 @@ River <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
   Ncols <- ncol(dt)
-  if(length(FacetLevels) > 0L) {
+  if(length(FacetLevels) > 1L) {
     dt1 <- data.table::copy(dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar, XVar, GroupVar)])
   } else {
     dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar)])
@@ -11723,15 +11560,17 @@ River <- function(dt = NULL,
     if(Debug) print("Plot.River 4")
 
     # DCast -> redefine YVar -> Proceed as normal
-    if(length(YVar) == 1L && length(GroupVar) > 0L) {
-      dt1 <- data.table::dcast.data.table(
+    if(length(YVar) > 1L && length(GroupVar) == 0L) {
+      dt1 <- data.table::melt.data.table(
         data = dt1,
-        formula = get(XVar) ~ get(GroupVar[1L]),
-        fun.aggregate = sum,
-        value.var = eval(YVar))
-      data.table::setnames(x = dt1, "XVar", c(XVar))
-      YVar <- names(dt1)[-1L]
-      GroupVar <- NULL
+        id.vars = XVar,
+        measure.vars = YVar,
+        variable.name = "Group",
+        value.name = "Measures")
+      YVar <- "Measures"
+      GroupVar <- "Group"
+    } else {
+      dt1 <- data.table::copy(dt)
     }
 
     # Define Aggregation function
@@ -11771,30 +11610,22 @@ River <- function(dt = NULL,
   # Build base plot depending on GroupVar availability
   if(Debug) print("Line no group Echarts")
   p1 <- echarts4r::e_charts_(
-    data = dt1,
+    data = dt1 |> dplyr::group_by(get(GroupVar)),
     x = XVar,
     dispose = TRUE,
     darkMode = TRUE,
     width = Width,
     height = Height)
-  for(i in YVar) {
-    p1 <- echarts4r::e_river_(
-      e = p1,
-      serie = i
-    )
+
+  p1 <- echarts4r::e_river_(
+    e = p1,
+    serie = YVar
+  )
+  if (length(itemStyle.color) == length(as.character(unique(dt1[[GroupVar]])))) {
+    p1 <- echarts4r::e_color(e = p1, color = itemStyle.color)
   }
 
   if(Debug) print("Plot.River 8b")
-
-  # Finalize Plot Build
-  if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
-    p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
-  } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
-    p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
-  } else {
-    p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-    p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
-  }
   p1 <- echarts4r::e_theme(e = p1, name = Theme)
 
   p1 <- e_tooltip_full(
@@ -11911,54 +11742,6 @@ River <- function(dt = NULL,
     legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
     legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
     legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
-
-  p1 <- e_x_axis_full(
-    e = p1,
-    serie = NULL,
-    axis = "x",
-    xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
-    xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
-    xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
-    xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
-    xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
-    xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
-    xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
-    xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
-    xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
-    xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
-    xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
-    xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
-    xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
-    xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
-    xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
-    xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
-    xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
-    xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
-    xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
-
-  p1 <- e_y_axis_full(
-    e = p1,
-    serie = NULL,
-    axis = "y",
-    yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
-    yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
-    yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
-    yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
-    yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
-    yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
-    yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
-    yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
-    yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
-    yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
-    yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
-    yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
-    yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
-    yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
-    yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
-    yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
-    yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
-    yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
-    yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
   p1 <- e_title_full(
     e = p1,
