@@ -1163,10 +1163,11 @@ AutoPlots::River(
   dt = dt,
   PreAgg = TRUE,
   XVar = "dates",
-  legend.orient = "horizontal",
-  itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4"),
   YVar = "values",
-  GroupVar = "groups")
+  GroupVar = "groups",
+  legend.orient = "horizontal",
+  itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4")
+  )
 ```
 
 <br>
@@ -1177,7 +1178,49 @@ AutoPlots::River(
 <br>
 
 ```r
+# Create fake data
+dates <- seq.Date(Sys.Date() - 30, Sys.Date(), by = "day")
+grps <- lapply(LETTERS[1:5], rep, 31) |> unlist()
+dt1 <- data.table::data.table(
+  dates = rep(dates, 5),
+  groups = grps,
+  values = runif(length(grps), 1, 50)
+)
 
+dates <- seq.Date(Sys.Date() - 30, Sys.Date(), by = "day")
+grps <- lapply(LETTERS[6:10], rep, 31) |> unlist()
+dt2 <- data.table::data.table(
+  dates = rep(dates, 5),
+  groups = grps,
+  values = runif(length(grps), 1, 50)
+)
+
+# Build Plot
+p1 <- AutoPlots::River(
+  dt = dt1,
+  PreAgg = TRUE,
+  XVar = "dates",
+  YVar = "values",
+  GroupVar = "groups",
+  title.text = "Data 1",
+  legend.orient = "horizontal",
+  itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4")
+  )
+
+p2 <- AutoPlots::River(
+  dt = dt1,
+  PreAgg = TRUE,
+  XVar = "dates",
+  YVar = "values",
+  GroupVar = "groups"
+  title.text = "Data 2",
+  legend.orient = "horizontal",
+  itemStyle.color = c("#00FFFF", "#FF7F50", "#8A2BE2", "#00FF7F", "#FF4500"))
+
+AutoPlots::display_plots_grid(
+  list(p1, p2),
+  cols = 1
+)
 ```
 
 <br>
