@@ -1171,7 +1171,7 @@ AutoPlots::River(
 
 <br>
 
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/River.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RiverPlot.PNG" align="center" width="800" />
 
 <br>
 <br>
@@ -1182,7 +1182,7 @@ AutoPlots::River(
 
 <br>
 
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/River_grid.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RiverPlot_grid.PNG" align="center" width="800" />
 
 <br>
 
