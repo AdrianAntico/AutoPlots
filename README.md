@@ -938,7 +938,7 @@ AutoPlots::Parallel(
   dt = dt,
   CorrVars = names(dt),
   ShowLabels = T,
-  lineStyle.color = "blue",
+  lineStyle.color = "#00C7FF",
   lineStyle.width = 0.2
 )
 ```
@@ -966,7 +966,7 @@ plot_list <- lapply(group_vars, function(x) {
     dt = data[Factor_1 == x],
     CorrVars = paste0("x", 1:8),
     ShowLabels = T,
-    lineStyle.color = "blue",
+    lineStyle.color = "#00C7FF",
     lineStyle.width = 0.2,
     title.text = x
   )
