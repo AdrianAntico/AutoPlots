@@ -1208,7 +1208,7 @@ p1 <- AutoPlots::River(
   )
 
 p2 <- AutoPlots::River(
-  dt = dt1,
+  dt = dt2,
   PreAgg = TRUE,
   XVar = "dates",
   YVar = "values",
