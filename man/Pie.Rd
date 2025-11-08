@@ -18,7 +18,7 @@ Pie(
   AggMethod = "mean",
   Height = NULL,
   Width = NULL,
-  ShowLabels = FALSE,
+  ShowLabels = TRUE,
   Theme = "dark",
   TimeLine = FALSE,
   TextColor = "white",

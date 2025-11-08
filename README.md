@@ -583,8 +583,8 @@ data <- data[, .(
 AutoPlots::Donut(
   dt = data,
   XVar = "Factor_1",
-  YVar = "IndepVar",
-  ShowLabels = T)
+  YVar = "IndepVar"
+)
 ```
 
 <br>
@@ -609,15 +609,15 @@ p1 <- AutoPlots::Donut(
   dt = dt1,
   XVar = "Factor_1",
   YVar = "IndepVar",
-  title.text = "Factor_1",
-  ShowLabels = T)
+  title.text = "Factor_1"
+)
 
 p2 <- AutoPlots::Donut(
   dt = dt2,
   XVar = "Factor_2",
   YVar = "IndepVar",
-  title.text = "Factor_2",
-  ShowLabels = T)
+  title.text = "Factor_2"
+)
 
 AutoPlots::display_plots_grid(
   list(p1, p2),
@@ -1194,7 +1194,7 @@ dt2 <- data.table::data.table(
   groups = grps,
   values = runif(length(grps), 1, 50)
 )
-
++-
 # Build Plot
 p1 <- AutoPlots::River(
   dt = dt1,
@@ -1226,6 +1226,75 @@ AutoPlots::display_plots_grid(
 <br>
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RiverPlot_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+
+### Rosetype
+
+<details><summary>Rosetype Plot Examples</summary>
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+data <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_1")]
+
+# Build Plot
+AutoPlots::Rosetype(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "IndepVar"
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RosetypePlot.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 1000)
+dt1 <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_1")]
+dt2 <- data[, .(
+  IndepVar = round(mean(Independent_Variable8), 3)
+), by = c("Factor_2")]
+
+# Build Plots
+p1 <- AutoPlots::Rosetype(
+  dt = dt1,
+  XVar = "Factor_1",
+  YVar = "IndepVar",
+  title.text = "Factor_1"
+)
+
+p2 <- AutoPlots::Rosetype(
+  dt = dt2,
+  XVar = "Factor_2",
+  YVar = "IndepVar",
+  title.text = "Factor_2"
+)
+
+AutoPlots::display_plots_grid(
+  list(p1, p2),
+  cols = 1
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/RosetypePlot_grid.PNG" align="center" width="800" />
 
 <br>
 
