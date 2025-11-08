@@ -1407,3 +1407,40 @@ AutoPlots::display_plots_grid(
 <br>
 
 
+### Stacked Bar
+
+<details><summary>Stacked Bar Plot Examples</summary>
+
+```r
+# Create fake data
+data <- AutoPlots::FakeDataGenerator(N = 100000)
+data <- data[, .(
+  IndepVar = sum(Independent_Variable1)
+), by = c("Factor_1","Factor_2")]
+
+
+# Echarts Stacked Bar Chart
+AutoPlots::StackedBar(
+  dt = data,
+  XVar = "Factor_1",
+  YVar = "IndepVar",
+  GroupVar = "Factor_2",
+  legend.right = 35,
+  legend.top = 45,
+  yAxis.nameTextStyle.padding = 40
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/StackedBarPlot.PNG" align="center" width="800" />
+
+
+<br>
+
+
+</details>
+
+<br>
+
+
