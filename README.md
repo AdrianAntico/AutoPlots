@@ -1304,3 +1304,106 @@ AutoPlots::display_plots_grid(
 <br>
 
 
+### Scatter
+
+<details><summary>Scatter Plot Examples</summary>
+
+```r
+# Create data
+n   <- 1000        # rows
+p   <- 4           # number of variables
+rho <- 0.8         # correlation between neighbors (AR(1))
+mu  <- c(50, 100, 0, 10)     # means (length p)
+sds <- c(10, 5, 3, 1)        # standard deviations (length p)
+Sigma_cor <- outer(1:p, 1:p, \(i, j) rho^abs(i - j))   # AR(1) correlation matrix
+L <- chol(Sigma_cor)                                   # Cholesky factor (upper-tri)
+Z <- matrix(rnorm(n * p), nrow = n, ncol = p)          # iid N(0,1)
+X_cor <- Z %*% L                                       # correlated, unit variance
+X <- X_cor %*% diag(sds)                               # set std devs
+X <- sweep(X, 2, mu, `+`)                              # set means
+dt <- data.table::as.data.table(X)
+data.table::setnames(dt, paste0("x", seq_len(p)))
+
+# Build Plot
+AutoPlots::Scatter(
+  dt = dt,
+  XVar = "x2",
+  YVar = "x1",
+  legend.show = FALSE
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ScatterPlot.PNG" align="center" width="800" />
+
+<br>
+<br>
+
+```r
+# Create data
+n   <- 1000        # rows
+p   <- 4           # number of variables
+rho <- 0.8         # correlation between neighbors (AR(1))
+mu  <- c(50, 100, 0, 10)     # means (length p)
+sds <- c(10, 5, 3, 1)        # standard deviations (length p)
+Sigma_cor <- outer(1:p, 1:p, \(i, j) rho^abs(i - j))   # AR(1) correlation matrix
+L <- chol(Sigma_cor)                                   # Cholesky factor (upper-tri)
+Z <- matrix(rnorm(n * p), nrow = n, ncol = p)          # iid N(0,1)
+X_cor <- Z %*% L                                       # correlated, unit variance
+X <- X_cor %*% diag(sds)                               # set std devs
+X <- sweep(X, 2, mu, `+`)                              # set means
+dt <- data.table::as.data.table(X)
+data.table::setnames(dt, paste0("x", seq_len(p)))
+
+# Build Plots
+p1 <- AutoPlots::Scatter(
+  dt = dt,
+  XVar = "x2",
+  YVar = "x1",
+  legend.show = FALSE,
+  title.text = "x1 vs x2"
+)
+
+p2 <- AutoPlots::Scatter(
+  dt = dt,
+  XVar = "x3",
+  YVar = "x1",
+  legend.show = FALSE,
+  title.text = "x1 vs x3"
+)
+
+p3 <- AutoPlots::Scatter(
+  dt = dt,
+  XVar = "x3",
+  YVar = "x2",
+  legend.show = FALSE,
+  title.text = "x2 vs x3"
+)
+
+p4 <- AutoPlots::Scatter(
+  dt = dt,
+  XVar = "x4",
+  YVar = "x3",
+  legend.show = FALSE,
+  title.text = "x3 vs x4"
+)
+
+AutoPlots::display_plots_grid(
+  list(p1,p2,p3,p4),
+  cols = 2
+)
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/ScatterPlot_grid.PNG" align="center" width="800" />
+
+<br>
+
+
+</details>
+
+<br>
+
+
