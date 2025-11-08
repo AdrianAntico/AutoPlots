@@ -27,6 +27,7 @@ Step(
   ShowSymbol = FALSE,
   TextColor = "white",
   ContainLabel = TRUE,
+  lineStyle.color = NULL,
   title.text = "Step Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -369,6 +370,8 @@ Step(
 \item{TextColor}{"Not Implemented"}
 
 \item{ContainLabel}{TRUE}
+
+\item{lineStyle.color}{hex or name}
 
 \item{title.text}{Title name}
 

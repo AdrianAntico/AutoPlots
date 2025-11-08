@@ -9790,6 +9790,7 @@ Area <- function(dt = NULL,
 #' @param ShowSymbol = FALSE
 #' @param TextColor "Not Implemented"
 #' @param ContainLabel TRUE
+#' @param lineStyle.color hex or name
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -10128,6 +10129,7 @@ Step <- function(dt = NULL,
                  ShowSymbol = FALSE,
                  TextColor = "white",
                  ContainLabel = TRUE,
+                 lineStyle.color = NULL,
                  title.text = "Step Plot",
                  title.subtext = NULL,
                  title.link = NULL,
@@ -10804,6 +10806,18 @@ Step <- function(dt = NULL,
       } else {
         p1 <- echarts4r::e_step_(e = p1, serie = DualYVar, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
       }
+    }
+
+    if (length(lineStyle.color) > 0 && length(DualYVar) == 0) {
+      visualMap.min <- min(dt1[[YVar]])
+      visualMap.max <- max(dt1[[YVar]])
+      p1 <- e_visual_map_full(
+        e = p1,
+        serie = YVar,
+        visualMap.show = FALSE,
+        visualMap.min = visualMap.min,
+        visualMap.max = visualMap.max,
+        visualMap.InRange.color = lineStyle.color)
     }
 
     # Finalize Plot Build
