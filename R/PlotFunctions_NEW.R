@@ -17760,64 +17760,11 @@ BarPlot3D <- function(dt,
 
     p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
-    # They do nothing for this plot type
-    if(MouseScroll) {
-      p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
-    } else {
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
-    }
 
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
-    p1 <- e_x_axis_full(
-      e = p1,
-      serie = NULL,
-      axis = "x",
-      xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
-      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
-      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
-      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
-      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
-      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
-      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
-      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
-      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
-      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
-      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
-      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
-      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
-      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
-      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
-      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
-      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
-      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
-      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
-
-    p1 <- e_y_axis_full(
-      e = p1,
-      serie = NULL,
-      axis = "y",
-      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
-      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
-      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
-      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
-      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
-      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
-      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
-      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
-      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
-      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
-      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
-      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
-      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
-      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
-      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
-      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
-      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
-      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
-      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+    # p1 <- echarts4r::e_axis_3d(e = p1)
 
     p1 <- e_title_full(
       e = p1,
