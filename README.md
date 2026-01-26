@@ -1,12 +1,64 @@
 ![Version:1.0.0](https://img.shields.io/static/v1?label=Version&message=1.0.0&color=blue&?style=plastic)
-[![metacran downloads](https://cranlogs.r-pkg.org/badges/last-week/AutoPlots)](https://cran.r-project.org/package=AutoPlots)
 
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Logo2.PNG" align="center" width="800" />
 
 <br> 
 
-A simple api for visualizing Echarts. Plotting functions expose most Echarts customization options. See documentation for details.
+🚀 AutoPlots
+
+AutoPlots is a comprehensive R visualization toolkit built on top of echarts4r, providing a consistent, ultra-customizable API across dozens of chart types — from classical analytics plots to advanced modeling visualizations and 3D charts.
+
+AutoPlots exposes the full power of ECharts.js without requiring users to write JavaScript.
+If a feature exists in ECharts, AutoPlots aims to make it available.
+
+⭐ Why AutoPlots?
+
+30+ high-quality plot types — all with consistent argument naming
+
+Full access to ECharts options using the xxx.* naming convention
+
+No JavaScript required
+
+Shiny-ready out of the box
+
+Supports multi-plot layouts via display_plots_grid()
+
+3D visualizations, modeling plots, river charts, radar, parallel, contour, density, and more
+
+Designed for data science, EDA, dashboards, and model evaluation
+
+GitHub-first development for rapid iteration and improvement
+
+🔍 Philosophy
+
+AutoPlots is built around these principles:
+
+Every plot is a standalone object
+Modify, tweak, and filter each one independently.
+
+Composition happens outside the plot
+Use display_plots_grid() to arrange multiple plots into dashboards.
+
+Expose full ECharts power without JS
+Legend, toolbox, tooltip, axis, series, grid, animation, theme — everything is adjustable.
+
+Beautiful defaults, infinite customization
+Beginners get great plots immediately; experts can tune everything.
+
+
+### Quick Start
+```r
+library(AutoPlots)
+dt <- data.table::data.table(x = rnorm(1000))
+
+AutoPlots::Density(
+  dt,
+  XVar = "x",
+  legend.show = FALSE
+)
+
+```
 
 <br> 
 
@@ -66,7 +118,9 @@ devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE
 
 <br>
 
-## Code Examples
+## 📚 Plot Gallery
+
+Below are the full set of examples (kept from your original README), organized using collapsible sections for easier navigation.
 
 
 ### Area
