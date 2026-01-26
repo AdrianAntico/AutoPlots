@@ -46,6 +46,22 @@ Legend, toolbox, tooltip, axis, series, grid, animation, theme — everything is
 Beautiful defaults, infinite customization
 Beginners get great plots immediately; experts can tune everything.
 
+<br>
+
+## Installation
+
+```r
+# Install CRAN dependencies
+install.packages(c(
+  "combinat", "data.table", "devtools", "dplyr", "e1071", "echarts4r",
+  "lubridate", "nortest", "quanteda", "quanteda.textstats", "scales"
+))
+
+# Install AutoPlots from GitHub
+devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
+```
+
+<br>
 
 ## Quick Start
 ```r
@@ -103,18 +119,7 @@ AutoPlots::Density(
 
 
 
-## Installation
 
-```r
-# Install CRAN dependencies
-install.packages(c(
-  "combinat", "data.table", "devtools", "dplyr", "e1071", "echarts4r",
-  "lubridate", "nortest", "quanteda", "quanteda.textstats", "scales"
-))
-
-# Install AutoPlots from GitHub
-devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
-```
 
 <br>
 
