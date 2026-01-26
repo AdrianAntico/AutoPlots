@@ -1,6 +1,89 @@
 # compact helper to drop NULLs
 .compact <- function(x) x[!vapply(x, is.null, is.logical(1))]
 
+#' @title grid function
+#'
+#' @description
+#' exposed parameters for grid (plot area). Use to control plot margins/size so
+#' long axis labels don't get truncated.
+#'
+#' @param e existing plot
+#' @param grid.show logical
+#' @param grid.left numeric or character (px or percent, e.g. 120 or "15%")
+#' @param grid.top numeric or character
+#' @param grid.right numeric or character
+#' @param grid.bottom numeric or character
+#' @param grid.width numeric or character
+#' @param grid.height numeric or character
+#' @param grid.containLabel logical (TRUE leaves space for axis labels)
+#' @param grid.backgroundColor hex or named color
+#' @param grid.borderColor hex or named color
+#' @param grid.borderWidth numeric
+#' @param grid.shadowBlur numeric
+#' @param grid.shadowColor hex or named color
+#' @param grid.shadowOffsetX numeric
+#' @param grid.shadowOffsetY numeric
+#' @param grid.z numeric
+#' @param grid.zlevel numeric
+#' @param grid.silent logical
+#'
+#' @return The modified echarts4r object
+#' @export
+e_grid_full <- function(
+    e = NULL,
+    grid.show = NULL,
+    grid.left = NULL,
+    grid.top = NULL,
+    grid.right = NULL,
+    grid.bottom = NULL,
+    grid.width = NULL,
+    grid.height = NULL,
+    grid.containLabel = NULL,
+    grid.backgroundColor = NULL,
+    grid.borderColor = NULL,
+    grid.borderWidth = NULL,
+    grid.shadowBlur = NULL,
+    grid.shadowColor = NULL,
+    grid.shadowOffsetX = NULL,
+    grid.shadowOffsetY = NULL,
+    grid.z = NULL,
+    grid.zlevel = NULL,
+    grid.silent = NULL
+) {
+
+  # start with the base grid shell
+  p1 <- echarts4r::e_grid(
+    e = e
+  )
+
+  # build the grid object
+  g <- .compact(list(
+    show = grid.show,
+    left = grid.left,
+    top = grid.top,
+    right = grid.right,
+    bottom = grid.bottom,
+    width = grid.width,
+    height = grid.height,
+    containLabel = grid.containLabel,
+    backgroundColor = grid.backgroundColor,
+    borderColor = grid.borderColor,
+    borderWidth = grid.borderWidth,
+    shadowBlur = grid.shadowBlur,
+    shadowColor = grid.shadowColor,
+    shadowOffsetX = grid.shadowOffsetX,
+    shadowOffsetY = grid.shadowOffsetY,
+    z = grid.z,
+    zlevel = grid.zlevel,
+    silent = grid.silent
+  ))
+
+  # echarts allows grid as an object or an array of objects.
+  # AutoPlots can start with single-grid support; store as an object.
+  p1$x$opts$grid <- g
+
+  p1
+}
 
 
 #' Enhanced visual map
