@@ -4,12 +4,12 @@
 #' @title grid function
 #'
 #' @description
-#' exposed parameters for grid (plot area). Use to control plot margins/size so
+#' exposed parameters for grid. Use to control plot margins/size so
 #' long axis labels don't get truncated.
 #'
 #' @param e existing plot
 #' @param grid.show logical
-#' @param grid.left numeric or character (px or percent, e.g. 120 or "15%")
+#' @param grid.left numeric or character px or percent
 #' @param grid.top numeric or character
 #' @param grid.right numeric or character
 #' @param grid.bottom numeric or character

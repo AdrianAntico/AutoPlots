@@ -31,7 +31,7 @@ e_grid_full(
 
 \item{grid.show}{logical}
 
-\item{grid.left}{numeric or character (px or percent, e.g. 120 or "15%")}
+\item{grid.left}{numeric or character px or percent}
 
 \item{grid.top}{numeric or character}
 
@@ -69,6 +69,6 @@ e_grid_full(
 The modified echarts4r object
 }
 \description{
-exposed parameters for grid (plot area). Use to control plot margins/size so
+exposed parameters for grid. Use to control plot margins/size so
 long axis labels don't get truncated.
 }
