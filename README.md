@@ -5,14 +5,14 @@
 
 <br> 
 
-🚀 AutoPlots
+## 🚀 AutoPlots
 
 AutoPlots is a comprehensive R visualization toolkit built on top of echarts4r, providing a consistent, ultra-customizable API across dozens of chart types — from classical analytics plots to advanced modeling visualizations and 3D charts.
 
 AutoPlots exposes the full power of ECharts.js without requiring users to write JavaScript.
 If a feature exists in ECharts, AutoPlots aims to make it available.
 
-⭐ Why AutoPlots?
+## ⭐ Why AutoPlots?
 
 30+ high-quality plot types — all with consistent argument naming
 
@@ -30,7 +30,7 @@ Designed for data science, EDA, dashboards, and model evaluation
 
 GitHub-first development for rapid iteration and improvement
 
-🔍 Philosophy
+## 🔍 Philosophy
 
 AutoPlots is built around these principles:
 
@@ -47,7 +47,7 @@ Beautiful defaults, infinite customization
 Beginners get great plots immediately; experts can tune everything.
 
 
-### Quick Start
+## Quick Start
 ```r
 library(AutoPlots)
 dt <- data.table::data.table(x = rnorm(1000))
@@ -123,7 +123,7 @@ devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE
 Below are the full set of examples (kept from your original README), organized using collapsible sections for easier navigation.
 
 
-### Area
+### 📐 Area Plots
 
 <details><summary>Area Plot Examples</summary>
 
@@ -187,7 +187,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Bar
+### 📊 Bar Plots
 
 <details><summary>Bar Plot Examples</summary>
 
@@ -255,7 +255,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Box
+### 📦 Box Plots
 
 <details><summary>Box Plot Examples</summary>
 
@@ -535,7 +535,7 @@ AutoPlots::display_plots_grid(
 
 
 
-### Density
+### 🌡 Density
 
 <details><summary>Density Plot Examples</summary>
 
@@ -692,7 +692,7 @@ AutoPlots::display_plots_grid(
 
 
 
-### Heatmap
+### 🔥 Heatmap
 
 <details><summary>Heatmap Plot Examples</summary>
 
@@ -785,7 +785,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Histogram
+### 🧱 Histogram
 
 <details><summary>Histogram Examples</summary>
 
@@ -872,7 +872,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Line
+### 💡 Line
 
 <details><summary>Line Plot Examples</summary>
 
@@ -1358,7 +1358,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Scatter
+### ☁ Scatter
 
 <details><summary>Scatter Plot Examples</summary>
 
