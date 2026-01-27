@@ -331,7 +331,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Copula
+### 🍥 Copula
 
 <details><summary>Copula Plot Examples</summary>
 
@@ -438,7 +438,7 @@ AutoPlots::display_plots_grid(
 
 
 
-### Correlogram
+### 📈 Correlogram
 
 <details><summary>Correlogram Examples</summary>
 
@@ -627,7 +627,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Donut
+### 🍩 Donut
 
 <details><summary>Donut Plot Examples</summary>
 
@@ -971,7 +971,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Parallel
+### 🧭 Parallel
 
 <details><summary>Parallel Plot Examples</summary>
 
@@ -1050,7 +1050,7 @@ AutoPlots::display_plots_grid(
 
 
 
-### Pie
+### 🥧 Pie
 
 <details><summary>Pie Plot Examples</summary>
 
@@ -1119,7 +1119,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Radar
+### 🎯 Radar
 
 <details><summary>Radar Plot Examples</summary>
 
@@ -1203,7 +1203,7 @@ AutoPlots::display_plots_grid(
 
 
 
-### River
+### 🌊 River
 
 <details><summary>River Plot Examples</summary>
 
@@ -1294,7 +1294,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Rosetype
+### 🌹 Rosetype
 
 <details><summary>Rosetype Plot Examples</summary>
 
@@ -1466,7 +1466,7 @@ AutoPlots::display_plots_grid(
 <br>
 
 
-### Stacked Bar
+### 🧱 Stacked Bar
 
 <details><summary>Stacked Bar Plot Examples</summary>
 
@@ -1503,7 +1503,7 @@ AutoPlots::StackedBar(
 <br>
 
 
-### Step
+### 📉 Step
 
 <details><summary>Step Plot Examples</summary>
 
