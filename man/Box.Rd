@@ -21,7 +21,6 @@ Box(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   itemStyle.color = NULL,
   itemStyle.opacity = NULL,
@@ -363,8 +362,6 @@ Box(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{Logical}
-
-\item{TextColor}{character hex}
 
 \item{ContainLabel}{TRUE}
 
@@ -1007,7 +1004,6 @@ AutoPlots::Box(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "black",
   ContainLabel = TRUE,
   Debug = FALSE)
 

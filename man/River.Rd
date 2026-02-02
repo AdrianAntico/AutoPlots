@@ -23,7 +23,6 @@ River(
   MouseScroll = FALSE,
   TimeLine = FALSE,
   ShowSymbol = FALSE,
-  TextColor = "white",
   itemStyle.color = NULL,
   title.text = "River Plot",
   title.subtext = NULL,
@@ -277,8 +276,6 @@ River(
 \item{TimeLine}{Logical}
 
 \item{ShowSymbol}{= FALSE}
-
-\item{TextColor}{"Not Implemented"}
 
 \item{title.text}{Title name}
 
@@ -731,7 +728,6 @@ AutoPlots::River(
     "Independent_Variable4",
     "Independent_Variable5"),
   YVarTrans = "Identity",
-  TextColor = "black",
   Theme = "macarons")
 
 }

@@ -25,7 +25,6 @@ Step(
   MouseScroll = FALSE,
   TimeLine = FALSE,
   ShowSymbol = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   lineStyle.color = NULL,
   title.text = "Step Plot",
@@ -366,8 +365,6 @@ Step(
 \item{TimeLine}{Logical}
 
 \item{ShowSymbol}{= FALSE}
-
-\item{TextColor}{"Not Implemented"}
 
 \item{ContainLabel}{TRUE}
 

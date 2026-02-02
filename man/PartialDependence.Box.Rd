@@ -27,7 +27,6 @@ PartialDependence.Box(
   MouseScroll = FALSE,
   EchartsLabels = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   Debug = FALSE
 )
 }
@@ -75,8 +74,6 @@ PartialDependence.Box(
 \item{EchartsLabels}{character}
 
 \item{TimeLine}{logical}
-
-\item{TextColor}{hex character}
 
 \item{Debug}{Debugging purposes}
 }

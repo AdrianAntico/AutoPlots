@@ -25,7 +25,6 @@ PartialDependence.Line(
   MouseScroll = FALSE,
   EchartsLabels = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   Debug = FALSE
 )
 }
@@ -69,8 +68,6 @@ PartialDependence.Line(
 \item{EchartsLabels}{character}
 
 \item{TimeLine}{logical}
-
-\item{TextColor}{hex character}
 
 \item{Debug}{Debugging purposes}
 }

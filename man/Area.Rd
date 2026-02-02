@@ -28,7 +28,6 @@ Area(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   title.text = "Area Plot",
   title.subtext = NULL,
@@ -374,8 +373,6 @@ Area(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{Logical}
-
-\item{TextColor}{"Not Implemented"}
 
 \item{ContainLabel}{TRUE}
 

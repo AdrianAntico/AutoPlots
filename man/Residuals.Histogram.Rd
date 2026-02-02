@@ -23,7 +23,6 @@ Residuals.Histogram(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   Debug = FALSE
 )
@@ -64,8 +63,6 @@ Residuals.Histogram(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{logical}
-
-\item{TextColor}{Not Implemented}
 
 \item{ContainLabel}{TRUE}
 

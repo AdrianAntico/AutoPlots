@@ -22,7 +22,6 @@ Scatter(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   title.text = "Scatter Plot",
   title.subtext = NULL,
@@ -356,8 +355,6 @@ Scatter(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{logical}
-
-\item{TextColor}{character hex}
 
 \item{ContainLabel}{TRUE}
 
@@ -983,7 +980,6 @@ AutoPlots::Scatter(
   Theme = "blue",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "black",
   ContainLabel = TRUE,
   Debug = FALSE)
 

@@ -20,7 +20,6 @@ Histogram(
   MouseScroll = FALSE,
   TimeLine = FALSE,
   ShowLabels = FALSE,
-  TextColor = "white",
   backgroundStyle.color = NULL,
   backgroundStyle.opacity = NULL,
   title.text = "Histogram",
@@ -351,8 +350,6 @@ Histogram(
 \item{TimeLine}{logical}
 
 \item{ShowLabels}{FALSE}
-
-\item{TextColor}{"white"}
 
 \item{backgroundStyle.color}{vector of colors}
 
@@ -977,7 +974,6 @@ AutoPlots::Histogram(
   MouseScroll = FALSE,
   TimeLine = FALSE,
   ShowLabels = FALSE,
-  TextColor = "white",
   Debug = FALSE)
 }
 \seealso{

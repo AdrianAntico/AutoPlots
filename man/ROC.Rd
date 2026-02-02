@@ -22,7 +22,6 @@ ROC(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   Debug = FALSE
 )
 }
@@ -60,8 +59,6 @@ ROC(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{logical}
-
-\item{TextColor}{character hex}
 
 \item{Debug}{Debugging purposes}
 }

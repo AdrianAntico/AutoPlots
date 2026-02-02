@@ -22,7 +22,6 @@ Copula(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   title.text = "Copula Plot",
   title.subtext = NULL,
@@ -356,8 +355,6 @@ Copula(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{Logical}
-
-\item{TextColor}{'darkblue'}
 
 \item{ContainLabel}{TRUE}
 
@@ -982,7 +979,6 @@ AutoPlots::Copula(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "black",
   ContainLabel = TRUE,
   Debug = FALSE)
 

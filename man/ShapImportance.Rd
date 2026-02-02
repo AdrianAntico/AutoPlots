@@ -20,7 +20,6 @@ ShapImportance(
   Width = NULL,
   ShowLabels = FALSE,
   Theme = "dark",
-  TextColor = "white",
   Debug = FALSE
 )
 }
@@ -54,8 +53,6 @@ ShapImportance(
 \item{ShowLabels}{character}
 
 \item{Theme}{"dark-blue"}
-
-\item{TextColor}{character}
 
 \item{Debug}{= FALSE}
 }

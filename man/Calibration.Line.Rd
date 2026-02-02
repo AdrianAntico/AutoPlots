@@ -22,7 +22,6 @@ Calibration.Line(
   Theme = "dark",
   TimeLine = FALSE,
   MouseScroll = FALSE,
-  TextColor = "white",
   Debug = FALSE
 )
 }
@@ -60,8 +59,6 @@ Calibration.Line(
 \item{TimeLine}{logical}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
-
-\item{TextColor}{"Not Implemented"}
 
 \item{Debug}{Debugging purposes}
 }

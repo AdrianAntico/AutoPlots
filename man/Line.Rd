@@ -26,7 +26,6 @@ Line(
   TimeLine = FALSE,
   Smooth = TRUE,
   ShowSymbol = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   DarkMode = FALSE,
   lineStyle.color = NULL,
@@ -370,8 +369,6 @@ Line(
 \item{Smooth}{= TRUE}
 
 \item{ShowSymbol}{= FALSE}
-
-\item{TextColor}{"Not Implemented"}
 
 \item{ContainLabel}{TRUE}
 

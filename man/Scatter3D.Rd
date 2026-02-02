@@ -22,7 +22,6 @@ Scatter3D(
   ShowLabels = FALSE,
   Theme = "dark",
   TimeLine = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   title.text = "3D Scatter Plot",
   title.subtext = NULL,
@@ -356,8 +355,6 @@ Scatter3D(
 \item{Theme}{= "macaron"}
 
 \item{TimeLine}{Logical}
-
-\item{TextColor}{'darkblue'}
 
 \item{ContainLabel}{TRUE}
 
@@ -983,7 +980,6 @@ AutoPlots::Scatter3D(
   ShowLabels = FALSE,
   Theme = "dark",
   TimeLine = FALSE,
-  TextColor = "black",
   ContainLabel = TRUE,
   Debug = FALSE)
 

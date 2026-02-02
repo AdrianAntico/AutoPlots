@@ -30,7 +30,6 @@ BinaryMetricsPlot(
   Theme = "dark",
   EchartsLabels = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   Debug = FALSE
 )
 }
@@ -82,8 +81,6 @@ BinaryMetricsPlot(
 \item{EchartsLabels}{character}
 
 \item{TimeLine}{logical}
-
-\item{TextColor}{hex character}
 
 \item{Debug}{Debugging purposes}
 }

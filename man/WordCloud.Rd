@@ -10,7 +10,6 @@ WordCloud(
   Height = NULL,
   Width = NULL,
   Theme = "dark",
-  TextColor = "white",
   title.text = "Word Cloud",
   title.subtext = NULL,
   title.link = NULL,
@@ -76,8 +75,6 @@ WordCloud(
 \item{Width}{"200px"}
 
 \item{Theme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
-
-\item{TextColor}{"white",}
 
 \item{title.text}{Title name}
 
@@ -202,7 +199,6 @@ AutoPlots::WordCloud(
   Height = NULL,
   Width = NULL,
   Theme = "dark",
-  TextColor = "black",
   Debug = FALSE)
 
 }

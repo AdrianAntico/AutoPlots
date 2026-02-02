@@ -21,7 +21,6 @@ Donut(
   ShowLabels = TRUE,
   Theme = "dark",
   TimeLine = FALSE,
-  TextColor = "white",
   title.text = "Donut Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -270,8 +269,6 @@ Donut(
 \item{Theme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{TimeLine}{logical}
-
-\item{TextColor}{'darkblue'}
 
 \item{title.text}{Title name}
 
@@ -730,7 +727,6 @@ AutoPlots::Donut(
   ShowLabels = FALSE,
   Theme = "dark",
   TimeLine = FALSE,
-  TextColor = "black",
   Debug = FALSE)
 
 }

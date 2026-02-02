@@ -16,7 +16,6 @@ Radar(
   ShowLabels = FALSE,
   Theme = "dark",
   ShowSymbol = FALSE,
-  TextColor = "white",
   ContainLabel = TRUE,
   DarkMode = FALSE,
   lineStyle.color = NULL,
@@ -258,8 +257,6 @@ Radar(
 \item{Theme}{Provide an "Echarts" theme}
 
 \item{ShowSymbol}{= FALSE}
-
-\item{TextColor}{"Not Implemented"}
 
 \item{ContainLabel}{TRUE}
 
@@ -718,7 +715,6 @@ AutoPlots::Radar(
   ShowLabels = FALSE,
   Theme = "dark",
   ShowSymbol = FALSE,
-  TextColor = "black",
   ContainLabel = TRUE,
   DarkMode = FALSE,
   Debug = FALSE)

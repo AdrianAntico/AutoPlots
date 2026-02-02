@@ -39,7 +39,6 @@
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param TextColor "white"
 #' @param ContainLabel  TRUE
 #' @param Opacity numeric
 #' @param title.text Title name
@@ -360,7 +359,6 @@
 #'   TimeLine = FALSE,
 #'   Opacity = 0.80,
 #'   ShowLabels = FALSE,
-#'   TextColor = "white",
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -383,7 +381,6 @@ Density <- function(dt = NULL,
                     ShowLabels = FALSE,
                     Theme = "dark",
                     ContainLabel = TRUE,
-                    TextColor = "white",
                     title.text = "Density Plot",
                     title.subtext = NULL,
                     title.link = NULL,
@@ -819,7 +816,7 @@ Density <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_x_axis_full(
@@ -1083,7 +1080,7 @@ Density <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -1270,7 +1267,6 @@ Density <- function(dt = NULL,
 #' @param Width "200px"
 #' @param ShowLabels character
 #' @param Theme "macaron"
-#' @param TextColor 'darkblue'
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -1340,7 +1336,6 @@ Density <- function(dt = NULL,
 #'   Width = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "blue",
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -1354,7 +1349,6 @@ ProbabilityPlot <- function(dt = NULL,
                             Width = NULL,
                             ShowLabels = FALSE,
                             Theme = "dark",
-                            TextColor = "white",
                             ContainLabel = TRUE,
                             title.text = "Probability Plot",
                             title.subtext = NULL,
@@ -1536,7 +1530,6 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param ShowLabels FALSE
 #' @param backgroundStyle.color vector of colors
 #' @param backgroundStyle.opacity vector of opacities
-#' @param TextColor "white"
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -1855,7 +1848,6 @@ ProbabilityPlot <- function(dt = NULL,
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
 #'   ShowLabels = FALSE,
-#'   TextColor = "white",
 #'   Debug = FALSE)
 #' @return plot
 #' @export
@@ -1874,7 +1866,6 @@ Histogram <- function(dt = NULL,
                       MouseScroll = FALSE,
                       TimeLine = FALSE,
                       ShowLabels = FALSE,
-                      TextColor = "white",
                       backgroundStyle.color = NULL,
                       backgroundStyle.opacity = NULL,
                       title.text = "Histogram",
@@ -2921,7 +2912,6 @@ Histogram <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param TextColor 'darkblue'
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -3159,7 +3149,6 @@ Histogram <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -3180,7 +3169,6 @@ Pie <- function(dt = NULL,
                 ShowLabels = TRUE,
                 Theme = "dark",
                 TimeLine = FALSE,
-                TextColor = "white",
                 title.text = "Pie Chart",
                 title.subtext = NULL,
                 title.link = NULL,
@@ -3550,7 +3538,7 @@ Pie <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_legend_full(
@@ -3692,7 +3680,6 @@ Pie <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param TextColor 'darkblue'
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -3931,7 +3918,6 @@ Pie <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -3952,7 +3938,6 @@ Donut <- function(dt = NULL,
                   ShowLabels = TRUE,
                   Theme = "dark",
                   TimeLine = FALSE,
-                  TextColor = "white",
                   title.text = "Donut Plot",
                   title.subtext = NULL,
                   title.link = NULL,
@@ -4327,7 +4312,7 @@ Donut <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_legend_full(
@@ -4470,7 +4455,6 @@ Donut <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo","essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired","jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal","sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param TextColor 'darkblue'
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -4708,7 +4692,6 @@ Donut <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -4729,7 +4712,6 @@ Rosetype <- function(dt = NULL,
                      ShowLabels = TRUE,
                      Theme = "dark",
                      TimeLine = FALSE,
-                     TextColor = "white",
                      title.text = "Rosetype Plot",
                      title.subtext = NULL,
                      title.link = NULL,
@@ -5104,7 +5086,7 @@ Rosetype <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_legend_full(
@@ -5247,7 +5229,6 @@ Rosetype <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor character hex
 #' @param ContainLabel TRUE
 #' @param itemStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
 #' @param itemStyle.opacity transparency
@@ -5577,7 +5558,6 @@ Rosetype <- function(dt = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -5599,7 +5579,6 @@ Box <- function(dt = NULL,
                 Theme = "dark",
                 MouseScroll = FALSE,
                 TimeLine = FALSE,
-                TextColor = "white",
                 ContainLabel = TRUE,
                 itemStyle.color = NULL,
                 itemStyle.opacity = NULL,
@@ -6103,7 +6082,7 @@ Box <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     if(Debug) print("Box 14")
 
@@ -6316,7 +6295,7 @@ Box <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -6528,7 +6507,7 @@ Box <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -6733,7 +6712,7 @@ Box <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -6856,7 +6835,6 @@ Box <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param TextColor "white",
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -6922,7 +6900,6 @@ Box <- function(dt = NULL,
 #'   Height = NULL,
 #'   Width = NULL,
 #'   Theme = "dark",
-#'   TextColor = "black",
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -6932,7 +6909,6 @@ WordCloud <- function(dt = NULL,
                       Height = NULL,
                       Width = NULL,
                       Theme = "dark",
-                      TextColor = "white",
                       title.text = "Word Cloud",
                       title.subtext = NULL,
                       title.link = NULL,
@@ -7197,7 +7173,6 @@ WordCloud <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
-#' @param TextColor "Not Implemented"
 #' @param lineStyle.color hex or name
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -7538,7 +7513,6 @@ Line <- function(dt = NULL,
                  TimeLine = FALSE,
                  Smooth = TRUE,
                  ShowSymbol = FALSE,
-                 TextColor = "white",
                  ContainLabel = TRUE,
                  DarkMode = FALSE,
                  lineStyle.color = NULL,
@@ -8024,7 +7998,7 @@ Line <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- e_x_axis_full(
       e = p1,
       serie = NULL,
@@ -8306,7 +8280,7 @@ Line <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -8498,7 +8472,6 @@ Line <- function(dt = NULL,
 #' @param Theme Provide an "Echarts" theme
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor "Not Implemented"
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
 #' @param areaStyle.color Fill color
@@ -8843,7 +8816,6 @@ Area <- function(dt = NULL,
                  Theme = "dark",
                  MouseScroll = FALSE,
                  TimeLine = FALSE,
-                 TextColor = "white",
                  ContainLabel = TRUE,
                  title.text = "Area Plot",
                  title.subtext = NULL,
@@ -9324,7 +9296,7 @@ Area <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -9595,7 +9567,7 @@ Area <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -9788,7 +9760,6 @@ Area <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
-#' @param TextColor "Not Implemented"
 #' @param ContainLabel TRUE
 #' @param lineStyle.color hex or name
 #' @param title.text Title name
@@ -10127,7 +10098,6 @@ Step <- function(dt = NULL,
                  MouseScroll = FALSE,
                  TimeLine = FALSE,
                  ShowSymbol = FALSE,
-                 TextColor = "white",
                  ContainLabel = TRUE,
                  lineStyle.color = NULL,
                  title.text = "Step Plot",
@@ -10608,7 +10578,7 @@ Step <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -10888,7 +10858,7 @@ Step <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
     p1 <- echarts4r::e_brush(e = p1)
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -11078,7 +11048,6 @@ Step <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
-#' @param TextColor "Not Implemented"
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -11311,7 +11280,6 @@ Step <- function(dt = NULL,
 #'     "Independent_Variable4",
 #'     "Independent_Variable5"),
 #'   YVarTrans = "Identity",
-#'   TextColor = "black",
 #'   Theme = "macarons")
 #'
 #' @return plot
@@ -11334,7 +11302,6 @@ River <- function(dt = NULL,
                   MouseScroll = FALSE,
                   TimeLine = FALSE,
                   ShowSymbol = FALSE,
-                  TextColor = "white",
                   itemStyle.color = NULL,
                   title.text = "River Plot",
                   title.subtext = NULL,
@@ -11698,7 +11665,7 @@ River <- function(dt = NULL,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
     toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
 
   p1 <- e_legend_full(
@@ -11841,7 +11808,6 @@ River <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param backgroundStyle.color vector of colors
 #' @param backgroundStyle.opacity vector of opacities
@@ -12166,7 +12132,6 @@ River <- function(dt = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -12190,7 +12155,6 @@ Bar <- function(dt = NULL,
                 Theme = "dark",
                 MouseScroll = FALSE,
                 TimeLine = FALSE,
-                TextColor = "white",
                 ContainLabel = TRUE,
                 backgroundStyle.color = NULL,
                 backgroundStyle.opacity = NULL,
@@ -12661,7 +12625,7 @@ Bar <- function(dt = NULL,
         toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
         toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
       p1 <- echarts4r::e_brush(e = p1)
       p1 <- e_title_full(
         e = p1,
@@ -12984,7 +12948,7 @@ Bar <- function(dt = NULL,
         toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
         toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
       if(Debug) print("BarPlot 2.d")
       p1 <- e_x_axis_full(
@@ -13270,7 +13234,7 @@ Bar <- function(dt = NULL,
         toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
         toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
       p1 <- e_x_axis_full(
         e = p1,
@@ -13557,7 +13521,7 @@ Bar <- function(dt = NULL,
         toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
         toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+      p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
       p1 <- e_x_axis_full(
         e = p1,
@@ -13751,7 +13715,6 @@ Bar <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -14061,7 +14024,6 @@ ACF <- function(dt = NULL,
                 Height = NULL,
                 Width = NULL,
                 Theme = "dark",
-                TextColor = "white",
                 ContainLabel = TRUE,
                 title.text = "Autocorrelation Plot",
                 title.subtext = NULL,
@@ -14502,7 +14464,7 @@ ACF <- function(dt = NULL,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
     toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
   p1 <- e_x_axis_full(
     e = p1,
     serie = NULL,
@@ -14628,7 +14590,6 @@ ACF <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -14938,7 +14899,6 @@ PACF <- function(dt = NULL,
                  Height = NULL,
                  Width = NULL,
                  Theme = "dark",
-                 TextColor = "white",
                  ContainLabel = TRUE,
                  title.text = "Partial Autocorrelation Plot",
                  title.subtext = NULL,
@@ -15389,7 +15349,7 @@ PACF <- function(dt = NULL,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
     toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
   p1 <- e_x_axis_full(
     e = p1,
     serie = NULL,
@@ -15522,7 +15482,6 @@ PACF <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -15844,7 +15803,6 @@ PACF <- function(dt = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -15867,7 +15825,6 @@ StackedBar <- function(dt = NULL,
                        Theme = "dark",
                        MouseScroll = FALSE,
                        TimeLine = FALSE,
-                       TextColor = "white",
                        ContainLabel = TRUE,
                        title.text = "Stacked Bar Plot",
                        title.subtext = NULL,
@@ -16348,7 +16305,7 @@ StackedBar <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -16548,7 +16505,6 @@ StackedBar <- function(dt = NULL,
 #' @param NumLevels_Y = 20
 #' @param NumLevels_X = 20
 #' @param ShowLabels character
-#' @param TextColor character
 #' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -16873,7 +16829,6 @@ StackedBar <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -16899,7 +16854,6 @@ BarPlot3D <- function(dt,
                       ShowLabels = FALSE,
                       Theme = "dark",
                       MouseScroll = FALSE,
-                      TextColor = "white",
                       ContainLabel = TRUE,
                       title.text = "3D Bar Plot",
                       title.subtext = NULL,
@@ -17338,7 +17292,7 @@ BarPlot3D <- function(dt,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
       e = p1,
@@ -17452,7 +17406,7 @@ BarPlot3D <- function(dt,
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -17615,7 +17569,7 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -17761,7 +17715,7 @@ BarPlot3D <- function(dt,
     p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     # p1 <- echarts4r::e_axis_3d(e = p1)
@@ -17852,7 +17806,6 @@ BarPlot3D <- function(dt,
 #' @param NumLevels_Y = 20
 #' @param NumLevels_X = 20.
 #' @param PreAgg logical
-#' @param TextColor color
 #' @param ContainLabel TRUE
 #' @param visualMap.show TRUE
 #' @param visualMap.min min value
@@ -18249,7 +18202,6 @@ BarPlot3D <- function(dt,
 #'   Width = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -18274,7 +18226,6 @@ HeatMap <- function(dt,
                     Width = NULL,
                     Theme = "dark",
                     MouseScroll = FALSE,
-                    TextColor = "white",
                     ContainLabel = TRUE,
                     visualMap.show = TRUE,
                     visualMap.min = NULL,
@@ -18818,7 +18769,7 @@ HeatMap <- function(dt,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_x_axis_full(
@@ -19022,7 +18973,7 @@ HeatMap <- function(dt,
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_x_axis_full(
@@ -19254,7 +19205,7 @@ HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_x_axis_full(
@@ -19505,7 +19456,7 @@ HeatMap <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -19661,7 +19612,6 @@ HeatMap <- function(dt,
 #' @param ShowLabels character
 #' @param Theme Provide an "Echarts" theme
 #' @param ShowSymbol = FALSE
-#' @param TextColor "Not Implemented"
 #' @param lineStyle.color hex or name for radar lines
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -19897,7 +19847,6 @@ HeatMap <- function(dt,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   ShowSymbol = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   DarkMode = FALSE,
 #'   Debug = FALSE)
@@ -19915,7 +19864,6 @@ Radar <- function(dt = NULL,
                   ShowLabels = FALSE,
                   Theme = "dark",
                   ShowSymbol = FALSE,
-                  TextColor = "white",
                   ContainLabel = TRUE,
                   DarkMode = FALSE,
                   lineStyle.color = NULL,
@@ -20263,7 +20211,7 @@ Radar <- function(dt = NULL,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
     toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
   p1 <- e_title_full(
     e = p1,
@@ -20411,7 +20359,6 @@ Radar <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
-#' @param TextColor character hex
 #' @param visualMap.show TRUE
 #' @param visualMap.min min value
 #' @param visualMap.max max value
@@ -20750,7 +20697,6 @@ Radar <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
-#'   TextColor = "black",
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -20769,7 +20715,6 @@ CorrMatrix <- function(dt = NULL,
                        ShowLabels = FALSE,
                        Theme = "dark",
                        MouseScroll = FALSE,
-                       TextColor = "white",
                        visualMap.show = TRUE,
                        visualMap.min = -1.0,
                        visualMap.max = 1.0,
@@ -21213,7 +21158,7 @@ CorrMatrix <- function(dt = NULL,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
     toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
   p1 <- e_title_full(
     e = p1,
@@ -21293,7 +21238,6 @@ CorrMatrix <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor character hex
 #' @param rm_x logical. Remove x-axis
 #' @param rm_y logical. Remove y-axis
 #' @param lineStyle.color hex or color
@@ -21631,7 +21575,6 @@ CorrMatrix <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
-#'   TextColor = "black",
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -21647,7 +21590,6 @@ Parallel <- function(dt = NULL,
                      ShowLabels = FALSE,
                      Theme = "dark",
                      MouseScroll = FALSE,
-                     TextColor = "white",
                      rm_x = TRUE,
                      rm_y = TRUE,
                      lineStyle.color = NULL,
@@ -22055,7 +21997,7 @@ Parallel <- function(dt = NULL,
     toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
     toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
   p1 <- e_title_full(
     e = p1,
@@ -22141,7 +22083,6 @@ Parallel <- function(dt = NULL,
 #' @param Theme = "dark-blue",
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -22463,7 +22404,6 @@ Parallel <- function(dt = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -22486,7 +22426,6 @@ Copula <- function(dt = NULL,
                    Theme = "dark",
                    MouseScroll = FALSE,
                    TimeLine = FALSE,
-                   TextColor = "white",
                    ContainLabel = TRUE,
                    title.text = "Copula Plot",
                    title.subtext = NULL,
@@ -22898,7 +22837,7 @@ Copula <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_legend_full(
       e = p1,
@@ -23167,7 +23106,7 @@ Copula <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -23364,7 +23303,6 @@ Copula <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme = "dark-blue"
 #' @param TimeLine Logical
-#' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -23687,7 +23625,6 @@ Copula <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -23710,7 +23647,6 @@ Copula3D <- function(dt = NULL,
                      ShowLabels = FALSE,
                      Theme = "dark-blue",
                      TimeLine = FALSE,
-                     TextColor = "white",
                      ContainLabel = TRUE,
                      title.text = "3D Copula Plot",
                      title.subtext = NULL,
@@ -24157,7 +24093,7 @@ Copula3D <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
 
     p1 <- e_title_full(
@@ -24291,7 +24227,7 @@ Copula3D <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -24430,7 +24366,6 @@ Copula3D <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor character hex
 #' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -24753,7 +24688,6 @@ Copula3D <- function(dt = NULL,
 #'   Theme = "blue",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -24776,7 +24710,6 @@ Scatter <- function(dt = NULL,
                     Theme = "dark",
                     MouseScroll = FALSE,
                     TimeLine = FALSE,
-                    TextColor = "white",
                     ContainLabel = TRUE,
                     title.text = "Scatter Plot",
                     title.subtext = NULL,
@@ -25193,7 +25126,7 @@ Scatter <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_legend_full(
       e = p1,
@@ -25464,7 +25397,7 @@ Scatter <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     if(Debug) print("SCatter 7")
 
@@ -25665,7 +25598,6 @@ Scatter <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme = "macaron"
 #' @param TimeLine Logical
-#' @param TextColor 'darkblue'
 #' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -25988,7 +25920,6 @@ Scatter <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   TimeLine = FALSE,
-#'   TextColor = "black",
 #'   ContainLabel = TRUE,
 #'   Debug = FALSE)
 #'
@@ -26011,7 +25942,6 @@ Scatter3D <- function(dt = NULL,
                       ShowLabels = FALSE,
                       Theme = "dark",
                       TimeLine = FALSE,
-                      TextColor = "white",
                       ContainLabel = TRUE,
                       title.text = "3D Scatter Plot",
                       title.subtext = NULL,
@@ -26418,7 +26348,7 @@ Scatter3D <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
       e = p1,
@@ -26613,7 +26543,7 @@ Scatter3D <- function(dt = NULL,
       toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
       toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
 
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
 
     p1 <- e_x_axis_full(
       e = p1,
@@ -26758,7 +26688,6 @@ Scatter3D <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor Not Implemented
 #' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @return plot
@@ -26781,7 +26710,6 @@ Residuals.Histogram <- function(dt = NULL,
                                      Theme = "dark",
                                      MouseScroll = FALSE,
                                      TimeLine = FALSE,
-                                     TextColor = "white",
                                      ContainLabel = TRUE,
                                      Debug = FALSE) {
 
@@ -26864,7 +26792,7 @@ Residuals.Histogram <- function(dt = NULL,
     ShowLabels = ShowLabels,
     Theme = Theme,
     TimeLine = TimeLine,
-    TextColor = "white",
+
     Debug = Debug)
 
   return(p1)
@@ -26894,7 +26822,6 @@ Residuals.Histogram <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -26915,7 +26842,6 @@ Residuals.Scatter <- function(dt = NULL,
                                    ShowLabels = FALSE,
                                    Theme = "dark",
                                    TimeLine = FALSE,
-                                   TextColor = "white",
                                    Debug = FALSE) {
 
   # Data Prep1
@@ -26988,7 +26914,6 @@ Residuals.Scatter <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -27009,7 +26934,6 @@ Calibration.Line <- function(dt = NULL,
                                   Theme = "dark",
                                   TimeLine = FALSE,
                                   MouseScroll = FALSE,
-                                  TextColor = "white",
                                   Debug = FALSE) {
 
   if(Debug) print("here 1")
@@ -27260,7 +27184,6 @@ Calibration.Line <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor "Not Implemented"
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -27282,7 +27205,6 @@ Calibration.Box <- function(dt = NULL,
                                  ShowLabels = FALSE,
                                  Theme = "dark",
                                  TimeLine = FALSE,
-                                 TextColor = "white",
                                  Debug = FALSE) {
 
   if(Debug) print("Plot.Calibration.Box 1")
@@ -27382,7 +27304,6 @@ Calibration.Box <- function(dt = NULL,
 #' @param EchartsLabels character
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TimeLine logical
-#' @param TextColor hex character
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
@@ -27408,7 +27329,6 @@ PartialDependence.Line <- function(dt = NULL,
                                         MouseScroll = FALSE,
                                         EchartsLabels = FALSE,
                                         TimeLine = FALSE,
-                                        TextColor = "white",
                                         Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -27622,7 +27542,6 @@ PartialDependence.Line <- function(dt = NULL,
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor hex character
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
@@ -27650,7 +27569,6 @@ PartialDependence.Box <- function(dt = NULL,
                                        MouseScroll = FALSE,
                                        EchartsLabels = FALSE,
                                        TimeLine = FALSE,
-                                       TextColor = "white",
                                        Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -27732,7 +27650,6 @@ PartialDependence.Box <- function(dt = NULL,
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor hex character
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
@@ -27758,7 +27675,6 @@ PartialDependence.HeatMap <- function(dt = NULL,
                                            Theme = "dark",
                                            EchartsLabels = FALSE,
                                            TimeLine = FALSE,
-                                           TextColor = "white",
                                            Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -27856,7 +27772,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
         ShowLabels = ShowLabels,
         Theme = Theme,
         TimeLine = FALSE,
-        TextColor = "white",
+
         Debug = Debug)
       return(p1)
     }
@@ -27960,7 +27876,6 @@ PartialDependence.HeatMap <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -27979,7 +27894,6 @@ VariableImportance <- function(dt = NULL,
                                     ShowLabels = FALSE,
                                     Theme = "dark",
                                     TimeLine = FALSE,
-                                    TextColor = "white",
                                     Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -28007,7 +27921,7 @@ VariableImportance <- function(dt = NULL,
 
 
   p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = TextColor, mask_color = "#000")
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
   p1 <- echarts4r::e_brush(e = p1)
 
   p1 <- echarts4r::e_flip_coords(e = p1)
@@ -28038,7 +27952,6 @@ VariableImportance <- function(dt = NULL,
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param SampleSize numeric
-#' @param TextColor character hex
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -28059,7 +27972,6 @@ ROC <- function(dt = NULL,
                      Theme = "dark",
                      MouseScroll = FALSE,
                      TimeLine = FALSE,
-                     TextColor = "white",
                      Debug = FALSE) {
 
   # ROC
@@ -28288,7 +28200,6 @@ ROC <- function(dt = NULL,
 #' @param ContainLabel logical
 #' @param GroupVar = NULL
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
-#' @param TextColor 'darkblue'
 #' @param Debug Debugging purposes
 #'
 #' @return plot
@@ -28313,7 +28224,6 @@ ConfusionMatrix <- function(dt = NULL,
                                  Theme = "dark",
                                  MouseScroll = FALSE,
                                  TimeLine = FALSE,
-                                 TextColor = "white",
                                  AggMethod = "count",
                                  GroupVar = NULL,
                                  ContainLabel = TRUE,
@@ -28401,7 +28311,6 @@ ConfusionMatrix <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor character hex
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -28424,7 +28333,6 @@ Lift <- function(dt = NULL,
                       Theme = "dark",
                       MouseScroll = FALSE,
                       TimeLine = FALSE,
-                      TextColor = "white",
                       Debug = FALSE) {
 
   if(Debug) print("here 0")
@@ -28695,7 +28603,6 @@ Lift <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor character hex
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -28718,7 +28625,6 @@ Gains <- function(dt = NULL,
                        Theme = "dark",
                        MouseScroll = FALSE,
                        TimeLine = FALSE,
-                       TextColor = "white",
                        Debug = FALSE) {
 
   if(Debug) print("here 1")
@@ -28988,7 +28894,6 @@ Gains <- function(dt = NULL,
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param TextColor hex character
 #' @param AggMethod character
 #' @param GroupVar Character variable
 #' @param Debug Debugging purposes
@@ -29018,7 +28923,6 @@ BinaryMetricsPlot <- function(dt = NULL,
                                Theme = "dark",
                                EchartsLabels = FALSE,
                                TimeLine = FALSE,
-                               TextColor = "white",
                                Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -29099,7 +29003,6 @@ BinaryMetricsPlot <- function(dt = NULL,
 #' @param NumberBins = 21
 #' @param NumLevels_Y = 20
 #' @param NumLevels_X = 20
-#' @param TextColor character
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
@@ -29121,7 +29024,6 @@ ShapImportance <- function(dt,
                                 Width = NULL,
                                 ShowLabels = FALSE,
                                 Theme = "dark",
-                                TextColor = "white",
                                 Debug = FALSE) {
 
   if(Debug) print("ShapImportance Step 1")

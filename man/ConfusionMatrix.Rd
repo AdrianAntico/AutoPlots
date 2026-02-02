@@ -25,7 +25,6 @@ ConfusionMatrix(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  TextColor = "white",
   AggMethod = "count",
   GroupVar = NULL,
   ContainLabel = TRUE,
@@ -72,8 +71,6 @@ ConfusionMatrix(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{logical}
-
-\item{TextColor}{'darkblue'}
 
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
