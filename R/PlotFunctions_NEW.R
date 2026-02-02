@@ -1444,7 +1444,7 @@ ProbabilityPlot <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Theme = Theme,
-    TextColor = TextColor,
+
     ContainLabel = ContainLabel,
     title.text = title.text,
     title.subtext = title.subtext,
@@ -2272,7 +2272,7 @@ Histogram <- function(dt = NULL,
       Theme = Theme,
       MouseScroll = MouseScroll,
       TimeLine = TimeLine,
-      TextColor = TextColor,
+
       backgroundStyle.color = backgroundStyle.color,
       backgroundStyle.opacity = backgroundStyle.opacity,
       title.text = title.text,
@@ -2586,7 +2586,7 @@ Histogram <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Theme = Theme,
       TimeLine = TimeLine,
-      TextColor = TextColor,
+
       backgroundStyle.color = backgroundStyle.color,
       backgroundStyle.opacity = backgroundStyle.opacity,
       title.text = title.text,
@@ -26885,7 +26885,7 @@ Residuals.Scatter <- function(dt = NULL,
     MouseScroll = MouseScroll,
     Theme = Theme,
     TimeLine = tl,
-    TextColor = TextColor,
+
     Debug = Debug)
   return(p1)
 }
@@ -27037,7 +27037,7 @@ Calibration.Line <- function(dt = NULL,
       Width = Width,
       Theme = Theme,
       TimeLine = tl,
-      TextColor = TextColor,
+
       Debug = Debug)
 
     return(p1)
@@ -27153,7 +27153,7 @@ Calibration.Line <- function(dt = NULL,
       ShowSymbol = FALSE,
       Height = Height,
       Width = Width,
-      TextColor = TextColor,
+
       Debug = Debug)
     return(p1)
   }
@@ -27274,7 +27274,7 @@ Calibration.Box <- function(dt = NULL,
     MouseScroll = MouseScroll,
     Theme = Theme,
     TimeLine = TimeLine,
-    TextColor = TextColor,
+
     Debug = Debug)
   return(p1)
 }
@@ -27411,7 +27411,7 @@ PartialDependence.Line <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-      TextColor = TextColor,
+
       Debug = Debug)
     return(p1)
 
@@ -27509,7 +27509,7 @@ PartialDependence.Line <- function(dt = NULL,
       ShowSymbol = FALSE,
       Height = Height,
       Width = Width,
-      TextColor = TextColor,
+
       Debug = Debug)
     return(p1)
   }
@@ -27620,7 +27620,7 @@ PartialDependence.Box <- function(dt = NULL,
     MouseScroll = MouseScroll,
     Theme = Theme,
     TimeLine = tl,
-    TextColor = TextColor,
+
     Debug = Debug)
   return(p1)
 }
@@ -27742,7 +27742,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
         MouseScroll = MouseScroll,
         Height = Height,
         Width = Width,
-        TextColor = TextColor,
+
         NumberBins = NumberBins,
         Debug = Debug)
       return(p1)
@@ -27847,7 +27847,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
       Height = Height,
       Width = Width,
       MouseScroll = MouseScroll,
-      TextColor = TextColor,
+
       NumberBins = NumberBins,
       Debug = Debug)
     return(p1)
@@ -28138,7 +28138,7 @@ ROC <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-      TextColor = TextColor,
+
       Debug = Debug)
 
   } else {
@@ -28161,7 +28161,7 @@ ROC <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-      TextColor = TextColor,
+
       Debug = Debug)
   }
 
@@ -28538,7 +28538,7 @@ Lift <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Theme = Theme,
       TimeLine = FALSE,
-      TextColor = TextColor,
+
       Debug = FALSE)
 
   } else {
@@ -28564,7 +28564,7 @@ Lift <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
-      TextColor = TextColor,
+
       Debug = FALSE)
   }
 
@@ -28829,7 +28829,7 @@ Gains <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
-      TextColor = TextColor,
+
       Debug = FALSE)
 
   } else {
@@ -28854,7 +28854,7 @@ Gains <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
-      TextColor = TextColor,
+
       Debug = FALSE)
   }
 
@@ -28979,7 +28979,7 @@ BinaryMetricsPlot <- function(dt = NULL,
     Width = Width,
     Theme = Theme,
     TimeLine = tl,
-    TextColor = TextColor,
+
     Debug = Debug)
   return(p1)
 }
@@ -29093,7 +29093,7 @@ ShapImportance <- function(dt,
       Width = Width,
       Theme = Theme,
       TimeLine = TimeLine,
-      TextColor = TextColor,
+
       Debug = Debug)
     return(p1)
   }
