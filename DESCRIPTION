@@ -1,9 +1,10 @@
 Package: AutoPlots
 Title: Creating Echarts Visualizations as Easy as Possible
-Version: 1.0.0
-Date: 2025-06-21
+Version: 1.0.1
+Date: 2026-02-02
 Authors@R: 
-    person("Adrian", "Antico", , "adrianantico@gmail.com", role = c("aut", "cre", "cph"))
+    person("Adrian", "Antico", , "adrianantico@gmail.com", role = c("aut", "cre", "cph")),
+    person("David", "Munoz Tord", , "david.munoztord@mailbox.org", role = c("ctb"))
 Author: Adrian Antico [aut, cre, cph]
 Maintainer: Adrian Antico <adrianantico@gmail.com>
 Description: Create beautiful and interactive visualizations in a single function call. The 'data.table' package is utilized to perform the data wrangling necessary to prepare your data for the plot types you wish to build, along with allowing fast processing for big data. There are two broad classes of plots available: standard plots and machine learning evaluation plots. There are lots of parameters available in each plot type function for customizing the plots (such as faceting) and data wrangling (such as variable transformations and aggregation).
@@ -30,7 +31,6 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 NeedsCompilation: no
-Packaged: 2025-06-21 14:00:00 UTC
 RoxygenNote: 7.3.3
 Suggests: 
     spelling
