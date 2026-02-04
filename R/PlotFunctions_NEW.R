@@ -21036,6 +21036,11 @@ CorrMatrix <- function(dt = NULL,
   # Filter out bad vars
   x <- c(); for(i in CorrVars) if(dt[, stats::sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
   CorrVars <- x
+  
+  # Filter out non-numeric columns
+  x <- c(); for(i in CorrVars) if(class(dt[[i]])[1L] %in% c('numeric', 'integer', 'double')) x <- c(x, i)
+  CorrVars <- x
+  
   NN <- dt[,.N]
   x <- c(); for(i in CorrVars) if(sum(dt[, is.na(get(i))]) / NN <= MaxNAPercent) x <- c(x, i)
   CorrVars <- x
@@ -21059,7 +21064,11 @@ CorrMatrix <- function(dt = NULL,
     corr_mat <- stats::cor(method = tolower(Method), x = dt1)
     corr_mat <- round(corr_mat, 3)
   } else {
-    corr_mat <- dt
+    # Use only numeric columns and compute correlation
+    CorrVars_num <- CorrVars[sapply(dt[, ..CorrVars], is.numeric)]
+    dt_num <- dt[, ..CorrVars_num]
+    corr_mat <- stats::cor(dt_num, use = "pairwise.complete.obs", method = tolower(Method))
+    corr_mat <- round(corr_mat, 3)
   }
 
   if(Debug) {
