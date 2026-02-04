@@ -373,6 +373,7 @@ Density <- function(dt = NULL,
                     FacetLevels = NULL,
                     TimeLine = FALSE,
                     showSymbol = FALSE,
+                    Opacity = NULL,
                     areaStyle.color = NULL,
                     areaStyle.opacity = NULL,
                     Height = NULL,
@@ -677,6 +678,11 @@ Density <- function(dt = NULL,
                     toolbox.iconStyle.shadowOffsetX = NULL,
                     toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
+
+  # Set Opacity if provided
+  if(!is.null(Opacity)) {
+    areaStyle.opacity <- Opacity
+  }
 
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
@@ -21581,6 +21587,7 @@ CorrMatrix <- function(dt = NULL,
 #' @export
 Parallel <- function(dt = NULL,
                      SampleSize = 50000,
+                     PreAgg = TRUE,
                      CorrVars = NULL,
                      FacetRows = 1,
                      FacetCols = 1,
