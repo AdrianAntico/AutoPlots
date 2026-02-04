@@ -9041,19 +9041,7 @@ Plot.Parallel <- function(dt = NULL,
   p1 <- echarts4r::e_charts(data = dt1, width = Width, height = Height)
 
   # Metaprog because issue with function accepting vector of names
-  p1 <- eval(
-    parse(
-      text = c(
-        "echarts4r::e_parallel_(e = p1, ",
-        noquote(
-          c(
-            paste0(CorrVars[seq_len(length(CorrVars)-1L)], collpase = ","),
-            CorrVars[length(CorrVars)])
-        ),
-        ", opts = list(smooth = TRUE))"
-      )
-    )
-  )
+  p1 <- echarts4r::e_parallel_(e = e, vars, opts = list(smooth = TRUE))
 
   # Warning message:
   #   Using an external vector in selections was deprecated in tidyselect 1.1.0.
