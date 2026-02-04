@@ -7,6 +7,7 @@
 Parallel(
   dt = NULL,
   SampleSize = 50000,
+  PreAgg = TRUE,
   CorrVars = NULL,
   FacetRows = 1,
   FacetCols = 1,

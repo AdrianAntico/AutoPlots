@@ -992,7 +992,7 @@ Density <- function(dt = NULL,
 
     if(ShowLabels) {
       p1 <- echarts4r::e_charts_(
-        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        dt1 |> dplyr::group_by(!!rlang::sym(GroupVar[1L])),
         timeline = TimeLine,
         dispose = TRUE,
         darkMode = TRUE,
@@ -1002,7 +1002,7 @@ Density <- function(dt = NULL,
         label = list(show = TRUE))
     } else {
       p1 <- echarts4r::e_charts_(
-        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        dt1 |> dplyr::group_by(!!rlang::sym(GroupVar[1L])),
         timeline = TimeLine,
         dispose = TRUE,
         darkMode = TRUE,
