@@ -1,4 +1,4 @@
-![Version:1.0.0](https://img.shields.io/static/v1?label=Version&message=1.0.0&color=blue&?style=plastic)
+![Version:1.5.0](https://img.shields.io/static/v1?label=Version&message=1.5.0&color=blue&?style=plastic)
 
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Logo2.PNG" align="center" width="800" />
@@ -28,7 +28,6 @@ Supports multi-plot layouts via display_plots_grid()
 
 Designed for data science, EDA, dashboards, and model evaluation
 
-GitHub-first development for rapid iteration and improvement
 
 ## 🔍 Philosophy
 
