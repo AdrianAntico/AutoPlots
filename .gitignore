@@ -1,3 +1,7 @@
+.tar.gz
+.tgz
+.zip
+.Rcheck/
 .Rproj.user
 .Rhistory
 .RData
