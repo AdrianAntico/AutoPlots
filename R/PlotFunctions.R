@@ -9023,38 +9023,11 @@ Plot.Parallel <- function(dt = NULL,
     print(Height)
   }
 
-  # Names modification: because of the parse() I can't have spaces in the colnames
-  old <- c()
-  new <- c()
-  for(i in seq_along(CorrVars)) {
-    if(grepl(pattern = " ", x = CorrVars[i])) {
-      old <- c(old, CorrVars[i])
-      new <- c(new, gsub(pattern = " ", replacement = ".", x = CorrVars[i]))
-    }
-  }
-  if(length(new) > 0L) {
-    CorrVars <- new
-    data.table::setnames(dt1, old = old, new = new)
-  }
-
   # Build Plot
   p1 <- echarts4r::e_charts(data = dt1, width = Width, height = Height)
 
   # Metaprog because issue with function accepting vector of names
-  p1 <- echarts4r::e_parallel_(e = e, vars, opts = list(smooth = TRUE))
-
-  # Warning message:
-  #   Using an external vector in selections was deprecated in tidyselect 1.1.0.
-  # ℹ Please use `all_of()` or `any_of()` instead.
-  # # Was:
-  # data %>% select(v)
-  #
-  # # Now:
-  # data %>% select(all_of(v))
-  #
-  # See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-  # This warning is displayed once every 8 hours.
-  # Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+  p1 <- echarts4r::e_parallel_(e = p1, vars = names(dt1), opts = list(smooth = TRUE))
 
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
   if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
