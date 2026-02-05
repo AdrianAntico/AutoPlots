@@ -338,6 +338,8 @@ Parallel(
 
 \item{SampleSize}{Sample size}
 
+\item{PreAgg}{logical; if TRUE, data is pre-aggregated}
+
 \item{CorrVars}{vector of variable names}
 
 \item{FacetRows}{Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows}

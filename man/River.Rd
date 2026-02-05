@@ -277,6 +277,8 @@ River(
 
 \item{ShowSymbol}{= FALSE}
 
+\item{itemStyle.color}{hex or color name}
+
 \item{title.text}{Title name}
 
 \item{title.subtext}{Subtitle name}

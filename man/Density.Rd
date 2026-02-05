@@ -341,7 +341,13 @@ Density(
 
 \item{TimeLine}{logical}
 
+\item{showSymbol}{logical, show symbols on line}
+
 \item{Opacity}{numeric}
+
+\item{areaStyle.color}{hex or color name}
+
+\item{areaStyle.opacity}{numeric between 0 and 1}
 
 \item{Height}{"400px"}
 

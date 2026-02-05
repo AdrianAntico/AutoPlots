@@ -39,6 +39,9 @@
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
+#' @param showSymbol logical, show symbols on line
+#' @param areaStyle.color hex or color name
+#' @param areaStyle.opacity numeric between 0 and 1
 #' @param ContainLabel  TRUE
 #' @param Opacity numeric
 #' @param title.text Title name
@@ -11054,6 +11057,7 @@ Step <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
+#' @param itemStyle.color hex or color name
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -21259,6 +21263,7 @@ CorrMatrix <- function(dt = NULL,
 #'
 #' @param dt source data.table
 #' @param SampleSize Sample size
+#' @param PreAgg logical; if TRUE, data is pre-aggregated
 #' @param CorrVars vector of variable names
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
