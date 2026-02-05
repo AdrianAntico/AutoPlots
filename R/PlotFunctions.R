@@ -12275,6 +12275,7 @@ Plot.ROC <- function(dt = NULL,
 #'
 #' @author Adrian Antico
 #' @family Model Evaluation
+#' @importFrom utils head tail
 #'
 #' @param dt source data.table
 #' @param XVar X-Axis variable name
