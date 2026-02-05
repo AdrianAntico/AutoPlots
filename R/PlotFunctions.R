@@ -9025,25 +9025,16 @@ Plot.Parallel <- function(dt = NULL,
     print(Height)
   }
 
-  # Names modification: because of the parse() I can't have spaces in the colnames
-  old <- c()
-  new <- c()
-  for(i in seq_along(CorrVars)) {
-    if(grepl(pattern = " ", x = CorrVars[i])) {
-      old <- c(old, CorrVars[i])
-      new <- c(new, gsub(pattern = " ", replacement = ".", x = CorrVars[i]))
-    }
-  }
-  if(length(new) > 0L) {
-    CorrVars <- new
-    data.table::setnames(dt1, old = old, new = new)
-  }
-
   # Build Plot
   p1 <- echarts4r::e_charts(data = dt1, width = Width, height = Height)
 
+<<<<<<< main
   p1 <- echarts4r::e_parallel_(e = p1, columns = CorrVars, opts = list(smooth = TRUE))
 
+=======
+  # Metaprog because issue with function accepting vector of names
+  p1 <- echarts4r::e_parallel_(e = p1, vars = names(dt1), opts = list(smooth = TRUE))
+>>>>>>> main
 
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
   if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
