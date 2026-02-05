@@ -29,6 +29,8 @@ e_visual_map_full(
 
 \item{serie}{ZVar XVar YVar}
 
+\item{visualMap.show}{logical}
+
 \item{visualMap.min}{min value}
 
 \item{visualMap.max}{max value}

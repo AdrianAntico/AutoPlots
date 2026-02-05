@@ -8831,12 +8831,14 @@ Plot.CorrMatrix <- function(dt = NULL,
                             xaxis.fontSize = 14,
                             Debug = FALSE) {
 
-  # Filter out bad vars
+  # Filter out bad vars and keep only numeric columns
   x <- c(); for(i in CorrVars) if(dt[, stats::sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
   CorrVars <- x
   NN <- dt[,.N]
   x <- c(); for(i in CorrVars) if(sum(dt[, is.na(get(i))]) / NN <= MaxNAPercent) x <- c(x, i)
   CorrVars <- x
+  # Keep only numeric columns
+  CorrVars <- CorrVars[sapply(dt[, ..CorrVars], is.numeric)]
 
   # Plot
   if(!PreAgg) {
@@ -8867,7 +8869,7 @@ Plot.CorrMatrix <- function(dt = NULL,
   }
 
   p1 <- echarts4r::e_charts(data = corr_mat, width = Width, height = Height)
-  p1 <- echarts4r::e_correlations(e = p1, order = "hclust")
+  p1 <- echarts4r::e_correlations(e = p1, order = "hclust", columns = colnames(corr_mat))
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
   if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
     p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
@@ -9026,8 +9028,13 @@ Plot.Parallel <- function(dt = NULL,
   # Build Plot
   p1 <- echarts4r::e_charts(data = dt1, width = Width, height = Height)
 
+<<<<<<< main
+  p1 <- echarts4r::e_parallel_(e = p1, columns = CorrVars, opts = list(smooth = TRUE))
+
+=======
   # Metaprog because issue with function accepting vector of names
   p1 <- echarts4r::e_parallel_(e = p1, vars = names(dt1), opts = list(smooth = TRUE))
+>>>>>>> main
 
   p1 <- echarts4r::e_tooltip(e = p1, trigger = "axis", backgroundColor = "aliceblue")
   if(MouseScroll && FacetRows == 1L && FacetCols == 1L) {
@@ -12259,6 +12266,7 @@ Plot.ROC <- function(dt = NULL,
 #'
 #' @author Adrian Antico
 #' @family Model Evaluation
+#' @importFrom utils head tail
 #'
 #' @param dt source data.table
 #' @param XVar X-Axis variable name

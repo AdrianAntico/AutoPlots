@@ -16,6 +16,9 @@
 
 utils::globalVariables(
   names = c(
+    ".",
+    ".data",
+    "1 - Recall",
     "1 - Specificity",
     "Adrian",
     "Appointments",
@@ -30,6 +33,7 @@ utils::globalVariables(
     "DateTime",
     "FP",
     "Gain",
+    "GroupLevels",
     "GroupVariables",
     "GroupVars",
     "Importance",
@@ -43,6 +47,7 @@ utils::globalVariables(
     "Independent_Variable7",
     "Independent_Variable8",
     "Independent_Variable9",
+    "Label",
     "Leads",
     "Level",
     "Lift",
@@ -58,6 +63,7 @@ utils::globalVariables(
     "NormalizedStatistics",
     "NumNull",
     "P_Predicted",
+    "PRAUC",
     "Percentile",
     "Plot.Polar",
     "Population",
@@ -79,6 +85,8 @@ utils::globalVariables(
     "Y_Scroll",
     "V1",
     "ZVar",
+    "..CorrVars",
+    "..CorrVars_num",
     "classPredict",
     "i.Metric",
     "metadata_path",

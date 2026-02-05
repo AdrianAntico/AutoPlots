@@ -39,6 +39,9 @@
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
+#' @param showSymbol logical, show symbols on line
+#' @param areaStyle.color hex or color name
+#' @param areaStyle.opacity numeric between 0 and 1
 #' @param ContainLabel  TRUE
 #' @param Opacity numeric
 #' @param title.text Title name
@@ -373,6 +376,7 @@ Density <- function(dt = NULL,
                     FacetLevels = NULL,
                     TimeLine = FALSE,
                     showSymbol = FALSE,
+                    Opacity = NULL,
                     areaStyle.color = NULL,
                     areaStyle.opacity = NULL,
                     Height = NULL,
@@ -677,6 +681,11 @@ Density <- function(dt = NULL,
                     toolbox.iconStyle.shadowOffsetX = NULL,
                     toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
+
+  # Set Opacity if provided
+  if(!is.null(Opacity)) {
+    areaStyle.opacity <- Opacity
+  }
 
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
@@ -986,7 +995,7 @@ Density <- function(dt = NULL,
 
     if(ShowLabels) {
       p1 <- echarts4r::e_charts_(
-        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        dt1 |> dplyr::group_by(!!rlang::sym(GroupVar[1L])),
         timeline = TimeLine,
         dispose = TRUE,
         darkMode = TRUE,
@@ -996,7 +1005,7 @@ Density <- function(dt = NULL,
         label = list(show = TRUE))
     } else {
       p1 <- echarts4r::e_charts_(
-        dt1 |> dplyr::group_by(get(GroupVar[1L])),
+        dt1 |> dplyr::group_by(!!rlang::sym(GroupVar[1L])),
         timeline = TimeLine,
         dispose = TRUE,
         darkMode = TRUE,
@@ -11048,6 +11057,7 @@ Step <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
+#' @param itemStyle.color hex or color name
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -11536,26 +11546,24 @@ River <- function(dt = NULL,
   if(Debug) print("Plot.River 3")
 
   # Minimize data before moving on
+  # DCast -> redefine YVar -> Proceed as normal (for both PreAgg and non-PreAgg cases)
+  if(length(YVar) > 1L && length(GroupVar) == 0L) {
+    dt1 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = XVar,
+      measure.vars = YVar,
+      variable.name = "Group",
+      value.name = "Measures")
+    YVar <- "Measures"
+    GroupVar <- "Group"
+  }
+
   if(!PreAgg) {
 
     if(Debug) print("Plot.River 4")
 
-    # DCast -> redefine YVar -> Proceed as normal
-    if(length(YVar) > 1L && length(GroupVar) == 0L) {
-      dt1 <- data.table::melt.data.table(
-        data = dt1,
-        id.vars = XVar,
-        measure.vars = YVar,
-        variable.name = "Group",
-        value.name = "Measures")
-      YVar <- "Measures"
-      GroupVar <- "Group"
-    } else {
-      dt1 <- data.table::copy(dt)
-    }
-
     # Define Aggregation function
-    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
+    if(Debug) print("Plot.Calibration.line # Define Aggregation function")
     aggFunc <- SummaryFunction(AggMethod)
 
     # Aggregate data
@@ -11565,6 +11573,11 @@ River <- function(dt = NULL,
     } else {
       dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
       data.table::setorderv(x = dt1, cols = XVar, 1L)
+    }
+  } else {
+    # For PreAgg = TRUE, still need to copy if we haven't melted
+    if(length(YVar) == 1L || length(GroupVar) > 0L) {
+      dt1 <- data.table::copy(dt1)
     }
   }
 
@@ -11590,19 +11603,31 @@ River <- function(dt = NULL,
 
   # Build base plot depending on GroupVar availability
   if(Debug) print("Line no group Echarts")
-  p1 <- echarts4r::e_charts_(
-    data = dt1 |> dplyr::group_by(get(GroupVar)),
-    x = XVar,
-    dispose = TRUE,
-    darkMode = TRUE,
-    width = Width,
-    height = Height)
+  
+  # Create grouping specification based on whether GroupVar exists
+  if(length(GroupVar) > 0L) {
+    p1 <- echarts4r::e_charts_(
+      data = dt1 |> dplyr::group_by(.data[[GroupVar[1L]]]),
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+  } else {
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+  }
 
   p1 <- echarts4r::e_river_(
     e = p1,
     serie = YVar
   )
-  if (length(itemStyle.color) == length(as.character(unique(dt1[[GroupVar]])))) {
+  if (length(GroupVar) > 0L && length(itemStyle.color) == length(as.character(unique(dt1[[GroupVar[1L]]])))) {
     p1 <- echarts4r::e_color(e = p1, color = itemStyle.color)
   }
 
@@ -21030,6 +21055,11 @@ CorrMatrix <- function(dt = NULL,
   # Filter out bad vars
   x <- c(); for(i in CorrVars) if(dt[, stats::sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
   CorrVars <- x
+  
+  # Filter out non-numeric columns
+  x <- c(); for(i in CorrVars) if(class(dt[[i]])[1L] %in% c('numeric', 'integer', 'double')) x <- c(x, i)
+  CorrVars <- x
+  
   NN <- dt[,.N]
   x <- c(); for(i in CorrVars) if(sum(dt[, is.na(get(i))]) / NN <= MaxNAPercent) x <- c(x, i)
   CorrVars <- x
@@ -21053,7 +21083,11 @@ CorrMatrix <- function(dt = NULL,
     corr_mat <- stats::cor(method = tolower(Method), x = dt1)
     corr_mat <- round(corr_mat, 3)
   } else {
-    corr_mat <- dt
+    # Use only numeric columns and compute correlation
+    CorrVars_num <- CorrVars[sapply(dt[, ..CorrVars], is.numeric)]
+    dt_num <- dt[, ..CorrVars_num]
+    corr_mat <- stats::cor(dt_num, use = "pairwise.complete.obs", method = tolower(Method))
+    corr_mat <- round(corr_mat, 3)
   }
 
   if(Debug) {
@@ -21229,6 +21263,7 @@ CorrMatrix <- function(dt = NULL,
 #'
 #' @param dt source data.table
 #' @param SampleSize Sample size
+#' @param PreAgg logical; if TRUE, data is pre-aggregated
 #' @param CorrVars vector of variable names
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
@@ -21581,6 +21616,7 @@ CorrMatrix <- function(dt = NULL,
 #' @export
 Parallel <- function(dt = NULL,
                      SampleSize = 50000,
+                     PreAgg = TRUE,
                      CorrVars = NULL,
                      FacetRows = 1,
                      FacetCols = 1,

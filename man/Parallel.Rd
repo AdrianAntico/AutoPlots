@@ -7,6 +7,7 @@
 Parallel(
   dt = NULL,
   SampleSize = 50000,
+  PreAgg = TRUE,
   CorrVars = NULL,
   FacetRows = 1,
   FacetCols = 1,
@@ -336,6 +337,8 @@ Parallel(
 \item{dt}{source data.table}
 
 \item{SampleSize}{Sample size}
+
+\item{PreAgg}{logical; if TRUE, data is pre-aggregated}
 
 \item{CorrVars}{vector of variable names}
 

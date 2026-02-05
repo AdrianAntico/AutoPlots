@@ -15,6 +15,7 @@ Density(
   FacetLevels = NULL,
   TimeLine = FALSE,
   showSymbol = FALSE,
+  Opacity = NULL,
   areaStyle.color = NULL,
   areaStyle.opacity = NULL,
   Height = NULL,
@@ -339,6 +340,14 @@ Density(
 \item{FacetLevels}{Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.}
 
 \item{TimeLine}{logical}
+
+\item{showSymbol}{logical, show symbols on line}
+
+\item{Opacity}{numeric}
+
+\item{areaStyle.color}{hex or color name}
+
+\item{areaStyle.opacity}{numeric between 0 and 1}
 
 \item{Height}{"400px"}
 
@@ -943,8 +952,6 @@ Density(
 \item{toolbox.iconStyle.shadowOffsetY}{numeric}
 
 \item{Debug}{Debugging purposes}
-
-\item{Opacity}{numeric}
 }
 \value{
 plot

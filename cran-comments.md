@@ -1,5 +1,5 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-* This is a new release.
+* This release includes compatibility upgrades for echarts4r 0.5.0
