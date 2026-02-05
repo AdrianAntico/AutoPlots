@@ -11542,26 +11542,24 @@ River <- function(dt = NULL,
   if(Debug) print("Plot.River 3")
 
   # Minimize data before moving on
+  # DCast -> redefine YVar -> Proceed as normal (for both PreAgg and non-PreAgg cases)
+  if(length(YVar) > 1L && length(GroupVar) == 0L) {
+    dt1 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = XVar,
+      measure.vars = YVar,
+      variable.name = "Group",
+      value.name = "Measures")
+    YVar <- "Measures"
+    GroupVar <- "Group"
+  }
+
   if(!PreAgg) {
 
     if(Debug) print("Plot.River 4")
 
-    # DCast -> redefine YVar -> Proceed as normal
-    if(length(YVar) > 1L && length(GroupVar) == 0L) {
-      dt1 <- data.table::melt.data.table(
-        data = dt1,
-        id.vars = XVar,
-        measure.vars = YVar,
-        variable.name = "Group",
-        value.name = "Measures")
-      YVar <- "Measures"
-      GroupVar <- "Group"
-    } else {
-      dt1 <- data.table::copy(dt)
-    }
-
     # Define Aggregation function
-    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
+    if(Debug) print("Plot.Calibration.line # Define Aggregation function")
     aggFunc <- SummaryFunction(AggMethod)
 
     # Aggregate data
@@ -11571,6 +11569,11 @@ River <- function(dt = NULL,
     } else {
       dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
       data.table::setorderv(x = dt1, cols = XVar, 1L)
+    }
+  } else {
+    # For PreAgg = TRUE, still need to copy if we haven't melted
+    if(length(YVar) == 1L || length(GroupVar) > 0L) {
+      dt1 <- data.table::copy(dt1)
     }
   }
 
@@ -11596,19 +11599,31 @@ River <- function(dt = NULL,
 
   # Build base plot depending on GroupVar availability
   if(Debug) print("Line no group Echarts")
-  p1 <- echarts4r::e_charts_(
-    data = dt1 |> dplyr::group_by(get(GroupVar)),
-    x = XVar,
-    dispose = TRUE,
-    darkMode = TRUE,
-    width = Width,
-    height = Height)
+  
+  # Create grouping specification based on whether GroupVar exists
+  if(length(GroupVar) > 0L) {
+    p1 <- echarts4r::e_charts_(
+      data = dt1 |> dplyr::group_by(.data[[GroupVar[1L]]]),
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+  } else {
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+  }
 
   p1 <- echarts4r::e_river_(
     e = p1,
     serie = YVar
   )
-  if (length(itemStyle.color) == length(as.character(unique(dt1[[GroupVar]])))) {
+  if (length(GroupVar) > 0L && length(itemStyle.color) == length(as.character(unique(dt1[[GroupVar[1L]]])))) {
     p1 <- echarts4r::e_color(e = p1, color = itemStyle.color)
   }
 
