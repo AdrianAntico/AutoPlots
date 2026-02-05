@@ -967,7 +967,7 @@ Build a bar plot by simply passing arguments to a single function
 }
 \examples{
 # Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 100000)
+data <- AutoPlots::FakeDataGenerator(N = 10000)
 
 # Echarts Bar Chart
 AutoPlots::Bar(

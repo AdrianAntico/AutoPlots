@@ -958,7 +958,7 @@ Build a stacked bar plot vs a grouped bar plot
 }
 \examples{
 # Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 100000)
+data <- AutoPlots::FakeDataGenerator(N = 10000)
 
 # Echarts Stacked Bar Chart
 AutoPlots::StackedBar(

@@ -277,6 +277,8 @@ River(
 
 \item{ShowSymbol}{= FALSE}
 
+\item{itemStyle.color}{color or hex}
+
 \item{title.text}{Title name}
 
 \item{title.subtext}{Subtitle name}
@@ -712,23 +714,24 @@ plot
 This function automatically builds calibration plots and calibration boxplots for model evaluation using regression, stats::quantile regression, and binary and multinomial classification
 }
 \examples{
-# Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 1000)
+dates <- seq.Date(Sys.Date() - 30, Sys.Date(), by = "day")
+grps <- lapply(LETTERS[1:5], rep, 31) |> unlist()
+dt <- data.table::data.table(
+  dates = rep(dates, 5),
+  groups = grps,
+  values = runif(length(grps), 1, 50)
+)
 
-# Build plot
+# Build Plot
 AutoPlots::River(
-  dt = data,
+  dt = dt,
   PreAgg = TRUE,
-  AggMethod = "mean",
-  XVar = "DateTime",
-  YVar = c(
-    "Independent_Variable1",
-    "Independent_Variable2",
-    "Independent_Variable3",
-    "Independent_Variable4",
-    "Independent_Variable5"),
-  YVarTrans = "Identity",
-  Theme = "macarons")
+  XVar = "dates",
+  YVar = "values",
+  GroupVar = "groups",
+  legend.orient = "horizontal",
+  itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4")
+)
 
 }
 \seealso{

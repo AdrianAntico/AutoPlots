@@ -996,6 +996,7 @@ data <- AutoPlots::FakeDataGenerator(N = 100000)
 # Echarts CorrMatrix Plot Chart
 AutoPlots::CorrMatrix(
   dt = data,
+  PreAgg = FALSE,
   CorrVars = c(
     "Adrian",
     "Independent_Variable1",
@@ -1008,7 +1009,6 @@ AutoPlots::CorrMatrix(
   FacetCols = 1,
   FacetLevels = NULL,
   Method = 'pearson',
-  PreAgg = TRUE,
   MaxNAPercent = 0.05,
   Height = NULL,
   Width = NULL,

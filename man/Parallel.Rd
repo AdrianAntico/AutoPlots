@@ -1005,7 +1005,6 @@ AutoPlots::Parallel(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  PreAgg = TRUE,
   Height = NULL,
   Width = NULL,
   ShowLabels = FALSE,

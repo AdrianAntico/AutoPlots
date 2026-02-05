@@ -1189,7 +1189,7 @@ Create heat maps with numeric or categorical dt
 }
 \examples{
 # Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 100000)
+data <- AutoPlots::FakeDataGenerator(N = 10000)
 
 # Echarts Heatmap Plot Chart
 AutoPlots::HeatMap(

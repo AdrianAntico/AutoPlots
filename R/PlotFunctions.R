@@ -8950,7 +8950,6 @@ Plot.CorrMatrix <- function(dt = NULL,
 #'   FacetRows = 1,
 #'   FacetCols = 1,
 #'   FacetLevels = NULL,
-#'   PreAgg = FALSE,
 #'   Height = NULL,
 #'   Width = NULL,
 #'   Title = "Parallel Plot",
@@ -12333,7 +12332,7 @@ Plot.prROC <- function(dt = NULL,
   fastPRAUC <- function(preds, target) {
     pr <- fastPR(preds, target)
     # trapezoidal integration over recall axis
-    sum(diff(pr$recall) * (head(pr$precision, -1) + tail(pr$precision, -1)) / 2)
+    sum(diff(pr$recall) * (utils::head(pr$precision, -1) + utils::tail(pr$precision, -1)) / 2)
   }
 
 
@@ -12461,7 +12460,7 @@ Plot.prROC <- function(dt = NULL,
     # Grouped case: AUC is a table with columns: GroupLevels, PRAUC
     # Add a label per group if you want it in legends/facets
     AUC[, Label := sprintf("%s (PR-AUC: %.1f%%)", as.character(GroupLevels), 100 * round(PRAUC, 3))]
-    data <- merge(data, AUC[, .(GroupLevels, Label)], by = "GroupLevels", all.x = TRUE)
+    data <- merge(data, AUC[, list(GroupLevels, Label)], by = "GroupLevels", all.x = TRUE)
 
     # Title: generic, since AUC differs by group
     title <- paste0(Title, ":\nPR-AUC by group")

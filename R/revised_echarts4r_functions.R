@@ -92,6 +92,7 @@ e_grid_full <- function(
 #'
 #' @param e An echarts4r object
 #' @param serie ZVar XVar YVar
+#' @param visualMap.show logical
 #' @param visualMap.min min value
 #' @param visualMap.max max value
 #' @param visualMap.orient 'vertical' 'horizontal'

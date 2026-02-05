@@ -967,7 +967,7 @@ Build a 3D Bar Plot
 }
 \examples{
 # Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 100000)
+data <- AutoPlots::FakeDataGenerator(N = 10000)
 
 # Echarts 3D Bar Chart
 AutoPlots::BarPlot3D(

@@ -340,6 +340,12 @@ Density(
 
 \item{TimeLine}{logical}
 
+\item{showSymbol}{logical}
+
+\item{areaStyle.color}{color or hex}
+
+\item{areaStyle.opacity}{numeric}
+
 \item{Height}{"400px"}
 
 \item{Width}{"200px"}
@@ -943,8 +949,6 @@ Density(
 \item{toolbox.iconStyle.shadowOffsetY}{numeric}
 
 \item{Debug}{Debugging purposes}
-
-\item{Opacity}{numeric}
 }
 \value{
 plot
@@ -971,7 +975,6 @@ AutoPlots::Density(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  Opacity = 0.80,
   ShowLabels = FALSE,
   Debug = FALSE)
 

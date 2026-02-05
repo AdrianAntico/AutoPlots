@@ -40,7 +40,9 @@
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param ContainLabel  TRUE
-#' @param Opacity numeric
+#' @param areaStyle.color color or hex
+#' @param areaStyle.opacity numeric
+#' @param showSymbol logical
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -357,7 +359,6 @@
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   Opacity = 0.80,
 #'   ShowLabels = FALSE,
 #'   Debug = FALSE)
 #'
@@ -11048,6 +11049,7 @@ Step <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
+#' @param itemStyle.color color or hex
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -11264,23 +11266,25 @@ Step <- function(dt = NULL,
 #' @param Debug Debugging purposes
 #'
 #' @examples
-#' # Create fake data
-#' data <- AutoPlots::FakeDataGenerator(N = 1000)
+# Create fake data
+#' dates <- seq.Date(Sys.Date() - 30, Sys.Date(), by = "day")
+#' grps <- lapply(LETTERS[1:5], rep, 31) |> unlist()
+#' dt <- data.table::data.table(
+#'   dates = rep(dates, 5),
+#'   groups = grps,
+#'   values = runif(length(grps), 1, 50)
+#' )
 #'
-#' # Build plot
+#' # Build Plot
 #' AutoPlots::River(
-#'   dt = data,
+#'   dt = dt,
 #'   PreAgg = TRUE,
-#'   AggMethod = "mean",
-#'   XVar = "DateTime",
-#'   YVar = c(
-#'     "Independent_Variable1",
-#'     "Independent_Variable2",
-#'     "Independent_Variable3",
-#'     "Independent_Variable4",
-#'     "Independent_Variable5"),
-#'   YVarTrans = "Identity",
-#'   Theme = "macarons")
+#'   XVar = "dates",
+#'   YVar = "values",
+#'   GroupVar = "groups",
+#'   legend.orient = "horizontal",
+#'   itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4")
+#' )
 #'
 #' @return plot
 #' @export
@@ -11590,13 +11594,24 @@ River <- function(dt = NULL,
 
   # Build base plot depending on GroupVar availability
   if(Debug) print("Line no group Echarts")
-  p1 <- echarts4r::e_charts_(
-    data = dt1 |> dplyr::group_by(get(GroupVar)),
-    x = XVar,
-    dispose = TRUE,
-    darkMode = TRUE,
-    width = Width,
-    height = Height)
+  if (length(GroupVar) == 0) {
+    p1 <- echarts4r::e_charts_(
+      data = dt1,
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+  } else {
+    p1 <- echarts4r::e_charts_(
+      data = dt1 |> dplyr::group_by(get(GroupVar)),
+      x = XVar,
+      dispose = TRUE,
+      darkMode = TRUE,
+      width = Width,
+      height = Height)
+  }
+
 
   p1 <- echarts4r::e_river_(
     e = p1,
@@ -12110,7 +12125,7 @@ River <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data <- AutoPlots::FakeDataGenerator(N = 10000)
 #'
 #' # Echarts Bar Chart
 #' AutoPlots::Bar(
@@ -15782,7 +15797,7 @@ PACF <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data <- AutoPlots::FakeDataGenerator(N = 10000)
 #'
 #' # Echarts Stacked Bar Chart
 #' AutoPlots::StackedBar(
@@ -16805,7 +16820,7 @@ StackedBar <- function(dt = NULL,
 #'
 #' @examples
 #' # Create fake data
-#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data <- AutoPlots::FakeDataGenerator(N = 10000)
 #'
 #' # Echarts 3D Bar Chart
 #' AutoPlots::BarPlot3D(
@@ -18181,7 +18196,7 @@ BarPlot3D <- function(dt,
 #'
 #' @examples
 #' # Create fake data
-#' data <- AutoPlots::FakeDataGenerator(N = 100000)
+#' data <- AutoPlots::FakeDataGenerator(N = 10000)
 #'
 #' # Echarts Heatmap Plot Chart
 #' AutoPlots::HeatMap(
@@ -20678,6 +20693,7 @@ Radar <- function(dt = NULL,
 #' # Echarts CorrMatrix Plot Chart
 #' AutoPlots::CorrMatrix(
 #'   dt = data,
+#'   PreAgg = FALSE,
 #'   CorrVars = c(
 #'     "Adrian",
 #'     "Independent_Variable1",
@@ -20690,7 +20706,6 @@ Radar <- function(dt = NULL,
 #'   FacetCols = 1,
 #'   FacetLevels = NULL,
 #'   Method = 'pearson',
-#'   PreAgg = TRUE,
 #'   MaxNAPercent = 0.05,
 #'   Height = NULL,
 #'   Width = NULL,
@@ -21569,7 +21584,6 @@ CorrMatrix <- function(dt = NULL,
 #'   FacetRows = 1,
 #'   FacetCols = 1,
 #'   FacetLevels = NULL,
-#'   PreAgg = TRUE,
 #'   Height = NULL,
 #'   Width = NULL,
 #'   ShowLabels = FALSE,

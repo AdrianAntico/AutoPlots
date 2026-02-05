@@ -105,7 +105,6 @@ AutoPlots::Plot.Parallel(
   FacetRows = 1,
   FacetCols = 1,
   FacetLevels = NULL,
-  PreAgg = FALSE,
   Height = NULL,
   Width = NULL,
   Title = "Parallel Plot",

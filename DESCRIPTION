@@ -1,7 +1,7 @@
 Package: AutoPlots
 Title: Creating Echarts Visualizations as Easy as Possible
-Version: 1.0.0
-Date: 2025-06-21
+Version: 1.5.0
+Date: 2026-02-05
 Authors@R: 
     person("Adrian", "Antico", , "adrianantico@gmail.com", role = c("aut", "cre", "cph"))
 Author: Adrian Antico [aut, cre, cph]
@@ -24,7 +24,9 @@ Imports:
     quanteda,
     quanteda.textstats,
     scales,
-    stats
+    stats,
+    htmltools,
+    htmlwidgets
 Contact: Adrian Antico
 Encoding: UTF-8
 Language: en-US
@@ -32,5 +34,3 @@ LazyData: true
 NeedsCompilation: no
 Packaged: 2025-06-21 14:00:00 UTC
 RoxygenNote: 7.3.3
-Suggests: 
-    spelling
