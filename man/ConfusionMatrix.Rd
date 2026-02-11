@@ -27,7 +27,6 @@ ConfusionMatrix(
   TimeLine = FALSE,
   AggMethod = "count",
   GroupVar = NULL,
-  ContainLabel = TRUE,
   Debug = FALSE
 )
 }
@@ -75,8 +74,6 @@ ConfusionMatrix(
 \item{AggMethod}{Choose from 'mean', 'sum', 'sd', and 'median'}
 
 \item{GroupVar}{= NULL}
-
-\item{ContainLabel}{logical}
 
 \item{Debug}{Debugging purposes}
 }

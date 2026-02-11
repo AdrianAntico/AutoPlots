@@ -39,7 +39,6 @@
 #' @param ShowLabels character
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
-#' @param ContainLabel  TRUE
 #' @param areaStyle.color color or hex
 #' @param areaStyle.opacity numeric
 #' @param showSymbol logical
@@ -381,7 +380,6 @@ Density <- function(dt = NULL,
                     MouseScroll = FALSE,
                     ShowLabels = FALSE,
                     Theme = "dark",
-                    ContainLabel = TRUE,
                     title.text = "Density Plot",
                     title.subtext = NULL,
                     title.link = NULL,
@@ -1320,7 +1318,6 @@ Density <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
-#' @param ContainLabel Default TRUE
 #' @param Debug Debugging purposes
 #'
 #' @examples
@@ -1337,7 +1334,7 @@ Density <- function(dt = NULL,
 #'   Width = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "blue",
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -1350,7 +1347,7 @@ ProbabilityPlot <- function(dt = NULL,
                             Width = NULL,
                             ShowLabels = FALSE,
                             Theme = "dark",
-                            ContainLabel = TRUE,
+
                             title.text = "Probability Plot",
                             title.subtext = NULL,
                             title.link = NULL,
@@ -1445,8 +1442,6 @@ ProbabilityPlot <- function(dt = NULL,
     Height = Height,
     Width = Width,
     Theme = Theme,
-
-    ContainLabel = ContainLabel,
     title.text = title.text,
     title.subtext = title.subtext,
     title.link = title.link,
@@ -5230,7 +5225,6 @@ Rosetype <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param ContainLabel TRUE
 #' @param itemStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
 #' @param itemStyle.opacity transparency
 #' @param itemStyle.borderColor hex or color name
@@ -5559,7 +5553,7 @@ Rosetype <- function(dt = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -5580,7 +5574,7 @@ Box <- function(dt = NULL,
                 Theme = "dark",
                 MouseScroll = FALSE,
                 TimeLine = FALSE,
-                ContainLabel = TRUE,
+
                 itemStyle.color = NULL,
                 itemStyle.opacity = NULL,
                 itemStyle.borderColor = NULL,
@@ -7227,7 +7221,6 @@ WordCloud <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
-#' @param ContainLabel TRUE
 #' @param DarkMode FALSE
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
@@ -7514,7 +7507,7 @@ Line <- function(dt = NULL,
                  TimeLine = FALSE,
                  Smooth = TRUE,
                  ShowSymbol = FALSE,
-                 ContainLabel = TRUE,
+
                  DarkMode = FALSE,
                  lineStyle.color = NULL,
                  title.text = "Line Plot",
@@ -8529,7 +8522,6 @@ Line <- function(dt = NULL,
 #' @param title.subtextStyle.textShadowBlur numeric
 #' @param title.subtextStyle.textShadowOffsetX numeric
 #' @param title.subtextStyle.textShadowOffsetY numeric
-#' @param ContainLabel TRUE
 #' @param xAxis.title Axis title
 #' @param xAxis.min Min value
 #' @param xAxis.max Max value
@@ -8817,7 +8809,7 @@ Area <- function(dt = NULL,
                  Theme = "dark",
                  MouseScroll = FALSE,
                  TimeLine = FALSE,
-                 ContainLabel = TRUE,
+
                  title.text = "Area Plot",
                  title.subtext = NULL,
                  title.link = NULL,
@@ -9761,7 +9753,6 @@ Area <- function(dt = NULL,
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
-#' @param ContainLabel TRUE
 #' @param lineStyle.color hex or name
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -10099,7 +10090,7 @@ Step <- function(dt = NULL,
                  MouseScroll = FALSE,
                  TimeLine = FALSE,
                  ShowSymbol = FALSE,
-                 ContainLabel = TRUE,
+
                  lineStyle.color = NULL,
                  title.text = "Step Plot",
                  title.subtext = NULL,
@@ -11823,7 +11814,6 @@ River <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param ContainLabel TRUE
 #' @param backgroundStyle.color vector of colors
 #' @param backgroundStyle.opacity vector of opacities
 #' @param title.text Title name
@@ -12147,7 +12137,7 @@ River <- function(dt = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -12170,7 +12160,7 @@ Bar <- function(dt = NULL,
                 Theme = "dark",
                 MouseScroll = FALSE,
                 TimeLine = FALSE,
-                ContainLabel = TRUE,
+
                 backgroundStyle.color = NULL,
                 backgroundStyle.opacity = NULL,
                 title.text = "Bar Plot",
@@ -13730,7 +13720,6 @@ Bar <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -14039,7 +14028,7 @@ ACF <- function(dt = NULL,
                 Height = NULL,
                 Width = NULL,
                 Theme = "dark",
-                ContainLabel = TRUE,
+
                 title.text = "Autocorrelation Plot",
                 title.subtext = NULL,
                 title.link = NULL,
@@ -14605,7 +14594,6 @@ ACF <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
-#' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -14914,7 +14902,7 @@ PACF <- function(dt = NULL,
                  Height = NULL,
                  Width = NULL,
                  Theme = "dark",
-                 ContainLabel = TRUE,
+
                  title.text = "Partial Autocorrelation Plot",
                  title.subtext = NULL,
                  title.link = NULL,
@@ -15497,7 +15485,6 @@ PACF <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -15818,7 +15805,7 @@ PACF <- function(dt = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -15840,7 +15827,7 @@ StackedBar <- function(dt = NULL,
                        Theme = "dark",
                        MouseScroll = FALSE,
                        TimeLine = FALSE,
-                       ContainLabel = TRUE,
+
                        title.text = "Stacked Bar Plot",
                        title.subtext = NULL,
                        title.link = NULL,
@@ -16520,7 +16507,6 @@ StackedBar <- function(dt = NULL,
 #' @param NumLevels_Y = 20
 #' @param NumLevels_X = 20
 #' @param ShowLabels character
-#' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -16844,7 +16830,7 @@ StackedBar <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -16869,7 +16855,7 @@ BarPlot3D <- function(dt,
                       ShowLabels = FALSE,
                       Theme = "dark",
                       MouseScroll = FALSE,
-                      ContainLabel = TRUE,
+
                       title.text = "3D Bar Plot",
                       title.subtext = NULL,
                       title.link = NULL,
@@ -17821,7 +17807,6 @@ BarPlot3D <- function(dt,
 #' @param NumLevels_Y = 20
 #' @param NumLevels_X = 20.
 #' @param PreAgg logical
-#' @param ContainLabel TRUE
 #' @param visualMap.show TRUE
 #' @param visualMap.min min value
 #' @param visualMap.max max value
@@ -18217,7 +18202,7 @@ BarPlot3D <- function(dt,
 #'   Width = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -18241,7 +18226,7 @@ HeatMap <- function(dt,
                     Width = NULL,
                     Theme = "dark",
                     MouseScroll = FALSE,
-                    ContainLabel = TRUE,
+
                     visualMap.show = TRUE,
                     visualMap.min = NULL,
                     visualMap.max = NULL,
@@ -19791,7 +19776,6 @@ HeatMap <- function(dt,
 #' @param legend.emphasis.selectorLabel.textShadowBlur numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetX numeric
 #' @param legend.emphasis.selectorLabel.textShadowOffsetY numeric
-#' @param ContainLabel TRUE
 #' @param DarkMode FALSE
 #' @param tooltip.show logical
 #' @param tooltip.trigger "axis" "item" "none"
@@ -19862,7 +19846,7 @@ HeatMap <- function(dt,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   ShowSymbol = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   DarkMode = FALSE,
 #'   Debug = FALSE)
 #'
@@ -19879,7 +19863,7 @@ Radar <- function(dt = NULL,
                   ShowLabels = FALSE,
                   Theme = "dark",
                   ShowSymbol = FALSE,
-                  ContainLabel = TRUE,
+
                   DarkMode = FALSE,
                   lineStyle.color = NULL,
                   title.text = "Radar Plot",
@@ -22097,7 +22081,6 @@ Parallel <- function(dt = NULL,
 #' @param Theme = "dark-blue",
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -22418,7 +22401,7 @@ Parallel <- function(dt = NULL,
 #'   Theme = "dark",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -22440,7 +22423,7 @@ Copula <- function(dt = NULL,
                    Theme = "dark",
                    MouseScroll = FALSE,
                    TimeLine = FALSE,
-                   ContainLabel = TRUE,
+
                    title.text = "Copula Plot",
                    title.subtext = NULL,
                    title.link = NULL,
@@ -23317,7 +23300,6 @@ Copula <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme = "dark-blue"
 #' @param TimeLine Logical
-#' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -23639,7 +23621,7 @@ Copula <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   TimeLine = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -23661,7 +23643,7 @@ Copula3D <- function(dt = NULL,
                      ShowLabels = FALSE,
                      Theme = "dark-blue",
                      TimeLine = FALSE,
-                     ContainLabel = TRUE,
+
                      title.text = "3D Copula Plot",
                      title.subtext = NULL,
                      title.link = NULL,
@@ -24380,7 +24362,6 @@ Copula3D <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -24702,7 +24683,7 @@ Copula3D <- function(dt = NULL,
 #'   Theme = "blue",
 #'   MouseScroll = FALSE,
 #'   TimeLine = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -24724,7 +24705,7 @@ Scatter <- function(dt = NULL,
                     Theme = "dark",
                     MouseScroll = FALSE,
                     TimeLine = FALSE,
-                    ContainLabel = TRUE,
+
                     title.text = "Scatter Plot",
                     title.subtext = NULL,
                     title.link = NULL,
@@ -25612,7 +25593,6 @@ Scatter <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Theme = "macaron"
 #' @param TimeLine Logical
-#' @param ContainLabel TRUE
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -25934,7 +25914,7 @@ Scatter <- function(dt = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "dark",
 #'   TimeLine = FALSE,
-#'   ContainLabel = TRUE,
+#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -25956,7 +25936,7 @@ Scatter3D <- function(dt = NULL,
                       ShowLabels = FALSE,
                       Theme = "dark",
                       TimeLine = FALSE,
-                      ContainLabel = TRUE,
+
                       title.text = "3D Scatter Plot",
                       title.subtext = NULL,
                       title.link = NULL,
@@ -26702,7 +26682,6 @@ Scatter3D <- function(dt = NULL,
 #' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param ContainLabel TRUE
 #' @param Debug Debugging purposes
 #' @return plot
 #' @export
@@ -26724,7 +26703,6 @@ Residuals.Histogram <- function(dt = NULL,
                                      Theme = "dark",
                                      MouseScroll = FALSE,
                                      TimeLine = FALSE,
-                                     ContainLabel = TRUE,
                                      Debug = FALSE) {
 
   # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)
@@ -28211,7 +28189,6 @@ ROC <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param ContainLabel logical
 #' @param GroupVar = NULL
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param Debug Debugging purposes
@@ -28240,7 +28217,7 @@ ConfusionMatrix <- function(dt = NULL,
                                  TimeLine = FALSE,
                                  AggMethod = "count",
                                  GroupVar = NULL,
-                                 ContainLabel = TRUE,
+
                                  Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -28292,8 +28269,7 @@ ConfusionMatrix <- function(dt = NULL,
     NumberBins = NumberBins,
     NumLevels_X = NumLevels_X,
     NumLevels_Y = NumLevels_Y,
-    MouseScroll = MouseScroll,
-    ContainLabel = ContainLabel)
+    MouseScroll = MouseScroll)
   return(p1)
 }
 

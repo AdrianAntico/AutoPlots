@@ -26,7 +26,6 @@ Line(
   TimeLine = FALSE,
   Smooth = TRUE,
   ShowSymbol = FALSE,
-  ContainLabel = TRUE,
   DarkMode = FALSE,
   lineStyle.color = NULL,
   title.text = "Line Plot",
@@ -369,8 +368,6 @@ Line(
 \item{Smooth}{= TRUE}
 
 \item{ShowSymbol}{= FALSE}
-
-\item{ContainLabel}{TRUE}
 
 \item{DarkMode}{FALSE}
 

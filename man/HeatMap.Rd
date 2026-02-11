@@ -24,7 +24,6 @@ HeatMap(
   Width = NULL,
   Theme = "dark",
   MouseScroll = FALSE,
-  ContainLabel = TRUE,
   visualMap.show = TRUE,
   visualMap.min = NULL,
   visualMap.max = NULL,
@@ -436,8 +435,6 @@ HeatMap(
 \item{Theme}{"dark-blue"}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
-
-\item{ContainLabel}{TRUE}
 
 \item{visualMap.show}{TRUE}
 
@@ -1210,7 +1207,7 @@ AutoPlots::HeatMap(
   Width = NULL,
   Theme = "dark",
   MouseScroll = FALSE,
-  ContainLabel = TRUE,
+
   Debug = FALSE)
 
 }

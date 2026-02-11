@@ -23,7 +23,6 @@ Bar(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  ContainLabel = TRUE,
   backgroundStyle.color = NULL,
   backgroundStyle.opacity = NULL,
   title.text = "Bar Plot",
@@ -360,8 +359,6 @@ Bar(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{logical}
-
-\item{ContainLabel}{TRUE}
 
 \item{backgroundStyle.color}{vector of colors}
 
@@ -989,7 +986,7 @@ AutoPlots::Bar(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  ContainLabel = TRUE,
+
   Debug = FALSE)
 
 }

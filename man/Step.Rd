@@ -25,7 +25,6 @@ Step(
   MouseScroll = FALSE,
   TimeLine = FALSE,
   ShowSymbol = FALSE,
-  ContainLabel = TRUE,
   lineStyle.color = NULL,
   title.text = "Step Plot",
   title.subtext = NULL,
@@ -365,8 +364,6 @@ Step(
 \item{TimeLine}{Logical}
 
 \item{ShowSymbol}{= FALSE}
-
-\item{ContainLabel}{TRUE}
 
 \item{lineStyle.color}{hex or name}
 

@@ -21,7 +21,6 @@ Box(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  ContainLabel = TRUE,
   itemStyle.color = NULL,
   itemStyle.opacity = NULL,
   itemStyle.borderColor = NULL,
@@ -362,8 +361,6 @@ Box(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{Logical}
-
-\item{ContainLabel}{TRUE}
 
 \item{itemStyle.color}{Fill color. Can be a single color or vector of multiple colors for gradient.}
 
@@ -1004,7 +1001,7 @@ AutoPlots::Box(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  ContainLabel = TRUE,
+
   Debug = FALSE)
 
 }

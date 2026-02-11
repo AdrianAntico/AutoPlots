@@ -22,7 +22,6 @@ Copula3D(
   ShowLabels = FALSE,
   Theme = "dark-blue",
   TimeLine = FALSE,
-  ContainLabel = TRUE,
   title.text = "3D Copula Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -355,8 +354,6 @@ Copula3D(
 \item{Theme}{= "dark-blue"}
 
 \item{TimeLine}{Logical}
-
-\item{ContainLabel}{TRUE}
 
 \item{title.text}{Title name}
 
@@ -980,7 +977,7 @@ AutoPlots::Copula3D(
   ShowLabels = FALSE,
   Theme = "dark",
   TimeLine = FALSE,
-  ContainLabel = TRUE,
+
   Debug = FALSE)
 
 }

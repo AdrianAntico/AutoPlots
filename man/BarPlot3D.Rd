@@ -25,7 +25,6 @@ BarPlot3D(
   ShowLabels = FALSE,
   Theme = "dark",
   MouseScroll = FALSE,
-  ContainLabel = TRUE,
   title.text = "3D Bar Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -364,8 +363,6 @@ BarPlot3D(
 \item{Theme}{"dark-blue"}
 
 \item{MouseScroll}{logical, zoom via mouse scroll}
-
-\item{ContainLabel}{TRUE}
 
 \item{title.text}{Title name}
 
@@ -991,7 +988,7 @@ AutoPlots::BarPlot3D(
   ShowLabels = FALSE,
   Theme = "dark",
   MouseScroll = FALSE,
-  ContainLabel = TRUE,
+
   Debug = FALSE)
 
 }

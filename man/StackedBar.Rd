@@ -22,7 +22,6 @@ StackedBar(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  ContainLabel = TRUE,
   title.text = "Stacked Bar Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -355,8 +354,6 @@ StackedBar(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{logical}
-
-\item{ContainLabel}{TRUE}
 
 \item{title.text}{Title name}
 
@@ -979,7 +976,7 @@ AutoPlots::StackedBar(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  ContainLabel = TRUE,
+
   Debug = FALSE)
 
 }

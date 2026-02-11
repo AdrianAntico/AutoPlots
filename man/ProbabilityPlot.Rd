@@ -13,7 +13,6 @@ ProbabilityPlot(
   Width = NULL,
   ShowLabels = FALSE,
   Theme = "dark",
-  ContainLabel = TRUE,
   title.text = "Probability Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -85,8 +84,6 @@ ProbabilityPlot(
 \item{ShowLabels}{character}
 
 \item{Theme}{"macaron"}
-
-\item{ContainLabel}{Default TRUE}
 
 \item{title.text}{Title name}
 
@@ -214,7 +211,7 @@ AutoPlots::ProbabilityPlot(
   Width = NULL,
   ShowLabels = FALSE,
   Theme = "blue",
-  ContainLabel = TRUE,
+
   Debug = FALSE)
 
 }

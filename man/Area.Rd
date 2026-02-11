@@ -28,7 +28,6 @@ Area(
   Theme = "dark",
   MouseScroll = FALSE,
   TimeLine = FALSE,
-  ContainLabel = TRUE,
   title.text = "Area Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -373,8 +372,6 @@ Area(
 \item{MouseScroll}{logical, zoom via mouse scroll}
 
 \item{TimeLine}{Logical}
-
-\item{ContainLabel}{TRUE}
 
 \item{title.text}{Title name}
 

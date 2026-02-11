@@ -16,7 +16,6 @@ Radar(
   ShowLabels = FALSE,
   Theme = "dark",
   ShowSymbol = FALSE,
-  ContainLabel = TRUE,
   DarkMode = FALSE,
   lineStyle.color = NULL,
   title.text = "Radar Plot",
@@ -257,8 +256,6 @@ Radar(
 \item{Theme}{Provide an "Echarts" theme}
 
 \item{ShowSymbol}{= FALSE}
-
-\item{ContainLabel}{TRUE}
 
 \item{DarkMode}{FALSE}
 
@@ -715,7 +712,7 @@ AutoPlots::Radar(
   ShowLabels = FALSE,
   Theme = "dark",
   ShowSymbol = FALSE,
-  ContainLabel = TRUE,
+
   DarkMode = FALSE,
   Debug = FALSE)
 
