@@ -1594,6 +1594,7 @@ AutoPlots::display_plots_grid(
 
 </details>
 
+<br>
 
 ### 🧩 Treemap
 
