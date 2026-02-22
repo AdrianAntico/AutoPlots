@@ -309,22 +309,66 @@ AutoPlots::display_plots_grid(
 <details><summary>Box Plot Examples</summary>
 
 ```r
-# Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 1000)
-data[1, Independent_Variable8 := 0.6]
-data[2, Independent_Variable8 := 0.7]
-data[3, Independent_Variable8 := 0.8]
-data[4, Independent_Variable8 := 0.9]
+# Create boxplot demo data with intentional outliers
+set.seed(123)
+n_per_group <- 60
 
-# Build plot
+data <- data.table::data.table(
+  Factor_1 = factor(rep(c("Group A", "Group B", "Group C", "Group D"), each = n_per_group))
+)
+
+# Base distributions
+data[, Independent_Variable8 := c(
+  rnorm(n_per_group, mean = 40, sd = 4),
+  rnorm(n_per_group, mean = 55, sd = 5),
+  rnorm(n_per_group, mean = 70, sd = 6),
+  rnorm(n_per_group, mean = 85, sd = 7)
+)]
+
+# Add controlled outliers per group
+outliers <- data.table::data.table(
+  Factor_1 = factor(c(
+    rep("Group A", 6),
+    rep("Group B", 7),
+    rep("Group C", 8),
+    rep("Group D", 6)
+  ), levels = levels(data$Factor_1)),
+  Independent_Variable8 = c(
+    rnorm(6, mean = 25, sd = 2),   # A: low outliers
+    rnorm(7, mean = 45, sd = 3),   # B: low-ish outliers
+    rnorm(8, mean = 100, sd = 3),  # C: high outliers
+    rnorm(6, mean = 115, sd = 4)   # D: high outliers
+  )
+)
+
+data <- rbind(data, outliers)
+
+# Safety: no negatives
+data[Independent_Variable8 < 0, Independent_Variable8 := 0]
+
+# Final box plot
 AutoPlots::Box(
   dt = data,
   XVar = "Factor_1",
   YVar = "Independent_Variable8",
   yAxis.title = "IndepVar",
-  itemStyle.color = c("red","#BDD5FF","blue"),
-  itemStyle.opacity = c(0.9,0.4,0.05),
-  legend.show = FALSE)
+  itemStyle.color = c("#80AAFF", "#BDD5FF", "#8B008B"),
+  itemStyle.opacity = c(0.98, 0.85, 0.55),
+  legend.show = FALSE,
+  tooltip.backgroundColor = "#80AAFFDD",
+  tooltip.textStyle.color = "black",
+  yAxis.nameTextStyle.fontSize = 20,
+  yAxis.nameTextStyle.padding = 60,
+  yAxis.axisLabel.color = "#CCCCCC",
+  xAxis.nameTextStyle.fontSize = 20,
+  xAxis.axisLabel.color = "#CCCCCC",
+  xAxis.axisLabel.fontSize = 14,
+  title.textStyle.textShadowColor = "purple",
+  title.textStyle.textShadowBlur = 4,
+  title.textStyle.textShadowOffsetX = 2,
+  title.textStyle.textShadowOffsetY = 1
+)
+
 ```
 
 <br>
