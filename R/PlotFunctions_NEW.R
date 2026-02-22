@@ -2883,6 +2883,928 @@ Histogram <- function(dt = NULL,
   return(p1)
 }
 
+#' Treemap chart
+#'
+#' High-level wrapper for building treemap charts with \pkg{echarts4r} from
+#' data in wide/tabular form. This function handles optional aggregation,
+#' transformation of the value variable, construction of a hierarchical
+#' structure from \code{GroupVar}, and then delegates all visual options to
+#' the extended helpers such as \code{\link{e_treemap_full}},
+#' \code{\link{e_title_full}}, \code{\link{e_legend_full}},
+#' \code{\link{e_tooltip_full}}, and \code{\link{e_toolbox_full}}.
+#'
+#' The treemap hierarchy is driven by \code{GroupVar}: when multiple grouping
+#' variables are supplied, they are treated as ordered levels from the top of
+#' the hierarchy down to the leaves, and \code{YVar} is used as the size
+#' measure for the tiles.
+#'
+#' @param dt A \code{data.table} or \code{data.frame} containing the data to
+#'   plot. If not already a \code{data.table}, it will be coerced internally.
+#' @param PreAgg Logical; if \code{FALSE}, the function aggregates \code{YVar}
+#'   over \code{GroupVar} using \code{AggMethod}. If \code{TRUE}, the input
+#'   \code{dt} is assumed to already be aggregated at the desired level.
+#' @param YVar Character scalar; name of the column in \code{dt} that provides
+#'   the numeric values used for treemap tile sizes.
+#' @param GroupVar Character vector; names of one or more columns in \code{dt}
+#'   that define the grouping hierarchy. The first element is treated as the
+#'   top-level group, the last element as the leaf level.
+#' @param YVarTrans Character scalar specifying an optional transformation to
+#'   apply to \code{YVar} after aggregation (e.g. \code{"Identity"},
+#'   \code{"Log"}, etc.), passed through to \code{AutoTransformationCreate()}.
+#' @param AggMethod Character scalar specifying the aggregation function used
+#'   when \code{PreAgg = FALSE}, e.g. \code{"sum"}, \code{"mean"}, etc. This
+#'   is resolved via \code{SummaryFunction()}.
+#' @param Height,Width Optional numeric or character dimensions passed to
+#'   \code{echarts4r::e_charts_()} as chart size (e.g. \code{400} or
+#   \code{"400px"}).
+#' @param Theme Character name of the \pkg{echarts4r} theme applied to the
+#'   chart (used with \code{echarts4r::e_theme()}).
+#' @param ShowLabels Logical, currently used as a convenience flag for whether
+#'   node labels should be visible. This typically maps to \code{label.show}
+#'   and/or \code{upperLabel.show}.
+#' @param MouseScroll Logical; if \code{TRUE}, mouse wheel scrolling can be
+#'   used for zooming/panning. This typically influences \code{roam} or
+#'   related options.
+#'
+#' @param squareRatio Numeric squarify aspect ratio for the treemap layout.
+#' @param leafDepth Integer maximum depth of nodes to display; when
+#'   \code{NULL}, a default based on \code{length(GroupVar)} may be used.
+#' @param drillDownIcon Character string for the drill-down icon.
+#' @param roam Logical or character; controls whether panning/zooming is
+#'   enabled for the treemap.
+#' @param scaleLimit.min,scaleLimit.max Optional numeric minimum/maximum zoom
+#'   scale for the treemap.
+#' @param nodeClick Character specifying the behaviour when a node is clicked,
+#'   e.g. \code{"zoomToNode"} or \code{"link"}.
+#' @param zoomToNodeRatio Numeric zoom ratio when using
+#'   \code{nodeClick = "zoomToNode"}.
+#' @param visualDimension Integer or character specifying which dimension is
+#'   used for visual mapping.
+#' @param visualMin,visualMax Numeric visual mapping range for the selected
+#'   \code{visualDimension}.
+#' @param colorAlpha Optional numeric range for alpha channel mapping.
+#' @param colorSaturation Optional numeric range for color saturation mapping.
+#' @param colorMappingBy Character specifying how colors are mapped
+#'   (\code{"index"}, \code{"value"}, etc.).
+#' @param visibleMin Numeric threshold that hides nodes whose area is smaller
+#'   than this value.
+#' @param childrenVisibleMin Numeric threshold that hides children nodes whose
+#'   area is smaller than this value.
+#' @param silent Logical indicating whether mouse events are disabled for the
+#'   treemap series.
+#' @param animationDuration Numeric animation duration in milliseconds.
+#' @param animationEasing Character name of the easing function used for the
+#'   treemap animation.
+#' @param animationDelay Numeric delay (in milliseconds) before animation
+#'   starts.
+#' @param tooltip Optional list of series-level tooltip options. If
+#'   \code{NULL}, a default formatter is constructed internally.
+#' @param cursor Character CSS cursor to use when hovering over nodes.
+#'
+#' @inheritParams e_treemap_full
+#' @inheritParams e_title_full
+#' @inheritParams e_tooltip_full
+#' @inheritParams e_toolbox_full
+#'
+#' @param Debug Logical; if \code{TRUE}, additional diagnostic information may
+#'   be printed or returned for debugging purposes.
+#'
+#' @return An \code{echarts4r} object representing a treemap chart.
+#'
+#' @examples
+#' \dontrun{
+#' library(data.table)
+#' library(AutoPlots)
+#'
+#' dt <- data.table(
+#'   region = rep(c("North", "South"), each = 4),
+#'   category = rep(c("A", "B"), times = 4),
+#'   value = c(10, 20, 15, 5, 8, 12, 18, 7)
+#' )
+#'
+#' Treemap(
+#'   dt       = dt,
+#'   PreAgg   = FALSE,
+#'   YVar     = "value",
+#'   GroupVar = c("region", "category"),
+#'   Theme    = "dark",
+#'   title.text = "Example treemap"
+#' )
+#' }
+#'
+#' @export
+Treemap <- function(dt = NULL,
+                    PreAgg = TRUE,
+                    YVar = NULL,
+                    GroupVar = NULL,
+                    YVarTrans = "Identity",
+                    AggMethod = "sum",
+                    Height = NULL,
+                    Width = NULL,
+                    Theme = "dark",
+                    ShowLabels = TRUE,
+                    MouseScroll = FALSE,
+                    squareRatio = NULL,
+                    leafDepth = 1,
+                    drillDownIcon = "▶",
+                    roam = NULL,
+                    scaleLimit.min = NULL,
+                    scaleLimit.max = NULL,
+                    nodeClick = "zoomToNode",
+                    zoomToNodeRatio = 0.32 * 0.32,
+                    visualDimension = NULL,
+                    visualMin = NULL,
+                    visualMax = NULL,
+                    colorAlpha = NULL,
+                    colorSaturation = NULL,
+                    colorMappingBy = "value",
+                    visibleMin = 10,
+                    childrenVisibleMin = NULL,
+                    silent = FALSE,
+                    animationDuration = 1500,
+                    animationEasing = "quinticInOut",
+                    animationDelay = 0,
+                    tooltip = NULL,
+                    cursor = "pointer",
+                    label.show = TRUE,
+                    label.position = NULL,
+                    label.distance = NULL,
+                    label.rotate = NULL,
+                    label.offset = NULL,
+                    label.textMargin = NULL,
+                    label.minMargin = NULL,
+                    label.formatter = NULL,
+                    label.color = "black",
+                    label.fontStyle = NULL,
+                    label.fontWeight = NULL,
+                    label.fontFamily = NULL,
+                    label.fontSize = NULL,
+                    label.align = NULL,
+                    label.verticalAlign = NULL,
+                    label.lineHeight = NULL,
+                    label.backgroundColor = NULL,
+                    label.borderColor = NULL,
+                    label.borderWidth = NULL,
+                    label.borderType = NULL,
+                    label.borderDashOffset = NULL,
+                    label.borderRadius = NULL,
+                    label.padding = NULL,
+                    label.shadowColor = NULL,
+                    label.shadowBlur = NULL,
+                    label.shadowOffsetX = NULL,
+                    label.shadowOffsetY = NULL,
+                    label.width = NULL,
+                    label.height = NULL,
+                    label.textBorderColor = NULL,
+                    label.textBorderWidth = NULL,
+                    label.textBorderType = NULL,
+                    label.textBorderDashOffset = NULL,
+                    label.textShadowColor = NULL,
+                    label.textShadowBlur = NULL,
+                    label.textShadowOffsetX = NULL,
+                    label.textShadowOffsetY = NULL,
+                    label.overflow = NULL,
+                    label.ellipsis = NULL,
+                    label.rich = NULL,
+                    label.richInheritPlainLabel = NULL,
+                    upperLabel.show = FALSE,
+                    upperLabel.position = NULL,
+                    upperLabel.distance = NULL,
+                    upperLabel.rotate = NULL,
+                    upperLabel.offset = NULL,
+                    upperLabel.formatter = NULL,
+                    upperLabel.color = NULL,
+                    upperLabel.fontStyle = NULL,
+                    upperLabel.fontWeight = NULL,
+                    upperLabel.fontFamily = NULL,
+                    upperLabel.fontSize = NULL,
+                    upperLabel.align = NULL,
+                    upperLabel.verticalAlign = NULL,
+                    upperLabel.lineHeight = NULL,
+                    upperLabel.backgroundColor = NULL,
+                    upperLabel.borderColor = NULL,
+                    upperLabel.borderWidth = NULL,
+                    upperLabel.borderType = NULL,
+                    upperLabel.borderDashOffset = NULL,
+                    upperLabel.borderRadius = NULL,
+                    upperLabel.padding = NULL,
+                    upperLabel.shadowColor = NULL,
+                    upperLabel.shadowBlur = NULL,
+                    upperLabel.shadowOffsetX = NULL,
+                    upperLabel.shadowOffsetY = NULL,
+                    upperLabel.width = NULL,
+                    upperLabel.height = NULL,
+                    upperLabel.textBorderColor = NULL,
+                    upperLabel.textBorderWidth = NULL,
+                    upperLabel.textBorderType = NULL,
+                    upperLabel.textBorderDashOffset = NULL,
+                    upperLabel.textShadowColor = NULL,
+                    upperLabel.textShadowBlur = NULL,
+                    upperLabel.textShadowOffsetX = NULL,
+                    upperLabel.textShadowOffsetY = NULL,
+                    upperLabel.overflow = NULL,
+                    upperLabel.ellipsis = NULL,
+                    upperLabel.rich = NULL,
+                    upperLabel.richInheritPlainLabel = NULL,
+                    itemStyle.color = NULL,
+                    itemStyle.borderRadius = 20,
+                    itemStyle.borderWidth = 2,
+                    itemStyle.gapWidth = 5,
+                    itemStyle.borderColor = "black",
+                    itemStyle.borderColorSaturation = NULL,
+                    itemStyle.shadowBlur = NULL,
+                    itemStyle.shadowColor = NULL,
+                    itemStyle.shadowOffsetX = NULL,
+                    itemStyle.shadowOffsetY = NULL,
+                    itemStyle.opacity = NULL,
+                    itemStyle.decal = NULL,
+                    emphasis.disabled = FALSE,
+                    emphasis.focus = NULL,
+                    emphasis.blurScope = "coordinateSystem",
+                    emphasis.label = NULL,
+                    emphasis.labelLine = NULL,
+                    emphasis.upperLabel = NULL,
+                    emphasis.itemStyle.color = NULL,
+                    emphasis.itemStyle.borderColor = "#FFFFFFFF",
+                    emphasis.itemStyle.borderWidth = 2,
+                    emphasis.itemStyle.shadowBlur = 25,
+                    emphasis.itemStyle.shadowColor = "#FFFFFF77",
+                    emphasis.itemStyle.shadowOffsetX = 0,
+                    emphasis.itemStyle.shadowOffsetY = 0,
+                    emphasis.itemStyle.opacity = 1,
+                    blur.label = NULL,
+                    blur.labelLine = NULL,
+                    blur.upperLabel = NULL,
+                    blur.itemStyle.color = NULL,
+                    blur.itemStyle.borderColor = NULL,
+                    blur.itemStyle.borderWidth = NULL,
+                    blur.itemStyle.shadowBlur = NULL,
+                    blur.itemStyle.shadowColor = NULL,
+                    blur.itemStyle.shadowOffsetX = NULL,
+                    blur.itemStyle.shadowOffsetY = NULL,
+                    blur.itemStyle.opacity = 0.35,
+                    breadcrumb.show = TRUE,
+                    breadcrumb.left = NULL,
+                    breadcrumb.top = NULL,
+                    breadcrumb.right = NULL,
+                    breadcrumb.bottom = NULL,
+                    breadcrumb.height = 22,
+                    breadcrumb.emptyItemWidth = 20,
+                    breadcrumb.itemStyle.color = "#FFFFFF0F",
+                    breadcrumb.itemStyle.borderColor = "#FFFFFF22",
+                    breadcrumb.itemStyle.borderWidth = 1,
+                    breadcrumb.itemStyle.borderRadius = 3,
+                    breadcrumb.itemStyle.shadowBlur = 7,
+                    breadcrumb.itemStyle.shadowColor = "darkblue",
+                    breadcrumb.itemStyle.shadowOffsetX = 3,
+                    breadcrumb.itemStyle.shadowOffsetY = 4,
+                    breadcrumb.itemStyle.textStyle.color = "#FFFFFFCC",
+                    breadcrumb.itemStyle.textStyle.fontSize = 12,
+                    breadcrumb.itemStyle.textStyle.fontFamily = "Segoe UI",
+                    breadcrumb.emphasis.borderColor = "#FFFFFF55",
+                    breadcrumb.emphasis.borderWidth = 1,
+                    breadcrumb.emphasis.shadowBlur = NULL,
+                    breadcrumb.emphasis.shadowColor = NULL,
+                    breadcrumb.emphasis.shadowOffsetX = NULL,
+                    breadcrumb.emphasis.shadowOffsetY = NULL,
+                    breadcrumb.emphasis.textStyle.color = "#FFFFFFAF",
+                    breadcrumb.emphasis.textStyle.fontSize = 12,
+                    breadcrumb.emphasis.textStyle.fontFamily = "Segoe UI",
+                    title.text = NULL,
+                    title.subtext = NULL,
+                    title.link = NULL,
+                    title.sublink = NULL,
+                    title.Align = NULL,
+                    title.top = NULL,
+                    title.left = NULL,
+                    title.right = NULL,
+                    title.bottom = NULL,
+                    title.padding = NULL,
+                    title.itemGap = NULL,
+                    title.backgroundColor = NULL,
+                    title.borderColor = NULL,
+                    title.borderWidth = NULL,
+                    title.borderRadius = NULL,
+                    title.shadowColor = NULL,
+                    title.shadowBlur = NULL,
+                    title.shadowOffsetX = NULL,
+                    title.shadowOffsetY = NULL,
+                    title.textStyle.color = NULL,
+                    title.textStyle.fontStyle = NULL,
+                    title.textStyle.fontWeight = NULL,
+                    title.textStyle.fontFamily = "Segoe UI",
+                    title.textStyle.fontSize = NULL,
+                    title.textStyle.lineHeight = NULL,
+                    title.textStyle.width = NULL,
+                    title.textStyle.height = NULL,
+                    title.textStyle.textBorderColor = NULL,
+                    title.textStyle.textBorderWidth = NULL,
+                    title.textStyle.textBorderType = NULL,
+                    title.textStyle.textBorderDashOffset = NULL,
+                    title.textStyle.textShadowColor = NULL,
+                    title.textStyle.textShadowBlur = NULL,
+                    title.textStyle.textShadowOffsetX = NULL,
+                    title.textStyle.textShadowOffsetY = NULL,
+                    title.subtextStyle.color = NULL,
+                    title.subtextStyle.align = NULL,
+                    title.subtextStyle.fontStyle = NULL,
+                    title.subtextStyle.fontWeight = NULL,
+                    title.subtextStyle.fontFamily = "Segoe UI",
+                    title.subtextStyle.fontSize = NULL,
+                    title.subtextStyle.lineHeight = NULL,
+                    title.subtextStyle.width = NULL,
+                    title.subtextStyle.height = NULL,
+                    title.subtextStyle.textBorderColor = NULL,
+                    title.subtextStyle.textBorderWidth = NULL,
+                    title.subtextStyle.textBorderType = NULL,
+                    title.subtextStyle.textBorderDashOffset = NULL,
+                    title.subtextStyle.textShadowColor = NULL,
+                    title.subtextStyle.textShadowBlur = NULL,
+                    title.subtextStyle.textShadowOffsetX = NULL,
+                    title.subtextStyle.textShadowOffsetY = NULL,
+                    tooltip.show = TRUE,
+                    tooltip.trigger = "item",
+                    tooltip.backgroundColor = NULL,
+                    tooltip.borderColor = NULL,
+                    tooltip.borderWidth = NULL,
+                    tooltip.padding = NULL,
+                    tooltip.axisPointer.type = NULL,
+                    tooltip.axisPointer.lineStyle.color = NULL,
+                    tooltip.axisPointer.shadowStyle.color = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowBlur = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowOffsetX = NULL,
+                    tooltip.axisPointer.shadowStyle.shadowOffsetY = NULL,
+                    tooltip.axisPointer.shadowStyle.opacity = NULL,
+                    tooltip.textStyle.color = NULL,
+                    tooltip.textStyle.fontStyle = NULL,
+                    tooltip.textStyle.fontWeight = NULL,
+                    tooltip.textStyle.fontFamily = "Segoe UI",
+                    tooltip.textStyle.lineHeight = NULL,
+                    tooltip.textStyle.width = NULL,
+                    tooltip.textStyle.height = NULL,
+                    tooltip.textStyle.textBorderColor = NULL,
+                    tooltip.textStyle.textBorderWidth = NULL,
+                    tooltip.textStyle.textBorderType = NULL,
+                    tooltip.textStyle.textShadowColor = NULL,
+                    tooltip.textStyle.textShadowBlur = NULL,
+                    tooltip.textStyle.textShadowOffsetX = NULL,
+                    tooltip.textStyle.textShadowOffsetY = NULL,
+                    toolbox.show = TRUE,
+                    toolbox.orient = "horizontal",
+                    toolbox.itemSize = 15,
+                    toolbox.itemGap = 8,
+                    toolbox.top = NULL,
+                    toolbox.left = NULL,
+                    toolbox.right = NULL,
+                    toolbox.bottom = NULL,
+                    toolbox.width = NULL,
+                    toolbox.heigth = NULL,
+                    toolbox.feature.saveAsImage.show = TRUE,
+                    toolbox.feature.restore.show = FALSE,
+                    toolbox.feature.dataZoom.show = FALSE,
+                    toolbox.feature.magicType.show = FALSE,
+                    toolbox.feature.magicType.type = NULL,
+                    toolbox.feature.dataView.show = TRUE,
+                    toolbox.iconStyle.color = NULL,
+                    toolbox.iconStyle.borderColor = NULL,
+                    toolbox.emphasis.iconStyle.borderColor = NULL,
+                    toolbox.iconStyle.shadowBlur = NULL,
+                    toolbox.iconStyle.shadowColor = NULL,
+                    toolbox.iconStyle.shadowOffsetX = NULL,
+                    toolbox.iconStyle.shadowOffsetY = NULL,
+                    Debug = FALSE) {
+
+  .compact <- function(x) x[!vapply(x, is.null, FUN.VALUE = logical(1))]
+
+  .build_treemap_tree <- function(dt, group_vars, value_vars) {
+    stopifnot(length(group_vars) >= 1L)
+    stopifnot(length(value_vars) >= 1L)
+
+    main_var   <- value_vars[1L]         # used for area
+    extra_vars <- value_vars[-1L]
+
+    current <- group_vars[1L]
+    rest    <- group_vars[-1L]
+
+    if (!length(rest)) {
+      # ---- Leaf level ----
+      agg <- dt[
+        ,
+        lapply(.SD, function(x) sum(x, na.rm = TRUE)),
+        .SDcols = value_vars,
+        by = current
+      ]
+
+      # rename metric columns so they’re easy to find in tooltip: var_<YVar>
+      metric_names <- paste0("var_", value_vars)
+      data.table::setnames(agg, old = value_vars, new = metric_names)
+
+      agg[
+        ,
+        `:=`(
+          name  = as.character(get(current)),
+          value = get(paste0("var_", main_var))  # area metric
+        )
+      ]
+
+      agg[, (current) := NULL]
+      data.table::setcolorder(agg, c("name", "value", metric_names))
+      return(agg[])
+    }
+
+    # ---- Non-leaf level ----
+    out <- dt[
+      ,
+      {
+        # recurse on remaining group vars
+        children_dt <- .build_treemap_tree(.SD, rest, value_vars)
+
+        # children_dt has columns: name, value, var_<YVar>...
+        metric_cols <- grep("^var_", names(children_dt), value = TRUE)
+
+        # sum metrics across children to define parent metrics
+        metric_sums <- children_dt[
+          ,
+          lapply(.SD, function(x) sum(x, na.rm = TRUE)),
+          .SDcols = metric_cols
+        ]
+
+        # convert 1-row data.table to named list of scalars
+        metrics <- as.list(metric_sums[1L, ])
+
+        # build parent node:
+        # - name: current group
+        # - value: main metric for area
+        # - children: list-column of the child data.table
+        # - plus one column per metric (var_<YVar>)
+        c(
+          list(
+            name     = as.character(get(current)[1L]),
+            value    = metrics[[paste0("var_", main_var)]],
+            children = list(children_dt)
+          ),
+          metrics
+        )
+      },
+      by = current
+    ]
+
+    out[, (current) := NULL]
+    out[]
+  }
+
+  .treemap_default_tooltip <- function(value_vars) {
+    # value_vars: character vector of YVar names
+    stopifnot(length(value_vars) >= 1L)
+
+    metric_names <- paste0("var_", value_vars)
+
+    js_lines <- c(
+      "function (info) {",
+      "  var d = info.data || {};",
+      "  var lines = [];",
+      "  // show full path if we have ancestors",
+      "  if (info.treeAncestors && info.treeAncestors.length) {",
+      "    var path = info.treeAncestors.map(function (n) { return n.name; }).join(' / ');",
+      "    lines.push(path);",
+      "  } else {",
+      "    lines.push(info.name);",
+      "  }",
+      ""
+    )
+
+    # add one line per metric
+    for (i in seq_along(value_vars)) {
+      nm      <- value_vars[i]
+      js_name <- metric_names[i]
+
+      js_lines <- c(
+        js_lines,
+        sprintf("  if (d.%s != null && d.%s !== undefined) {", js_name, js_name),
+        sprintf("    lines.push('%s: ' + d.%s);", nm, js_name),
+        "  }",
+        ""
+      )
+    }
+
+    js_lines <- c(
+      js_lines,
+      "  return lines.join('<br/>');",
+      "}"
+    )
+
+    htmlwidgets::JS(paste(js_lines, collapse = "\n"))
+  }
+
+  .treemap_default_label_formatter <- function() {
+    htmlwidgets::JS(sprintf("
+    function (info) {
+      var d     = info.data || {};
+      var name  = d.name  || '';
+      var value = d.value;
+
+      if (!name) {
+        return '';
+      }
+
+      if (value != null && value !== undefined) {
+        return name + ': ' + value;
+      } else {
+        return name;
+      }
+    }
+  "))
+  }
+
+  # ---- 1. Coerce to DT ----
+  if (!data.table::is.data.table(dt)) {
+    tryCatch(
+      { data.table::setDT(dt) },
+      error = function(x) dt <<- data.table::as.data.table(dt)
+    )
+  }
+
+  # Make all GroupVar columns character for stable hierarchy labels
+  if (length(GroupVar) > 0L) {
+    for (g in GroupVar) {
+      if (is.factor(dt[[g]])) {
+        dt[, (g) := as.character(get(g))]
+      } else {
+        dt[, (g) := as.character(get(g))]
+      }
+    }
+  }
+
+  # ---- 2. Aggregation (PreAgg-equivalent when PreAgg = FALSE) ----
+  if (!PreAgg) {
+    if (!length(YVar)) {
+      stop("Treemap requires a YVar when PreAgg = FALSE.")
+    }
+
+    aggFunc <- SummaryFunction(AggMethod)
+    temp <- dt[
+      ,
+      lapply(.SD, noquote(aggFunc)),
+      .SDcols = YVar,
+      by      = c(GroupVar)
+    ]
+  } else {
+    temp <- data.table::copy(dt)
+  }
+
+  # ---- 3. Transformation (Bar-style) ----
+  if (YVarTrans != "Identity") {
+    temp <- AutoTransformationCreate(
+      data        = temp,
+      ColumnNames = YVar,
+      Methods     = YVarTrans
+    )$Data
+  }
+
+  # ---- 4. Build nested tree structure for treemap ----
+  if (!length(GroupVar)) {
+    stop("Treemap currently expects at least one GroupVar to define the hierarchy.")
+  }
+  if (!length(YVar)) {
+    stop("Treemap requires a YVar to define the area size.")
+  }
+
+  tree_data <- .build_treemap_tree(
+    dt         = temp,
+    group_vars = GroupVar,
+    value_vars = YVar
+  )
+
+  # Default leafDepth to the depth of the hierarchy if not provided
+  if (is.null(leafDepth)) {
+    leafDepth <- length(GroupVar)
+  }
+
+  # ---- 5. Chart (no axes, data is nested tree) ----
+  p1 <- echarts4r::e_charts_(
+    tree_data,
+    dispose  = TRUE,
+    darkMode = TRUE,
+    width    = Width,
+    height   = Height
+  )
+
+  # auto-build a default series tooltip if none supplied
+  if (is.null(tooltip) && length(YVar) > 0L) {
+    tooltip <- list(
+      formatter = .treemap_default_tooltip(YVar)
+    )
+  }
+
+  # Default label formatter (if user didn’t override)
+  if (is.null(label.formatter)) {
+    label.formatter <- .treemap_default_label_formatter()
+  }
+
+  if (isTRUE(ShowLabels)) {
+    if (is.null(label.show))      label.show      <- TRUE
+    if (is.null(upperLabel.show)) upperLabel.show <- TRUE
+    if (is.null(label.formatter)) label.formatter <- .treemap_default_label_formatter()
+  }
+
+  # 4d) tooltip: only set a treemap-specific tooltip if user didn’t pass one
+  if (is.null(tooltip)) {
+    tooltip <- list(
+      trigger   = "item",
+      formatter = .treemap_default_tooltip(YVar)
+    )
+  }
+
+  # you’ll write e_treemap_full similarly to e_bar_full / e_pie_full
+  p1 <- e_treemap_full(
+    e = p1,
+    name = NULL,
+    GroupVars = GroupVar,
+    squareRatio = squareRatio,
+    leafDepth = leafDepth,
+    drillDownIcon = drillDownIcon,
+    roam = roam,
+    scaleLimit.min = scaleLimit.min,
+    scaleLimit.max = scaleLimit.max,
+    nodeClick = nodeClick,
+    zoomToNodeRatio = zoomToNodeRatio,
+    visualDimension = visualDimension,
+    visualMin = visualMin,
+    visualMax = visualMax,
+    colorAlpha = colorAlpha,
+    colorSaturation = colorSaturation,
+    colorMappingBy = colorMappingBy,
+    visibleMin = visibleMin,
+    childrenVisibleMin = childrenVisibleMin,
+    label.show = label.show,
+    label.position = label.position,
+    label.distance = label.distance,
+    label.rotate = label.rotate,
+    label.offset = label.offset,
+    label.textMargin = label.textMargin,
+    label.minMargin = label.minMargin,
+    label.formatter = label.formatter,
+    label.color = label.color,
+    label.fontStyle = label.fontStyle,
+    label.fontWeight = label.fontWeight,
+    label.fontFamily = label.fontFamily,
+    label.fontSize = label.fontSize,
+    label.align = label.align,
+    label.verticalAlign = label.verticalAlign,
+    label.lineHeight = label.lineHeight,
+    label.backgroundColor = label.backgroundColor,
+    label.borderColor = label.borderColor,
+    label.borderWidth = label.borderWidth,
+    label.borderType = label.borderType,
+    label.borderDashOffset = label.borderDashOffset,
+    label.borderRadius = label.borderRadius,
+    label.padding = label.padding,
+    label.shadowColor = label.shadowColor,
+    label.shadowBlur = label.shadowBlur,
+    label.shadowOffsetX = label.shadowOffsetX,
+    label.shadowOffsetY = label.shadowOffsetY,
+    label.width = label.width,
+    label.height = label.height,
+    label.textBorderColor = label.textBorderColor,
+    label.textBorderWidth = label.textBorderWidth,
+    label.textBorderType = label.textBorderType,
+    label.textBorderDashOffset = label.textBorderDashOffset,
+    label.textShadowColor = label.textShadowColor,
+    label.textShadowBlur = label.textShadowBlur,
+    label.textShadowOffsetX = label.textShadowOffsetX,
+    label.textShadowOffsetY = label.textShadowOffsetY,
+    label.overflow = label.overflow,
+    label.ellipsis = label.ellipsis,
+    label.rich = label.rich,
+    label.richInheritPlainLabel = label.richInheritPlainLabel,
+    upperLabel.show = upperLabel.show,
+    upperLabel.position = upperLabel.position,
+    upperLabel.distance = upperLabel.distance,
+    upperLabel.rotate = upperLabel.rotate,
+    upperLabel.offset = upperLabel.offset,
+    upperLabel.formatter = upperLabel.formatter,
+    upperLabel.color = upperLabel.color,
+    upperLabel.fontStyle = upperLabel.fontStyle,
+    upperLabel.fontWeight = upperLabel.fontWeight,
+    upperLabel.fontFamily = upperLabel.fontFamily,
+    upperLabel.fontSize = upperLabel.fontSize,
+    upperLabel.align = upperLabel.align,
+    upperLabel.verticalAlign = upperLabel.verticalAlign,
+    upperLabel.lineHeight = upperLabel.lineHeight,
+    upperLabel.backgroundColor = upperLabel.backgroundColor,
+    upperLabel.borderColor = upperLabel.borderColor,
+    upperLabel.borderWidth = upperLabel.borderWidth,
+    upperLabel.borderType = upperLabel.borderType,
+    upperLabel.borderDashOffset = upperLabel.borderDashOffset,
+    upperLabel.borderRadius = upperLabel.borderRadius,
+    upperLabel.padding = upperLabel.padding,
+    upperLabel.shadowColor = upperLabel.shadowColor,
+    upperLabel.shadowBlur = upperLabel.shadowBlur,
+    upperLabel.shadowOffsetX = upperLabel.shadowOffsetX,
+    upperLabel.shadowOffsetY = upperLabel.shadowOffsetY,
+    upperLabel.width = upperLabel.width,
+    upperLabel.height = upperLabel.height,
+    upperLabel.textBorderColor = upperLabel.textBorderColor,
+    upperLabel.textBorderWidth = upperLabel.textBorderWidth,
+    upperLabel.textBorderType = upperLabel.textBorderType,
+    upperLabel.textBorderDashOffset = upperLabel.textBorderDashOffset,
+    upperLabel.textShadowColor = upperLabel.textShadowColor,
+    upperLabel.textShadowBlur = upperLabel.textShadowBlur,
+    upperLabel.textShadowOffsetX = upperLabel.textShadowOffsetX,
+    upperLabel.textShadowOffsetY = upperLabel.textShadowOffsetY,
+    upperLabel.overflow = upperLabel.overflow,
+    upperLabel.ellipsis = upperLabel.ellipsis,
+    upperLabel.rich = upperLabel.rich,
+    upperLabel.richInheritPlainLabel = upperLabel.richInheritPlainLabel,
+    itemStyle.color = itemStyle.color,
+    itemStyle.borderRadius = itemStyle.borderRadius,
+    itemStyle.borderWidth = itemStyle.borderWidth,
+    itemStyle.gapWidth = itemStyle.gapWidth,
+    itemStyle.borderColor = itemStyle.borderColor,
+    itemStyle.borderColorSaturation = itemStyle.borderColorSaturation,
+    itemStyle.shadowBlur = itemStyle.shadowBlur,
+    itemStyle.shadowColor = itemStyle.shadowColor,
+    itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
+    itemStyle.shadowOffsetY = itemStyle.shadowOffsetY,
+    itemStyle.opacity = itemStyle.opacity,
+    itemStyle.decal = itemStyle.decal,
+    emphasis.disabled = emphasis.disabled,
+    emphasis.focus = emphasis.focus,
+    emphasis.blurScope = emphasis.blurScope,
+    emphasis.label = emphasis.label,
+    emphasis.labelLine = emphasis.labelLine,
+    emphasis.upperLabel = emphasis.upperLabel,
+    emphasis.itemStyle.color = emphasis.itemStyle.color,
+    emphasis.itemStyle.borderColor = emphasis.itemStyle.borderColor,
+    emphasis.itemStyle.borderWidth = emphasis.itemStyle.borderWidth,
+    emphasis.itemStyle.shadowBlur = emphasis.itemStyle.shadowBlur,
+    emphasis.itemStyle.shadowColor = emphasis.itemStyle.shadowColor,
+    emphasis.itemStyle.shadowOffsetX = emphasis.itemStyle.shadowOffsetX,
+    emphasis.itemStyle.shadowOffsetY = emphasis.itemStyle.shadowOffsetY,
+    emphasis.itemStyle.opacity = emphasis.itemStyle.opacity,
+    blur.label = blur.label,
+    blur.labelLine = blur.labelLine,
+    blur.upperLabel = blur.upperLabel,
+    blur.itemStyle.color = blur.itemStyle.color,
+    blur.itemStyle.borderColor = blur.itemStyle.borderColor,
+    blur.itemStyle.borderWidth = blur.itemStyle.borderWidth,
+    blur.itemStyle.shadowBlur = blur.itemStyle.shadowBlur,
+    blur.itemStyle.shadowColor = blur.itemStyle.shadowColor,
+    blur.itemStyle.shadowOffsetX = blur.itemStyle.shadowOffsetX,
+    blur.itemStyle.shadowOffsetY = blur.itemStyle.shadowOffsetY,
+    blur.itemStyle.opacity = blur.itemStyle.opacity,
+    breadcrumb.show = breadcrumb.show,
+    breadcrumb.left = breadcrumb.left,
+    breadcrumb.top = breadcrumb.top,
+    breadcrumb.right = breadcrumb.right,
+    breadcrumb.bottom = breadcrumb.bottom,
+    breadcrumb.height = breadcrumb.height,
+    breadcrumb.emptyItemWidth = breadcrumb.emptyItemWidth,
+    breadcrumb.itemStyle.color = breadcrumb.itemStyle.color,
+    breadcrumb.itemStyle.borderColor = breadcrumb.itemStyle.borderColor,
+    breadcrumb.itemStyle.borderWidth = breadcrumb.itemStyle.borderWidth,
+    breadcrumb.itemStyle.borderRadius = breadcrumb.itemStyle.borderRadius,
+    breadcrumb.itemStyle.shadowBlur = breadcrumb.itemStyle.shadowBlur,
+    breadcrumb.itemStyle.shadowColor = breadcrumb.itemStyle.shadowColor,
+    breadcrumb.itemStyle.shadowOffsetX = breadcrumb.itemStyle.shadowOffsetX,
+    breadcrumb.itemStyle.shadowOffsetY = breadcrumb.itemStyle.shadowOffsetY,
+    breadcrumb.itemStyle.textStyle.color = breadcrumb.itemStyle.textStyle.color,
+    breadcrumb.itemStyle.textStyle.fontSize = breadcrumb.itemStyle.textStyle.fontSize,
+    breadcrumb.itemStyle.textStyle.fontFamily = breadcrumb.itemStyle.textStyle.fontFamily,
+    breadcrumb.emphasis.borderColor = breadcrumb.emphasis.borderColor,
+    breadcrumb.emphasis.borderWidth = breadcrumb.emphasis.borderWidth,
+    breadcrumb.emphasis.shadowBlur = breadcrumb.emphasis.shadowBlur,
+    breadcrumb.emphasis.shadowColor = breadcrumb.emphasis.shadowColor,
+    breadcrumb.emphasis.shadowOffsetX = breadcrumb.emphasis.shadowOffsetX,
+    breadcrumb.emphasis.shadowOffsetY = breadcrumb.emphasis.shadowOffsetY,
+    breadcrumb.emphasis.textStyle.color = breadcrumb.emphasis.textStyle.color,
+    breadcrumb.emphasis.textStyle.fontSize = breadcrumb.emphasis.textStyle.fontSize,
+    breadcrumb.emphasis.textStyle.fontFamily = breadcrumb.emphasis.textStyle.fontFamily,
+    animationDuration = animationDuration,
+    animationEasing = animationEasing,
+    animationDelay = animationDelay,
+    tooltip = tooltip,
+    cursor = cursor
+  )
+
+  # ---- 6. Theme, tooltip, toolbox, legend, title (from Bar) ----
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY
+  )
+
+  p1 <- e_toolbox_full(
+    e = p1,
+    toolbox.show = toolbox.show,
+    toolbox.orient = toolbox.orient,
+    toolbox.itemSize = toolbox.itemSize,
+    toolbox.itemGap = toolbox.itemGap,
+    toolbox.top = toolbox.top,
+    toolbox.left = toolbox.left,
+    toolbox.right = toolbox.right,
+    toolbox.bottom = toolbox.bottom,
+    toolbox.width = toolbox.width,
+    toolbox.heigth = toolbox.heigth,
+    toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+    toolbox.feature.restore.show = toolbox.feature.restore.show,
+    toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+    toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+    toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+    toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+    toolbox.iconStyle.color = toolbox.iconStyle.color,
+    toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+    toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
+    toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+    toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+    toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY
+  )
+
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
+  return(p1)
+}
 
 #' @title Pie
 #'
@@ -18226,7 +19148,6 @@ HeatMap <- function(dt,
                     Width = NULL,
                     Theme = "dark",
                     MouseScroll = FALSE,
-
                     visualMap.show = TRUE,
                     visualMap.min = NULL,
                     visualMap.max = NULL,

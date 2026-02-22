@@ -1,5 +1,5 @@
 # compact helper to drop NULLs
-.compact <- function(x) x[!vapply(x, is.null, is.logical(1))]
+.compact <- function(x) x[!vapply(x, is.null, logical(1))]
 
 #' @title grid function
 #'
@@ -1934,6 +1934,682 @@ e_parallel_full <- function(e,
   p
 }
 
+#' Extended treemap helper for \code{echarts4r}
+#'
+#' This is a thin wrapper around \code{echarts4r::e_treemap()} that exposes a
+#' large portion of the treemap series options as R arguments so that
+#' AutoPlots can drive them from UI controls.
+#'
+#' @param e An \code{echarts4r} object to which the treemap series will be added.
+#' @param name Optional series name used in the legend and tooltip.
+#' @param GroupVars Character vector of grouping variables used to build the
+#'   hierarchical treemap structure (ordered from top level to leaf level).
+#' @param squareRatio Numeric squarify aspect ratio for the treemap layout.
+#' @param leafDepth Integer maximum depth of nodes to display. Typically
+#'   \code{length(GroupVars)} when using all levels.
+#' @param drillDownIcon Character string for the drill-down icon.
+#' @param roam Logical or character; controls whether panning/zooming is enabled.
+#'   Can be \code{FALSE}, \code{TRUE}, \code{"scale"}, or \code{"move"}.
+#'   Maps to ECharts \code{series.treemap.roam}.
+#' @param scaleLimit.min Optional numeric; minimum zoom scale for the treemap
+#'   (ECharts \code{series.treemap.scaleLimit.min}).
+#' @param scaleLimit.max Optional numeric; maximum zoom scale for the treemap
+#'   (ECharts \code{series.treemap.scaleLimit.max}).
+#' @param nodeClick Character specifying the behaviour when a node is clicked.
+#'   Common values: \code{"zoomToNode"}, \code{"link"}, \code{"false"} (string) to disable.
+#' @param zoomToNodeRatio Numeric zoom ratio when using \code{nodeClick = "zoomToNode"}.
+#' @param visualDimension Integer or character specifying which dimension is
+#'   used for visual mapping (e.g. index of dimension or its name).
+#' @param visualMin Numeric; minimum of the visual mapping range for the selected
+#'   \code{visualDimension}.
+#' @param visualMax Numeric; maximum of the visual mapping range for the selected
+#'   \code{visualDimension}.
+#' @param colorAlpha Optional numeric length-2 vector for alpha channel range
+#'   (e.g. \code{c(0.3, 1)}).
+#' @param colorSaturation Optional numeric length-2 vector for color saturation
+#'   range (e.g. \code{c(0.3, 1)}).
+#' @param colorMappingBy Character specifying how colors are mapped.
+#'   Typically \code{"index"} or \code{"value"}.
+#' @param visibleMin Numeric threshold that hides nodes whose area is smaller
+#'   than this value.
+#' @param childrenVisibleMin Numeric threshold that hides children nodes whose
+#'   area is smaller than this value.
+#'
+#' @param label.show Logical; whether node labels are shown
+#'   (ECharts \code{label.show}).
+#' @param label.position Character; position of the label relative to the node.
+#'   Common values: \code{"top"}, \code{"left"}, \code{"right"}, \code{"bottom"},
+#'   \code{"inside"}, \code{"insideLeft"}, \code{"insideRight"}, etc.
+#' @param label.distance Numeric or integer; distance to the element when label
+#'   is outside the node (ECharts \code{label.distance}).
+#' @param label.rotate Numeric or character; rotation of label text in degrees
+#'   or \code{"radial"}, \code{"tangential"} depending on context.
+#' @param label.offset Numeric/integer vector or list; x/y offset of label from
+#'   its default position (ECharts \code{label.offset}).
+#' @param label.textMargin Numeric/integer; extra margin around label text box.
+#' @param label.minMargin Numeric/integer; minimum margin between label and node edge.
+#' @param label.formatter Character or list; text formatter for labels
+#'   (string template or JS function).
+#' @param label.color Character; text color of labels.
+#' @param label.fontStyle Character; label font style. Common values:
+#'   \code{"normal"}, \code{"italic"}, \code{"oblique"}.
+#' @param label.fontWeight Character or numeric; label font weight.
+#'   E.g. \code{"normal"}, \code{"bold"}, \code{"bolder"}, \code{"lighter"},
+#'   or numeric weights like \code{400}, \code{700}.
+#' @param label.fontFamily Character; label font family name.
+#' @param label.fontSize Numeric/integer; label font size (px).
+#' @param label.align Character; horizontal alignment of label text.
+#'   One of \code{"left"}, \code{"center"}, \code{"right"}.
+#' @param label.verticalAlign Character; vertical alignment of label text.
+#'   One of \code{"top"}, \code{"middle"}, \code{"bottom"}.
+#' @param label.lineHeight Numeric/integer; line height of label text.
+#' @param label.backgroundColor Character or list; background color for label
+#'   (or style object).
+#' @param label.borderColor Character; label border color.
+#' @param label.borderWidth Numeric/integer; label border width (px).
+#' @param label.borderType Character or numeric; border type for label.
+#'   E.g. \code{"solid"}, \code{"dashed"}, \code{"dotted"} or numeric pattern.
+#' @param label.borderDashOffset Numeric; dash offset for dashed label border.
+#' @param label.borderRadius Numeric/integer or vector; corner radius for label
+#'   background.
+#' @param label.padding Numeric/integer or vector; padding inside label box.
+#' @param label.shadowColor Character; shadow color of label box.
+#' @param label.shadowBlur Numeric/integer; shadow blur radius for label.
+#' @param label.shadowOffsetX Numeric/integer; horizontal shadow offset.
+#' @param label.shadowOffsetY Numeric/integer; vertical shadow offset.
+#' @param label.width Numeric/integer or character; forced label width
+#' @param label.height Numeric/integer or character; forced label height
+#' @param label.textBorderColor Character; color of text stroke (outline).
+#' @param label.textBorderWidth Numeric/integer; width of text stroke.
+#' @param label.textBorderType Character or numeric; border type of text stroke
+#'   (\code{"solid"}, \code{"dashed"}, etc.).
+#' @param label.textBorderDashOffset Numeric; dash offset for text stroke.
+#' @param label.textShadowColor Character; color of text shadow.
+#' @param label.textShadowBlur Numeric/integer; blur radius of text shadow.
+#' @param label.textShadowOffsetX Numeric/integer; horizontal text shadow offset.
+#' @param label.textShadowOffsetY Numeric/integer; vertical text shadow offset.
+#' @param label.overflow Character; how to handle text overflow.
+#'   Common values: \code{"truncate"}, \code{"break"}, \code{"breakAll"}.
+#' @param label.ellipsis Character; string used as ellipsis when truncating text.
+#' @param label.rich List; rich text styles object for label \code{rich} text.
+#' @param label.richInheritPlainLabel Logical; whether rich text inherits plain
+#'   label styles.
+#'
+#' @param upperLabel.show Logical; whether upper-level labels are shown
+#'   (ECharts \code{upperLabel.show}).
+#' @param upperLabel.position Character; position of the upper-level label.
+#'   Same options as \code{label.position}.
+#' @param upperLabel.distance Numeric/integer; distance to element when upper
+#'   label is outside the node.
+#' @param upperLabel.rotate Numeric or character; rotation of upper-level label.
+#' @param upperLabel.offset Numeric/integer vector or list; offset for upper-level
+#'   label position.
+#' @param upperLabel.formatter Character or list; formatter for upper-level
+#'   labels (string template or JS function).
+#' @param upperLabel.color Character; text color of upper-level labels.
+#' @param upperLabel.fontStyle Character; font style for upper-level labels
+#'   (\code{"normal"}, \code{"italic"}, etc.).
+#' @param upperLabel.fontWeight Character or numeric; font weight for upper-level
+#'   labels.
+#' @param upperLabel.fontFamily Character; font family for upper-level labels.
+#' @param upperLabel.fontSize Numeric/integer; font size for upper-level labels.
+#' @param upperLabel.align Character; horizontal alignment of upper-level text.
+#' @param upperLabel.verticalAlign Character; vertical alignment of upper-level
+#'   text.
+#' @param upperLabel.lineHeight Numeric/integer; line height of upper-level text.
+#' @param upperLabel.backgroundColor Character or list; background color for
+#'   upper-level label box.
+#' @param upperLabel.borderColor Character; border color for upper-level label.
+#' @param upperLabel.borderWidth Numeric/integer; border width for upper-level
+#'   label.
+#' @param upperLabel.borderType Character or numeric; border type for upper-level
+#'   label.
+#' @param upperLabel.borderDashOffset Numeric; dash offset for upper-level label
+#'   border.
+#' @param upperLabel.borderRadius Numeric/integer or vector; border radius for
+#'   upper-level label box.
+#' @param upperLabel.padding Numeric/integer or vector; padding for upper-level
+#'   label box.
+#' @param upperLabel.shadowColor Character; shadow color for upper-level label.
+#' @param upperLabel.shadowBlur Numeric/integer; shadow blur for upper-level label.
+#' @param upperLabel.shadowOffsetX Numeric/integer; horizontal shadow offset for
+#'   upper-level label.
+#' @param upperLabel.shadowOffsetY Numeric/integer; vertical shadow offset for
+#'   upper-level label.
+#' @param upperLabel.width Numeric/integer or character; forced width for
+#'   upper-level label.
+#' @param upperLabel.height Numeric/integer or character; forced height for
+#'   upper-level label.
+#' @param upperLabel.textBorderColor Character; text stroke color for upper-level
+#'   label.
+#' @param upperLabel.textBorderWidth Numeric/integer; text stroke width for
+#'   upper-level label.
+#' @param upperLabel.textBorderType Character or numeric; text stroke type for
+#'   upper-level label.
+#' @param upperLabel.textBorderDashOffset Numeric; dash offset for upper-level
+#'   text stroke.
+#' @param upperLabel.textShadowColor Character; text shadow color for upper-level
+#'   label.
+#' @param upperLabel.textShadowBlur Numeric/integer; text shadow blur for
+#'   upper-level label.
+#' @param upperLabel.textShadowOffsetX Numeric/integer; horizontal text shadow
+#'   offset for upper-level label.
+#' @param upperLabel.textShadowOffsetY Numeric/integer; vertical text shadow
+#'   offset for upper-level label.
+#' @param upperLabel.overflow Character; overflow behaviour for upper-level text
+#'   (\code{"truncate"}, \code{"break"}, etc.).
+#' @param upperLabel.ellipsis Character; ellipsis string for upper-level text.
+#' @param upperLabel.rich List; rich text styles object for upper-level labels.
+#' @param upperLabel.richInheritPlainLabel Logical; whether rich text styles for
+#'   upper-level labels inherit plain label styles.
+#'
+#' @param itemStyle.color Character or list; node color or style object for
+#'   \code{itemStyle.color}.
+#' @param itemStyle.borderRadius Numeric/integer or vector; border radius for
+#'   node rectangles.
+#' @param itemStyle.borderWidth Numeric/integer; border width of node rectangles.
+#' @param itemStyle.gapWidth Numeric/integer; gap width between nodes.
+#' @param itemStyle.borderColor Character; border color of node rectangles.
+#' @param itemStyle.borderColorSaturation Numeric; saturation adjustment of
+#'   border color when \code{colorSaturation} is used.
+#' @param itemStyle.shadowBlur Numeric/integer; blur radius for node shadow.
+#' @param itemStyle.shadowColor Character; shadow color for nodes.
+#' @param itemStyle.shadowOffsetX Numeric/integer; horizontal node shadow offset.
+#' @param itemStyle.shadowOffsetY Numeric/integer; vertical node shadow offset.
+#' @param itemStyle.opacity Numeric in [0, 1]; opacity of nodes.
+#' @param itemStyle.decal List; decal pattern options for nodes.
+#'
+#' @param emphasis.disabled Logical; whether emphasis (hover) is disabled for
+#'   this series.
+#' @param emphasis.focus Character; focus mode when hovering.
+#'   Typical values: \code{"none"}, \code{"self"}, \code{"ancestor"}, \code{"descendant"}.
+#' @param emphasis.blurScope Character; blur scope of non-focused elements.
+#'   Common values: \code{"coordinateSystem"}, \code{"series"}, \code{"global"}.
+#' @param emphasis.label List; label options applied in emphasis state
+#'   (overrides \code{label} when hovered).
+#' @param emphasis.labelLine List; label line options in emphasis state.
+#' @param emphasis.upperLabel List; upper-level label options in emphasis state.
+#' @param emphasis.itemStyle List; item style options in emphasis state.
+#'
+#' @param blur.label List; label options in blur state (when other items are
+#'   focused).
+#' @param blur.labelLine List; label line options in blur state.
+#' @param blur.upperLabel List; upper-level label options in blur state.
+#' @param blur.itemStyle List; item style options in blur state.
+#'
+#' @param breadcrumb.show Logical; whether to display the treemap breadcrumb
+#'   navigation bar.
+#' @param breadcrumb.left,breadcrumb.top,breadcrumb.right,breadcrumb.bottom
+#'   Position of the breadcrumb container. Can be numeric (px) or a character
+#' @param breadcrumb.height Height of the breadcrumb bar.
+#' @param breadcrumb.emptyItemWidth Width of a breadcrumb node when it has no
+#'   name (placeholder width).
+#'
+#' @param breadcrumb.itemStyle.color Background color of breadcrumb nodes.
+#' @param breadcrumb.itemStyle.borderColor,breadcrumb.itemStyle.borderWidth
+#'   Border color and width for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.borderRadius Corner radius for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.shadowBlur,breadcrumb.itemStyle.shadowColor,
+#'   breadcrumb.itemStyle.shadowOffsetX,breadcrumb.itemStyle.shadowOffsetY
+#'   Shadow style for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.textStyle.color Text color for breadcrumb labels.
+#' @param breadcrumb.itemStyle.textStyle.fontSize Font size for breadcrumb
+#'   labels.
+#' @param breadcrumb.itemStyle.textStyle.fontFamily Font family for breadcrumb
+#'   labels.
+#'
+#' @param breadcrumb.emphasis.borderColor,breadcrumb.emphasis.borderWidth
+#'   Border color and width when a breadcrumb node is emphasized (hover/active).
+#' @param breadcrumb.emphasis.shadowBlur,breadcrumb.emphasis.shadowColor,
+#'   breadcrumb.emphasis.shadowOffsetX,breadcrumb.emphasis.shadowOffsetY
+#'   Shadow style when a breadcrumb node is emphasized.
+#' @param breadcrumb.emphasis.textStyle.color Text color when a breadcrumb node
+#'   is emphasized.
+#' @param breadcrumb.emphasis.textStyle.fontSize Font size when a breadcrumb
+#'   node is emphasized.
+#' @param breadcrumb.emphasis.textStyle.fontFamily Font family when a breadcrumb
+#'   node is emphasized.
+#'
+#' @param levels Optional list of level-specific configuration objects, passed
+#'   through to the ECharts \code{levels} treemap option.
+#' @param data Optional pre-structured treemap data. When \code{NULL}, the
+#'   function builds a nested hierarchy from \code{GroupVars} and the data used
+#'   in \code{e}.
+#' @param silent Logical indicating whether mouse events are disabled for this
+#'   series.
+#' @param animationDuration Numeric animation duration in milliseconds.
+#' @param animationEasing Character name of the easing function used for the
+#'   treemap animation (e.g. \code{"linear"}, \code{"quadraticIn"}, etc.).
+#' @param animationDelay Numeric delay (in milliseconds) before animation starts.
+#' @param tooltip Optional list of series-level tooltip options. If \code{NULL},
+#'   a default formatter can be supplied by the caller.
+#' @param cursor Character CSS cursor to use when hovering over nodes
+#'   (e.g. \code{"pointer"}, \code{"default"}).
+#'
+#' @return An \code{echarts4r} object with a treemap series added.
+#' @export
+e_treemap_full <- function(
+    e,
+    name = NULL,
+    GroupVars = NULL,                # <-- used to auto-set leafDepth if missing
+
+    # --- core treemap config ----------------------------------------------------
+    squareRatio = NULL,              # <--- NEW
+    leafDepth = NULL,                # <--- NEW (auto from GroupVars if NULL)
+    drillDownIcon = NULL,
+    roam = NULL,                     # FALSE / TRUE / "scale" / "move"
+    scaleLimit.min = NULL,
+    scaleLimit.max = NULL,
+    nodeClick = NULL,                # FALSE / "zoomToNode" / "link"
+    zoomToNodeRatio = NULL,
+    visualDimension = NULL,
+    visualMin = NULL,
+    visualMax = NULL,
+    colorAlpha = NULL,
+    colorSaturation = NULL,
+    colorMappingBy = NULL,           # "value" / "index" / "id"
+    visibleMin = NULL,
+    childrenVisibleMin = NULL,
+
+    # --- label (leaf labels) ----------------------------------------------------
+    label.show = NULL,
+    label.position = NULL,
+    label.distance = NULL,
+    label.rotate = NULL,
+    label.offset = NULL,
+    label.textMargin = NULL,
+    label.minMargin = NULL,
+    label.formatter = NULL,
+    label.color = NULL,
+    label.fontStyle = NULL,
+    label.fontWeight = NULL,
+    label.fontFamily = NULL,
+    label.fontSize = NULL,
+    label.align = NULL,
+    label.verticalAlign = NULL,
+    label.lineHeight = NULL,
+    label.backgroundColor = NULL,
+    label.borderColor = NULL,
+    label.borderWidth = NULL,
+    label.borderType = NULL,
+    label.borderDashOffset = NULL,
+    label.borderRadius = NULL,
+    label.padding = NULL,
+    label.shadowColor = NULL,
+    label.shadowBlur = NULL,
+    label.shadowOffsetX = NULL,
+    label.shadowOffsetY = NULL,
+    label.width = NULL,
+    label.height = NULL,
+    label.textBorderColor = NULL,
+    label.textBorderWidth = NULL,
+    label.textBorderType = NULL,
+    label.textBorderDashOffset = NULL,
+    label.textShadowColor = NULL,
+    label.textShadowBlur = NULL,
+    label.textShadowOffsetX = NULL,
+    label.textShadowOffsetY = NULL,
+    label.overflow = NULL,
+    label.ellipsis = NULL,
+    label.rich = NULL,
+    label.richInheritPlainLabel = NULL,
+
+    # --- upperLabel (parent labels) ---------------------------------------------
+    upperLabel.show = NULL,
+    upperLabel.position = NULL,
+    upperLabel.distance = NULL,
+    upperLabel.rotate = NULL,
+    upperLabel.offset = NULL,
+    upperLabel.formatter = NULL,
+    upperLabel.color = NULL,
+    upperLabel.fontStyle = NULL,
+    upperLabel.fontWeight = NULL,
+    upperLabel.fontFamily = NULL,
+    upperLabel.fontSize = NULL,
+    upperLabel.align = NULL,
+    upperLabel.verticalAlign = NULL,
+    upperLabel.lineHeight = NULL,
+    upperLabel.backgroundColor = NULL,
+    upperLabel.borderColor = NULL,
+    upperLabel.borderWidth = NULL,
+    upperLabel.borderType = NULL,
+    upperLabel.borderDashOffset = NULL,
+    upperLabel.borderRadius = NULL,
+    upperLabel.padding = NULL,
+    upperLabel.shadowColor = NULL,
+    upperLabel.shadowBlur = NULL,
+    upperLabel.shadowOffsetX = NULL,
+    upperLabel.shadowOffsetY = NULL,
+    upperLabel.width = NULL,
+    upperLabel.height = NULL,
+    upperLabel.textBorderColor = NULL,
+    upperLabel.textBorderWidth = NULL,
+    upperLabel.textBorderType = NULL,
+    upperLabel.textBorderDashOffset = NULL,
+    upperLabel.textShadowColor = NULL,
+    upperLabel.textShadowBlur = NULL,
+    upperLabel.textShadowOffsetX = NULL,
+    upperLabel.textShadowOffsetY = NULL,
+    upperLabel.overflow = NULL,
+    upperLabel.ellipsis = NULL,
+    upperLabel.rich = NULL,
+    upperLabel.richInheritPlainLabel = NULL,
+
+    # --- itemStyle --------------------------------------------------------------
+    itemStyle.color = NULL,
+    itemStyle.borderRadius = NULL,
+    itemStyle.borderWidth = NULL,
+    itemStyle.gapWidth = NULL,
+    itemStyle.borderColor = NULL,
+    itemStyle.borderColorSaturation = NULL,
+    itemStyle.shadowBlur = NULL,
+    itemStyle.shadowColor = NULL,
+    itemStyle.shadowOffsetX = NULL,
+    itemStyle.shadowOffsetY = NULL,
+    itemStyle.opacity = NULL,
+    itemStyle.decal = NULL,
+
+    # --- Emphasis / Blur / Select (flat params, AutoPlots-style) ---
+    emphasis.disabled              = FALSE,
+    emphasis.focus                 = "ancestor",
+    emphasis.blurScope             = "coordinateSystem",
+    emphasis.label                 = NULL,
+    emphasis.labelLine             = NULL,
+    emphasis.upperLabel            = NULL,
+
+    emphasis.itemStyle.color       = NULL,
+    emphasis.itemStyle.borderColor = "rgba(255,255,255,0.95)",
+    emphasis.itemStyle.borderWidth = 2,
+    emphasis.itemStyle.shadowBlur  = 20,
+    emphasis.itemStyle.shadowColor = "rgba(255,255,255,0.70)",
+    emphasis.itemStyle.shadowOffsetX = 0,
+    emphasis.itemStyle.shadowOffsetY = 0,
+    emphasis.itemStyle.opacity     = 1,
+
+    blur.label                     = NULL,
+    blur.labelLine                 = NULL,
+    blur.upperLabel                = NULL,
+    blur.itemStyle.color           = NULL,
+    blur.itemStyle.borderColor     = NULL,
+    blur.itemStyle.borderWidth     = NULL,
+    blur.itemStyle.shadowBlur      = NULL,
+    blur.itemStyle.shadowColor     = NULL,
+    blur.itemStyle.shadowOffsetX   = NULL,
+    blur.itemStyle.shadowOffsetY   = NULL,
+    blur.itemStyle.opacity         = 0.35,
+
+    # --- breadcrumb -------------------------------------------------------------
+    breadcrumb.show = NULL,
+    breadcrumb.left = NULL,
+    breadcrumb.top = NULL,
+    breadcrumb.right = NULL,
+    breadcrumb.bottom = NULL,
+    breadcrumb.height = NULL,
+    breadcrumb.emptyItemWidth = NULL,
+    breadcrumb.itemStyle.color = NULL,
+    breadcrumb.itemStyle.borderColor = NULL,
+    breadcrumb.itemStyle.borderWidth = NULL,
+    breadcrumb.itemStyle.borderRadius = NULL,
+    breadcrumb.itemStyle.shadowBlur = NULL,
+    breadcrumb.itemStyle.shadowColor = NULL,
+    breadcrumb.itemStyle.shadowOffsetX = NULL,
+    breadcrumb.itemStyle.shadowOffsetY = NULL,
+    breadcrumb.itemStyle.textStyle.color = NULL,
+    breadcrumb.itemStyle.textStyle.fontSize = NULL,
+    breadcrumb.itemStyle.textStyle.fontFamily = NULL,
+    breadcrumb.emphasis.borderColor = NULL,
+    breadcrumb.emphasis.borderWidth = NULL,
+    breadcrumb.emphasis.shadowBlur = NULL,
+    breadcrumb.emphasis.shadowColor = NULL,
+    breadcrumb.emphasis.shadowOffsetX = NULL,
+    breadcrumb.emphasis.shadowOffsetY = NULL,
+    breadcrumb.emphasis.textStyle.color = NULL,
+    breadcrumb.emphasis.textStyle.fontSize = NULL,
+    breadcrumb.emphasis.textStyle.fontFamily = NULL,
+
+    # --- misc -------------------------------------------------------------------
+    silent = NULL,
+    animationDuration = NULL,
+    animationEasing = NULL,
+    animationDelay = NULL,
+    tooltip = NULL,                    # series-specific tooltip list
+    cursor = NULL                      # CSS cursor, e.g. "pointer"
+) {
+
+  # label ----------------------------------------------------------------------
+  label <- .compact(list(
+    show = label.show,
+    position = label.position,
+    distance = label.distance,
+    rotate = label.rotate,
+    offset = label.offset,
+    textMargin = label.textMargin,
+    minMargin = label.minMargin,
+    formatter = label.formatter,
+    color = label.color,
+    fontStyle = label.fontStyle,
+    fontWeight = label.fontWeight,
+    fontFamily = label.fontFamily,
+    fontSize = label.fontSize,
+    align = label.align,
+    verticalAlign = label.verticalAlign,
+    lineHeight = label.lineHeight,
+    backgroundColor = label.backgroundColor,
+    borderColor = label.borderColor,
+    borderWidth = label.borderWidth,
+    borderType = label.borderType,
+    borderDashOffset = label.borderDashOffset,
+    borderRadius = label.borderRadius,
+    padding = label.padding,
+    shadowColor = label.shadowColor,
+    shadowBlur = label.shadowBlur,
+    shadowOffsetX = label.shadowOffsetX,
+    shadowOffsetY = label.shadowOffsetY,
+    width = label.width,
+    height = label.height,
+    textBorderColor = label.textBorderColor,
+    textBorderWidth = label.textBorderWidth,
+    textBorderType = label.textBorderType,
+    textBorderDashOffset = label.textBorderDashOffset,
+    textShadowColor = label.textShadowColor,
+    textShadowBlur = label.textShadowBlur,
+    textShadowOffsetX = label.textShadowOffsetX,
+    textShadowOffsetY = label.textShadowOffsetY,
+    overflow = label.overflow,
+    ellipsis = label.ellipsis,
+    rich = label.rich,
+    richInheritPlainLabel = label.richInheritPlainLabel
+  ))
+
+  # upperLabel -----------------------------------------------------------------
+  upperLabel <- .compact(list(
+    show = upperLabel.show,
+    position = upperLabel.position,
+    distance = upperLabel.distance,
+    rotate = upperLabel.rotate,
+    offset = upperLabel.offset,
+    formatter = upperLabel.formatter,
+    color = upperLabel.color,
+    fontStyle = upperLabel.fontStyle,
+    fontWeight = upperLabel.fontWeight,
+    fontFamily = upperLabel.fontFamily,
+    fontSize = upperLabel.fontSize,
+    align = upperLabel.align,
+    verticalAlign = upperLabel.verticalAlign,
+    lineHeight = upperLabel.lineHeight,
+    backgroundColor = upperLabel.backgroundColor,
+    borderColor = upperLabel.borderColor,
+    borderWidth = upperLabel.borderWidth,
+    borderType = upperLabel.borderType,
+    borderDashOffset = upperLabel.borderDashOffset,
+    borderRadius = upperLabel.borderRadius,
+    padding = upperLabel.padding,
+    shadowColor = upperLabel.shadowColor,
+    shadowBlur = upperLabel.shadowBlur,
+    shadowOffsetX = upperLabel.shadowOffsetX,
+    shadowOffsetY = upperLabel.shadowOffsetY,
+    width = upperLabel.width,
+    height = upperLabel.height,
+    textBorderColor = upperLabel.textBorderColor,
+    textBorderWidth = upperLabel.textBorderWidth,
+    textBorderType = upperLabel.textBorderType,
+    textBorderDashOffset = upperLabel.textBorderDashOffset,
+    textShadowColor = upperLabel.textShadowColor,
+    textShadowBlur = upperLabel.textShadowBlur,
+    textShadowOffsetX = upperLabel.textShadowOffsetX,
+    textShadowOffsetY = upperLabel.textShadowOffsetY,
+    overflow = upperLabel.overflow,
+    ellipsis = upperLabel.ellipsis,
+    rich = upperLabel.rich,
+    richInheritPlainLabel = upperLabel.richInheritPlainLabel
+  ))
+
+  # itemStyle ------------------------------------------------------------------
+  itemStyle <- .compact(list(
+    color = itemStyle.color,
+    borderRadius = itemStyle.borderRadius,
+    borderWidth = itemStyle.borderWidth,
+    gapWidth = itemStyle.gapWidth,
+    borderColor = itemStyle.borderColor,
+    borderColorSaturation = itemStyle.borderColorSaturation,
+    shadowBlur = itemStyle.shadowBlur,
+    shadowColor = itemStyle.shadowColor,
+    shadowOffsetX = itemStyle.shadowOffsetX,
+    shadowOffsetY = itemStyle.shadowOffsetY,
+    opacity = itemStyle.opacity,
+    decal = itemStyle.decal
+  ))
+
+  # emphasis.itemStyle
+  emphasis_itemStyle <- .compact(list(
+    color       = emphasis.itemStyle.color,
+    borderColor = emphasis.itemStyle.borderColor,
+    borderWidth = emphasis.itemStyle.borderWidth,
+    shadowBlur  = emphasis.itemStyle.shadowBlur,
+    shadowColor = emphasis.itemStyle.shadowColor,
+    shadowOffsetX = emphasis.itemStyle.shadowOffsetX,
+    shadowOffsetY = emphasis.itemStyle.shadowOffsetY,
+    opacity     = emphasis.itemStyle.opacity
+  ))
+
+  emphasis_opts <- .compact(list(
+    disabled  = emphasis.disabled,
+    focus     = emphasis.focus,
+    blurScope = emphasis.blurScope,
+    label     = emphasis.label,
+    labelLine = emphasis.labelLine,
+    upperLabel = emphasis.upperLabel,
+    itemStyle = if (length(emphasis_itemStyle)) emphasis_itemStyle else NULL
+  ))
+
+  blur_itemStyle <- .compact(list(
+    color       = blur.itemStyle.color,
+    borderColor = blur.itemStyle.borderColor,
+    borderWidth = blur.itemStyle.borderWidth,
+    shadowBlur  = blur.itemStyle.shadowBlur,
+    shadowColor = blur.itemStyle.shadowColor,
+    shadowOffsetX = blur.itemStyle.shadowOffsetX,
+    shadowOffsetY = blur.itemStyle.shadowOffsetY,
+    opacity     = blur.itemStyle.opacity
+  ))
+
+  blur_opts <- .compact(list(
+    label     = blur.label,
+    labelLine = blur.labelLine,
+    upperLabel = blur.upperLabel,
+    itemStyle = if (length(blur_itemStyle)) blur_itemStyle else NULL
+  ))
+
+  # breadcrumb.itemStyle -------------------------------------------------------
+  breadcrumb_itemStyle_textStyle <- .compact(list(
+    color      = breadcrumb.itemStyle.textStyle.color,
+    fontSize   = breadcrumb.itemStyle.textStyle.fontSize,
+    fontFamily = breadcrumb.itemStyle.textStyle.fontFamily
+  ))
+
+  breadcrumb_itemStyle <- .compact(list(
+    color        = breadcrumb.itemStyle.color,
+    borderColor  = breadcrumb.itemStyle.borderColor,
+    borderWidth  = breadcrumb.itemStyle.borderWidth,
+    borderRadius = breadcrumb.itemStyle.borderRadius,
+    shadowBlur   = breadcrumb.itemStyle.shadowBlur,
+    shadowColor  = breadcrumb.itemStyle.shadowColor,
+    shadowOffsetX = breadcrumb.itemStyle.shadowOffsetX,
+    shadowOffsetY = breadcrumb.itemStyle.shadowOffsetY,
+    textStyle    = if (length(breadcrumb_itemStyle_textStyle)) breadcrumb_itemStyle_textStyle else NULL
+  ))
+
+  # breadcrumb.emphasis --------------------------------------------------------
+  breadcrumb_emphasis_textStyle <- .compact(list(
+    color      = breadcrumb.emphasis.textStyle.color,
+    fontSize   = breadcrumb.emphasis.textStyle.fontSize,
+    fontFamily = breadcrumb.emphasis.textStyle.fontFamily
+  ))
+
+  breadcrumb_emphasis <- .compact(list(
+    borderColor  = breadcrumb.emphasis.borderColor,
+    borderWidth  = breadcrumb.emphasis.borderWidth,
+    shadowBlur   = breadcrumb.emphasis.shadowBlur,
+    shadowColor  = breadcrumb.emphasis.shadowColor,
+    shadowOffsetX = breadcrumb.emphasis.shadowOffsetX,
+    shadowOffsetY = breadcrumb.emphasis.shadowOffsetY,
+    textStyle    = if (length(breadcrumb_emphasis_textStyle)) breadcrumb_emphasis_textStyle else NULL
+  ))
+
+  # breadcrumb -----------------------------------------------------------------
+  breadcrumb <- .compact(list(
+    show           = breadcrumb.show,
+    left           = breadcrumb.left,
+    top            = breadcrumb.top,
+    right          = breadcrumb.right,
+    bottom         = breadcrumb.bottom,
+    height         = breadcrumb.height,
+    emptyItemWidth = breadcrumb.emptyItemWidth,
+    itemStyle      = if (length(breadcrumb_itemStyle))  breadcrumb_itemStyle  else NULL,
+    emphasis       = if (length(breadcrumb_emphasis))   breadcrumb_emphasis   else NULL
+  ))
+
+  # scaleLimit -----------------------------------------------------------------
+  scaleLimit <- .compact(list(
+    min = scaleLimit.min,
+    max = scaleLimit.max
+  ))
+
+  # collect args for underlying e_treemap() -----------------------------------
+  args <- .compact(list(
+    name = name,
+    drillDownIcon = drillDownIcon,
+    roam = roam,
+    scaleLimit = if (length(scaleLimit)) scaleLimit else NULL,
+    nodeClick = nodeClick,
+    zoomToNodeRatio = zoomToNodeRatio,
+    visualDimension = visualDimension,
+    visualMin = visualMin,
+    visualMax = visualMax,
+    colorAlpha = colorAlpha,
+    colorSaturation = colorSaturation,
+    colorMappingBy = colorMappingBy,
+    visibleMin = visibleMin,
+    childrenVisibleMin = childrenVisibleMin,
+    squareRatio = squareRatio,
+    leafDepth = leafDepth,
+    label = label,
+    upperLabel = upperLabel,
+    itemStyle = itemStyle,
+    emphasis = if (length(emphasis_opts)) emphasis_opts else NULL,
+    blur     = if (length(blur_opts))     blur_opts     else NULL,
+    breadcrumb = breadcrumb,
+    silent = silent,
+    animationDuration = animationDuration,
+    animationEasing = animationEasing,
+    animationDelay = animationDelay,
+    tooltip = tooltip,
+    cursor = cursor
+  ))
+
+  # delegate to base treemap helper -------------------------------------------
+  do.call(echarts4r::e_treemap, c(list(e = e), args))
+}
 
 #' Display a Series of Plots in a Styled HTML Grid with Columns
 #'
