@@ -447,9 +447,9 @@ background.}
 
 \item{label.shadowOffsetY}{Numeric/integer; vertical shadow offset.}
 
-\item{label.width}{Numeric/integer or character; forced label width}
+\item{label.width}{Numeric/integer or character; forced label width.}
 
-\item{label.height}{Numeric/integer or character; forced label height}
+\item{label.height}{Numeric/integer or character; forced label height.}
 
 \item{label.textBorderColor}{Character; color of text stroke (outline).}
 
@@ -627,6 +627,38 @@ Common values: \code{"coordinateSystem"}, \code{"series"}, \code{"global"}.}
 
 \item{emphasis.upperLabel}{List; upper-level label options in emphasis state.}
 
+\item{emphasis.itemStyle.color}{Character or NULL; fill color for treemap
+nodes in the emphasis (hover) state. Maps to
+\code{emphasis.itemStyle.color}.}
+
+\item{emphasis.itemStyle.borderColor}{Character or NULL; border color for
+treemap nodes in the emphasis state. Maps to
+\code{emphasis.itemStyle.borderColor}.}
+
+\item{emphasis.itemStyle.borderWidth}{Numeric or NULL; border width (in
+pixels) for treemap nodes in the emphasis state. Maps to
+\code{emphasis.itemStyle.borderWidth}.}
+
+\item{emphasis.itemStyle.shadowBlur}{Numeric or NULL; blur radius for the
+drop shadow of treemap nodes in the emphasis state. Maps to
+\code{emphasis.itemStyle.shadowBlur}.}
+
+\item{emphasis.itemStyle.shadowColor}{Character or NULL; shadow color for
+treemap nodes in the emphasis state. Maps to
+\code{emphasis.itemStyle.shadowColor}.}
+
+\item{emphasis.itemStyle.shadowOffsetX}{Numeric or NULL; horizontal offset
+(in pixels) of the shadow for treemap nodes in the emphasis state. Maps to
+\code{emphasis.itemStyle.shadowOffsetX}.}
+
+\item{emphasis.itemStyle.shadowOffsetY}{Numeric or NULL; vertical offset
+(in pixels) of the shadow for treemap nodes in the emphasis state. Maps to
+\code{emphasis.itemStyle.shadowOffsetY}.}
+
+\item{emphasis.itemStyle.opacity}{Numeric or NULL; opacity of treemap nodes
+in the emphasis state, typically a value in [0, 1]. Maps to
+\code{emphasis.itemStyle.opacity}.}
+
 \item{blur.label}{List; label options in blur state (when other items are
 focused).}
 
@@ -634,10 +666,50 @@ focused).}
 
 \item{blur.upperLabel}{List; upper-level label options in blur state.}
 
+\item{blur.itemStyle.color}{Character or NULL; fill color for treemap nodes
+in the blur (de-emphasized) state when other nodes are highlighted. Maps to
+\code{blur.itemStyle.color}.}
+
+\item{blur.itemStyle.borderColor}{Character or NULL; border color for
+treemap nodes in the blur state. Maps to \code{blur.itemStyle.borderColor}.}
+
+\item{blur.itemStyle.borderWidth}{Numeric or NULL; border width (in pixels)
+for treemap nodes in the blur state. Maps to
+\code{blur.itemStyle.borderWidth}.}
+
+\item{blur.itemStyle.shadowBlur}{Numeric or NULL; blur radius for the drop
+shadow of treemap nodes in the blur state. Maps to
+\code{blur.itemStyle.shadowBlur}.}
+
+\item{blur.itemStyle.shadowColor}{Character or NULL; shadow color for
+treemap nodes in the blur state. Maps to \code{blur.itemStyle.shadowColor}.}
+
+\item{blur.itemStyle.shadowOffsetX}{Numeric or NULL; horizontal shadow
+offset (in pixels) for treemap nodes in the blur state. Maps to
+\code{blur.itemStyle.shadowOffsetX}.}
+
+\item{blur.itemStyle.shadowOffsetY}{Numeric or NULL; vertical shadow offset
+(in pixels) for treemap nodes in the blur state. Maps to
+\code{blur.itemStyle.shadowOffsetY}.}
+
+\item{blur.itemStyle.opacity}{Numeric or NULL; opacity of treemap nodes in
+the blur state, typically a value in [0, 1]. Maps to
+\code{blur.itemStyle.opacity}.}
+
 \item{breadcrumb.show}{Logical; whether to display the treemap breadcrumb
 navigation bar.}
 
-\item{breadcrumb.left, breadcrumb.top, breadcrumb.right, breadcrumb.bottom}{Position of the breadcrumb container. Can be numeric (px) or a character}
+\item{breadcrumb.left}{Position of the breadcrumb container from the left;
+numeric (px) or character e.g. \code{"center"}}
+
+\item{breadcrumb.top}{Position of the breadcrumb container from the top;
+numeric (px) or character.}
+
+\item{breadcrumb.right}{Position of the breadcrumb container from the right;
+numeric (px) or character.}
+
+\item{breadcrumb.bottom}{Position of the breadcrumb container from the bottom;
+numeric (px) or character.}
 
 \item{breadcrumb.height}{Height of the breadcrumb bar.}
 
@@ -646,12 +718,21 @@ name (placeholder width).}
 
 \item{breadcrumb.itemStyle.color}{Background color of breadcrumb nodes.}
 
-\item{breadcrumb.itemStyle.borderColor, breadcrumb.itemStyle.borderWidth}{Border color and width for breadcrumb nodes.}
+\item{breadcrumb.itemStyle.borderColor}{Border color for breadcrumb nodes.}
+
+\item{breadcrumb.itemStyle.borderWidth}{Border width for breadcrumb nodes.}
 
 \item{breadcrumb.itemStyle.borderRadius}{Corner radius for breadcrumb nodes.}
 
-\item{breadcrumb.itemStyle.shadowBlur, breadcrumb.itemStyle.shadowColor}{breadcrumb.itemStyle.shadowOffsetX,breadcrumb.itemStyle.shadowOffsetY
-Shadow style for breadcrumb nodes.}
+\item{breadcrumb.itemStyle.shadowBlur}{Shadow blur radius for breadcrumb nodes.}
+
+\item{breadcrumb.itemStyle.shadowColor}{Shadow color for breadcrumb nodes.}
+
+\item{breadcrumb.itemStyle.shadowOffsetX}{Horizontal shadow offset (in px)
+for breadcrumb nodes.}
+
+\item{breadcrumb.itemStyle.shadowOffsetY}{Vertical shadow offset (in px)
+for breadcrumb nodes.}
 
 \item{breadcrumb.itemStyle.textStyle.color}{Text color for breadcrumb labels.}
 
@@ -661,10 +742,23 @@ labels.}
 \item{breadcrumb.itemStyle.textStyle.fontFamily}{Font family for breadcrumb
 labels.}
 
-\item{breadcrumb.emphasis.borderColor, breadcrumb.emphasis.borderWidth}{Border color and width when a breadcrumb node is emphasized (hover/active).}
+\item{breadcrumb.emphasis.borderColor}{Border color when a breadcrumb node is
+emphasized (hover/active).}
 
-\item{breadcrumb.emphasis.shadowBlur, breadcrumb.emphasis.shadowColor}{breadcrumb.emphasis.shadowOffsetX,breadcrumb.emphasis.shadowOffsetY
-Shadow style when a breadcrumb node is emphasized.}
+\item{breadcrumb.emphasis.borderWidth}{Border width when a breadcrumb node is
+emphasized.}
+
+\item{breadcrumb.emphasis.shadowBlur}{Shadow blur radius when a breadcrumb
+node is emphasized.}
+
+\item{breadcrumb.emphasis.shadowColor}{Shadow color when a breadcrumb node is
+emphasized.}
+
+\item{breadcrumb.emphasis.shadowOffsetX}{Horizontal shadow offset (in px)
+when a breadcrumb node is emphasized.}
+
+\item{breadcrumb.emphasis.shadowOffsetY}{Vertical shadow offset (in px)
+when a breadcrumb node is emphasized.}
 
 \item{breadcrumb.emphasis.textStyle.color}{Text color when a breadcrumb node
 is emphasized.}

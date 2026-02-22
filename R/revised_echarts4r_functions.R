@@ -2017,8 +2017,8 @@ e_parallel_full <- function(e,
 #' @param label.shadowBlur Numeric/integer; shadow blur radius for label.
 #' @param label.shadowOffsetX Numeric/integer; horizontal shadow offset.
 #' @param label.shadowOffsetY Numeric/integer; vertical shadow offset.
-#' @param label.width Numeric/integer or character; forced label width
-#' @param label.height Numeric/integer or character; forced label height
+#' @param label.width Numeric/integer or character; forced label width.
+#' @param label.height Numeric/integer or character; forced label height.
 #' @param label.textBorderColor Character; color of text stroke (outline).
 #' @param label.textBorderWidth Numeric/integer; width of text stroke.
 #' @param label.textBorderType Character or numeric; border type of text stroke
@@ -2129,52 +2129,108 @@ e_parallel_full <- function(e,
 #'   (overrides \code{label} when hovered).
 #' @param emphasis.labelLine List; label line options in emphasis state.
 #' @param emphasis.upperLabel List; upper-level label options in emphasis state.
-#' @param emphasis.itemStyle List; item style options in emphasis state.
+#' @param emphasis.itemStyle List; general item style options in emphasis state.
+#' @param emphasis.itemStyle.color Character or NULL; fill color for treemap
+#'   nodes in the emphasis (hover) state. Maps to
+#'   \code{emphasis.itemStyle.color}.
+#' @param emphasis.itemStyle.borderColor Character or NULL; border color for
+#'   treemap nodes in the emphasis state. Maps to
+#'   \code{emphasis.itemStyle.borderColor}.
+#' @param emphasis.itemStyle.borderWidth Numeric or NULL; border width (in
+#'   pixels) for treemap nodes in the emphasis state. Maps to
+#'   \code{emphasis.itemStyle.borderWidth}.
+#' @param emphasis.itemStyle.shadowBlur Numeric or NULL; blur radius for the
+#'   drop shadow of treemap nodes in the emphasis state. Maps to
+#'   \code{emphasis.itemStyle.shadowBlur}.
+#' @param emphasis.itemStyle.shadowColor Character or NULL; shadow color for
+#'   treemap nodes in the emphasis state. Maps to
+#'   \code{emphasis.itemStyle.shadowColor}.
+#' @param emphasis.itemStyle.shadowOffsetX Numeric or NULL; horizontal offset
+#'   (in pixels) of the shadow for treemap nodes in the emphasis state. Maps to
+#'   \code{emphasis.itemStyle.shadowOffsetX}.
+#' @param emphasis.itemStyle.shadowOffsetY Numeric or NULL; vertical offset
+#'   (in pixels) of the shadow for treemap nodes in the emphasis state. Maps to
+#'   \code{emphasis.itemStyle.shadowOffsetY}.
+#' @param emphasis.itemStyle.opacity Numeric or NULL; opacity of treemap nodes
+#'   in the emphasis state, typically a value in [0, 1]. Maps to
+#'   \code{emphasis.itemStyle.opacity}.
 #'
 #' @param blur.label List; label options in blur state (when other items are
 #'   focused).
 #' @param blur.labelLine List; label line options in blur state.
 #' @param blur.upperLabel List; upper-level label options in blur state.
-#' @param blur.itemStyle List; item style options in blur state.
+#' @param blur.itemStyle List; general item style options in blur state.
+#' @param blur.itemStyle.color Character or NULL; fill color for treemap nodes
+#'   in the blur (de-emphasized) state when other nodes are highlighted. Maps to
+#'   \code{blur.itemStyle.color}.
+#' @param blur.itemStyle.borderColor Character or NULL; border color for
+#'   treemap nodes in the blur state. Maps to \code{blur.itemStyle.borderColor}.
+#' @param blur.itemStyle.borderWidth Numeric or NULL; border width (in pixels)
+#'   for treemap nodes in the blur state. Maps to
+#'   \code{blur.itemStyle.borderWidth}.
+#' @param blur.itemStyle.shadowBlur Numeric or NULL; blur radius for the drop
+#'   shadow of treemap nodes in the blur state. Maps to
+#'   \code{blur.itemStyle.shadowBlur}.
+#' @param blur.itemStyle.shadowColor Character or NULL; shadow color for
+#'   treemap nodes in the blur state. Maps to \code{blur.itemStyle.shadowColor}.
+#' @param blur.itemStyle.shadowOffsetX Numeric or NULL; horizontal shadow
+#'   offset (in pixels) for treemap nodes in the blur state. Maps to
+#'   \code{blur.itemStyle.shadowOffsetX}.
+#' @param blur.itemStyle.shadowOffsetY Numeric or NULL; vertical shadow offset
+#'   (in pixels) for treemap nodes in the blur state. Maps to
+#'   \code{blur.itemStyle.shadowOffsetY}.
+#' @param blur.itemStyle.opacity Numeric or NULL; opacity of treemap nodes in
+#'   the blur state, typically a value in [0, 1]. Maps to
+#'   \code{blur.itemStyle.opacity}.
 #'
 #' @param breadcrumb.show Logical; whether to display the treemap breadcrumb
 #'   navigation bar.
-#' @param breadcrumb.left,breadcrumb.top,breadcrumb.right,breadcrumb.bottom
-#'   Position of the breadcrumb container. Can be numeric (px) or a character
+#' @param breadcrumb.left Position of the breadcrumb container from the left;
+#'   numeric (px) or character e.g. \code{"center"}
+#' @param breadcrumb.top Position of the breadcrumb container from the top;
+#'   numeric (px) or character.
+#' @param breadcrumb.right Position of the breadcrumb container from the right;
+#'   numeric (px) or character.
+#' @param breadcrumb.bottom Position of the breadcrumb container from the bottom;
+#'   numeric (px) or character.
 #' @param breadcrumb.height Height of the breadcrumb bar.
 #' @param breadcrumb.emptyItemWidth Width of a breadcrumb node when it has no
 #'   name (placeholder width).
 #'
 #' @param breadcrumb.itemStyle.color Background color of breadcrumb nodes.
-#' @param breadcrumb.itemStyle.borderColor,breadcrumb.itemStyle.borderWidth
-#'   Border color and width for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.borderColor Border color for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.borderWidth Border width for breadcrumb nodes.
 #' @param breadcrumb.itemStyle.borderRadius Corner radius for breadcrumb nodes.
-#' @param breadcrumb.itemStyle.shadowBlur,breadcrumb.itemStyle.shadowColor,
-#'   breadcrumb.itemStyle.shadowOffsetX,breadcrumb.itemStyle.shadowOffsetY
-#'   Shadow style for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.shadowBlur Shadow blur radius for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.shadowColor Shadow color for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.shadowOffsetX Horizontal shadow offset (in px)
+#'   for breadcrumb nodes.
+#' @param breadcrumb.itemStyle.shadowOffsetY Vertical shadow offset (in px)
+#'   for breadcrumb nodes.
 #' @param breadcrumb.itemStyle.textStyle.color Text color for breadcrumb labels.
 #' @param breadcrumb.itemStyle.textStyle.fontSize Font size for breadcrumb
 #'   labels.
 #' @param breadcrumb.itemStyle.textStyle.fontFamily Font family for breadcrumb
 #'   labels.
 #'
-#' @param breadcrumb.emphasis.borderColor,breadcrumb.emphasis.borderWidth
-#'   Border color and width when a breadcrumb node is emphasized (hover/active).
-#' @param breadcrumb.emphasis.shadowBlur,breadcrumb.emphasis.shadowColor,
-#'   breadcrumb.emphasis.shadowOffsetX,breadcrumb.emphasis.shadowOffsetY
-#'   Shadow style when a breadcrumb node is emphasized.
+#' @param breadcrumb.emphasis.borderColor Border color when a breadcrumb node is
+#'   emphasized (hover/active).
+#' @param breadcrumb.emphasis.borderWidth Border width when a breadcrumb node is
+#'   emphasized.
+#' @param breadcrumb.emphasis.shadowBlur Shadow blur radius when a breadcrumb
+#'   node is emphasized.
+#' @param breadcrumb.emphasis.shadowColor Shadow color when a breadcrumb node is
+#'   emphasized.
+#' @param breadcrumb.emphasis.shadowOffsetX Horizontal shadow offset (in px)
+#'   when a breadcrumb node is emphasized.
+#' @param breadcrumb.emphasis.shadowOffsetY Vertical shadow offset (in px)
+#'   when a breadcrumb node is emphasized.
 #' @param breadcrumb.emphasis.textStyle.color Text color when a breadcrumb node
 #'   is emphasized.
 #' @param breadcrumb.emphasis.textStyle.fontSize Font size when a breadcrumb
 #'   node is emphasized.
 #' @param breadcrumb.emphasis.textStyle.fontFamily Font family when a breadcrumb
 #'   node is emphasized.
-#'
-#' @param levels Optional list of level-specific configuration objects, passed
-#'   through to the ECharts \code{levels} treemap option.
-#' @param data Optional pre-structured treemap data. When \code{NULL}, the
-#'   function builds a nested hierarchy from \code{GroupVars} and the data used
-#'   in \code{e}.
 #' @param silent Logical indicating whether mouse events are disabled for this
 #'   series.
 #' @param animationDuration Numeric animation duration in milliseconds.
