@@ -133,20 +133,42 @@ Below are the full set of examples (kept from your original README), organized u
 <details><summary>Area Plot Examples</summary>
 
 ```r
-# Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 1000)
-data <- data[, .(
-  IndepVar = mean(Independent_Variable8)
-), by = c("DateTime")]
+# Create example data (no FakeDataGenerator)
+data <- data.table::data.table(
+  DateTime = seq.Date(
+    from = Sys.Date() - 89,
+    to   = Sys.Date(),
+    by   = "day"
+  )
+)
+
+# Smooth wave + a bit of noise for a nice area shape
+data[, IndepVar := 50 +
+       30 * sin(seq(0, 2 * pi, length.out = .N)) +
+       stats::rnorm(.N, mean = 0, sd = 3)]
+
+# Optional: ensure values stay positive for cleaner visuals
+data[IndepVar < 0, IndepVar := 0]
 
 # Build plot
 AutoPlots::Area(
   dt = data,
   XVar = "DateTime",
   YVar = "IndepVar",
-  areaStyle.color = c("#80AAFF","#BDD5FF","#CFCFCF"),
-  areaStyle.opacity = c(0.9,0.4,0.05),
-  legend.show = FALSE)
+  areaStyle.color = c("#80AAFF","#BDD5FF","#8B008B"),
+  areaStyle.opacity = c(1,0.6,0.05),
+  legend.show = FALSE,
+  title.textStyle.textShadowColor = "purple",
+  title.textStyle.textShadowBlur = 4,
+  title.textStyle.textShadowOffsetX = 2,
+  title.textStyle.textShadowOffsetY = 1,
+  yAxis.nameTextStyle.fontSize = 20,
+  yAxis.nameTextStyle.padding = 60,
+  xAxis.nameTextStyle.fontSize = 20,
+  tooltip.backgroundColor = "#80AAFFAA",
+  tooltip.textStyle.color = "black"
+)
+
 ```
 
 <br>
