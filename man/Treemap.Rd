@@ -9,6 +9,9 @@ Treemap(
   PreAgg = TRUE,
   YVar = NULL,
   GroupVar = NULL,
+  RateNumer = NULL,
+  RateDenom = NULL,
+  AreaMetric = NULL,
   YVarTrans = "Identity",
   AggMethod = "sum",
   Height = NULL,
@@ -301,6 +304,12 @@ the numeric values used for treemap tile sizes.}
 \item{GroupVar}{Character vector; names of one or more columns in \code{dt}
 that define the grouping hierarchy. The first element is treated as the
 top-level group, the last element as the leaf level.}
+
+\item{RateNumer}{numerator columns for rolling up rates}
+
+\item{RateDenom}{denominator columns for rolling up rates}
+
+\item{AreaMetric}{choice metric for area determination c("main", "rate", "numerator", "denominator")}
 
 \item{YVarTrans}{Character scalar specifying an optional transformation to
 apply to \code{YVar} after aggregation (e.g. \code{"Identity"},

@@ -1761,13 +1761,106 @@ AutoPlots::Treemap(
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/TreemapPlot.PNG" align="center" width="800" />
 
+<br>
+<br>
+
+```r
+library(data.table)
+set.seed(123)
+
+# ----- Define hierarchy -------------------------------------------------------
+continents  <- c("Americas", "Europe", "Asia")
+countries   <- list(
+  Americas = c("USA", "Canada", "Mexico"),
+  Europe   = c("UK", "Germany", "Spain"),
+  Asia     = c("China", "Japan", "India")
+)
+cities <- list(
+  USA     = c("New York", "Los Angeles", "Chicago"),
+  Canada  = c("Toronto", "Vancouver"),
+  Mexico  = c("Mexico City", "Guadalajara"),
+  UK      = c("London", "Manchester"),
+  Germany = c("Berlin", "Hamburg"),
+  Spain   = c("Madrid", "Barcelona"),
+  China   = c("Beijing", "Shanghai"),
+  Japan   = c("Tokyo", "Osaka"),
+  India   = c("Mumbai", "Delhi")
+)
+
+neighborhoods <- list(
+  "New York"     = c("Manhattan", "Brooklyn"),
+  "Los Angeles"  = c("Hollywood", "Venice"),
+  "Chicago"      = c("Loop", "Hyde Park"),
+  "Toronto"      = c("North York", "Scarborough"),
+  "Vancouver"    = c("Downtown", "Kitsilano"),
+  "Mexico City"  = c("Centro", "Roma"),
+  "Guadalajara"  = c("Zapopan", "Tlaquepaque"),
+  "London"       = c("Camden", "Chelsea"),
+  "Manchester"   = c("Salford", "Didsbury"),
+  "Berlin"       = c("Mitte", "Kreuzberg"),
+  "Hamburg"      = c("Altona", "Eimsbüttel"),
+  "Madrid"       = c("Centro", "Chamartín"),
+  "Barcelona"    = c("Gràcia", "Eixample"),
+  "Beijing"      = c("Chaoyang", "Haidian"),
+  "Shanghai"     = c("Pudong", "Xuhui"),
+  "Tokyo"        = c("Shinjuku", "Shibuya"),
+  "Osaka"        = c("Kita", "Namba"),
+  "Mumbai"       = c("Bandra", "Andheri"),
+  "Delhi"        = c("Karol Bagh", "Saket")
+)
+
+# ----- Build the full dataset -------------------------------------------------
+dt <- rbindlist(
+  lapply(names(countries), function(cont) {
+    rbindlist(lapply(countries[[cont]], function(ctry) {
+      rbindlist(lapply(cities[[ctry]], function(city) {
+        n_nbhd <- length(neighborhoods[[city]])
+        
+        # base volume metric (e.g. revenue, signups)
+        value <- sample(50:500, n_nbhd, replace = TRUE)
+        
+        # impressions & clicks for rate example
+        imps  <- sample(1e3:1e4, n_nbhd, replace = TRUE)
+        ctr   <- runif(n_nbhd, 0.01, 0.20) # 1%–20% click-through
+        clicks <- pmin(round(imps * ctr), imps)
+        
+        data.table(
+          Continent     = cont,
+          Country       = ctry,
+          City          = city,
+          Neighborhood  = neighborhoods[[city]],
+          Value         = value,
+          Impressions   = imps,
+          Clicks        = clicks
+        )
+      }))
+    }))
+  }),
+  use.names = TRUE
+)
+
+# --------------------------------------------------------------------
+# 2) Rate-based treemap – area by Click-through-rate (Clicks / Impressions)
+#    (uses your new RateNumer / RateDenom / AreaMetric wiring)
+# --------------------------------------------------------------------
+AutoPlots::Treemap(
+  dt       = dt,
+  YVar     = c("Value", "Clicks", "Impressions"),
+  GroupVar = c("Continent", "Country", "City", "Neighborhood"),
+  RateNumer  = "Clicks",
+  RateDenom  = "Impressions",
+  AreaMetric = "rate"
+)
+
+```
+
+<br>
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/TreemapPlotRate.PNG" align="center" width="800" />
 
 <br>
 
 
 </details>
-
-<br>
-
 
 <br>

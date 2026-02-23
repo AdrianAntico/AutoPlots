@@ -2908,6 +2908,9 @@ Histogram <- function(dt = NULL,
 #' @param GroupVar Character vector; names of one or more columns in \code{dt}
 #'   that define the grouping hierarchy. The first element is treated as the
 #'   top-level group, the last element as the leaf level.
+#' @param RateNumer numerator columns for rolling up rates
+#' @param RateDenom denominator columns for rolling up rates
+#' @param AreaMetric choice metric for area determination c("main", "rate", "numerator", "denominator")
 #' @param YVarTrans Character scalar specifying an optional transformation to
 #'   apply to \code{YVar} after aggregation (e.g. \code{"Identity"},
 #'   \code{"Log"}, etc.), passed through to \code{AutoTransformationCreate()}.
@@ -2997,6 +3000,9 @@ Treemap <- function(dt = NULL,
                     PreAgg = TRUE,
                     YVar = NULL,
                     GroupVar = NULL,
+                    RateNumer = NULL,
+                    RateDenom = NULL,
+                    AreaMetric = NULL,
                     YVarTrans = "Identity",
                     AggMethod = "sum",
                     Height = NULL,
@@ -3274,76 +3280,145 @@ Treemap <- function(dt = NULL,
                     toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
 
+  aggFunc <- SummaryFunction(AggMethod)
   .compact <- function(x) x[!vapply(x, is.null, FUN.VALUE = logical(1))]
 
-  .build_treemap_tree <- function(dt, group_vars, value_vars) {
+  .build_treemap_tree <- function(dt,
+                                  group_vars,
+                                  value_vars,
+                                  RateNumer  = NULL,
+                                  RateDenom  = NULL,
+                                  AreaMetric = c("sum", "numerator", "denominator", "rate")) {
+
     stopifnot(length(group_vars) >= 1L)
     stopifnot(length(value_vars) >= 1L)
 
-    main_var   <- value_vars[1L]         # used for area
-    extra_vars <- value_vars[-1L]
+    # Default to "sum" if NULL
+    if (is.null(AreaMetric)) {
+      AreaMetric <- "sum"
+    }
+    AreaMetric <- match.arg(AreaMetric)
 
     current <- group_vars[1L]
     rest    <- group_vars[-1L]
 
+    # All raw numeric metrics we aggregate from dt
+    metrics_raw <- unique(c(value_vars, RateNumer, RateDenom))
+    metrics_raw <- metrics_raw[!is.na(metrics_raw)]
+
+    # Helper: which *prefixed* metric drives the tile area (`value`)?
+    value_col_name <- function() {
+      if (AreaMetric == "rate" && !is.null(RateNumer) && !is.null(RateDenom)) {
+        paste0("var_rate_", RateNumer, "_over_", RateDenom)
+      } else if (AreaMetric == "numerator" && !is.null(RateNumer)) {
+        paste0("var_", RateNumer)
+      } else if (AreaMetric == "denominator" && !is.null(RateDenom)) {
+        paste0("var_", RateDenom)
+      } else {
+        # default: first YVar (backwards-compatible)
+        paste0("var_", value_vars[1L])
+      }
+    }
+
+    # ------------------------------------------------------------------
+    # Leaf level: only one grouping column left
+    # ------------------------------------------------------------------
     if (!length(rest)) {
-      # ---- Leaf level ----
+
       agg <- dt[
         ,
-        lapply(.SD, function(x) sum(x, na.rm = TRUE)),
-        .SDcols = value_vars,
+        {
+          # Sum of each raw metric for this leaf
+          out <- as.list(lapply(.SD, function(x) sum(x, na.rm = TRUE)))
+          names(out) <- metrics_raw
+
+          # Optional rate metric (weighted: sum(numer) / sum(denom))
+          if (!is.null(RateNumer) && !is.null(RateDenom) &&
+              RateNumer %in% names(out) &&
+              RateDenom %in% names(out)) {
+
+            numer_sum <- out[[RateNumer]]
+            denom_sum <- out[[RateDenom]]
+
+            rate_val <- if (!is.na(denom_sum) && denom_sum != 0) {
+              numer_sum / denom_sum
+            } else {
+              NA_real_
+            }
+
+            out[[paste0("rate_", RateNumer, "_over_", RateDenom)]] <- rate_val
+          }
+
+          out
+        },
+        .SDcols = metrics_raw,
         by = current
       ]
 
-      # rename metric columns so they’re easy to find in tooltip: var_<YVar>
-      metric_names <- paste0("var_", value_vars)
-      data.table::setnames(agg, old = value_vars, new = metric_names)
+      # Rename *all* metrics with var_ prefix (including the rate column)
+      metric_cols <- setdiff(names(agg), current)
+      prefixed    <- paste0("var_", metric_cols)
+      data.table::setnames(agg, old = metric_cols, new = prefixed)
+
+      main_metric <- value_col_name()
 
       agg[
         ,
         `:=`(
           name  = as.character(get(current)),
-          value = get(paste0("var_", main_var))  # area metric
+          value = get(main_metric)
         )
       ]
 
       agg[, (current) := NULL]
-      data.table::setcolorder(agg, c("name", "value", metric_names))
+      data.table::setcolorder(
+        agg,
+        c(
+          "name",
+          "value",
+          setdiff(names(agg), c("name", "value"))
+        )
+      )
+
       return(agg[])
     }
 
-    # ---- Non-leaf level ----
+    # ------------------------------------------------------------------
+    # Non-leaf level: recurse on remaining grouping variables
+    # ------------------------------------------------------------------
     out <- dt[
       ,
       {
-        # recurse on remaining group vars
-        children_dt <- .build_treemap_tree(.SD, rest, value_vars)
+        children_dt <- .build_treemap_tree(
+          dt         = .SD,
+          group_vars = rest,
+          value_vars = value_vars,
+          RateNumer  = RateNumer,
+          RateDenom  = RateDenom,
+          AreaMetric = AreaMetric
+        )
 
-        # children_dt has columns: name, value, var_<YVar>...
+        # children_dt has: name, value, var_*
         metric_cols <- grep("^var_", names(children_dt), value = TRUE)
 
-        # sum metrics across children to define parent metrics
+        # Roll up children by summing their metrics
         metric_sums <- children_dt[
           ,
           lapply(.SD, function(x) sum(x, na.rm = TRUE)),
           .SDcols = metric_cols
         ]
 
-        # convert 1-row data.table to named list of scalars
-        metrics <- as.list(metric_sums[1L, ])
+        metrics_list <- as.list(metric_sums[1L, ])
 
-        # build parent node:
-        # - name: current group
-        # - value: main metric for area
-        # - children: list-column of the child data.table
-        # - plus one column per metric (var_<YVar>)
+        main_metric <- value_col_name()
+
         c(
           list(
             name     = as.character(get(current)[1L]),
-            value    = metrics[[paste0("var_", main_var)]],
+            value    = metrics_list[[main_metric]],
             children = list(children_dt)
           ),
-          metrics
+          metrics_list
         )
       },
       by = current
@@ -3441,7 +3516,6 @@ Treemap <- function(dt = NULL,
       stop("Treemap requires a YVar when PreAgg = FALSE.")
     }
 
-    aggFunc <- SummaryFunction(AggMethod)
     temp <- dt[
       ,
       lapply(.SD, noquote(aggFunc)),
@@ -3470,9 +3544,12 @@ Treemap <- function(dt = NULL,
   }
 
   tree_data <- .build_treemap_tree(
-    dt         = temp,
-    group_vars = GroupVar,
-    value_vars = YVar
+    dt          = temp,
+    group_vars  = GroupVar,
+    value_vars  = YVar,
+    RateNumer  = RateNumer,   # or NULL for “no rate” mode
+    RateDenom  = RateDenom,
+    AreaMetric = AreaMetric # or "numerator", "rate"
   )
 
   # Default leafDepth to the depth of the hierarchy if not provided
