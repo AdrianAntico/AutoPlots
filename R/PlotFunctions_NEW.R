@@ -3288,104 +3288,145 @@ Treemap <- function(dt = NULL,
                                   value_vars,
                                   RateNumer  = NULL,
                                   RateDenom  = NULL,
-                                  AreaMetric = c("sum", "numerator", "denominator", "rate")) {
+                                  AreaMetric = NULL) {
 
     stopifnot(length(group_vars) >= 1L)
     stopifnot(length(value_vars) >= 1L)
 
-    # Default to "sum" if NULL
-    if (is.null(AreaMetric)) {
-      AreaMetric <- "sum"
+    # ---- validate rate inputs --------------------------------------------------
+    if (xor(is.null(RateNumer), is.null(RateDenom))) {
+      stop("RateNumer and RateDenom must both be NULL or both non-NULL.")
     }
-    AreaMetric <- match.arg(AreaMetric)
 
-    current <- group_vars[1L]
-    rest    <- group_vars[-1L]
-
-    # All raw numeric metrics we aggregate from dt
-    metrics_raw <- unique(c(value_vars, RateNumer, RateDenom))
-    metrics_raw <- metrics_raw[!is.na(metrics_raw)]
-
-    # Helper: which *prefixed* metric drives the tile area (`value`)?
-    value_col_name <- function() {
-      if (AreaMetric == "rate" && !is.null(RateNumer) && !is.null(RateDenom)) {
-        paste0("var_rate_", RateNumer, "_over_", RateDenom)
-      } else if (AreaMetric == "numerator" && !is.null(RateNumer)) {
-        paste0("var_", RateNumer)
-      } else if (AreaMetric == "denominator" && !is.null(RateDenom)) {
-        paste0("var_", RateDenom)
-      } else {
-        # default: first YVar (backwards-compatible)
-        paste0("var_", value_vars[1L])
+    if (!is.null(RateNumer)) {
+      if (length(RateNumer) != length(RateDenom)) {
+        stop("RateNumer and RateDenom must have the same length.")
+      }
+      if (!all(RateNumer %in% value_vars) || !all(RateDenom %in% value_vars)) {
+        stop("All RateNumer and RateDenom values must appear in YVar.")
       }
     }
 
-    # ------------------------------------------------------------------
-    # Leaf level: only one grouping column left
-    # ------------------------------------------------------------------
+    main_var <- value_vars[1L]
+    current  <- group_vars[1L]
+    rest     <- group_vars[-1L]
+
+    # ---- helpers ---------------------------------------------------------------
+
+    # add rate_* columns to a data.table that already has var_<metric> columns
+    compute_rates_dt <- function(agg_dt) {
+      if (is.null(RateNumer)) return(agg_dt)
+
+      for (i in seq_along(RateNumer)) {
+        num_col  <- paste0("var_", RateNumer[i])
+        den_col  <- paste0("var_", RateDenom[i])
+        rate_col <- paste0("rate_", RateNumer[i])
+
+        if (!(num_col %in% names(agg_dt)) || !(den_col %in% names(agg_dt))) {
+          next
+        }
+
+        num_vec  <- agg_dt[[num_col]]
+        den_vec  <- agg_dt[[den_col]]
+        rate_vec <- ifelse(is.na(den_vec) | den_vec == 0,
+                           NA_real_,
+                           num_vec / den_vec)
+
+        data.table::set(agg_dt, j = rate_col, value = rate_vec)
+      }
+      agg_dt
+    }
+
+    # add rate_* entries to a named list of metrics (used in parent nodes)
+    compute_rates_list <- function(metrics_list) {
+      if (is.null(RateNumer)) return(metrics_list)
+
+      for (i in seq_along(RateNumer)) {
+        num_name  <- paste0("var_", RateNumer[i])
+        den_name  <- paste0("var_", RateDenom[i])
+        rate_name <- paste0("rate_", RateNumer[i])
+
+        if (!(num_name %in% names(metrics_list)) ||
+            !(den_name %in% names(metrics_list))) {
+          next
+        }
+
+        num_val <- metrics_list[[num_name]]
+        den_val <- metrics_list[[den_name]]
+
+        metrics_list[[rate_name]] <-
+          if (is.null(den_val) || is.na(den_val) || den_val == 0) {
+            NA_real_
+          } else {
+            num_val / den_val
+          }
+      }
+      metrics_list
+    }
+
+    # scalar value used for area
+    pick_area_value <- function(metrics_list) {
+      if (!is.null(AreaMetric) &&
+          identical(AreaMetric, "rate") &&
+          !is.null(RateNumer)) {
+        metrics_list[[paste0("rate_", RateNumer[1L])]]
+      } else {
+        metrics_list[[paste0("var_", main_var)]]
+      }
+    }
+
+    # ---- leaf level ------------------------------------------------------------
     if (!length(rest)) {
 
       agg <- dt[
         ,
-        {
-          # Sum of each raw metric for this leaf
-          out <- as.list(lapply(.SD, function(x) sum(x, na.rm = TRUE)))
-          names(out) <- metrics_raw
-
-          # Optional rate metric (weighted: sum(numer) / sum(denom))
-          if (!is.null(RateNumer) && !is.null(RateDenom) &&
-              RateNumer %in% names(out) &&
-              RateDenom %in% names(out)) {
-
-            numer_sum <- out[[RateNumer]]
-            denom_sum <- out[[RateDenom]]
-
-            rate_val <- if (!is.na(denom_sum) && denom_sum != 0) {
-              numer_sum / denom_sum
-            } else {
-              NA_real_
-            }
-
-            out[[paste0("rate_", RateNumer, "_over_", RateDenom)]] <- rate_val
-          }
-
-          out
-        },
-        .SDcols = metrics_raw,
+        lapply(.SD, sum, na.rm = TRUE),
+        .SDcols = value_vars,
         by = current
       ]
 
-      # Rename *all* metrics with var_ prefix (including the rate column)
-      metric_cols <- setdiff(names(agg), current)
-      prefixed    <- paste0("var_", metric_cols)
-      data.table::setnames(agg, old = metric_cols, new = prefixed)
+      metric_names <- paste0("var_", value_vars)
+      data.table::setnames(agg, old = value_vars, new = metric_names)
 
-      main_metric <- value_col_name()
+      agg <- compute_rates_dt(agg)
 
-      agg[
-        ,
-        `:=`(
-          name  = as.character(get(current)),
-          value = get(main_metric)
+      data.table::set(
+        x     = agg,
+        j     = "name",
+        value = as.character(agg[[current]])
+      )
+
+      if (!is.null(AreaMetric) &&
+          identical(AreaMetric, "rate") &&
+          !is.null(RateNumer)) {
+
+        main_rate_col <- paste0("rate_", RateNumer[1L])
+        data.table::set(
+          x     = agg,
+          j     = "value",
+          value = agg[[main_rate_col]]
         )
-      ]
+
+      } else {
+
+        main_sum_col <- paste0("var_", main_var)
+        data.table::set(
+          x     = agg,
+          j     = "value",
+          value = agg[[main_sum_col]]
+        )
+      }
 
       agg[, (current) := NULL]
       data.table::setcolorder(
         agg,
-        c(
-          "name",
-          "value",
-          setdiff(names(agg), c("name", "value"))
-        )
+        c("name", "value", setdiff(names(agg), c("name", "value")))
       )
 
       return(agg[])
     }
 
-    # ------------------------------------------------------------------
-    # Non-leaf level: recurse on remaining grouping variables
-    # ------------------------------------------------------------------
+    # ---- non-leaf level --------------------------------------------------------
     out <- dt[
       ,
       {
@@ -3398,27 +3439,27 @@ Treemap <- function(dt = NULL,
           AreaMetric = AreaMetric
         )
 
-        # children_dt has: name, value, var_*
         metric_cols <- grep("^var_", names(children_dt), value = TRUE)
 
-        # Roll up children by summing their metrics
         metric_sums <- children_dt[
           ,
-          lapply(.SD, function(x) sum(x, na.rm = TRUE)),
+          lapply(.SD, sum, na.rm = TRUE),
           .SDcols = metric_cols
         ]
 
-        metrics_list <- as.list(metric_sums[1L, ])
+        metrics <- as.list(metric_sums[1L, ])
 
-        main_metric <- value_col_name()
+        metrics <- compute_rates_list(metrics)
+
+        area_val <- pick_area_value(metrics)
 
         c(
           list(
             name     = as.character(get(current)[1L]),
-            value    = metrics_list[[main_metric]],
+            value    = area_val,
             children = list(children_dt)
           ),
-          metrics_list
+          metrics
         )
       },
       by = current
@@ -3428,17 +3469,23 @@ Treemap <- function(dt = NULL,
     out[]
   }
 
-  .treemap_default_tooltip <- function(value_vars) {
-    # value_vars: character vector of YVar names
-    stopifnot(length(value_vars) >= 1L)
+  .treemap_default_tooltip <- function(value_vars, RateNumer = NULL) {
 
-    metric_names <- paste0("var_", value_vars)
+    metric_cols   <- paste0("var_", value_vars)
+    metric_labels <- value_vars
+
+    if (!is.null(RateNumer) && length(RateNumer) > 0L) {
+      rate_cols   <- paste0("rate_", RateNumer)
+      rate_labels <- paste0(RateNumer, "_rate")
+      metric_cols   <- c(metric_cols,   rate_cols)
+      metric_labels <- c(metric_labels, rate_labels)
+    }
 
     js_lines <- c(
       "function (info) {",
       "  var d = info.data || {};",
       "  var lines = [];",
-      "  // show full path if we have ancestors",
+      "",
       "  if (info.treeAncestors && info.treeAncestors.length) {",
       "    var path = info.treeAncestors.map(function (n) { return n.name; }).join(' / ');",
       "    lines.push(path);",
@@ -3448,15 +3495,22 @@ Treemap <- function(dt = NULL,
       ""
     )
 
-    # add one line per metric
-    for (i in seq_along(value_vars)) {
-      nm      <- value_vars[i]
-      js_name <- metric_names[i]
+    for (i in seq_along(metric_cols)) {
+      js_name <- metric_cols[i]
+      label   <- metric_labels[i]
 
       js_lines <- c(
         js_lines,
         sprintf("  if (d.%s != null && d.%s !== undefined) {", js_name, js_name),
-        sprintf("    lines.push('%s: ' + d.%s);", nm, js_name),
+        sprintf("    var v = d.%s;", js_name),
+        "    var formatted = v;",
+        "    if (typeof v === 'number' && isFinite(v)) {",
+        "      var isIntegerish = Math.abs(v - Math.round(v)) < 1e-6;",
+        "      if (Math.abs(v) >= 1000 && isIntegerish && typeof echarts !== 'undefined' && echarts.format && echarts.format.addCommas) {",
+        "        formatted = echarts.format.addCommas(Math.round(v));",
+        "      }",
+        "    }",
+        sprintf("    lines.push('%s: ' + formatted);", label),
         "  }",
         ""
       )
@@ -3473,21 +3527,21 @@ Treemap <- function(dt = NULL,
 
   .treemap_default_label_formatter <- function() {
     htmlwidgets::JS(sprintf("
-    function (info) {
-      var d     = info.data || {};
-      var name  = d.name  || '';
-      var value = d.value;
+      function (info) {
+        var d     = info.data || {};
+        var name  = d.name  || '';
+        var value = d.value;
 
-      if (!name) {
-        return '';
-      }
+        if (!name) {
+          return '';
+        }
 
-      if (value != null && value !== undefined) {
-        return name + ': ' + value;
-      } else {
-        return name;
+        if (value != null && value !== undefined) {
+          return name + ': ' + value;
+        } else {
+          return name;
+        }
       }
-    }
   "))
   }
 
@@ -3547,9 +3601,9 @@ Treemap <- function(dt = NULL,
     dt          = temp,
     group_vars  = GroupVar,
     value_vars  = YVar,
-    RateNumer  = RateNumer,   # or NULL for “no rate” mode
+    RateNumer  = RateNumer,
     RateDenom  = RateDenom,
-    AreaMetric = AreaMetric # or "numerator", "rate"
+    AreaMetric = AreaMetric
   )
 
   # Default leafDepth to the depth of the hierarchy if not provided
@@ -3569,7 +3623,7 @@ Treemap <- function(dt = NULL,
   # auto-build a default series tooltip if none supplied
   if (is.null(tooltip) && length(YVar) > 0L) {
     tooltip <- list(
-      formatter = .treemap_default_tooltip(YVar)
+      formatter = .treemap_default_tooltip(YVar, RateNumer = RateNumer)
     )
   }
 
@@ -3588,7 +3642,7 @@ Treemap <- function(dt = NULL,
   if (is.null(tooltip)) {
     tooltip <- list(
       trigger   = "item",
-      formatter = .treemap_default_tooltip(YVar)
+      formatter = .treemap_default_tooltip(YVar, RateNumer = RateNumer)
     )
   }
 
