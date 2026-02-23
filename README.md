@@ -125,7 +125,7 @@ AutoPlots::Density(
 
 ## 📚 Plot Gallery
 
-Below are the full set of examples (kept from your original README), organized using collapsible sections for easier navigation.
+Below are the full set of examples for standard plots.
 
 
 ### 📐 Area Plots
