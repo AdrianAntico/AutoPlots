@@ -1559,23 +1559,47 @@ AutoPlots::display_plots_grid(
 <details><summary>Stacked Bar Plot Examples</summary>
 
 ```r
-# Create fake data
-data <- AutoPlots::FakeDataGenerator(N = 100000)
-data <- data[, .(
-  IndepVar = sum(Independent_Variable1)
-), by = c("Factor_1","Factor_2")]
+library(data.table)
 
+set.seed(123)
 
-# Echarts Stacked Bar Chart
+# Nice, small, structured dataset
+data <- data.table::CJ(
+  Factor_1 = factor(
+    paste0("Segment ", LETTERS[1:6]),
+    levels = paste0("Segment ", LETTERS[1:6])
+  ),
+  Factor_2 = factor(
+    c("Search", "Social", "Display", "Email"),
+    levels = c("Search", "Social", "Display", "Email")
+  )
+)
+
+data[, IndepVar := round(
+  600 +                          # base level
+    150 * as.integer(Factor_1) + # larger segments toward the right
+    c(500, 350, 250, 150)[as.integer(Factor_2)] +  # channel strength
+    rnorm(.N, 0, 80)             # a bit of noise
+)]
+
+# No negative values
+data[IndepVar < 0, IndepVar := 0]
+
+# Stacked bar example
 AutoPlots::StackedBar(
-  dt = data,
-  XVar = "Factor_1",
-  YVar = "IndepVar",
+  dt       = data,
+  XVar     = "Factor_1",
+  YVar     = "IndepVar",
   GroupVar = "Factor_2",
   legend.right = 35,
-  legend.top = 45,
-  yAxis.nameTextStyle.padding = 40
+  legend.top   = 85,
+  yAxis.nameTextStyle.padding = 60,
+  yAxis.nameTextStyle.fontSize = 20,
+  xAxis.nameTextStyle.fontSize = 20,
+  legend.left = 200,
+  legend.orient = "horizontal"
 )
+
 ```
 
 <br>
