@@ -9867,7 +9867,7 @@ Area <- function(dt = NULL,
                  title.sublink = NULL,
                  title.Align = "left",
                  title.top = NULL,
-                 title.left = "left",
+                 title.left = 12,
                  title.right = NULL,
                  title.bottom = NULL,
                  title.padding = NULL,
@@ -9961,7 +9961,7 @@ Area <- function(dt = NULL,
                  yAxis.nameLocation = 'center',
                  yAxis.axisTick.customValues = NULL,
                  yAxis.nameTextStyle.color = NULL,
-                 yAxis.nameTextStyle.padding = 25,
+                 yAxis.nameTextStyle.padding = NULL,
                  yAxis.nameTextStyle.align = NULL,
                  yAxis.nameTextStyle.fontStyle = NULL,
                  yAxis.nameTextStyle.fontWeight = "bolder",
@@ -10157,6 +10157,34 @@ Area <- function(dt = NULL,
                  toolbox.iconStyle.shadowOffsetX = NULL,
                  toolbox.iconStyle.shadowOffsetY = NULL,
                  Debug = FALSE) {
+
+  # Theme overrides
+  if (Theme == "dark") {
+    if (is.null(areaStyle.color)) areaStyle.color <- c("#DEEAFC","#91C1FF","#1474FF")
+    if (is.null(areaStyle.opacity)) areaStyle.opacity <- c(1.0,0.75,0.35)
+    if (is.null(GroupVar)) legend.show <- FALSE
+    if (is.null(title.textStyle.color)) title.textStyle.color <- "#DEEAFC"
+    if (is.null(title.textStyle.textShadowColor)) title.textStyle.textShadowColor <- "#5298FF"
+    if (is.null(title.textStyle.textShadowBlur)) title.textStyle.textShadowBlur <- 15
+    if (is.null(title.textStyle.textShadowOffsetX)) title.textStyle.textShadowOffsetX <- 0
+    if (is.null(title.textStyle.textShadowOffsetY)) title.textStyle.textShadowOffsetY <- 0
+    if (is.null(title.top)) title.top <- 12
+    if (is.null(title.left)) title.left <- 12
+    if (is.null(title.padding)) title.padding <- c(4,4,10,4)
+    if (is.null(title.itemGap)) title.itemGap <- 6
+    if (is.null(yAxis.nameTextStyle.fontSize)) yAxis.nameTextStyle.fontSize <- 20
+    if (is.null(yAxis.nameTextStyle.padding)) yAxis.nameTextStyle.padding <- 60
+    if (is.null(xAxis.nameTextStyle.fontSize)) xAxis.nameTextStyle.fontSize <- 20
+    if (is.null(tooltip.backgroundColor)) tooltip.backgroundColor <- "#071D33"
+    if (is.null(tooltip.textStyle.color)) tooltip.textStyle.color <- "#91C1FF"
+    if (is.null(xAxis.nameTextStyle.color)) xAxis.nameTextStyle.color <- "#DEEAFC"
+    if (is.null(yAxis.nameTextStyle.color)) yAxis.nameTextStyle.color <- "#DEEAFC"
+    if (is.null(xAxis.axisLabel.color)) xAxis.axisLabel.color <- "#ABD5FF"
+    if (is.null(yAxis.axisLabel.color)) yAxis.axisLabel.color <- "#ABD5FF"
+    if (is.null(xAxis.axisLabel.overflow)) xAxis.axisLabel.overflow <- "truncate"
+    if (is.null(toolbox.iconStyle.borderColor)) toolbox.iconStyle.borderColor <- "#DEEAFC"
+    if (is.null(toolbox.emphasis.iconStyle.borderColor)) toolbox.emphasis.iconStyle.borderColor <- "#5E8DD1"
+  }
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
