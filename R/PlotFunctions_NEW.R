@@ -10175,7 +10175,7 @@ Area <- function(dt = NULL,
     if (is.null(yAxis.nameTextStyle.fontSize)) yAxis.nameTextStyle.fontSize <- 20
     if (is.null(yAxis.nameTextStyle.padding)) yAxis.nameTextStyle.padding <- 60
     if (is.null(xAxis.nameTextStyle.fontSize)) xAxis.nameTextStyle.fontSize <- 20
-    if (is.null(tooltip.backgroundColor)) tooltip.backgroundColor <- "#071D33"
+    if (is.null(tooltip.backgroundColor)) tooltip.backgroundColor <- "#002259"
     if (is.null(tooltip.textStyle.color)) tooltip.textStyle.color <- "#91C1FF"
     if (is.null(xAxis.nameTextStyle.color)) xAxis.nameTextStyle.color <- "#DEEAFC"
     if (is.null(yAxis.nameTextStyle.color)) yAxis.nameTextStyle.color <- "#DEEAFC"
