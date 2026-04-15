@@ -75,7 +75,7 @@ AutoPlots::Density(
 
 ```
 
-<br> 
+<br>
 
 ### Basic Plots
 - Area
@@ -151,37 +151,18 @@ data[, IndepVar := 50 +
 data[IndepVar < 0, IndepVar := 0]
 
 # Build plot
-# Build plot
 AutoPlots::Area(
   dt = data,
   XVar = "DateTime",
   YVar = "IndepVar",
-  areaStyle.color = c("#DEEAFC","#91C1FF","#1474FF"),
-  areaStyle.opacity = c(1.0,0.75,0.35),
-  legend.show = FALSE,
-  title.textStyle.color = "#DEEAFC",
-  title.textStyle.textShadowColor = "#5298FF",
-  title.textStyle.textShadowBlur = 15,
-  title.textStyle.textShadowOffsetX = 0,
-  title.textStyle.textShadowOffsetY = 0,
-  title.top = 12,
-  title.left = 12,
-  title.padding = c(4,4,10,4),
-  title.itemGap = 6,
-  yAxis.nameTextStyle.fontSize = 20,
-  yAxis.nameTextStyle.padding = 60,
-  xAxis.nameTextStyle.fontSize = 20,
-  tooltip.backgroundColor = "#002259",
-  tooltip.textStyle.color = "#91C1FF",
-  xAxis.nameTextStyle.color = "#DEEAFC",
-  yAxis.nameTextStyle.color = "#DEEAFC",
-  xAxis.axisLabel.color = "#ABD5FF",
-  yAxis.axisLabel.color = "#ABD5FF",
-  xAxis.axisLabel.overflow = "truncate",
-  toolbox.iconStyle.borderColor = "#DEEAFC",
-  toolbox.emphasis.iconStyle.borderColor = "#5E8DD1"
+  title.text = "Area Plot with Gradient Fill",
+  title.subtext = "Theme: dark",
+  yAxis.nameTextStyle.padding = 35
+) |> AutoPlots::e_grid_full(
+  grid.left = 95,
+  grid.right = 55,
+  grid.top = 75
 )
-
 ```
 
 <br>

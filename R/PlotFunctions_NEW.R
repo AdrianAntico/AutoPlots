@@ -1334,7 +1334,6 @@ Density <- function(dt = NULL,
 #'   Width = NULL,
 #'   ShowLabels = FALSE,
 #'   Theme = "blue",
-#'
 #'   Debug = FALSE)
 #'
 #' @return plot
@@ -1347,7 +1346,6 @@ ProbabilityPlot <- function(dt = NULL,
                             Width = NULL,
                             ShowLabels = FALSE,
                             Theme = "dark",
-
                             title.text = "Probability Plot",
                             title.subtext = NULL,
                             title.link = NULL,
@@ -10172,6 +10170,12 @@ Area <- function(dt = NULL,
     if (is.null(title.left)) title.left <- 12
     if (is.null(title.padding)) title.padding <- c(4,4,10,4)
     if (is.null(title.itemGap)) title.itemGap <- 6
+    if (is.null(title.subtextStyle.color)) title.subtextStyle.color <- "#9BAAC2"
+    if (is.null(title.subtextStyle.textShadowColor)) title.subtextStyle.textShadowColor <- "#5298FF"
+    if (is.null(title.subtextStyle.textShadowBlur)) title.subtextStyle.textShadowBlur <- 15
+    if (is.null(title.subtextStyle.textShadowOffsetX)) title.subtextStyle.textShadowOffsetX <- 0
+    if (is.null(title.subtextStyle.textShadowOffsetY)) title.subtextStyle.textShadowOffsetY <- 0
+    if (is.null(title.subtextStyle.fontWeight)) title.subtextStyle.fontWeight <- "bold"
     if (is.null(yAxis.nameTextStyle.fontSize)) yAxis.nameTextStyle.fontSize <- 20
     if (is.null(yAxis.nameTextStyle.padding)) yAxis.nameTextStyle.padding <- 60
     if (is.null(xAxis.nameTextStyle.fontSize)) xAxis.nameTextStyle.fontSize <- 20
