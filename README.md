@@ -156,8 +156,7 @@ AutoPlots::Area(
   XVar = "DateTime",
   YVar = "IndepVar",
   title.text = "Area Plot with Gradient Fill",
-  title.subtext = "Theme: dark",
-  yAxis.nameTextStyle.padding = 35
+  title.subtext = "Theme: dark"
 ) |> AutoPlots::e_grid_full(
   grid.left = 95,
   grid.right = 55,
