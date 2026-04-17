@@ -187,10 +187,7 @@ plot_list <- lapply(ch, function(x) {
     XVar = "DateTime",
     YVar = "IndepVar",
     Height = "300px",
-    title.text = paste0("Factor_1: ", x),
-    areaStyle.color = c("#80AAFF","#BDD5FF","#CFCFCF"),
-    areaStyle.opacity = c(0.9,0.4,0.05),
-    legend.show = FALSE)
+    title.text = paste0("Factor_1: ", x))
 })
 
 AutoPlots::display_plots_grid(
@@ -235,19 +232,6 @@ AutoPlots::Bar(
   dt = data,
   XVar = "DateTime",
   YVar = "IndepVar",
-  backgroundStyle.color = c("#80AAFF","#BDD5FF","#8B008B"),
-  backgroundStyle.opacity = c(1,0.6,0.05),
-  legend.show = FALSE,
-  title.textStyle.textShadowColor = "purple",
-  title.textStyle.textShadowBlur = 4,
-  title.textStyle.textShadowOffsetX = 2,
-  title.textStyle.textShadowOffsetY = 1,
-  yAxis.nameTextStyle.fontSize = 20,
-  yAxis.nameTextStyle.padding = 60,
-  xAxis.nameTextStyle.fontSize = 20,
-  tooltip.backgroundColor = "#80AAFFAA",
-  tooltip.textStyle.color = "black",
-  title.text = "Bar Plot"
 )
 ```
 
@@ -273,17 +257,14 @@ plot_list <- lapply(ch, function(x) {
     XVar = "DateTime",
     YVar = "IndepVar",
     Height = "300px",
-    title.text = paste0("Factor_1: ", x),
-    backgroundStyle.color = c("#80AAFF","#BDD5FF","#CFCFCF"),
-    backgroundStyle.opacity = c(0.9,0.4,0.05),
-    legend.show = FALSE)
+    title.text = paste0("Factor_1: ", x)
+  )
 })
 
 AutoPlots::display_plots_grid(
   plot_list,
   cols = 2
 )
-
 ```
 
 <br>
@@ -345,24 +326,8 @@ AutoPlots::Box(
   dt = data,
   XVar = "Factor_1",
   YVar = "Independent_Variable8",
-  yAxis.title = "IndepVar",
-  itemStyle.color = c("#80AAFF", "#BDD5FF", "#8B008B"),
-  itemStyle.opacity = c(0.98, 0.85, 0.55),
-  legend.show = FALSE,
-  tooltip.backgroundColor = "#80AAFFDD",
-  tooltip.textStyle.color = "black",
-  yAxis.nameTextStyle.fontSize = 20,
-  yAxis.nameTextStyle.padding = 60,
-  yAxis.axisLabel.color = "#CCCCCC",
-  xAxis.nameTextStyle.fontSize = 20,
-  xAxis.axisLabel.color = "#CCCCCC",
-  xAxis.axisLabel.fontSize = 14,
-  title.textStyle.textShadowColor = "purple",
-  title.textStyle.textShadowBlur = 4,
-  title.textStyle.textShadowOffsetX = 2,
-  title.textStyle.textShadowOffsetY = 1
+  yAxis.title = "IndepVar"
 )
-
 ```
 
 <br>
@@ -387,18 +352,15 @@ plot_list <- lapply(ch, function(x) {
     dt = data,
     XVar = x,
     YVar = "Independent_Variable8",
-    Height = "300px",
-    title.text = paste0("Factor_1: ", x),
-    itemStyle.color = c("red","#BDD5FF","blue"),
-    itemStyle.opacity = c(0.9,0.4,0.05),
-    legend.show = FALSE)
+    Height = "400px",
+    title.text = paste0("Factor_1: ", x)
+  )
 })
 
 AutoPlots::display_plots_grid(
   plot_list,
   cols = 1
 )
-
 ```
 
 <br>
@@ -434,11 +396,10 @@ dt <- data.table::as.data.table(X)
 data.table::setnames(dt, paste0("x", seq_len(p)))
 
 # Build plot
-p1 <- AutoPlots::Copula(
+AutoPlots::Copula(
   dt = dt,
   XVar = "x1",
-  YVar = "x2",
-  legend.show = FALSE
+  YVar = "x2"
 )
 ```
 
@@ -470,8 +431,7 @@ p1 <- AutoPlots::Copula(
   dt = dt,
   XVar = "x1",
   YVar = "x2",
-  title.text = "x1 vs. x2",
-  legend.show = FALSE
+  title.text = "x1 vs. x2"
 )
 
 # Build plot
@@ -479,8 +439,7 @@ p2 <- AutoPlots::Copula(
   dt = dt,
   XVar = "x1",
   YVar = "x3",
-  title.text = "x1 vs. x3",
-  legend.show = FALSE
+  title.text = "x1 vs. x3"
 )
 
 # Build plot
@@ -488,8 +447,7 @@ p3 <- AutoPlots::Copula(
   dt = dt,
   XVar = "x2",
   YVar = "x3",
-  title.text = "x2 vs. x3",
-  legend.show = FALSE
+  title.text = "x2 vs. x3"
 )
 
 # Build plot
@@ -497,8 +455,7 @@ p4 <- AutoPlots::Copula(
   dt = dt,
   XVar = "x3",
   YVar = "x4",
-  title.text = "x3 vs. x4",
-  legend.show = FALSE
+  title.text = "x3 vs. x4"
 )
 
 AutoPlots::display_plots_grid(
@@ -544,9 +501,7 @@ AutoPlots::CorrMatrix(
   dt = dt,
   PreAgg = FALSE,
   Method = "Spearman",
-  CorrVars = c("x1","x2","x3","x4"),
-  ShowLabels = TRUE,
-  visualMap.InRange.color = c("white", "gray", "darkblue")
+  CorrVars = c("x1","x2","x3","x4")
 )
 ```
 
@@ -578,7 +533,6 @@ p1 <- AutoPlots::CorrMatrix(
   PreAgg = FALSE,
   Method = "Spearman",
   CorrVars = c("x1","x2","x3","x4"),
-  ShowLabels = TRUE,
   visualMap.InRange.color = c("white", "gray", "darkblue"),
   title.text = "Spearman Correlation"
 )
@@ -588,7 +542,6 @@ p2 <- AutoPlots::CorrMatrix(
   PreAgg = FALSE,
   Method = "Pearson",
   CorrVars = c("x1","x2","x3","x4"),
-  ShowLabels = TRUE,
   visualMap.InRange.color = c("white", "gray", "darkgreen"),
   title.text = "Pearson Correlation"
 )
@@ -598,7 +551,6 @@ p3 <- AutoPlots::CorrMatrix(
   PreAgg = FALSE,
   Method = "Kendall",
   CorrVars = c("x1","x2","x3","x4"),
-  ShowLabels = TRUE,
   visualMap.InRange.color = c("white", "gray", "darkred"),
   title.text = "Kendall's Tau Correlation"
 )
@@ -633,10 +585,7 @@ data <- data.table::data.table(IndepVar = rnorm(1000, mean = 0, sd = 1))
 # Build plot
 AutoPlots::Density(
   dt = data,
-  XVar = "IndepVar",
-  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
-  areaStyle.opacity = c(0.9,0.4,0.05),
-  legend.show = FALSE
+  XVar = "IndepVar"
 )
 ```
 
@@ -658,37 +607,25 @@ data[, IndepVar4 := rnorm(1000, mean = 10, sd = 20)]
 p1 <- AutoPlots::Density(
   dt = data,
   XVar = "IndepVar",
-  title.text = "IndepVar",
-  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
-  areaStyle.opacity = c(0.9,0.4,0.05),
-  legend.show = FALSE
+  title.text = "IndepVar"
 )
 
 p2 <- AutoPlots::Density(
   dt = data,
   XVar = "IndepVar2",
-  title.text = "IndepVar2",
-  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
-  areaStyle.opacity = c(0.9,0.4,0.05),
-  legend.show = FALSE
+  title.text = "IndepVar2"
 )
 
 p3 <- AutoPlots::Density(
   dt = data,
   XVar = "IndepVar3",
-  title.text = "IndepVar3",
-  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
-  areaStyle.opacity = c(0.9,0.4,0.05),
-  legend.show = FALSE
+  title.text = "IndepVar3"
 )
 
 p4 <- AutoPlots::Density(
   dt = data,
   XVar = "IndepVar4",
-  title.text = "IndepVar4",
-  areaStyle.color = c("#697AFF","#A1ADFF","#D9DEFF"),
-  areaStyle.opacity = c(0.9,0.4,0.05),
-  legend.show = FALSE
+  title.text = "IndepVar4"
 )
 
 AutoPlots::display_plots_grid(
@@ -795,13 +732,9 @@ AutoPlots::HeatMap(
   dt = data,
   XVar = "Factor_1",
   YVar = "Factor_2",
-  ZVar = "IndepVar",
-  title.text = "V1",
-  label.show = TRUE,
-  label.fontWeight = "bolder",
-  emphasis.shadowColor = "white",
-  emphasis.shadowBlur = 10, 
-  visualMap.InRange.color = c("blue", "white", "red")
+  ZVar = "IndepVar"
+)
+ange.color = c("blue", "white", "red")
 )
 ```
 
@@ -825,12 +758,7 @@ p1 <- AutoPlots::HeatMap(
   XVar = "Factor_1",
   YVar = "Factor_2",
   ZVar = "IndepVar",
-  title.text = "V1",
-  label.show = TRUE,
-  label.fontWeight = "bolder",
-  emphasis.shadowColor = "white",
-  emphasis.shadowBlur = 10, 
-  visualMap.InRange.color = c("blue", "white", "red")
+  title.text = "V1"
 )
 
 # Create fake data
@@ -846,10 +774,6 @@ p2 <- AutoPlots::HeatMap(
   YVar = "Factor_2",
   ZVar = "IndepVar",
   title.text = "V2",
-  label.show = TRUE,
-  label.fontWeight = "bolder",
-  emphasis.shadowColor = "white",
-  emphasis.shadowBlur = 10, 
   visualMap.InRange.color = c("green", "white", "orange")
 )
 
@@ -857,7 +781,6 @@ AutoPlots::display_plots_grid(
   list(p1, p2),
   cols = 1
 )
-
 ```
 
 <br>
@@ -883,10 +806,7 @@ data <- data.table::data.table(Variable = rnorm(n = 1000, mean = 5, sd = 2))
 # Build Plots
 AutoPlots::Histogram(
   dt = data,
-  XVar = "Variable",
-  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
-  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
-  legend.show = FALSE
+  XVar = "Variable"
 )
 ```
 
@@ -908,39 +828,27 @@ data[, Variable4 := rnorm(n = 1000, mean = 5, sd = 20)]
 p1 <- AutoPlots::Histogram(
   dt = data,
   XVar = "Variable",
-  title.text = "Var",
-  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
-  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
-  legend.show = FALSE
+  title.text = "Var"
 )
 
 p2 <- AutoPlots::Histogram(
   dt = data,
   XVar = "Variable2",
-  title.text = "Var2",
-  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
-  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
-  legend.show = FALSE
+  title.text = "Var2"
 )
 
 p3 <- AutoPlots::Histogram(
   dt = data,
   XVar = "Variable3",
-  title.text = "Var3",
-  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
-  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
-  legend.show = FALSE
+  title.text = "Var3"
 )
 
 p4 <- AutoPlots::Histogram(
   dt = data,
   XVar = "Variable4",
-  title.text = "Var4",
-  backgroundStyle.color = c("lightblue","darkblue","blue","blue"),
-  backgroundStyle.opacity = c(0.9,0.7,0.6,0.05),
-  legend.show = FALSE
+  title.text = "Var4"
 )
-  
+
 AutoPlots::display_plots_grid(
   list(p1,p2,p3,p4),
   cols = 2
@@ -974,10 +882,7 @@ data <- data[, .(
 AutoPlots::Line(
   dt = data,
   XVar = "DateTime",
-  YVar = "IndepVar",
-  title.text = "IndepVar",
-  lineStyle.color = c("red","#3848FF","blue"),
-  legend.show = FALSE
+  YVar = "IndepVar"
 )
 ```
 
@@ -1003,36 +908,28 @@ p1 <- AutoPlots::Line(
   dt = data,
   XVar = "DateTime",
   YVar = "IndepVar",
-  title.text = "IndepVar",
-  lineStyle.color = c("red","#3848FF","blue"),
-  legend.show = FALSE
+  title.text = "IndepVar"
 )
 
 p2 <- AutoPlots::Line(
   dt = data,
   XVar = "DateTime",
   YVar = "IndepVar2",
-  title.text = "IndepVar2",
-  lineStyle.color = c("red","#3848FF","blue"),
-  legend.show = FALSE
+  title.text = "IndepVar2"
 )
 
 p3 <- AutoPlots::Line(
   dt = data,
   XVar = "DateTime",
   YVar = "IndepVar3",
-  title.text = "IndepVar3",
-  lineStyle.color = c("red","#3848FF","blue"),
-  legend.show = FALSE
+  title.text = "IndepVar3"
 )
 
 p4 <- AutoPlots::Line(
   dt = data,
   XVar = "DateTime",
   YVar = "IndepVar4",
-  title.text = "IndepVar4",
-  lineStyle.color = c("red","#3848FF","blue"),
-  legend.show = FALSE
+  title.text = "IndepVar4"
 )
 
 AutoPlots::display_plots_grid(
@@ -1072,15 +969,11 @@ X <- X_cor %*% diag(sds)                               # set std devs
 X <- sweep(X, 2, mu, `+`)                              # set means
 dt <- data.table::as.data.table(X)
 data.table::setnames(dt, paste0("x", seq_len(p)))
-data.table::setnames(dt, "x1", "bl bl bl")
 
 # Build Plot
 AutoPlots::Parallel(
   dt = dt,
-  CorrVars = names(dt),
-  ShowLabels = T,
-  lineStyle.color = "#00C7FF",
-  lineStyle.width = 0.2
+  CorrVars = names(dt)
 )
 ```
 
@@ -1106,9 +999,6 @@ plot_list <- lapply(group_vars, function(x) {
   AutoPlots::Parallel(
     dt = data[Factor_1 == x],
     CorrVars = paste0("x", 1:8),
-    ShowLabels = T,
-    lineStyle.color = "#00C7FF",
-    lineStyle.width = 0.2,
     title.text = x
   )
 })
@@ -1147,8 +1037,8 @@ data <- data[, .(
 AutoPlots::Pie(
   dt = data,
   XVar = "Factor_1",
-  YVar = "IndepVar",
-  ShowLabels = T)
+  YVar = "IndepVar"
+)
 ```
 
 <br>
@@ -1174,14 +1064,14 @@ p1 <- AutoPlots::Pie(
   XVar = "Factor_1",
   YVar = "IndepVar",
   title.text = "Factor_1",
-  ShowLabels = T)
+)
 
 p2 <- AutoPlots::Pie(
   dt = dt2,
   XVar = "Factor_2",
   YVar = "IndepVar",
   title.text = "Factor_2",
-  ShowLabels = T)
+)
 
 AutoPlots::display_plots_grid(
   list(p1, p2),
@@ -1216,12 +1106,10 @@ dt <- data.table::data.table(
 # Create plot
 AutoPlots::Radar(
   dt = dt,
-  AggMethod = "mean",
-  ShowLabels = TRUE,
   PreAgg = FALSE,
   YVar = c("Y1","Y2","Y3"),
-  GroupVar = "GV",
-  lineStyle.color = c("#00BFFF", "#FF69B4", "#32CD32"))
+  GroupVar = "GV"
+)
 ```
 
 <br>
@@ -1248,23 +1136,19 @@ dt2 <- data.table::data.table(
 # Create plot
 p1 <- AutoPlots::Radar(
   dt = dt,
-  AggMethod = "mean",
-  ShowLabels = TRUE,
   PreAgg = FALSE,
   YVar = c("Y1","Y2","Y3"),
   GroupVar = "GV",
   title.text = "Data 1",
-  lineStyle.color = c("#00BFFF", "#FF69B4", "#32CD32"))
+)
 
 p2 <- AutoPlots::Radar(
   dt = dt2,
-  AggMethod = "mean",
-  ShowLabels = TRUE,
   PreAgg = FALSE,
   YVar = c("Y1","Y2","Y3"),
   GroupVar = "GV",
   title.text = "Data 2",
-  lineStyle.color = c("#00BFFF", "#FF69B4", "#32CD32"))
+)
 
 AutoPlots::display_plots_grid(
   list(p1,p2),
@@ -1302,13 +1186,11 @@ dt <- data.table::data.table(
 # Build Plot
 AutoPlots::River(
   dt = dt,
-  PreAgg = TRUE,
   XVar = "dates",
   YVar = "values",
   GroupVar = "groups",
-  legend.orient = "horizontal",
-  itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4")
-  )
+  legend.orient = "horizontal"
+)
 ```
 
 <br>
@@ -1335,25 +1217,22 @@ dt2 <- data.table::data.table(
   groups = grps,
   values = runif(length(grps), 1, 50)
 )
-+-
+
 # Build Plot
 p1 <- AutoPlots::River(
   dt = dt1,
-  PreAgg = TRUE,
   XVar = "dates",
   YVar = "values",
   GroupVar = "groups",
   title.text = "Data 1",
-  legend.orient = "horizontal",
-  itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4")
-  )
+  legend.orient = "horizontal"
+)
 
 p2 <- AutoPlots::River(
   dt = dt2,
-  PreAgg = TRUE,
   XVar = "dates",
   YVar = "values",
-  GroupVar = "groups"
+  GroupVar = "groups",
   title.text = "Data 2",
   legend.orient = "horizontal",
   itemStyle.color = c("#00FFFF", "#FF7F50", "#8A2BE2", "#00FF7F", "#FF4500"))
@@ -1624,10 +1503,7 @@ data <- data[, .(
 AutoPlots::Step(
   dt = data,
   XVar = "DateTime",
-  YVar = "IndepVar",
-  title.text = "IndepVar",
-  lineStyle.color = c("red","#3848FF","blue"),
-  legend.show = FALSE
+  YVar = "IndepVar"
 )
 ```
 

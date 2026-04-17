@@ -677,6 +677,10 @@ Density <- function(dt = NULL,
                     toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
 
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "Density", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
+
   # Cap number of records
   if(length(SampleSize) == 0L) SampleSize <- 30000
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -2158,6 +2162,9 @@ Histogram <- function(dt = NULL,
                       toolbox.iconStyle.shadowOffsetX = NULL,
                       toolbox.iconStyle.shadowOffsetY = NULL,
                       Debug = FALSE) {
+
+  apply_theme_defaults(Theme, plot_type = "Histogram", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
@@ -4431,6 +4438,7 @@ Pie <- function(dt = NULL,
                 toolbox.iconStyle.shadowOffsetY = NULL,
                 Debug = FALSE) {
 
+  apply_theme_defaults(Theme, plot_type = "Pie", env = environment())
   if(length(YVar) > 0L) YVar <- YVar[1L]
   if(length(XVar) > 0L) XVar <- XVar[1L]
 
@@ -5199,6 +5207,8 @@ Donut <- function(dt = NULL,
                   toolbox.iconStyle.shadowOffsetX = NULL,
                   toolbox.iconStyle.shadowOffsetY = NULL,
                   Debug = FALSE) {
+
+  apply_theme_defaults(Theme, plot_type = "Donut", env = environment())
 
   if(length(YVar) > 0L) YVar <- YVar[1L]
   if(length(XVar) > 0L) XVar <- XVar[1L]
@@ -5973,6 +5983,10 @@ Rosetype <- function(dt = NULL,
                      toolbox.iconStyle.shadowOffsetX = NULL,
                      toolbox.iconStyle.shadowOffsetY = NULL,
                      Debug = FALSE) {
+
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "Rosetype", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
 
   if(length(YVar) > 0L) YVar <- YVar[1L]
   if(length(XVar) > 0L) XVar <- XVar[1L]
@@ -6937,6 +6951,9 @@ Box <- function(dt = NULL,
   # Turn off Faceting until I can figure out how to supply it
   FacetRows <- 1L
   FacetCols <- 1L
+
+  apply_theme_defaults(Theme, plot_type = "Box", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
 
   # Ensure data.table
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -8557,7 +8574,6 @@ Line <- function(dt = NULL,
                  TimeLine = FALSE,
                  Smooth = TRUE,
                  ShowSymbol = FALSE,
-
                  DarkMode = FALSE,
                  lineStyle.color = NULL,
                  title.text = "Line Plot",
@@ -8857,6 +8873,9 @@ Line <- function(dt = NULL,
                  toolbox.iconStyle.shadowOffsetY = NULL,
                  Debug = FALSE) {
 
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "Line", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
@@ -10157,38 +10176,8 @@ Area <- function(dt = NULL,
                  Debug = FALSE) {
 
   # Theme overrides
-  if (Theme == "dark") {
-    if (is.null(areaStyle.color)) areaStyle.color <- c("#DEEAFC","#91C1FF","#1474FF")
-    if (is.null(areaStyle.opacity)) areaStyle.opacity <- c(1.0,0.75,0.35)
-    if (is.null(GroupVar)) legend.show <- FALSE
-    if (is.null(title.textStyle.color)) title.textStyle.color <- "#DEEAFC"
-    if (is.null(title.textStyle.textShadowColor)) title.textStyle.textShadowColor <- "#5298FF"
-    if (is.null(title.textStyle.textShadowBlur)) title.textStyle.textShadowBlur <- 15
-    if (is.null(title.textStyle.textShadowOffsetX)) title.textStyle.textShadowOffsetX <- 0
-    if (is.null(title.textStyle.textShadowOffsetY)) title.textStyle.textShadowOffsetY <- 0
-    if (is.null(title.top)) title.top <- 12
-    if (is.null(title.left)) title.left <- 12
-    if (is.null(title.padding)) title.padding <- c(4,4,10,4)
-    if (is.null(title.itemGap)) title.itemGap <- 6
-    if (is.null(title.subtextStyle.color)) title.subtextStyle.color <- "#9BAAC2"
-    if (is.null(title.subtextStyle.textShadowColor)) title.subtextStyle.textShadowColor <- "#5298FF"
-    if (is.null(title.subtextStyle.textShadowBlur)) title.subtextStyle.textShadowBlur <- 15
-    if (is.null(title.subtextStyle.textShadowOffsetX)) title.subtextStyle.textShadowOffsetX <- 0
-    if (is.null(title.subtextStyle.textShadowOffsetY)) title.subtextStyle.textShadowOffsetY <- 0
-    if (is.null(title.subtextStyle.fontWeight)) title.subtextStyle.fontWeight <- "bold"
-    if (is.null(yAxis.nameTextStyle.fontSize)) yAxis.nameTextStyle.fontSize <- 20
-    if (is.null(yAxis.nameTextStyle.padding)) yAxis.nameTextStyle.padding <- 60
-    if (is.null(xAxis.nameTextStyle.fontSize)) xAxis.nameTextStyle.fontSize <- 20
-    if (is.null(tooltip.backgroundColor)) tooltip.backgroundColor <- "#002259"
-    if (is.null(tooltip.textStyle.color)) tooltip.textStyle.color <- "#91C1FF"
-    if (is.null(xAxis.nameTextStyle.color)) xAxis.nameTextStyle.color <- "#DEEAFC"
-    if (is.null(yAxis.nameTextStyle.color)) yAxis.nameTextStyle.color <- "#DEEAFC"
-    if (is.null(xAxis.axisLabel.color)) xAxis.axisLabel.color <- "#ABD5FF"
-    if (is.null(yAxis.axisLabel.color)) yAxis.axisLabel.color <- "#ABD5FF"
-    if (is.null(xAxis.axisLabel.overflow)) xAxis.axisLabel.overflow <- "truncate"
-    if (is.null(toolbox.iconStyle.borderColor)) toolbox.iconStyle.borderColor <- "#DEEAFC"
-    if (is.null(toolbox.emphasis.iconStyle.borderColor)) toolbox.emphasis.iconStyle.borderColor <- "#5E8DD1"
-  }
+  apply_theme_defaults(Theme, plot_type = "Area", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
@@ -11173,7 +11162,6 @@ Step <- function(dt = NULL,
                  MouseScroll = FALSE,
                  TimeLine = FALSE,
                  ShowSymbol = FALSE,
-
                  lineStyle.color = NULL,
                  title.text = "Step Plot",
                  title.subtext = NULL,
@@ -11472,6 +11460,9 @@ Step <- function(dt = NULL,
                  toolbox.iconStyle.shadowOffsetY = NULL,
                  Debug = FALSE) {
 
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "Step", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
@@ -12445,8 +12436,8 @@ River <- function(dt = NULL,
                   legend.width = NULL,
                   legend.height = NULL,
                   legend.left = NULL,
-                  legend.right = 10,
-                  legend.top = 30,
+                  legend.right = 30,
+                  legend.top = 45,
                   legend.bottom = NULL,
                   legend.backgroundColor = NULL,
                   legend.borderColor = NULL,
@@ -12595,6 +12586,10 @@ River <- function(dt = NULL,
                   toolbox.iconStyle.shadowOffsetX = NULL,
                   toolbox.iconStyle.shadowOffsetY = NULL,
                   Debug = FALSE) {
+
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "River", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(length(GroupVar) == 0L && length(YVar) <= 1L) {
@@ -13243,7 +13238,6 @@ Bar <- function(dt = NULL,
                 Theme = "dark",
                 MouseScroll = FALSE,
                 TimeLine = FALSE,
-
                 backgroundStyle.color = NULL,
                 backgroundStyle.opacity = NULL,
                 title.text = "Bar Plot",
@@ -13547,6 +13541,9 @@ Bar <- function(dt = NULL,
     dt <- data.table::as.data.table(dt)
   })
 
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "Bar", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
   # Convert factor to character
@@ -19681,6 +19678,8 @@ HeatMap <- function(dt,
                     toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
 
+  apply_theme_defaults(Theme, plot_type = "HeatMap", env = environment())
+
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
@@ -20945,7 +20944,6 @@ Radar <- function(dt = NULL,
                   ShowLabels = FALSE,
                   Theme = "dark",
                   ShowSymbol = FALSE,
-
                   DarkMode = FALSE,
                   lineStyle.color = NULL,
                   title.text = "Radar Plot",
@@ -21162,6 +21160,10 @@ Radar <- function(dt = NULL,
                   toolbox.iconStyle.shadowOffsetX = NULL,
                   toolbox.iconStyle.shadowOffsetY = NULL,
                   Debug = FALSE) {
+
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "Radar", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
@@ -21793,7 +21795,7 @@ CorrMatrix <- function(dt = NULL,
                        MaxNAPercent = 0.05,
                        Height = NULL,
                        Width = NULL,
-                       ShowLabels = FALSE,
+                       ShowLabels = TRUE,
                        Theme = "dark",
                        MouseScroll = FALSE,
                        visualMap.show = TRUE,
@@ -22107,6 +22109,8 @@ CorrMatrix <- function(dt = NULL,
                        toolbox.iconStyle.shadowOffsetX = NULL,
                        toolbox.iconStyle.shadowOffsetY = NULL,
                        Debug = FALSE) {
+
+  apply_theme_defaults(Theme, plot_type = "CorrMatrix", env = environment())
 
   # Filter out bad vars
   x <- c(); for(i in CorrVars) if(dt[, stats::sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
@@ -22985,6 +22989,8 @@ Parallel <- function(dt = NULL,
                      toolbox.iconStyle.shadowOffsetY = NULL,
                      Debug = FALSE) {
 
+  apply_theme_defaults(Theme, plot_type = "Parallel", env = environment())
+
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
   })
@@ -23505,7 +23511,6 @@ Copula <- function(dt = NULL,
                    Theme = "dark",
                    MouseScroll = FALSE,
                    TimeLine = FALSE,
-
                    title.text = "Copula Plot",
                    title.subtext = NULL,
                    title.link = NULL,
@@ -23802,6 +23807,9 @@ Copula <- function(dt = NULL,
                    toolbox.iconStyle.shadowOffsetX = NULL,
                    toolbox.iconStyle.shadowOffsetY = NULL,
                    Debug = FALSE) {
+
+  apply_theme_defaults(Theme, plot_type = "Copula", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
@@ -25787,7 +25795,6 @@ Scatter <- function(dt = NULL,
                     Theme = "dark",
                     MouseScroll = FALSE,
                     TimeLine = FALSE,
-
                     title.text = "Scatter Plot",
                     title.subtext = NULL,
                     title.link = NULL,
@@ -26084,6 +26091,10 @@ Scatter <- function(dt = NULL,
                     toolbox.iconStyle.shadowOffsetX = NULL,
                     toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
+
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "Scatter", env = environment())
+  if (is.null(GroupVar)) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 

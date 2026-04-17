@@ -211,7 +211,6 @@ AutoPlots::ProbabilityPlot(
   Width = NULL,
   ShowLabels = FALSE,
   Theme = "blue",
-
   Debug = FALSE)
 
 }

@@ -16,7 +16,7 @@ CorrMatrix(
   MaxNAPercent = 0.05,
   Height = NULL,
   Width = NULL,
-  ShowLabels = FALSE,
+  ShowLabels = TRUE,
   Theme = "dark",
   MouseScroll = FALSE,
   visualMap.show = TRUE,
