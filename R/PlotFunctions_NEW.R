@@ -678,7 +678,7 @@ Density <- function(dt = NULL,
                     Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Density", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Density", grouped = !is.null(GroupVar), env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   # Cap number of records
@@ -2163,7 +2163,7 @@ Histogram <- function(dt = NULL,
                       toolbox.iconStyle.shadowOffsetY = NULL,
                       Debug = FALSE) {
 
-  apply_theme_defaults(Theme, plot_type = "Histogram", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Histogram", grouped = !is.null(GroupVar), env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -4438,7 +4438,7 @@ Pie <- function(dt = NULL,
                 toolbox.iconStyle.shadowOffsetY = NULL,
                 Debug = FALSE) {
 
-  apply_theme_defaults(Theme, plot_type = "Pie", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Pie", grouped = FALSE, env = environment())
   if(length(YVar) > 0L) YVar <- YVar[1L]
   if(length(XVar) > 0L) XVar <- XVar[1L]
 
@@ -5208,7 +5208,7 @@ Donut <- function(dt = NULL,
                   toolbox.iconStyle.shadowOffsetY = NULL,
                   Debug = FALSE) {
 
-  apply_theme_defaults(Theme, plot_type = "Donut", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Donut", grouped = FALSE, env = environment())
 
   if(length(YVar) > 0L) YVar <- YVar[1L]
   if(length(XVar) > 0L) XVar <- XVar[1L]
@@ -5985,7 +5985,7 @@ Rosetype <- function(dt = NULL,
                      Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Rosetype", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Rosetype", grouped = FALSE, env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   if(length(YVar) > 0L) YVar <- YVar[1L]
@@ -6952,7 +6952,7 @@ Box <- function(dt = NULL,
   FacetRows <- 1L
   FacetCols <- 1L
 
-  apply_theme_defaults(Theme, plot_type = "Box", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Box", grouped = !is.null(GroupVar), env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   # Ensure data.table
@@ -8874,7 +8874,7 @@ Line <- function(dt = NULL,
                  Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Line", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Line", grouped = !is.null(GroupVar), env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
@@ -10176,7 +10176,7 @@ Area <- function(dt = NULL,
                  Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Area", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Area", grouped = !is.null(GroupVar), env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
@@ -11461,7 +11461,7 @@ Step <- function(dt = NULL,
                  Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Step", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Step", grouped = !is.null(GroupVar), env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
@@ -12588,7 +12588,7 @@ River <- function(dt = NULL,
                   Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "River", env = environment())
+  apply_theme_defaults(Theme, plot_type = "River", grouped = !is.null(GroupVar), env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
@@ -13542,7 +13542,7 @@ Bar <- function(dt = NULL,
   })
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Bar", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Bar", grouped = !is.null(GroupVar), env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
@@ -19678,7 +19678,7 @@ HeatMap <- function(dt,
                     toolbox.iconStyle.shadowOffsetY = NULL,
                     Debug = FALSE) {
 
-  apply_theme_defaults(Theme, plot_type = "HeatMap", env = environment())
+  apply_theme_defaults(Theme, plot_type = "HeatMap", grouped = FALSE, env = environment())
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
@@ -21162,7 +21162,7 @@ Radar <- function(dt = NULL,
                   Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Radar", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Radar", grouped = FALSE, env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -22110,7 +22110,7 @@ CorrMatrix <- function(dt = NULL,
                        toolbox.iconStyle.shadowOffsetY = NULL,
                        Debug = FALSE) {
 
-  apply_theme_defaults(Theme, plot_type = "CorrMatrix", env = environment())
+  apply_theme_defaults(Theme, plot_type = "CorrMatrix", grouped = FALSE, env = environment())
 
   # Filter out bad vars
   x <- c(); for(i in CorrVars) if(dt[, stats::sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
@@ -22989,7 +22989,7 @@ Parallel <- function(dt = NULL,
                      toolbox.iconStyle.shadowOffsetY = NULL,
                      Debug = FALSE) {
 
-  apply_theme_defaults(Theme, plot_type = "Parallel", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Parallel", grouped = FALSE, env = environment())
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
@@ -23808,7 +23808,7 @@ Copula <- function(dt = NULL,
                    toolbox.iconStyle.shadowOffsetY = NULL,
                    Debug = FALSE) {
 
-  apply_theme_defaults(Theme, plot_type = "Copula", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Copula", grouped = FALSE, env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -26093,7 +26093,7 @@ Scatter <- function(dt = NULL,
                     Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Scatter", env = environment())
+  apply_theme_defaults(Theme, plot_type = "Scatter", grouped = FALSE, env = environment())
   if (is.null(GroupVar)) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
