@@ -66,8 +66,6 @@ get_theme_defaults_common <- function(theme = "dark") {
 }
 
 get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = FALSE) {
-  if (is.null(plot_type)) return(NULL)
-
   switch(
     theme,
     macarons = switch(
@@ -184,7 +182,8 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
         lineStyle.width = 0.2
       ),
       Radar = list(
-        lineStyle.color = c("#00BFFF", "#FF69B4", "#32CD32")
+        lineStyle.color = c("#00BFFF", "#FF69B4", "#32CD32"),
+        legend.top = 45
       ),
       River = list(
         itemStyle.color = c("#FF4C4C", "#00BFFF", "#FFD700", "#32CD32", "#FF69B4")
@@ -207,32 +206,16 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
 }
 
 set_null_defaults <- function(defaults, env) {
-  if (is.null(defaults)) {
-    return(invisible(NULL))
-  }
-
-  stopifnot(is.list(defaults))
-  stopifnot(is.environment(env))
-
   nms <- names(defaults)
-  if (is.null(nms)) {
-    stop("`defaults` must be a named list.")
-  }
-
   valid <- !is.na(nms) & nzchar(nms)
-
   for (i in which(valid)) {
     nm <- nms[[i]]
-
     if (!exists(nm, envir = env, inherits = FALSE)) next
-
     current_value <- get(nm, envir = env, inherits = FALSE)
-
     if (is.null(current_value)) {
       assign(nm, defaults[[i]], envir = env)
     }
   }
-
   invisible(NULL)
 }
 

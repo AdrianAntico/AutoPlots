@@ -733,8 +733,6 @@ AutoPlots::HeatMap(
   YVar = "Factor_2",
   ZVar = "IndepVar"
 )
-ange.color = c("blue", "white", "red")
-)
 ```
 
 <br>
