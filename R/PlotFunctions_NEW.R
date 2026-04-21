@@ -8875,7 +8875,7 @@ Line <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "Line", grouped = !is.null(GroupVar), env = environment())
-  if (is.null(GroupVar)) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) == 1) legend.show <- FALSE
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
@@ -10177,7 +10177,7 @@ Area <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "Area", grouped = !is.null(GroupVar), env = environment())
-  if (is.null(GroupVar)) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) == 1) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
@@ -11462,7 +11462,7 @@ Step <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "Step", grouped = !is.null(GroupVar), env = environment())
-  if (is.null(GroupVar)) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) == 1) legend.show <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
@@ -12589,7 +12589,7 @@ River <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "River", grouped = !is.null(GroupVar), env = environment())
-  if (is.null(GroupVar)) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) > 1) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(length(GroupVar) == 0L && length(YVar) <= 1L) {
@@ -13543,7 +13543,7 @@ Bar <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "Bar", grouped = !is.null(GroupVar), env = environment())
-  if (is.null(GroupVar)) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) == 1) legend.show <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
   # Convert factor to character
@@ -21163,7 +21163,7 @@ Radar <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "Radar", grouped = FALSE, env = environment())
-  if (is.null(GroupVar)) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) == 1) legend.show <- FALSE
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
