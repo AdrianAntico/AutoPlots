@@ -16907,7 +16907,6 @@ StackedBar <- function(dt = NULL,
                        Theme = "dark",
                        MouseScroll = FALSE,
                        TimeLine = FALSE,
-
                        title.text = "Stacked Bar Plot",
                        title.subtext = NULL,
                        title.link = NULL,
@@ -17204,6 +17203,9 @@ StackedBar <- function(dt = NULL,
                        toolbox.iconStyle.shadowOffsetX = NULL,
                        toolbox.iconStyle.shadowOffsetY = NULL,
                        Debug = FALSE) {
+
+  # Theme overrides
+  apply_theme_defaults(Theme, plot_type = "StackedBar", grouped = TRUE, env = environment())
 
   if(length(XVar) == 0L) return(NULL)
   if(length(YVar) == 0L) return(NULL)
