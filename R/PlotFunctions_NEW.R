@@ -8875,7 +8875,7 @@ Line <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "Line", grouped = !is.null(GroupVar), env = environment())
-  if (is.null(GroupVar) & length(YVar) == 1) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) == 1 & is.null(DualYVar)) legend.show <- FALSE
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
@@ -10177,7 +10177,7 @@ Area <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "Area", grouped = !is.null(GroupVar), env = environment())
-  if (is.null(GroupVar) & length(YVar) == 1) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) == 1 & is.null(DualYVar)) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
@@ -11462,7 +11462,7 @@ Step <- function(dt = NULL,
 
   # Theme overrides
   apply_theme_defaults(Theme, plot_type = "Step", grouped = !is.null(GroupVar), env = environment())
-  if (is.null(GroupVar) & length(YVar) == 1) legend.show <- FALSE
+  if (is.null(GroupVar) & length(YVar) == 1 & is.null(DualYVar)) legend.show <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
@@ -29312,7 +29312,6 @@ ConfusionMatrix <- function(dt = NULL,
                                  TimeLine = FALSE,
                                  AggMethod = "count",
                                  GroupVar = NULL,
-
                                  Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -29623,7 +29622,6 @@ Lift <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Theme = Theme,
       TimeLine = FALSE,
-
       Debug = FALSE)
 
   } else {
@@ -29649,7 +29647,6 @@ Lift <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
-
       Debug = FALSE)
   }
 
@@ -29914,7 +29911,6 @@ Gains <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
-
       Debug = FALSE)
 
   } else {
@@ -29939,7 +29935,6 @@ Gains <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
-
       Debug = FALSE)
   }
 
@@ -30064,7 +30059,6 @@ BinaryMetricsPlot <- function(dt = NULL,
     Width = Width,
     Theme = Theme,
     TimeLine = tl,
-
     Debug = Debug)
   return(p1)
 }
