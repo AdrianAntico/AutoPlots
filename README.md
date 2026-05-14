@@ -67,11 +67,7 @@ devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE
 library(AutoPlots)
 dt <- data.table::data.table(x = rnorm(1000))
 
-AutoPlots::Density(
-  dt,
-  XVar = "x",
-  legend.show = FALSE
-)
+AutoPlots::Density(dt, XVar = "x")
 
 ```
 
