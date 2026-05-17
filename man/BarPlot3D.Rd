@@ -90,6 +90,10 @@ BarPlot3D(
   xAxis.nameTextStyle.fontWeight = "bolder",
   xAxis.nameTextStyle.fontSize = NULL,
   xAxis.nameTextStyle.fontFamily = "Segoe UI",
+  xAxis.nameTextStyle.textShadowColor = NULL,
+  xAxis.nameTextStyle.textShadowBlur = NULL,
+  xAxis.nameTextStyle.textShadowOffsetX = NULL,
+  xAxis.nameTextStyle.textShadowOffsetY = NULL,
   xAxis.splitNumber = NULL,
   xAxis.axisLabel.rotate = NULL,
   xAxis.axisLabel.margin = NULL,
@@ -131,6 +135,10 @@ BarPlot3D(
   yAxis.nameTextStyle.fontWeight = "bolder",
   yAxis.nameTextStyle.fontSize = NULL,
   yAxis.nameTextStyle.fontFamily = "Segoe UI",
+  yAxis.nameTextStyle.textShadowColor = NULL,
+  yAxis.nameTextStyle.textShadowBlur = NULL,
+  yAxis.nameTextStyle.textShadowOffsetX = NULL,
+  yAxis.nameTextStyle.textShadowOffsetY = NULL,
   yAxis.splitNumber = NULL,
   yAxis.axisLabel.rotate = NULL,
   yAxis.axisLabel.margin = NULL,
@@ -494,6 +502,14 @@ BarPlot3D(
 
 \item{xAxis.nameTextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
 
+\item{xAxis.nameTextStyle.textShadowColor}{hex or named color}
+
+\item{xAxis.nameTextStyle.textShadowBlur}{numeric}
+
+\item{xAxis.nameTextStyle.textShadowOffsetX}{numeric}
+
+\item{xAxis.nameTextStyle.textShadowOffsetY}{numeric}
+
 \item{xAxis.splitNumber}{numeric. Increments for numeric axis labels}
 
 \item{xAxis.axisLabel.rotate}{numeric}
@@ -575,6 +591,14 @@ BarPlot3D(
 \item{yAxis.nameTextStyle.fontSize}{numeric}
 
 \item{yAxis.nameTextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{yAxis.nameTextStyle.textShadowColor}{hex or named color}
+
+\item{yAxis.nameTextStyle.textShadowBlur}{numeric}
+
+\item{yAxis.nameTextStyle.textShadowOffsetX}{numeric}
+
+\item{yAxis.nameTextStyle.textShadowOffsetY}{numeric}
 
 \item{yAxis.splitNumber}{numeric. Increments for numeric axis labels}
 

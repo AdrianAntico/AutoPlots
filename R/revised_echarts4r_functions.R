@@ -183,6 +183,10 @@ e_visual_map_full <- function(e,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -231,6 +235,10 @@ e_x_axis_full <- function(
     xAxis.nameTextStyle.fontWeight = NULL,
     xAxis.nameTextStyle.fontSize = NULL,
     xAxis.nameTextStyle.fontFamily = NULL,
+    xAxis.nameTextStyle.textShadowColor = NULL,
+    xAxis.nameTextStyle.textShadowBlur = NULL,
+    xAxis.nameTextStyle.textShadowOffsetX = NULL,
+    xAxis.nameTextStyle.textShadowOffsetY = NULL,
     xAxis.min = NULL,
     xAxis.max = NULL,
     xAxis.splitNumber = NULL,
@@ -270,7 +278,11 @@ e_x_axis_full <- function(
     fontStyle  = xAxis.nameTextStyle.fontStyle,
     fontWeight = xAxis.nameTextStyle.fontWeight,
     fontSize   = xAxis.nameTextStyle.fontSize,
-    fontFamily = xAxis.nameTextStyle.fontFamily
+    fontFamily = xAxis.nameTextStyle.fontFamily,
+    textShadowColor = xAxis.nameTextStyle.textShadowColor,
+    textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+    textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX,
+    textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY
   ))
 
   # Build the axisLabel list
@@ -354,6 +366,10 @@ e_x_axis_full <- function(
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -402,6 +418,10 @@ e_y_axis_full <- function(
     yAxis.nameTextStyle.fontWeight = NULL,
     yAxis.nameTextStyle.fontSize = NULL,
     yAxis.nameTextStyle.fontFamily = NULL,
+    yAxis.nameTextStyle.textShadowColor = NULL,
+    yAxis.nameTextStyle.textShadowBlur = NULL,
+    yAxis.nameTextStyle.textShadowOffsetX = NULL,
+    yAxis.nameTextStyle.textShadowOffsetY = NULL,
     yAxis.min = NULL,
     yAxis.max = NULL,
     yAxis.splitNumber = NULL,
@@ -441,7 +461,11 @@ e_y_axis_full <- function(
     fontStyle  = yAxis.nameTextStyle.fontStyle,
     fontWeight = yAxis.nameTextStyle.fontWeight,
     fontSize   = yAxis.nameTextStyle.fontSize,
-    fontFamily = yAxis.nameTextStyle.fontFamily
+    fontFamily = yAxis.nameTextStyle.fontFamily,
+    textShadowColor = yAxis.nameTextStyle.textShadowColor,
+    textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+    textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,
+    textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY
   ))
 
   # Build the axisLabel list

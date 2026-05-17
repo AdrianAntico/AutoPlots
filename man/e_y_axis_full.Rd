@@ -20,6 +20,10 @@ e_y_axis_full(
   yAxis.nameTextStyle.fontWeight = NULL,
   yAxis.nameTextStyle.fontSize = NULL,
   yAxis.nameTextStyle.fontFamily = NULL,
+  yAxis.nameTextStyle.textShadowColor = NULL,
+  yAxis.nameTextStyle.textShadowBlur = NULL,
+  yAxis.nameTextStyle.textShadowOffsetX = NULL,
+  yAxis.nameTextStyle.textShadowOffsetY = NULL,
   yAxis.min = NULL,
   yAxis.max = NULL,
   yAxis.splitNumber = NULL,
@@ -82,6 +86,14 @@ e_y_axis_full(
 \item{yAxis.nameTextStyle.fontSize}{numeric}
 
 \item{yAxis.nameTextStyle.fontFamily}{'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'}
+
+\item{yAxis.nameTextStyle.textShadowColor}{hex or named color}
+
+\item{yAxis.nameTextStyle.textShadowBlur}{numeric}
+
+\item{yAxis.nameTextStyle.textShadowOffsetX}{numeric}
+
+\item{yAxis.nameTextStyle.textShadowOffsetY}{numeric}
 
 \item{yAxis.min}{Min value}
 

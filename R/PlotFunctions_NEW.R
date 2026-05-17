@@ -107,6 +107,10 @@
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -148,6 +152,10 @@
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -445,6 +453,10 @@ Density <- function(dt = NULL,
                     xAxis.nameTextStyle.fontWeight = "bolder",
                     xAxis.nameTextStyle.fontSize = NULL,
                     xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                    xAxis.nameTextStyle.textShadowColor = NULL,
+                    xAxis.nameTextStyle.textShadowBlur = NULL,
+                    xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                    xAxis.nameTextStyle.textShadowOffsetY = NULL,
                     xAxis.splitNumber = NULL,
                     xAxis.axisLabel.rotate = NULL,
                     xAxis.axisLabel.margin = NULL,
@@ -486,6 +498,10 @@ Density <- function(dt = NULL,
                     yAxis.nameTextStyle.fontWeight = "bolder",
                     yAxis.nameTextStyle.fontSize = NULL,
                     yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                    yAxis.nameTextStyle.textShadowColor = NULL,
+                    yAxis.nameTextStyle.textShadowBlur = NULL,
+                    yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                    yAxis.nameTextStyle.textShadowOffsetY = NULL,
                     yAxis.splitNumber = NULL,
                     yAxis.axisLabel.rotate = NULL,
                     yAxis.axisLabel.margin = NULL,
@@ -826,6 +842,8 @@ Density <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -850,6 +868,8 @@ Density <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else NULL, index = 0, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -1089,6 +1109,8 @@ Density <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -1113,6 +1135,8 @@ Density <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else NULL, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -1593,6 +1617,10 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -1634,6 +1662,10 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -1931,6 +1963,10 @@ Histogram <- function(dt = NULL,
                       xAxis.nameTextStyle.fontWeight = "bolder",
                       xAxis.nameTextStyle.fontSize = NULL,
                       xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                      xAxis.nameTextStyle.textShadowColor = NULL,
+                      xAxis.nameTextStyle.textShadowBlur = NULL,
+                      xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                      xAxis.nameTextStyle.textShadowOffsetY = NULL,
                       xAxis.splitNumber = NULL,
                       xAxis.axisLabel.rotate = NULL,
                       xAxis.axisLabel.margin = NULL,
@@ -1972,6 +2008,10 @@ Histogram <- function(dt = NULL,
                       yAxis.nameTextStyle.fontWeight = "bolder",
                       yAxis.nameTextStyle.fontSize = NULL,
                       yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                      yAxis.nameTextStyle.textShadowColor = NULL,
+                      yAxis.nameTextStyle.textShadowBlur = NULL,
+                      yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                      yAxis.nameTextStyle.textShadowOffsetY = NULL,
                       yAxis.splitNumber = NULL,
                       yAxis.axisLabel.rotate = NULL,
                       yAxis.axisLabel.margin = NULL,
@@ -6365,6 +6405,10 @@ Rosetype <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -6406,6 +6450,10 @@ Rosetype <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -6714,6 +6762,10 @@ Box <- function(dt = NULL,
                 xAxis.nameTextStyle.fontWeight = "bolder",
                 xAxis.nameTextStyle.fontSize = NULL,
                 xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                xAxis.nameTextStyle.textShadowColor = NULL,
+                xAxis.nameTextStyle.textShadowBlur = NULL,
+                xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                xAxis.nameTextStyle.textShadowOffsetY = NULL,
                 xAxis.splitNumber = NULL,
                 xAxis.axisLabel.rotate = NULL,
                 xAxis.axisLabel.margin = NULL,
@@ -6755,6 +6807,10 @@ Box <- function(dt = NULL,
                 yAxis.nameTextStyle.fontWeight = "bolder",
                 yAxis.nameTextStyle.fontSize = NULL,
                 yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                yAxis.nameTextStyle.textShadowColor = NULL,
+                yAxis.nameTextStyle.textShadowBlur = NULL,
+                yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                yAxis.nameTextStyle.textShadowOffsetY = NULL,
                 yAxis.splitNumber = NULL,
                 yAxis.axisLabel.rotate = NULL,
                 yAxis.axisLabel.margin = NULL,
@@ -7152,6 +7208,8 @@ Box <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -7176,6 +7234,8 @@ Box <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -7363,6 +7423,8 @@ Box <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -7387,6 +7449,8 @@ Box <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -7575,6 +7639,8 @@ Box <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -7599,6 +7665,8 @@ Box <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -7780,6 +7848,8 @@ Box <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -7804,6 +7874,8 @@ Box <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -8302,6 +8374,10 @@ WordCloud <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -8343,6 +8419,10 @@ WordCloud <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -8641,6 +8721,10 @@ Line <- function(dt = NULL,
                  xAxis.nameTextStyle.fontWeight = "bolder",
                  xAxis.nameTextStyle.fontSize = NULL,
                  xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                 xAxis.nameTextStyle.textShadowColor = NULL,
+                 xAxis.nameTextStyle.textShadowBlur = NULL,
+                 xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                 xAxis.nameTextStyle.textShadowOffsetY = NULL,
                  xAxis.splitNumber = NULL,
                  xAxis.axisLabel.rotate = NULL,
                  xAxis.axisLabel.margin = NULL,
@@ -8682,6 +8766,10 @@ Line <- function(dt = NULL,
                  yAxis.nameTextStyle.fontWeight = "bolder",
                  yAxis.nameTextStyle.fontSize = NULL,
                  yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                 yAxis.nameTextStyle.textShadowColor = NULL,
+                 yAxis.nameTextStyle.textShadowBlur = NULL,
+                 yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                 yAxis.nameTextStyle.textShadowOffsetY = NULL,
                  yAxis.splitNumber = NULL,
                  yAxis.axisLabel.rotate = NULL,
                  yAxis.axisLabel.margin = NULL,
@@ -9066,6 +9154,8 @@ Line <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -9090,6 +9180,8 @@ Line <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -9349,6 +9441,8 @@ Line <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -9373,6 +9467,8 @@ Line <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -9604,6 +9700,10 @@ Line <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -9645,6 +9745,10 @@ Line <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -9943,6 +10047,10 @@ Area <- function(dt = NULL,
                  xAxis.nameTextStyle.fontWeight = "bolder",
                  xAxis.nameTextStyle.fontSize = NULL,
                  xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                 xAxis.nameTextStyle.textShadowColor = NULL,
+                 xAxis.nameTextStyle.textShadowBlur = NULL,
+                 xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                 xAxis.nameTextStyle.textShadowOffsetY = NULL,
                  xAxis.splitNumber = NULL,
                  xAxis.axisLabel.rotate = NULL,
                  xAxis.axisLabel.margin = NULL,
@@ -9984,6 +10092,10 @@ Area <- function(dt = NULL,
                  yAxis.nameTextStyle.fontWeight = "bolder",
                  yAxis.nameTextStyle.fontSize = NULL,
                  yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                 yAxis.nameTextStyle.textShadowColor = NULL,
+                 yAxis.nameTextStyle.textShadowBlur = NULL,
+                 yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                 yAxis.nameTextStyle.textShadowOffsetY = NULL,
                  yAxis.splitNumber = NULL,
                  yAxis.axisLabel.rotate = NULL,
                  yAxis.axisLabel.margin = NULL,
@@ -10367,6 +10479,8 @@ Area <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -10391,6 +10505,8 @@ Area <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -10638,6 +10754,8 @@ Area <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -10662,6 +10780,8 @@ Area <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -10891,6 +11011,10 @@ Area <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -10932,6 +11056,10 @@ Area <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -11228,6 +11356,10 @@ Step <- function(dt = NULL,
                  xAxis.nameTextStyle.fontWeight = "bolder",
                  xAxis.nameTextStyle.fontSize = NULL,
                  xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                 xAxis.nameTextStyle.textShadowColor = NULL,
+                 xAxis.nameTextStyle.textShadowBlur = NULL,
+                 xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                 xAxis.nameTextStyle.textShadowOffsetY = NULL,
                  xAxis.splitNumber = NULL,
                  xAxis.axisLabel.rotate = NULL,
                  xAxis.axisLabel.margin = NULL,
@@ -11269,6 +11401,10 @@ Step <- function(dt = NULL,
                  yAxis.nameTextStyle.fontWeight = "bolder",
                  yAxis.nameTextStyle.fontSize = NULL,
                  yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                 yAxis.nameTextStyle.textShadowColor = NULL,
+                 yAxis.nameTextStyle.textShadowBlur = NULL,
+                 yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                 yAxis.nameTextStyle.textShadowOffsetY = NULL,
                  yAxis.splitNumber = NULL,
                  yAxis.axisLabel.rotate = NULL,
                  yAxis.axisLabel.margin = NULL,
@@ -11650,6 +11786,8 @@ Step <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -11674,6 +11812,8 @@ Step <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -11930,6 +12070,8 @@ Step <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -11954,6 +12096,8 @@ Step <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -12959,6 +13103,10 @@ River <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -13000,6 +13148,10 @@ River <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -13305,6 +13457,10 @@ Bar <- function(dt = NULL,
                 xAxis.nameTextStyle.fontWeight = "bolder",
                 xAxis.nameTextStyle.fontSize = NULL,
                 xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                xAxis.nameTextStyle.textShadowColor = NULL,
+                xAxis.nameTextStyle.textShadowBlur = NULL,
+                xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                xAxis.nameTextStyle.textShadowOffsetY = NULL,
                 xAxis.splitNumber = NULL,
                 xAxis.axisLabel.rotate = NULL,
                 xAxis.axisLabel.margin = NULL,
@@ -13346,6 +13502,10 @@ Bar <- function(dt = NULL,
                 yAxis.nameTextStyle.fontWeight = "bolder",
                 yAxis.nameTextStyle.fontSize = NULL,
                 yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                yAxis.nameTextStyle.textShadowColor = NULL,
+                yAxis.nameTextStyle.textShadowBlur = NULL,
+                yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                yAxis.nameTextStyle.textShadowOffsetY = NULL,
                 yAxis.splitNumber = NULL,
                 yAxis.axisLabel.rotate = NULL,
                 yAxis.axisLabel.margin = NULL,
@@ -13778,6 +13938,8 @@ Bar <- function(dt = NULL,
         e = p1,
         serie = NULL,
         axis = "x",
+        xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+        xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
         xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
         xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
         xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -13802,6 +13964,8 @@ Bar <- function(dt = NULL,
         e = p1,
         serie = NULL,
         axis = "y",
+        yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+        yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
         yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
         yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
         yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -14040,6 +14204,8 @@ Bar <- function(dt = NULL,
         e = p1,
         serie = NULL,
         axis = "x",
+        xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+        xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
         xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
         xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
         xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -14064,6 +14230,8 @@ Bar <- function(dt = NULL,
         e = p1,
         serie = NULL,
         axis = "y",
+        yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+        yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
         yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
         yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
         yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -14325,6 +14493,8 @@ Bar <- function(dt = NULL,
         e = p1,
         serie = NULL,
         axis = "x",
+        xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+        xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
         xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
         xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
         xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -14349,6 +14519,8 @@ Bar <- function(dt = NULL,
         e = p1,
         serie = NULL,
         axis = "y",
+        yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+        yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
         yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
         yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
         yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -14612,6 +14784,8 @@ Bar <- function(dt = NULL,
         e = p1,
         serie = NULL,
         axis = "x",
+        xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+        xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
         xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
         xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
         xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -14636,6 +14810,8 @@ Bar <- function(dt = NULL,
         e = p1,
         serie = NULL,
         axis = "y",
+        yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+        yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
         yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
         yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
         yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -14865,6 +15041,10 @@ Bar <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -14906,6 +15086,10 @@ Bar <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -15174,6 +15358,10 @@ ACF <- function(dt = NULL,
                 xAxis.nameTextStyle.fontWeight = "bolder",
                 xAxis.nameTextStyle.fontSize = NULL,
                 xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                xAxis.nameTextStyle.textShadowColor = NULL,
+                xAxis.nameTextStyle.textShadowBlur = NULL,
+                xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                xAxis.nameTextStyle.textShadowOffsetY = NULL,
                 xAxis.splitNumber = NULL,
                 xAxis.axisLabel.rotate = NULL,
                 xAxis.axisLabel.margin = NULL,
@@ -15215,6 +15403,10 @@ ACF <- function(dt = NULL,
                 yAxis.nameTextStyle.fontWeight = "bolder",
                 yAxis.nameTextStyle.fontSize = NULL,
                 yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                yAxis.nameTextStyle.textShadowColor = NULL,
+                yAxis.nameTextStyle.textShadowBlur = NULL,
+                yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                yAxis.nameTextStyle.textShadowOffsetY = NULL,
                 yAxis.splitNumber = NULL,
                 yAxis.axisLabel.rotate = NULL,
                 yAxis.axisLabel.margin = NULL,
@@ -15553,6 +15745,8 @@ ACF <- function(dt = NULL,
     e = p1,
     serie = NULL,
     axis = "x",
+    xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+    xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
     xAxis.title = "Lag", xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
     xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
     xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -15577,6 +15771,8 @@ ACF <- function(dt = NULL,
     e = p1,
     serie = NULL,
     axis = "y",
+    yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+    yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
     yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
     yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
     yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -15739,6 +15935,10 @@ ACF <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -15780,6 +15980,10 @@ ACF <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -16048,6 +16252,10 @@ PACF <- function(dt = NULL,
                  xAxis.nameTextStyle.fontWeight = "bolder",
                  xAxis.nameTextStyle.fontSize = NULL,
                  xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                 xAxis.nameTextStyle.textShadowColor = NULL,
+                 xAxis.nameTextStyle.textShadowBlur = NULL,
+                 xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                 xAxis.nameTextStyle.textShadowOffsetY = NULL,
                  xAxis.splitNumber = NULL,
                  xAxis.axisLabel.rotate = NULL,
                  xAxis.axisLabel.margin = NULL,
@@ -16089,6 +16297,10 @@ PACF <- function(dt = NULL,
                  yAxis.nameTextStyle.fontWeight = "bolder",
                  yAxis.nameTextStyle.fontSize = NULL,
                  yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                 yAxis.nameTextStyle.textShadowColor = NULL,
+                 yAxis.nameTextStyle.textShadowBlur = NULL,
+                 yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                 yAxis.nameTextStyle.textShadowOffsetY = NULL,
                  yAxis.splitNumber = NULL,
                  yAxis.axisLabel.rotate = NULL,
                  yAxis.axisLabel.margin = NULL,
@@ -16437,6 +16649,8 @@ PACF <- function(dt = NULL,
     e = p1,
     serie = NULL,
     axis = "x",
+    xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+    xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
     xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else "Lags", xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
     xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
     xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -16461,6 +16675,8 @@ PACF <- function(dt = NULL,
     e = p1,
     serie = NULL,
     axis = "y",
+    yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+    yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
     yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
     yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
     yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -16630,6 +16846,10 @@ PACF <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -16671,6 +16891,10 @@ PACF <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -16972,6 +17196,10 @@ StackedBar <- function(dt = NULL,
                        xAxis.nameTextStyle.fontWeight = "bolder",
                        xAxis.nameTextStyle.fontSize = NULL,
                        xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                       xAxis.nameTextStyle.textShadowColor = NULL,
+                       xAxis.nameTextStyle.textShadowBlur = NULL,
+                       xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                       xAxis.nameTextStyle.textShadowOffsetY = NULL,
                        xAxis.splitNumber = NULL,
                        xAxis.axisLabel.rotate = NULL,
                        xAxis.axisLabel.margin = NULL,
@@ -17013,6 +17241,10 @@ StackedBar <- function(dt = NULL,
                        yAxis.nameTextStyle.fontWeight = "bolder",
                        yAxis.nameTextStyle.fontSize = NULL,
                        yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                       yAxis.nameTextStyle.textShadowColor = NULL,
+                       yAxis.nameTextStyle.textShadowBlur = NULL,
+                       yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                       yAxis.nameTextStyle.textShadowOffsetY = NULL,
                        yAxis.splitNumber = NULL,
                        yAxis.axisLabel.rotate = NULL,
                        yAxis.axisLabel.margin = NULL,
@@ -17395,6 +17627,8 @@ StackedBar <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -17419,6 +17653,8 @@ StackedBar <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -17654,6 +17890,10 @@ StackedBar <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -17695,6 +17935,10 @@ StackedBar <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -18003,6 +18247,10 @@ BarPlot3D <- function(dt,
                       xAxis.nameTextStyle.fontWeight = "bolder",
                       xAxis.nameTextStyle.fontSize = NULL,
                       xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                      xAxis.nameTextStyle.textShadowColor = NULL,
+                      xAxis.nameTextStyle.textShadowBlur = NULL,
+                      xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                      xAxis.nameTextStyle.textShadowOffsetY = NULL,
                       xAxis.splitNumber = NULL,
                       xAxis.axisLabel.rotate = NULL,
                       xAxis.axisLabel.margin = NULL,
@@ -18044,6 +18292,10 @@ BarPlot3D <- function(dt,
                       yAxis.nameTextStyle.fontWeight = "bolder",
                       yAxis.nameTextStyle.fontSize = NULL,
                       yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                      yAxis.nameTextStyle.textShadowColor = NULL,
+                      yAxis.nameTextStyle.textShadowBlur = NULL,
+                      yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                      yAxis.nameTextStyle.textShadowOffsetY = NULL,
                       yAxis.splitNumber = NULL,
                       yAxis.axisLabel.rotate = NULL,
                       yAxis.axisLabel.margin = NULL,
@@ -18495,6 +18747,8 @@ BarPlot3D <- function(dt,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -18519,6 +18773,8 @@ BarPlot3D <- function(dt,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -18658,6 +18914,8 @@ BarPlot3D <- function(dt,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -18682,6 +18940,8 @@ BarPlot3D <- function(dt,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -19029,6 +19289,10 @@ BarPlot3D <- function(dt,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -19070,6 +19334,10 @@ BarPlot3D <- function(dt,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -19448,6 +19716,10 @@ HeatMap <- function(dt,
                     xAxis.nameTextStyle.fontWeight = "bolder",
                     xAxis.nameTextStyle.fontSize = NULL,
                     xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                    xAxis.nameTextStyle.textShadowColor = NULL,
+                    xAxis.nameTextStyle.textShadowBlur = NULL,
+                    xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                    xAxis.nameTextStyle.textShadowOffsetY = NULL,
                     xAxis.splitNumber = NULL,
                     xAxis.axisLabel.rotate = NULL,
                     xAxis.axisLabel.margin = NULL,
@@ -19489,6 +19761,10 @@ HeatMap <- function(dt,
                     yAxis.nameTextStyle.fontWeight = "bolder",
                     yAxis.nameTextStyle.fontSize = NULL,
                     yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                    yAxis.nameTextStyle.textShadowColor = NULL,
+                    yAxis.nameTextStyle.textShadowBlur = NULL,
+                    yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                    yAxis.nameTextStyle.textShadowOffsetY = NULL,
                     yAxis.splitNumber = NULL,
                     yAxis.axisLabel.rotate = NULL,
                     yAxis.axisLabel.margin = NULL,
@@ -19859,6 +20135,8 @@ HeatMap <- function(dt,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -19883,6 +20161,8 @@ HeatMap <- function(dt,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -20063,6 +20343,8 @@ HeatMap <- function(dt,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -20087,6 +20369,8 @@ HeatMap <- function(dt,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -20295,6 +20579,8 @@ HeatMap <- function(dt,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -20319,6 +20605,8 @@ HeatMap <- function(dt,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -20545,6 +20833,8 @@ HeatMap <- function(dt,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -20569,6 +20859,8 @@ HeatMap <- function(dt,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -21524,6 +21816,10 @@ Radar <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -21565,6 +21861,10 @@ Radar <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -21880,6 +22180,10 @@ CorrMatrix <- function(dt = NULL,
                        xAxis.nameTextStyle.fontWeight = "bolder",
                        xAxis.nameTextStyle.fontSize = NULL,
                        xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                       xAxis.nameTextStyle.textShadowColor = NULL,
+                       xAxis.nameTextStyle.textShadowBlur = NULL,
+                       xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                       xAxis.nameTextStyle.textShadowOffsetY = NULL,
                        xAxis.splitNumber = NULL,
                        xAxis.axisLabel.rotate = NULL,
                        xAxis.axisLabel.margin = NULL,
@@ -21921,6 +22225,10 @@ CorrMatrix <- function(dt = NULL,
                        yAxis.nameTextStyle.fontWeight = "bolder",
                        yAxis.nameTextStyle.fontSize = NULL,
                        yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                       yAxis.nameTextStyle.textShadowColor = NULL,
+                       yAxis.nameTextStyle.textShadowBlur = NULL,
+                       yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                       yAxis.nameTextStyle.textShadowOffsetY = NULL,
                        yAxis.splitNumber = NULL,
                        yAxis.axisLabel.rotate = NULL,
                        yAxis.axisLabel.margin = NULL,
@@ -22408,6 +22716,10 @@ CorrMatrix <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -22449,6 +22761,10 @@ CorrMatrix <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -22759,6 +23075,10 @@ Parallel <- function(dt = NULL,
                      xAxis.nameTextStyle.fontWeight = "bolder",
                      xAxis.nameTextStyle.fontSize = NULL,
                      xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                     xAxis.nameTextStyle.textShadowColor = NULL,
+                     xAxis.nameTextStyle.textShadowBlur = NULL,
+                     xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                     xAxis.nameTextStyle.textShadowOffsetY = NULL,
                      xAxis.splitNumber = NULL,
                      xAxis.axisLabel.rotate = NULL,
                      xAxis.axisLabel.margin = NULL,
@@ -22800,6 +23120,10 @@ Parallel <- function(dt = NULL,
                      yAxis.nameTextStyle.fontWeight = "bolder",
                      yAxis.nameTextStyle.fontSize = NULL,
                      yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                     yAxis.nameTextStyle.textShadowColor = NULL,
+                     yAxis.nameTextStyle.textShadowBlur = NULL,
+                     yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                     yAxis.nameTextStyle.textShadowOffsetY = NULL,
                      yAxis.splitNumber = NULL,
                      yAxis.axisLabel.rotate = NULL,
                      yAxis.axisLabel.margin = NULL,
@@ -23236,6 +23560,10 @@ Parallel <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -23277,6 +23605,10 @@ Parallel <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -23578,6 +23910,10 @@ Copula <- function(dt = NULL,
                    xAxis.nameTextStyle.fontWeight = "bolder",
                    xAxis.nameTextStyle.fontSize = NULL,
                    xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                   xAxis.nameTextStyle.textShadowColor = NULL,
+                   xAxis.nameTextStyle.textShadowBlur = NULL,
+                   xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                   xAxis.nameTextStyle.textShadowOffsetY = NULL,
                    xAxis.splitNumber = NULL,
                    xAxis.axisLabel.rotate = NULL,
                    xAxis.axisLabel.margin = NULL,
@@ -23619,6 +23955,10 @@ Copula <- function(dt = NULL,
                    yAxis.nameTextStyle.fontWeight = "bolder",
                    yAxis.nameTextStyle.fontSize = NULL,
                    yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                   yAxis.nameTextStyle.textShadowColor = NULL,
+                   yAxis.nameTextStyle.textShadowBlur = NULL,
+                   yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                   yAxis.nameTextStyle.textShadowOffsetY = NULL,
                    yAxis.splitNumber = NULL,
                    yAxis.axisLabel.rotate = NULL,
                    yAxis.axisLabel.margin = NULL,
@@ -23988,6 +24328,8 @@ Copula <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -24012,6 +24354,8 @@ Copula <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -24201,6 +24545,8 @@ Copula <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -24225,6 +24571,8 @@ Copula <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -24457,6 +24805,10 @@ Copula <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -24498,6 +24850,10 @@ Copula <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -24801,6 +25157,10 @@ Copula3D <- function(dt = NULL,
                      xAxis.nameTextStyle.fontWeight = "bolder",
                      xAxis.nameTextStyle.fontSize = NULL,
                      xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                     xAxis.nameTextStyle.textShadowColor = NULL,
+                     xAxis.nameTextStyle.textShadowBlur = NULL,
+                     xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                     xAxis.nameTextStyle.textShadowOffsetY = NULL,
                      xAxis.splitNumber = NULL,
                      xAxis.axisLabel.rotate = NULL,
                      xAxis.axisLabel.margin = NULL,
@@ -24842,6 +25202,10 @@ Copula3D <- function(dt = NULL,
                      yAxis.nameTextStyle.fontWeight = "bolder",
                      yAxis.nameTextStyle.fontSize = NULL,
                      yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                     yAxis.nameTextStyle.textShadowColor = NULL,
+                     yAxis.nameTextStyle.textShadowBlur = NULL,
+                     yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                     yAxis.nameTextStyle.textShadowOffsetY = NULL,
                      yAxis.splitNumber = NULL,
                      yAxis.axisLabel.rotate = NULL,
                      yAxis.axisLabel.margin = NULL,
@@ -25321,6 +25685,8 @@ Copula3D <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -25345,6 +25711,8 @@ Copula3D <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -25519,6 +25887,10 @@ Copula3D <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -25560,6 +25932,10 @@ Copula3D <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -25862,6 +26238,10 @@ Scatter <- function(dt = NULL,
                     xAxis.nameTextStyle.fontWeight = "bolder",
                     xAxis.nameTextStyle.fontSize = NULL,
                     xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                    xAxis.nameTextStyle.textShadowColor = NULL,
+                    xAxis.nameTextStyle.textShadowBlur = NULL,
+                    xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                    xAxis.nameTextStyle.textShadowOffsetY = NULL,
                     xAxis.splitNumber = NULL,
                     xAxis.axisLabel.rotate = NULL,
                     xAxis.axisLabel.margin = NULL,
@@ -25903,6 +26283,10 @@ Scatter <- function(dt = NULL,
                     yAxis.nameTextStyle.fontWeight = "bolder",
                     yAxis.nameTextStyle.fontSize = NULL,
                     yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                    yAxis.nameTextStyle.textShadowColor = NULL,
+                    yAxis.nameTextStyle.textShadowBlur = NULL,
+                    yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                    yAxis.nameTextStyle.textShadowOffsetY = NULL,
                     yAxis.splitNumber = NULL,
                     yAxis.axisLabel.rotate = NULL,
                     yAxis.axisLabel.margin = NULL,
@@ -26278,6 +26662,8 @@ Scatter <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -26302,6 +26688,8 @@ Scatter <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -26495,6 +26883,8 @@ Scatter <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -26519,6 +26909,8 @@ Scatter <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
@@ -26753,6 +27145,10 @@ Scatter <- function(dt = NULL,
 #' @param xAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param xAxis.nameTextStyle.fontSize numeric
 #' @param xAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param xAxis.nameTextStyle.textShadowColor hex or named color
+#' @param xAxis.nameTextStyle.textShadowBlur numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param xAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param xAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param xAxis.axisLabel.rotate numeric
 #' @param xAxis.axisLabel.margin numeric
@@ -26794,6 +27190,10 @@ Scatter <- function(dt = NULL,
 #' @param yAxis.nameTextStyle.fontWeight 'normal', 'bold', 'bolder', 'lighter'
 #' @param yAxis.nameTextStyle.fontSize numeric
 #' @param yAxis.nameTextStyle.fontFamily 'sans-serif', 'serif', 'monospace', 'Arial', 'Times New Roman', 'Roboto', 'Open Sans', 'Lato', 'Helvetica', 'Georgia', 'Verdana', 'Arial', 'Tahoma', 'Courier New'
+#' @param yAxis.nameTextStyle.textShadowColor hex or named color
+#' @param yAxis.nameTextStyle.textShadowBlur numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetX numeric
+#' @param yAxis.nameTextStyle.textShadowOffsetY numeric
 #' @param yAxis.splitNumber numeric. Increments for numeric axis labels
 #' @param yAxis.axisLabel.rotate numeric
 #' @param yAxis.axisLabel.margin numeric
@@ -27097,6 +27497,10 @@ Scatter3D <- function(dt = NULL,
                       xAxis.nameTextStyle.fontWeight = "bolder",
                       xAxis.nameTextStyle.fontSize = NULL,
                       xAxis.nameTextStyle.fontFamily = "Segoe UI",
+                      xAxis.nameTextStyle.textShadowColor = NULL,
+                      xAxis.nameTextStyle.textShadowBlur = NULL,
+                      xAxis.nameTextStyle.textShadowOffsetX = NULL,
+                      xAxis.nameTextStyle.textShadowOffsetY = NULL,
                       xAxis.splitNumber = NULL,
                       xAxis.axisLabel.rotate = NULL,
                       xAxis.axisLabel.margin = NULL,
@@ -27138,6 +27542,10 @@ Scatter3D <- function(dt = NULL,
                       yAxis.nameTextStyle.fontWeight = "bolder",
                       yAxis.nameTextStyle.fontSize = NULL,
                       yAxis.nameTextStyle.fontFamily = "Segoe UI",
+                      yAxis.nameTextStyle.textShadowColor = NULL,
+                      yAxis.nameTextStyle.textShadowBlur = NULL,
+                      yAxis.nameTextStyle.textShadowOffsetX = NULL,
+                      yAxis.nameTextStyle.textShadowOffsetY = NULL,
                       yAxis.splitNumber = NULL,
                       yAxis.axisLabel.rotate = NULL,
                       yAxis.axisLabel.margin = NULL,
@@ -27638,6 +28046,8 @@ Scatter3D <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "x",
+      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
       xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
       xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
       xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
@@ -27662,6 +28072,8 @@ Scatter3D <- function(dt = NULL,
       e = p1,
       serie = NULL,
       axis = "y",
+      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
       yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
