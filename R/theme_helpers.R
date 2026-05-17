@@ -352,63 +352,6 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
       ),
       NULL
     ),
-    azul = switch(
-      plot_type,
-      Area = if(grouped) {
-        NULL
-      } else {
-        list(
-          areaStyle.color = c("#FF004C","#FC4E84","#B87B8E"),
-          areaStyle.opacity = c(1,0.8,0.35)
-        )
-      },
-      Line = if(grouped) {
-        NULL
-      } else {
-        list(
-          lineStyle.color = c("#FF004C","#FC4E84","#B87B8E")
-        )
-      },
-      Step = if(grouped) {
-        NULL
-      } else {
-        list(
-          lineStyle.color = c("#FF004C","#FC4E84","#B87B8E")
-        )
-      },
-      Parallel = list(
-        lineStyle.color = c("#414557")
-      ),
-      Bar = if(grouped) {
-        NULL
-      } else {
-        list(
-          backgroundStyle.color = c("#FF004C","#FC4E84","#B87B8E"),
-          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
-        )
-      },
-      Histogram = if(grouped) {
-        NULL
-      } else {
-        list(
-          backgroundStyle.color = c("#FF004C","#FC4E84","#B87B8E"),
-          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
-        )
-      },
-      Density = if(grouped) {
-        NULL
-      } else {
-        list(
-          areaStyle.color = c("#FF004C","#FC4E84","#B87B8E"),
-          areaStyle.opacity = c(1.0, 0.75, 0.25)
-        )
-      },
-      Box = list(
-        itemStyle.color = c("#FF004C","#FC4E84","#B87B8E"),
-        itemStyle.opacity = c(1.0, 0.75, 0.25)
-      ),
-      NULL
-    ),
     auritus = switch(
       plot_type,
       Area = if(grouped) {
