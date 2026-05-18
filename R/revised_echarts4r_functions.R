@@ -2859,3 +2859,22 @@ display_plots_grid <- function(
     )
   )
 }
+
+
+#' Save plot as image
+#'
+#' @param plot A plot object or display_plot_grid object
+#' @param path Directory to save image
+#' @param name name of output image. name only
+#' @param height Default 1027 good for PowerPoint
+#' @param width Default 1500 good for PowerPoint
+#' @param delay Default 1 good for PowerPoint
+#' @param zoom Default 2 good for PowerPoint
+#' @return A browsable HTML grid for use in Rmarkdown, Shiny, or viewer pane.
+#' @export
+save_image <- function(plot, path, name, height = 1027, width = 1500, delay = 1, zoom = 2) {
+  htmlwidgets::saveWidget(plot, file.path(path, paste0(name, ".html")), selfcontained = TRUE)
+  webshot2::webshot(file.path(path, paste0(name, ".html")), file.path(path, paste0(name, ".png")), vwidth = width, vheight = height, delay = delay, zoom = zoom)
+  file.remove(file.path(path, paste0(name, ".html")))
+  unlink(file.path(path, paste0(name, "_files")), recursive = TRUE)
+}

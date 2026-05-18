@@ -26,7 +26,8 @@ Imports:
     scales,
     stats,
     htmltools,
-    htmlwidgets
+    htmlwidgets,
+    webshot2
 Contact: Adrian Antico
 Encoding: UTF-8
 Language: en-US
