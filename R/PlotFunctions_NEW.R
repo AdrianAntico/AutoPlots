@@ -8984,11 +8984,10 @@ Line <- function(dt = NULL,
 
   # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
   # Throw an error instead of trimming YVar to only the first value
-  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
   if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
 
   # If User Supplies more than 1 YVar, then structure data to be long instead of wide
-  if(length(YVar) > 1L) {
+  if(length(YVar) > 1L && length(DualYVar) == 0) {
     if(length(GroupVar) > 0L) {
       dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
       dt1[, GroupVars := paste0(Measures, GroupVar)]
@@ -9341,18 +9340,23 @@ Line <- function(dt = NULL,
       width = Width,
       height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_line_(e = p1, serie = YVar, smooth = Smooth, showSymbol = ShowSymbol)
+    # Left y-axis
+    for (yyy in YVar) {
+      if(ShowLabels) {
+        p1 <- echarts4r::e_line_(e = p1, serie = yyy, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
+      } else {
+        p1 <- echarts4r::e_line_(e = p1, serie = yyy, smooth = Smooth, showSymbol = ShowSymbol)
+      }
     }
 
     # DualYVar
     if(length(DualYVar) > 0L) {
-      if(ShowLabels) {
-        p1 <- echarts4r::e_line_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
-      } else {
-        p1 <- echarts4r::e_line_(e = p1, serie = DualYVar, smooth = Smooth, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+      for (xxx in DualYVar) {
+        if(ShowLabels) {
+          p1 <- echarts4r::e_line_(e = p1, serie = xxx, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
+        } else {
+          p1 <- echarts4r::e_line_(e = p1, serie = xxx, smooth = Smooth, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+        }
       }
     }
 
@@ -11619,11 +11623,10 @@ Step <- function(dt = NULL,
 
   # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
   # Throw an error instead of trimming YVar to only the first value
-  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
   if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
 
   # If User Supplies more than 1 YVar, then structure data to be long instead of wide
-  if(length(YVar) > 1L) {
+  if(length(YVar) > 1L && length(DualYVar) == 0) {
     if(length(GroupVar) > 0L) {
       dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
       dt1[, GroupVars := paste0(Measures, GroupVar)]
@@ -11970,17 +11973,23 @@ Step <- function(dt = NULL,
       width = Width,
       height = Height)
 
-    if(ShowLabels) {
-      p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol, label = list(show = TRUE))
-    } else {
-      p1 <- echarts4r::e_step_(e = p1, serie = YVar, showSymbol = ShowSymbol)
+    # Left y-axis
+    for (yyy in YVar) {
+      if(ShowLabels) {
+        p1 <- echarts4r::e_step_(e = p1, serie = yyy, showSymbol = ShowSymbol, label = list(show = TRUE))
+      } else {
+        p1 <- echarts4r::e_step_(e = p1, serie = yyy, showSymbol = ShowSymbol)
+      }
     }
 
+    # DualYVar
     if(length(DualYVar) > 0L) {
-      if(ShowLabels) {
-        p1 <- echarts4r::e_step_(e = p1, serie = DualYVar, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
-      } else {
-        p1 <- echarts4r::e_step_(e = p1, serie = DualYVar, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+      for (xxx in DualYVar) {
+        if(ShowLabels) {
+          p1 <- echarts4r::e_step_(e = p1, serie = xxx, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
+        } else {
+          p1 <- echarts4r::e_step_(e = p1, serie = xxx, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
+        }
       }
     }
 
