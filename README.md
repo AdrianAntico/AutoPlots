@@ -865,17 +865,33 @@ AutoPlots::display_plots_grid(
 <details><summary>Line Plot Examples</summary>
 
 ```r
-# Create data
-data <- AutoPlots::FakeDataGenerator(N = 1000, AddDate = T)
-data <- data[, .(
-  IndepVar = mean(Independent_Variable8)
-), by = c("DateTime")]
+# Create example data (no FakeDataGenerator)
+data <- data.table::data.table(
+  DateTime = seq.Date(
+    from = Sys.Date() - 89,
+    to   = Sys.Date(),
+    by   = "day"
+  )
+)
+
+# Smooth wave + a bit of noise for a nice area shape
+data[, IndepVar := 50 +
+       30 * sin(seq(0, 2 * pi, length.out = .N)) +
+       stats::rnorm(.N, mean = 0, sd = 3)]
+
+# Optional: ensure values stay positive for cleaner visuals
+data[IndepVar < 0, IndepVar := 0]
+data[, IndepVar2 := jitter(IndepVar, amount = 5)]
+data[, Var2 := jitter(IndepVar, amount = 25)]
+data[, Var3 := jitter(Var2, amount = 25)]
 
 # Build plot
 AutoPlots::Line(
   dt = data,
   XVar = "DateTime",
-  YVar = "IndepVar"
+  YVar = "IndepVar",
+  title.text = "Line Plot",
+  title.subtext = "Theme: dark"
 )
 ```
 
@@ -1486,17 +1502,33 @@ AutoPlots::StackedBar(
 <details><summary>Step Plot Examples</summary>
 
 ```r
-# Create data
-data <- AutoPlots::FakeDataGenerator(N = 1000, AddDate = T)
-data <- data[, .(
-  IndepVar = mean(Independent_Variable8)
-), by = c("DateTime")]
+# Create example data (no FakeDataGenerator)
+data <- data.table::data.table(
+  DateTime = seq.Date(
+    from = Sys.Date() - 89,
+    to   = Sys.Date(),
+    by   = "day"
+  )
+)
+
+# Smooth wave + a bit of noise for a nice area shape
+data[, IndepVar := 50 +
+       30 * sin(seq(0, 2 * pi, length.out = .N)) +
+       stats::rnorm(.N, mean = 0, sd = 3)]
+
+# Optional: ensure values stay positive for cleaner visuals
+data[IndepVar < 0, IndepVar := 0]
+data[, IndepVar2 := jitter(IndepVar, amount = 5)]
+data[, Var2 := jitter(IndepVar, amount = 25)]
+data[, Var3 := jitter(Var2, amount = 25)]
 
 # Build plot
 AutoPlots::Step(
   dt = data,
   XVar = "DateTime",
-  YVar = "IndepVar"
+  YVar = "IndepVar",
+  title.text = "Step Plot",
+  title.subtext = "Theme: dark"
 )
 ```
 
