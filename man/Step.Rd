@@ -26,6 +26,12 @@ Step(
   TimeLine = FALSE,
   ShowSymbol = FALSE,
   lineStyle.color = NULL,
+  lineStyle.width = NULL,
+  lineStyle.type = NULL,
+  lineStyle.shadowColor = NULL,
+  lineStyle.shadowBlur = NULL,
+  lineStyle.shadowOffsetX = NULL,
+  lineStyle.shadowOffsetY = NULL,
   title.text = "Step Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -374,6 +380,18 @@ Step(
 \item{ShowSymbol}{= FALSE}
 
 \item{lineStyle.color}{hex or name}
+
+\item{lineStyle.width}{numeric}
+
+\item{lineStyle.type}{'solid' 'dashed' 'dotted'}
+
+\item{lineStyle.shadowColor}{hex or color}
+
+\item{lineStyle.shadowBlur}{numeric}
+
+\item{lineStyle.shadowOffsetX}{numeric}
+
+\item{lineStyle.shadowOffsetY}{numeric}
 
 \item{title.text}{Title name}
 

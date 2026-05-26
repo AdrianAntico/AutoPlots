@@ -28,6 +28,12 @@ Line(
   ShowSymbol = FALSE,
   DarkMode = FALSE,
   lineStyle.color = NULL,
+  lineStyle.width = NULL,
+  lineStyle.type = NULL,
+  lineStyle.shadowColor = NULL,
+  lineStyle.shadowBlur = NULL,
+  lineStyle.shadowOffsetX = NULL,
+  lineStyle.shadowOffsetY = NULL,
   title.text = "Line Plot",
   title.subtext = NULL,
   title.link = NULL,
@@ -380,6 +386,18 @@ Line(
 \item{DarkMode}{FALSE}
 
 \item{lineStyle.color}{hex or name}
+
+\item{lineStyle.width}{numeric}
+
+\item{lineStyle.type}{'solid' 'dashed' 'dotted'}
+
+\item{lineStyle.shadowColor}{hex or color}
+
+\item{lineStyle.shadowBlur}{numeric}
+
+\item{lineStyle.shadowOffsetX}{numeric}
+
+\item{lineStyle.shadowOffsetY}{numeric}
 
 \item{title.text}{Title name}
 

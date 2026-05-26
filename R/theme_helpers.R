@@ -252,14 +252,24 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
         NULL
       } else {
         list(
-          lineStyle.color = c("#429AFF","#0078FF","#005ABF")
+          lineStyle.color = c("#429AFF","#0078FF","#005ABF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#429AFF",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Step = if(grouped) {
         NULL
       } else {
         list(
-          lineStyle.color = c("#429AFF","#0078FF","#005ABF")
+          lineStyle.color = c("#429AFF","#0078FF","#005ABF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#429AFF",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Parallel = list(
@@ -309,14 +319,24 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
         NULL
       } else {
         list(
-          lineStyle.color = c("#429AFF","#0078FF","#005ABF")
+          lineStyle.color = c("#429AFF","#0078FF","#005ABF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#429AFF",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Step = if(grouped) {
         NULL
       } else {
         list(
-          lineStyle.color = c("#429AFF","#0078FF","#005ABF")
+          lineStyle.color = c("#429AFF","#0078FF","#005ABF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#429AFF",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Parallel = list(
@@ -366,14 +386,24 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
         NULL
       } else {
         list(
-          lineStyle.color = c("#FF004C","#FC4E84","#B87B8E")
+          lineStyle.color = c("#FF004C","#FC4E84","#B87B8E"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#FF004C",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Step = if(grouped) {
         NULL
       } else {
         list(
-          lineStyle.color = c("#FF004C","#FC4E84","#B87B8E")
+          lineStyle.color = c("#FF004C","#FC4E84","#B87B8E"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#FF004C",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Parallel = list(
@@ -423,14 +453,24 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
         NULL
       } else {
         list(
-          lineStyle.color = c("#00FFC3","#00BA8F","#008F6F")
+          lineStyle.color = c("#00FFC3","#00BA8F","#008F6F"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#00FFC3",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Step = if(grouped) {
         NULL
       } else {
         list(
-          lineStyle.color = c("#00FFC3","#00BA8F","#008F6F")
+          lineStyle.color = c("#00FFC3","#00BA8F","#008F6F"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#00FFC3",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Parallel = list(
@@ -480,14 +520,24 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
         NULL
       } else {
         list(
-          lineStyle.color = c("#DEEAFC", "#91C1FF", "#1474FF")
+          lineStyle.color = c("#DEEAFC", "#91C1FF", "#1474FF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#DEEAFC",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Step = if(grouped) {
         NULL
       } else {
         list(
-          lineStyle.color = c("#DEEAFC", "#91C1FF", "#1474FF")
+          lineStyle.color = c("#DEEAFC", "#91C1FF", "#1474FF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#DEEAFC",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
         )
       },
       Bar = if(grouped) {

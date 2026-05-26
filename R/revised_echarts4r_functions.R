@@ -1399,6 +1399,127 @@ e_area_full <- function(e = NULL,
   do.call(echarts4r::e_area_, c(standard, opts))
 }
 
+#' Enhanced line Setter for echarts4r
+#'
+#' Exposes line* option so you don't have to hand-craft the JSON.
+#'
+#' @param e plot object
+#' @param serie Variable
+#' @param y_index default 0
+#' @param x_index default 0
+#' @param smooth Smooth line
+#' @param showSymbol Logical
+#' @param label logical
+#' @param lineStyle.width numeric
+#' @param lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param lineStyle.shadowColor hex or color
+#' @param lineStyle.shadowBlur numeric
+#' @param lineStyle.shadowOffsetX numeric
+#' @param lineStyle.shadowOffsetY numeric
+#' @return The modified echarts4r object
+#' @export
+e_line_full <- function(e = NULL,
+                        serie = NULL,
+                        y_index = 0,
+                        x_index = 0,
+                        smooth = NULL,
+                        showSymbol = NULL,
+                        label = NULL,
+                        lineStyle.width = NULL,
+                        lineStyle.type = NULL,
+                        lineStyle.shadowColor = NULL,
+                        lineStyle.shadowBlur = NULL,
+                        lineStyle.shadowOffsetX = NULL,
+                        lineStyle.shadowOffsetY = NULL) {
+
+  # lineStyle list
+  ls <- .compact(list(
+    width = lineStyle.width,
+    type = lineStyle.type,
+    shadowColor = lineStyle.shadowColor,
+    shadowBlur = lineStyle.shadowBlur,
+    shadowOffsetX = lineStyle.shadowOffsetX,
+    shadowOffsetY = lineStyle.shadowOffsetY
+  ))
+
+  # standard e_area_ args
+  standard <- list()
+  standard[["e"]] <- e
+  standard[["y_index"]] <- y_index
+  standard[["x_index"]] <- x_index
+  standard[["serie"]] <- serie
+  standard[["smooth"]] <- smooth
+  standard[["showSymbol"]] <- showSymbol
+  standard[["label"]] <- list(show = label)
+
+  # opts
+  opts <- .compact(list(
+    lineStyle = if (length(ls)) ls
+  ))
+
+  # final call
+  do.call(echarts4r::e_line_, c(standard, opts))
+}
+
+#' Enhanced step Setter for echarts4r
+#'
+#' Exposes step* option so you don't have to hand-craft the JSON.
+#'
+#' @param e plot object
+#' @param serie Variable
+#' @param y_index default 0
+#' @param x_index default 0
+#' @param showSymbol Logical
+#' @param label logical
+#' @param lineStyle.width numeric
+#' @param lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param lineStyle.shadowColor hex or color
+#' @param lineStyle.shadowBlur numeric
+#' @param lineStyle.shadowOffsetX numeric
+#' @param lineStyle.shadowOffsetY numeric
+#' @return The modified echarts4r object
+#' @export
+e_step_full <- function(e = NULL,
+                        serie = NULL,
+                        y_index = 0,
+                        x_index = 0,
+                        showSymbol = NULL,
+                        label = NULL,
+                        lineStyle.width = NULL,
+                        lineStyle.type = NULL,
+                        lineStyle.shadowColor = NULL,
+                        lineStyle.shadowBlur = NULL,
+                        lineStyle.shadowOffsetX = NULL,
+                        lineStyle.shadowOffsetY = NULL) {
+
+  # lineStyle list
+  ls <- .compact(list(
+    width = lineStyle.width,
+    type = lineStyle.type,
+    shadowColor = lineStyle.shadowColor,
+    shadowBlur = lineStyle.shadowBlur,
+    shadowOffsetX = lineStyle.shadowOffsetX,
+    shadowOffsetY = lineStyle.shadowOffsetY
+  ))
+
+  # standard e_area_ args
+  standard <- list()
+  standard[["e"]] <- e
+  standard[["y_index"]] <- y_index
+  standard[["x_index"]] <- x_index
+  standard[["serie"]] <- serie
+  standard[["showSymbol"]] <- showSymbol
+  standard[["label"]] <- list(show = label)
+
+  # opts
+  opts <- .compact(list(
+    lineStyle = if (length(ls)) ls
+  ))
+
+  # final call
+  do.call(echarts4r::e_step_, c(standard, opts))
+}
+
 #' Enhanced area Setter for echarts4r
 #'
 #' Exposes every area* option so you don't have to hand-craft the JSON.

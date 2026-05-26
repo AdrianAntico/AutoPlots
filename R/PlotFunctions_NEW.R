@@ -8308,6 +8308,12 @@ WordCloud <- function(dt = NULL,
 #' @param Smooth = TRUE
 #' @param ShowSymbol = FALSE
 #' @param lineStyle.color hex or name
+#' @param lineStyle.width numeric
+#' @param lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param lineStyle.shadowColor hex or color
+#' @param lineStyle.shadowBlur numeric
+#' @param lineStyle.shadowOffsetX numeric
+#' @param lineStyle.shadowOffsetY numeric
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -8656,6 +8662,12 @@ Line <- function(dt = NULL,
                  ShowSymbol = FALSE,
                  DarkMode = FALSE,
                  lineStyle.color = NULL,
+                 lineStyle.width = NULL,
+                 lineStyle.type = NULL,
+                 lineStyle.shadowColor = NULL,
+                 lineStyle.shadowBlur = NULL,
+                 lineStyle.shadowOffsetX = NULL,
+                 lineStyle.shadowOffsetY = NULL,
                  title.text = "Line Plot",
                  title.subtext = NULL,
                  title.link = NULL,
@@ -9342,21 +9354,41 @@ Line <- function(dt = NULL,
 
     # Left y-axis
     for (yyy in YVar) {
-      if(ShowLabels) {
-        p1 <- echarts4r::e_line_(e = p1, serie = yyy, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE))
-      } else {
-        p1 <- echarts4r::e_line_(e = p1, serie = yyy, smooth = Smooth, showSymbol = ShowSymbol)
-      }
+      p1 <- e_line_full(
+        e = p1,
+        x_index = 0,
+        y_index = 0,
+        serie = yyy,
+        smooth = Smooth,
+        label = ShowLabels,
+        showSymbol = ShowSymbol,
+        lineStyle.width = lineStyle.width,
+        lineStyle.type = lineStyle.type,
+        lineStyle.shadowColor = lineStyle.shadowColor,
+        lineStyle.shadowBlur = lineStyle.shadowBlur,
+        lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
+        lineStyle.shadowOffsetY = lineStyle.shadowOffsetY
+      )
     }
 
     # DualYVar
     if(length(DualYVar) > 0L) {
       for (xxx in DualYVar) {
-        if(ShowLabels) {
-          p1 <- echarts4r::e_line_(e = p1, serie = xxx, smooth = Smooth, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
-        } else {
-          p1 <- echarts4r::e_line_(e = p1, serie = xxx, smooth = Smooth, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
-        }
+        p1 <- e_line_full(
+          e = p1,
+          x_index = 1,
+          y_index = 1,
+          serie = xxx,
+          smooth = Smooth,
+          label = ShowLabels,
+          showSymbol = ShowSymbol,
+          lineStyle.width = lineStyle.width,
+          lineStyle.type = lineStyle.type,
+          lineStyle.shadowColor = lineStyle.shadowColor,
+          lineStyle.shadowBlur = lineStyle.shadowBlur,
+          lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
+          lineStyle.shadowOffsetY = lineStyle.shadowOffsetY
+        )
       }
     }
 
@@ -10950,6 +10982,12 @@ Area <- function(dt = NULL,
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
 #' @param lineStyle.color hex or name
+#' @param lineStyle.width numeric
+#' @param lineStyle.type 'solid' 'dashed' 'dotted'
+#' @param lineStyle.shadowColor hex or color
+#' @param lineStyle.shadowBlur numeric
+#' @param lineStyle.shadowOffsetX numeric
+#' @param lineStyle.shadowOffsetY numeric
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -11295,6 +11333,12 @@ Step <- function(dt = NULL,
                  TimeLine = FALSE,
                  ShowSymbol = FALSE,
                  lineStyle.color = NULL,
+                 lineStyle.width = NULL,
+                 lineStyle.type = NULL,
+                 lineStyle.shadowColor = NULL,
+                 lineStyle.shadowBlur = NULL,
+                 lineStyle.shadowOffsetX = NULL,
+                 lineStyle.shadowOffsetY = NULL,
                  title.text = "Step Plot",
                  title.subtext = NULL,
                  title.link = NULL,
@@ -11975,21 +12019,39 @@ Step <- function(dt = NULL,
 
     # Left y-axis
     for (yyy in YVar) {
-      if(ShowLabels) {
-        p1 <- echarts4r::e_step_(e = p1, serie = yyy, showSymbol = ShowSymbol, label = list(show = TRUE))
-      } else {
-        p1 <- echarts4r::e_step_(e = p1, serie = yyy, showSymbol = ShowSymbol)
-      }
+      p1 <- e_step_full(
+        e = p1,
+        x_index = 0,
+        y_index = 0,
+        serie = yyy,
+        label = ShowLabels,
+        showSymbol = ShowSymbol,
+        lineStyle.width = lineStyle.width,
+        lineStyle.type = lineStyle.type,
+        lineStyle.shadowColor = lineStyle.shadowColor,
+        lineStyle.shadowBlur = lineStyle.shadowBlur,
+        lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
+        lineStyle.shadowOffsetY = lineStyle.shadowOffsetY
+      )
     }
 
     # DualYVar
     if(length(DualYVar) > 0L) {
       for (xxx in DualYVar) {
-        if(ShowLabels) {
-          p1 <- echarts4r::e_step_(e = p1, serie = xxx, showSymbol = ShowSymbol, label = list(show = TRUE), x_index = 1, y_index = 1)
-        } else {
-          p1 <- echarts4r::e_step_(e = p1, serie = xxx, showSymbol = ShowSymbol, x_index = 1, y_index = 1)
-        }
+        p1 <- e_step_full(
+          e = p1,
+          x_index = 1,
+          y_index = 1,
+          serie = yyy,
+          label = ShowLabels,
+          showSymbol = ShowSymbol,
+          lineStyle.width = lineStyle.width,
+          lineStyle.type = lineStyle.type,
+          lineStyle.shadowColor = lineStyle.shadowColor,
+          lineStyle.shadowBlur = lineStyle.shadowBlur,
+          lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
+          lineStyle.shadowOffsetY = lineStyle.shadowOffsetY
+        )
       }
     }
 
@@ -28202,24 +28264,24 @@ Scatter3D <- function(dt = NULL,
 #' @return plot
 #' @export
 Residuals.Histogram <- function(dt = NULL,
-                                     AggMethod = 'mean',
-                                     SampleSize = 100000,
-                                     XVar = NULL,
-                                     YVar = NULL,
-                                     GroupVar = NULL,
-                                     YVarTrans = "Identity",
-                                     XVarTrans = "Identity",
-                                     FacetRows = 1,
-                                     FacetCols = 1,
-                                     FacetLevels = NULL,
-                                     NumberBins = 20,
-                                     Height = NULL,
-                                     Width = NULL,
-                                     ShowLabels = FALSE,
-                                     Theme = "dark",
-                                     MouseScroll = FALSE,
-                                     TimeLine = FALSE,
-                                     Debug = FALSE) {
+                                AggMethod = 'mean',
+                                SampleSize = 100000,
+                                XVar = NULL,
+                                YVar = NULL,
+                                GroupVar = NULL,
+                                YVarTrans = "Identity",
+                                XVarTrans = "Identity",
+                                FacetRows = 1,
+                                FacetCols = 1,
+                                FacetLevels = NULL,
+                                NumberBins = 20,
+                                Height = NULL,
+                                Width = NULL,
+                                ShowLabels = FALSE,
+                                Theme = "dark",
+                                MouseScroll = FALSE,
+                                TimeLine = FALSE,
+                                Debug = FALSE) {
 
   # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)
   if(length(SampleSize) == 0L) SampleSize <- 30000L
@@ -28300,7 +28362,6 @@ Residuals.Histogram <- function(dt = NULL,
     ShowLabels = ShowLabels,
     Theme = Theme,
     TimeLine = TimeLine,
-
     Debug = Debug)
 
   return(p1)
