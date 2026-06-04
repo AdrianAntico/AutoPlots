@@ -2923,10 +2923,10 @@ e_treemap_full <- function(
 #' @return A browsable HTML grid for use in Rmarkdown, Shiny, or viewer pane.
 #' @export
 display_plots_grid <- function(
-    plots,
-    cols = NULL,
-    container_class = "plot-card",
-    grid_class = "plot-grid"
+  plots,
+  cols = NULL,
+  container_class = "plot-card",
+  grid_class = "plot-grid"
 ) {
   stopifnot(is.list(plots))
   nplots <- length(plots)
