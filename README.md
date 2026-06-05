@@ -114,7 +114,47 @@ AutoPlots::Density(dt, XVar = "x")
 - Variable Importance
 
 
+## Enhanced Default Themes
+If you select one of these themes for the Theme parameter of any given plot type, you'll get an enhanced version of the original:
 
+* auritus,
+* azul
+* bee-inspired
+* blue
+* caravan
+* carp
+* chalk
+* cool
+* dark
+* dark-blue
+* dark-bold
+* dark-digerati
+* dark-fresh-cut
+* dark-mushroom
+* eduardo
+* essos
+* forest
+* fresh-cut
+* fruit
+* gray
+* green
+* halloween
+* helianthus
+* infographic
+* inspired
+* jazz
+* london
+* macarons
+* macarons2
+* mint
+* purple-passion
+* red
+* red-velvet
+* roma
+* royal
+* v5
+* walden
+* wef
 
 
 <br>
