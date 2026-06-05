@@ -1257,6 +1257,196 @@ get_theme_defaults_common <- function(theme = "dark") {
       toolbox.iconStyle.borderColor = "#CBAFDB",
       toolbox.emphasis.iconStyle.borderColor = "#500080"
     ),
+    rainbow = list(
+      title.textStyle.color = "#00A5FF",
+      title.textStyle.fontWeight = "bolder",
+      title.textStyle.textShadowColor = "#002130",
+      title.textStyle.textShadowBlur = 15,
+      title.textStyle.textShadowOffsetX = 0,
+      title.textStyle.textShadowOffsetY = 0,
+      title.top = 12,
+      title.left = 12,
+      title.padding = c(4, 4, 10, 4),
+      title.itemGap = 6,
+      title.subtextStyle.color = "#0084C4",
+      title.subtextStyle.textShadowColor = "#002130",
+      title.subtextStyle.textShadowBlur = 15,
+      title.subtextStyle.textShadowOffsetX = 0,
+      title.subtextStyle.textShadowOffsetY = 0,
+      title.subtextStyle.fontWeight = "bold",
+      xAxis.nameTextStyle.fontSize = 20,
+      xAxis.nameTextStyle.color = "#00A5FF",
+      xAxis.nameTextStyle.textShadowColor = "#002130",
+      xAxis.nameTextStyle.textShadowBlur = 15,
+      xAxis.nameTextStyle.textShadowOffsetX = 0,
+      xAxis.nameTextStyle.textShadowOffsetY = 0,
+      xAxis.axisLabel.color = "#006596",
+      xAxis.axisLabel.overflow = "truncate",
+      yAxis.nameTextStyle.fontSize = 20,
+      yAxis.nameTextStyle.padding = 60,
+      yAxis.nameTextStyle.color = "#00A5FF",
+      yAxis.nameTextStyle.textShadowColor = "#002130",
+      yAxis.nameTextStyle.textShadowBlur = 15,
+      yAxis.nameTextStyle.textShadowOffsetX = 0,
+      yAxis.nameTextStyle.textShadowOffsetY = 0,
+      yAxis.axisLabel.color = "#006596",
+      tooltip.backgroundColor = "#A9E2FC",
+      tooltip.textStyle.color = "#006596",
+      toolbox.iconStyle.borderColor = "#006596",
+      toolbox.emphasis.iconStyle.borderColor = "#002130"
+    ),
+    red = list(
+      title.textStyle.color = "#FC0000",
+      title.textStyle.fontWeight = "bolder",
+      title.textStyle.textShadowColor = "#9E0000",
+      title.textStyle.textShadowBlur = 15,
+      title.textStyle.textShadowOffsetX = 0,
+      title.textStyle.textShadowOffsetY = 0,
+      title.top = 12,
+      title.left = 12,
+      title.padding = c(4, 4, 10, 4),
+      title.itemGap = 6,
+      title.subtextStyle.color = "#9E0000",
+      title.subtextStyle.textShadowColor = "#9E0000",
+      title.subtextStyle.textShadowBlur = 15,
+      title.subtextStyle.textShadowOffsetX = 0,
+      title.subtextStyle.textShadowOffsetY = 0,
+      title.subtextStyle.fontWeight = "bold",
+      xAxis.nameTextStyle.fontSize = 20,
+      xAxis.nameTextStyle.color = "#FC0000",
+      xAxis.nameTextStyle.textShadowColor = "#9E0000",
+      xAxis.nameTextStyle.textShadowBlur = 15,
+      xAxis.nameTextStyle.textShadowOffsetX = 0,
+      xAxis.nameTextStyle.textShadowOffsetY = 0,
+      xAxis.axisLabel.color = "#9E0000",
+      xAxis.axisLabel.overflow = "truncate",
+      yAxis.nameTextStyle.fontSize = 20,
+      yAxis.nameTextStyle.padding = 60,
+      yAxis.nameTextStyle.color = "#FC0000",
+      yAxis.nameTextStyle.textShadowColor = "#9E0000",
+      yAxis.nameTextStyle.textShadowBlur = 15,
+      yAxis.nameTextStyle.textShadowOffsetX = 0,
+      yAxis.nameTextStyle.textShadowOffsetY = 0,
+      yAxis.axisLabel.color = "#9E0000",
+      tooltip.backgroundColor = "#FFD1D1",
+      tooltip.textStyle.color = "#9E0000",
+      toolbox.iconStyle.borderColor = "#FF5959",
+      toolbox.emphasis.iconStyle.borderColor = "#9E0000"
+    ),
+    `red-velvet` = list(
+      title.textStyle.color = "#570000",
+      title.textStyle.fontWeight = "bolder",
+      title.textStyle.textShadowColor = "#004BFF",
+      title.textStyle.textShadowBlur = 15,
+      title.textStyle.textShadowOffsetX = 0,
+      title.textStyle.textShadowOffsetY = 0,
+      title.top = 12,
+      title.left = 12,
+      title.padding = c(4, 4, 10, 4),
+      title.itemGap = 6,
+      title.subtextStyle.color = "#3B0000",
+      title.subtextStyle.textShadowColor = "#004BFF",
+      title.subtextStyle.textShadowBlur = 15,
+      title.subtextStyle.textShadowOffsetX = 0,
+      title.subtextStyle.textShadowOffsetY = 0,
+      title.subtextStyle.fontWeight = "bold",
+      xAxis.nameTextStyle.fontSize = 20,
+      xAxis.nameTextStyle.color = "#3B0000",
+      xAxis.nameTextStyle.textShadowColor = "#004BFF",
+      xAxis.nameTextStyle.textShadowBlur = 15,
+      xAxis.nameTextStyle.textShadowOffsetX = 0,
+      xAxis.nameTextStyle.textShadowOffsetY = 0,
+      xAxis.axisLabel.color = "#002373",
+      xAxis.axisLabel.overflow = "truncate",
+      yAxis.nameTextStyle.fontSize = 20,
+      yAxis.nameTextStyle.padding = 60,
+      yAxis.nameTextStyle.color = "#3B0000",
+      yAxis.nameTextStyle.textShadowColor = "#004BFF",
+      yAxis.nameTextStyle.textShadowBlur = 15,
+      yAxis.nameTextStyle.textShadowOffsetX = 0,
+      yAxis.nameTextStyle.textShadowOffsetY = 0,
+      yAxis.axisLabel.color = "#002373",
+      tooltip.backgroundColor = "#DBE6FF",
+      tooltip.textStyle.color = "#002373",
+      toolbox.iconStyle.borderColor = "#3C538C",
+      toolbox.emphasis.iconStyle.borderColor = "#004BFF"
+    ),
+    roma = list(
+      title.textStyle.color = "#AB0035",
+      title.textStyle.fontWeight = "bolder",
+      title.textStyle.textShadowColor = "#FF78A4",
+      title.textStyle.textShadowBlur = 15,
+      title.textStyle.textShadowOffsetX = 0,
+      title.textStyle.textShadowOffsetY = 0,
+      title.top = 12,
+      title.left = 12,
+      title.padding = c(4, 4, 10, 4),
+      title.itemGap = 6,
+      title.subtextStyle.color = "#85002A",
+      title.subtextStyle.textShadowColor = "#FF78A4",
+      title.subtextStyle.textShadowBlur = 15,
+      title.subtextStyle.textShadowOffsetX = 0,
+      title.subtextStyle.textShadowOffsetY = 0,
+      title.subtextStyle.fontWeight = "bold",
+      xAxis.nameTextStyle.fontSize = 20,
+      xAxis.nameTextStyle.color = "#5E001D",
+      xAxis.nameTextStyle.textShadowColor = "#FF78A4",
+      xAxis.nameTextStyle.textShadowBlur = 15,
+      xAxis.nameTextStyle.textShadowOffsetX = 0,
+      xAxis.nameTextStyle.textShadowOffsetY = 0,
+      xAxis.axisLabel.color = "#002373",
+      xAxis.axisLabel.overflow = "truncate",
+      yAxis.nameTextStyle.fontSize = 20,
+      yAxis.nameTextStyle.padding = 60,
+      yAxis.nameTextStyle.color = "#5E001D",
+      yAxis.nameTextStyle.textShadowColor = "#FF78A4",
+      yAxis.nameTextStyle.textShadowBlur = 15,
+      yAxis.nameTextStyle.textShadowOffsetX = 0,
+      yAxis.nameTextStyle.textShadowOffsetY = 0,
+      yAxis.axisLabel.color = "#002373",
+      tooltip.backgroundColor = "#DBE6FF",
+      tooltip.textStyle.color = "#002373",
+      toolbox.iconStyle.borderColor = "#3C538C",
+      toolbox.emphasis.iconStyle.borderColor = "#004BFF"
+    ),
+    royal = list(
+      title.textStyle.color = "#154D70",
+      title.textStyle.fontWeight = "bolder",
+      title.textStyle.textShadowColor = "#0063A1",
+      title.textStyle.textShadowBlur = 15,
+      title.textStyle.textShadowOffsetX = 0,
+      title.textStyle.textShadowOffsetY = 0,
+      title.top = 12,
+      title.left = 12,
+      title.padding = c(4, 4, 10, 4),
+      title.itemGap = 6,
+      title.subtextStyle.color = "#0A3652",
+      title.subtextStyle.textShadowColor = "#0063A1",
+      title.subtextStyle.textShadowBlur = 15,
+      title.subtextStyle.textShadowOffsetX = 0,
+      title.subtextStyle.textShadowOffsetY = 0,
+      title.subtextStyle.fontWeight = "bold",
+      xAxis.nameTextStyle.fontSize = 20,
+      xAxis.nameTextStyle.color = "#035182",
+      xAxis.nameTextStyle.textShadowColor = "#0063A1",
+      xAxis.nameTextStyle.textShadowBlur = 15,
+      xAxis.nameTextStyle.textShadowOffsetX = 0,
+      xAxis.nameTextStyle.textShadowOffsetY = 0,
+      xAxis.axisLabel.color = "#006287",
+      xAxis.axisLabel.overflow = "truncate",
+      yAxis.nameTextStyle.fontSize = 20,
+      yAxis.nameTextStyle.padding = 60,
+      yAxis.nameTextStyle.color = "#035182",
+      yAxis.nameTextStyle.textShadowColor = "#0063A1",
+      yAxis.nameTextStyle.textShadowBlur = 15,
+      yAxis.nameTextStyle.textShadowOffsetX = 0,
+      yAxis.nameTextStyle.textShadowOffsetY = 0,
+      yAxis.axisLabel.color = "#006287",
+      tooltip.backgroundColor = "#C5EDFC",
+      tooltip.textStyle.color = "#006287",
+      toolbox.iconStyle.borderColor = "#21AAFF",
+      toolbox.emphasis.iconStyle.borderColor = "#0063A1"
+    ),
     wef = list(
       title.textStyle.color = "#4D5054",
       title.textStyle.fontWeight = "bolder",
@@ -2973,6 +3163,341 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
       },
       Box = list(
         itemStyle.color = c("#B053E6","#B283D4","#B283D4"),
+        itemStyle.opacity = c(1.0, 0.75, 0.25)
+      ),
+      NULL
+    ),
+    rainbow = switch(
+      plot_type,
+      Area = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#0078BA","#00A5FF","#38B9FF"),
+          areaStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Line = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#0078BA","#00A5FF","#38B9FF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#0078BA",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Step = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#0078BA","#00A5FF","#38B9FF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#0078BA",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Parallel = list(
+        lineStyle.color = c("#0078BA")
+      ),
+      Bar = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#0078BA","#00A5FF","#38B9FF"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Histogram = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#0078BA","#00A5FF","#38B9FF"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Density = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#0078BA","#00A5FF","#38B9FF"),
+          areaStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Box = list(
+        itemStyle.color = c("#0078BA","#00A5FF","#38B9FF"),
+        itemStyle.opacity = c(1.0, 0.75, 0.25)
+      ),
+      NULL
+    ),
+    red = switch(
+      plot_type,
+      Area = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#9E0000","#FC0000","#FC4C4C"),
+          areaStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Line = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#9E0000","#FC0000","#FC4C4C"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#9E0000",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Step = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#9E0000","#FC0000","#FC4C4C"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#9E0000",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Parallel = list(
+        lineStyle.color = c("#9E0000")
+      ),
+      Bar = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#9E0000","#FC0000","#FC4C4C"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Histogram = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#9E0000","#FC0000","#FC4C4C"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Density = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#9E0000","#FC0000","#FC4C4C"),
+          areaStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Box = list(
+        itemStyle.color = c("#9E0000","#FC0000","#FC4C4C"),
+        itemStyle.opacity = c(1.0, 0.75, 0.25)
+      ),
+      NULL
+    ),
+    `red-velvet` = switch(
+      plot_type,
+      Area = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#570000","#800000","#AD0000"),
+          areaStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Line = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#570000","#800000","#AD0000"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#570000",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Step = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#570000","#800000","#AD0000"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#570000",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Parallel = list(
+        lineStyle.color = c("#570000")
+      ),
+      Bar = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#570000","#800000","#AD0000"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Histogram = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#570000","#800000","#AD0000"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Density = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#570000","#800000","#AD0000"),
+          areaStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Box = list(
+        itemStyle.color = c("#570000","#800000","#AD0000"),
+        itemStyle.opacity = c(1.0, 0.75, 0.25)
+      ),
+      NULL
+    ),
+    roma = switch(
+      plot_type,
+      Area = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#AB0035","#D90044","#FF0051"),
+          areaStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Line = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#AB0035","#D90044","#FF0051"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#AB0035",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Step = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#AB0035","#D90044","#FF0051"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#AB0035",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Parallel = list(
+        lineStyle.color = c("#AB0035")
+      ),
+      Bar = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#AB0035","#D90044","#FF0051"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Histogram = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#AB0035","#D90044","#FF0051"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Density = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#AB0035","#D90044","#FF0051"),
+          areaStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Box = list(
+        itemStyle.color = c("#AB0035","#D90044","#FF0051"),
+        itemStyle.opacity = c(1.0, 0.75, 0.25)
+      ),
+      NULL
+    ),
+    royal = switch(
+      plot_type,
+      Area = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#004573","#0069B0","#0096FC"),
+          areaStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Line = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#004573","#0069B0","#0096FC"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#AB0035",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Step = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#004573","#0069B0","#0096FC"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#AB0035",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Parallel = list(
+        lineStyle.color = c("#AB0035")
+      ),
+      Bar = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#004573","#0069B0","#0096FC"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Histogram = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#004573","#0069B0","#0096FC"),
+          backgroundStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Density = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#004573","#0069B0","#0096FC"),
+          areaStyle.opacity = c(1.0, 0.75, 0.25)
+        )
+      },
+      Box = list(
+        itemStyle.color = c("#004573","#0069B0","#0096FC"),
         itemStyle.opacity = c(1.0, 0.75, 0.25)
       ),
       NULL
