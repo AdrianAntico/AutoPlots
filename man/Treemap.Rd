@@ -322,7 +322,7 @@ is resolved via \code{SummaryFunction()}.}
 \item{Height, Width}{Optional numeric or character dimensions passed to
 \code{echarts4r::e_charts_()} as chart size (e.g. \code{400} or}
 
-\item{Theme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
+\item{Theme}{"auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"}
 
 \item{ShowLabels}{Logical, currently used as a convenience flag for whether
 node labels should be visible. This typically maps to \code{label.show}

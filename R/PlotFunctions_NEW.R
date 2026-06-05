@@ -37,7 +37,7 @@
 #' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param areaStyle.color color or hex
 #' @param areaStyle.opacity numeric
@@ -1293,7 +1293,7 @@ Density <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -1546,7 +1546,7 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param NumberBins = 30
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowLabels FALSE
@@ -2965,7 +2965,7 @@ Histogram <- function(dt = NULL,
 #' @param Height,Width Optional numeric or character dimensions passed to
 #'   \code{echarts4r::e_charts_()} as chart size (e.g. \code{400} or
 #   \code{"400px"}).
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param ShowLabels Logical, currently used as a convenience flag for whether
 #'   node labels should be visible. This typically maps to \code{label.show}
 #'   and/or \code{upperLabel.show}.
@@ -6326,7 +6326,7 @@ Rosetype <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param itemStyle.color Fill color. Can be a single color or vector of multiple colors for gradient.
@@ -7967,7 +7967,7 @@ Box <- function(dt = NULL,
 #' @param YVar Y-Axis variable name
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -8301,7 +8301,7 @@ WordCloud <- function(dt = NULL,
 #' @param Height NULL
 #' @param Width NULL
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Smooth = TRUE
@@ -9354,15 +9354,9 @@ Line <- function(dt = NULL,
     # Left y-axis
     for (yyy in YVar) {
       p1 <- e_line_full(
-        e = p1,
-        x_index = 0,
-        y_index = 0,
-        serie = yyy,
-        smooth = Smooth,
-        label = ShowLabels,
-        showSymbol = ShowSymbol,
-        lineStyle.width = lineStyle.width,
-        lineStyle.type = lineStyle.type,
+        e = p1, x_index = 0, y_index = 0, serie = yyy,
+        smooth = Smooth, label = ShowLabels, showSymbol = ShowSymbol,
+        lineStyle.width = lineStyle.width, lineStyle.type = lineStyle.type,
         lineStyle.shadowColor = lineStyle.shadowColor,
         lineStyle.shadowBlur = lineStyle.shadowBlur,
         lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
@@ -9374,15 +9368,9 @@ Line <- function(dt = NULL,
     if(length(DualYVar) > 0L) {
       for (xxx in DualYVar) {
         p1 <- e_line_full(
-          e = p1,
-          x_index = 1,
-          y_index = 1,
-          serie = xxx,
-          smooth = Smooth,
-          label = ShowLabels,
-          showSymbol = ShowSymbol,
-          lineStyle.width = lineStyle.width,
-          lineStyle.type = lineStyle.type,
+          e = p1, x_index = 1, y_index = 1, serie = xxx,
+          smooth = Smooth, label = ShowLabels, showSymbol = ShowSymbol,
+          lineStyle.width = lineStyle.width, lineStyle.type = lineStyle.type,
           lineStyle.shadowColor = lineStyle.shadowColor,
           lineStyle.shadowBlur = lineStyle.shadowBlur,
           lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
@@ -9663,7 +9651,7 @@ Line <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Smooth = TRUE
@@ -10976,7 +10964,7 @@ Area <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
@@ -12324,7 +12312,7 @@ Step <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
@@ -13103,7 +13091,7 @@ River <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels logical
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param backgroundStyle.color vector of colors
@@ -15045,7 +15033,7 @@ Bar <- function(dt = NULL,
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -15939,7 +15927,7 @@ ACF <- function(dt = NULL,
 #' @param AggMethod Choose from 'mean', 'sum', 'sd', and 'median'
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -16848,7 +16836,7 @@ PACF <- function(dt = NULL,
 #' @param Height NULL
 #' @param Width NULL
 #' @param ShowLabels logical
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param title.text Title name
@@ -17889,7 +17877,7 @@ StackedBar <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
 #' @param NumLevels_Y = 20
@@ -19213,7 +19201,7 @@ BarPlot3D <- function(dt,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
 #' @param NumLevels_Y = 20
@@ -21055,7 +21043,7 @@ HeatMap <- function(dt,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param ShowSymbol = FALSE
 #' @param lineStyle.color hex or name for radar lines
 #' @param title.text Title name
@@ -21803,7 +21791,7 @@ Radar <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param PreAgg logical
 #' @param visualMap.show TRUE
@@ -22701,7 +22689,7 @@ CorrMatrix <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param rm_x logical. Remove x-axis
 #' @param rm_y logical. Remove y-axis
@@ -23562,7 +23550,7 @@ Parallel <- function(dt = NULL,
 #' @param Width "200px"
 #' @param ShowLabels character
 #' @param AddGLM logical
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland",
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland",
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param title.text Title name
@@ -24808,7 +24796,7 @@ Copula <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine Logical
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -25889,7 +25877,7 @@ Copula3D <- function(dt = NULL,
 #' @param AddGLM logical
 #' @param tooltip.trigger "axis"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param title.text Title name
@@ -27148,7 +27136,7 @@ Scatter <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine Logical
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -28256,7 +28244,7 @@ Scatter3D <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Debug Debugging purposes
@@ -28387,7 +28375,7 @@ Residuals.Histogram <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Debug Debugging purposes
@@ -28479,7 +28467,7 @@ Residuals.Scatter <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Debug Debugging purposes
@@ -28749,7 +28737,7 @@ Calibration.Line <- function(dt = NULL,
 #' @param Width "200px"
 #' @param NumberBins numeric
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Debug Debugging purposes
@@ -28868,7 +28856,7 @@ Calibration.Box <- function(dt = NULL,
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param EchartsLabels character
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param TimeLine logical
@@ -29106,7 +29094,7 @@ PartialDependence.Line <- function(dt = NULL,
 #' @param ShowLabels character
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -29214,7 +29202,7 @@ PartialDependence.Box <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -29442,7 +29430,7 @@ PartialDependence.HeatMap <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param Debug Debugging purposes
 #' @return plot
@@ -29516,7 +29504,7 @@ VariableImportance <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param SampleSize numeric
@@ -29744,7 +29732,7 @@ ROC <- function(dt = NULL,
 #' @author Adrian Antico
 #' @family Model Evaluation
 #'
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param dt source data.table
 #' @param PreAgg FALSE
@@ -29873,7 +29861,7 @@ ConfusionMatrix <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Debug Debugging purposes
@@ -30163,7 +30151,7 @@ Lift <- function(dt = NULL,
 #' @param Height NULL
 #' @param Width NULL
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Debug Debugging purposes
@@ -30451,7 +30439,7 @@ Gains <- function(dt = NULL,
 #' @param NumberBins numeric
 #' @param PreAgg logical
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param EchartsLabels character
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
@@ -30555,7 +30543,7 @@ BinaryMetricsPlot <- function(dt = NULL,
 #' @param PreAgg logical
 #' @param YVar Names of shap columns
 #' @param GroupVar Name of by variable
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus", "azul", "bee-inspired", "blue", "caravan", "carp", "chalk", "cool", "dark", "dark-blue", "dark-bold", "dark-digerati", "dark-fresh-cut", "dark-mushroom", "eduardo", "essos", "forest", "fresh-cut", "fruit", "gray", "green", "halloween", "helianthus", "infographic", "inspired", "jazz", "london", "macarons", "macarons2", "mint", "purple-passion", "rainbow", "red", "red-velvet", "roma", "royal", "sakura", "shine", "tech-blue", "v5", "vintage", "walden", "wef", "weforum", "westeros", "wonderland"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.
