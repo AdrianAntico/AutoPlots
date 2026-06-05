@@ -37,7 +37,7 @@
 #' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowLabels character
-#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", #' "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", #' "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", #' "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param areaStyle.color color or hex
 #' @param areaStyle.opacity numeric
@@ -1293,7 +1293,7 @@ Density <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme "macaron"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
 #' @param title.link Title as a link
@@ -1546,7 +1546,7 @@ ProbabilityPlot <- function(dt = NULL,
 #' @param NumberBins = 30
 #' @param Height "400px"
 #' @param Width "200px"
-#' @param Theme = Theme,
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowLabels FALSE
@@ -2965,8 +2965,7 @@ Histogram <- function(dt = NULL,
 #' @param Height,Width Optional numeric or character dimensions passed to
 #'   \code{echarts4r::e_charts_()} as chart size (e.g. \code{400} or
 #   \code{"400px"}).
-#' @param Theme Character name of the \pkg{echarts4r} theme applied to the
-#'   chart (used with \code{echarts4r::e_theme()}).
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param ShowLabels Logical, currently used as a convenience flag for whether
 #'   node labels should be visible. This typically maps to \code{label.show}
 #'   and/or \code{upperLabel.show}.
@@ -8302,7 +8301,7 @@ WordCloud <- function(dt = NULL,
 #' @param Height NULL
 #' @param Width NULL
 #' @param ShowLabels character
-#' @param Theme Provide an "Echarts" theme
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Smooth = TRUE
@@ -9664,7 +9663,7 @@ Line <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme Provide an "Echarts" theme
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param Smooth = TRUE
@@ -10977,7 +10976,7 @@ Area <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme Provide an "Echarts" theme
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
@@ -12325,7 +12324,7 @@ Step <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme Provide an "Echarts" theme
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param ShowSymbol = FALSE
@@ -17890,7 +17889,7 @@ StackedBar <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param Theme "dark-blue"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
 #' @param NumLevels_Y = 20
@@ -19214,7 +19213,7 @@ BarPlot3D <- function(dt,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param MouseScroll logical, zoom via mouse scroll
-#' @param Theme "dark-blue"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param AggMethod 'mean', 'median', 'sum', 'sd', 'coeffvar', 'count'
 #' @param NumberBins = 21
 #' @param NumLevels_Y = 20
@@ -21056,7 +21055,7 @@ HeatMap <- function(dt,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme Provide an "Echarts" theme
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param ShowSymbol = FALSE
 #' @param lineStyle.color hex or name for radar lines
 #' @param title.text Title name
@@ -23563,7 +23562,7 @@ Parallel <- function(dt = NULL,
 #' @param Width "200px"
 #' @param ShowLabels character
 #' @param AddGLM logical
-#' @param Theme = "dark-blue",
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland",
 #' @param TimeLine Logical
 #' @param MouseScroll logical, zoom via mouse scroll
 #' @param title.text Title name
@@ -24809,7 +24808,7 @@ Copula <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme = "dark-blue"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -27149,7 +27148,7 @@ Scatter <- function(dt = NULL,
 #' @param Height "400px"
 #' @param Width "200px"
 #' @param ShowLabels character
-#' @param Theme = "macaron"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param TimeLine Logical
 #' @param title.text Title name
 #' @param title.subtext Subtitle name
@@ -30556,7 +30555,7 @@ BinaryMetricsPlot <- function(dt = NULL,
 #' @param PreAgg logical
 #' @param YVar Names of shap columns
 #' @param GroupVar Name of by variable
-#' @param Theme "dark-blue"
+#' @param Theme "auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"
 #' @param FacetRows Defaults to 1 which causes no faceting to occur vertically. Otherwise, supply a numeric value for the number of output grid rows
 #' @param FacetCols Defaults to 1 which causes no faceting to occur horizontally. Otherwise, supply a numeric value for the number of output grid columns
 #' @param FacetLevels Faceting rows x columns is the max number of levels allowed in a grid. If your GroupVar has more you can supply the levels to display.

@@ -253,7 +253,7 @@ Radar(
 
 \item{ShowLabels}{character}
 
-\item{Theme}{Provide an "Echarts" theme}
+\item{Theme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{ShowSymbol}{= FALSE}
 

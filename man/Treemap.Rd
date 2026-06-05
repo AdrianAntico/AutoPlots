@@ -322,8 +322,7 @@ is resolved via \code{SummaryFunction()}.}
 \item{Height, Width}{Optional numeric or character dimensions passed to
 \code{echarts4r::e_charts_()} as chart size (e.g. \code{400} or}
 
-\item{Theme}{Character name of the \pkg{echarts4r} theme applied to the
-chart (used with \code{echarts4r::e_theme()}).}
+\item{Theme}{"auritus","azul","bee-inspired","blue","caravan","carp","chalk","cool","dark-bold","dark","eduardo", "essos","forest","fresh-cut","fruit","gray","green","halloween","helianthus","infographic","inspired", "jazz","london","dark","macarons","macarons2","mint","purple-passion","red-velvet","red","roma","royal", "sakura","shine","tech-blue","vintage","walden","wef","weforum","westeros","wonderland"}
 
 \item{ShowLabels}{Logical, currently used as a convenience flag for whether
 node labels should be visible. This typically maps to \code{label.show}
