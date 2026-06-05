@@ -152,9 +152,11 @@ If you select one of these themes for the Theme parameter of any given plot type
 * red-velvet
 * roma
 * royal
+* sakura
 * v5
 * walden
 * wef
+* weforum
 
 
 <br>
