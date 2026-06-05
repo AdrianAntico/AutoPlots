@@ -161,6 +161,27 @@ If you select one of these themes for the Theme parameter of any given plot type
 
 <br>
 
+
+## Theme Gallery
+
+AutoPlots includes 46 built-in themes that can be selected through the `Theme` argument.  
+The screenshots below use the Area plot as a consistent example to showcase the available theme styles.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Themes_1-16.PNG" width="95%" alt="AutoPlots theme gallery screenshot 1">
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Themes_17-32.PNG" width="95%" alt="AutoPlots theme gallery screenshot 2">
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Themes_33-46.PNG" width="95%" alt="AutoPlots theme gallery screenshot 3">
+</p>
+
+
+<br>
+
 ## 📚 Plot Gallery
 
 Below are the full set of examples for standard plots.
