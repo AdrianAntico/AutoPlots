@@ -164,7 +164,7 @@ If you select one of these themes for the Theme parameter of any given plot type
 
 ## Theme Gallery
 
-AutoPlots includes 46 built-in themes that can be selected through the `Theme` argument.  
+AutoPlots includes built-in themes that can be selected through the `Theme` argument.  
 The screenshots below use the Area plot as a consistent example to showcase the available theme styles.
 
 <p align="center">
