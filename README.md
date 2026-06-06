@@ -167,6 +167,52 @@ If you select one of these themes for the Theme parameter of any given plot type
 AutoPlots includes built-in themes that can be selected through the `Theme` argument.  
 The screenshots below use the Area plot as a consistent example to showcase the available theme styles.
 
+You can modify theming by essentially updating the below list of parameters for a given plot. The example below was used to create the "braves" theme (for Atlanta Braves).
+
+<details>
+
+```r
+areaStyle.color = c("#CE1141","#FFFFFF","#13274F")
+title.textStyle.color = "#FFFFFF"
+title.textStyle.fontWeight = "bolder"
+title.textStyle.textShadowColor = "#CE1141"
+title.textStyle.textShadowBlur = 14
+title.textStyle.textShadowOffsetX = 0
+title.textStyle.textShadowOffsetY = 0
+title.top = 12
+title.left = 12
+title.padding = c(4, 4, 10, 4)
+title.itemGap = 6
+title.subtextStyle.color = "#CE1141"
+title.subtextStyle.textShadowColor = "#CE1141"
+title.subtextStyle.textShadowBlur = 8
+title.subtextStyle.textShadowOffsetX = 0
+title.subtextStyle.textShadowOffsetY = 0
+title.subtextStyle.fontWeight = "bold"
+xAxis.nameTextStyle.fontSize = 20
+xAxis.nameTextStyle.color = "#FFFFFF"
+xAxis.nameTextStyle.textShadowColor = "#CE1141"
+xAxis.nameTextStyle.textShadowBlur = 8
+xAxis.nameTextStyle.textShadowOffsetX = 0
+xAxis.nameTextStyle.textShadowOffsetY = 0
+xAxis.axisLabel.color = "#E8EEF7"
+xAxis.axisLabel.overflow = "truncate"
+yAxis.nameTextStyle.fontSize = 20
+yAxis.nameTextStyle.padding = 60
+yAxis.nameTextStyle.color = "#CE1141"
+yAxis.nameTextStyle.textShadowColor = "#CE1141"
+yAxis.nameTextStyle.textShadowBlur = 10
+yAxis.nameTextStyle.textShadowOffsetX = 0
+yAxis.nameTextStyle.textShadowOffsetY = 0
+yAxis.axisLabel.color = "#F3F6FB"
+tooltip.backgroundColor = "rgba(12, 35, 64, 0.96)"
+tooltip.textStyle.color = "#FFFFFF"
+toolbox.iconStyle.borderColor = "#FFFFFF"
+toolbox.emphasis.iconStyle.borderColor = "#CE1141"
+```
+
+</details>
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Themes_1-16.PNG" width="95%" alt="AutoPlots theme gallery screenshot 1">
 </p>
