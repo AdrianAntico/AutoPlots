@@ -1768,7 +1768,7 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
       } else {
         list(
           areaStyle.color = c("#CE1141","#FFFFFF","#13274F"),
-          areaStyle.opacity = c(0.92, 0.48, 0.18)
+          areaStyle.opacity = c(0.92, 0.48, 0.92)
         )
       },
       Line = if(grouped) {
@@ -1803,7 +1803,7 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
       } else {
         list(
           backgroundStyle.color = c("#CE1141","#FFFFFF","#13274F"),
-          backgroundStyle.opacity = c(0.92, 0.50, 0.95)
+          backgroundStyle.opacity = c(0.92, 0.48, 0.92)
         )
       },
       Histogram = if(grouped) {
@@ -1811,7 +1811,7 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
       } else {
         list(
           backgroundStyle.color = c("#CE1141","#FFFFFF","#13274F"),
-          backgroundStyle.opacity = c(0.92, 0.50, 0.95)
+          backgroundStyle.opacity = c(0.92, 0.48, 0.92)
         )
       },
       Density = if(grouped) {
@@ -1819,12 +1819,12 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
       } else {
         list(
           areaStyle.color = c("#CE1141","#FFFFFF","#13274F"),
-          areaStyle.opacity = c(0.92, 0.50, 0.95)
+          areaStyle.opacity = c(0.92, 0.48, 0.92)
         )
       },
       Box = list(
         itemStyle.color = c("#CE1141","#FFFFFF","#13274F"),
-        itemStyle.opacity = c(0.92, 0.50, 0.95)
+        itemStyle.opacity = c(0.92, 0.48, 0.92)
       ),
       NULL
     ),
