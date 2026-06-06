@@ -169,7 +169,7 @@ The screenshots below use the Area plot as a consistent example to showcase the 
 
 You can modify theming by essentially updating the below list of parameters for a given plot. The example below was used to create the "braves" theme (for Atlanta Braves).
 
-<details>
+<details><summary>Click for parameters</summary>
 
 ```r
 areaStyle.color = c("#CE1141","#FFFFFF","#13274F")
