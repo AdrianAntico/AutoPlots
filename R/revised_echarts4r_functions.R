@@ -1,6 +1,509 @@
 # compact helper to drop NULLs
 .compact <- function(x) x[!vapply(x, is.null, logical(1))]
 
+
+#' Enhanced DataZoom Slider Setter for echarts4r
+#'
+#' Exposes dataZoom-slider.* options so you don't have to hand-craft the JSON.
+#'
+#' @param e An echarts4r object
+#' @param index Which dataZoom component to target, zero-based. If NULL, append new slider.
+#' @param dataZoom.id Component ID
+#' @param dataZoom.show Whether to show the slider
+#' @param dataZoom.backgroundColor Background color
+#' @param dataZoom.fillerColor Color to fill selected area
+#' @param dataZoom.borderColor Border color
+#' @param dataZoom.borderRadius Border radius, numeric or array
+#' @param dataZoom.handleIcon Handle icon path/image
+#' @param dataZoom.handleSize Handle size
+#' @param dataZoom.handleLabel.show Whether to show handle label
+#' @param dataZoom.moveHandleIcon Move handle icon path/image
+#' @param dataZoom.moveHandleSize Move handle size
+#' @param dataZoom.labelPrecision Label precision, numeric or 'auto'
+#' @param dataZoom.labelFormatter Label formatter, string or JS function
+#' @param dataZoom.showDetail Whether to show detail while dragging
+#' @param dataZoom.showDataShadow Whether to show data shadow
+#' @param dataZoom.realtime Whether to update view while dragging
+#' @param dataZoom.xAxisIndex xAxis index or array of indices controlled by this slider
+#' @param dataZoom.yAxisIndex yAxis index or array of indices controlled by this slider
+#' @param dataZoom.radiusAxisIndex radiusAxis index or array of indices
+#' @param dataZoom.angleAxisIndex angleAxis index or array of indices
+#' @param dataZoom.filterMode 'filter', 'weakFilter', 'empty', 'none'
+#' @param dataZoom.start Start percentage, 0 to 100
+#' @param dataZoom.end End percentage, 0 to 100
+#' @param dataZoom.startValue Start absolute value
+#' @param dataZoom.endValue End absolute value
+#' @param dataZoom.minSpan Minimum window size in percent
+#' @param dataZoom.maxSpan Maximum window size in percent
+#' @param dataZoom.minValueSpan Minimum window size in value units
+#' @param dataZoom.maxValueSpan Maximum window size in value units
+#' @param dataZoom.orient 'horizontal' or 'vertical'
+#' @param dataZoom.zoomLock Whether to lock window size
+#' @param dataZoom.throttle Refresh throttle in milliseconds
+#' @param dataZoom.rangeMode Array such as c('value', 'percent')
+#' @param dataZoom.zlevel Canvas layer zlevel
+#' @param dataZoom.z Draw order z
+#' @param dataZoom.left Left position
+#' @param dataZoom.top Top position
+#' @param dataZoom.right Right position
+#' @param dataZoom.bottom Bottom position
+#' @param dataZoom.width Width
+#' @param dataZoom.height Height
+#' @param dataZoom.brushSelect Whether to enable brush selection
+#'
+#' @param dataZoom.dataBackground.lineStyle.color Data shadow line color
+#' @param dataZoom.dataBackground.lineStyle.width Data shadow line width
+#' @param dataZoom.dataBackground.lineStyle.type Data shadow line type
+#' @param dataZoom.dataBackground.areaStyle.color Data shadow area color
+#'
+#' @param dataZoom.selectedDataBackground.lineStyle.color Selected shadow line color
+#' @param dataZoom.selectedDataBackground.lineStyle.width Selected shadow line width
+#' @param dataZoom.selectedDataBackground.lineStyle.type Selected shadow line type
+#' @param dataZoom.selectedDataBackground.areaStyle.color Selected shadow area color
+#'
+#' @param dataZoom.handleStyle.color Handle color
+#' @param dataZoom.handleStyle.borderColor Handle border color
+#' @param dataZoom.handleStyle.borderWidth Handle border width
+#' @param dataZoom.handleStyle.borderType Handle border type
+#' @param dataZoom.handleStyle.shadowBlur Handle shadow blur
+#' @param dataZoom.handleStyle.shadowColor Handle shadow color
+#' @param dataZoom.handleStyle.shadowOffsetX Handle shadow X offset
+#' @param dataZoom.handleStyle.shadowOffsetY Handle shadow Y offset
+#' @param dataZoom.handleStyle.opacity Handle opacity
+#'
+#' @param dataZoom.moveHandleStyle.color Move handle color
+#' @param dataZoom.moveHandleStyle.borderColor Move handle border color
+#' @param dataZoom.moveHandleStyle.borderWidth Move handle border width
+#' @param dataZoom.moveHandleStyle.borderType Move handle border type
+#' @param dataZoom.moveHandleStyle.opacity Move handle opacity
+#'
+#' @param dataZoom.textStyle.color Text color
+#' @param dataZoom.textStyle.fontStyle Text font style
+#' @param dataZoom.textStyle.fontWeight Text font weight
+#' @param dataZoom.textStyle.fontFamily Text font family
+#' @param dataZoom.textStyle.fontSize Text font size
+#' @param dataZoom.textStyle.lineHeight Text line height
+#' @param dataZoom.textStyle.width Text block width
+#' @param dataZoom.textStyle.height Text block height
+#' @param dataZoom.textStyle.overflow Text overflow mode
+#' @param dataZoom.textStyle.ellipsis Text ellipsis
+#'
+#' @param dataZoom.brushStyle.color Brush color
+#' @param dataZoom.brushStyle.borderColor Brush border color
+#' @param dataZoom.brushStyle.borderWidth Brush border width
+#' @param dataZoom.brushStyle.borderType Brush border type
+#' @param dataZoom.brushStyle.opacity Brush opacity
+#'
+#' @return The modified echarts4r object
+#' @export
+#'
+e_data_zoom_slider_full <- function(
+    e,
+    index = NULL,
+
+    dataZoom.id = NULL,
+    dataZoom.show = TRUE,
+    dataZoom.backgroundColor = NULL,
+    dataZoom.fillerColor = NULL,
+    dataZoom.borderColor = NULL,
+    dataZoom.borderRadius = NULL,
+
+    dataZoom.handleIcon = NULL,
+    dataZoom.handleSize = NULL,
+    dataZoom.handleLabel.show = NULL,
+
+    dataZoom.moveHandleIcon = NULL,
+    dataZoom.moveHandleSize = NULL,
+
+    dataZoom.labelPrecision = NULL,
+    dataZoom.labelFormatter = NULL,
+    dataZoom.showDetail = NULL,
+    dataZoom.showDataShadow = NULL,
+    dataZoom.realtime = NULL,
+
+    dataZoom.xAxisIndex = 0,
+    dataZoom.yAxisIndex = NULL,
+    dataZoom.radiusAxisIndex = NULL,
+    dataZoom.angleAxisIndex = NULL,
+    dataZoom.filterMode = NULL,
+
+    dataZoom.start = NULL,
+    dataZoom.end = NULL,
+    dataZoom.startValue = NULL,
+    dataZoom.endValue = NULL,
+    dataZoom.minSpan = NULL,
+    dataZoom.maxSpan = NULL,
+    dataZoom.minValueSpan = NULL,
+    dataZoom.maxValueSpan = NULL,
+
+    dataZoom.orient = "horizontal",
+    dataZoom.zoomLock = NULL,
+    dataZoom.throttle = NULL,
+    dataZoom.rangeMode = NULL,
+
+    dataZoom.zlevel = NULL,
+    dataZoom.z = NULL,
+    dataZoom.left = NULL,
+    dataZoom.top = NULL,
+    dataZoom.right = NULL,
+    dataZoom.bottom = NULL,
+    dataZoom.width = NULL,
+    dataZoom.height = NULL,
+
+    dataZoom.brushSelect = NULL,
+
+    dataZoom.dataBackground.lineStyle.color = NULL,
+    dataZoom.dataBackground.lineStyle.width = NULL,
+    dataZoom.dataBackground.lineStyle.type = NULL,
+    dataZoom.dataBackground.lineStyle.dashOffset = NULL,
+    dataZoom.dataBackground.lineStyle.cap = NULL,
+    dataZoom.dataBackground.lineStyle.join = NULL,
+    dataZoom.dataBackground.lineStyle.miterLimit = NULL,
+    dataZoom.dataBackground.lineStyle.shadowBlur = NULL,
+    dataZoom.dataBackground.lineStyle.shadowColor = NULL,
+    dataZoom.dataBackground.lineStyle.shadowOffsetX = NULL,
+    dataZoom.dataBackground.lineStyle.shadowOffsetY = NULL,
+    dataZoom.dataBackground.lineStyle.opacity = NULL,
+
+    dataZoom.dataBackground.areaStyle.color = NULL,
+    dataZoom.dataBackground.areaStyle.shadowBlur = NULL,
+    dataZoom.dataBackground.areaStyle.shadowColor = NULL,
+    dataZoom.dataBackground.areaStyle.shadowOffsetX = NULL,
+    dataZoom.dataBackground.areaStyle.shadowOffsetY = NULL,
+    dataZoom.dataBackground.areaStyle.opacity = NULL,
+
+    dataZoom.selectedDataBackground.lineStyle.color = NULL,
+    dataZoom.selectedDataBackground.lineStyle.width = NULL,
+    dataZoom.selectedDataBackground.lineStyle.type = NULL,
+    dataZoom.selectedDataBackground.lineStyle.dashOffset = NULL,
+    dataZoom.selectedDataBackground.lineStyle.cap = NULL,
+    dataZoom.selectedDataBackground.lineStyle.join = NULL,
+    dataZoom.selectedDataBackground.lineStyle.miterLimit = NULL,
+    dataZoom.selectedDataBackground.lineStyle.shadowBlur = NULL,
+    dataZoom.selectedDataBackground.lineStyle.shadowColor = NULL,
+    dataZoom.selectedDataBackground.lineStyle.shadowOffsetX = NULL,
+    dataZoom.selectedDataBackground.lineStyle.shadowOffsetY = NULL,
+    dataZoom.selectedDataBackground.lineStyle.opacity = NULL,
+
+    dataZoom.selectedDataBackground.areaStyle.color = NULL,
+    dataZoom.selectedDataBackground.areaStyle.shadowBlur = NULL,
+    dataZoom.selectedDataBackground.areaStyle.shadowColor = NULL,
+    dataZoom.selectedDataBackground.areaStyle.shadowOffsetX = NULL,
+    dataZoom.selectedDataBackground.areaStyle.shadowOffsetY = NULL,
+    dataZoom.selectedDataBackground.areaStyle.opacity = NULL,
+
+    dataZoom.handleStyle.color = NULL,
+    dataZoom.handleStyle.borderColor = NULL,
+    dataZoom.handleStyle.borderWidth = NULL,
+    dataZoom.handleStyle.borderType = NULL,
+    dataZoom.handleStyle.borderDashOffset = NULL,
+    dataZoom.handleStyle.borderCap = NULL,
+    dataZoom.handleStyle.borderJoin = NULL,
+    dataZoom.handleStyle.borderMiterLimit = NULL,
+    dataZoom.handleStyle.shadowBlur = NULL,
+    dataZoom.handleStyle.shadowColor = NULL,
+    dataZoom.handleStyle.shadowOffsetX = NULL,
+    dataZoom.handleStyle.shadowOffsetY = NULL,
+    dataZoom.handleStyle.opacity = NULL,
+
+    dataZoom.moveHandleStyle.color = NULL,
+    dataZoom.moveHandleStyle.borderColor = NULL,
+    dataZoom.moveHandleStyle.borderWidth = NULL,
+    dataZoom.moveHandleStyle.borderType = NULL,
+    dataZoom.moveHandleStyle.borderDashOffset = NULL,
+    dataZoom.moveHandleStyle.borderCap = NULL,
+    dataZoom.moveHandleStyle.borderJoin = NULL,
+    dataZoom.moveHandleStyle.borderMiterLimit = NULL,
+    dataZoom.moveHandleStyle.shadowBlur = NULL,
+    dataZoom.moveHandleStyle.shadowColor = NULL,
+    dataZoom.moveHandleStyle.shadowOffsetX = NULL,
+    dataZoom.moveHandleStyle.shadowOffsetY = NULL,
+    dataZoom.moveHandleStyle.opacity = NULL,
+
+    dataZoom.textStyle.color = NULL,
+    dataZoom.textStyle.fontStyle = NULL,
+    dataZoom.textStyle.fontWeight = NULL,
+    dataZoom.textStyle.fontFamily = NULL,
+    dataZoom.textStyle.fontSize = NULL,
+    dataZoom.textStyle.lineHeight = NULL,
+    dataZoom.textStyle.width = NULL,
+    dataZoom.textStyle.height = NULL,
+    dataZoom.textStyle.textBorderColor = NULL,
+    dataZoom.textStyle.textBorderWidth = NULL,
+    dataZoom.textStyle.textBorderType = NULL,
+    dataZoom.textStyle.textBorderDashOffset = NULL,
+    dataZoom.textStyle.textShadowColor = NULL,
+    dataZoom.textStyle.textShadowBlur = NULL,
+    dataZoom.textStyle.textShadowOffsetX = NULL,
+    dataZoom.textStyle.textShadowOffsetY = NULL,
+    dataZoom.textStyle.overflow = NULL,
+    dataZoom.textStyle.ellipsis = NULL,
+
+    dataZoom.brushStyle.color = NULL,
+    dataZoom.brushStyle.borderColor = NULL,
+    dataZoom.brushStyle.borderWidth = NULL,
+    dataZoom.brushStyle.borderType = NULL,
+    dataZoom.brushStyle.borderDashOffset = NULL,
+    dataZoom.brushStyle.borderCap = NULL,
+    dataZoom.brushStyle.borderJoin = NULL,
+    dataZoom.brushStyle.borderMiterLimit = NULL,
+    dataZoom.brushStyle.shadowBlur = NULL,
+    dataZoom.brushStyle.shadowColor = NULL,
+    dataZoom.brushStyle.shadowOffsetX = NULL,
+    dataZoom.brushStyle.shadowOffsetY = NULL,
+    dataZoom.brushStyle.opacity = NULL,
+
+    dataZoom.emphasis.handleStyle.color = NULL,
+    dataZoom.emphasis.handleStyle.borderColor = NULL,
+    dataZoom.emphasis.handleStyle.borderWidth = NULL,
+    dataZoom.emphasis.handleStyle.borderType = NULL,
+    dataZoom.emphasis.handleStyle.opacity = NULL,
+    dataZoom.emphasis.handleLabel.show = NULL,
+    dataZoom.emphasis.moveHandleStyle.color = NULL,
+    dataZoom.emphasis.moveHandleStyle.borderColor = NULL,
+    dataZoom.emphasis.moveHandleStyle.borderWidth = NULL,
+    dataZoom.emphasis.moveHandleStyle.borderType = NULL,
+    dataZoom.emphasis.moveHandleStyle.opacity = NULL
+) {
+
+  # dataBackground line style
+  db_ls <- .compact(list(
+    color         = dataZoom.dataBackground.lineStyle.color,
+    width         = dataZoom.dataBackground.lineStyle.width,
+    type          = dataZoom.dataBackground.lineStyle.type,
+    dashOffset    = dataZoom.dataBackground.lineStyle.dashOffset,
+    cap           = dataZoom.dataBackground.lineStyle.cap,
+    join          = dataZoom.dataBackground.lineStyle.join,
+    miterLimit    = dataZoom.dataBackground.lineStyle.miterLimit,
+    shadowBlur    = dataZoom.dataBackground.lineStyle.shadowBlur,
+    shadowColor   = dataZoom.dataBackground.lineStyle.shadowColor,
+    shadowOffsetX = dataZoom.dataBackground.lineStyle.shadowOffsetX,
+    shadowOffsetY = dataZoom.dataBackground.lineStyle.shadowOffsetY,
+    opacity       = dataZoom.dataBackground.lineStyle.opacity
+  ))
+
+  # dataBackground area style
+  db_as <- .compact(list(
+    color         = dataZoom.dataBackground.areaStyle.color,
+    shadowBlur    = dataZoom.dataBackground.areaStyle.shadowBlur,
+    shadowColor   = dataZoom.dataBackground.areaStyle.shadowColor,
+    shadowOffsetX = dataZoom.dataBackground.areaStyle.shadowOffsetX,
+    shadowOffsetY = dataZoom.dataBackground.areaStyle.shadowOffsetY,
+    opacity       = dataZoom.dataBackground.areaStyle.opacity
+  ))
+
+  db <- .compact(list(
+    lineStyle = if (length(db_ls)) db_ls,
+    areaStyle = if (length(db_as)) db_as
+  ))
+
+  # selectedDataBackground line style
+  sdb_ls <- .compact(list(
+    color         = dataZoom.selectedDataBackground.lineStyle.color,
+    width         = dataZoom.selectedDataBackground.lineStyle.width,
+    type          = dataZoom.selectedDataBackground.lineStyle.type,
+    dashOffset    = dataZoom.selectedDataBackground.lineStyle.dashOffset,
+    cap           = dataZoom.selectedDataBackground.lineStyle.cap,
+    join          = dataZoom.selectedDataBackground.lineStyle.join,
+    miterLimit    = dataZoom.selectedDataBackground.lineStyle.miterLimit,
+    shadowBlur    = dataZoom.selectedDataBackground.lineStyle.shadowBlur,
+    shadowColor   = dataZoom.selectedDataBackground.lineStyle.shadowColor,
+    shadowOffsetX = dataZoom.selectedDataBackground.lineStyle.shadowOffsetX,
+    shadowOffsetY = dataZoom.selectedDataBackground.lineStyle.shadowOffsetY,
+    opacity       = dataZoom.selectedDataBackground.lineStyle.opacity
+  ))
+
+  # selectedDataBackground area style
+  sdb_as <- .compact(list(
+    color         = dataZoom.selectedDataBackground.areaStyle.color,
+    shadowBlur    = dataZoom.selectedDataBackground.areaStyle.shadowBlur,
+    shadowColor   = dataZoom.selectedDataBackground.areaStyle.shadowColor,
+    shadowOffsetX = dataZoom.selectedDataBackground.areaStyle.shadowOffsetX,
+    shadowOffsetY = dataZoom.selectedDataBackground.areaStyle.shadowOffsetY,
+    opacity       = dataZoom.selectedDataBackground.areaStyle.opacity
+  ))
+
+  sdb <- .compact(list(
+    lineStyle = if (length(sdb_ls)) sdb_ls,
+    areaStyle = if (length(sdb_as)) sdb_as
+  ))
+
+  # handleStyle
+  hs <- .compact(list(
+    color            = dataZoom.handleStyle.color,
+    borderColor      = dataZoom.handleStyle.borderColor,
+    borderWidth      = dataZoom.handleStyle.borderWidth,
+    borderType       = dataZoom.handleStyle.borderType,
+    borderDashOffset = dataZoom.handleStyle.borderDashOffset,
+    borderCap        = dataZoom.handleStyle.borderCap,
+    borderJoin       = dataZoom.handleStyle.borderJoin,
+    borderMiterLimit = dataZoom.handleStyle.borderMiterLimit,
+    shadowBlur       = dataZoom.handleStyle.shadowBlur,
+    shadowColor      = dataZoom.handleStyle.shadowColor,
+    shadowOffsetX    = dataZoom.handleStyle.shadowOffsetX,
+    shadowOffsetY    = dataZoom.handleStyle.shadowOffsetY,
+    opacity          = dataZoom.handleStyle.opacity
+  ))
+
+  hl <- .compact(list(
+    show = dataZoom.handleLabel.show
+  ))
+
+  # moveHandleStyle
+  mhs <- .compact(list(
+    color            = dataZoom.moveHandleStyle.color,
+    borderColor      = dataZoom.moveHandleStyle.borderColor,
+    borderWidth      = dataZoom.moveHandleStyle.borderWidth,
+    borderType       = dataZoom.moveHandleStyle.borderType,
+    borderDashOffset = dataZoom.moveHandleStyle.borderDashOffset,
+    borderCap        = dataZoom.moveHandleStyle.borderCap,
+    borderJoin       = dataZoom.moveHandleStyle.borderJoin,
+    borderMiterLimit = dataZoom.moveHandleStyle.borderMiterLimit,
+    shadowBlur       = dataZoom.moveHandleStyle.shadowBlur,
+    shadowColor      = dataZoom.moveHandleStyle.shadowColor,
+    shadowOffsetX    = dataZoom.moveHandleStyle.shadowOffsetX,
+    shadowOffsetY    = dataZoom.moveHandleStyle.shadowOffsetY,
+    opacity          = dataZoom.moveHandleStyle.opacity
+  ))
+
+  # textStyle
+  ts <- .compact(list(
+    color                = dataZoom.textStyle.color,
+    fontStyle            = dataZoom.textStyle.fontStyle,
+    fontWeight           = dataZoom.textStyle.fontWeight,
+    fontFamily           = dataZoom.textStyle.fontFamily,
+    fontSize             = dataZoom.textStyle.fontSize,
+    lineHeight           = dataZoom.textStyle.lineHeight,
+    width                = dataZoom.textStyle.width,
+    height               = dataZoom.textStyle.height,
+    textBorderColor      = dataZoom.textStyle.textBorderColor,
+    textBorderWidth      = dataZoom.textStyle.textBorderWidth,
+    textBorderType       = dataZoom.textStyle.textBorderType,
+    textBorderDashOffset = dataZoom.textStyle.textBorderDashOffset,
+    textShadowColor      = dataZoom.textStyle.textShadowColor,
+    textShadowBlur       = dataZoom.textStyle.textShadowBlur,
+    textShadowOffsetX    = dataZoom.textStyle.textShadowOffsetX,
+    textShadowOffsetY    = dataZoom.textStyle.textShadowOffsetY,
+    overflow             = dataZoom.textStyle.overflow,
+    ellipsis             = dataZoom.textStyle.ellipsis
+  ))
+
+  # brushStyle
+  bs <- .compact(list(
+    color            = dataZoom.brushStyle.color,
+    borderColor      = dataZoom.brushStyle.borderColor,
+    borderWidth      = dataZoom.brushStyle.borderWidth,
+    borderType       = dataZoom.brushStyle.borderType,
+    borderDashOffset = dataZoom.brushStyle.borderDashOffset,
+    borderCap        = dataZoom.brushStyle.borderCap,
+    borderJoin       = dataZoom.brushStyle.borderJoin,
+    borderMiterLimit = dataZoom.brushStyle.borderMiterLimit,
+    shadowBlur       = dataZoom.brushStyle.shadowBlur,
+    shadowColor      = dataZoom.brushStyle.shadowColor,
+    shadowOffsetX    = dataZoom.brushStyle.shadowOffsetX,
+    shadowOffsetY    = dataZoom.brushStyle.shadowOffsetY,
+    opacity          = dataZoom.brushStyle.opacity
+  ))
+
+  # emphasis.handleStyle
+  emp_hs <- .compact(list(
+    color       = dataZoom.emphasis.handleStyle.color,
+    borderColor = dataZoom.emphasis.handleStyle.borderColor,
+    borderWidth = dataZoom.emphasis.handleStyle.borderWidth,
+    borderType  = dataZoom.emphasis.handleStyle.borderType,
+    opacity     = dataZoom.emphasis.handleStyle.opacity
+  ))
+
+  # emphasis.handleLabel
+  emp_hl <- .compact(list(
+    show = dataZoom.emphasis.handleLabel.show
+  ))
+
+  # emphasis.moveHandleStyle
+  emp_mhs <- .compact(list(
+    color       = dataZoom.emphasis.moveHandleStyle.color,
+    borderColor = dataZoom.emphasis.moveHandleStyle.borderColor,
+    borderWidth = dataZoom.emphasis.moveHandleStyle.borderWidth,
+    borderType  = dataZoom.emphasis.moveHandleStyle.borderType,
+    opacity     = dataZoom.emphasis.moveHandleStyle.opacity
+  ))
+
+  emp <- .compact(list(
+    handleStyle     = if (length(emp_hs)) emp_hs,
+    handleLabel     = if (length(emp_hl)) emp_hl,
+    moveHandleStyle = if (length(emp_mhs)) emp_mhs
+  ))
+
+  # Assemble the final dataZoom slider options
+  opts <- .compact(list(
+    type                   = "slider",
+    id                     = dataZoom.id,
+    show                   = dataZoom.show,
+    backgroundColor        = dataZoom.backgroundColor,
+    dataBackground         = if (length(db)) db,
+    selectedDataBackground = if (length(sdb)) sdb,
+    fillerColor            = dataZoom.fillerColor,
+    borderColor            = dataZoom.borderColor,
+    borderRadius           = dataZoom.borderRadius,
+    handleIcon             = dataZoom.handleIcon,
+    handleSize             = dataZoom.handleSize,
+    handleStyle            = if (length(hs)) hs,
+    handleLabel            = if (length(hl)) hl,
+    moveHandleIcon         = dataZoom.moveHandleIcon,
+    moveHandleSize         = dataZoom.moveHandleSize,
+    moveHandleStyle        = if (length(mhs)) mhs,
+    labelPrecision         = dataZoom.labelPrecision,
+    labelFormatter         = dataZoom.labelFormatter,
+    showDetail             = dataZoom.showDetail,
+    showDataShadow         = dataZoom.showDataShadow,
+    realtime               = dataZoom.realtime,
+    textStyle              = if (length(ts)) ts,
+    xAxisIndex             = dataZoom.xAxisIndex,
+    yAxisIndex             = dataZoom.yAxisIndex,
+    radiusAxisIndex        = dataZoom.radiusAxisIndex,
+    angleAxisIndex         = dataZoom.angleAxisIndex,
+    filterMode             = dataZoom.filterMode,
+    start                  = dataZoom.start,
+    end                    = dataZoom.end,
+    startValue             = dataZoom.startValue,
+    endValue               = dataZoom.endValue,
+    minSpan                = dataZoom.minSpan,
+    maxSpan                = dataZoom.maxSpan,
+    minValueSpan           = dataZoom.minValueSpan,
+    maxValueSpan           = dataZoom.maxValueSpan,
+    orient                 = dataZoom.orient,
+    zoomLock               = dataZoom.zoomLock,
+    throttle               = dataZoom.throttle,
+    rangeMode              = dataZoom.rangeMode,
+    zlevel                 = dataZoom.zlevel,
+    z                      = dataZoom.z,
+    left                   = dataZoom.left,
+    top                    = dataZoom.top,
+    right                  = dataZoom.right,
+    bottom                 = dataZoom.bottom,
+    width                  = dataZoom.width,
+    height                 = dataZoom.height,
+    brushSelect            = dataZoom.brushSelect,
+    brushStyle             = if (length(bs)) bs,
+    emphasis               = if (length(emp)) emp
+  ))
+
+  if (is.null(e$x$opts$dataZoom)) {
+    e$x$opts$dataZoom <- list()
+  }
+
+  if (is.null(index)) {
+    e$x$opts$dataZoom <- append(e$x$opts$dataZoom, list(opts))
+  } else {
+    e$x$opts$dataZoom[[index + 1L]] <- utils::modifyList(
+      x = e$x$opts$dataZoom[[index + 1L]] %||% list(),
+      val = opts
+    )
+  }
+
+  e
+}
+
 #' @title grid function
 #'
 #' @description
@@ -158,8 +661,6 @@ e_visual_map_full <- function(e,
 
   do.call(echarts4r::e_visual_map_, c(standard, opts))
 }
-
-
 
 
 #' Enhanced X-Axis Setter for echarts4r

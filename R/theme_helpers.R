@@ -1777,7 +1777,7 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
         list(
           lineStyle.color = c("#CE1141","#FFFFFF","#13274F"),
           lineStyle.width = 2,
-          lineStyle.shadowColor = "#F55036",
+          lineStyle.shadowColor = "#CE1141",
           lineStyle.shadowBlur = 10,
           lineStyle.shadowOffsetX = 2,
           lineStyle.shadowOffsetY = 2
@@ -1789,14 +1789,14 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
         list(
           lineStyle.color = c("#CE1141","#FFFFFF","#13274F"),
           lineStyle.width = 2,
-          lineStyle.shadowColor = "#F55036",
+          lineStyle.shadowColor = "#CE1141",
           lineStyle.shadowBlur = 10,
           lineStyle.shadowOffsetX = 2,
           lineStyle.shadowOffsetY = 2
         )
       },
       Parallel = list(
-        lineStyle.color = c("#F55036")
+        lineStyle.color = c("#CE1141")
       ),
       Bar = if(grouped) {
         NULL
@@ -1825,6 +1825,73 @@ get_theme_defaults_plot <- function(theme = "dark", plot_type = NULL, grouped = 
       Box = list(
         itemStyle.color = c("#CE1141","#FFFFFF","#13274F"),
         itemStyle.opacity = c(0.92, 0.48, 0.92)
+      ),
+      NULL
+    ),
+    blue = switch(
+      plot_type,
+      Area = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#004ECF","#005FFF","#297BFF"),
+          areaStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Line = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#004ECF","#005FFF","#297BFF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#004ECF",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Step = if(grouped) {
+        NULL
+      } else {
+        list(
+          lineStyle.color = c("#004ECF","#005FFF","#297BFF"),
+          lineStyle.width = 2,
+          lineStyle.shadowColor = "#004ECF",
+          lineStyle.shadowBlur = 10,
+          lineStyle.shadowOffsetX = 2,
+          lineStyle.shadowOffsetY = 2
+        )
+      },
+      Parallel = list(
+        lineStyle.color = c("#004ECF")
+      ),
+      Bar = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#004ECF","#005FFF","#297BFF"),
+          backgroundStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Histogram = if(grouped) {
+        NULL
+      } else {
+        list(
+          backgroundStyle.color = c("#004ECF","#005FFF","#297BFF"),
+          backgroundStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Density = if(grouped) {
+        NULL
+      } else {
+        list(
+          areaStyle.color = c("#004ECF","#005FFF","#297BFF"),
+          areaStyle.opacity = c(1,0.8,0.35)
+        )
+      },
+      Box = list(
+        itemStyle.color = c("#004ECF","#005FFF","#297BFF"),
+        itemStyle.opacity = c(1,0.8,0.35)
       ),
       NULL
     ),
