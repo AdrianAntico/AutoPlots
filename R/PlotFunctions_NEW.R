@@ -28268,6 +28268,9 @@ Residuals.Histogram <- function(dt = NULL,
                                 Theme = "dark",
                                 MouseScroll = FALSE,
                                 TimeLine = FALSE,
+                                title.text = NULL,
+                                yAxis.title = NULL,
+                                xAxis.title = NULL,
                                 Debug = FALSE) {
 
   # Subset cols, define Target - Predicted, NULL YVar in data, Update YVar def, Ensure GroupVar is length(1)
@@ -28349,6 +28352,9 @@ Residuals.Histogram <- function(dt = NULL,
     ShowLabels = ShowLabels,
     Theme = Theme,
     TimeLine = TimeLine,
+    title.text = title.text,
+    yAxis.title = yAxis.title,
+    xAxis.title = xAxis.title,
     Debug = Debug)
 
   return(p1)
@@ -28398,6 +28404,9 @@ Residuals.Scatter <- function(dt = NULL,
                                    ShowLabels = FALSE,
                                    Theme = "dark",
                                    TimeLine = FALSE,
+                              title.text = NULL,
+                              yAxis.title = NULL,
+                              xAxis.title = NULL,
                                    Debug = FALSE) {
 
   # Data Prep1
@@ -28441,7 +28450,9 @@ Residuals.Scatter <- function(dt = NULL,
     MouseScroll = MouseScroll,
     Theme = Theme,
     TimeLine = tl,
-
+    title.text = title.text,
+    yAxis.title = yAxis.title,
+    xAxis.title = xAxis.title,
     Debug = Debug)
   return(p1)
 }
@@ -28490,6 +28501,9 @@ Calibration.Line <- function(dt = NULL,
                                   Theme = "dark",
                                   TimeLine = FALSE,
                                   MouseScroll = FALSE,
+                             title.text = NULL,
+                             yAxis.title = NULL,
+                             xAxis.title = NULL,
                                   Debug = FALSE) {
 
   if(Debug) print("here 1")
@@ -28593,7 +28607,9 @@ Calibration.Line <- function(dt = NULL,
       Width = Width,
       Theme = Theme,
       TimeLine = tl,
-
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = Debug)
 
     return(p1)
@@ -28709,7 +28725,9 @@ Calibration.Line <- function(dt = NULL,
       ShowSymbol = FALSE,
       Height = Height,
       Width = Width,
-
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = Debug)
     return(p1)
   }
@@ -28761,6 +28779,9 @@ Calibration.Box <- function(dt = NULL,
                                  ShowLabels = FALSE,
                                  Theme = "dark",
                                  TimeLine = FALSE,
+                            title.text = NULL,
+                            yAxis.title = NULL,
+                            xAxis.title = NULL,
                                  Debug = FALSE) {
 
   if(Debug) print("Plot.Calibration.Box 1")
@@ -28830,7 +28851,9 @@ Calibration.Box <- function(dt = NULL,
     MouseScroll = MouseScroll,
     Theme = Theme,
     TimeLine = TimeLine,
-
+    title.text = title.text,
+    yAxis.title = yAxis.title,
+    xAxis.title = xAxis.title,
     Debug = Debug)
   return(p1)
 }
@@ -28866,26 +28889,29 @@ Calibration.Box <- function(dt = NULL,
 #' @return plot
 #' @export
 PartialDependence.Line <- function(dt = NULL,
-                                        XVar = NULL,
-                                        YVar = NULL,
-                                        ZVar = NULL,
-                                        YVarTrans = "Identity",
-                                        XVarTrans = "Identity",
-                                        ZVarTrans = "Identity",
-                                        FacetRows = 1,
-                                        FacetCols = 1,
-                                        FacetLevels = NULL,
-                                        GroupVar = NULL,
-                                        NumberBins = 20,
-                                        AggMethod = "mean",
-                                        Height = NULL,
-                                        Width = NULL,
-                                        ShowLabels = FALSE,
-                                        Theme = "dark",
-                                        MouseScroll = FALSE,
-                                        EchartsLabels = FALSE,
-                                        TimeLine = FALSE,
-                                        Debug = FALSE) {
+                                   XVar = NULL,
+                                   YVar = NULL,
+                                   ZVar = NULL,
+                                   YVarTrans = "Identity",
+                                   XVarTrans = "Identity",
+                                   ZVarTrans = "Identity",
+                                   FacetRows = 1,
+                                   FacetCols = 1,
+                                   FacetLevels = NULL,
+                                   GroupVar = NULL,
+                                   NumberBins = 20,
+                                   AggMethod = "mean",
+                                   Height = NULL,
+                                   Width = NULL,
+                                   ShowLabels = FALSE,
+                                   Theme = "dark",
+                                   MouseScroll = FALSE,
+                                   EchartsLabels = FALSE,
+                                   TimeLine = FALSE,
+                                   title.text = NULL,
+                                   yAxis.title = NULL,
+                                   xAxis.title = NULL,
+                                   Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
@@ -28949,7 +28975,6 @@ PartialDependence.Line <- function(dt = NULL,
     if(Debug) print("Plot.PartialDependence.Line --> AutoPlots::Line()")
     dt1 <- dt1[!is.na(get(yvar))]
     p1 <- AutoPlots::Line(
-      Area = FALSE,
       dt = dt1,
       PreAgg = TRUE,
       AggMethod = "mean",
@@ -28967,7 +28992,9 @@ PartialDependence.Line <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = Debug)
     return(p1)
 
@@ -29065,7 +29092,9 @@ PartialDependence.Line <- function(dt = NULL,
       ShowSymbol = FALSE,
       Height = Height,
       Width = Width,
-
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = Debug)
     return(p1)
   }
@@ -29125,6 +29154,9 @@ PartialDependence.Box <- function(dt = NULL,
                                        MouseScroll = FALSE,
                                        EchartsLabels = FALSE,
                                        TimeLine = FALSE,
+                                  title.text = NULL,
+                                  yAxis.title = NULL,
+                                  xAxis.title = NULL,
                                        Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -29176,7 +29208,9 @@ PartialDependence.Box <- function(dt = NULL,
     MouseScroll = MouseScroll,
     Theme = Theme,
     TimeLine = tl,
-
+    title.text = title.text,
+    yAxis.title = yAxis.title,
+    xAxis.title = xAxis.title,
     Debug = Debug)
   return(p1)
 }
@@ -29231,6 +29265,9 @@ PartialDependence.HeatMap <- function(dt = NULL,
                                            Theme = "dark",
                                            EchartsLabels = FALSE,
                                            TimeLine = FALSE,
+                                      title.text = NULL,
+                                      yAxis.title = NULL,
+                                      xAxis.title = NULL,
                                            Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -29298,7 +29335,9 @@ PartialDependence.HeatMap <- function(dt = NULL,
         MouseScroll = MouseScroll,
         Height = Height,
         Width = Width,
-
+        title.text = title.text,
+        yAxis.title = yAxis.title,
+        xAxis.title = xAxis.title,
         NumberBins = NumberBins,
         Debug = Debug)
       return(p1)
@@ -29328,7 +29367,9 @@ PartialDependence.HeatMap <- function(dt = NULL,
         ShowLabels = ShowLabels,
         Theme = Theme,
         TimeLine = FALSE,
-
+        title.text = title.text,
+        yAxis.title = yAxis.title,
+        xAxis.title = xAxis.title,
         Debug = Debug)
       return(p1)
     }
@@ -29403,7 +29444,9 @@ PartialDependence.HeatMap <- function(dt = NULL,
       Height = Height,
       Width = Width,
       MouseScroll = MouseScroll,
-
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       NumberBins = NumberBins,
       Debug = Debug)
     return(p1)
@@ -29450,6 +29493,9 @@ VariableImportance <- function(dt = NULL,
                                     ShowLabels = FALSE,
                                     Theme = "dark",
                                     TimeLine = FALSE,
+                               title.text = NULL,
+                               yAxis.title = NULL,
+                               xAxis.title = NULL,
                                     Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -29528,6 +29574,9 @@ ROC <- function(dt = NULL,
                      Theme = "dark",
                      MouseScroll = FALSE,
                      TimeLine = FALSE,
+                title.text = NULL,
+                yAxis.title = NULL,
+                xAxis.title = NULL,
                      Debug = FALSE) {
 
   # ROC
@@ -29678,7 +29727,6 @@ ROC <- function(dt = NULL,
       dt = data,
       PreAgg = TRUE,
       Smooth = TRUE,
-      Area = FALSE,
       ShowSymbol = FALSE,
       Alpha = 0.50,
       Theme = Theme,
@@ -29694,7 +29742,9 @@ ROC <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = Debug)
 
   } else {
@@ -29717,7 +29767,9 @@ ROC <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Height = Height,
       Width = Width,
-
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = Debug)
   }
 
@@ -29781,6 +29833,9 @@ ConfusionMatrix <- function(dt = NULL,
                                  TimeLine = FALSE,
                                  AggMethod = "count",
                                  GroupVar = NULL,
+                            title.text = NULL,
+                            yAxis.title = NULL,
+                            xAxis.title = NULL,
                                  Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -29826,6 +29881,9 @@ ConfusionMatrix <- function(dt = NULL,
     YVar = YVar,
     XVar = XVar,
     ZVar = ZVar,
+    title.text = title.text,
+    yAxis.title = yAxis.title,
+    xAxis.title = xAxis.title,
     Height = Height,
     Width = Width,
     AggMethod = if(!PreAgg) "centroidial" else AggMethod,
@@ -29886,6 +29944,9 @@ Lift <- function(dt = NULL,
                       Theme = "dark",
                       MouseScroll = FALSE,
                       TimeLine = FALSE,
+                 title.text = NULL,
+                 yAxis.title = NULL,
+                 xAxis.title = NULL,
                       Debug = FALSE) {
 
   if(Debug) print("here 0")
@@ -30091,6 +30152,9 @@ Lift <- function(dt = NULL,
       MouseScroll = MouseScroll,
       Theme = Theme,
       TimeLine = FALSE,
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = FALSE)
 
   } else {
@@ -30116,6 +30180,9 @@ Lift <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = FALSE)
   }
 
@@ -30176,6 +30243,9 @@ Gains <- function(dt = NULL,
                        Theme = "dark",
                        MouseScroll = FALSE,
                        TimeLine = FALSE,
+                  title.text = NULL,
+                  yAxis.title = NULL,
+                  xAxis.title = NULL,
                        Debug = FALSE) {
 
   if(Debug) print("here 1")
@@ -30380,6 +30450,9 @@ Gains <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = FALSE)
 
   } else {
@@ -30404,6 +30477,9 @@ Gains <- function(dt = NULL,
       ShowSymbol = FALSE,
       Theme = Theme,
       TimeLine = FALSE,
+      title.text = title.text,
+      yAxis.title = yAxis.title,
+      xAxis.title = xAxis.title,
       Debug = FALSE)
   }
 
@@ -30472,6 +30548,9 @@ BinaryMetricsPlot <- function(dt = NULL,
                                Theme = "dark",
                                EchartsLabels = FALSE,
                                TimeLine = FALSE,
+                              title.text = NULL,
+                              yAxis.title = NULL,
+                              xAxis.title = NULL,
                                Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
@@ -30513,7 +30592,6 @@ BinaryMetricsPlot <- function(dt = NULL,
     dt = dt3,
     PreAgg = TRUE,
     AggMethod = "mean",
-    Area = FALSE,
     SampleSize = SampleSize,
     XVar = XVar,
     YVar = YVar,
@@ -30528,6 +30606,9 @@ BinaryMetricsPlot <- function(dt = NULL,
     Width = Width,
     Theme = Theme,
     TimeLine = tl,
+    title.text = title.text,
+    yAxis.title = yAxis.title,
+    xAxis.title = xAxis.title,
     Debug = Debug)
   return(p1)
 }

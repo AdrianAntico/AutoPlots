@@ -25,6 +25,9 @@ PartialDependence.Line(
   MouseScroll = FALSE,
   EchartsLabels = FALSE,
   TimeLine = FALSE,
+  title.text = NULL,
+  yAxis.title = NULL,
+  xAxis.title = NULL,
   Debug = FALSE
 )
 }

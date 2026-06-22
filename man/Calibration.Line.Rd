@@ -22,6 +22,9 @@ Calibration.Line(
   Theme = "dark",
   TimeLine = FALSE,
   MouseScroll = FALSE,
+  title.text = NULL,
+  yAxis.title = NULL,
+  xAxis.title = NULL,
   Debug = FALSE
 )
 }
