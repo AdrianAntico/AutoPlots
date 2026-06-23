@@ -29479,24 +29479,24 @@ PartialDependence.HeatMap <- function(dt = NULL,
 #' @return plot
 #' @export
 VariableImportance <- function(dt = NULL,
-                                    XVar = NULL,
-                                    YVar = NULL,
-                                    GroupVar = NULL,
-                                    YVarTrans = "Identity",
-                                    XVarTrans = "Identity",
-                                    FacetRows = 1,
-                                    FacetCols = 1,
-                                    FacetLevels = NULL,
-                                    AggMethod = 'mean',
-                                    Height = NULL,
-                                    Width = NULL,
-                                    ShowLabels = FALSE,
-                                    Theme = "dark",
-                                    TimeLine = FALSE,
-                               title.text = NULL,
-                               yAxis.title = NULL,
-                               xAxis.title = NULL,
-                                    Debug = FALSE) {
+                               XVar = NULL,
+                               YVar = NULL,
+                               GroupVar = NULL,
+                               YVarTrans = "Identity",
+                               XVarTrans = "Identity",
+                               FacetRows = 1,
+                               FacetCols = 1,
+                               FacetLevels = NULL,
+                               AggMethod = 'mean',
+                               Height = NULL,
+                               Width = NULL,
+                               ShowLabels = FALSE,
+                               Theme = "dark",
+                               TimeLine = FALSE,
+                               title.text = "Variable Importance",
+                               yAxis.title = "",
+                               xAxis.title = "",
+                               Debug = FALSE) {
 
   if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
     dt <- data.table::as.data.table(dt)
@@ -29511,22 +29511,21 @@ VariableImportance <- function(dt = NULL,
     dt[, eval(Var) := as.character(get(Var))]
   }
   dt <- dt[!is.na(get(YVar))]
-  p1 <- echarts4r::e_charts_(
-    dt,
-    x = Var,
-    dispose = TRUE,
-    darkMode = TRUE,
-    width = Width,
-    height = Height)
-  p1 <- echarts4r::e_bar_(e = p1, Var2)
-  p1 <- echarts4r::e_theme(e = p1, name = Theme)
 
+  p1 <- Bar(
+    dt = dt,
+    XVar = Var,
+    YVar = Var2,
+    Theme = Theme,
+    MouseScroll = FALSE,
+    TimeLine = TimeLine,
+    Height = Height,
+    Width = Width,
+    title.text = title.text,
+    yAxis.title = yAxis.title,
+    xAxis.title = xAxis.title
+  ) |> echarts4r::e_flip_coords()
 
-  p1 <- echarts4r::e_toolbox_feature(e = p1, feature = c("saveAsImage","dataZoom"))
-  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
-  p1 <- echarts4r::e_brush(e = p1)
-
-  p1 <- echarts4r::e_flip_coords(e = p1)
   return(p1)
 }
 

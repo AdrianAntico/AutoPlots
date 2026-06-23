@@ -20,9 +20,9 @@ VariableImportance(
   ShowLabels = FALSE,
   Theme = "dark",
   TimeLine = FALSE,
-  title.text = NULL,
-  yAxis.title = NULL,
-  xAxis.title = NULL,
+  title.text = "Variable Importance",
+  yAxis.title = "",
+  xAxis.title = "",
   Debug = FALSE
 )
 }
