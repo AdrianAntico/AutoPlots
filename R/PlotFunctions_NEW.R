@@ -14,6 +14,918 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+.ap_not_empty <- function(x) {
+  !is.null(x) && length(x) > 0L && !all(is.na(x)) && !all(x == "")
+}
+
+.ap_first_or_null <- function(x) {
+  if (.ap_not_empty(x)) x[1L] else NULL
+}
+
+.ap_clean_var_vector <- function(x) {
+  if (is.null(x) || length(x) == 0L) return(NULL)
+  x <- x[!is.na(x) & x != ""]
+  if (length(x) == 0L) NULL else x
+}
+
+.ap_as_dt_copy <- function(dt) {
+  if (!data.table::is.data.table(dt)) {
+    dt <- data.table::as.data.table(dt)
+  }
+  data.table::copy(dt)
+}
+
+.ap_factor_to_character <- function(dt, vars) {
+  vars <- .ap_clean_var_vector(vars)
+  for (var in vars) {
+    if (var %in% names(dt) && class(dt[[var]])[1L] == "factor") {
+      dt[, eval(var) := as.character(get(var))]
+    }
+  }
+  dt
+}
+
+.ap_normalize_sequence_vars <- function(XVar, YVar, DualYVar, GroupVar, plot_family) {
+  XVar <- .ap_clean_var_vector(XVar)
+  YVar <- .ap_clean_var_vector(YVar)
+  DualYVar <- .ap_clean_var_vector(DualYVar)
+  GroupVar <- .ap_first_or_null(.ap_clean_var_vector(GroupVar))
+
+  if (.ap_not_empty(GroupVar) && !.ap_not_empty(XVar) && plot_family %in% c("line", "area", "step")) {
+    XVar <- GroupVar
+    GroupVar <- NULL
+  }
+
+  list(
+    XVar = XVar,
+    YVar = YVar,
+    DualYVar = DualYVar,
+    GroupVar = GroupVar
+  )
+}
+
+.ap_validate_sequence_inputs <- function(XVar, YVar, DualYVar, GroupVar, plot_family) {
+  has_group <- .ap_not_empty(GroupVar)
+  has_dual_y <- .ap_not_empty(DualYVar)
+  has_multiple_y <- length(YVar) > 1L
+
+  if (plot_family %in% c("line", "area", "step")) {
+    # Dual-axis rendering is only implemented for a single ungrouped Y series.
+    if (has_multiple_y && has_dual_y) {
+      stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
+    }
+    if (has_group && has_dual_y) {
+      stop("When DualYVar is utilized a GroupVar is not allowed")
+    }
+  }
+
+  invisible(TRUE)
+}
+
+.ap_melt_sequence_yvars <- function(dt, XVar, YVar, GroupVar) {
+  has_group <- .ap_not_empty(GroupVar)
+  has_multiple_y <- length(YVar) > 1L
+
+  if (!has_multiple_y) {
+    return(list(dt = data.table::copy(dt), YVar = YVar, GroupVar = GroupVar))
+  }
+
+  # Multiple Y columns are represented as long data so the render path can
+  # treat each measure as a series without changing public plotting args.
+  if (!has_group) {
+    dt1 <- data.table::melt.data.table(
+      data = dt,
+      id.vars = XVar,
+      measure.vars = YVar,
+      variable.name = "Measures",
+      value.name = "Values"
+    )
+    return(list(dt = dt1, YVar = "Values", GroupVar = "Measures"))
+  }
+
+  # Existing behavior combines the measure name and group variable name into
+  # one grouping label; keep that shape for QA parity before any merge.
+  dt1 <- data.table::melt.data.table(
+    data = dt,
+    id.vars = c(XVar, GroupVar),
+    measure.vars = YVar,
+    variable.name = "Measures",
+    value.name = "Values"
+  )
+  dt1[, GroupVars := paste0(Measures, GroupVar)]
+  dt1[, Measures := NULL]
+  dt1[, eval(GroupVar) := NULL]
+
+  list(dt = dt1, YVar = "Values", GroupVar = "GroupVars")
+}
+
+.ap_prepare_river_shape <- function(dt, XVar, YVar, GroupVar, FacetLevels, PreAgg, Debug = FALSE) {
+  has_group <- .ap_not_empty(GroupVar)
+  has_multiple_y <- length(YVar) > 1L
+
+  # River currently has no useful one-series/no-group shape and returns NULL.
+  if (!has_group && !has_multiple_y) {
+    if (Debug) print("if(length(GroupVar) == 0L && length(YVar) <= 1L) return(NULL)")
+    return(NULL)
+  }
+
+  if (has_group && length(FacetLevels) > 1L) {
+    dt1 <- data.table::copy(dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar, XVar, GroupVar)])
+  } else {
+    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar)])
+  }
+
+  # River needs a synthetic group when multiple Y columns are supplied without
+  # GroupVar. If PreAgg = TRUE, keep the melted values plot-ready; if FALSE,
+  # aggregate the melted values later in the shared aggregation step.
+  if (has_multiple_y && !has_group) {
+    dt1 <- data.table::melt.data.table(
+      data = dt1,
+      id.vars = XVar,
+      measure.vars = YVar,
+      variable.name = "Group",
+      value.name = "Measures"
+    )
+    return(list(dt = dt1, YVar = "Measures", GroupVar = "Group"))
+  }
+
+  list(dt = dt1, YVar = YVar, GroupVar = GroupVar)
+}
+
+.ap_subset_sequence_columns <- function(dt, XVar, YVar, DualYVar, GroupVar, FacetLevels) {
+  has_group <- .ap_not_empty(GroupVar)
+  cols <- c(YVar, XVar, DualYVar, GroupVar)
+
+  if (ncol(dt) <= 2L && !has_group) {
+    return(dt)
+  }
+
+  dt1 <- dt[, .SD, .SDcols = cols]
+
+  if (has_group && length(FacetLevels) > 0L) {
+    dt1 <- dt1[get(GroupVar) %in% eval(FacetLevels)]
+  }
+
+  dt1
+}
+
+.ap_aggregate_sequence_data <- function(dt, XVar, YVar, DualYVar, GroupVar, AggMethod) {
+  has_group <- .ap_not_empty(GroupVar)
+  by_vars <- XVar
+  if (has_group) {
+    by_vars <- c(XVar, GroupVar)
+  }
+
+  measure_vars <- c(YVar, DualYVar)
+  aggFunc <- SummaryFunction(AggMethod)
+
+  dt1 <- dt[, lapply(.SD, noquote(aggFunc)), by = by_vars, .SDcols = measure_vars]
+
+  if (has_group) {
+    data.table::setorderv(x = dt1, cols = c(GroupVar, XVar), c(1L, 1L))
+  } else {
+    data.table::setorderv(x = dt1, cols = XVar, 1L)
+  }
+
+  dt1
+}
+
+.ap_apply_sequence_transforms <- function(dt, YVar, DualYVar, YVarTrans, DualYVarTrans, plot_family) {
+  if (identical(plot_family, "river")) {
+    for (yvart in YVarTrans) {
+      if (YVarTrans != "Identity") {
+        dt <- AutoTransformationCreate(data = dt, ColumnNames = yvart, Methods = YVarTrans)$Data
+      }
+    }
+    return(dt)
+  }
+
+  if (YVarTrans != "Identity") {
+    dt <- AutoTransformationCreate(data = dt, ColumnNames = YVar, Methods = YVarTrans)$Data
+  }
+  if (.ap_not_empty(DualYVar) && DualYVarTrans != "Identity") {
+    dt <- AutoTransformationCreate(data = dt, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
+  }
+  dt
+}
+
+.ap_sort_and_convert_sequence_x <- function(dt, XVar, GroupVar, plot_family) {
+  has_group <- .ap_not_empty(GroupVar)
+
+  if (plot_family == "river" || !has_group) {
+    data.table::setorderv(x = dt, cols = XVar, 1L)
+  } else {
+    data.table::setorderv(x = dt, cols = c(GroupVar, XVar), c(1L, 1L))
+  }
+
+  cxv <- class(dt[[XVar]])[1L]
+  if (cxv %in% "IDate") {
+    dt[, eval(XVar) := as.Date(get(XVar))]
+  } else if (cxv %in% "IDateTime") {
+    dt[, eval(XVar) := as.POSIXct(get(XVar))]
+  }
+
+  dt
+}
+
+.ap_prep_sequence_plot_data <- function(
+  dt,
+  XVar,
+  YVar,
+  DualYVar = NULL,
+  GroupVar = NULL,
+  PreAgg = TRUE,
+  AggMethod = "mean",
+  FacetLevels = NULL,
+  YVarTrans = "Identity",
+  DualYVarTrans = "Identity",
+  XVarTrans = "Identity",
+  plot_family = c("line", "area", "step", "river"),
+  Debug = FALSE
+) {
+  plot_family <- match.arg(plot_family)
+
+  dt1 <- .ap_as_dt_copy(dt)
+  vars <- .ap_normalize_sequence_vars(XVar, YVar, DualYVar, GroupVar, plot_family)
+
+  XVar <- vars$XVar
+  YVar <- vars$YVar
+  DualYVar <- vars$DualYVar
+  GroupVar <- vars$GroupVar
+
+  .ap_validate_sequence_inputs(XVar, YVar, DualYVar, GroupVar, plot_family)
+  dt1 <- .ap_factor_to_character(dt1, GroupVar)
+
+  if (plot_family %in% c("line", "area", "step")) {
+    melted <- .ap_melt_sequence_yvars(dt1, XVar, YVar, GroupVar)
+    dt1 <- melted$dt
+    YVar <- melted$YVar
+    GroupVar <- melted$GroupVar
+    dt1 <- .ap_subset_sequence_columns(dt1, XVar, YVar, DualYVar, GroupVar, FacetLevels)
+  }
+
+  if (plot_family == "river") {
+    river <- .ap_prepare_river_shape(dt1, XVar, YVar, GroupVar, FacetLevels, PreAgg, Debug)
+    if (is.null(river)) return(NULL)
+    dt1 <- river$dt
+    YVar <- river$YVar
+    GroupVar <- river$GroupVar
+  }
+
+  # PreAgg = TRUE means the caller has already supplied plot-ready aggregated data.
+  if (!PreAgg) {
+    if (Debug) print(paste0(plot_family, " # Define Aggregation function"))
+    dt1 <- .ap_aggregate_sequence_data(dt1, XVar, YVar, DualYVar, GroupVar, AggMethod)
+  } else if (plot_family %in% c("line", "area", "step")) {
+    dt1 <- .ap_sort_and_convert_sequence_x(dt1, XVar, GroupVar, plot_family)
+  }
+
+  dt1 <- .ap_apply_sequence_transforms(dt1, YVar, DualYVar, YVarTrans, DualYVarTrans, plot_family)
+  dt1 <- .ap_sort_and_convert_sequence_x(dt1, XVar, GroupVar, plot_family)
+
+  list(
+    dt = dt1,
+    XVar = XVar,
+    YVar = YVar,
+    DualYVar = DualYVar,
+    GroupVar = GroupVar
+  )
+}
+
+.ap_prep_pie_identify_roles <- function(dt, XVar, YVar, PreAgg) {
+  if (PreAgg) {
+    return(list(
+      numvars = ColNameFilter(data = dt, Types = 'numeric')[[1L]],
+      byvars = unlist(ColNameFilter(data = dt, Types = "character"))
+    ))
+  }
+
+  numvars <- c()
+  byvars <- c()
+
+  # Role inference exists because either XVar or YVar may be the numeric
+  # measure while the other is the category-like pie slice label.
+  if (tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+    numvars <- unique(c(numvars, YVar))
+  } else {
+    byvars <- unique(c(byvars, YVar))
+  }
+
+  if (tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
+    if (length(numvars) > 0) {
+      x <- length(unique(dt[[XVar]]))
+      y <- length(unique(dt[[YVar]]))
+      if (x > y) {
+        byvars <- unique(c(byvars, YVar))
+        numvars[1L] <- XVar
+      } else {
+        byvars <- unique(c(byvars, XVar))
+      }
+    } else {
+      numvars <- unique(c(numvars, XVar))
+    }
+  } else {
+    byvars <- unique(c(byvars, XVar))
+  }
+
+  list(numvars = numvars, byvars = byvars)
+}
+
+.ap_convert_grouping_vars_to_character <- function(dt, byvars) {
+  # Numeric grouping vars are converted to character for categorical display.
+  for (i in byvars) {
+    if (class(dt[[i]])[1L] %in% c('numeric','integer')) {
+      dt[, eval(i) := as.character(get(i))]
+    }
+  }
+  dt
+}
+
+.ap_aggregate_pie_family_data <- function(dt, numvars, byvars, AggMethod) {
+  aggFunc <- SummaryFunction(AggMethod)
+
+  if (.ap_not_empty(byvars)) {
+    temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
+    return(.ap_convert_grouping_vars_to_character(temp, byvars))
+  }
+
+  dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+}
+
+.ap_prep_pie_family_data <- function(
+  dt,
+  XVar,
+  YVar,
+  GroupVar = NULL,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  Debug = FALSE
+) {
+  XVar <- .ap_first_or_null(.ap_clean_var_vector(XVar))
+  YVar <- .ap_first_or_null(.ap_clean_var_vector(YVar))
+  GroupVar <- .ap_first_or_null(.ap_clean_var_vector(GroupVar))
+
+  if (!.ap_not_empty(XVar) || !.ap_not_empty(YVar)) {
+    return(NULL)
+  }
+
+  dt1 <- .ap_as_dt_copy(dt)
+  dt1 <- .ap_factor_to_character(dt1, c(GroupVar, XVar))
+
+  roles <- .ap_prep_pie_identify_roles(dt1, XVar, YVar, PreAgg)
+  numvars <- roles$numvars
+  byvars <- roles$byvars
+
+  # PreAgg = TRUE means the caller has already supplied plot-ready aggregated data.
+  if (PreAgg) {
+    temp <- data.table::copy(dt1)
+  } else {
+    temp <- .ap_aggregate_pie_family_data(dt1, numvars, byvars, AggMethod)
+  }
+
+  if (YVarTrans != "Identity") {
+    temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
+  }
+
+  list(
+    dt = temp,
+    XVar = XVar,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    numvars = numvars,
+    byvars = byvars
+  )
+}
+
+.ap_qa_pie_family_refactor_examples <- function() {
+  raw <- data.table::data.table(
+    Category = rep(c("A", "B", "C"), each = 4L),
+    Segment = rep(c("North", "South"), 6L),
+    Amount = c(10, 12, 11, 13, 5, 7, 6, 8, 20, 19, 21, 22),
+    Score = c(1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3, 3.4)
+  )
+  raw_factor <- data.table::copy(raw)
+  raw_factor[, Category := factor(Category)]
+  preagg <- raw[, .(Amount = sum(Amount)), keyby = Category]
+  numeric_x <- data.table::data.table(
+    Bucket = c(1, 1, 2, 2, 3, 3),
+    Label = c("Low", "Low", "Mid", "Mid", "High", "High"),
+    Amount = c(5, 6, 10, 11, 20, 21)
+  )
+
+  list(
+    pie_sum = Pie(dt = raw, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "sum"),
+    donut_mean = Donut(dt = raw, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "mean"),
+    rosetype_median = Rosetype(dt = raw, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "median"),
+    pie_preagg = Pie(dt = preagg, XVar = "Category", YVar = "Amount", PreAgg = TRUE),
+    pie_factor_x = Pie(dt = raw_factor, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "sum"),
+    pie_numeric_x_categorical_y = Pie(dt = numeric_x, XVar = "Bucket", YVar = "Label", PreAgg = FALSE, AggMethod = "sum"),
+    prep_pie_sum = .ap_prep_pie_family_data(raw, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "sum"),
+    prep_preagg = .ap_prep_pie_family_data(preagg, XVar = "Category", YVar = "Amount", PreAgg = TRUE),
+    prep_numeric_x_categorical_y = .ap_prep_pie_family_data(numeric_x, XVar = "Bucket", YVar = "Label", PreAgg = FALSE, AggMethod = "sum")
+  )
+}
+
+.ap_bar_is_numeric_var <- function(dt, var) {
+  .ap_not_empty(var) && var %in% names(dt) && class(dt[[var]])[1L] %in% c("numeric", "integer")
+}
+
+.ap_bar_is_category_var <- function(dt, var) {
+  .ap_not_empty(var) && var %in% names(dt) && !.ap_bar_is_numeric_var(dt, var)
+}
+
+.ap_convert_bar_category_vars <- function(dt, vars) {
+  vars <- .ap_clean_var_vector(vars)
+  # Categorical axis/group variables are converted to character for plotting.
+  for (var in vars) {
+    if (var %in% names(dt) && class(dt[[var]])[1L] %in% c("factor", "integer", "numeric")) {
+      dt[, eval(var) := as.character(get(var))]
+    }
+  }
+  dt
+}
+
+.ap_prep_bar_identify_roles <- function(dt, XVar, YVar, GroupVar, plot_family) {
+  numvars <- c()
+  byvars <- c()
+
+  # Role inference exists because XVar/YVar/GroupVar can be numeric or categorical.
+  if (.ap_not_empty(YVar)) {
+    if (.ap_bar_is_numeric_var(dt, YVar)) {
+      numvars <- unique(c(numvars, YVar))
+    } else {
+      byvars <- unique(c(byvars, YVar))
+    }
+  }
+
+  if (.ap_not_empty(XVar)) {
+    if (.ap_bar_is_numeric_var(dt, XVar)) {
+      if (length(numvars) > 0L && .ap_not_empty(YVar)) {
+        x <- length(unique(dt[[XVar]]))
+        y <- length(unique(dt[[YVar]]))
+        if (x > y) {
+          byvars <- unique(c(byvars, YVar))
+          numvars[1L] <- XVar
+        } else {
+          byvars <- unique(c(byvars, XVar))
+        }
+      } else {
+        numvars <- unique(c(numvars, XVar))
+      }
+    } else {
+      byvars <- unique(c(byvars, XVar))
+    }
+  }
+
+  if (.ap_not_empty(GroupVar)) {
+    if (.ap_bar_is_numeric_var(dt, GroupVar) && plot_family == "bar" && !.ap_not_empty(XVar)) {
+      numvars <- unique(c(numvars, GroupVar))
+    } else {
+      byvars <- unique(c(byvars, GroupVar))
+    }
+  }
+
+  list(numvars = numvars, byvars = byvars)
+}
+
+.ap_aggregate_bar_family_data <- function(dt, numvars, byvars, AggMethod) {
+  aggFunc <- SummaryFunction(AggMethod)
+
+  if (.ap_not_empty(byvars)) {
+    temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
+    return(.ap_convert_bar_category_vars(temp, byvars))
+  }
+
+  dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
+}
+
+.ap_apply_bar_transforms <- function(dt, numvars, XVar, YVarTrans, XVarTrans) {
+  if (.ap_not_empty(XVar) && XVar %in% names(dt) && class(dt[[XVar]])[1L] %in% c("numeric", "integer")) {
+    YVarTrans <- XVarTrans
+  }
+  if (YVarTrans != "Identity") {
+    dt <- AutoTransformationCreate(data = dt, ColumnNames = numvars, Methods = YVarTrans)$Data
+  }
+  dt
+}
+
+.ap_prep_bar_family_data <- function(
+  dt,
+  XVar,
+  YVar,
+  GroupVar = NULL,
+  LabelValues = NULL,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  YVarTrans = "Identity",
+  XVarTrans = "Identity",
+  FacetLevels = NULL,
+  plot_family = c("bar", "stacked_bar"),
+  Debug = FALSE
+) {
+  plot_family <- match.arg(plot_family)
+
+  XVar <- .ap_first_or_null(.ap_clean_var_vector(XVar))
+  YVar <- .ap_first_or_null(.ap_clean_var_vector(YVar))
+  GroupVar <- .ap_first_or_null(.ap_clean_var_vector(GroupVar))
+  LabelValues <- .ap_first_or_null(.ap_clean_var_vector(LabelValues))
+
+  # StackedBar has stricter requirements than Bar.
+  if (plot_family == "stacked_bar" && (!.ap_not_empty(XVar) || !.ap_not_empty(YVar) || !.ap_not_empty(GroupVar))) {
+    return(NULL)
+  }
+  if (plot_family == "bar" && !.ap_not_empty(XVar) && !.ap_not_empty(YVar)) {
+    return(NULL)
+  }
+
+  dt1 <- .ap_as_dt_copy(dt)
+  dt1 <- .ap_factor_to_character(dt1, c(XVar, YVar))
+  dt1 <- .ap_convert_bar_category_vars(dt1, GroupVar)
+
+  if (plot_family == "stacked_bar" && .ap_bar_is_category_var(dt1, YVar) && .ap_bar_is_numeric_var(dt1, XVar)) {
+    tmp <- YVar
+    YVar <- XVar
+    XVar <- tmp
+  }
+
+  if (.ap_not_empty(GroupVar) && length(FacetLevels) > 0L) {
+    keep_cols <- .ap_clean_var_vector(c(YVar, XVar, GroupVar, LabelValues))
+    dt1 <- dt1[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = keep_cols]
+  }
+
+  roles <- .ap_prep_bar_identify_roles(dt1, XVar, YVar, GroupVar, plot_family)
+  numvars <- roles$numvars
+  byvars <- roles$byvars
+
+  # PreAgg = TRUE means the caller has already supplied plot-ready aggregated data.
+  if (PreAgg) {
+    temp <- data.table::copy(dt1)
+    numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
+    byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
+  } else {
+    temp <- .ap_aggregate_bar_family_data(dt1, numvars, byvars, AggMethod)
+  }
+
+  temp <- .ap_apply_bar_transforms(temp, numvars, XVar, YVarTrans, XVarTrans)
+
+  if (plot_family == "bar" && !.ap_not_empty(YVar) && .ap_not_empty(XVar) && XVar %in% numvars && .ap_not_empty(GroupVar)) {
+    YVar <- XVar
+  }
+
+  list(
+    dt = temp,
+    XVar = XVar,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    LabelValues = LabelValues,
+    numvars = numvars,
+    byvars = byvars
+  )
+}
+
+.ap_qa_bar_family_refactor_data <- function() {
+  raw <- data.table::data.table(
+    Category = rep(c("A", "B", "C"), each = 4L),
+    Segment = rep(c("North", "South"), 6L),
+    Amount = c(10, 12, 11, 13, 5, 7, 6, 8, 20, 19, 21, 22),
+    Score = c(1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3, 3.4)
+  )
+  raw_factor <- data.table::copy(raw)
+  raw_factor[, Category := factor(Category)]
+  preagg <- raw[, .(Amount = sum(Amount)), keyby = Category]
+  preagg_stacked <- raw[, .(Amount = sum(Amount)), keyby = .(Category, Segment)]
+
+  list(
+    bar_xy = .ap_prep_bar_family_data(raw, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "sum"),
+    bar_xy_group = .ap_prep_bar_family_data(raw, XVar = "Category", YVar = "Amount", GroupVar = "Segment", PreAgg = FALSE, AggMethod = "sum"),
+    bar_y_group = .ap_prep_bar_family_data(raw, XVar = NULL, YVar = "Amount", GroupVar = "Category", PreAgg = FALSE, AggMethod = "sum"),
+    bar_preagg = .ap_prep_bar_family_data(preagg, XVar = "Category", YVar = "Amount", PreAgg = TRUE),
+    bar_factor_x = .ap_prep_bar_family_data(raw_factor, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "sum"),
+    stacked = .ap_prep_bar_family_data(raw, XVar = "Category", YVar = "Amount", GroupVar = "Segment", PreAgg = FALSE, AggMethod = "sum", plot_family = "stacked_bar"),
+    stacked_preagg = .ap_prep_bar_family_data(preagg_stacked, XVar = "Category", YVar = "Amount", GroupVar = "Segment", PreAgg = TRUE, plot_family = "stacked_bar")
+  )
+}
+
+.ap_qa_bar_family_refactor_examples <- function() {
+  raw <- data.table::data.table(
+    Category = rep(c("A", "B", "C"), each = 4L),
+    Segment = rep(c("North", "South"), 6L),
+    Amount = c(10, 12, 11, 13, 5, 7, 6, 8, 20, 19, 21, 22),
+    Score = c(1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3, 3.4)
+  )
+  raw_factor <- data.table::copy(raw)
+  raw_factor[, Category := factor(Category)]
+  preagg <- raw[, .(Amount = sum(Amount)), keyby = Category]
+  preagg_stacked <- raw[, .(Amount = sum(Amount)), keyby = .(Category, Segment)]
+
+  list(
+    bar_xy = Bar(dt = raw, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "sum"),
+    bar_xy_group = Bar(dt = raw, XVar = "Category", YVar = "Amount", GroupVar = "Segment", PreAgg = FALSE, AggMethod = "sum"),
+    bar_y_group = Bar(dt = raw, YVar = "Amount", GroupVar = "Category", PreAgg = FALSE, AggMethod = "sum"),
+    bar_preagg = Bar(dt = preagg, XVar = "Category", YVar = "Amount", PreAgg = TRUE),
+    bar_factor_x = Bar(dt = raw_factor, XVar = "Category", YVar = "Amount", PreAgg = FALSE, AggMethod = "sum"),
+    stacked = StackedBar(dt = raw, XVar = "Category", YVar = "Amount", GroupVar = "Segment", PreAgg = FALSE, AggMethod = "sum"),
+    stacked_preagg = StackedBar(dt = preagg_stacked, XVar = "Category", YVar = "Amount", GroupVar = "Segment", PreAgg = TRUE)
+  )
+}
+
+.ap_grid_axis_case <- function(dt, XVar, YVar) {
+  x_is_numeric <- class(dt[[XVar]])[1L] %in% c("numeric", "integer")
+  y_is_numeric <- class(dt[[YVar]])[1L] %in% c("numeric", "integer")
+
+  case <- if (x_is_numeric && y_is_numeric) {
+    "both_numeric"
+  } else if (!x_is_numeric && y_is_numeric) {
+    "x_categorical_y_numeric"
+  } else if (x_is_numeric && !y_is_numeric) {
+    "x_numeric_y_categorical"
+  } else {
+    "both_categorical"
+  }
+
+  list(case = case, x_is_numeric = x_is_numeric, y_is_numeric = y_is_numeric)
+}
+
+.ap_bin_numeric_grid_axis <- function(dt, var, NumberBins) {
+  # Numeric axes are binned/ranked to reduce dense continuous grids.
+  if (.ap_not_empty(var) && var %in% names(dt)) {
+    dt[, eval(var) := round(data.table::frank(get(var)) * NumberBins / .N) / NumberBins]
+  }
+  dt
+}
+
+.ap_format_grid_axis_bins <- function(dt, vars, digits = 4) {
+  for (var in vars) {
+    if (.ap_not_empty(var) && var %in% names(dt) && is.numeric(dt[[var]])) {
+      vals <- round(dt[[var]], digits)
+      dt[, eval(var) := format(vals, trim = TRUE, scientific = FALSE)]
+    }
+  }
+  dt
+}
+
+.ap_apply_3d_axis_defaults <- function(
+  e,
+  XVar,
+  YVar,
+  ZVar,
+  xAxis.title = NULL,
+  yAxis.title = NULL,
+  zAxis.title = NULL,
+  xAxis.values = NULL,
+  yAxis.values = NULL,
+  zAxis.values = NULL,
+  Theme = "dark"
+) {
+  dark_theme <- length(Theme) > 0L && grepl("dark", Theme[1L], ignore.case = TRUE)
+  label_color <- if (dark_theme) "#E5E7EB" else "#374151"
+  line_color <- if (dark_theme) "#6B7280" else "#9CA3AF"
+  split_color <- if (dark_theme) "rgba(229,231,235,0.16)" else "rgba(55,65,81,0.16)"
+  formatter <- htmlwidgets::JS(
+    "function(value) {
+       var text = String(value);
+       var number = Number(value);
+       if (text !== '' && isFinite(number)) {
+         var abs = Math.abs(number);
+         if (abs !== 0 && (abs < 0.001 || abs >= 10000)) {
+           return number.toExponential(2);
+         }
+         return Number(number.toFixed(4)).toString();
+       }
+       return text.length > 18 ? text.slice(0, 17) + '...' : text;
+     }"
+  )
+
+  axis_opts <- function(name, values = NULL) {
+    opts <- list(
+      name = name,
+      nameGap = 24,
+      nameTextStyle = list(
+        color = label_color,
+        fontFamily = "Segoe UI",
+        fontSize = 13,
+        fontWeight = "bold"
+      ),
+      axisLabel = list(
+        color = label_color,
+        fontFamily = "Segoe UI",
+        fontSize = 11,
+        formatter = formatter
+      ),
+      axisLine = list(lineStyle = list(color = line_color)),
+      axisPointer = list(label = list(formatter = formatter)),
+      splitLine = list(lineStyle = list(color = split_color))
+    )
+    if (length(values) > 0L && !is.numeric(values)) {
+      opts$type <- "category"
+      opts$data <- as.character(unique(values))
+    }
+    opts
+  }
+
+  merge_axis_opts <- function(existing, defaults) {
+    if (is.null(existing)) {
+      existing <- list()
+    }
+    existing_names <- names(existing)
+    if (is.null(existing_names) && length(existing) > 0L) {
+      existing_names <- rep("", length(existing))
+    }
+    if (length(existing_names) > 0L && any(existing_names == "")) {
+      unnamed <- existing[existing_names == ""]
+      named <- existing[existing_names != ""]
+      for (item in unnamed) {
+        if (is.list(item)) {
+          named <- utils::modifyList(named, item, keep.null = TRUE)
+        }
+      }
+      existing <- named
+    }
+    utils::modifyList(existing, defaults, keep.null = TRUE)
+  }
+
+  e$x$opts$xAxis3D <- merge_axis_opts(
+    e$x$opts$xAxis3D,
+    axis_opts(if (length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.values)
+  )
+  e$x$opts$yAxis3D <- merge_axis_opts(
+    e$x$opts$yAxis3D,
+    axis_opts(if (length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.values)
+  )
+  e$x$opts$zAxis3D <- merge_axis_opts(
+    e$x$opts$zAxis3D,
+    axis_opts(if (length(zAxis.title) > 0L) zAxis.title else ZVar, zAxis.values)
+  )
+  e
+}
+
+.ap_top_grid_levels <- function(dt, category_var, value_var, n_levels) {
+  if (!.ap_not_empty(category_var) || !category_var %in% names(dt)) {
+    return(NULL)
+  }
+
+  # Categorical axes are top-N filtered before grid aggregation.
+  top_levels <- dt[
+    ,
+    lapply(.SD, mean, na.rm = TRUE),
+    .SDcols = value_var,
+    by = category_var
+  ][order(-get(value_var))]
+
+  top_levels[seq_len(min(n_levels, top_levels[, .N]))][[category_var]]
+}
+
+.ap_aggregate_grid_data <- function(dt, XVar, YVar, value_var, AggMethod) {
+  aggFunc <- SummaryFunction(AggMethod)
+  dt[, lapply(.SD, noquote(aggFunc)), .SDcols = value_var, by = c(XVar, YVar)]
+}
+
+.ap_prepare_grid_value_var <- function(dt, ZVar, value_var = "Measure_Variable") {
+  if (class(dt[[ZVar]])[1L] %in% c("factor", "character")) {
+    dt[, eval(ZVar) := as.numeric(get(ZVar))]
+  }
+  if (!identical(ZVar, value_var)) {
+    dt[, eval(value_var) := get(ZVar)]
+  }
+  dt
+}
+
+.ap_apply_grid_transforms <- function(dt, value_var, ZVarTrans) {
+  if (length(ZVarTrans) > 0L && ZVarTrans != "Identity") {
+    dt <- AutoTransformationCreate(data = dt, ColumnNames = value_var, Methods = ZVarTrans)$Data
+  }
+  dt
+}
+
+.ap_prep_grid_family_data <- function(
+  dt,
+  XVar,
+  YVar,
+  ZVar,
+  PreAgg = FALSE,
+  AggMethod = "mean",
+  XVarTrans = "Identity",
+  YVarTrans = "Identity",
+  ZVarTrans = "Identity",
+  NumberBins = 21,
+  NumLevels_X = 33,
+  NumLevels_Y = 33,
+  plot_family = c("heatmap", "bar3d"),
+  Debug = FALSE
+) {
+  plot_family <- match.arg(plot_family)
+
+  XVar <- .ap_first_or_null(.ap_clean_var_vector(XVar))
+  YVar <- .ap_first_or_null(.ap_clean_var_vector(YVar))
+  ZVar <- .ap_first_or_null(.ap_clean_var_vector(ZVar))
+  if (!.ap_not_empty(XVar) || !.ap_not_empty(YVar) || !.ap_not_empty(ZVar)) {
+    return(NULL)
+  }
+
+  value_var <- "Measure_Variable"
+  dt1 <- .ap_as_dt_copy(dt)
+  dt1 <- .ap_factor_to_character(dt1, c(XVar, YVar))
+  dt1 <- dt1[, .SD, .SDcols = c(XVar, YVar, ZVar)]
+  dt1 <- .ap_prepare_grid_value_var(dt1, ZVar, value_var)
+
+  axis <- .ap_grid_axis_case(dt1, XVar, YVar)
+  case <- axis$case
+  x_is_numeric <- axis$x_is_numeric
+  y_is_numeric <- axis$y_is_numeric
+
+  # PreAgg = TRUE skips internal aggregation/binning.
+  if (!PreAgg) {
+    if (x_is_numeric) {
+      dt1 <- .ap_bin_numeric_grid_axis(dt1, XVar, NumberBins)
+    }
+    if (y_is_numeric) {
+      dt1 <- .ap_bin_numeric_grid_axis(dt1, YVar, NumberBins)
+    }
+
+    if (!x_is_numeric) {
+      x_levels <- .ap_top_grid_levels(dt1, XVar, value_var, NumLevels_X)
+      if (length(x_levels)) {
+        dt1 <- dt1[get(XVar) %in% x_levels]
+      }
+    }
+    if (!y_is_numeric) {
+      y_levels <- .ap_top_grid_levels(dt1, YVar, value_var, NumLevels_Y)
+      if (length(y_levels)) {
+        dt1 <- dt1[get(YVar) %in% y_levels]
+      }
+    }
+
+    dt1 <- .ap_aggregate_grid_data(dt1, XVar, YVar, value_var, AggMethod)
+  }
+
+  # ZVar is prepared as the grid value variable consumed by the render paths.
+  dt1 <- .ap_apply_grid_transforms(dt1, value_var, ZVarTrans)
+  data.table::setorderv(dt1, c(XVar, YVar), c(1L, 1L))
+  if (plot_family %in% c("heatmap", "bar3d") && !PreAgg) {
+    grid_bin_axes <- c(if (x_is_numeric) XVar, if (y_is_numeric) YVar)
+    dt1 <- .ap_format_grid_axis_bins(dt1, grid_bin_axes)
+  }
+
+  list(
+    dt = dt1,
+    XVar = XVar,
+    YVar = YVar,
+    ZVar = value_var,
+    value_var = value_var,
+    x_is_numeric = x_is_numeric,
+    y_is_numeric = y_is_numeric,
+    case = case
+  )
+}
+
+.ap_qa_grid_family_data_source <- function() {
+  data.table::data.table(
+    XCat = rep(c("A", "B", "C", "D"), each = 12L),
+    YCat = rep(rep(c("North", "South", "East"), each = 4L), 4L),
+    XNum = rep(seq_len(12L), 4L),
+    YNum = rep(c(2, 5, 8, 11), 12L),
+    Value = seq_len(48L) + rep(c(0, 3, 6, 9), each = 12L)
+  )
+}
+
+.ap_qa_grid_family_refactor_data <- function() {
+  raw <- .ap_qa_grid_family_data_source()
+  preagg <- raw[, .(Value = sum(Value)), keyby = .(XCat, YCat)]
+
+  list(
+    heatmap_both_categorical = .ap_prep_grid_family_data(raw, "XCat", "YCat", "Value", PreAgg = FALSE, AggMethod = "sum", plot_family = "heatmap"),
+    heatmap_x_categorical_y_numeric = .ap_prep_grid_family_data(raw, "XCat", "YNum", "Value", PreAgg = FALSE, AggMethod = "sum", plot_family = "heatmap"),
+    heatmap_x_numeric_y_categorical = .ap_prep_grid_family_data(raw, "XNum", "YCat", "Value", PreAgg = FALSE, AggMethod = "sum", plot_family = "heatmap"),
+    heatmap_both_numeric = .ap_prep_grid_family_data(raw, "XNum", "YNum", "Value", PreAgg = FALSE, AggMethod = "sum", plot_family = "heatmap"),
+    heatmap_preagg = .ap_prep_grid_family_data(preagg, "XCat", "YCat", "Value", PreAgg = TRUE, plot_family = "heatmap"),
+    bar3d_both_categorical = .ap_prep_grid_family_data(raw, "XCat", "YCat", "Value", PreAgg = FALSE, AggMethod = "sum", plot_family = "bar3d"),
+    bar3d_x_categorical_y_numeric = .ap_prep_grid_family_data(raw, "XCat", "YNum", "Value", PreAgg = FALSE, AggMethod = "sum", plot_family = "bar3d"),
+    bar3d_x_numeric_y_categorical = .ap_prep_grid_family_data(raw, "XNum", "YCat", "Value", PreAgg = FALSE, AggMethod = "sum", plot_family = "bar3d"),
+    bar3d_both_numeric = .ap_prep_grid_family_data(raw, "XNum", "YNum", "Value", PreAgg = FALSE, AggMethod = "sum", plot_family = "bar3d"),
+    bar3d_preagg = .ap_prep_grid_family_data(preagg, "XCat", "YCat", "Value", PreAgg = TRUE, plot_family = "bar3d")
+  )
+}
+
+.ap_qa_grid_family_refactor_examples <- function() {
+  raw <- .ap_qa_grid_family_data_source()
+  preagg <- raw[, .(Value = sum(Value)), keyby = .(XCat, YCat)]
+
+  list(
+    heatmap_both_categorical = HeatMap(dt = raw, XVar = "XCat", YVar = "YCat", ZVar = "Value", PreAgg = FALSE, AggMethod = "sum"),
+    heatmap_x_categorical_y_numeric = HeatMap(dt = raw, XVar = "XCat", YVar = "YNum", ZVar = "Value", PreAgg = FALSE, AggMethod = "sum"),
+    heatmap_x_numeric_y_categorical = HeatMap(dt = raw, XVar = "XNum", YVar = "YCat", ZVar = "Value", PreAgg = FALSE, AggMethod = "sum"),
+    heatmap_both_numeric = HeatMap(dt = raw, XVar = "XNum", YVar = "YNum", ZVar = "Value", PreAgg = FALSE, AggMethod = "sum"),
+    heatmap_preagg = HeatMap(dt = preagg, XVar = "XCat", YVar = "YCat", ZVar = "Value", PreAgg = TRUE),
+    bar3d_both_categorical = BarPlot3D(dt = raw, XVar = "XCat", YVar = "YCat", ZVar = "Value", PreAgg = FALSE, AggMethod = "sum"),
+    bar3d_x_categorical_y_numeric = BarPlot3D(dt = raw, XVar = "XCat", YVar = "YNum", ZVar = "Value", PreAgg = FALSE, AggMethod = "sum"),
+    bar3d_x_numeric_y_categorical = BarPlot3D(dt = raw, XVar = "XNum", YVar = "YCat", ZVar = "Value", PreAgg = FALSE, AggMethod = "sum"),
+    bar3d_both_numeric = BarPlot3D(dt = raw, XVar = "XNum", YVar = "YNum", ZVar = "Value", PreAgg = FALSE, AggMethod = "sum"),
+    bar3d_preagg = BarPlot3D(dt = preagg, XVar = "XCat", YVar = "YCat", ZVar = "Value", PreAgg = TRUE)
+  )
+}
+
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 # > Distribution Plot Functions                                               ----
@@ -4478,74 +5390,24 @@ Pie <- function(dt = NULL,
                 Debug = FALSE) {
 
   apply_theme_defaults(Theme, plot_type = "Pie", grouped = FALSE, env = environment())
-  if(length(YVar) > 0L) YVar <- YVar[1L]
-  if(length(XVar) > 0L) XVar <- XVar[1L]
-
-  # Used multiple times
-  check1 <- length(XVar) != 0 && length(YVar) != 0
-
-  if(!PreAgg) {
-    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-      dt <- data.table::as.data.table(dt)
-    })
-    aggFunc <- SummaryFunction(AggMethod)
-  }
-
-  # Convert factor to character
-  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
-    dt[, eval(GroupVar) := as.character(get(GroupVar))]
-  }
-
-  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
-    dt[, eval(XVar) := as.character(get(XVar))]
-  }
-
-  # Create base plot object
-  numvars <- c()
-  byvars <- c()
-  if(check1) {
-    if(!PreAgg) {
-      if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-        numvars <- unique(c(numvars, YVar))
-      } else {
-        byvars <- unique(c(byvars, YVar))
-      }
-      if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-        if(length(numvars) > 0) {
-          x <- length(unique(dt[[XVar]]))
-          y <- length(unique(dt[[YVar]]))
-          if(x > y) {
-            byvars <- unique(c(byvars, YVar))
-            numvars[1L] <- XVar
-          } else {
-            byvars <- unique(c(byvars, XVar))
-          }
-        } else {
-          numvars <- unique(c(numvars, XVar))
-        }
-      } else {
-        byvars <- unique(c(byvars, XVar))
-      }
-      if(!is.null(byvars)) {
-        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
-        for(i in byvars) {
-          if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
-            temp[, eval(i) := as.character(get(i))]
-          }
-        }
-      } else {
-        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-      }
-    } else {
-      temp <- data.table::copy(dt)
-      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
-    }
-
-    # Transformation
-    if(YVarTrans != "Identity") {
-      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-    }
+  prep <- .ap_prep_pie_family_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    Debug = Debug
+  )
+  if (is.null(prep)) return(NULL)
+  temp <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  GroupVar <- prep$GroupVar
+  numvars <- prep$numvars
+  byvars <- prep$byvars
 
     p1 <- echarts4r::e_charts_(
       temp,
@@ -4747,7 +5609,6 @@ Pie <- function(dt = NULL,
       title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
-  }
 }
 
 #' @title Donut
@@ -5249,78 +6110,26 @@ Donut <- function(dt = NULL,
 
   apply_theme_defaults(Theme, plot_type = "Donut", grouped = FALSE, env = environment())
 
-  if(length(YVar) > 0L) YVar <- YVar[1L]
-  if(length(XVar) > 0L) XVar <- XVar[1L]
-
-  # Used multiple times
-  check1 <- length(XVar) != 0 && length(YVar) != 0
-
-  if(!PreAgg) {
-    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-      dt <- data.table::as.data.table(dt)
-    })
-    aggFunc <- SummaryFunction(AggMethod)
-  }
-
-  # Convert factor to character
-  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
-    dt[, eval(GroupVar) := as.character(get(GroupVar))]
-  }
-
-  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
-    dt[, eval(XVar) := as.character(get(XVar))]
-  }
-
-  # Create base plot object
-  numvars <- c()
-  byvars <- c()
-  if(check1) {
-    if(Debug) print("BarPlot 2.b")
-    if(!PreAgg) {
-      if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-        numvars <- unique(c(numvars, YVar))
-      } else {
-        byvars <- unique(c(byvars, YVar))
-      }
-      if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-        if(length(numvars) > 0) {
-          x <- length(unique(dt[[XVar]]))
-          y <- length(unique(dt[[YVar]]))
-          if(x > y) {
-            byvars <- unique(c(byvars, YVar))
-            numvars[1L] <- XVar
-          } else {
-            byvars <- unique(c(byvars, XVar))
-          }
-        } else {
-          numvars <- unique(c(numvars, XVar))
-        }
-      } else {
-        byvars <- unique(c(byvars, XVar))
-      }
-      if(!is.null(byvars)) {
-        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
-        for(i in byvars) {
-          if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
-            temp[, eval(i) := as.character(get(i))]
-          }
-        }
-      } else {
-        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-      }
-    } else {
-      temp <- data.table::copy(dt)
-      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
-    }
-
-    yvar <- temp[[YVar]]
-    xvar <- temp[[XVar]]
-
-    # Transformation
-    if(YVarTrans != "Identity") {
-      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-    }
+  prep <- .ap_prep_pie_family_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    Debug = Debug
+  )
+  if (is.null(prep)) return(NULL)
+  temp <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  GroupVar <- prep$GroupVar
+  numvars <- prep$numvars
+  byvars <- prep$byvars
+  yvar <- temp[[YVar]]
+  xvar <- temp[[XVar]]
 
     p1 <- echarts4r::e_charts_(
       temp,
@@ -5523,7 +6332,6 @@ Donut <- function(dt = NULL,
       title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     return(p1)
-  }
 }
 
 
@@ -6024,284 +6832,236 @@ Rosetype <- function(dt = NULL,
                      Debug = FALSE) {
 
   # Theme overrides
-  apply_theme_defaults(Theme, plot_type = "Rosetype", grouped = FALSE, env = environment())
-  if (is.null(GroupVar)) legend.show <- FALSE
+  apply_theme_defaults(Theme, plot_type = "Rosetype", grouped = TRUE, env = environment())
 
-  if(length(YVar) > 0L) YVar <- YVar[1L]
-  if(length(XVar) > 0L) XVar <- XVar[1L]
+  prep <- .ap_prep_pie_family_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    Debug = Debug
+  )
+  if (is.null(prep)) return(NULL)
+  temp <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  GroupVar <- prep$GroupVar
+  numvars <- prep$numvars
+  byvars <- prep$byvars
+  yvar <- temp[[YVar]]
+  xvar <- temp[[XVar]]
 
-  # Used multiple times
-  check1 <- length(XVar) != 0 && length(YVar) != 0
+  p1 <- echarts4r::e_charts_(
+    temp,
+    x = XVar,
+    dispose = TRUE,
+    darkMode = TRUE,
+    emphasis = list(focus = "series"),
+    width = Width, height = Height)
 
-  if(!PreAgg) {
-    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-      dt <- data.table::as.data.table(dt)
-    })
-    aggFunc <- SummaryFunction(AggMethod)
-  }
+  p1 <- echarts4r::e_pie_(
+    e = p1,
+    YVar,
+    stack = XVar,
+    legend = legend.show,
+    roseType = "radius"
+  )
 
-  # Convert factor to character
-  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
-    dt[, eval(GroupVar) := as.character(get(GroupVar))]
-  }
-
-  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
-    dt[, eval(XVar) := as.character(get(XVar))]
-  }
-
-  # Create base plot object
-  numvars <- c()
-  byvars <- c()
-  if(check1) {
-    if(Debug) print("BarPlot 2.b")
-    if(!PreAgg) {
-      if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-        numvars <- unique(c(numvars, YVar))
-      } else {
-        byvars <- unique(c(byvars, YVar))
-      }
-      if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-        if(length(numvars) > 0) {
-          x <- length(unique(dt[[XVar]]))
-          y <- length(unique(dt[[YVar]]))
-          if(x > y) {
-            byvars <- unique(c(byvars, YVar))
-            numvars[1L] <- XVar
-          } else {
-            byvars <- unique(c(byvars, XVar))
-          }
-        } else {
-          numvars <- unique(c(numvars, XVar))
-        }
-      } else {
-        byvars <- unique(c(byvars, XVar))
-      }
-      if(!is.null(byvars)) {
-        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
-        for(i in byvars) {
-          if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
-            temp[, eval(i) := as.character(get(i))]
-          }
-        }
-      } else {
-        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-      }
-    } else {
-      temp <- data.table::copy(dt)
-      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
-    }
-
-    yvar <- temp[[YVar]]
-    xvar <- temp[[XVar]]
-
-    # Transformation
-    if(YVarTrans != "Identity") {
-      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-    }
-
-    p1 <- echarts4r::e_charts_(
-      temp,
-      x = XVar,
-      dispose = TRUE,
-      darkMode = TRUE,
-      emphasis = list(focus = "series"),
-      width = Width, height = Height)
-
-    p1 <- echarts4r::e_pie_(
+  if (ShowLabels) {
+    p1 <- echarts4r::e_labels(
       e = p1,
-      YVar,
-      stack = XVar,
-      roseType = "radius"
-    )
-
-    if (ShowLabels) {
-      p1 <- echarts4r::e_labels(
-        e = p1,
-        show = TRUE,
-        formatter = htmlwidgets::JS(
-          "function(params) {
+      show = TRUE,
+      formatter = htmlwidgets::JS(
+        "function(params) {
              return params.name + ': ' + params.value.toFixed(1) + ' (' + params.percent.toFixed(1) + '%)';
            }"
-        ),
-        position = "outside"
-      )
-    }
-
-    p1 <- echarts4r::e_theme(e = p1, name = Theme)
-
-    p1 <- e_tooltip_full(
-      e = p1,
-      tooltip.show = tooltip.show,
-      tooltip.trigger = tooltip.trigger,
-      tooltip.backgroundColor = tooltip.backgroundColor,
-      tooltip.borderColor = tooltip.borderColor,
-      tooltip.borderWidth = tooltip.borderWidth,
-      tooltip.padding = tooltip.padding,
-      tooltip.axisPointer.type = tooltip.axisPointer.type,
-      tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
-      tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
-      tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
-      tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
-      tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
-      tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
-      tooltip.textStyle.color = tooltip.textStyle.color,
-      tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
-      tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
-      tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
-      tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
-      tooltip.textStyle.width = tooltip.textStyle.width,
-      tooltip.textStyle.height = tooltip.textStyle.height,
-      tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
-      tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
-      tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
-      tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
-      tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
-      tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
-      tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
-
-    p1 <- e_toolbox_full(
-      e = p1,
-      toolbox.show = toolbox.show,
-      toolbox.orient = toolbox.orient,
-      toolbox.itemSize = toolbox.itemSize,
-      toolbox.itemGap = toolbox.itemGap,
-      toolbox.top = toolbox.top,
-      toolbox.left = toolbox.left,
-      toolbox.right = toolbox.right,
-      toolbox.bottom = toolbox.bottom,
-      toolbox.width = toolbox.width,
-      toolbox.heigth = toolbox.heigth,
-      toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
-      toolbox.feature.restore.show = toolbox.feature.restore.show,
-      toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
-      toolbox.feature.magicType.show = toolbox.feature.magicType.show,
-      toolbox.feature.magicType.type = toolbox.feature.magicType.type,
-      toolbox.feature.dataView.show = toolbox.feature.dataView.show,
-      toolbox.iconStyle.color = toolbox.iconStyle.color,
-      toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
-      toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
-      toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
-      toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
-      toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
-      toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
-
-    p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
-    p1 <- echarts4r::e_brush(e = p1)
-
-    p1 <- e_legend_full(
-      e = p1,
-      legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
-      legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
-      legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
-      legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
-      legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
-      legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
-      legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
-      legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
-      legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
-      legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
-      legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
-      legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
-      legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
-      legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
-      legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
-      legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
-      legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
-      legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
-      legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
-      legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
-      legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
-      legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
-      legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
-      legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
-      legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
-      legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
-      legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
-      legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
-      legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
-      legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
-      legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
-      legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
-      legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
-      legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
-      legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
-      legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
-      legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
-      legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
-      legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
-      legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
-      legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
-      legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
-      legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
-      legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
-      legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
-      legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
-      legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
-      legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
-      legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
-      legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
-      legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
-      legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
-      legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
-
-    p1 <- e_title_full(
-      e = p1,
-      title.text = title.text,
-      title.subtext = title.subtext,
-      title.link = title.link,
-      title.sublink = title.sublink,
-      title.Align = title.Align,
-      title.top = title.top,
-      title.left = title.left,
-      title.right = title.right,
-      title.bottom = title.bottom,
-      title.padding = title.padding,
-      title.itemGap = title.itemGap,
-      title.backgroundColor = title.backgroundColor,
-      title.borderColor = title.borderColor,
-      title.borderWidth = title.borderWidth,
-      title.borderRadius = title.borderRadius,
-      title.shadowColor = title.shadowColor,
-      title.shadowBlur = title.shadowBlur,
-      title.shadowOffsetX = title.shadowOffsetX,
-      title.shadowOffsetY = title.shadowOffsetY,
-      title.textStyle.color = title.textStyle.color,
-      title.textStyle.fontStyle = title.textStyle.fontStyle,
-      title.textStyle.fontWeight = title.textStyle.fontWeight,
-      title.textStyle.fontFamily = title.textStyle.fontFamily,
-      title.textStyle.fontSize = title.textStyle.fontSize,
-      title.textStyle.lineHeight = title.textStyle.lineHeight,
-      title.textStyle.width = title.textStyle.width,
-      title.textStyle.height = title.textStyle.height,
-      title.textStyle.textBorderColor = title.textStyle.textBorderColor,
-      title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
-      title.textStyle.textBorderType = title.textStyle.textBorderType,
-      title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
-      title.textStyle.textShadowColor = title.textStyle.textShadowColor,
-      title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
-      title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
-      title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
-      title.subtextStyle.color = title.subtextStyle.color,
-      title.subtextStyle.align = title.subtextStyle.align,
-      title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
-      title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
-      title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
-      title.subtextStyle.fontSize = title.subtextStyle.fontSize,
-      title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
-      title.subtextStyle.width = title.subtextStyle.width,
-      title.subtextStyle.height = title.subtextStyle.height,
-      title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
-      title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
-      title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
-      title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
-      title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
-      title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
-      title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
-      title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
-
-    return(p1)
+      ),
+      position = "outside"
+    )
   }
+
+  p1 <- echarts4r::e_theme(e = p1, name = Theme)
+
+  p1 <- e_tooltip_full(
+    e = p1,
+    tooltip.show = tooltip.show,
+    tooltip.trigger = tooltip.trigger,
+    tooltip.backgroundColor = tooltip.backgroundColor,
+    tooltip.borderColor = tooltip.borderColor,
+    tooltip.borderWidth = tooltip.borderWidth,
+    tooltip.padding = tooltip.padding,
+    tooltip.axisPointer.type = tooltip.axisPointer.type,
+    tooltip.axisPointer.lineStyle.color = tooltip.axisPointer.lineStyle.color,
+    tooltip.axisPointer.shadowStyle.color = tooltip.axisPointer.shadowStyle.color,
+    tooltip.axisPointer.shadowStyle.shadowBlur = tooltip.axisPointer.shadowStyle.shadowBlur,
+    tooltip.axisPointer.shadowStyle.shadowOffsetX = tooltip.axisPointer.shadowStyle.shadowOffsetX,
+    tooltip.axisPointer.shadowStyle.shadowOffsetY = tooltip.axisPointer.shadowStyle.shadowOffsetY,
+    tooltip.axisPointer.shadowStyle.opacity = tooltip.axisPointer.shadowStyle.opacity,
+    tooltip.textStyle.color = tooltip.textStyle.color,
+    tooltip.textStyle.fontStyle = tooltip.textStyle.fontStyle,
+    tooltip.textStyle.fontWeight = tooltip.textStyle.fontWeight,
+    tooltip.textStyle.fontFamily = tooltip.textStyle.fontFamily,
+    tooltip.textStyle.lineHeight = tooltip.textStyle.lineHeight,
+    tooltip.textStyle.width = tooltip.textStyle.width,
+    tooltip.textStyle.height = tooltip.textStyle.height,
+    tooltip.textStyle.textBorderColor = tooltip.textStyle.textBorderColor,
+    tooltip.textStyle.textBorderWidth = tooltip.textStyle.textBorderWidth,
+    tooltip.textStyle.textBorderType = tooltip.textStyle.textBorderType,
+    tooltip.textStyle.textShadowColor = tooltip.textStyle.textShadowColor,
+    tooltip.textStyle.textShadowBlur = tooltip.textStyle.textShadowBlur,
+    tooltip.textStyle.textShadowOffsetX = tooltip.textStyle.textShadowOffsetX,
+    tooltip.textStyle.textShadowOffsetY = tooltip.textStyle.textShadowOffsetY)
+
+  p1 <- e_toolbox_full(
+    e = p1,
+    toolbox.show = toolbox.show,
+    toolbox.orient = toolbox.orient,
+    toolbox.itemSize = toolbox.itemSize,
+    toolbox.itemGap = toolbox.itemGap,
+    toolbox.top = toolbox.top,
+    toolbox.left = toolbox.left,
+    toolbox.right = toolbox.right,
+    toolbox.bottom = toolbox.bottom,
+    toolbox.width = toolbox.width,
+    toolbox.heigth = toolbox.heigth,
+    toolbox.feature.saveAsImage.show = toolbox.feature.saveAsImage.show,
+    toolbox.feature.restore.show = toolbox.feature.restore.show,
+    toolbox.feature.dataZoom.show = toolbox.feature.dataZoom.show,
+    toolbox.feature.magicType.show = toolbox.feature.magicType.show,
+    toolbox.feature.magicType.type = toolbox.feature.magicType.type,
+    toolbox.feature.dataView.show = toolbox.feature.dataView.show,
+    toolbox.iconStyle.color = toolbox.iconStyle.color,
+    toolbox.iconStyle.borderColor = toolbox.iconStyle.borderColor,
+    toolbox.emphasis.iconStyle.borderColor = toolbox.emphasis.iconStyle.borderColor,
+    toolbox.iconStyle.shadowBlur = toolbox.iconStyle.shadowBlur,
+    toolbox.iconStyle.shadowColor = toolbox.iconStyle.shadowColor,
+    toolbox.iconStyle.shadowOffsetX = toolbox.iconStyle.shadowOffsetX,
+    toolbox.iconStyle.shadowOffsetY = toolbox.iconStyle.shadowOffsetY)
+
+  p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
+  p1 <- echarts4r::e_brush(e = p1)
+
+  p1 <- e_legend_full(
+    e = p1,
+    legend.show = legend.show, legend.type = legend.type, legend.selector = legend.selector,
+    legend.icon = legend.icon, legend.align = legend.align, legend.padding = legend.padding,
+    legend.itemGap = legend.itemGap, legend.itemWidth = legend.itemWidth, legend.orient = legend.orient,
+    legend.width = legend.width, legend.height = legend.height, legend.left = legend.left,
+    legend.right = legend.right, legend.top = legend.top, legend.bottom = legend.bottom,
+    legend.backgroundColor = legend.backgroundColor, legend.borderColor = legend.borderColor,
+    legend.borderWidth = legend.borderWidth, legend.borderRadius = legend.borderRadius,
+    legend.shadowBlur = legend.shadowBlur, legend.shadowColor = legend.shadowColor,
+    legend.shadowOffsetX = legend.shadowOffsetX, legend.shadowOffsetY = legend.shadowOffsetY,
+    legend.itemStyle.color = legend.itemStyle.color, legend.itemStyle.borderColor = legend.itemStyle.borderColor,
+    legend.itemStyle.borderWidth = legend.itemStyle.borderWidth, legend.itemStyle.borderType = legend.itemStyle.borderType,
+    legend.itemStyle.shadowBlur = legend.itemStyle.shadowBlur, legend.itemStyle.shadowColor = legend.itemStyle.shadowColor,
+    legend.itemStyle.shadowOffsetX = legend.itemStyle.shadowOffsetX, legend.itemStyle.shadowOffsetY = legend.itemStyle.shadowOffsetY,
+    legend.itemStyle.opacity = legend.itemStyle.opacity, legend.lineStyle.color = legend.lineStyle.color,
+    legend.lineStyle.width = legend.lineStyle.width, legend.lineStyle.type = legend.lineStyle.type,
+    legend.lineStyle.shadowBlur = legend.lineStyle.shadowBlur, legend.lineStyle.shadowColor = legend.lineStyle.shadowColor,
+    legend.lineStyle.shadowOffsetX = legend.lineStyle.shadowOffsetX, legend.lineStyle.shadowOffsetY = legend.lineStyle.shadowOffsetY,
+    legend.lineStyle.opacity = legend.lineStyle.opacity, legend.lineStyle.inactiveColor = legend.lineStyle.inactiveColor,
+    legend.lineStyle.inactiveWidth = legend.lineStyle.inactiveWidth, legend.textStyle.color = legend.textStyle.color,
+    legend.textStyle.fontStyle = legend.textStyle.fontStyle, legend.textStyle.fontWeight = legend.textStyle.fontWeight,
+    legend.textStyle.fontFamily = legend.textStyle.fontFamily, legend.textStyle.fontSize = legend.textStyle.fontSize,
+    legend.textStyle.backgroundColor = legend.textStyle.backgroundColor, legend.textStyle.borderColor = legend.textStyle.borderColor,
+    legend.textStyle.borderWidth = legend.textStyle.borderWidth, legend.textStyle.borderType = legend.textStyle.borderType,
+    legend.textStyle.borderRadius = legend.textStyle.borderRadius, legend.textStyle.padding = legend.textStyle.padding,
+    legend.textStyle.shadowColor = legend.textStyle.shadowColor, legend.textStyle.shadowBlur = legend.textStyle.shadowBlur,
+    legend.textStyle.shadowOffsetX = legend.textStyle.shadowOffsetX, legend.textStyle.shadowOffsetY = legend.textStyle.shadowOffsetY,
+    legend.textStyle.width = legend.textStyle.width, legend.textStyle.height = legend.textStyle.height,
+    legend.textStyle.textBorderColor = legend.textStyle.textBorderColor, legend.textStyle.textBorderWidth = legend.textStyle.textBorderWidth,
+    legend.textStyle.textBorderType = legend.textStyle.textBorderType, legend.textStyle.textShadowColor = legend.textStyle.textShadowColor,
+    legend.textStyle.textShadowBlur = legend.textStyle.textShadowBlur, legend.textStyle.textShadowOffsetX = legend.textStyle.textShadowOffsetX,
+    legend.textStyle.textShadowOffsetY = legend.textStyle.textShadowOffsetY, legend.pageTextStyle.color = legend.pageTextStyle.color,
+    legend.pageTextStyle.fontStyle = legend.pageTextStyle.fontStyle, legend.pageTextStyle.fontWeight = legend.pageTextStyle.fontWeight,
+    legend.pageTextStyle.fontFamily = legend.pageTextStyle.fontFamily, legend.pageTextStyle.fontSize = legend.pageTextStyle.fontSize,
+    legend.pageTextStyle.lineHeight = legend.pageTextStyle.lineHeight, legend.pageTextStyle.width = legend.pageTextStyle.width,
+    legend.pageTextStyle.height = legend.pageTextStyle.height, legend.pageTextStyle.textBorderColor = legend.pageTextStyle.textBorderColor,
+    legend.pageTextStyle.textBorderWidth = legend.pageTextStyle.textBorderWidth, legend.pageTextStyle.textBorderType = legend.pageTextStyle.textBorderType,
+    legend.pageTextStyle.textShadowColor = legend.pageTextStyle.textShadowColor, legend.pageTextStyle.textShadowBlur = legend.pageTextStyle.textShadowBlur,
+    legend.pageTextStyle.textShadowOffsetX = legend.pageTextStyle.textShadowOffsetX, legend.pageTextStyle.textShadowOffsetY = legend.pageTextStyle.textShadowOffsetY,
+    legend.emphasis.selectorLabel.show = legend.emphasis.selectorLabel.show, legend.emphasis.selectorLabel.distance = legend.emphasis.selectorLabel.distance,
+    legend.emphasis.selectorLabel.rotate = legend.emphasis.selectorLabel.rotate, legend.emphasis.selectorLabel.color = legend.emphasis.selectorLabel.color,
+    legend.emphasis.selectorLabel.fontStyle = legend.emphasis.selectorLabel.fontStyle, legend.emphasis.selectorLabel.fontWeight = legend.emphasis.selectorLabel.fontWeight,
+    legend.emphasis.selectorLabel.fontFamily = legend.emphasis.selectorLabel.fontFamily, legend.emphasis.selectorLabel.fontSize = legend.emphasis.selectorLabel.fontSize,
+    legend.emphasis.selectorLabel.align = legend.emphasis.selectorLabel.align, legend.emphasis.selectorLabel.verticalAlign = legend.emphasis.selectorLabel.verticalAlign,
+    legend.emphasis.selectorLabel.lineHeight = legend.emphasis.selectorLabel.lineHeight, legend.emphasis.selectorLabel.backgroundColor = legend.emphasis.selectorLabel.backgroundColor,
+    legend.emphasis.selectorLabel.borderColor = legend.emphasis.selectorLabel.borderColor, legend.emphasis.selectorLabel.borderWidth = legend.emphasis.selectorLabel.borderWidth,
+    legend.emphasis.selectorLabel.borderType = legend.emphasis.selectorLabel.borderType, legend.emphasis.selectorLabel.borderRadius = legend.emphasis.selectorLabel.borderRadius,
+    legend.emphasis.selectorLabel.padding = legend.emphasis.selectorLabel.padding, legend.emphasis.selectorLabel.shadowColor = legend.emphasis.selectorLabel.shadowColor,
+    legend.emphasis.selectorLabel.shadowBlur = legend.emphasis.selectorLabel.shadowBlur, legend.emphasis.selectorLabel.shadowOffsetX = legend.emphasis.selectorLabel.shadowOffsetX,
+    legend.emphasis.selectorLabel.shadowOffsetY = legend.emphasis.selectorLabel.shadowOffsetY, legend.emphasis.selectorLabel.width = legend.emphasis.selectorLabel.width,
+    legend.emphasis.selectorLabel.height = legend.emphasis.selectorLabel.height, legend.emphasis.selectorLabel.textBorderColor = legend.emphasis.selectorLabel.textBorderColor,
+    legend.emphasis.selectorLabel.textBorderWidth = legend.emphasis.selectorLabel.textBorderWidth, legend.emphasis.selectorLabel.textBorderType = legend.emphasis.selectorLabel.textBorderType,
+    legend.emphasis.selectorLabel.textShadowColor = legend.emphasis.selectorLabel.textShadowColor, legend.emphasis.selectorLabel.textShadowBlur = legend.emphasis.selectorLabel.textShadowBlur,
+    legend.emphasis.selectorLabel.textShadowOffsetX = legend.emphasis.selectorLabel.textShadowOffsetX, legend.emphasis.selectorLabel.textShadowOffsetY = legend.emphasis.selectorLabel.textShadowOffsetY)
+
+  p1 <- e_title_full(
+    e = p1,
+    title.text = title.text,
+    title.subtext = title.subtext,
+    title.link = title.link,
+    title.sublink = title.sublink,
+    title.Align = title.Align,
+    title.top = title.top,
+    title.left = title.left,
+    title.right = title.right,
+    title.bottom = title.bottom,
+    title.padding = title.padding,
+    title.itemGap = title.itemGap,
+    title.backgroundColor = title.backgroundColor,
+    title.borderColor = title.borderColor,
+    title.borderWidth = title.borderWidth,
+    title.borderRadius = title.borderRadius,
+    title.shadowColor = title.shadowColor,
+    title.shadowBlur = title.shadowBlur,
+    title.shadowOffsetX = title.shadowOffsetX,
+    title.shadowOffsetY = title.shadowOffsetY,
+    title.textStyle.color = title.textStyle.color,
+    title.textStyle.fontStyle = title.textStyle.fontStyle,
+    title.textStyle.fontWeight = title.textStyle.fontWeight,
+    title.textStyle.fontFamily = title.textStyle.fontFamily,
+    title.textStyle.fontSize = title.textStyle.fontSize,
+    title.textStyle.lineHeight = title.textStyle.lineHeight,
+    title.textStyle.width = title.textStyle.width,
+    title.textStyle.height = title.textStyle.height,
+    title.textStyle.textBorderColor = title.textStyle.textBorderColor,
+    title.textStyle.textBorderWidth = title.textStyle.textBorderWidth,
+    title.textStyle.textBorderType = title.textStyle.textBorderType,
+    title.textStyle.textBorderDashOffset = title.textStyle.textBorderDashOffset,
+    title.textStyle.textShadowColor = title.textStyle.textShadowColor,
+    title.textStyle.textShadowBlur = title.textStyle.textShadowBlur,
+    title.textStyle.textShadowOffsetX = title.textStyle.textShadowOffsetX,
+    title.textStyle.textShadowOffsetY = title.textStyle.textShadowOffsetY,
+    title.subtextStyle.color = title.subtextStyle.color,
+    title.subtextStyle.align = title.subtextStyle.align,
+    title.subtextStyle.fontStyle = title.subtextStyle.fontStyle,
+    title.subtextStyle.fontWeight = title.subtextStyle.fontWeight,
+    title.subtextStyle.fontFamily = title.subtextStyle.fontFamily,
+    title.subtextStyle.fontSize = title.subtextStyle.fontSize,
+    title.subtextStyle.lineHeight = title.subtextStyle.lineHeight,
+    title.subtextStyle.width = title.subtextStyle.width,
+    title.subtextStyle.height = title.subtextStyle.height,
+    title.subtextStyle.textBorderColor = title.subtextStyle.textBorderColor,
+    title.subtextStyle.textBorderWidth = title.subtextStyle.textBorderWidth,
+    title.subtextStyle.textBorderType = title.subtextStyle.textBorderType,
+    title.subtextStyle.textBorderDashOffset = title.subtextStyle.textBorderDashOffset,
+    title.subtextStyle.textShadowColor = title.subtextStyle.textShadowColor,
+    title.subtextStyle.textShadowBlur = title.subtextStyle.textShadowBlur,
+    title.subtextStyle.textShadowOffsetX = title.subtextStyle.textShadowOffsetX,
+    title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
+
+  if (isTRUE(legend.show)) {
+    p1$x$opts$legend$show <- TRUE
+    p1$x$opts$legend$data <- as.character(temp[[XVar]])
+  }
+
+  return(p1)
 }
 
 
@@ -8978,78 +9738,27 @@ Line <- function(dt = NULL,
   if(TimeLine && length(FacetLevels) == 0L) X_Scroll <- FALSE
   if(length(GroupVar) == 0L) TimeLine <- FALSE
 
-  # Correct args
-  if(length(GroupVar) > 0L && length(XVar) == 0L) {
-    XVar <- GroupVar
-    GroupVar <- NULL
-  }
-
-  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-    dt <- data.table::as.data.table(dt)
-  })
-
-  # Convert factor to character
-  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
-    dt[, eval(GroupVar) := as.character(get(GroupVar))]
-  }
-
-  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
-  # Throw an error instead of trimming YVar to only the first value
-  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
-
-  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
-  if(length(YVar) > 1L && length(DualYVar) == 0) {
-    if(length(GroupVar) > 0L) {
-      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
-      dt1[, GroupVars := paste0(Measures, GroupVar)]
-      dt1[, Measures := NULL]
-      dt1[, eval(GroupVar) := NULL]
-      GroupVar <- "GroupVars"
-      YVar <- "Values"
-    } else {
-      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
-      GroupVar <- "Measures"
-      YVar <- "Values"
-    }
-  } else {
-    dt1 <- data.table::copy(dt)
-  }
-
-  # Subset columns
-  Ncols <- ncol(dt1)
-  if(Ncols > 2L && length(GroupVar) == 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
-  } else if(length(GroupVar) > 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
-    if(length(FacetLevels) > 0) {
-      dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
-    }
-  }
-
-  # Minimize data before moving on
-  if(!PreAgg) {
-
-    # Define Aggregation function
-    if(Debug) print("Line # Define Aggregation function")
-    aggFunc <- SummaryFunction(AggMethod)
-
-    # Aggregate data
-    if(length(GroupVar) > 0L) {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
-      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
-    } else {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
-      data.table::setorderv(x = dt1, cols = XVar, 1L)
-    }
-  }
-
-  # Transformation
-  if(YVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-  }
-  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
-  }
+  prep <- .ap_prep_sequence_plot_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    DualYVar = DualYVar,
+    GroupVar = GroupVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    FacetLevels = FacetLevels,
+    YVarTrans = YVarTrans,
+    DualYVarTrans = DualYVarTrans,
+    XVarTrans = XVarTrans,
+    plot_family = "line",
+    Debug = Debug
+  )
+  dt1 <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  DualYVar <- prep$DualYVar
+  GroupVar <- prep$GroupVar
+  PreAgg <- TRUE
 
   # Group Variable Case
   if(length(GroupVar) > 0L) {
@@ -10317,79 +11026,27 @@ Area <- function(dt = NULL,
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
-  # Correct args
-  if(length(GroupVar) > 0L && length(XVar) == 0L) {
-    XVar <- GroupVar
-    GroupVar <- NULL
-  }
-
-  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-    dt <- data.table::as.data.table(dt)
-  })
-
-  # Convert factor to character
-  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
-    dt[, eval(GroupVar) := as.character(get(GroupVar))]
-  }
-
-  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
-  # Throw an error instead of trimming YVar to only the first value
-  if(length(YVar) > 1L && length(DualYVar) > 0) stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
-  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
-
-  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
-  if(length(YVar) > 1L) {
-    if(length(GroupVar) > 0L) {
-      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
-      dt1[, GroupVars := paste0(Measures, GroupVar)]
-      dt1[, Measures := NULL]
-      dt1[, eval(GroupVar) := NULL]
-      GroupVar <- "GroupVars"
-      YVar <- "Values"
-    } else {
-      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
-      GroupVar <- "Measures"
-      YVar <- "Values"
-    }
-  } else {
-    dt1 <- data.table::copy(dt)
-  }
-
-  # Subset columns
-  Ncols <- ncol(dt1)
-  if(Ncols > 2L && length(GroupVar) == 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
-  } else if(length(GroupVar) > 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
-    if(length(FacetLevels) > 0) {
-      dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
-    }
-  }
-
-  # Minimize data before moving on
-  if(!PreAgg) {
-
-    # Define Aggregation function
-    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
-    aggFunc <- SummaryFunction(AggMethod)
-
-    # Aggregate data
-    if(length(GroupVar) > 0L) {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
-      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
-    } else {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
-      data.table::setorderv(x = dt1, cols = XVar, 1L)
-    }
-  }
-
-  # Transformation
-  if(YVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-  }
-  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
-  }
+  prep <- .ap_prep_sequence_plot_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    DualYVar = DualYVar,
+    GroupVar = GroupVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    FacetLevels = FacetLevels,
+    YVarTrans = YVarTrans,
+    DualYVarTrans = DualYVarTrans,
+    XVarTrans = XVarTrans,
+    plot_family = "area",
+    Debug = Debug
+  )
+  dt1 <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  DualYVar <- prep$DualYVar
+  GroupVar <- prep$GroupVar
+  PreAgg <- TRUE
 
   # Group Variable Case
   if(length(GroupVar) > 0L) {
@@ -11637,78 +12294,27 @@ Step <- function(dt = NULL,
   if(length(GroupVar) == 0L) TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
-  # Correct args
-  if(length(GroupVar) > 0L && length(XVar) == 0L) {
-    XVar <- GroupVar
-    GroupVar <- NULL
-  }
-
-  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-    dt <- data.table::as.data.table(dt)
-  })
-
-  # Convert factor to character
-  if(length(GroupVar) > 0L && class(dt[[GroupVar]])[1L] == "factor") {
-    dt[, eval(GroupVar) := as.character(get(GroupVar))]
-  }
-
-  # If length(YVar) > 1 and a DualYVar is supplied, dual axis take precedence
-  # Throw an error instead of trimming YVar to only the first value
-  if(length(GroupVar) > 0L && length(DualYVar) > 0) stop("When DualYVar is utilized a GroupVar is not allowed")
-
-  # If User Supplies more than 1 YVar, then structure data to be long instead of wide
-  if(length(YVar) > 1L && length(DualYVar) == 0) {
-    if(length(GroupVar) > 0L) {
-      dt1 <- data.table::melt.data.table(data = dt, id.vars = c(XVar,GroupVar), measure.vars = YVar, variable.name = "Measures", value.name = "Values")
-      dt1[, GroupVars := paste0(Measures, GroupVar)]
-      dt1[, Measures := NULL]
-      dt1[, eval(GroupVar) := NULL]
-      GroupVar <- "GroupVars"
-      YVar <- "Values"
-    } else {
-      dt1 <- data.table::melt.data.table(data = dt, id.vars = XVar, measure.vars = YVar, variable.name = "Measures", value.name = "Values")
-      GroupVar <- "Measures"
-      YVar <- "Values"
-    }
-  } else {
-    dt1 <- data.table::copy(dt)
-  }
-
-  # Subset columns
-  Ncols <- ncol(dt1)
-  if(Ncols > 2L && length(GroupVar) == 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar)]
-  } else if(length(GroupVar) > 0L) {
-    dt1 <- dt1[, .SD, .SDcols = c(YVar, XVar, DualYVar, GroupVar[1L])]
-    if(length(FacetLevels) > 0) {
-      dt1 <- dt1[get(GroupVar[1L]) %in% eval(FacetLevels)]
-    }
-  }
-
-  # Minimize data before moving on
-  if(!PreAgg) {
-
-    # Define Aggregation function
-    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
-    aggFunc <- SummaryFunction(AggMethod)
-
-    # Aggregate data
-    if(length(GroupVar) > 0L) {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
-      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), c(1L,1L))
-    } else {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
-      data.table::setorderv(x = dt1, cols = XVar, 1L)
-    }
-  }
-
-  # Transformation
-  if(YVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = YVar, Methods = YVarTrans)$Data
-  }
-  if(length(DualYVar > 0L) && DualYVarTrans != "Identity") {
-    dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = DualYVar, Methods = DualYVarTrans)$Data
-  }
+  prep <- .ap_prep_sequence_plot_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    DualYVar = DualYVar,
+    GroupVar = GroupVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    FacetLevels = FacetLevels,
+    YVarTrans = YVarTrans,
+    DualYVarTrans = DualYVarTrans,
+    XVarTrans = XVarTrans,
+    plot_family = "step",
+    Debug = Debug
+  )
+  dt1 <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  DualYVar <- prep$DualYVar
+  GroupVar <- prep$GroupVar
+  PreAgg <- TRUE
 
   # Group Variable Case
   if(length(GroupVar) > 0L) {
@@ -12794,72 +13400,26 @@ River <- function(dt = NULL,
   if (is.null(GroupVar) & length(YVar) > 1) legend.show <- FALSE
 
   if(length(GroupVar) == 0L) TimeLine <- FALSE
-  if(length(GroupVar) == 0L && length(YVar) <= 1L) {
-    if(Debug) print("if(length(GroupVar) == 0L && length(YVar) <= 1L) return(NULL)")
-    return(NULL)
-  }
-  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-    dt <- data.table::as.data.table(dt)
-  })
-  Ncols <- ncol(dt)
-  if(length(FacetLevels) > 1L) {
-    dt1 <- data.table::copy(dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar, XVar, GroupVar)])
-  } else {
-    dt1 <- data.table::copy(dt[, .SD, .SDcols = c(YVar, XVar, GroupVar)])
-  }
 
-  if(Debug) print("Plot.River 3")
-
-  # Minimize data before moving on
-  if(!PreAgg) {
-
-    if(Debug) print("Plot.River 4")
-
-    # DCast -> redefine YVar -> Proceed as normal
-    if(length(YVar) > 1L && length(GroupVar) == 0L) {
-      dt1 <- data.table::melt.data.table(
-        data = dt1,
-        id.vars = XVar,
-        measure.vars = YVar,
-        variable.name = "Group",
-        value.name = "Measures")
-      YVar <- "Measures"
-      GroupVar <- "Group"
-    } else {
-      dt1 <- data.table::copy(dt)
-    }
-
-    # Define Aggregation function
-    if(Debug) print("Plot.Calibration.Line # Define Aggregation function")
-    aggFunc <- SummaryFunction(AggMethod)
-
-    # Aggregate data
-    if(length(GroupVar) > 0L) {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar,GroupVar[1L])]
-      data.table::setorderv(x = dt1, cols = c(GroupVar[1L], XVar), rep(1L, length(c(GroupVar[1L], XVar))))
-    } else {
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), by = c(XVar)]
-      data.table::setorderv(x = dt1, cols = XVar, 1L)
-    }
-  }
-
-  # Transformation
-  for(yvart in YVarTrans) {
-    if(YVarTrans != "Identity") {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = yvart, Methods = YVarTrans)$Data
-    }
-  }
-
-  if(Debug) print("Plot.River 6b")
-
-  # Plot
-  data.table::setorderv(x = dt1, cols = XVar, 1L)
-  cxv <- class(dt1[[XVar]])[1L]
-  if(cxv %in% "IDate") {
-    dt1[, eval(XVar) := as.Date(get(XVar))]
-  } else if(cxv %in% "IDateTime") {
-    dt1[, eval(XVar) := as.POSIXct(get(XVar))]
-  }
+  prep <- .ap_prep_sequence_plot_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    GroupVar = GroupVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    FacetLevels = FacetLevels,
+    YVarTrans = YVarTrans,
+    XVarTrans = XVarTrans,
+    plot_family = "river",
+    Debug = Debug
+  )
+  if (is.null(prep)) return(NULL)
+  dt1 <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  GroupVar <- prep$GroupVar
+  PreAgg <- TRUE
 
   if(Debug) print("Plot.River 7b")
 
@@ -13780,72 +14340,33 @@ Bar <- function(dt = NULL,
   check2 <- length(XVar) == 0 && length(YVar) != 0
   check3 <- length(XVar) != 0 && length(YVar) == 0
 
-  # Define Aggregation function
-  if(!PreAgg) {
-    aggFunc <- SummaryFunction(AggMethod)
-  }
-
   # Create base plot object
   numvars <- c()
   byvars <- c()
   if(check1) {
     if(length(GroupVar) != 0L) {
-      if(!PreAgg) {
-
-        if(length(FacetLevels) > 0L) {
-          dt <- dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
-        }
-
-        if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, YVar))
-        } else {
-          byvars <- unique(c(byvars, YVar))
-        }
-        if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          if(length(numvars) > 0) {
-            x <- length(unique(dt[[XVar]]))
-            y <- length(unique(dt[[YVar]]))
-            if(x > y) {
-              byvars <- unique(c(byvars, YVar))
-              numvars[1L] <- XVar
-            } else {
-              byvars <- unique(c(byvars, XVar))
-            }
-          } else {
-            numvars <- unique(c(numvars, XVar))
-          }
-        } else {
-          byvars <- unique(c(byvars, XVar))
-        }
-        if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          dt[, eval(GroupVar) := as.character(get(GroupVar))]
-          byvars <- unique(c(byvars, GroupVar))
-        } else {
-          byvars <- unique(c(byvars, GroupVar))
-        }
-        if(!is.null(byvars)) {
-          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
-          for(i in byvars) {
-            if(class(temp[[i]])[1] %in% c('numeric','integer')) {
-              temp[, eval(i) := as.character(get(i))]
-            }
-          }
-        } else {
-          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-        }
-      } else {
-        temp <- data.table::copy(dt)
-        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
-      }
-
-      # Transformation
-      if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
-        YVarTrans <- XVarTrans
-      }
-      if(YVarTrans != "Identity") {
-        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-      }
+      prep <- .ap_prep_bar_family_data(
+        dt = dt,
+        XVar = XVar,
+        YVar = YVar,
+        GroupVar = GroupVar,
+        LabelValues = LabelValues,
+        PreAgg = PreAgg,
+        AggMethod = AggMethod,
+        YVarTrans = YVarTrans,
+        XVarTrans = XVarTrans,
+        FacetLevels = FacetLevels,
+        plot_family = "bar",
+        Debug = Debug
+      )
+      if (is.null(prep)) return(NULL)
+      temp <- prep$dt
+      XVar <- prep$XVar
+      YVar <- prep$YVar
+      GroupVar <- prep$GroupVar
+      LabelValues <- prep$LabelValues
+      numvars <- prep$numvars
+      byvars <- prep$byvars
 
       # Plot
       p1 <- echarts4r::e_charts_(
@@ -14109,57 +14630,32 @@ Bar <- function(dt = NULL,
         print(PreAgg)
       }
 
-      if(!PreAgg) {
-        if(tryCatch({class(dt[[eval(YVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-          numvars <- unique(c(numvars, YVar))
-        } else {
-          byvars <- unique(c(byvars, YVar))
-        }
-        if(tryCatch({class(dt[[eval(XVar)]])[1L]}, error = function(x) "bla") %in% c('numeric','integer')) {
-          if(length(numvars) > 0) {
-            x <- length(unique(dt[[XVar]]))
-            y <- length(unique(dt[[YVar]]))
-            if(x > y) {
-              byvars <- unique(c(byvars, YVar))
-              numvars[1L] <- XVar
-            } else {
-              byvars <- unique(c(byvars, XVar))
-            }
-          } else {
-            numvars <- unique(c(numvars, XVar))
-          }
-        } else {
-          byvars <- unique(c(byvars, XVar))
-        }
-        if(!is.null(byvars)) {
-          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
-          for(i in byvars) {
-            if(class(temp[[i]])[1L] %in% c('numeric','integer')) {
-              temp[, eval(i) := as.character(get(i))]
-            }
-          }
-        } else {
-          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-        }
-      } else {
-        temp <- data.table::copy(dt)
-        if(Debug) print("BarPlot 2.bb")
-        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
-      }
+      prep <- .ap_prep_bar_family_data(
+        dt = dt,
+        XVar = XVar,
+        YVar = YVar,
+        GroupVar = GroupVar,
+        LabelValues = LabelValues,
+        PreAgg = PreAgg,
+        AggMethod = AggMethod,
+        YVarTrans = YVarTrans,
+        XVarTrans = XVarTrans,
+        FacetLevels = FacetLevels,
+        plot_family = "bar",
+        Debug = Debug
+      )
+      if (is.null(prep)) return(NULL)
+      temp <- prep$dt
+      XVar <- prep$XVar
+      YVar <- prep$YVar
+      GroupVar <- prep$GroupVar
+      LabelValues <- prep$LabelValues
+      numvars <- prep$numvars
+      byvars <- prep$byvars
 
       if(Debug) print("BarPlot 2.bbb")
 
-      # Transformation
-      if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
-        YVarTrans <- XVarTrans
-      }
-
       if(Debug) print("BarPlot 2.bbbb")
-
-      if(YVarTrans != "Identity") {
-        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-      }
 
       if(Debug) print("BarPlot 2.bbbbb")
 
@@ -14435,35 +14931,28 @@ Bar <- function(dt = NULL,
   if(check2) {
 
     if(length(GroupVar) != 0) {
-      if(!PreAgg) {
-        if(any(tryCatch({class(dt[[eval(YVar)]])[1]}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, YVar))
-        } else {
-          byvars <- unique(c(byvars, YVar))
-        }
-        if(any(tryCatch({class(dt[[eval(GroupVar)]])[1]}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, GroupVar))
-        } else {
-          byvars <- unique(c(byvars, GroupVar))
-        }
-        if(!is.null(byvars)) {
-          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
-        } else {
-          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-        }
-      } else {
-        temp <- data.table::copy(dt)
-        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
-      }
-
-      # Transformation
-      if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
-        YVarTrans <- XVarTrans
-      }
-      if(YVarTrans != "Identity") {
-        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-      }
+      prep <- .ap_prep_bar_family_data(
+        dt = dt,
+        XVar = XVar,
+        YVar = YVar,
+        GroupVar = GroupVar,
+        LabelValues = LabelValues,
+        PreAgg = PreAgg,
+        AggMethod = AggMethod,
+        YVarTrans = YVarTrans,
+        XVarTrans = XVarTrans,
+        FacetLevels = FacetLevels,
+        plot_family = "bar",
+        Debug = Debug
+      )
+      if (is.null(prep)) return(NULL)
+      temp <- prep$dt
+      XVar <- prep$XVar
+      YVar <- prep$YVar
+      GroupVar <- prep$GroupVar
+      LabelValues <- prep$LabelValues
+      numvars <- prep$numvars
+      byvars <- prep$byvars
 
       p1 <- echarts4r::e_charts_(
         temp, x = GroupVar[1L],
@@ -14724,35 +15213,28 @@ Bar <- function(dt = NULL,
   if(check3) {
 
     if(length(GroupVar) != 0) {
-      if(!PreAgg) {
-        if(any(tryCatch({class(dt[[eval(XVar)]])[1]}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, XVar))
-        } else {
-          byvars <- unique(c(byvars, XVar))
-        }
-        if(any(tryCatch({class(dt[[eval(GroupVar)]])[1]}, error = function(x) "bla") %in% c('numeric','integer'))) {
-          numvars <- unique(c(numvars, GroupVar))
-        } else {
-          byvars <- unique(c(byvars, GroupVar))
-        }
-        if(!is.null(byvars)) {
-          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
-        } else {
-          temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-        }
-      } else {
-        temp <- data.table::copy(dt)
-        numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-        byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
-      }
-
-      # Transformation
-      if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
-        YVarTrans <- XVarTrans
-      }
-      if(YVarTrans != "Identity") {
-        temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-      }
+      prep <- .ap_prep_bar_family_data(
+        dt = dt,
+        XVar = XVar,
+        YVar = YVar,
+        GroupVar = GroupVar,
+        LabelValues = LabelValues,
+        PreAgg = PreAgg,
+        AggMethod = AggMethod,
+        YVarTrans = YVarTrans,
+        XVarTrans = XVarTrans,
+        FacetLevels = FacetLevels,
+        plot_family = "bar",
+        Debug = Debug
+      )
+      if (is.null(prep)) return(NULL)
+      temp <- prep$dt
+      XVar <- prep$XVar
+      YVar <- prep$YVar
+      GroupVar <- prep$GroupVar
+      LabelValues <- prep$LabelValues
+      numvars <- prep$numvars
+      byvars <- prep$byvars
 
       # Plot
       p1 <- echarts4r::e_charts_(
@@ -17528,70 +18010,31 @@ StackedBar <- function(dt = NULL,
   # Used multiple times
   check1 <- length(XVar) != 0 && length(YVar) != 0 && length(GroupVar) > 0L
 
-  if(!PreAgg) {
-    aggFunc <- SummaryFunction(AggMethod)
-  }
-
   # Create base plot object
   numvars <- c()
   byvars <- c()
   if(check1) {
-    if(!PreAgg) {
-
-      if(length(FacetLevels) > 0L) {
-        dt <- dt[get(GroupVar) %in% c(eval(FacetLevels)), .SD, .SDcols = c(YVar,XVar,GroupVar)]
-      }
-
-      if(any(tryCatch({class(dt[[eval(YVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-        numvars <- unique(c(numvars, YVar))
-      } else {
-        byvars <- unique(c(byvars, YVar))
-      }
-      if(any(tryCatch({class(dt[[eval(XVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-        if(length(numvars) > 0) {
-          x <- length(unique(dt[[XVar]]))
-          y <- length(unique(dt[[YVar]]))
-          if(x > y) {
-            byvars <- unique(c(byvars, YVar))
-            numvars[1L] <- XVar
-          } else {
-            byvars <- unique(c(byvars, XVar))
-          }
-        } else {
-          numvars <- unique(c(numvars, XVar))
-        }
-      } else {
-        byvars <- unique(c(byvars, XVar))
-      }
-      if(any(tryCatch({class(dt[[eval(GroupVar)]])}, error = function(x) "bla") %in% c('numeric','integer'))) {
-        dt[, eval(GroupVar) := as.character(get(GroupVar))]
-        byvars <- unique(c(byvars, GroupVar))
-      } else {
-        byvars <- unique(c(byvars, GroupVar))
-      }
-      if(!is.null(byvars)) {
-        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars), keyby = c(byvars)]
-        for(i in byvars) {
-          if(class(temp[[i]]) %in% c('numeric','integer')) {
-            temp[, eval(i) := as.character(get(i))]
-          }
-        }
-      } else {
-        temp <- dt[, lapply(.SD, noquote(aggFunc)), .SDcols = c(numvars)]
-      }
-    } else {
-      temp <- data.table::copy(dt)
-      numvars <- ColNameFilter(data = temp, Types = 'numeric')[[1L]]
-      byvars <- unlist(ColNameFilter(data = temp, Types = "character"))
-    }
-
-    # Transformation
-    if(length(XVar) > 0L && class(temp[[XVar]])[1L] %in% c("numeric","integer")) {
-      YVarTrans <- XVarTrans
-    }
-    if(YVarTrans != "Identity") {
-      temp <- AutoTransformationCreate(data = temp, ColumnNames = numvars, Methods = YVarTrans)$Data
-    }
+    prep <- .ap_prep_bar_family_data(
+      dt = dt,
+      XVar = XVar,
+      YVar = YVar,
+      GroupVar = GroupVar,
+      LabelValues = NULL,
+      PreAgg = PreAgg,
+      AggMethod = AggMethod,
+      YVarTrans = YVarTrans,
+      XVarTrans = XVarTrans,
+      FacetLevels = FacetLevels,
+      plot_family = "stacked_bar",
+      Debug = Debug
+    )
+    if (is.null(prep)) return(NULL)
+    temp <- prep$dt
+    XVar <- prep$XVar
+    YVar <- prep$YVar
+    GroupVar <- prep$GroupVar
+    numvars <- prep$numvars
+    byvars <- prep$byvars
 
     p1 <- echarts4r::e_charts_(
       data = temp |> dplyr::group_by(get(GroupVar[1L])),
@@ -18545,29 +18988,38 @@ BarPlot3D <- function(dt,
                       toolbox.iconStyle.shadowOffsetY = NULL,
                       Debug = FALSE) {
 
-  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-    dt <- data.table::as.data.table(dt)
-  })
-
-  # Convert factor to character
-  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] %in% c("factor","character")) {
-    dt[, eval(ZVar) := as.numeric(get(ZVar))]
+  prep <- .ap_prep_grid_family_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    ZVar = ZVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    XVarTrans = XVarTrans,
+    YVarTrans = YVarTrans,
+    ZVarTrans = ZVarTrans,
+    NumberBins = NumberBins,
+    NumLevels_X = NumLevels_X,
+    NumLevels_Y = NumLevels_Y,
+    plot_family = "bar3d",
+    Debug = Debug
+  )
+  if (is.null(prep)) return(NULL)
+  dt1 <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  ZVar <- prep$ZVar
+  value_var <- prep$value_var
+  missing_cols <- setdiff(c(XVar, YVar, value_var), names(dt1))
+  if (length(missing_cols)) {
+    stop("Grid prep output is missing required columns: ", paste(missing_cols, collapse = ", "), call. = FALSE)
   }
-  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
-    dt[, eval(XVar) := as.character(get(XVar))]
-  }
-  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
-    dt[, eval(YVar) := as.character(get(YVar))]
-  }
-
-  # Subset cols
-  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
-  x_check <- class(dt1[[XVar]])[1L] %in% c('numeric','integer')
-  y_check <- class(dt1[[YVar]])[1L] %in% c('numeric','integer')
-  x_y_num <- x_check && y_check
-  x_num <- x_check && !y_check
-  x_char <- !x_check && y_check
-  all_char <- !x_check && !y_check
+  x_check <- prep$x_is_numeric
+  y_check <- prep$y_is_numeric
+  x_y_num <- identical(prep$case, "both_numeric")
+  x_num <- identical(prep$case, "x_numeric_y_categorical")
+  x_char <- identical(prep$case, "x_categorical_y_numeric")
+  all_char <- identical(prep$case, "both_categorical")
 
 
   Z.HoverFormat <- "%{zaxis.title.text}: %{y:,.2f}<br>"
@@ -18575,34 +19027,20 @@ BarPlot3D <- function(dt,
   TimeLine <- FALSE
   if(TimeLine && length(FacetLevels) > 0) X_Scroll <- FALSE
 
-  if(!PreAgg) {
-    aggFunc <- SummaryFunction(AggMethod)
-  }
+  PreAgg <- TRUE
+  ZVarTrans <- "Identity"
 
   # XVar == numeric or integer && YVar == numeric or integer
   if(x_y_num) {
 
-    # rank XVar and YVar
-    if(!PreAgg) {
-      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
-      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
-    }
-
-    # Transformation
-    if(ZVarTrans != "Identity") {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-    }
-
     # Formatting
-    vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+    vals <- unique(scales::rescale(c(dt1[[value_var]])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
     colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Create final data for plot
-    g <- "Measure_Variable"
+    g <- value_var
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -18653,11 +19091,7 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
     } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
-    } else {
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
-
 
     p1 <- e_toolbox_full(
       e = p1,
@@ -18744,6 +19178,17 @@ BarPlot3D <- function(dt,
 
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
+    p1 <- .ap_apply_3d_axis_defaults(
+      e = p1,
+      XVar = XVar,
+      YVar = YVar,
+      ZVar = value_var,
+      xAxis.title = xAxis.title,
+      yAxis.title = yAxis.title,
+      xAxis.values = dt1[[XVar]],
+      yAxis.values = dt1[[YVar]],
+      Theme = Theme
+    )
 
     return(p1)
   }
@@ -18751,29 +19196,14 @@ BarPlot3D <- function(dt,
   # XVar == character && YVar == numeric or integer
   if(x_char) {
 
-    # rank YVar
-    data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-    if(!PreAgg) {
-      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
-      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
-      temp <- temp[seq_len(min(NumLevels_X, temp[, .N]))][[1L]]
-      dt1 <- dt1[get(YVar) %in% eval(temp)]
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
-    }
-
     # Formatting
-    vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
+    vals <- unique(scales::rescale(c(dt1[[value_var]])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
     colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
-    # Transformation
-    if(ZVarTrans != "Identity") {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-    }
-
     # Create final data for plot
-    g <- "Measure_Variable"
+    g <- value_var
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -18783,9 +19213,9 @@ BarPlot3D <- function(dt,
       height = Height)
 
     if(ShowLabels) {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
     } else {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
     }
 
     p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
@@ -18793,65 +19223,10 @@ BarPlot3D <- function(dt,
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = c(0,1))
     } else if(MouseScroll && (FacetRows > 1L || FacetCols > 1L)) {
       p1 <- echarts4r::e_datazoom(e = p1, type = "inside", x_index = seq(0, FacetRows * FacetCols - 1, 1))
-    } else {
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
 
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
-
-    p1 <- e_x_axis_full(
-      e = p1,
-      serie = NULL,
-      axis = "x",
-      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
-      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
-      xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
-      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
-      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
-      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
-      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
-      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
-      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
-      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
-      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
-      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
-      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
-      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
-      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
-      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
-      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
-      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
-      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
-      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
-      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
-
-    p1 <- e_y_axis_full(
-      e = p1,
-      serie = NULL,
-      axis = "y",
-      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
-      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
-      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
-      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
-      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
-      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
-      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
-      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
-      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
-      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
-      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
-      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
-      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
-      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
-      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
-      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
-      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
-      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
-      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
-      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
-      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
@@ -18911,6 +19286,17 @@ BarPlot3D <- function(dt,
 
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
+    p1 <- .ap_apply_3d_axis_defaults(
+      e = p1,
+      XVar = XVar,
+      YVar = YVar,
+      ZVar = value_var,
+      xAxis.title = xAxis.title,
+      yAxis.title = yAxis.title,
+      xAxis.values = dt1[[XVar]],
+      yAxis.values = dt1[[YVar]],
+      Theme = Theme
+    )
 
     return(p1)
   }
@@ -18918,32 +19304,14 @@ BarPlot3D <- function(dt,
   # XVar == numeric or integer && YVar == character
   if(x_num) {
 
-    # rank XVar
-    if(!PreAgg) {
-      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-
-      # Top YVar Levels
-      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
-      temp <- temp[seq_len(min(NumLevels_Y, temp[, .N]))][[1L]]
-      dt1 <- dt1[, lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
-
-
-      # Transformation
-      if(ZVarTrans != "Identity") {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-      }
-
-      # Formatting
-      dt1 <- dt1[get(YVar) %in% eval(temp)]
-      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
-      o <- order(vals, decreasing = FALSE)
-      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
-    }
+    # Formatting
+    vals <- unique(scales::rescale(c(dt1[[value_var]])))
+    o <- order(vals, decreasing = FALSE)
+    cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Create final dt1 for plot
-    g <- "Measure_Variable"
+    g <- value_var
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -18953,72 +19321,17 @@ BarPlot3D <- function(dt,
       height = Height)
 
     if(ShowLabels) {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
     } else {
-      p1 <- echarts4r::e_heatmap_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, g, itemStyle = list(emphasis = list(shadowBlur = 10)))
     }
     p1 <- echarts4r::e_visual_map_(e = p1, g, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
     if(MouseScroll) {
       p1 <- echarts4r::e_datazoom(e = p1, Type = "inside", x_index = c(0,1))
-    } else {
-      p1 <- echarts4r::e_datazoom(e = p1, x_index = c(0,1))
-      p1 <- echarts4r::e_datazoom(e = p1, y_index = c(0,1))
     }
 
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
-
-    p1 <- e_x_axis_full(
-      e = p1,
-      serie = NULL,
-      axis = "x",
-      xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
-      xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
-      xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
-      xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
-      xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
-      xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
-      xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
-      xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
-      xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
-      xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
-      xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
-      xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
-      xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
-      xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
-      xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
-      xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
-      xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
-      xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
-      xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
-      xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
-      xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
-
-    p1 <- e_y_axis_full(
-      e = p1,
-      serie = NULL,
-      axis = "y",
-      yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
-      yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
-      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
-      yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
-      yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
-      yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
-      yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
-      yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
-      yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
-      yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
-      yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
-      yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
-      yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
-      yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
-      yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
-      yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
-      yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
-      yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
-      yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
-      yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
-      yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
 
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
@@ -19078,25 +19391,23 @@ BarPlot3D <- function(dt,
 
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
 
+    p1 <- .ap_apply_3d_axis_defaults(
+      e = p1,
+      XVar = XVar,
+      YVar = YVar,
+      ZVar = value_var,
+      xAxis.title = xAxis.title,
+      yAxis.title = yAxis.title,
+      xAxis.values = dt1[[XVar]],
+      yAxis.values = dt1[[YVar]],
+      Theme = Theme
+    )
+
     return(p1)
   }
 
   # XVar == character or integer && YVar == character
   if(all_char) {
-
-    # Starter pack
-    if(!PreAgg) {
-      temp1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-      temp1 <- temp1[seq_len(min(NumLevels_Y, temp1[, .N]))][[1L]]
-      temp2 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-      temp2 <- temp2[seq_len(min(NumLevels_X, temp2[, .N]))][[1L]]
-      dt1 <- dt1[get(YVar) %in% eval(temp1) & get(XVar) %in% eval(temp2), lapply(.SD, noquote(aggFunc)), .SDcols = c(ZVar), by = c(XVar,YVar)]
-    }
-
-    # Transformation
-    if(length(ZVarTrans) > 0 && ZVarTrans != "Identity") {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
-    }
 
     if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
     p1 <- echarts4r::e_charts_(
@@ -19108,12 +19419,12 @@ BarPlot3D <- function(dt,
       height = Height)
 
     if(ShowLabels) {
-      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, ZVar, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, value_var, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)), label = list(show = TRUE))
     } else {
-      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, ZVar, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)))
+      p1 <- echarts4r::e_bar_3d_(e = p1, YVar, value_var, coord_system = "cartesian3D", itemStyle = list(emphasis = list(shadowBlur = 10)))
     }
 
-    p1 <- echarts4r::e_visual_map_(e = p1, ZVar, show = FALSE)
+    p1 <- echarts4r::e_visual_map_(e = p1, value_var, show = FALSE)
     p1 <- echarts4r::e_theme(e = p1, name = Theme)
 
     p1 <- echarts4r::e_show_loading(e = p1, hide_overlay = TRUE, text = "Calculating...", color = "#000", text_color = "white", mask_color = "#000")
@@ -19177,6 +19488,17 @@ BarPlot3D <- function(dt,
       title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
+    p1 <- .ap_apply_3d_axis_defaults(
+      e = p1,
+      XVar = XVar,
+      YVar = YVar,
+      ZVar = value_var,
+      xAxis.title = xAxis.title,
+      yAxis.title = yAxis.title,
+      xAxis.values = dt1[[XVar]],
+      yAxis.values = dt1[[YVar]],
+      Theme = Theme
+    )
     return(p1)
   }
 }
@@ -20016,55 +20338,54 @@ HeatMap <- function(dt,
 
   apply_theme_defaults(Theme, plot_type = "HeatMap", grouped = FALSE, env = environment())
 
-  if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-    dt <- data.table::as.data.table(dt)
-  })
-
-  # Convert factor to character
-  if(length(ZVar) > 0L && class(dt[[ZVar]])[1L] %in% c("factor","character")) {
-    dt[, eval(ZVar) := as.numeric(get(ZVar))]
+  prep <- .ap_prep_grid_family_data(
+    dt = dt,
+    XVar = XVar,
+    YVar = YVar,
+    ZVar = ZVar,
+    PreAgg = PreAgg,
+    AggMethod = AggMethod,
+    XVarTrans = XVarTrans,
+    YVarTrans = YVarTrans,
+    ZVarTrans = ZVarTrans,
+    NumberBins = NumberBins,
+    NumLevels_X = NumLevels_X,
+    NumLevels_Y = NumLevels_Y,
+    plot_family = "heatmap",
+    Debug = Debug
+  )
+  if (is.null(prep)) return(NULL)
+  dt1 <- prep$dt
+  XVar <- prep$XVar
+  YVar <- prep$YVar
+  ZVar <- prep$ZVar
+  value_var <- prep$value_var
+  missing_cols <- setdiff(c(XVar, YVar, value_var), names(dt1))
+  if (length(missing_cols)) {
+    stop("Grid prep output is missing required columns: ", paste(missing_cols, collapse = ", "), call. = FALSE)
   }
-  if(length(XVar) > 0L && class(dt[[XVar]])[1L] == "factor") {
-    dt[, eval(XVar) := as.character(get(XVar))]
-  }
-  if(length(YVar) > 0L && class(dt[[YVar]])[1L] == "factor") {
-    dt[, eval(YVar) := as.character(get(YVar))]
-  }
-
-  # Subset cols
-  dt1 <- dt[, .SD, .SDcols = c(XVar,YVar,ZVar)]
-  x_check <- class(dt1[[XVar]])[1L] %in% c('numeric','integer')
-  y_check <- class(dt1[[YVar]])[1L] %in% c('numeric','integer')
-  x_y_num <- x_check && y_check
-  x_num <- x_check && !y_check
-  x_char <- !x_check && y_check
-  all_char <- !x_check && !y_check
+  x_check <- prep$x_is_numeric
+  y_check <- prep$y_is_numeric
+  x_y_num <- identical(prep$case, "both_numeric")
+  x_num <- identical(prep$case, "x_numeric_y_categorical")
+  x_char <- identical(prep$case, "x_categorical_y_numeric")
+  all_char <- identical(prep$case, "both_categorical")
+  PreAgg <- TRUE
+  ZVarTrans <- "Identity"
   Z.HoverFormat <- "%{zaxis.title.text}: %{y:,.2f}<br>"
 
   # XVar == numeric or integer && YVar == numeric or integer
   if(x_y_num) {
 
-    # rank XVar and YVar
-    if(!PreAgg) {
-      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
-      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
-    }
-
-    # Transformation
-    if(ZVarTrans != "Identity") {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
-    }
-
     # Formatting
-    vals <- unique(scales::rescale(c(dt1[[ZVar]])))
+    vals <- unique(scales::rescale(c(dt1[[value_var]])))
     o <- order(vals, decreasing = FALSE)
     cols <- scales::col_numeric("Purples", domain = NULL)(vals)
     colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
-    data.table::setnames(dt1, ZVar, "Measure_Variable")
     data.table::setorderv(x = dt1, cols = c(XVar,YVar),c(1L,1L))
 
     # Create final data for plot
-    g <- "Measure_Variable"
+    g <- value_var
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -20073,7 +20394,7 @@ HeatMap <- function(dt,
       height = Height)
 
     p1 <- e_heatmap_full(
-      e = p1, y = YVar, z = ZVar,
+      e = p1, y = YVar, z = value_var,
       itemStyle.borderColor = itemStyle.borderColor, itemStyle.borderWidth = itemStyle.borderWidth,
       itemStyle.shadowColor = itemStyle.shadowColor, itemStyle.shadowBlur = itemStyle.shadowBlur,
       itemStyle.shadowOffsetY = itemStyle.shadowOffsetY, itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
@@ -20099,11 +20420,11 @@ HeatMap <- function(dt,
       label.width = label.width, label.height = label.height, label.textBorderColor = label.textBorderColor, label.textBorderWidth = label.textBorderWidth,
       label.textShadowColor = label.textShadowColor, label.textShadowBlur = label.textShadowBlur, label.textShadowOffsetY = label.textShadowOffsetY, label.textShadowOffsetX = label.textShadowOffsetX)
 
-    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[ZVar]])
-    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[ZVar]])
+    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[value_var]])
+    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[value_var]])
     p1 <- e_visual_map_full(
       e = p1,
-      serie = ZVar,
+      serie = value_var,
       visualMap.show = visualMap.show,
       visualMap.min = visualMap.min,
       visualMap.max = visualMap.max,
@@ -20302,32 +20623,14 @@ HeatMap <- function(dt,
   # XVar == character && YVar == numeric or integer
   if(x_char) {
 
-    # rank YVar
-    if(!PreAgg) {
-      dt1[, eval(YVar) := round(data.table::frank(dt1[[YVar]]) * NumberBins /.N) / NumberBins]
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-
-      # Top XVar Levels
-      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(XVar)][order(-Measure_Variable)]
-      temp <- temp[seq_len(min(NumLevels_X, temp[, .N]))][[1L]]
-      dt1 <- dt1[get(XVar) %in% eval(temp)]
-
-      # Transformation
-      if(ZVarTrans != "Identity") {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-      }
-
-      # Formatting
-      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
-      o <- order(vals, decreasing = FALSE)
-      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
-    } else {
-      data.table::setnames(dt1, ZVar, "Measure_Variable")
-    }
+    # Formatting
+    vals <- unique(scales::rescale(c(dt1[[value_var]])))
+    o <- order(vals, decreasing = FALSE)
+    cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Create final data for plot
-    g <- "Measure_Variable"
+    g <- value_var
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -20337,7 +20640,7 @@ HeatMap <- function(dt,
       height = Height)
 
     p1 <- e_heatmap_full(
-      e = p1, y = YVar, z = ZVar,
+      e = p1, y = YVar, z = value_var,
       itemStyle.borderColor = itemStyle.borderColor, itemStyle.borderWidth = itemStyle.borderWidth,
       itemStyle.shadowColor = itemStyle.shadowColor, itemStyle.shadowBlur = itemStyle.shadowBlur,
       itemStyle.shadowOffsetY = itemStyle.shadowOffsetY, itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
@@ -20363,11 +20666,11 @@ HeatMap <- function(dt,
       label.width = label.width, label.height = label.height, label.textBorderColor = label.textBorderColor, label.textBorderWidth = label.textBorderWidth,
       label.textShadowColor = label.textShadowColor, label.textShadowBlur = label.textShadowBlur, label.textShadowOffsetY = label.textShadowOffsetY, label.textShadowOffsetX = label.textShadowOffsetX)
 
-    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[ZVar]])
-    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[ZVar]])
+    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[value_var]])
+    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[value_var]])
     p1 <- e_visual_map_full(
       e = p1,
-      serie = ZVar,
+      serie = value_var,
       visualMap.show = visualMap.show,
       visualMap.min = visualMap.min,
       visualMap.max = visualMap.max,
@@ -20540,32 +20843,14 @@ HeatMap <- function(dt,
   # XVar == numeric or integer && YVar == character
   if(x_num) {
 
-    # rank XVar
-    if(!PreAgg) {
-      dt1[, eval(XVar) := round(data.table::frank(dt1[[XVar]]) * NumberBins /.N) / NumberBins]
-      data.table::setnames(dt1, eval(ZVar), 'Measure_Variable')
-
-      # Top YVar Levels
-      temp <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c('Measure_Variable'), by = c(YVar)][order(-Measure_Variable)]
-      temp <- temp[seq_len(min(NumLevels_Y, temp[, .N]))][[1L]]
-
-      # Transformation
-      if(ZVarTrans != "Identity") {
-        dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = "Measure_Variable", Methods = ZVarTrans)$Data
-      }
-
-      # Formatting
-      dt1 <- dt1[get(YVar) %in% eval(temp)]
-      vals <- unique(scales::rescale(c(dt1[['Measure_Variable']])))
-      o <- order(vals, decreasing = FALSE)
-      cols <- scales::col_numeric("Purples", domain = NULL)(vals)
-      colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
-    } else {
-      data.table::setnames(dt1, ZVar, "Measure_Variable")
-    }
+    # Formatting
+    vals <- unique(scales::rescale(c(dt1[[value_var]])))
+    o <- order(vals, decreasing = FALSE)
+    cols <- scales::col_numeric("Purples", domain = NULL)(vals)
+    colz <- stats::setNames(data.frame(vals[o], cols[o]), NULL)
 
     # Create final dt1 for plot
-    g <- "Measure_Variable"
+    g <- value_var
     p1 <- echarts4r::e_charts_(
       data = dt1,
       x = XVar,
@@ -20575,7 +20860,7 @@ HeatMap <- function(dt,
       height = Height)
 
     p1 <- e_heatmap_full(
-      e = p1, y = YVar, z = ZVar,
+      e = p1, y = YVar, z = value_var,
       itemStyle.borderColor = itemStyle.borderColor, itemStyle.borderWidth = itemStyle.borderWidth,
       itemStyle.shadowColor = itemStyle.shadowColor, itemStyle.shadowBlur = itemStyle.shadowBlur,
       itemStyle.shadowOffsetY = itemStyle.shadowOffsetY, itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
@@ -20601,11 +20886,11 @@ HeatMap <- function(dt,
       label.width = label.width, label.height = label.height, label.textBorderColor = label.textBorderColor, label.textBorderWidth = label.textBorderWidth,
       label.textShadowColor = label.textShadowColor, label.textShadowBlur = label.textShadowBlur, label.textShadowOffsetY = label.textShadowOffsetY, label.textShadowOffsetX = label.textShadowOffsetX)
 
-    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[ZVar]])
-    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[ZVar]])
+    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[value_var]])
+    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[value_var]])
     p1 <- e_visual_map_full(
       e = p1,
-      serie = ZVar,
+      serie = value_var,
       visualMap.show = visualMap.show,
       visualMap.min = visualMap.min,
       visualMap.max = visualMap.max,
@@ -20776,52 +21061,6 @@ HeatMap <- function(dt,
   # XVar == character or integer && YVar == character
   if(all_char) {
 
-    # Starter pack
-    if(!PreAgg) {
-      if(Debug) print("Echarts PreAgg 1")
-      if(AggMethod == 'mean') {
-        temp_y <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_yy <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_xx <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_yy) & get(XVar) %in% eval(temp_xx)]
-        dt1 <- dt1[, lapply(.SD, mean, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'median') {
-        temp_y <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, stats::median, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'sum') {
-        temp_y <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, sum, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'sd') {
-        temp_y <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, stats::sd, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      } else if(AggMethod == 'count') {
-        temp_y <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(YVar)][order(-get(ZVar))]
-        temp_x <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar)][order(-get(ZVar))]
-        temp_y <- temp_y[seq_len(min(NumLevels_X, temp_y[, .N]))][[1L]]
-        temp_x <- temp_x[seq_len(min(NumLevels_Y, temp_x[, .N]))][[1L]]
-        dt1 <- dt1[get(YVar) %in% eval(temp_y) & get(XVar) %in% eval(temp_x)]
-        dt1 <- dt1[, lapply(.SD, .N, na.rm = TRUE), .SDcols = c(ZVar), by = c(XVar,YVar)]
-      }
-    }
-
-    # Transformation
-    if(ZVarTrans != "Identity") {
-      dt1 <- AutoTransformationCreate(data = dt1, ColumnNames = ZVar, Methods = ZVarTrans)$Data
-    }
-
     # Create final dt1 for plot
     if(XVar %in% c("Predict","p1")) data.table::setorderv(x = dt1, "Predict")
     p1 <- echarts4r::e_charts_(
@@ -20830,7 +21069,7 @@ HeatMap <- function(dt,
       width = Width, height = Height)
 
     p1 <- e_heatmap_full(
-      e = p1, y = YVar, z = ZVar,
+      e = p1, y = YVar, z = value_var,
       itemStyle.borderColor = itemStyle.borderColor, itemStyle.borderWidth = itemStyle.borderWidth,
       itemStyle.shadowColor = itemStyle.shadowColor, itemStyle.shadowBlur = itemStyle.shadowBlur,
       itemStyle.shadowOffsetY = itemStyle.shadowOffsetY, itemStyle.shadowOffsetX = itemStyle.shadowOffsetX,
@@ -20856,11 +21095,11 @@ HeatMap <- function(dt,
       label.width = label.width, label.height = label.height, label.textBorderColor = label.textBorderColor, label.textBorderWidth = label.textBorderWidth,
       label.textShadowColor = label.textShadowColor, label.textShadowBlur = label.textShadowBlur, label.textShadowOffsetY = label.textShadowOffsetY, label.textShadowOffsetX = label.textShadowOffsetX)
 
-    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[ZVar]])
-    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[ZVar]])
+    if (length(visualMap.min) == 0) visualMap.min <- min(dt1[[value_var]])
+    if (length(visualMap.max) == 0) visualMap.max <- max(dt1[[value_var]])
     p1 <- e_visual_map_full(
       e = p1,
-      serie = ZVar,
+      serie = value_var,
       visualMap.show = visualMap.show,
       visualMap.min = visualMap.min,
       visualMap.max = visualMap.max,
@@ -25903,6 +26142,16 @@ Copula3D <- function(dt = NULL,
     if(FacetRows > 1L || FacetCols > 1L) p1 <- echarts4r::e_facet(e = p1, rows = FacetRows, cols = FacetCols, legend_space = 16, legend_pos = "top")
   }
 
+  p1 <- .ap_apply_3d_axis_defaults(
+    e = p1,
+    XVar = XVar,
+    YVar = YVar,
+    ZVar = ZVar,
+    xAxis.title = xAxis.title,
+    yAxis.title = yAxis.title,
+    Theme = Theme
+  )
+
   # Return plot
   return(p1)
 }
@@ -28262,6 +28511,16 @@ Scatter3D <- function(dt = NULL,
       title.subtextStyle.textShadowOffsetY = title.subtextStyle.textShadowOffsetY)
 
   }
+
+  p1 <- .ap_apply_3d_axis_defaults(
+    e = p1,
+    XVar = XVar,
+    YVar = YVar,
+    ZVar = ZVar,
+    xAxis.title = xAxis.title,
+    yAxis.title = yAxis.title,
+    Theme = Theme
+  )
 
   # Return plot
   return(p1)
