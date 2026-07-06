@@ -28,6 +28,9 @@ display_plots_grid(
   grid_class = "plot-grid",
   background = NULL,
   width = "100\%",
+  resizable = TRUE,
+  row_height = "420px",
+  row_min_height = "320px",
   save_path = NULL,
   selfcontained = TRUE,
   return_code = FALSE
@@ -80,6 +83,15 @@ One of "span", "left", "center", or "none".}
 \item{background}{Optional CSS background for the full grid wrapper.}
 
 \item{width}{CSS width of the full grid wrapper.}
+
+\item{resizable}{Logical. If TRUE and `cols` is explicit, plots are grouped
+into vertically resizable rows and widgets fill the available row height.}
+
+\item{row_height}{Default CSS height for resizable rows. May be length 1 or
+one value per generated row.}
+
+\item{row_min_height}{Minimum CSS height for resizable rows. May be length 1
+or one value per generated row.}
 
 \item{save_path}{Optional file path to save standalone HTML.}
 

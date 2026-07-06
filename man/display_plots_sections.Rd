@@ -27,6 +27,9 @@ display_plots_sections(
   title_color = NULL,
   subtitle_color = NULL,
   font_family = "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+  resizable = TRUE,
+  row_height = "420px",
+  row_min_height = "320px",
   save_path = NULL,
   selfcontained = TRUE,
   return_code = FALSE
@@ -76,6 +79,15 @@ display_plots_sections(
 \item{subtitle_color}{CSS color for section subtitles.}
 
 \item{font_family}{CSS font-family.}
+
+\item{resizable}{Logical. If TRUE, each section's grid is grouped into
+vertically resizable rows by `cols`.}
+
+\item{row_height}{Default CSS height for resizable rows. May be length 1 or
+one value per generated row inside each section.}
+
+\item{row_min_height}{Minimum CSS height for resizable rows. May be length 1
+or one value per generated row inside each section.}
 
 \item{save_path}{Optional file path to save standalone HTML.}
 

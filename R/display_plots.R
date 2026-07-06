@@ -155,6 +155,64 @@
 }
 
 # @noRd
+.ap_display_resize_css <- function() {
+  paste(
+    ".aq-resizable-row{position:relative;min-height:var(--aq-row-min-height,320px);height:var(--aq-row-height,420px);resize:vertical;overflow:auto;border-radius:var(--aq-row-radius,14px)}",
+    ".aq-resizable-row::after{content:\"\";position:absolute;right:8px;bottom:8px;width:16px;height:16px;border-right:2px solid rgba(148,163,184,.55);border-bottom:2px solid rgba(148,163,184,.55);pointer-events:none;opacity:.75}",
+    ".aq-resizable-card{height:100%;min-height:0;display:flex;flex-direction:column}",
+    ".aq-display-grid{display:grid;grid-template-columns:repeat(var(--aq-display-cols,2),minmax(0,1fr));gap:var(--aq-display-gap,20px);height:100%;min-height:0;width:100%}",
+    ".aq-display-cell{min-width:0;min-height:180px;height:100%;display:flex;flex-direction:column;overflow:hidden}",
+    ".aq-display-widget{flex:1 1 auto;min-height:0;height:100%;width:100%;overflow:hidden}",
+    ".aq-display-widget>.html-widget,.aq-display-widget .html-widget,.aq-display-widget iframe{width:100%!important;height:100%!important;min-height:0!important}",
+    "@media screen and (max-width:900px){.aq-display-grid{grid-template-columns:1fr!important}.aq-resizable-row{min-height:360px}}",
+    sep = "\n"
+  )
+}
+
+# @noRd
+.ap_display_resize_js <- function() {
+  "(function(){function resizeWidgets(root){try{window.dispatchEvent(new Event('resize'))}catch(e){}var scope=root||document;scope.querySelectorAll('.aq-display-widget,.aq-resizable-row').forEach(function(node){node.querySelectorAll('div').forEach(function(el){try{var inst=(window.echarts&&window.echarts.getInstanceByDom)?window.echarts.getInstanceByDom(el):null;if(inst&&inst.resize)inst.resize()}catch(e){}})})}document.addEventListener('DOMContentLoaded',function(){resizeWidgets(document);if('ResizeObserver'in window){var observer=new ResizeObserver(function(entries){entries.forEach(function(entry){resizeWidgets(entry.target)})});document.querySelectorAll('.aq-resizable-row').forEach(function(row){observer.observe(row)})}})})();"
+}
+
+# @noRd
+.ap_display_resize_assets <- function() {
+  htmltools::tagList(
+    htmltools::tags$style(htmltools::HTML(.ap_display_resize_css())),
+    htmltools::tags$script(htmltools::HTML(.ap_display_resize_js()))
+  )
+}
+
+# @noRd
+.ap_css_unit <- function(x, default = "420px") {
+  if (is.null(x) || length(x) != 1L || is.na(x)) {
+    return(default)
+  }
+  if (is.numeric(x)) {
+    return(paste0(as.integer(x), "px"))
+  }
+  as.character(x)
+}
+
+# @noRd
+.ap_css_units <- function(x, n, default = "420px") {
+  if (is.null(x)) {
+    x <- default
+  }
+  if (length(x) == 1L) {
+    x <- rep(x, n)
+  }
+  if (length(x) != n) {
+    stop(sprintf("CSS unit vector must have length 1 or %d.", n), call. = FALSE)
+  }
+  vapply(x, .ap_css_unit, character(1L), default = default)
+}
+
+# @noRd
+.ap_wrap_display_widget <- function(plot) {
+  htmltools::tags$div(class = "aq-display-widget", plot)
+}
+
+# @noRd
 .ap_get_plot_theme <- function(p) {
   theme <- tryCatch(p$x$theme, error = function(e) NULL)
 
@@ -369,6 +427,12 @@ save_image <- function(plot, path, name, height = 1027, width = 1500, delay = 1,
 #' @param grid_class CSS class for the grid layout container.
 #' @param background Optional CSS background for the full grid wrapper.
 #' @param width CSS width of the full grid wrapper.
+#' @param resizable Logical. If TRUE and `cols` is explicit, plots are grouped
+#'   into vertically resizable rows and widgets fill the available row height.
+#' @param row_height Default CSS height for resizable rows. May be length 1 or
+#'   one value per generated row.
+#' @param row_min_height Minimum CSS height for resizable rows. May be length 1
+#'   or one value per generated row.
 #' @param save_path Optional file path to save standalone HTML.
 #' @param selfcontained Logical passed to htmlwidgets::saveWidget.
 #' @param return_code Logical. If TRUE, return list(html = ..., code = ...).
@@ -400,6 +464,9 @@ display_plots_grid <- function(
     grid_class = "plot-grid",
     background = NULL,
     width = "100%",
+    resizable = TRUE,
+    row_height = "420px",
+    row_min_height = "320px",
     save_path = NULL,
     selfcontained = TRUE,
     return_code = FALSE
@@ -462,18 +529,7 @@ display_plots_grid <- function(
     card_shadow = card_shadow
   )
 
-  wrapped_plots <- lapply(seq_len(nplots), function(i) {
-
-    extra_style <- ""
-
-    if (explicit_cols && plots_in_last_row == 1L && i == nplots) {
-      if (identical(last_row, "span")) {
-        extra_style <- sprintf("grid-column:span %d;", cols)
-      } else if (identical(last_row, "center")) {
-        center_col <- max(1L, ceiling(cols / 2))
-        extra_style <- sprintf("grid-column:%d / span 1;", center_col)
-      }
-    }
+  make_plot_cell <- function(i, extra_style = "") {
 
     header <- .ap_card_header(
       title = titles[i],
@@ -486,18 +542,90 @@ display_plots_grid <- function(
     )
 
     htmltools::tags$div(
-      class = container_class,
+      class = paste(container_class, "aq-display-cell"),
       style = paste0(base_card_style, extra_style),
       header,
-      plots[[i]]
+      .ap_wrap_display_widget(plots[[i]])
     )
+  }
+
+  wrapped_plots <- lapply(seq_len(nplots), function(i) {
+    extra_style <- ""
+
+    if (explicit_cols && plots_in_last_row == 1L && i == nplots) {
+      if (identical(last_row, "span")) {
+        extra_style <- sprintf("grid-column:span %d;", cols)
+      } else if (identical(last_row, "center")) {
+        center_col <- max(1L, ceiling(cols / 2))
+        extra_style <- sprintf("grid-column:%d / span 1;", center_col)
+      }
+    }
+
+    make_plot_cell(i, extra_style = extra_style)
   })
+
+  grid_children <- htmltools::tagList(wrapped_plots)
+  wrapper_class <- grid_class
+  wrapper_style <- grid_style
+
+  if (isTRUE(resizable) && explicit_cols) {
+    row_starts <- seq(1L, nplots, by = cols)
+    row_heights <- .ap_css_units(row_height, length(row_starts), default = "420px")
+    row_min_heights <- .ap_css_units(row_min_height, length(row_starts), default = "320px")
+    row_nodes <- lapply(seq_along(row_starts), function(row_i) {
+      start_i <- row_starts[[row_i]]
+      end_i <- min(start_i + cols - 1L, nplots)
+      row_indices <- seq.int(start_i, end_i)
+      row_items <- lapply(row_indices, function(plot_i) {
+        extra_style <- ""
+        if (length(row_indices) == 1L && cols > 1L) {
+          if (identical(last_row, "span")) {
+            extra_style <- sprintf("grid-column:span %d;", cols)
+          } else if (identical(last_row, "center")) {
+            center_col <- max(1L, ceiling(cols / 2))
+            extra_style <- sprintf("grid-column:%d / span 1;", center_col)
+          }
+        }
+        make_plot_cell(plot_i, extra_style = extra_style)
+      })
+      htmltools::tags$div(
+        class = "aq-resizable-row",
+        style = paste0(
+          "--aq-row-height:", row_heights[[row_i]], ";",
+          "--aq-row-min-height:", row_min_heights[[row_i]], ";",
+          "--aq-display-gap:", gap, ";",
+          "--aq-display-cols:", cols, ";"
+        ),
+        htmltools::tags$div(
+          class = "aq-resizable-card",
+          htmltools::tags$div(
+            class = paste(grid_class, "aq-display-grid"),
+            style = paste0(
+              "grid-template-columns:", grid_template, ";",
+              "--aq-display-cols:", cols, ";"
+            ),
+            htmltools::tagList(row_items)
+          )
+        )
+      )
+    })
+    grid_children <- htmltools::tagList(.ap_display_resize_assets(), row_nodes)
+    wrapper_class <- paste(grid_class, "aq-display-grid-wrapper")
+    wrapper_style <- paste0(
+      "display:flex;",
+      "flex-direction:column;",
+      "gap:", gap, ";",
+      "padding:", padding, ";",
+      "width:", width, ";",
+      if (!is.null(background)) paste0("background:", background, ";") else ""
+    )
+  }
 
   out <- htmltools::browsable(
     htmltools::tags$div(
-      class = grid_class,
-      style = grid_style,
-      htmltools::tagList(wrapped_plots)
+      class = wrapper_class,
+      style = wrapper_style,
+      grid_children
     )
   )
 
@@ -517,6 +645,7 @@ display_plots_grid <- function(
     if (!all(is.na(subtitles))) paste0("  subtitles = ", .ap_deparse_arg(subtitles), ",") else NULL,
     paste0("  gap = ", .ap_deparse_arg(gap), ","),
     paste0("  card = ", if (isTRUE(card)) "TRUE" else "FALSE", ","),
+    paste0("  resizable = ", if (isTRUE(resizable)) "TRUE" else "FALSE", ","),
     paste0("  last_row = ", .ap_deparse_arg(last_row)),
     ")"
   )
@@ -801,6 +930,12 @@ display_plots_tabs <- function(
 #' @param title_color CSS color for section titles.
 #' @param subtitle_color CSS color for section subtitles.
 #' @param font_family CSS font-family.
+#' @param resizable Logical. If TRUE, each section's grid is grouped into
+#'   vertically resizable rows by `cols`.
+#' @param row_height Default CSS height for resizable rows. May be length 1 or
+#'   one value per generated row inside each section.
+#' @param row_min_height Minimum CSS height for resizable rows. May be length 1
+#'   or one value per generated row inside each section.
 #' @param save_path Optional file path to save standalone HTML.
 #' @param selfcontained Logical passed to htmlwidgets::saveWidget.
 #' @param return_code Logical. If TRUE, return list(html = ..., code = ...).
@@ -831,6 +966,9 @@ display_plots_sections <- function(
     title_color = NULL,
     subtitle_color = NULL,
     font_family = "Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+    resizable = TRUE,
+    row_height = "420px",
+    row_min_height = "320px",
     save_path = NULL,
     selfcontained = TRUE,
     return_code = FALSE
@@ -935,6 +1073,9 @@ display_plots_sections <- function(
       card_shadow = card_shadow,
       title_color = title_color,
       subtitle_color = subtitle_color,
+      resizable = resizable,
+      row_height = row_height,
+      row_min_height = row_min_height,
       return_code = FALSE
     )
 
@@ -1026,5 +1167,80 @@ display_plots_sections <- function(
   }
 
   out
+}
+
+qa_resizable_display_plots <- function() {
+  plots <- list(
+    htmltools::tags$div(class = "html-widget", "plot one"),
+    htmltools::tags$div(class = "html-widget", "plot two"),
+    htmltools::tags$div(class = "html-widget", "plot three"),
+    htmltools::tags$div(class = "html-widget", "plot four"),
+    htmltools::tags$div(class = "html-widget", "plot five")
+  )
+
+  grid <- display_plots_grid(
+    plots = plots,
+    cols = 2L,
+    titles = c("One", "Two", "Three", "Four", "Five"),
+    subtitles = c("bar / qa", "line / qa", "heatmap / qa", "box / qa", "scatter / qa"),
+    resizable = TRUE,
+    row_height = c("420px", "520px", "360px"),
+    row_min_height = "340px"
+  )
+  grid_markup <- paste(as.character(grid), collapse = "\n")
+
+  sections <- display_plots_sections(
+    sections = list(QA = plots[1:2]),
+    cols = 2L,
+    collapsible = FALSE,
+    resizable = TRUE,
+    row_height = "480px"
+  )
+  section_markup <- paste(as.character(sections), collapse = "\n")
+  css <- .ap_display_resize_css()
+  js <- .ap_display_resize_js()
+
+  data.table::data.table(
+    check = c(
+      "grid_has_resizable_rows",
+      "grid_splits_artifacts_into_rows",
+      "grid_row_height_vector",
+      "grid_has_display_cells",
+      "single_final_row_spans",
+      "widgets_fill_height_css",
+      "resize_observer_js",
+      "window_resize_js",
+      "sections_forward_resizable_rows",
+      "resizable_can_be_disabled"
+    ),
+    status = c(
+      if (grepl("aq-resizable-row", grid_markup, fixed = TRUE)) "success" else "error",
+      if (length(gregexpr("--aq-row-height:", grid_markup, fixed = TRUE)[[1L]]) == 3L) "success" else "error",
+      if (grepl("--aq-row-height:420px", grid_markup, fixed = TRUE) && grepl("--aq-row-height:520px", grid_markup, fixed = TRUE) && grepl("--aq-row-height:360px", grid_markup, fixed = TRUE)) "success" else "error",
+      if (length(gregexpr("aq-display-cell", grid_markup, fixed = TRUE)[[1L]]) >= 5L) "success" else "error",
+      if (grepl("grid-column:span 2", grid_markup, fixed = TRUE)) "success" else "error",
+      if (grepl("height:100%!important", css, fixed = TRUE)) "success" else "error",
+      if (grepl("ResizeObserver", js, fixed = TRUE)) "success" else "error",
+      if (grepl("dispatchEvent", js, fixed = TRUE)) "success" else "error",
+      if (grepl("aq-resizable-row", section_markup, fixed = TRUE)) "success" else "error",
+      {
+        plain <- display_plots_grid(plots = plots[1:2], cols = 2L, resizable = FALSE)
+        plain_markup <- paste(as.character(plain), collapse = "\n")
+        if (!grepl("aq-resizable-row", plain_markup, fixed = TRUE)) "success" else "error"
+      }
+    ),
+    message = c(
+      "display_plots_grid() creates vertically resizable rows.",
+      "More than one row of plots is split into separate row-level resize containers.",
+      "A row_height vector can set different default heights per row.",
+      "Multiple plots render inside display cells.",
+      "A single final plot spans the full row by default.",
+      "HTML widget containers fill available card height.",
+      "ResizeObserver is included to react to manual row resizing.",
+      "Window resize events are dispatched after row size changes.",
+      "display_plots_sections() forwards resizable row behavior to section grids.",
+      "Resizable behavior remains optional."
+    )
+  )
 }
 
