@@ -92,6 +92,7 @@ Other Model Evaluation:
 \code{\link{Calibration.Box}()},
 \code{\link{Calibration.Line}()},
 \code{\link{Gains}()},
+\code{\link{ImportancePareto}()},
 \code{\link{Lift}()},
 \code{\link{PartialDependence.Box}()},
 \code{\link{PartialDependence.HeatMap}()},
