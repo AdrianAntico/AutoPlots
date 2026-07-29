@@ -12689,12 +12689,11 @@ Step <- function(dt = NULL,
 
     # Left y-axis
     for (yyy in YVar) {
-      p1 <- e_line_full(
+      p1 <- e_step_full(
         e = p1,
         x_index = 0,
         y_index = 0,
         serie = yyy,
-        smooth = Smooth,
         label = ShowLabels,
         showSymbol = ShowSymbol,
         lineStyle.width = get_series_param(lineStyle.width, series_index, n_series),
@@ -12711,12 +12710,11 @@ Step <- function(dt = NULL,
     # DualYVar
     if (length(DualYVar) > 0L) {
       for (xxx in DualYVar) {
-        p1 <- e_line_full(
+        p1 <- e_step_full(
           e = p1,
           x_index = 1,
           y_index = 1,
           serie = xxx,
-          smooth = Smooth,
           label = ShowLabels,
           showSymbol = ShowSymbol,
           lineStyle.width = get_series_param(lineStyle.width, series_index, n_series),
