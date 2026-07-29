@@ -1099,7 +1099,7 @@ AutoPlots::Line(
 )
 ```
 
-<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/DualYVar.PNG" align="center" width="800" />
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/DualYAxis.PNG" align="center" width="800" />
 
 
 <br>
