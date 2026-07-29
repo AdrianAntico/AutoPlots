@@ -1061,6 +1061,48 @@ AutoPlots::display_plots_grid(
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/LinePlot_grid.PNG" align="center" width="800" />
 
 <br>
+<br>
+
+```r
+library(data.table)
+library(AutoPlots)
+
+set.seed(123)
+
+# Fake data
+test_dt <- data.table(x = 1:100)
+
+test_dt[, `:=`(
+  actual     = 100 + 0.90 * x + 8 * sin(x / 7) + rnorm(.N, 0, 2),
+  fitted     = 102 + 0.88 * x + 6 * sin(x / 7),
+  benchmark  = 105 + 0.65 * x,
+  derivative = 4.5 * exp(-x / 35),
+  elasticity = 1.2 * exp(-x / 55),
+  residual   = 0.45 * sin(x / 5)
+)]
+
+AutoPlots::Line(
+  dt = test_dt,
+  XVar = "x",
+  YVar = c("actual", "fitted", "benchmark"),
+  DualYVar = c("derivative", "elasticity", "residual"),
+  lineStyle.width = c(5, 3, 1, 6, 4, 2)
+  lineStyle.type = c("solid", "dashed", "dotted", "solid", "dashed", "dotted"),
+  lineStyle.shadowBlur = c(20, 10, 0, 25, 12, 0),
+  lineStyle.shadowOffsetX = c(0, 2, 0, -2, 0, 2),
+  lineStyle.shadowOffsetY = c(0, 2, 0, 2, -2, 0),
+  lineStyle.shadowColor = c("#00FFFF", "#FF00FF", "#FFFF00", "#FF4500", "#7FFF00", "#FFFFFF"),
+  title.text = "Individual Line Styling Test",
+  legend.orient = "horizontal",
+  legend.top = 70,
+  legend.right = 280
+)
+```
+
+<img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/DualYVar.PNG" align="center" width="800" />
+
+
+<br>
 
 
 </details>

@@ -71,9 +71,6 @@
 
   if (plot_family %in% c("line", "area", "step")) {
     # Dual-axis rendering is only implemented for a single ungrouped Y series.
-    if (has_multiple_y && has_dual_y) {
-      stop("When DualYVar is utilized only one DualYVar is allowed and only one YVar is allowed")
-    }
     if (has_group && has_dual_y) {
       stop("When DualYVar is utilized a GroupVar is not allowed")
     }
@@ -256,7 +253,7 @@
   .ap_validate_sequence_inputs(XVar, YVar, DualYVar, GroupVar, plot_family)
   dt1 <- .ap_factor_to_character(dt1, GroupVar)
 
-  if (plot_family %in% c("line", "area", "step")) {
+  if (plot_family %in% c("area")) {
     melted <- .ap_melt_sequence_yvars(dt1, XVar, YVar, GroupVar)
     dt1 <- melted$dt
     YVar <- melted$YVar
@@ -926,6 +923,9 @@
   )
 }
 
+get_series_param <- function(x, i, n_series) {
+  if (length(x) == n_series) x[i] else x
+}
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ----
 # > Distribution Plot Functions                                               ----
@@ -10060,31 +10060,50 @@ Line <- function(dt = NULL,
       width = Width,
       height = Height)
 
+    series_index <- 1L
+    n_series <- length(YVar) + length(DualYVar)
+
     # Left y-axis
     for (yyy in YVar) {
       p1 <- e_line_full(
-        e = p1, x_index = 0, y_index = 0, serie = yyy,
-        smooth = Smooth, label = ShowLabels, showSymbol = ShowSymbol,
-        lineStyle.width = lineStyle.width, lineStyle.type = lineStyle.type,
-        lineStyle.shadowColor = lineStyle.shadowColor,
-        lineStyle.shadowBlur = lineStyle.shadowBlur,
-        lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
-        lineStyle.shadowOffsetY = lineStyle.shadowOffsetY
+        e = p1,
+        x_index = 0,
+        y_index = 0,
+        serie = yyy,
+        smooth = Smooth,
+        label = ShowLabels,
+        showSymbol = ShowSymbol,
+        lineStyle.width = get_series_param(lineStyle.width, series_index, n_series),
+        lineStyle.type = get_series_param(lineStyle.type, series_index, n_series),
+        lineStyle.shadowColor = get_series_param(lineStyle.shadowColor, series_index, n_series),
+        lineStyle.shadowBlur = get_series_param(lineStyle.shadowBlur, series_index, n_series),
+        lineStyle.shadowOffsetX = get_series_param(lineStyle.shadowOffsetX, series_index, n_series),
+        lineStyle.shadowOffsetY = get_series_param(lineStyle.shadowOffsetY, series_index, n_series)
       )
+
+      series_index <- series_index + 1L
     }
 
     # DualYVar
-    if(length(DualYVar) > 0L) {
+    if (length(DualYVar) > 0L) {
       for (xxx in DualYVar) {
         p1 <- e_line_full(
-          e = p1, x_index = 1, y_index = 1, serie = xxx,
-          smooth = Smooth, label = ShowLabels, showSymbol = ShowSymbol,
-          lineStyle.width = lineStyle.width, lineStyle.type = lineStyle.type,
-          lineStyle.shadowColor = lineStyle.shadowColor,
-          lineStyle.shadowBlur = lineStyle.shadowBlur,
-          lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
-          lineStyle.shadowOffsetY = lineStyle.shadowOffsetY
+          e = p1,
+          x_index = 1,
+          y_index = 1,
+          serie = xxx,
+          smooth = Smooth,
+          label = ShowLabels,
+          showSymbol = ShowSymbol,
+          lineStyle.width = get_series_param(lineStyle.width, series_index, n_series),
+          lineStyle.type = get_series_param(lineStyle.type, series_index, n_series),
+          lineStyle.shadowColor = get_series_param(lineStyle.shadowColor, series_index, n_series),
+          lineStyle.shadowBlur = get_series_param(lineStyle.shadowBlur, series_index, n_series),
+          lineStyle.shadowOffsetX = get_series_param(lineStyle.shadowOffsetX, series_index, n_series),
+          lineStyle.shadowOffsetY = get_series_param(lineStyle.shadowOffsetY, series_index, n_series)
         )
+
+        series_index <- series_index + 1L
       }
     }
 
@@ -10201,7 +10220,7 @@ Line <- function(dt = NULL,
       axis = "y",
       yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
       yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
-      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else paste(YVar, collapse = ", "), yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
       yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
@@ -10220,6 +10239,61 @@ Line <- function(dt = NULL,
       yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    if (length(DualYVar) > 0) {
+      p1 <- e_x_axis_full(
+        e = p1,
+        index = 1,
+        axis = "x",
+        xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+        xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
+        xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+        xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+        xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+        xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+        xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+        xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+        xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+        xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+        xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+        xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+        xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+        xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+        xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+        xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+        xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+        xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+        xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+        xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+        xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+      p1 <- e_y_axis_full(
+        e = p1,
+        index = 1,
+        axis = "y",
+        yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+        yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
+        yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else paste(DualYVar, collapse = ", "), yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+        yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+        yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+        yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+        yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+        yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+        yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+        yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+        yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+        yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+        yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+        yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+        yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+        yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+        yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+        yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+        yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+        yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+        yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    }
 
     p1 <- echarts4r::e_brush(e = p1)
     p1 <- e_title_full(
@@ -12610,41 +12684,50 @@ Step <- function(dt = NULL,
       width = Width,
       height = Height)
 
+    series_index <- 1L
+    n_series <- length(YVar) + length(DualYVar)
+
     # Left y-axis
     for (yyy in YVar) {
-      p1 <- e_step_full(
+      p1 <- e_line_full(
         e = p1,
         x_index = 0,
         y_index = 0,
         serie = yyy,
+        smooth = Smooth,
         label = ShowLabels,
         showSymbol = ShowSymbol,
-        lineStyle.width = lineStyle.width,
-        lineStyle.type = lineStyle.type,
-        lineStyle.shadowColor = lineStyle.shadowColor,
-        lineStyle.shadowBlur = lineStyle.shadowBlur,
-        lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
-        lineStyle.shadowOffsetY = lineStyle.shadowOffsetY
+        lineStyle.width = get_series_param(lineStyle.width, series_index, n_series),
+        lineStyle.type = get_series_param(lineStyle.type, series_index, n_series),
+        lineStyle.shadowColor = get_series_param(lineStyle.shadowColor, series_index, n_series),
+        lineStyle.shadowBlur = get_series_param(lineStyle.shadowBlur, series_index, n_series),
+        lineStyle.shadowOffsetX = get_series_param(lineStyle.shadowOffsetX, series_index, n_series),
+        lineStyle.shadowOffsetY = get_series_param(lineStyle.shadowOffsetY, series_index, n_series)
       )
+
+      series_index <- series_index + 1L
     }
 
     # DualYVar
-    if(length(DualYVar) > 0L) {
+    if (length(DualYVar) > 0L) {
       for (xxx in DualYVar) {
-        p1 <- e_step_full(
+        p1 <- e_line_full(
           e = p1,
           x_index = 1,
           y_index = 1,
-          serie = yyy,
+          serie = xxx,
+          smooth = Smooth,
           label = ShowLabels,
           showSymbol = ShowSymbol,
-          lineStyle.width = lineStyle.width,
-          lineStyle.type = lineStyle.type,
-          lineStyle.shadowColor = lineStyle.shadowColor,
-          lineStyle.shadowBlur = lineStyle.shadowBlur,
-          lineStyle.shadowOffsetX = lineStyle.shadowOffsetX,
-          lineStyle.shadowOffsetY = lineStyle.shadowOffsetY
+          lineStyle.width = get_series_param(lineStyle.width, series_index, n_series),
+          lineStyle.type = get_series_param(lineStyle.type, series_index, n_series),
+          lineStyle.shadowColor = get_series_param(lineStyle.shadowColor, series_index, n_series),
+          lineStyle.shadowBlur = get_series_param(lineStyle.shadowBlur, series_index, n_series),
+          lineStyle.shadowOffsetX = get_series_param(lineStyle.shadowOffsetX, series_index, n_series),
+          lineStyle.shadowOffsetY = get_series_param(lineStyle.shadowOffsetY, series_index, n_series)
         )
+
+        series_index <- series_index + 1L
       }
     }
 
@@ -12762,7 +12845,7 @@ Step <- function(dt = NULL,
       axis = "y",
       yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
       yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
-      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else YVar, yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+      yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else paste(YVar, collapse = ", "), yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
       yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
       yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
       yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
@@ -12781,6 +12864,61 @@ Step <- function(dt = NULL,
       yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
       yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
       yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    if (length(DualYVar) > 0) {
+      p1 <- e_x_axis_full(
+        e = p1,
+        index = 1,
+        axis = "x",
+        xAxis.nameTextStyle.textShadowColor = xAxis.nameTextStyle.textShadowColor, xAxis.nameTextStyle.textShadowBlur = xAxis.nameTextStyle.textShadowBlur,
+        xAxis.nameTextStyle.textShadowOffsetX = xAxis.nameTextStyle.textShadowOffsetX, xAxis.nameTextStyle.textShadowOffsetY = xAxis.nameTextStyle.textShadowOffsetY,
+        xAxis.title = if(length(xAxis.title) > 0L) xAxis.title else XVar, xAxis.nameLocation = xAxis.nameLocation, xAxis.axisTick.customValues = xAxis.axisTick.customValues,
+        xAxis.position = xAxis.position, xAxis.nameTextStyle.color = xAxis.nameTextStyle.color,
+        xAxis.nameTextStyle.padding = xAxis.nameTextStyle.padding, xAxis.nameTextStyle.align = xAxis.nameTextStyle.align,
+        xAxis.nameTextStyle.fontStyle = xAxis.nameTextStyle.fontStyle, xAxis.nameTextStyle.fontWeight = xAxis.nameTextStyle.fontWeight,
+        xAxis.nameTextStyle.fontSize = xAxis.nameTextStyle.fontSize, xAxis.nameTextStyle.fontFamily = xAxis.nameTextStyle.fontFamily, xAxis.min = xAxis.min,
+        xAxis.max = xAxis.max, xAxis.splitNumber = xAxis.splitNumber, xAxis.axisLabel.rotate = xAxis.axisLabel.rotate,
+        xAxis.axisLabel.margin = xAxis.axisLabel.margin, xAxis.axisLabel.color = xAxis.axisLabel.color,
+        xAxis.axisLabel.fontStyle = xAxis.axisLabel.fontStyle, xAxis.axisLabel.fontWeight = xAxis.axisLabel.fontWeight,
+        xAxis.axisLabel.fontFamily = xAxis.axisLabel.fontFamily, xAxis.axisLabel.fontSize = xAxis.axisLabel.fontSize,
+        xAxis.axisLabel.align = xAxis.axisLabel.align, xAxis.axisLabel.verticalAlign = xAxis.axisLabel.verticalAlign,
+        xAxis.axisLabel.backgroundColor = xAxis.axisLabel.backgroundColor, xAxis.axisLabel.borderColor = xAxis.axisLabel.borderColor,
+        xAxis.axisLabel.borderWidth = xAxis.axisLabel.borderWidth, xAxis.axisLabel.borderType = xAxis.axisLabel.borderType,
+        xAxis.axisLabel.borderRadius = xAxis.axisLabel.borderRadius, xAxis.axisLabel.padding = xAxis.axisLabel.padding,
+        xAxis.axisLabel.shadowColor = xAxis.axisLabel.shadowColor, xAxis.axisLabel.shadowBlur = xAxis.axisLabel.shadowBlur,
+        xAxis.axisLabel.shadowOffsetX = xAxis.axisLabel.shadowOffsetX, xAxis.axisLabel.shadowOffsetY = xAxis.axisLabel.shadowOffsetY,
+        xAxis.axisLabel.textBorderColor = xAxis.axisLabel.textBorderColor, xAxis.axisLabel.textBorderWidth = xAxis.axisLabel.textBorderWidth,
+        xAxis.axisLabel.textBorderType = xAxis.axisLabel.textBorderType, xAxis.axisLabel.textShadowColor = xAxis.axisLabel.textShadowColor,
+        xAxis.axisLabel.textShadowBlur = xAxis.axisLabel.textShadowBlur, xAxis.axisLabel.textShadowOffsetX = xAxis.axisLabel.textShadowOffsetX,
+        xAxis.axisLabel.textShadowOffsetY = xAxis.axisLabel.textShadowOffsetY, xAxis.axisLabel.overflow = xAxis.axisLabel.overflow)
+
+      p1 <- e_y_axis_full(
+        e = p1,
+        index = 1,
+        axis = "y",
+        yAxis.nameTextStyle.textShadowColor = yAxis.nameTextStyle.textShadowColor,yAxis.nameTextStyle.textShadowBlur = yAxis.nameTextStyle.textShadowBlur,
+        yAxis.nameTextStyle.textShadowOffsetX = yAxis.nameTextStyle.textShadowOffsetX,yAxis.nameTextStyle.textShadowOffsetY = yAxis.nameTextStyle.textShadowOffsetY,
+        yAxis.title = if(length(yAxis.title) > 0L) yAxis.title else paste(DualYVar, collapse = ", "), yAxis.nameLocation = yAxis.nameLocation,  yAxis.axisTick.customValues = yAxis.axisTick.customValues,
+        yAxis.position = yAxis.position, yAxis.nameTextStyle.color = yAxis.nameTextStyle.color,
+        yAxis.nameTextStyle.padding = yAxis.nameTextStyle.padding, yAxis.nameTextStyle.align = yAxis.nameTextStyle.align,
+        yAxis.nameTextStyle.fontStyle = yAxis.nameTextStyle.fontStyle, yAxis.nameTextStyle.fontWeight = yAxis.nameTextStyle.fontWeight,
+        yAxis.nameTextStyle.fontSize = yAxis.nameTextStyle.fontSize, yAxis.nameTextStyle.fontFamily = yAxis.nameTextStyle.fontFamily, yAxis.min = yAxis.min,
+        yAxis.max = yAxis.max, yAxis.splitNumber = yAxis.splitNumber, yAxis.axisLabel.rotate = yAxis.axisLabel.rotate,
+        yAxis.axisLabel.margin = yAxis.axisLabel.margin, yAxis.axisLabel.color = yAxis.axisLabel.color,
+        yAxis.axisLabel.fontStyle = yAxis.axisLabel.fontStyle, yAxis.axisLabel.fontWeight = yAxis.axisLabel.fontWeight,
+        yAxis.axisLabel.fontFamily = yAxis.axisLabel.fontFamily, yAxis.axisLabel.fontSize = yAxis.axisLabel.fontSize,
+        yAxis.axisLabel.align = yAxis.axisLabel.align, yAxis.axisLabel.verticalAlign = yAxis.axisLabel.verticalAlign,
+        yAxis.axisLabel.backgroundColor = yAxis.axisLabel.backgroundColor, yAxis.axisLabel.borderColor = yAxis.axisLabel.borderColor,
+        yAxis.axisLabel.borderWidth = yAxis.axisLabel.borderWidth, yAxis.axisLabel.borderType = yAxis.axisLabel.borderType,
+        yAxis.axisLabel.borderRadius = yAxis.axisLabel.borderRadius, yAxis.axisLabel.padding = yAxis.axisLabel.padding,
+        yAxis.axisLabel.shadowColor = yAxis.axisLabel.shadowColor, yAxis.axisLabel.shadowBlur = yAxis.axisLabel.shadowBlur,
+        yAxis.axisLabel.shadowOffsetX = yAxis.axisLabel.shadowOffsetX, yAxis.axisLabel.shadowOffsetY = yAxis.axisLabel.shadowOffsetY,
+        yAxis.axisLabel.textBorderColor = yAxis.axisLabel.textBorderColor, yAxis.axisLabel.textBorderWidth = yAxis.axisLabel.textBorderWidth,
+        yAxis.axisLabel.textBorderType = yAxis.axisLabel.textBorderType, yAxis.axisLabel.textShadowColor = yAxis.axisLabel.textShadowColor,
+        yAxis.axisLabel.textShadowBlur = yAxis.axisLabel.textShadowBlur, yAxis.axisLabel.textShadowOffsetX = yAxis.axisLabel.textShadowOffsetX,
+        yAxis.axisLabel.textShadowOffsetY = yAxis.axisLabel.textShadowOffsetY, yAxis.axisLabel.overflow = yAxis.axisLabel.overflow)
+
+    }
 
     p1 <- e_title_full(
       e = p1,
@@ -22719,18 +22857,38 @@ CorrMatrix <- function(dt = NULL,
 
   apply_theme_defaults(Theme, plot_type = "CorrMatrix", grouped = FALSE, env = environment())
 
-  # Filter out bad vars
-  x <- c(); for(i in CorrVars) if(dt[, stats::sd(get(i), na.rm = TRUE)] > 0L) x <- c(x, i)
-  CorrVars <- x
-  NN <- dt[,.N]
-  x <- c(); for(i in CorrVars) if(sum(dt[, is.na(get(i))]) / NN <= MaxNAPercent) x <- c(x, i)
-  CorrVars <- x
+  XVar <- "Variable"
+  YVar <- "Variable"
+
+  if (is.null(dt)) stop("CorrMatrix requires dt.")
+  if (!data.table::is.data.table(dt)) {
+    dt <- data.table::as.data.table(dt)
+  } else {
+    dt <- data.table::copy(dt)
+  }
+
+  CorrVars <- .ap_clean_var_vector(CorrVars)
+  if (!length(CorrVars)) stop("CorrMatrix requires CorrVars.")
+  missing_corr_vars <- setdiff(CorrVars, names(dt))
+  if (length(missing_corr_vars)) {
+    stop("CorrMatrix CorrVars missing from dt: ", paste(missing_corr_vars, collapse = ", "))
+  }
+
+  if (!PreAgg) {
+    NN <- max(nrow(dt), 1L)
+    CorrVars <- CorrVars[vapply(CorrVars, function(i) {
+      is.numeric(dt[[i]]) && isTRUE(stats::sd(dt[[i]], na.rm = TRUE) > 0)
+    }, logical(1))]
+    CorrVars <- CorrVars[vapply(CorrVars, function(i) {
+      sum(is.na(dt[[i]])) / NN <= MaxNAPercent
+    }, logical(1))]
+    if (length(CorrVars) < 2L) {
+      stop("CorrMatrix requires at least two numeric, non-constant CorrVars after filtering.")
+    }
+  }
 
   # Plot
   if(!PreAgg) {
-    if(!data.table::is.data.table(dt)) tryCatch({data.table::setDT(dt)}, error = function(x) {
-      dt <- data.table::as.data.table(dt)
-    })
     dt1 <- stats::na.omit(dt[, .SD, .SDcols = c(CorrVars)])
 
     # Transformation
@@ -22745,7 +22903,7 @@ CorrMatrix <- function(dt = NULL,
     corr_mat <- stats::cor(method = tolower(Method), x = dt1)
     corr_mat <- round(corr_mat, 3)
   } else {
-    corr_mat <- dt
+    corr_mat <- as.matrix(dt)
   }
 
   if(Debug) {
