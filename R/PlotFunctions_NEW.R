@@ -10107,7 +10107,7 @@ Line <- function(dt = NULL,
       }
     }
 
-    if (length(lineStyle.color) > 0 && length(DualYVar) == 0) {
+    if (length(lineStyle.color) > 0 && length(DualYVar) == 0 && length(YVar) == 1) {
       visualMap.min <- min(dt1[[YVar]])
       visualMap.max <- max(dt1[[YVar]])
       p1 <- e_visual_map_full(
@@ -12729,7 +12729,7 @@ Step <- function(dt = NULL,
       }
     }
 
-    if (length(lineStyle.color) > 0 && length(DualYVar) == 0) {
+    if (length(lineStyle.color) > 0 && length(DualYVar) == 0 && length(YVar) == 1) {
       visualMap.min <- min(dt1[[YVar]])
       visualMap.max <- max(dt1[[YVar]])
       p1 <- e_visual_map_full(
