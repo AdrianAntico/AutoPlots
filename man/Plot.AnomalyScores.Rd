@@ -21,7 +21,7 @@ Plot.AnomalyScores(
 
 \item{EchartsTheme}{AutoPlots theme.}
 
-\item{...}{Additional arguments passed to [Plot.Histogram()].}
+\item{...}{Additional arguments passed to [Histogram()].}
 }
 \value{
 An `echarts4r` htmlwidget.

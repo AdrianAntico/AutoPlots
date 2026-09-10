@@ -9,7 +9,7 @@
 #' @param ClusterVar Optional cluster/segment column.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Scatter()].
+#' @param ... Additional arguments passed to [Scatter()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.ClusterEmbedding <- function(dt, XVar, YVar, ClusterVar = NULL,
@@ -18,8 +18,8 @@ Plot.ClusterEmbedding <- function(dt, XVar, YVar, ClusterVar = NULL,
   autoplot_require_columns(data, c(XVar, YVar, ClusterVar))
   if (!is.numeric(data[[XVar]]) || !is.numeric(data[[YVar]]))
     stop("Embedding axes must be numeric.", call. = FALSE)
-  Plot.Scatter(dt = data, XVar = XVar, YVar = YVar, GroupVar = ClusterVar,
-    Title = Title, EchartsTheme = EchartsTheme, ...)
+  Scatter(dt = data, XVar = XVar, YVar = YVar, GroupVar = ClusterVar,
+    title.text = Title, Theme = EchartsTheme, ...)
 }
 
 #' Plot component explained variance
@@ -28,7 +28,7 @@ Plot.ClusterEmbedding <- function(dt, XVar, YVar, ClusterVar = NULL,
 #' @param cumulative Optional cumulative proportions.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Bar()].
+#' @param ... Additional arguments passed to [Bar()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.ExplainedVariance <- function(explained_variance, cumulative = NULL,
@@ -41,8 +41,8 @@ Plot.ExplainedVariance <- function(explained_variance, cumulative = NULL,
     explained_variance = values
   )
   if (!is.null(cumulative)) data[, cumulative := as.numeric(cumulative)]
-  Plot.Bar(dt = data, PreAgg = TRUE, XVar = "component",
-    YVar = "explained_variance", Title = Title, EchartsTheme = EchartsTheme, ...)
+  Bar(dt = data, PreAgg = TRUE, XVar = "component",
+    YVar = "explained_variance", title.text = Title, Theme = EchartsTheme, ...)
 }
 
 #' Plot cluster sizes
@@ -50,7 +50,7 @@ Plot.ExplainedVariance <- function(explained_variance, cumulative = NULL,
 #' @param cluster_sizes Named or unnamed cluster counts.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Bar()].
+#' @param ... Additional arguments passed to [Bar()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.ClusterSizes <- function(cluster_sizes, Title = "Cluster sizes",
@@ -61,8 +61,8 @@ Plot.ClusterSizes <- function(cluster_sizes, Title = "Cluster sizes",
   labels <- names(cluster_sizes)
   if (is.null(labels) || any(!nzchar(labels))) labels <- as.character(seq_along(sizes))
   data <- data.table::data.table(cluster = labels, observations = sizes)
-  Plot.Bar(dt = data, PreAgg = TRUE, XVar = "cluster", YVar = "observations",
-    Title = Title, EchartsTheme = EchartsTheme, ...)
+  Bar(dt = data, PreAgg = TRUE, XVar = "cluster", YVar = "observations",
+    title.text = Title, Theme = EchartsTheme, ...)
 }
 
 #' Plot anomaly-score distribution
@@ -71,7 +71,7 @@ Plot.ClusterSizes <- function(cluster_sizes, Title = "Cluster sizes",
 #' @param flags Optional logical flagged-observation indicator.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Histogram()].
+#' @param ... Additional arguments passed to [Histogram()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.AnomalyScores <- function(scores, flags = NULL,
@@ -86,8 +86,8 @@ Plot.AnomalyScores <- function(scores, flags = NULL,
     data[, status := ifelse(as.logical(flags), "Flagged", "Not flagged")]
     group <- "status"
   }
-  Plot.Histogram(dt = data, XVar = "anomaly_score", GroupVar = group,
-    Title = Title, EchartsTheme = EchartsTheme, ...)
+  Histogram(dt = data, XVar = "anomaly_score", GroupVar = group,
+    title.text = Title, Theme = EchartsTheme, ...)
 }
 
 #' Plot ordered nearest-neighbor distances
@@ -95,7 +95,7 @@ Plot.AnomalyScores <- function(scores, flags = NULL,
 #' @param distances Numeric neighbor distances.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Line()].
+#' @param ... Additional arguments passed to [Line()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.NeighborDistances <- function(distances, Title = "Neighbor distances",
@@ -104,8 +104,8 @@ Plot.NeighborDistances <- function(distances, Title = "Neighbor distances",
   if (!length(values) || any(!is.finite(values)))
     stop("Neighbor distances must contain finite numeric values.", call. = FALSE)
   data <- data.table::data.table(rank = seq_along(values), distance = values)
-  Plot.Line(dt = data, XVar = "rank", YVar = "distance", Title = Title,
-    EchartsTheme = EchartsTheme, ...)
+  Line(dt = data, XVar = "rank", YVar = "distance", title.text = Title,
+    Theme = EchartsTheme, ...)
 }
 
 autoplot_require_columns <- function(data, columns) {
@@ -120,7 +120,7 @@ autoplot_require_columns <- function(data, columns) {
 #' @param missing_rates Named numeric proportions.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Bar()].
+#' @param ... Additional arguments passed to [Bar()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.MissingnessRates <- function(missing_rates, Title = "Missingness by field",
@@ -130,9 +130,9 @@ Plot.MissingnessRates <- function(missing_rates, Title = "Missingness by field",
     stop("Missingness rates must be finite proportions.", call. = FALSE)
   labels <- names(missing_rates)
   if (is.null(labels) || any(!nzchar(labels))) labels <- paste0("Field ", seq_along(values))
-  Plot.Bar(data.table::data.table(field = labels, missing_rate = values),
-    PreAgg = TRUE, XVar = "field", YVar = "missing_rate", Title = Title,
-    EchartsTheme = EchartsTheme, ...)
+  Bar(data.table::data.table(field = labels, missing_rate = values),
+    PreAgg = TRUE, XVar = "field", YVar = "missing_rate", title.text = Title,
+    Theme = EchartsTheme, ...)
 }
 
 #' Plot a temporal signal with governed event markers
@@ -141,7 +141,7 @@ Plot.MissingnessRates <- function(missing_rates, Title = "Missingness by field",
 #' @param event_label Legend label for event markers.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Line()].
+#' @param ... Additional arguments passed to [Line()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.TemporalEvents <- function(time, value, events = integer(),
@@ -153,7 +153,7 @@ Plot.TemporalEvents <- function(time, value, events = integer(),
   events <- unique(as.integer(events))
   events <- events[events >= 1L & events <= length(value)]
   event[events] <- event_label
-  Plot.Line(data.table::data.table(time = time, value = as.numeric(value), event = event),
-    XVar = "time", YVar = "value", GroupVar = "event", Title = Title,
-    EchartsTheme = EchartsTheme, ...)
+  Line(data.table::data.table(time = time, value = as.numeric(value), event = event),
+    XVar = "time", YVar = "value", GroupVar = "event", title.text = Title,
+    Theme = EchartsTheme, ...)
 }

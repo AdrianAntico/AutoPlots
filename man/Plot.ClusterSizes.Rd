@@ -18,7 +18,7 @@ Plot.ClusterSizes(
 
 \item{EchartsTheme}{AutoPlots theme.}
 
-\item{...}{Additional arguments passed to [Plot.Bar()].}
+\item{...}{Additional arguments passed to [Bar()].}
 }
 \value{
 An `echarts4r` htmlwidget.

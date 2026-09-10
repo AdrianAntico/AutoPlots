@@ -11,7 +11,7 @@
 #' @param GroupVar Optional series/entity column.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Line()].
+#' @param ... Additional arguments passed to [Line()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.Forecast <- function(dt, DateVar = "forecast_date", ActualVar = "actual",
@@ -34,9 +34,9 @@ Plot.Forecast <- function(dt, DateVar = "forecast_date", ActualVar = "actual",
   if (!nrow(long)) stop("Forecast evidence contains no plottable values.", call. = FALSE)
   long[, .forecast_series := if (is.null(GroupVar)) .forecast_evidence else
     paste(get(GroupVar), .forecast_evidence, sep = " / ")]
-  Plot.Line(dt = long, XVar = DateVar, YVar = ".forecast_value",
-    GroupVar = ".forecast_series", Title = Title,
-    EchartsTheme = EchartsTheme, ...)
+  Line(dt = long, XVar = DateVar, YVar = ".forecast_value",
+    GroupVar = ".forecast_series", title.text = Title,
+    Theme = EchartsTheme, ...)
 }
 
 #' Plot rolling-origin forecast errors by horizon
@@ -47,7 +47,7 @@ Plot.Forecast <- function(dt, DateVar = "forecast_date", ActualVar = "actual",
 #' @param MetricVar Optional metric-name column.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Line()].
+#' @param ... Additional arguments passed to [Line()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.ForecastBacktest <- function(dt, HorizonVar = "horizon",
@@ -58,8 +58,8 @@ Plot.ForecastBacktest <- function(dt, HorizonVar = "horizon",
   if (!is.numeric(data[[HorizonVar]]) || !is.numeric(data[[ValueVar]]))
     stop("Backtest horizon and metric values must be numeric.", call. = FALSE)
   group <- if (MetricVar %in% names(data)) MetricVar else NULL
-  Plot.Line(dt = data, XVar = HorizonVar, YVar = ValueVar,
-    GroupVar = group, Title = Title, EchartsTheme = EchartsTheme, ...)
+  Line(dt = data, XVar = HorizonVar, YVar = ValueVar,
+    GroupVar = group, title.text = Title, Theme = EchartsTheme, ...)
 }
 
 #' Compare base and reconciled forecasts
@@ -71,7 +71,7 @@ Plot.ForecastBacktest <- function(dt, HorizonVar = "horizon",
 #' @param GroupVar Optional hierarchy/entity column.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Line()].
+#' @param ... Additional arguments passed to [Line()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.ForecastReconciliation <- function(dt, DateVar = "forecast_date",
@@ -88,9 +88,9 @@ Plot.ForecastReconciliation <- function(dt, DateVar = "forecast_date",
     value.name = ".forecast_value", variable.factor = FALSE)
   long[, .forecast_series := if (is.null(GroupVar)) .forecast_kind else
     paste(get(GroupVar), .forecast_kind, sep = " / ")]
-  Plot.Line(dt = long, XVar = DateVar, YVar = ".forecast_value",
-    GroupVar = ".forecast_series", Title = Title,
-    EchartsTheme = EchartsTheme, ...)
+  Line(dt = long, XVar = DateVar, YVar = ".forecast_value",
+    GroupVar = ".forecast_series", title.text = Title,
+    Theme = EchartsTheme, ...)
 }
 
 #' Plot nominal and empirical forecast coverage
@@ -100,7 +100,7 @@ Plot.ForecastReconciliation <- function(dt, DateVar = "forecast_date",
 #' @param HorizonVar Optional horizon column.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Line()].
+#' @param ... Additional arguments passed to [Line()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.ForecastCalibration <- function(dt, NominalVar = "nominal_coverage",
@@ -115,8 +115,8 @@ Plot.ForecastCalibration <- function(dt, NominalVar = "nominal_coverage",
   long <- data.table::melt(data, id.vars = ".calibration_axis",
     measure.vars = c(NominalVar, EmpiricalVar), variable.name = ".coverage_kind",
     value.name = ".coverage", variable.factor = FALSE)
-  Plot.Line(long, XVar = ".calibration_axis", YVar = ".coverage",
-    GroupVar = ".coverage_kind", Title = Title, EchartsTheme = EchartsTheme,
+  Line(long, XVar = ".calibration_axis", YVar = ".coverage",
+    GroupVar = ".coverage_kind", title.text = Title, Theme = EchartsTheme,
     ...)
 }
 
@@ -126,7 +126,7 @@ Plot.ForecastCalibration <- function(dt, NominalVar = "nominal_coverage",
 #' @param HorizonVar,ForecastVar,ComponentVar Column names.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Line()].
+#' @param ... Additional arguments passed to [Line()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.ForecastCombination <- function(dt, HorizonVar = "horizon",
@@ -138,8 +138,8 @@ Plot.ForecastCombination <- function(dt, HorizonVar = "horizon",
   if (!is.numeric(data[[HorizonVar]]) || !is.numeric(data[[ForecastVar]]))
     stop("Combination horizon and forecast values must be numeric.",
       call. = FALSE)
-  Plot.Line(data, XVar = HorizonVar, YVar = ForecastVar,
-    GroupVar = ComponentVar, Title = Title, EchartsTheme = EchartsTheme, ...)
+  Line(data, XVar = HorizonVar, YVar = ForecastVar,
+    GroupVar = ComponentVar, title.text = Title, Theme = EchartsTheme, ...)
 }
 
 #' Plot MSTL decomposition components
@@ -149,7 +149,7 @@ Plot.ForecastCombination <- function(dt, HorizonVar = "horizon",
 #' @param ComponentVars Optional component columns.
 #' @param Title Plot title.
 #' @param EchartsTheme AutoPlots theme.
-#' @param ... Additional arguments passed to [Plot.Line()].
+#' @param ... Additional arguments passed to [Line()].
 #' @return An `echarts4r` htmlwidget.
 #' @export
 Plot.ForecastDecomposition <- function(dt, ObservationVar = "observation",
@@ -166,6 +166,6 @@ Plot.ForecastDecomposition <- function(dt, ObservationVar = "observation",
   long <- data.table::melt(data, id.vars = ObservationVar,
     measure.vars = components, variable.name = ".component",
     value.name = ".value", variable.factor = FALSE)
-  Plot.Line(long, XVar = ObservationVar, YVar = ".value",
-    GroupVar = ".component", Title = Title, EchartsTheme = EchartsTheme, ...)
+  Line(long, XVar = ObservationVar, YVar = ".value",
+    GroupVar = ".component", title.text = Title, Theme = EchartsTheme, ...)
 }

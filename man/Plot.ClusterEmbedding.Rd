@@ -25,7 +25,7 @@ Plot.ClusterEmbedding(
 
 \item{EchartsTheme}{AutoPlots theme.}
 
-\item{...}{Additional arguments passed to [Plot.Scatter()].}
+\item{...}{Additional arguments passed to [Scatter()].}
 }
 \value{
 An `echarts4r` htmlwidget.

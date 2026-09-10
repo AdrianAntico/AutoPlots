@@ -21,7 +21,7 @@ Treemap(
   MouseScroll = FALSE,
   squareRatio = NULL,
   leafDepth = 1,
-  drillDownIcon = "▶",
+  drillDownIcon = "<U+25B6>",
   roam = NULL,
   scaleLimit.min = NULL,
   scaleLimit.max = NULL,

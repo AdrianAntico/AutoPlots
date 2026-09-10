@@ -25,7 +25,7 @@ Plot.TemporalEvents(
 
 \item{EchartsTheme}{AutoPlots theme.}
 
-\item{...}{Additional arguments passed to [Plot.Line()].}
+\item{...}{Additional arguments passed to [Line()].}
 }
 \value{
 An `echarts4r` htmlwidget.
