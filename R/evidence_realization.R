@@ -381,6 +381,7 @@ ap_realize_checked <- function(request, task, file, encoding, width, height, res
     title = paste0(geometry$quantity_id[[i]], " = ", geometry$display[[i]]),
     subtitle = paste0(geometry$unit[[i]], " | ", geometry$source_issuer[[i]], " ",
       geometry$source_revision[[i]], " ", substr(geometry$source_digest[[i]], 1, 12),
+      if (identical(geometry$scale[[i]], "log10")) " | log10 scale" else "",
       " | not an approval")))
   if (any(grepl("approved|qualified|causal", vapply(labels, function(label) paste(label$title, label$subtitle), character(1)), ignore.case = TRUE)))
     return(ap_refuse("REFUSED", "LABEL_AUTHORITY", "A figure label must not say approved, qualified, or causal."))
@@ -396,8 +397,9 @@ ap_realize_checked <- function(request, task, file, encoding, width, height, res
   graphics::par(mfrow = c(nrow(geometry), 1L), mar = margins, family = "sans")
   for (i in seq_len(nrow(geometry))) {
     row <- geometry[i]
+    ylab <- if (identical(asked$scale, "log10")) paste0("log10(", row$unit, ")") else row$unit
     graphics::plot(NA, xlim = c(0.5, 1.5), ylim = c(row$ymin_axis, row$ymax_axis),
-      xlab = "", ylab = row$unit, main = labels[[i]]$title,
+      xlab = "", ylab = ylab, main = labels[[i]]$title,
       axes = FALSE, xaxs = "i", yaxs = "i")
     graphics::axis(1, at = 1, labels = row$quantity_id, tick = FALSE)
     graphics::mtext(labels[[i]]$subtitle, side = 1, line = 3.6, cex = 0.58)

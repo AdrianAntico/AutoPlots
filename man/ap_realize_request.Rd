@@ -27,7 +27,7 @@ Verify a realization request by replaying CommunicationIntelligence, then draw t
 \details{
 The supported geoms are \code{column}, \code{point}, and \code{interval}. Interval ids are \code{<stem>_lower}, \code{<stem>_upper}, and an optional \code{<stem>} point. Without the point, the title is the admitted endpoint range, not either endpoint alone. Quantities that are not part of the interval are refused, as are endpoints that do not share a unit. A requested interval kind must already occur in the admitted uncertainty wording.
 
-A log10 point requires a receipt with \code{status = "MET"} and \code{subject_binding} equal to the CommunicationIntelligence binding of \code{list(scale = "log10", quantity_ids = <ids in plot order>, values = <admitted numbers in plot order>)}. Without that receipt the status is \code{UNRESOLVED_AUTHORITY}.
+A log10 point requires a receipt with \code{status = "MET"} and \code{subject_binding} equal to the CommunicationIntelligence binding of \code{list(scale = "log10", quantity_ids = <ids in plot order>, values = <admitted numbers in plot order>)}. Without that receipt the status is \code{UNRESOLVED_AUTHORITY}. The title keeps the admitted number. The axis label and subtitle say that the scale is log10.
 }
 \examples{
 refused <- ap_realize_request(NULL, NULL)
