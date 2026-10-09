@@ -1,7 +1,7 @@
 Package: AutoPlots
 Title: Creating Echarts Visualizations as Easy as Possible
-Version: 1.5.0
-Date: 2026-02-05
+Version: 1.5.1
+Date: 2026-10-09
 Authors@R: 
     person("Adrian", "Antico", , "adrianantico@gmail.com", role = c("aut", "cre", "cph"))
 Author: Adrian Antico [aut, cre, cph]
@@ -27,9 +27,11 @@ Imports:
     stats,
     htmltools,
     htmlwidgets,
-    webshot2
+    webshot2,
+    digest
 Suggests:
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    CommunicationIntelligence
 Config/testthat/edition: 3
 Contact: Adrian Antico
 Encoding: UTF-8

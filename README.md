@@ -1,4 +1,4 @@
-![Version:1.5.0](https://img.shields.io/static/v1?label=Version&message=1.5.0&color=blue&?style=plastic)
+![Version:1.5.1](https://img.shields.io/static/v1?label=Version&message=1.5.1&color=blue&?style=plastic)
 
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Logo2.PNG" align="center" width="800" />
@@ -69,6 +69,39 @@ dt <- data.table::data.table(x = rnorm(1000))
 
 AutoPlots::Density(dt, XVar = "x")
 
+```
+
+<br>
+
+## Evidence-bound realization
+
+`ap_realize_request` draws a CommunicationIntelligence realization request only after that package replays the request. An identity string or a hash on a modified record is not authentication. The figure keeps the admitted numbers, units, and source revision. It does not grant scientific qualification, human approval, or publication.
+
+`ci_open_communication` and `ci_realize_text` still produce text, not this figure. `ap_bind_pattern_request` is the AutoPlots host path that asks CommunicationIntelligence for a pattern-inspection request. A later CommunicationIntelligence change would be required before those two text helpers call AutoPlots.
+
+A refusal is the result when the request is not authenticated, the encoding would change the estimand without authority, or the requested geometry would misrepresent the admitted numbers. Log10 points are the only supported non-identity scale, and only with a receipt whose subject binds `list(scale = "log10", quantity_ids, values)` for those admitted numbers.
+
+```r
+library(AutoPlots)
+
+# This call is executable without owner packages. It cannot draw.
+refused <- ap_realize_request(NULL, NULL)
+stopifnot(identical(refused$status, "REFUSED"), isFALSE(refused$release_authorized))
+
+# A rendered figure requires CommunicationIntelligence 0.1.3 and a live owner
+# admission. The number below is not typed in: FinancialIntelligence returns it.
+admitted <- CommunicationIntelligence::ci_admit_owner_call(
+  "FinancialIntelligence", "fi_bs",
+  list(spot = 100, strike = 100, rate = 0.01, vol = 0.2, horizon = 1),
+  list(list(id = "value", path = "value")),
+  "0.4.8", "2026-10-09T00:00:00Z", "one closed-form value")
+bound <- ap_bind_pattern_request(admitted$value, "readme-fi-bs")
+figure <- ap_realize_request(bound$request, bound$task)
+stopifnot(identical(figure$status, "RENDERED"), isFALSE(figure$release_authorized),
+  identical(figure$human_judgment, "UNRESOLVED"),
+  identical(figure$scientific_qualification, "NOT_GRANTED"))
+print(figure$geometry[, c("quantity_id", "value", "display", "y0", "y1", "ymin_axis", "ymax_axis")])
+# The PNG path is figure$file. The geometry, not a screenshot, is the numerical record.
 ```
 
 <br>
