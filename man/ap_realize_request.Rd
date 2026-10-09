@@ -25,7 +25,7 @@ A list. \code{status} is \code{RENDERED}, \code{REFUSED}, or \code{UNRESOLVED_AU
 Verify a realization request by replaying CommunicationIntelligence, then draw the admitted numbers. The PNG subtitle shows the unit, the source revision, and that the figure is not an approval. AutoPlots does not estimate, refit, approve, or authorize publication.
 }
 \details{
-The supported geoms are \code{column}, \code{point}, and \code{interval}. Interval ids are \code{<stem>_lower}, \code{<stem>_upper}, and an optional \code{<stem>} point. A requested interval kind must already occur in the admitted uncertainty wording.
+The supported geoms are \code{column}, \code{point}, and \code{interval}. Interval ids are \code{<stem>_lower}, \code{<stem>_upper}, and an optional \code{<stem>} point. Without the point, the title is the admitted endpoint range, not either endpoint alone. Quantities that are not part of the interval are refused, as are endpoints that do not share a unit. A requested interval kind must already occur in the admitted uncertainty wording.
 
 A log10 point requires a receipt with \code{status = "MET"} and \code{subject_binding} equal to the CommunicationIntelligence binding of \code{list(scale = "log10", quantity_ids = <ids in plot order>, values = <admitted numbers in plot order>)}. Without that receipt the status is \code{UNRESOLVED_AUTHORITY}.
 }

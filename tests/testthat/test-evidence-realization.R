@@ -342,6 +342,39 @@ test_that("a synthetic confidence interval is not relabeled", {
   expect_equal(figure$geometry$device_y1[[1]], device[[1]]$y[[2]], tolerance = 1e-6)
 })
 
+test_that("an interval does not present one endpoint as the estimand", {
+  qualify_need(!is.null(ap_domain), "domain not loaded")
+  qualify_need(requireNamespace("CommunicationIntelligence", quietly = TRUE), "CommunicationIntelligence missing")
+  uncertainty <- "95 percent confidence interval"
+  endpoint <- function(id, value, display, unit = "synthetic_unit") {
+    list(id = id, value = value, display = display, unit = unit)
+  }
+  admitted <- synthetic_inputs(list(endpoint("band_lower", 1, "1"), endpoint("band_upper", 2, "2")), uncertainty)
+  bound <- bind_figure(admitted, "interval-range")
+  figure <- ap_realize_request(bound$request, bound$task, encoding = list(geom = "interval", interval_kind = "confidence"))
+  expect_identical(figure$status, "RENDERED")
+  expect_false(isTRUE(figure$release_authorized))
+  expect_identical(figure$geometry$display[[1]], "1 to 2")
+  expect_true(is.na(figure$geometry$value[[1]]))
+  expect_identical(figure$geometry$y0[[1]], 1)
+  expect_identical(figure$geometry$y1[[1]], 2)
+  expect_identical(figure$labels[[1]]$title, "band = 1 to 2")
+  expect_false(grepl("^band = 1$", figure$labels[[1]]$title))
+  extra <- synthetic_inputs(list(
+    endpoint("band_lower", 1, "1"), endpoint("band_upper", 2, "2"), endpoint("other", 9, "9")), uncertainty)
+  extra_bound <- bind_figure(extra, "interval-extra")
+  dropped <- ap_realize_request(extra_bound$request, extra_bound$task, encoding = list(geom = "interval"))
+  expect_identical(dropped$status, "REFUSED")
+  expect_identical(dropped$code, "OMISSION_NOT_AUTHORIZED")
+  expect_false(isTRUE(dropped$release_authorized))
+  mixed <- synthetic_inputs(list(
+    endpoint("band_lower", 1, "1", "meter"), endpoint("band_upper", 2, "2", "second")), uncertainty)
+  mixed_bound <- bind_figure(mixed, "interval-units")
+  units <- ap_realize_request(mixed_bound$request, mixed_bound$task, encoding = list(geom = "interval"))
+  expect_identical(units$status, "REFUSED")
+  expect_identical(units$code, "CONFLICTING_ESTIMANDS")
+})
+
 test_that("misleading encodings and bad authority are refused", {
   qualify_need(!is.null(ap_cache$fi_bs) && !is.null(ap_cache$ewma) && !is.null(ap_cache$shap), "owner fixtures missing")
   request <- ap_cache$fi_bs$bound$request

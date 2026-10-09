@@ -144,12 +144,21 @@ ap_interval_rows <- function(rows, kind) {
     if (lo > hi) return(ap_refuse("REFUSED", "INVALID_INTERVAL", "The lower endpoint is above the upper endpoint."))
     if (length(point) == 1L && (rows[[point]]$value < lo || rows[[point]]$value > hi))
       return(ap_refuse("REFUSED", "INTERVAL_EXCLUDES_POINT", "The admitted point is outside the admitted interval."))
+    parts <- c(list(rows[[index]], rows[[upper]]), if (length(point) == 1L) list(rows[[point]]) else list())
+    if (length(unique(vapply(parts, function(part) part$unit, character(1)))) != 1L)
+      return(ap_refuse("REFUSED", "CONFLICTING_ESTIMANDS", "Interval endpoints do not share one unit."))
     wording <- rows[[index]]$uncertainty
     if (!is.null(kind) && !grepl(kind, wording, fixed = TRUE))
       return(ap_refuse("REFUSED", "INTERVAL_RELABEL", "The requested interval kind is not the admitted uncertainty wording."))
     out[[length(out) + 1L]] <- list(stem = stem, lower = rows[[index]], upper = rows[[upper]],
       point = if (length(point) == 1L) rows[[point]] else NULL, uncertainty = wording)
   }
+  used <- unlist(lapply(out, function(pair) c(pair$lower$quantity_id, pair$upper$quantity_id,
+    if (!is.null(pair$point)) pair$point$quantity_id)), use.names = FALSE)
+  unused <- setdiff(ids, used)
+  if (length(unused))
+    return(ap_refuse("REFUSED", "OMISSION_NOT_AUTHORIZED",
+      paste("An interval figure does not drop admitted quantities:", paste(unused, collapse = ", "))))
   out
 }
 
@@ -342,7 +351,7 @@ ap_realize_checked <- function(request, task, file, encoding, width, height, res
     if (is.list(paired) && !is.null(paired$status) && paired$status %in% c("REFUSED", "UNRESOLVED_AUTHORITY")) return(paired)
     drawn <- lapply(paired, function(pair) list(
       element_id = pair$lower$element_id, quantity_id = pair$stem, value = if (is.null(pair$point)) NA_real_ else pair$point$value,
-      display = if (is.null(pair$point)) pair$lower$display else pair$point$display,
+      display = if (is.null(pair$point)) paste(pair$lower$display, "to", pair$upper$display) else pair$point$display,
       unit = pair$lower$unit, locator = pair$lower$locator, uncertainty = pair$uncertainty, source = pair$lower$source,
       y0 = pair$lower$value, y1 = pair$upper$value))
   }
@@ -380,7 +389,7 @@ ap_realize_checked <- function(request, task, file, encoding, width, height, res
   # Bottom margin leaves a line under the category for unit, source revision, and "not an approval".
   margins <- c(5.2, 4.2, 2.8, 0.8)
   if (!ap_layout_fits(nrow(geometry), width, height, res, margins))
-    return(ap_refuse("REFUSED", "RESOURCE_CEILING", "The requested device cannot show each panel, its value, and the provenance line. Increase height or reduce the panel count."))
+    return(ap_refuse("REFUSED", "RESOURCE_CEILING", "This device cannot show every panel and the provenance line. A taller height inside 200 to 1200 pixels may fit fewer panels; this call does not draw a clipped figure."))
   grDevices::png(file, width = width, height = height, units = "px", res = res, bg = "white")
   device_open <- TRUE
   on.exit(if (device_open) grDevices::dev.off(), add = TRUE)
@@ -402,10 +411,14 @@ ap_realize_checked <- function(request, task, file, encoding, width, height, res
       device_y1[[i]] <- device_mark[[i]]
     } else if (identical(asked$geom, "interval")) {
       graphics::segments(1, row$y0, 1, row$y1, lwd = 3, col = "#2c7fb8")
-      if (is.finite(row$value)) graphics::points(1, row$value, pch = 16, col = "#08306b")
       device_y0[[i]] <- graphics::grconvertY(row$y0, from = "user", to = "device")
       device_y1[[i]] <- graphics::grconvertY(row$y1, from = "user", to = "device")
-      device_mark[[i]] <- device_y1[[i]]
+      if (is.finite(row$value)) {
+        graphics::points(1, row$value, pch = 16, col = "#08306b")
+        device_mark[[i]] <- graphics::grconvertY(row$value, from = "user", to = "device")
+      } else {
+        device_mark[[i]] <- NA_real_
+      }
     } else {
       graphics::rect(0.7, row$y0, 1.3, row$y1, col = "#2c7fb8", border = NA)
       device_y0[[i]] <- graphics::grconvertY(row$y0, from = "user", to = "device")
