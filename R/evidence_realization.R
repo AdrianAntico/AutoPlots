@@ -270,6 +270,25 @@ ap_bind_pattern_request <- function(inputs, task_id = "autoplots-pattern") {
     request = request$value, task = task$value, prepared = prepared)
 }
 
+ap_layout_fits <- function(n, width, height, res, margins) {
+  path <- tempfile(fileext = ".png")
+  grDevices::png(path, width = width, height = height, units = "px", res = res, bg = "white")
+  open <- TRUE
+  on.exit({
+    if (open) grDevices::dev.off()
+    unlink(path)
+  }, add = TRUE)
+  ok <- TRUE
+  tryCatch({
+    graphics::par(mfrow = c(n, 1L), mar = margins, family = "sans")
+    graphics::plot(NA, xlim = c(0.5, 1.5), ylim = c(0, 1), xlab = "", ylab = "",
+      main = "probe", axes = FALSE, xaxs = "i", yaxs = "i")
+  }, error = function(e) ok <<- FALSE)
+  grDevices::dev.off()
+  open <- FALSE
+  ok
+}
+
 ap_realize_request <- function(request, task, file = NULL, encoding = NULL, width = 800L, height = 500L, res = 96L) {
   tryCatch(ap_realize_checked(request, task, file, encoding, width, height, res), error = function(e)
     ap_refuse("REFUSED", "REQUEST_BINDING_MISMATCH", paste("Verification failed closed:", conditionMessage(e))))
@@ -358,17 +377,21 @@ ap_realize_checked <- function(request, task, file, encoding, width, height, res
     return(ap_refuse("REFUSED", "LABEL_AUTHORITY", "A figure label must not say approved, qualified, or causal."))
   if (is.null(file)) file <- tempfile(pattern = "autoplots-evidence-", fileext = ".png")
   device_y0 <- device_y1 <- device_mark <- numeric(nrow(geometry))
+  # Bottom margin leaves a line under the category for unit, source revision, and "not an approval".
+  margins <- c(5.2, 4.2, 2.8, 0.8)
+  if (!ap_layout_fits(nrow(geometry), width, height, res, margins))
+    return(ap_refuse("REFUSED", "RESOURCE_CEILING", "The requested device cannot show each panel, its value, and the provenance line. Increase height or reduce the panel count."))
   grDevices::png(file, width = width, height = height, units = "px", res = res, bg = "white")
   device_open <- TRUE
   on.exit(if (device_open) grDevices::dev.off(), add = TRUE)
-  margins <- c(4, 4, 4, 1)
   graphics::par(mfrow = c(nrow(geometry), 1L), mar = margins, family = "sans")
   for (i in seq_len(nrow(geometry))) {
     row <- geometry[i]
     graphics::plot(NA, xlim = c(0.5, 1.5), ylim = c(row$ymin_axis, row$ymax_axis),
-      xlab = "", ylab = row$unit, main = labels[[i]]$title, sub = labels[[i]]$subtitle,
+      xlab = "", ylab = row$unit, main = labels[[i]]$title,
       axes = FALSE, xaxs = "i", yaxs = "i")
     graphics::axis(1, at = 1, labels = row$quantity_id, tick = FALSE)
+    graphics::mtext(labels[[i]]$subtitle, side = 1, line = 3.6, cex = 0.58)
     graphics::axis(2)
     if (isTRUE(row$zero_included)) graphics::abline(h = 0, col = "gray40")
     if (identical(asked$geom, "point")) {

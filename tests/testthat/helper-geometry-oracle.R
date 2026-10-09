@@ -22,7 +22,7 @@ oracle_device <- function(ylims, ys, width = 800, height = 500, res = 96) {
   path <- tempfile(fileext = ".png")
   grDevices::png(path, width = width, height = height, units = "px", res = res, bg = "white")
   on.exit(grDevices::dev.off(), add = TRUE)
-  graphics::par(mfrow = c(n, 1L), mar = c(4, 4, 4, 1), family = "sans")
+  graphics::par(mfrow = c(n, 1L), mar = c(5.2, 4.2, 2.8, 0.8), family = "sans")
   out <- vector("list", n)
   for (i in seq_len(n)) {
     graphics::plot(NA, xlim = c(0.5, 1.5), ylim = ylims[[i]], xlab = "", ylab = "",

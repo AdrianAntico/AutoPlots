@@ -22,7 +22,7 @@ ap_realize_request(request, task, file = NULL, encoding = NULL,
 A list. \code{status} is \code{RENDERED}, \code{REFUSED}, or \code{UNRESOLVED_AUTHORITY}. \code{release_authorized} is always \code{FALSE}. A rendered file does not authorize publication. \code{geometry} is a \code{data.table} of admitted values, axis limits, and device coordinates for this PNG. Those coordinates are not a cross-machine pixel certificate.
 }
 \description{
-Verify a realization request by replaying CommunicationIntelligence, then draw the admitted numbers. AutoPlots does not estimate, refit, approve, or authorize publication.
+Verify a realization request by replaying CommunicationIntelligence, then draw the admitted numbers. The PNG subtitle shows the unit, the source revision, and that the figure is not an approval. AutoPlots does not estimate, refit, approve, or authorize publication.
 }
 \details{
 The supported geoms are \code{column}, \code{point}, and \code{interval}. Interval ids are \code{<stem>_lower}, \code{<stem>_upper}, and an optional \code{<stem>} point. A requested interval kind must already occur in the admitted uncertainty wording.
