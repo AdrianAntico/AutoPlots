@@ -142,3 +142,5 @@ importFrom(data.table,set)
 importFrom(data.table,setcolorder)
 importFrom(data.table,setnames)
 importFrom(data.table,setorderv)
+
+export(e_toolbox_panel)

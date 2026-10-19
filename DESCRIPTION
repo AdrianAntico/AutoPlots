@@ -1,7 +1,7 @@
 Package: AutoPlots
 Title: Creating Echarts Visualizations as Easy as Possible
-Version: 1.5.1
-Date: 2026-10-09
+Version: 1.5.2
+Date: 2026-10-18
 Authors@R: 
     person("Adrian", "Antico", , "adrianantico@gmail.com", role = c("aut", "cre", "cph"))
 Author: Adrian Antico [aut, cre, cph]

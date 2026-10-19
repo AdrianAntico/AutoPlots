@@ -1807,7 +1807,7 @@ e_toolbox_full <- function(
   ))
 
   p1$x$opts$toolbox$show <- toolbox.show
-  p1$x$opts$toolbox$toolbox$orient <- toolbox.orient
+  p1$x$opts$toolbox$orient <- toolbox.orient
   p1$x$opts$toolbox$itemSize <- toolbox.itemSize
   p1$x$opts$toolbox$itemGap <- toolbox.itemGap
   p1$x$opts$toolbox$top <- toolbox.top
@@ -1815,7 +1815,7 @@ e_toolbox_full <- function(
   p1$x$opts$toolbox$right <- toolbox.right
   p1$x$opts$toolbox$bottom <- toolbox.bottom
   p1$x$opts$toolbox$width <- toolbox.width
-  p1$x$opts$toolbox$heigth <- toolbox.heigth
+  p1$x$opts$toolbox$height <- toolbox.heigth
   p1$x$opts$toolbox$iconStyle <- is
   p1$x$opts$toolbox$emphasis$iconStyle = .compact(list(borderColor = toolbox.emphasis.iconStyle.borderColor))
   p1

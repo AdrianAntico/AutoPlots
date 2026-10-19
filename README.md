@@ -2010,3 +2010,24 @@ AutoPlots::Treemap(
 </details>
 
 <br>
+
+### Named chart controls
+
+```r
+library(AutoPlots)
+d <- data.table::data.table(day = 1:4, value = c(2, 5, 3, 7))
+p <- Line(d, XVar = "day", YVar = "value")
+e_toolbox_panel(p)
+```
+
+`e_toolbox_panel()` retains the chart's exact series and exposes **Select zoom**,
+**Reset view**, **Save image**, and **More tools** as named keyboard/touch controls.
+The advanced selector exposes one existing native toolbox group at a time, avoiding
+an unreadable row of icons on small charts. Escape closes that group and returns
+focus. The original widget bounds are retained; the canvas reserves room for the
+wrapping controls. Native advanced icons retain ECharts' accessibility limitations;
+this is not a claim of complete keyboard accessibility. No transformation is run.
+
+The existing misspelled `toolbox.heigth` argument is retained for compatibility and
+now writes the correct ECharts `height` property. `toolbox.orient` now writes the
+correct top-level toolbox property.
