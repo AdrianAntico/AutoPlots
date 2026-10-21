@@ -43,8 +43,9 @@ Use `devtools::document()` after roxygen changes and `R CMD check` for release v
 ## Primary checkouts and agent workspaces
 
 Keep the user's designated primary checkout on the canonical published default
-branch (`main`). Do agent development in a separate worktree or clone, using a
-`codex/` or other explicitly assigned development branch. Do not leave the primary
+branch (`main`). Do agent development and qualification in isolated worktrees or
+clones outside the primary checkout, using a `codex/` or other explicitly assigned
+development branch. Do not leave the primary
 checkout on a temporary development branch.
 
 Before alignment, record the branch, HEAD, remote, dirty/staged/untracked state,
@@ -52,8 +53,11 @@ potentially affected ignored files, linked worktrees, and active users/processes
 Preserve changes and development history in verified recoverable archives or refs.
 Never discard work or merge unqualified development merely to align the checkout.
 Fetch the actual remote default branch and use a non-force fast-forward only.
-If a checkout is in active use, leave it intact and explicitly designate a separate
-permanent primary checkout; document the new path to the user.
+Keep exactly one designated primary AutoPlots checkout at its original user path.
+If an active session prevents safe alignment, stop consolidation until that session
+releases the checkout. Do not create a second permanent primary directory. Retire
+any temporary duplicate only after the original path is verified, preserving unique
+work and linked worktrees through a reversible archive.
 
 At completion verify the designated primary path, branch, local and remote HEAD,
 working-tree status, preservation locations, and the source used for any local

@@ -63,14 +63,16 @@ devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE
 ### Install from a canonical local checkout
 
 An RStudio project or the current directory may still be an old development
-checkout. Select the **designated primary checkout** explicitly. If an active
-checkout was preserved during alignment, use the replacement primary path, not
-the old RStudio project. Restart R before loading a newly installed version.
+checkout. Select the **single primary AutoPlots checkout at its original path**
+explicitly. Agent development belongs in isolated workspaces outside that checkout.
+If RStudio is using it, save work and close the project/session before branch
+alignment. Do not use a retired temporary duplicate as an installation source.
+Restart R before loading a newly installed version.
 
 In a terminal, set `repo` to that absolute path, then run these checks (PowerShell):
 
 ```powershell
-$repo = 'C:/path/to/AutoPlots-main' # replace with your designated primary checkout
+$repo = 'C:/path/to/AutoPlots' # replace with your designated primary checkout
 git -C $repo fetch origin main
 if ($LASTEXITCODE -ne 0) { throw 'Fetch failed; source freshness is unknown.' }
 $remote = (git -C $repo remote get-url origin).Trim()
@@ -93,7 +95,7 @@ This performs a normal local source installation, not `load_all()` or a GitHub
 substitution. The source remains unchanged during installation.
 
 ```r
-repo <- normalizePath("C:/path/to/AutoPlots-main", mustWork = TRUE)
+repo <- normalizePath("C:/path/to/AutoPlots", mustWork = TRUE)
 lib <- .libPaths()[1L] # or an explicitly chosen writable isolated library
 source_version <- read.dcf(file.path(repo, "DESCRIPTION"))[1L, "Version"]
 install.packages(repo, repos = NULL, type = "source", lib = lib)
