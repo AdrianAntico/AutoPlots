@@ -1,4 +1,4 @@
-![Version:1.5.1](https://img.shields.io/static/v1?label=Version&message=1.5.1&color=blue&?style=plastic)
+![Version:1.5.2](https://img.shields.io/static/v1?label=Version&message=1.5.2&color=blue&?style=plastic)
 
 
 <img src="https://raw.githubusercontent.com/AdrianAntico/AutoPlots/master/inst/Logo2.PNG" align="center" width="800" />
@@ -59,6 +59,58 @@ install.packages(c(
 # Install AutoPlots from GitHub
 devtools::install_github("AdrianAntico/AutoPlots", upgrade = FALSE, force = TRUE)
 ```
+
+### Install from a canonical local checkout
+
+An RStudio project or the current directory may still be an old development
+checkout. Select the **designated primary checkout** explicitly. If an active
+checkout was preserved during alignment, use the replacement primary path, not
+the old RStudio project. Restart R before loading a newly installed version.
+
+In a terminal, set `repo` to that absolute path, then run these checks (PowerShell):
+
+```powershell
+$repo = 'C:/path/to/AutoPlots-main' # replace with your designated primary checkout
+git -C $repo fetch origin main
+if ($LASTEXITCODE -ne 0) { throw 'Fetch failed; source freshness is unknown.' }
+$remote = (git -C $repo remote get-url origin).Trim()
+if ($remote -notmatch '^https://github[.]com/AdrianAntico/AutoPlots(?:[.]git)?$') {
+  throw 'Verify the repository identity before installation.'
+}
+if ((git -C $repo branch --show-current) -ne 'main') { throw 'Use canonical main.' }
+$sourceSha = git -C $repo rev-parse HEAD
+$remoteSha = git -C $repo rev-parse origin/main
+if ($sourceSha -ne $remoteSha) { throw 'Primary checkout is not current origin/main.' }
+if (git -C $repo status --porcelain --untracked-files=all) {
+  throw 'Preserve local changes separately before installing canonical source.'
+}
+Write-Output "Local installation source: $repo at $sourceSha"
+```
+
+In a fresh R session, install that same directory into the intended library.
+Dependencies must already be installed (see the dependency installation above).
+This performs a normal local source installation, not `load_all()` or a GitHub
+substitution. The source remains unchanged during installation.
+
+```r
+repo <- normalizePath("C:/path/to/AutoPlots-main", mustWork = TRUE)
+lib <- .libPaths()[1L] # or an explicitly chosen writable isolated library
+source_version <- read.dcf(file.path(repo, "DESCRIPTION"))[1L, "Version"]
+install.packages(repo, repos = NULL, type = "source", lib = lib)
+library(AutoPlots, lib.loc = lib)
+stopifnot(as.character(packageVersion("AutoPlots", lib.loc = lib)) == source_version)
+stopifnot("e_toolbox_panel" %in% getNamespaceExports("AutoPlots"))
+d <- data.table::data.table(day = 1:4, value = c(2, 5, 3, 7))
+p <- Line(d, XVar = "day", YVar = "value")
+e_toolbox_panel(p)
+```
+
+Retain the printed source SHA, source version, installation output, and installed
+library path together as the local installation receipt. A local `R CMD INSTALL`
+does not inherently add GitHub `RemoteSha` metadata; package version alone does
+not identify a source commit. If the export check fails, inspect `find.package`
+and restart R rather than sourcing internal files or changing namespace exports.
+
 
 <br>
 
